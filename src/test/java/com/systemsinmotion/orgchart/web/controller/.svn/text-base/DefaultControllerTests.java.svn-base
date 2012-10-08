@@ -1,0 +1,61 @@
+package com.systemsinmotion.orgchart.web.controller;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
+
+import com.systemsinmotion.orgchart.service.LookupService;
+import com.systemsinmotion.orgchart.web.ModelKey;
+import com.systemsinmotion.orgchart.web.View;
+import com.systemsinmotion.orgchart.web.controller.DefaultController;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/test-context.xml")
+public class DefaultControllerTests {
+	
+	private DefaultController controller;
+	
+	@Autowired
+	LookupService lookupService;
+
+	@Before
+	public void before() {
+		controller = new DefaultController();
+		controller.setLookupService(lookupService);
+	}
+
+	@Test
+	public void doGet() {
+		assertEquals(View.HOME, controller.doGet());
+	}
+
+	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
+
+	@Test
+	public void doDepartments() {
+		Model model = new ExtendedModelMap();
+		String view = controller.doDepartments(model);
+		assertEquals(View.DEPARTMENTS, controller.doDepartments(model));
+		assertTrue(DEPARTMENT_LIST_MISSING_ERROR,
+				model.containsAttribute(ModelKey.DEPARTMENTS));
+		assertEquals(View.DEPARTMENTS, view);
+	}
+
+	@Test
+	public void doLogin() {
+		assertEquals(View.LOGIN, controller.doLogin());
+	}
+
+	/*
+	 * @RequestMapping(value = "admin", method = RequestMethod.GET) public
+	 * String doAdmin() { log.debug("doAdmin() returning 'admin/admin'"); return
+	 * "admin/admin"; }
+	 */
+}
