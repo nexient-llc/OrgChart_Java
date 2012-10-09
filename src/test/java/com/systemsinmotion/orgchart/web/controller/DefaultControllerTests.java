@@ -2,15 +2,11 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.ui.Model;
-import org.springframework.ui.ExtendedModelMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +14,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 
 import com.systemsinmotion.orgchart.TestObject;
 import com.systemsinmotion.orgchart.entity.Department;
@@ -42,15 +40,24 @@ public class DefaultControllerTests {
     Employee mockEmployee = mock(Employee.class);
     Department mockDepartment = mock(Department.class);
     
+    Department mockDepartment2;
+    
 //    Map model = new HashMap<String, Object>();
     Model model = new ExtendedModelMap();
 
-    private ArrayList<JobTitle> findAllJobTitleList = new ArrayList<JobTitle>();
-    private ArrayList<Employee> findAllEmployeesList = new ArrayList<Employee>();
-    private ArrayList<Department> findAllDepartmentsList = new ArrayList<Department>();
+    private ArrayList<JobTitle> findAllJobTitleList;
+    private ArrayList<Employee> findAllEmployeesList;
+    private ArrayList<Department> findAllDepartmentsList;
 
     @Before
     public void before() {
+	//instantiate lists
+	findAllJobTitleList = new ArrayList<JobTitle>();
+	findAllEmployeesList = new ArrayList<Employee>();
+	findAllDepartmentsList = new ArrayList<Department>();
+	
+	mockDepartment2 = new Department(null, null, TestObject.DEPARTMENT_NAME, null, null);
+	
 	// set up mock JobTitle
 	when(mockJobTitle.getJobTitleId()).thenReturn(TestObject.JOB_TITLE_ID);
 	when(mockJobTitle.getDescription()).thenReturn(TestObject.JOB_TITLE);
@@ -58,7 +65,8 @@ public class DefaultControllerTests {
 	findAllJobTitleList.add(mockJobTitle);
 	// set up mock Department
 	when(mockDepartment.getDepartmentId()).thenReturn(TestObject.DEPT_ID);
-
+	when(mockDepartment.getName()).thenReturn(TestObject.DEPARTMENT_NAME);
+	
 	findAllDepartmentsList.add(mockDepartment);
 
 	// set up mock Employee
@@ -82,6 +90,8 @@ public class DefaultControllerTests {
 	when(mockDepartmentService.findDepartmentByID(TestObject.DEPT_ID))
 		.thenReturn(mockDepartment);
 	when(mockDepartmentService.storeDepartment(mockDepartment)).thenReturn(
+		TestObject.DEPT_ID);
+	when(mockDepartmentService.storeDepartment(mockDepartment2)).thenReturn(
 		TestObject.DEPT_ID);
 
 	controller.setDepartmentService(mockDepartmentService);
@@ -114,6 +124,7 @@ public class DefaultControllerTests {
     @SuppressWarnings("unused")
     private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
     
+    @SuppressWarnings("unchecked")
     @Test
     public void testModelShouldContainNewEmployeeList(){
 	//Given
@@ -124,20 +135,36 @@ public class DefaultControllerTests {
 	assertNotNull(findAllEmployeesList);
 	assertEquals(TestObject.EMPLOYEE_ID, findAllEmployeesList.get(0).getEmployeeId());
     }
-    
+
+    @SuppressWarnings("unchecked")
     @Test
     public void testModelShouldContainNewJobTitleList(){
 	//Given
 	controller.doJobTitle_Get(model);
 	//When
-	findAllJobTitleList = (ArrayList<JobTitle>)model.asMap().get("jobs");
+	findAllJobTitleList = (ArrayList<JobTitle>)model.asMap().get("jobs");	
+	
 	//Then
 	assertNotNull(findAllJobTitleList);
 	assertEquals(TestObject.JOB_TITLE_ID, findAllJobTitleList.get(0).getJobTitleId());
     }
 
     @Test
-    public void doDepartments_GET() {
+    public void testModelShouldUpdateOnPagePost() {
+	
+	
+	model.addAttribute("depts", findAllDepartmentsList);
+	
+	//Given
+	controller.doDepartments_POST(mockDepartment2, null, model);
+	//When
+	findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+	
+	//Then
+	assertNotNull(findAllDepartmentsList);
+	assertTrue(findAllDepartmentsList.size() > 0);
+	assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(1).getDepartmentId());
+	assertEquals(findAllDepartmentsList.get(1).getName(), TestObject.DEPARTMENT_NAME);
 
     }
 

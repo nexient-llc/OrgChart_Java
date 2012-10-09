@@ -1,12 +1,16 @@
 package com.systemsinmotion.orgchart.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,6 +20,7 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
+import com.systemsinmotion.orgchart.web.ModelKey;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
@@ -46,13 +51,17 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(String deptName,
-			Integer parentDeptId, Model model) {
-
-		// List<Department> depts = employeeService.findDepartments();
-		// model.addAttribute(ModelKey.DEPARTMENTS, depts);
-		return View.DEPARTMENTS;
+	public String doDepartments_POST(@Valid Department incomingDept, BindingResult errors, 
+		Model model) {
+	    incomingDept.setDepartmentId(departmentService.storeDepartment(incomingDept));
+	    List<Department> currentDeptList = (ArrayList<Department>)model.asMap().get("depts");
+//	    currentDeptList.get(0);
+	    currentDeptList.add(incomingDept);
+	    model.addAttribute("depts", currentDeptList);
+	    
+	    return View.DEPARTMENTS;
 	}
 
 	public void setEmployeeService(EmployeeService employeeService) {

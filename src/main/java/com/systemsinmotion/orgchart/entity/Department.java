@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Department entity. @author MyEclipse Persistence Tools
@@ -28,6 +30,9 @@ public class Department implements java.io.Serializable {
 	private Integer departmentId;
 	private Department parentDepartment;
 	private Employee manager;
+	
+	@NotNull
+	@Size(min = 1, max=45)
 	private String name;
 	private Set<Department> departments = new HashSet<Department>(0);
 	private Set<Employee> employees = new HashSet<Employee>(0);
@@ -44,13 +49,13 @@ public class Department implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Department(Department department, Employee employee, String name,
-			Set<Department> departments, Set<Employee> employees) {
-		this.parentDepartment = department;
-		this.manager = employee;
-		this.name = name;
-		this.departments = departments;
-		this.employees = employees;
+	public Department(Department parentDepartment, Employee deptManager, String deptName,
+			Set<Department> subDepartments, Set<Employee> deptEmployees) {
+		this.parentDepartment = parentDepartment;
+		this.manager = deptManager;
+		this.name = deptName;
+		this.departments = subDepartments;
+		this.employees = deptEmployees;
 	}
 
 	// Property accessors
