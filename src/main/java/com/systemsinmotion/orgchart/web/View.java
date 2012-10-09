@@ -6,4 +6,6 @@ public class View {
 	public static final String LOGIN = "login";
 	public static final String ADMIN_DEFAULT = "admin/default";
 	public static final String ADMIN_LOGIN = "admin/login";
+	public static final String EMPLOYEES = "employees";
+	public static final String JOB_TITLES = "jobtitles";
 }

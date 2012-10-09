@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Department entity. @author MyEclipse Persistence Tools
  */
@@ -32,6 +34,7 @@ public class Department implements java.io.Serializable {
 	private Employee manager;
 	
 	@NotNull
+	@NotEmpty
 	@Size(min = 1, max=45)
 	private String name;
 	private Set<Department> departments = new HashSet<Department>(0);

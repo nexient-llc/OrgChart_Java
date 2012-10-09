@@ -5,40 +5,39 @@
 
 <h3>Departments</h3>
 <table id="t1"> 
-	<tr><sec:authorize access="hasRole('ROLE_ADMIN')">
-		<th>Task</th></sec:authorize> 
+	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
+		<!-- <th>Task</th></sec:authorize> --> 
 		<th>Dept Name</th> <th>Parent Dept</th>
 	</tr> 
 	<c:forEach items="${depts}" var="dept">
 		<tr> 
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
-			</sec:authorize> 
+			</sec:authorize> -->
 			<td>${dept.name}</td> 
-			<td>${dept.parentName}</td> </tr>
+			<td>${dept.parentDepartment.name}</td> </tr>
 	</c:forEach> 
 </table>
 
 <div id="addBtn-container">
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<button type="button" id="addBtn">Add</button>
-	</sec:authorize>
+		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div>
 
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Department</legend>
-		<form action="/app/"
-		<div><labeL>Dept Name:</labeL><input type="text" name="deptName"/></div>
-		<div>
+		<form name="newDept" action="depts" method="post">
+		<div><labeL>Dept Name:</labeL><input type="text" name="name"/>
 			<labeL>Parent Dept:</label>
-			<select name="parentDeptId">
+			<select name="parent_id">
 				<option>...</option>
 				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.deptId}">${dept.name}</option>
+					<option value="${dept.departmentId}">${dept.name}</option>
 				</c:forEach>
 			</select>
+			<button type="submit">Save</button>
 		</div>
-		<div><button type="submit">Save</button></div>
+		<div></div>
+		</form>
 	</fieldset>
 </div>

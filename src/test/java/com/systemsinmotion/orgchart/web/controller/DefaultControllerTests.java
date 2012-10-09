@@ -123,6 +123,7 @@ public class DefaultControllerTests {
 	assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(0).getDepartmentId());
     }
     
+    @SuppressWarnings("unchecked")
     @Test
     public void testModelShouldUpdateOnDepartmentPagePost() {
 	

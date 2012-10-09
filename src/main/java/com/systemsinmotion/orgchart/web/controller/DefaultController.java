@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -20,7 +22,6 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
-import com.systemsinmotion.orgchart.web.ModelKey;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
@@ -38,6 +39,7 @@ public class DefaultController {
 
 	@Autowired
 	JobTitleService jobTitleService;
+	
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
@@ -53,10 +55,13 @@ public class DefaultController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(@Valid Department incomingDept, BindingResult errors, 
+	public String doDepartments_POST(@Valid Department incomingDept, @RequestParam("parent_id") Integer parent_id,  
 		Model model) {
+	    
+	    incomingDept.setParentDepartment(departmentService.findDepartmentByID(parent_id));	    
 	    incomingDept.setDepartmentId(departmentService.storeDepartment(incomingDept));
-	    List<Department> currentDeptList = (ArrayList<Department>)model.asMap().get("depts");
+//	    List<Department> currentDeptList = (ArrayList<Department>)model.asMap().get("depts");
+	    List<Department> currentDeptList = departmentService.findAllDepartments();
 //	    currentDeptList.get(0);
 	    currentDeptList.add(incomingDept);
 	    model.addAttribute("depts", currentDeptList);
@@ -64,6 +69,43 @@ public class DefaultController {
 	    return View.DEPARTMENTS;
 	}
 
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	public String doEmployees_GET(Model model) {
+	    List<Employee> emps = this.employeeService.findAllEmployees();
+	    model.addAttribute("emps", emps);
+	    return View.EMPLOYEES;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "emps", method = RequestMethod.POST)
+	public String doEmployees_POST(@Valid Employee incomingEmployee, BindingResult errors,
+		Model model) {
+	    	incomingEmployee.setEmployeeId(employeeService.storeEmployee(incomingEmployee));
+	    	List<Employee> currentEmpsList = (ArrayList<Employee>)model.asMap().get("emps");
+	    	currentEmpsList.add(incomingEmployee);
+	    	model.addAttribute("emps", currentEmpsList);	    	
+	    return View.EMPLOYEES;	    
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	public String doJobTitle_Get(Model model) {
+	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
+	    model.addAttribute("jobs", jobs);
+	    return View.JOB_TITLES;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "jobs", method = RequestMethod.POST)
+	public String doJobTitle_POST(@Valid JobTitle incomingJobTitle, BindingResult errors, Model model) {
+	    incomingJobTitle.setJobTitleId(jobTitleService.storeJobTitle(incomingJobTitle));
+	    List<JobTitle> currentJobTitles = (ArrayList<JobTitle>)model.asMap().get("jobs");
+	    currentJobTitles.add(incomingJobTitle);
+	    model.addAttribute("jobs", currentJobTitles);
+	    return View.JOB_TITLES;	    
+	}
+	
+	
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
@@ -74,43 +116,6 @@ public class DefaultController {
 
 	public void setJobTitleSErvice(JobTitleService jobTitleService) {
 		this.jobTitleService = jobTitleService;
-	}
-
-	public String doHelloWorld(Model model) {
-	    	    model.addAttribute("hello", "HelloWorld");
-	    return "home";
-	}
-
-	public String doEmployees_GET(Model model) {
-	    List<Employee> emps = this.employeeService.findAllEmployees();
-	    model.addAttribute("emps", emps);
-	    return "emps";
-	}
-
-	public String doJobTitle_Get(Model model) {
-	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
-	    model.addAttribute("jobs", jobs);
-	    return "jobs";
-	}
-
-	@SuppressWarnings("unchecked")
-	public String doEmployees_POST(Employee incomingEmployee, BindingResult errors,
-		Model model) {
-	    	incomingEmployee.setEmployeeId(employeeService.storeEmployee(incomingEmployee));
-	    	List<Employee> currentEmpsList = (ArrayList<Employee>)model.asMap().get("emps");
-	    	currentEmpsList.add(incomingEmployee);
-	    	model.addAttribute("emps", currentEmpsList);	    	
-	    return"emps";	    
-	}
-
-	@SuppressWarnings("unused")
-	public String doJobTitle_POST(JobTitle incomingJobTitle, BindingResult errors, Model model) {
-	    incomingJobTitle.setJobTitleId(jobTitleService.storeJobTitle(incomingJobTitle));
-	    List<JobTitle> currentJobTitles = (ArrayList<JobTitle>)model.asMap().get("jobs");
-	    currentJobTitles.add(incomingJobTitle);
-	    model.addAttribute("jobs", currentJobTitles);
-	    return "jobs";
-	    
 	}
 
 }
