@@ -93,4 +93,24 @@ public class DefaultController {
 	    return "jobs";
 	}
 
+	@SuppressWarnings("unchecked")
+	public String doEmployees_POST(Employee incomingEmployee, BindingResult errors,
+		Model model) {
+	    	incomingEmployee.setEmployeeId(employeeService.storeEmployee(incomingEmployee));
+	    	List<Employee> currentEmpsList = (ArrayList<Employee>)model.asMap().get("emps");
+	    	currentEmpsList.add(incomingEmployee);
+	    	model.addAttribute("emps", currentEmpsList);	    	
+	    return"emps";	    
+	}
+
+	@SuppressWarnings("unused")
+	public String doJobTitle_POST(JobTitle incomingJobTitle, BindingResult errors, Model model) {
+	    incomingJobTitle.setJobTitleId(jobTitleService.storeJobTitle(incomingJobTitle));
+	    List<JobTitle> currentJobTitles = (ArrayList<JobTitle>)model.asMap().get("jobs");
+	    currentJobTitles.add(incomingJobTitle);
+	    model.addAttribute("jobs", currentJobTitles);
+	    return "jobs";
+	    
+	}
+
 }

@@ -48,6 +48,9 @@ public class DefaultControllerTests {
     private ArrayList<JobTitle> findAllJobTitleList;
     private ArrayList<Employee> findAllEmployeesList;
     private ArrayList<Department> findAllDepartmentsList;
+    
+    @SuppressWarnings("unused")
+    private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
 
     @Before
     public void before() {
@@ -119,10 +122,26 @@ public class DefaultControllerTests {
 	assertNotNull(findAllDepartmentsList);
 	assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(0).getDepartmentId());
     }
+    
+    @Test
+    public void testModelShouldUpdateOnDepartmentPagePost() {
+	
+	model.addAttribute("depts", findAllDepartmentsList);
+	//Given
+	controller.doDepartments_POST(mockDepartment2, null, model);
+	//When
+	findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+	
+	//Then
+	assertNotNull(findAllDepartmentsList);
+	assertTrue(findAllDepartmentsList.size() > 0);
+	assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(1).getDepartmentId());
+	assertEquals(findAllDepartmentsList.get(1).getName(), TestObject.DEPARTMENT_NAME);
+
+    }
         
 
-    @SuppressWarnings("unused")
-    private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
+
     
     @SuppressWarnings("unchecked")
     @Test
@@ -134,6 +153,20 @@ public class DefaultControllerTests {
 	//Then
 	assertNotNull(findAllEmployeesList);
 	assertEquals(TestObject.EMPLOYEE_ID, findAllEmployeesList.get(0).getEmployeeId());
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testModelShouldContainNewEmployee(){
+	
+	model.addAttribute("emps", findAllEmployeesList);
+	//Given
+	controller.doEmployees_POST(mockEmployee, null, model);
+	//When
+	findAllEmployeesList = (ArrayList<Employee>)model.asMap().get("emps");
+	//Then
+	assertNotNull(findAllEmployeesList);
+	assertEquals(TestObject.EMPLOYEE_ID, findAllEmployeesList.get(1).getEmployeeId());
     }
 
     @SuppressWarnings("unchecked")
@@ -148,48 +181,20 @@ public class DefaultControllerTests {
 	assertNotNull(findAllJobTitleList);
 	assertEquals(TestObject.JOB_TITLE_ID, findAllJobTitleList.get(0).getJobTitleId());
     }
-
+    
+    @SuppressWarnings("unchecked")
     @Test
-    public void testModelShouldUpdateOnPagePost() {
-	
-	
-	model.addAttribute("depts", findAllDepartmentsList);
-	
+    public void testModelShouldContainNewJobtitle(){
+	model.addAttribute("jobs", findAllJobTitleList);
 	//Given
-	controller.doDepartments_POST(mockDepartment2, null, model);
+	controller.doJobTitle_POST(mockJobTitle, null, model);
 	//When
-	findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
-	
+	findAllJobTitleList = (ArrayList<JobTitle>)model.asMap().get("jobs");
 	//Then
-	assertNotNull(findAllDepartmentsList);
-	assertTrue(findAllDepartmentsList.size() > 0);
-	assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(1).getDepartmentId());
-	assertEquals(findAllDepartmentsList.get(1).getName(), TestObject.DEPARTMENT_NAME);
+	assertNotNull(findAllJobTitleList);
+	assertEquals(TestObject.JOB_TITLE, findAllJobTitleList.get(1).getDescription());
+	
+    }   
 
-    }
-
-    @Test
-    public void doDepartments_POST() {
-
-    }
-
-    @Test
-    public void doEmployees_GET() {
-
-    }
-
-    @Test
-    public void doEmployees_POST() {
-
-    }
-
-    @Test
-    public void doJobTitles_GET() {
-
-    }
-
-    @Test
-    public void doJobTitles_POST() {
-    }
 
 }
