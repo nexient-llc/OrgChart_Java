@@ -1,12 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
-</body>
-</html>
+<h3>Edit Employee</h3>
+<div id="editEntity" >
+	<fieldset>
+		<form name="editEmp" action="emps" method="post">
+			<div>
+				<table id="editEmpTable">
+					<tr>
+						<td><label>First Name:</labeL></td>
+						<td><input type="text" name="firstName" value="${emp.firstName}"/></td>
+					</tr>
+					<tr>
+						<td><label>Last Name:</label></td>
+						<td><input type="text" name="lastName" value="${emp.lastName}"/></td>
+					</tr>
+					<tr>
+						<td><label>Department:</label></td>
+						<td><select name="department_id">
+							<option value="${emp.department.departmentId}">${emp.department.name}</option>
+							<c:forEach items="${depts}" var="dept">
+								<option value="${dept.departmentId}">${dept.name}</option>
+							</c:forEach>
+							</select></td>
+					</tr>
+					<tr>
+						<td><label>Email:</label></td>
+						<td><input type="text" name="email" value="${emp.email}"/></td>
+					</tr>
+					<tr>
+						<td><label>Skype:</label></td>
+						<td><input type="text" name="skypeName" value="${emp.skypeName}"/></td>
+					</tr>
+					<tr>
+						<td><labeL>Job Title:</label></td>
+						<td><select name="jobTitle_id">
+								<option value="${emp.jobTitle.jobTitleId}">${emp.JobTitle.description}</option>
+								<c:forEach items="${jobs}" var="title">
+									<option value="${title.jobTitleId}">${title.description}</option>
+								</c:forEach>
+							</select></td>
+					</tr>
+					<tr>
+						<td><label>Check if manager: </labeL></td>
+						<td><input type="checkbox" name="isManager" value="${emp.isManager }" style="width: 189px; "/></td>
+					</tr>
+					<tr>
+						<td><button type="submit">Save</button></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</form>
+	</fieldset>
+</div>

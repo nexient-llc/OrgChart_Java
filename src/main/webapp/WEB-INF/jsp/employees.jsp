@@ -12,12 +12,14 @@
 	</tr> 
 	<c:forEach items="${emps}" var="emp">
 		<tr id="${emp.employeeId}"> 
-			<td><button type="button" id="editBtn" style="width: 45px;">edit</button></td>
+			<td><button id="editLink")>edit</button></td>
 			<td>${emp.firstName} ${emp.lastName}</td> 
 			<td>${emp.department.name}</td> </tr>
 	</c:forEach> 
 </table>
-
+<form name="editEmpForm" action="edit" method="post">
+	<input type="hidden" name="hiddenEmpID" value="test" />
+</form>
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div>

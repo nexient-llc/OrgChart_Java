@@ -8,9 +8,13 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('#editBtn').click(function(){
-		$('#addChange-legend').text("Edit Employee");
-		$('#addChangeEntity').fadeToggle("fast", "linear"); 
+	$('#editLink').click(function(){
+		$('#hiddenEmpID').val($(this).parent().eq(2).attr('id'));
+		alert($('#hiddenEmpID').val());
+		$('#editEmpForm').submit();    
+		
+//		$('#addChange-legend').text("Edit Employee");
+//		$('#addChangeEntity').fadeToggle("fast", "linear"); 
 	});
 
 });

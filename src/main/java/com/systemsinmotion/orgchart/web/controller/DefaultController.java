@@ -120,6 +120,16 @@ public class DefaultController {
 	    return View.JOB_TITLES;	    
 	}
 	
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
+	public String doEdit_POST(@RequestParam("hiddenEmpID") Integer incomingEmpID, Model model) {
+	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
+	    List<Department> depts = this.departmentService.findAllDepartments();
+	    Employee emp = this.employeeService.findEmployeeByID(incomingEmpID);
+	    model.addAttribute("jobs", jobs);
+	    model.addAttribute("depts", depts);
+	    model.addAttribute("emp", emp);
+	    return View.EDIT;
+	}	
 	
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
