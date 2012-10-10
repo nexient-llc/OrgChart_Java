@@ -23,9 +23,9 @@
 	</definition>
 	
 	<definition name="jobtitles" extends="main">
-		<put-attribute name="title" type="string" value="Departments" />
+		<put-attribute name="title" type="string" value="Job Title" />
 		<put-attribute name="page-js" type="string" value="../scripts/jobtitles.js" />
-		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/jobtitles.jsp" />
 	</definition>
 
 	<definition name="home" extends="main">

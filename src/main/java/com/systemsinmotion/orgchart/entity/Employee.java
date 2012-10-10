@@ -92,7 +92,7 @@ public class Employee implements java.io.Serializable {
 		this.jobTitle = jobTitle;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "DEPARTMENT_ID")
 	public Department getDepartment() {
 		return this.department;
@@ -132,7 +132,11 @@ public class Employee implements java.io.Serializable {
 
 	@Column(name = "EMAIL", length = 100)
 	public String getEmail() {
-		return this.email;
+	    	String temp = null;
+	    	if(this.email != ""){
+		    temp = this.email;
+		}
+		return temp;
 	}
 
 	public void setEmail(String email) {
@@ -141,7 +145,11 @@ public class Employee implements java.io.Serializable {
 
 	@Column(name = "SKYPE_NAME", length = 100)
 	public String getSkypeName() {
-		return this.skypeName;
+		String temp = null;
+		if(this.skypeName != ""){
+		    temp = this.skypeName;
+		}
+		return temp;
 	}
 
 	public void setSkypeName(String skypeName) {

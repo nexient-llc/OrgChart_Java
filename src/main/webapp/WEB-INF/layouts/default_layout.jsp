@@ -19,6 +19,7 @@
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />
+	<a href="../app/home">Home</a>
 	<tiles:insertAttribute name="body" />
 </body>
 </html>

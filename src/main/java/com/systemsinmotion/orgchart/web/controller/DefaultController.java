@@ -72,17 +72,31 @@ public class DefaultController {
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
 	    List<Employee> emps = this.employeeService.findAllEmployees();
+	    List<Department> depts = this.departmentService.findAllDepartments();
+	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
 	    model.addAttribute("emps", emps);
+	    model.addAttribute("depts", depts);
+	    model.addAttribute("jobs", jobs);
 	    return View.EMPLOYEES;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public String doEmployees_POST(@Valid Employee incomingEmployee, BindingResult errors,
-		Model model) {
+	public String doEmployees_POST(@Valid Employee incomingEmployee, @RequestParam("department_id") Integer incomingEmpDeptID,
+		@RequestParam("jobTitle_id") Integer incomingEmpJobID, Model model) {
+	    	if(incomingEmployee.getIsManager() == null){
+	    	    incomingEmployee.setIsManager(false);
+	    	}
+	    	if(incomingEmpDeptID != null){
+	    	   incomingEmployee.setDepartment(departmentService.findDepartmentByID(incomingEmpDeptID)); 
+	    	}
+	    	if(incomingEmpJobID != null){
+	    	    incomingEmployee.setJobTitle(jobTitleService.findJobTitleByID(incomingEmpJobID));
+	    	}
 	    	incomingEmployee.setEmployeeId(employeeService.storeEmployee(incomingEmployee));
-	    	List<Employee> currentEmpsList = (ArrayList<Employee>)model.asMap().get("emps");
-	    	currentEmpsList.add(incomingEmployee);
+//	    	List<Employee> currentEmpsList = (ArrayList<Employee>)model.asMap().get("emps");
+	    	List<Employee> currentEmpsList = employeeService.findAllEmployees();
+//	    	currentEmpsList.add(incomingEmployee);
 	    	model.addAttribute("emps", currentEmpsList);	    	
 	    return View.EMPLOYEES;	    
 	}
@@ -99,8 +113,9 @@ public class DefaultController {
 	@RequestMapping(value = "jobs", method = RequestMethod.POST)
 	public String doJobTitle_POST(@Valid JobTitle incomingJobTitle, BindingResult errors, Model model) {
 	    incomingJobTitle.setJobTitleId(jobTitleService.storeJobTitle(incomingJobTitle));
-	    List<JobTitle> currentJobTitles = (ArrayList<JobTitle>)model.asMap().get("jobs");
-	    currentJobTitles.add(incomingJobTitle);
+//	    List<JobTitle> currentJobTitles = (ArrayList<JobTitle>)model.asMap().get("jobs");
+	    List<JobTitle> currentJobTitles = jobTitleService.findAllJobTitles();
+//	    currentJobTitles.add(incomingJobTitle);
 	    model.addAttribute("jobs", currentJobTitles);
 	    return View.JOB_TITLES;	    
 	}
