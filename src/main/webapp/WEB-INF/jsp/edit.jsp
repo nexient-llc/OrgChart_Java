@@ -46,7 +46,7 @@
 					</tr>
 					<tr>
 						<td><label>Check if manager: </labeL></td>
-						<td><input type="checkbox" name="isManager" value="${emp.isManager }" style="width: 190px; "/></td>
+						<td><input type="checkbox" name="isManager" <c:if test='${emp.isManager}'>checked</c:if> style="width: 190px"/></td>
 					</tr>
 					<tr>
 						<td><button type="submit" id="saveBtn">Save</button></td>

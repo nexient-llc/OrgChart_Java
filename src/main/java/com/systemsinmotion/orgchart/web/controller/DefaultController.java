@@ -113,8 +113,12 @@ public class DefaultController {
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public String doEmployeeDelete(@Valid Employee incomingEmployee, Model model){
 	    employeeService.deleteEmployee(incomingEmployee);
-	    List<Employee> currentEmpsList = employeeService.findAllEmployees();
-	    model.addAttribute("emps", currentEmpsList);
+	    List<Employee> emps = this.employeeService.findAllEmployees();
+	    List<Department> depts = this.departmentService.findAllDepartments();
+	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
+	    model.addAttribute("emps", emps);
+	    model.addAttribute("depts", depts);
+	    model.addAttribute("jobs", jobs);
 	    return View.EMPLOYEES;
 	}
 	
