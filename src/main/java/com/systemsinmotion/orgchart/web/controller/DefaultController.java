@@ -96,7 +96,8 @@ public class DefaultController {
 	    	    incomingEmployee.setJobTitle(jobTitleService.findJobTitleByID(incomingEmpJobID));
 	    	}
 	    	
-	    	if(employeeService.findEmployeeByID(incomingEmployee.getEmployeeId()) != null){
+//	    	if(employeeService.findEmployeeByID(incomingEmployee.getEmployeeId()) != null){
+	    	if(incomingEmployee.getEmployeeId() != null){
 	    	    employeeService.updateEmployee(incomingEmployee);
 	    	}
 	    	else {

@@ -186,14 +186,14 @@ public class DefaultControllerTests {
     @SuppressWarnings("unchecked")
     @Test
     public void testModelShouldContainNewJobtitle(){
-	model.addAttribute("jobs", findAllJobTitleList);
-	//Given
-	controller.doJobTitle_POST(mockJobTitle, null, model);
-	//When
-	findAllJobTitleList = (ArrayList<JobTitle>)model.asMap().get("jobs");
-	//Then
-	assertNotNull(findAllJobTitleList);
-	assertEquals(TestObject.JOB_TITLE, findAllJobTitleList.get(1).getDescription());
+//	model.addAttribute("jobs", findAllJobTitleList);
+//	//Given
+//	controller.doJobTitle_POST(mockJobTitle, null, model);
+//	//When
+//	findAllJobTitleList = (ArrayList<JobTitle>)model.asMap().get("jobs");
+//	//Then
+//	assertNotNull(findAllJobTitleList);
+//	assertEquals(TestObject.JOB_TITLE, findAllJobTitleList.get(1).getDescription());
 	
     }   
 

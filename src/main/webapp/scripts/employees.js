@@ -10,9 +10,7 @@ $(document).ready(function() {
 	
 	$('.editLink').click(function(){
 		$('#hiddenEmpID').val(this.id);		
-		
-		alert($('#hiddenEmpID').val());
-		
+			
 		$('#editEmpForm').submit();
 	});
 

@@ -19,7 +19,14 @@
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />
-	<a href="../app/home">Home</a>
+	<table>
+		<tr>
+			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
+			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
+			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
+			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>
+		</tr>
+	</table>
 	<tiles:insertAttribute name="body" />
 </body>
 </html>

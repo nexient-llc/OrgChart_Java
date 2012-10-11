@@ -4,7 +4,7 @@
 
 	<definition name="main" template="/WEB-INF/layouts/default_layout.jsp">
 		<put-attribute name="title" type="string" />
-		<put-attribute name="page-js" type="string" value="" />
+		<put-attribute name="page-js" type="string" value="../scripts/default_layout.js" />
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-login.jsp" />
 		<put-attribute name="body" />
