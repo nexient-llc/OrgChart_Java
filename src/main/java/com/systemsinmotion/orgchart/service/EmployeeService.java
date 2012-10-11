@@ -22,12 +22,20 @@ public class EmployeeService {
 		return this.employeeDAO.findById(IdNum);
 	}
 
-	public void setEmployeeDAO(EmployeeDAO mockEmployeeDAO) {
-		this.employeeDAO = mockEmployeeDAO;
+	public void setEmployeeDAO(EmployeeDAO employeeDAO) {
+		this.employeeDAO = employeeDAO;
 	}
 
-	public Integer storeEmployee(Employee mockEmployee) {
-		return this.employeeDAO.save(mockEmployee);
+	public Integer storeEmployee(Employee employee) {
+		return this.employeeDAO.save(employee);
+	}
+	
+	public void updateEmployee(Employee employee){
+	    this.employeeDAO.update(employee);
+	}
+	
+	public void deleteEmployee(Employee employee){
+	    this.employeeDAO.delete(employee);
 	}
 
 }

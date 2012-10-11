@@ -82,7 +82,7 @@ public class Employee implements java.io.Serializable {
 		this.employeeId = employeeId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "JOB_TITLE_ID")
 	public JobTitle getJobTitle() {
 		return this.jobTitle;

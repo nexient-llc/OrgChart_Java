@@ -84,22 +84,39 @@ public class DefaultController {
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
 	public String doEmployees_POST(@Valid Employee incomingEmployee, @RequestParam("department_id") Integer incomingEmpDeptID,
 		@RequestParam("jobTitle_id") Integer incomingEmpJobID, Model model) {
-	    	if(incomingEmployee.getIsManager() == null){
+	    	
+	    	
+	    	if(incomingEmployee.getIsManager() == null){ //store unchecked checkbox as false instead of null
 	    	    incomingEmployee.setIsManager(false);
 	    	}
-	    	if(incomingEmpDeptID != null){
+	    	if(incomingEmpDeptID != null){ //Lookup Department if selected in form.
 	    	   incomingEmployee.setDepartment(departmentService.findDepartmentByID(incomingEmpDeptID)); 
 	    	}
-	    	if(incomingEmpJobID != null){
+	    	if(incomingEmpJobID != null){ //Lookup Employee if selected in form.
 	    	    incomingEmployee.setJobTitle(jobTitleService.findJobTitleByID(incomingEmpJobID));
 	    	}
-	    	incomingEmployee.setEmployeeId(employeeService.storeEmployee(incomingEmployee));
-//	    	List<Employee> currentEmpsList = (ArrayList<Employee>)model.asMap().get("emps");
+	    	
+	    	if(employeeService.findEmployeeByID(incomingEmployee.getEmployeeId()) != null){
+	    	    employeeService.updateEmployee(incomingEmployee);
+	    	}
+	    	else {
+	    	    incomingEmployee.setEmployeeId(employeeService.storeEmployee(incomingEmployee));
+	    	}
+	    	    
 	    	List<Employee> currentEmpsList = employeeService.findAllEmployees();
-//	    	currentEmpsList.add(incomingEmployee);
 	    	model.addAttribute("emps", currentEmpsList);	    	
 	    return View.EMPLOYEES;	    
 	}
+	
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public String doEmployeeDelete(@Valid Employee incomingEmployee, Model model){
+	    employeeService.deleteEmployee(incomingEmployee);
+	    List<Employee> currentEmpsList = employeeService.findAllEmployees();
+	    model.addAttribute("emps", currentEmpsList);
+	    return View.EMPLOYEES;
+	}
+	
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitle_Get(Model model) {

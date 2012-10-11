@@ -29,7 +29,7 @@
 	</definition>
 	
 	<definition name="edit" extends="main">
-		<put-attribute name="editEmp" type="string" value="Edit Employee" />
+		<put-attribute name="title" type="string" value="Edit Employee" />
 		<put-attribute name="page-js" type="string" value="../scripts/edit.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/edit.jsp" />
 	</definition>

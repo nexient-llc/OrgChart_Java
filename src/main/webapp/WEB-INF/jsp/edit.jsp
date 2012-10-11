@@ -6,8 +6,9 @@
 <h3>Edit Employee</h3>
 <div id="editEntity" >
 	<fieldset>
-		<form name="editEmp" action="emps" method="post">
+		<form id="editEmp" name="editEmp" action="emps" method="post">
 			<div>
+				<input type="hidden" name="employeeId" value="${emp.employeeId}"/>
 				<table id="editEmpTable">
 					<tr>
 						<td><label>First Name:</labeL></td>
@@ -37,7 +38,7 @@
 					<tr>
 						<td><labeL>Job Title:</label></td>
 						<td><select name="jobTitle_id">
-								<option value="${emp.jobTitle.jobTitleId}">${emp.JobTitle.description}</option>
+								<option value="${emp.jobTitle.jobTitleId}">${emp.jobTitle.description}</option>
 								<c:forEach items="${jobs}" var="title">
 									<option value="${title.jobTitleId}">${title.description}</option>
 								</c:forEach>
@@ -45,11 +46,11 @@
 					</tr>
 					<tr>
 						<td><label>Check if manager: </labeL></td>
-						<td><input type="checkbox" name="isManager" value="${emp.isManager }" style="width: 189px; "/></td>
+						<td><input type="checkbox" name="isManager" value="${emp.isManager }" style="width: 190px; "/></td>
 					</tr>
 					<tr>
-						<td><button type="submit">Save</button></td>
-						<td></td>
+						<td><button type="submit" id="saveBtn">Save</button></td>
+						<td>Delete Employee: <input type="checkbox" id="deleteEmployee" name="deleteEmployee" style="width: 40px; "></td>
 					</tr>
 				</table>
 			</div>
