@@ -19,8 +19,8 @@ public class DepartmentService {
 		return this.departmentDAO.findById(departmentId);
 	}
 
-	public void setDepartmentDAO(DepartmentDAO mockDepartmentDAO) {
-		this.departmentDAO = mockDepartmentDAO;
+	public void setDepartmentDAO(DepartmentDAO deparmentDAO) {
+		this.departmentDAO = deparmentDAO;
 	}
 
 	public List<Department> findAllDepartments() {

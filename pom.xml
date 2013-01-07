@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<organization>
 		<name>Systems In Motion</name>
-		<url>www.systemsinmotin.com</url>
+		<url>www.systemsinmotion.com</url>
 	</organization>
 	<groupId>com.systemsinmotion.orgchart</groupId>
 	<artifactId>emulek</artifactId>
@@ -82,6 +82,13 @@
 		<!-- <dependency> <groupId>net.sf.ehcache</groupId> <artifactId>ehcache</artifactId> 
 			<version>1.2.3</version> </dependency> -->
 
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.10</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 		<!-- LOGGING -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

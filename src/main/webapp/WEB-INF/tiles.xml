@@ -9,31 +9,13 @@
 			value="/WEB-INF/fragments/heading-login.jsp" />
 		<put-attribute name="body" />
 	</definition>
-
+	
 	<definition name="departments" extends="main">
 		<put-attribute name="title" type="string" value="Departments" />
 		<put-attribute name="page-js" type="string" value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
 	</definition>
 	
-	<definition name="employees" extends="main">
-		<put-attribute name="title" type="string" value="Employees" />
-		<put-attribute name="page-js" type="string" value="../scripts/employees.js" />
-		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
-	</definition>
-	
-	<definition name="jobtitles" extends="main">
-		<put-attribute name="title" type="string" value="Job Title" />
-		<put-attribute name="page-js" type="string" value="../scripts/jobtitles.js" />
-		<put-attribute name="body" value="/WEB-INF/jsp/jobtitles.jsp" />
-	</definition>
-	
-	<definition name="edit" extends="main">
-		<put-attribute name="title" type="string" value="Edit Employee" />
-		<put-attribute name="page-js" type="string" value="../scripts/edit.js" />
-		<put-attribute name="body" value="/WEB-INF/jsp/edit.jsp" />
-	</definition>
-
 	<definition name="home" extends="main">
 		<put-attribute name="title" type="string" value="Home" />
 		<put-attribute name="page-heading"

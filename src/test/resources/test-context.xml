@@ -40,8 +40,6 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.systemsinmotion.orgchart.entity.Department</value>
-				<value>com.systemsinmotion.orgchart.entity.Employee</value>
-				<value>com.systemsinmotion.orgchart.entity.JobTitle</value>
 			</list>
 		</property>
 	</bean>
