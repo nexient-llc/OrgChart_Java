@@ -27,8 +27,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "DEPARTMENT")
 public class Department implements java.io.Serializable {
 
-	private static final long serialVersionUID = -5379179412533671591L;
-
+	private static final long serialVersionUID = -5821480780817705604L;
+	
 	private Integer departmentId;
 	private Department parentDepartment;
 //	private Employee manager;
@@ -52,7 +52,7 @@ public class Department implements java.io.Serializable {
 		this.name = name;
 	}
 
-	/** Partial Contructor **/
+	/** Partial Constructor **/
 	public Department(Department parentDepartment,  String deptName,
 		Set<Department> subDepartments) {
 		this.parentDepartment = parentDepartment;
@@ -60,7 +60,7 @@ public class Department implements java.io.Serializable {
 		this.departments = subDepartments;
 	}
 	
-	/** full constructor */
+//	/** full constructor */
 //	public Department(Department parentDepartment, Employee deptManager, String deptName,
 //			Set<Department> subDepartments, Set<Employee> deptEmployees) {
 //		this.parentDepartment = parentDepartment;
@@ -97,7 +97,7 @@ public class Department implements java.io.Serializable {
 //	public Employee getManager() {
 //		return this.manager;
 //	}
-
+//
 //	public void setManager(Employee employee) {
 //		this.manager = employee;
 //	}
@@ -120,7 +120,7 @@ public class Department implements java.io.Serializable {
 		this.departments = departments;
 	}
 
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dept")
 //	public Set<Employee> getEmployees() {
 //		return this.employees;
 //	}

@@ -21,10 +21,10 @@
 	<tiles:insertAttribute name="page-heading" />
 	<table>
 		<tr>
-			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
-			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
-			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
-			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>
+			<th><label id="navBarHome" style="color:#FFFFFF">Home</label></th>
+			<th><label id="navBarDepts" style="color:#FFFFFF">Departments</label></th>
+			<th><label id="navBarEmps" style="color:#FFFFFF">Employees</label></th>
+			<th><label id="navBarJobs" style="color:#FFFFFF">Job Titles</label></th>
 		</tr>
 	</table>
 	<tiles:insertAttribute name="body" />

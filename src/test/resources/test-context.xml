@@ -54,13 +54,13 @@
 	</bean>
 
 
-	<!-- <bean id="departmentDAO" class="com.systemsinmotion.orgchart.dao.DepartmentDAO" 
-		/> -->
-	<!-- <bean id="employeeDAO" class="com.systemsinmotion.orgchart.dao.EmployeeDAO" 
-		/> -->
-	<!-- <bean id="jobTitleDAO" class="com.systemsinmotion.orgchart.dao.JobTitleDAO" 
-		/> -->
-	<!-- <bean id="lookupService" class="com.systemsinmotion.orgchart.service.LookupServiceImpl" 
+<!-- 	 <bean id="departmentDAO" class="com.systemsinmotion.orgchart.dao.DepartmentDAO" 
+		/>
+	 <bean id="employeeDAO" class="com.systemsinmotion.orgchart.dao.EmployeeDAO" 
+		/> 
+	<bean id="jobTitleDAO" class="com.systemsinmotion.orgchart.dao.JobTitleDAO" 
+		/>
+	<bean id="lookupService" class="com.systemsinmotion.orgchart.service.LookupServiceImpl" 
 		/> -->
 
 </beans>

@@ -1,56 +1,50 @@
 package com.systemsinmotion.orgchart.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.List;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 import com.systemsinmotion.orgchart.TestObject;
 import com.systemsinmotion.orgchart.entity.Department;
-//import com.systemsinmotion.orgchart.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
 public class DepartmentDAOTest {
 
+	@SuppressWarnings("unused")
 	private static final String SOME_NEW_NAME = "Some New Name";
 
+	@SuppressWarnings("unused")
 	private static final String NOT_PRESENT_VALUE = "XXX";
 
+	@SuppressWarnings("unused")
 	private static final Integer NOT_PRESENT_ID = -666;
 
 	private Department department;
+	
 	private Department parent;
 
-//	@Autowired
-//	DepartmentDAO departmentDAO;
-//
+	@Autowired
+	DepartmentDAO departmentDAO;
+
 	@Before
 	public void before() throws Exception {
-//		parent = TestObject.department();
-//		parent.setDepartmentId(departmentDAO.save(parent));
-//		department = TestObject.department(parent);
-//		department.setDepartmentId(departmentDAO.save(department));
+		parent = TestObject.department();
+		parent.setDepartmentId(departmentDAO.save(parent));
+		department = TestObject.department(parent);
+		department.setDepartmentId(departmentDAO.save(department));
 	}
-//
+
 	@After
 	public void after() {
-//		departmentDAO.delete(department);
-//		departmentDAO.delete(parent);
+		departmentDAO.delete(department);
+		departmentDAO.delete(parent);
 	}
 	
 	@Test

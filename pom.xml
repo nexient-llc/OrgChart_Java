@@ -8,7 +8,7 @@
 		<url>www.systemsinmotion.com</url>
 	</organization>
 	<groupId>com.systemsinmotion.orgchart</groupId>
-	<artifactId>emulek</artifactId>
+	<artifactId>jharper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>OrgChart</name>
@@ -82,13 +82,7 @@
 		<!-- <dependency> <groupId>net.sf.ehcache</groupId> <artifactId>ehcache</artifactId> 
 			<version>1.2.3</version> </dependency> -->
 
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.10</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
+
 		<!-- LOGGING -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

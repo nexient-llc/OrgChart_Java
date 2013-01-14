@@ -11,8 +11,6 @@
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<import resource="dao-context.xml" />
-	<import resource="security-context.xml" />
-	<!-- -->
 
 	<context:component-scan base-package="com.systemsinmotion.orgchart" />
 
@@ -30,12 +28,5 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 	</bean>
-
-	<!-- <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> 
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" 
-		/> <property name="prefix" value="/WEB-INF/jsp/" /> <property name="suffix" 
-		value=".jsp" /> </bean> -->
-		
-	<bean id="department" class="com.systemsinmotion.orgchart.entity.Department" />
 
 </beans>
