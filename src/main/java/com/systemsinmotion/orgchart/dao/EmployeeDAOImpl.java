@@ -16,72 +16,173 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 
-	@Override
 	public Integer save(Employee employee) {
-		//try saving the employee object to the database
-		//if it errors, throw the exception
+		
+		//try saving the employee object to the database, return the new employee id
 		try 
 		{
 			return (Integer) this.hibernateTemplate.save(employee);
 		} 
-		catch (RuntimeException e) 
+		catch (RuntimeException ex) 
 		{
-			throw e;
+			throw ex;
 		}
 	}
 
-	@Override
 	public void update(Employee employee) {
-		// TODO Auto-generated method stub
+		
+		//try updating the selected employee record
+		try
+		{
+			this.hibernateTemplate.update(employee);
+		}
+		catch (RuntimeException ex)
+		{
+			throw ex;
+		}
 
 	}
 
-	@Override
 	public void delete(Employee employee) {
-		// TODO Auto-generated method stub
+		
+		//try to delete the selected employee record
+		try
+		{
+			this.hibernateTemplate.delete(employee);
+		}
+		catch (RuntimeException ex)
+		{
+			throw ex;
+		}
 
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//retrieve all the employee records from the database
+		try 
+		{
+			return this.hibernateTemplate.find(" FROM "
+					+  Employee.class.getName()
+					+ " ORDER BY first_name, last_name");
+		} 
+		catch (RuntimeException ex) 
+		{
+			throw ex;
+		}
 	}
 
-	@Override
 	public Employee findByEmployeeID(Integer ID) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//retrieve a specific employee record by employeeID
+		try
+		{
+			return this.hibernateTemplate.get(Employee.class, ID);
+		}
+		catch (RuntimeException ex)
+		{
+			throw ex;
+		}
 	}
 
-	@Override
-	public List<Employee> findByName(String firstName, String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByFirstName(String firstName) {
+		
+		//find employees by first name or partial first name
+		try 
+		{					
+				return this.hibernateTemplate.find(" FROM " 
+						+ Employee.class.getName()
+						+ "WHERE first_name like ", "%" + firstName + "%");
+		}
+		catch (RuntimeException ex)
+		{
+			throw ex;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByLastName(String lastName) {
+		
+		//find employees by last or partial last name
+		try 
+		{
+			return this.hibernateTemplate.find(" FROM " 
+					+ Employee.class.getName()
+					+ "WHERE last_name like ", "%" + lastName + "%");
+		}
+		catch (RuntimeException ex)
+		{
+			throw ex;
+		}
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//find employees by email
+		try
+		{
+			return this.hibernateTemplate.find(" FROM " 
+					+ Employee.class.getName() 
+					+ " WHERE email LIKE ?", "%" + email + "%");
+		}
+		catch (RuntimeException ex) 
+		{
+			throw ex;
+		}
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByDepartment(Department department) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//Retrieve all employees for a selected department
+		try 
+		{
+			return this.hibernateTemplate.find(" FROM "
+					+ Employee.class.getName() 
+					+ " WHERE department_id = "
+					+ department.getDepartmentId());
+		} 
+		catch (RuntimeException ex) 
+		{
+			throw ex;
+		}
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByJobTitle(JobTitle jobTitle) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//Retrieve all employees for a selected job title
+		try 
+		{
+			return this.hibernateTemplate.find(" FROM "
+					+ Employee.class.getName()
+					+ " WHERE job_title_id = "
+					+ jobTitle.getJobTitleID());
+		}
+		catch (RuntimeException ex)
+		{
+			throw ex;
+		}
+		
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByManager(Employee employee) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//Retrieve all subordinate employees for a selected manager
+		try {
+			return this.hibernateTemplate.find(" FROM "
+					+ Employee.class.getName() 
+					+ " WHERE manager_id = "
+					+ employee.getEmpID());
+		} 
+		catch (RuntimeException ex) 
+		{
+			throw ex;
+		}
 	}
 
 }

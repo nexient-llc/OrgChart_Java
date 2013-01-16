@@ -22,8 +22,11 @@ public interface EmployeeDAO {
 	//find an employee by employeeID
 	public abstract Employee findByEmployeeID(Integer ID);
 	
-	//find by employee(s) by first or last name
-	public abstract List<Employee> findByName(String firstName, String lastName);
+	//find by employee(s) by first name
+	public abstract List<Employee> findByFirstName(String firstName);
+	
+	//find by employee(s) by last name
+	public abstract List<Employee> findByLastName(String lastName);
 	
 	//find employee(s) by email address
 	public abstract List<Employee> findByEmail(String email);
