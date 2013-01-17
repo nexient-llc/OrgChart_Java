@@ -94,7 +94,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		{					
 				return this.hibernateTemplate.find(" FROM " 
 						+ Employee.class.getName()
-						+ "WHERE first_name like ", "%" + firstName + "%");
+						+ " WHERE first_name LIKE ? ", "%" + firstName + "%");
 		}
 		catch (RuntimeException ex)
 		{
@@ -110,7 +110,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		{
 			return this.hibernateTemplate.find(" FROM " 
 					+ Employee.class.getName()
-					+ "WHERE last_name like ", "%" + lastName + "%");
+					+ " WHERE last_name LIKE ? ", "%" + lastName + "%");
 		}
 		catch (RuntimeException ex)
 		{
@@ -126,7 +126,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		{
 			return this.hibernateTemplate.find(" FROM " 
 					+ Employee.class.getName() 
-					+ " WHERE email LIKE ?", "%" + email + "%");
+					+ " WHERE email LIKE ? ", "%" + email + "%");
 		}
 		catch (RuntimeException ex) 
 		{

@@ -78,8 +78,8 @@ public class DepartmentDAOTest {
 		System.out.println(dept.toString());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
-//		assertNotNull(this.department.getParentDepartment());
-//		assertNotNull(this.department.getManager());
+		assertNotNull(this.department.getParentDepartment());
+		assertNotNull(this.department.getManager());
 	}
 
 	@Test
@@ -95,8 +95,8 @@ public class DepartmentDAOTest {
 		Department dept = departmentDAO.findByName(this.department.getName());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
-//		assertNotNull(this.department.getParentDepartment());
-//		assertNotNull(this.department.getManager());
+		assertNotNull(this.department.getParentDepartment());
+		assertNotNull(this.department.getManager());
 	}
 
 	@Test
@@ -106,17 +106,17 @@ public class DepartmentDAOTest {
 		assertEquals(0, depts.size());
 	}
 
-//	@Test
-//	@Rollback
-//	public void findByParentDeptId() throws Exception {
-//		List<Department> depts = departmentDAO.findByParentDepartment(this.department.getParentDepartment());
-//		assertNotNull(depts);
-//		assertEquals(1, depts.size());
-//		Department dept = depts.get(0);
-//		assertEquals(this.department.getName(), dept.getName());
-//		assertNotNull(this.department.getParentDepartment());
-//		assertNotNull(this.department.getManager());
-//	}
+	@Test
+	@Rollback
+	public void findByParentDeptId() throws Exception {
+		List<Department> depts = departmentDAO.findByParentDepartment(this.department.getParentDepartment());
+		assertNotNull(depts);
+		assertEquals(1, depts.size());
+		Department dept = depts.get(0);
+		assertEquals(this.department.getName(), dept.getName());
+		assertNotNull(this.department.getParentDepartment());
+		assertNotNull(this.department.getManager());
+	}
 
 	@Test
 	@Rollback

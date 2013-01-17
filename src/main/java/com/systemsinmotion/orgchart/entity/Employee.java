@@ -165,7 +165,7 @@ public class Employee implements java.io.Serializable {
 			this.manager = manager;
 		}
 
-	//@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="manager")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="manager")
 		public Set<Department> getDepartments() {
 			return departments;
 		}

@@ -31,14 +31,14 @@ public class Department implements java.io.Serializable {
 	
 	private Integer departmentId;
 	private Department parentDepartment;
-//	private Employee manager;
+	private Employee manager;
 	
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max=45)
 	private String name; 
 	private Set<Department> departments = new HashSet<Department>(0);
-//	private Set<Employee> employees = new HashSet<Employee>(0);
+	private Set<Employee> employees = new HashSet<Employee>(0);
 
 	// Constructors
 
@@ -60,15 +60,15 @@ public class Department implements java.io.Serializable {
 		this.departments = subDepartments;
 	}
 	
-//	/** full constructor */
-//	public Department(Department parentDepartment, Employee deptManager, String deptName,
-//			Set<Department> subDepartments, Set<Employee> deptEmployees) {
-//		this.parentDepartment = parentDepartment;
-//		this.manager = deptManager;
-//		this.name = deptName;
-//		this.departments = subDepartments;
-//		this.employees = deptEmployees;
-//	}
+	/** full constructor */
+	public Department(Department parentDepartment, Employee deptManager, String deptName,
+			Set<Department> subDepartments, Set<Employee> deptEmployees) {
+		this.parentDepartment = parentDepartment;
+		this.manager = deptManager;
+		this.name = deptName;
+		this.departments = subDepartments;
+		this.employees = deptEmployees;
+	}
 
 	// Property accessors
 	@Id
@@ -92,15 +92,15 @@ public class Department implements java.io.Serializable {
 		this.parentDepartment = department;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "MANAGER_ID")
-//	public Employee getManager() {
-//		return this.manager;
-//	}
-//
-//	public void setManager(Employee employee) {
-//		this.manager = employee;
-//	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MANAGER_ID")
+	public Employee getManager() {
+		return this.manager;
+	}
+
+	public void setManager(Employee employee) {
+		this.manager = employee;
+	}
 
 	@Column(name = "NAME", nullable = false, length = 45)
 	public String getName() {
@@ -120,13 +120,13 @@ public class Department implements java.io.Serializable {
 		this.departments = departments;
 	}
 
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dept")
-//	public Set<Employee> getEmployees() {
-//		return this.employees;
-//	}
-//
-//	public void setEmployees(Set<Employee> employees) {
-//		this.employees = employees;
-//	}
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dept")
+	public Set<Employee> getEmployees() {
+		return this.employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
 
 }
