@@ -9,8 +9,6 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>com.systemsinmotion.orgchart.entity.Department</class>
-		<class>com.systemsinmotion.orgchart.entity.Employee</class>
-		<class>com.systemsinmotion.orgchart.entity.JobTitle</class>
 		<properties>
 			<property name="hibernate.connection.driver_class"
 				value="com.mysql.jdbc.Driver" />
