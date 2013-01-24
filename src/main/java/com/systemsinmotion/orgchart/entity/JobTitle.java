@@ -14,52 +14,51 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name="JOB_TITLE")
 public class JobTitle implements java.io.Serializable {
-
-	/* VARIABLES */
 	
-	private static final long serialVersionUID = -6844033771097189452L;
+	//VARIABLES
 	
-	//base
+	private static final long serialVersionUID = 1L;
+	
+	//BASE VARIBLES
 	private Integer jobTitleID;
 	private String desc;
 	
-	//collections
-	private Set<Employee> employees = new HashSet<Employee>(0);
+	//COLLECTIONS
+	private Set<Employee> employees= new HashSet<Employee>();
 	
-	
-	/* CONSTRUCTORS */
-	
-	//default
+	//DEFAULT CONSTRUCTOR
 	public JobTitle()
 	{
 		
 	}
 	
-	//basic
-	public JobTitle(String description) 
+	// MINIMAL CONSTRUCTOR
+	public JobTitle(String description)
 	{
+		
 		this.desc = description;
+		
+	}
+	
+	//FULL CONSTRUCTOR
+	public JobTitle(String description, Set<Employee> employees)
+	{
+		
+		this.desc=description;
+		this.employees=employees;
+		
 	}
 
-	//complete
-	public JobTitle(String description, Set<Employee> employees) 
-	{
-		this.desc = description;
-		this.employees = employees;
-	}
-	
-	
-	/* ACCESSORS */
+	//ACCESSORS
 	
 	@Id
 	@GeneratedValue(strategy=IDENTITY)
 	@Column(name="JOB_TITLE_ID", unique=true, nullable=false)
 		public Integer getJobTitleID() {
-			return this.jobTitleID;
+			return jobTitleID;
 		}
 	
 		public void setJobTitleID(Integer jobTitleID) {
@@ -68,16 +67,16 @@ public class JobTitle implements java.io.Serializable {
 
 	@Column(name="DESCRIPTION", nullable=false, length=45)
 		public String getDesc() {
-			return this.desc;
+			return desc;
 		}
 	
-		public void setDesc(String description) {
-			this.desc = description;
+		public void setDesc(String desc) {
+			this.desc = desc;
 		}
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="jobTitle")
 		public Set<Employee> getEmployees() {
-			return this.employees;
+			return employees;
 		}
 	
 		public void setEmployees(Set<Employee> employees) {

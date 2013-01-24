@@ -19,11 +19,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="EMPLOYEE")
 public class Employee implements java.io.Serializable {
-	
-	/* VARIABLES */
 
-	private static final long serialVersionUID = -2729113047136258086L;
+	/* VARIABLES */
 	
+	private static final long serialVersionUID = 1L;
+
 	//base
 	private Integer empID;
 	private String firstName;
@@ -34,7 +34,7 @@ public class Employee implements java.io.Serializable {
 	
 	//object
 	private JobTitle jobTitle;
-	private Department dept;
+	private Department department;
 	private Employee manager;
 	
 	//collection
@@ -45,7 +45,7 @@ public class Employee implements java.io.Serializable {
 	/* CONSTRUCTORS */
 	
 	//default
-	public Employee() 
+	public Employee()
 	{
 		
 	}
@@ -58,7 +58,7 @@ public class Employee implements java.io.Serializable {
 		this.lastName = lastName;
 		this.isManager = isManager;
 	}
-	
+		
 	//complete
 	public Employee(Integer empID, String firstName, String lastName, String email, String skypeName, 
 				Boolean isManager, JobTitle jobTitle, Department dept, Employee manager, 
@@ -71,14 +71,14 @@ public class Employee implements java.io.Serializable {
 		this.skypeName = skypeName;
 		this.isManager = isManager;
 		this.jobTitle = jobTitle;
-		this.dept = dept;
+		this.department = dept;
 		this.manager = manager;
 		this.departments = departments;
 		this.employees = employees;
 	}
-	
-	/* ACCESSORS */
 
+	/* ACCESSORS */
+	
 	@Id
 	@GeneratedValue(strategy=IDENTITY)
 	@Column(name = "EMPLOYEE_ID", unique = true, nullable = false)
@@ -89,7 +89,7 @@ public class Employee implements java.io.Serializable {
 		public void setEmpID(Integer empID) {
 			this.empID = empID;
 		}
-
+		
 	@Column(name="FIRST_NAME", nullable=false, length=20)
 		public String getFirstName() {
 			return firstName;
@@ -148,11 +148,11 @@ public class Employee implements java.io.Serializable {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="DEPARTMENT_ID")
 		public Department getDept() {
-			return dept;
+			return department;
 		}
 	
 		public void setDept(Department dept) {
-			this.dept = dept;
+			this.department = dept;
 		}
 
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -182,5 +182,7 @@ public class Employee implements java.io.Serializable {
 		public void setEmployees(Set<Employee> employees) {
 			this.employees = employees;
 		}
-
+	
+	
+	
 }
