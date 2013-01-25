@@ -6,18 +6,15 @@ import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 interface JobTitleDAO {
-	
-	public void findByJobTitleID(int id);
-	
-	public List<JobTitle> findByDescription(JobTitle jobTitle);
-	
-	List<Employee> findByEmployee(Employee employee);
-	
-	List<JobTitle> findAllJobTitles(JobTitle jobTitle);
-	
-	void deleteJobTItle(JobTitle jobTitle_delete);
-	
-	Integer addJobTitle(JobTitle jobTitle_add);
-	
-	
+
+	public JobTitle findByJobTitleID(int id);
+
+	public List<JobTitle> findAllJobTitles();
+
+	public void deleteJobTitle(JobTitle jobTitle_delete);
+
+	public Integer createJobTitle(JobTitle jobTitle_create);
+
+	public void updatejobTitle(JobTitle jobTitle);
+
 }
