@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<definition name="main" template="/WEB-INF/layouts/default_layout.jsp">
+		<put-attribute name="title" type="string" />
+		<put-attribute name="page-js" type="string" value="" />
+		<put-attribute name="page-heading"
+			value="/WEB-INF/fragments/heading-login.jsp" />
+		<put-attribute name="body" />
+	</definition>
+	
+	<definition name="departments" extends="main">
+		<put-attribute name="title" type="string" value="Departments" />
+		<put-attribute name="page-js" type="string" value="../scripts/departments.js" />
+		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
+	</definition>
+	
+	<definition name="home" extends="main">
+		<put-attribute name="title" type="string" value="Home" />
+		<put-attribute name="page-heading"
+			value="/WEB-INF/fragments/heading-no-login.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/home.jsp" />
+	</definition>
+
+	<definition name="admin/default" extends="main">
+		<put-attribute name="title" type="string" value="Admin" />
+		<put-attribute name="page-heading"
+			value="/WEB-INF/fragments/heading-no-login.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/default.jsp" />
+	</definition>
+	
+	<definition name="admin/login" extends="main">
+		<put-attribute name="title" type="string" value="Login" />
+		<put-attribute name="page-js" type="string" value="../scripts/login.js" />
+		<put-attribute name="page-heading"
+			value="/WEB-INF/fragments/heading-no-login.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/login.jsp" />
+	</definition>
+
+</tiles-definitions>
