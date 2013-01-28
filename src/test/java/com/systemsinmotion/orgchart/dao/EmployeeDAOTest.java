@@ -5,11 +5,9 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertThat;
-
 
 import java.util.List;
 
@@ -25,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.systemsinmotion.orgchart.TestObject;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
@@ -35,6 +34,7 @@ public class EmployeeDAOTest {
 	private Department department;
 	private Employee employee;
 	private Employee manager;
+	private JobTitle jobTitle;
 
 	@Autowired
 	EmployeeDAO employeeDAO;
@@ -42,14 +42,21 @@ public class EmployeeDAOTest {
 	@Autowired
 	DepartmentDAO departmentDAO;
 	
+	@Autowired
+	JobTitleDAO jtDAO;
+	
 	@Before
 	public void before() throws Exception 
 	{
 		department = TestObject.department(); 
 		departmentDAO.save(department); 
 		
+		jobTitle = TestObject.jobTitle();
+		jtDAO.createJobTitle(jobTitle);
+		
 		employee = TestObject.employee(); 
-		employee.setDept(department); 
+		employee.setDept(department);
+		employee.setJobTitle(jobTitle);
 		employee.setEmpID(employeeDAO.save(employee));  
 	}
 
@@ -58,6 +65,7 @@ public class EmployeeDAOTest {
 	{
 		employeeDAO.delete(employee);
 		departmentDAO.delete(department);
+		jtDAO.deleteJobTitle(jobTitle);
 
 		if (null != manager) {
 			employeeDAO.delete(manager);
@@ -249,20 +257,35 @@ public class EmployeeDAOTest {
 		
 	}
 	
-	//Needs to be finished after Job Title classes have been added
-//	@Test
-//	@Rollback
-//	public void findByJobTitleTest_noMatchFound() throws Exception
-//	{
-//		
-//	}
-//	
-//	@Test
-//	@Rollback
-//	public void findByJobTitleTest() throws Exception
-//	{
-//		
-//	}
+	@Test
+	@Rollback
+	public void findByJobTitleTest_noMatchFound() throws Exception
+	{
+		
+		List<Employee> emps = employeeDAO.findByJobTitle(new JobTitle());
+		assertThat(emps, describedAs("Instance of a list", is(instanceOf(List.class))));
+		assertThat(emps, describedAs("Size is 0", hasSize(is(0))));
+		assertThat(emps, describedAs("Not null", is(not(nullValue()))));
+		
+	}
+	
+	@Test
+	@Rollback
+	public void findByJobTitleTest() throws Exception
+	{
+		
+		List<Employee> emps = employeeDAO.findByJobTitle(jobTitle);
+		assertThat(emps, describedAs("Instance of a list", is(instanceOf(List.class))));
+		assertThat(emps, describedAs("Size greater than 0", hasSize(is(greaterThan(0)))));
+		assertThat(emps, describedAs("Not null", is(not(nullValue()))));
+		
+		Employee emp = emps.get(0);
+		assertThat(emp, describedAs("Instance of employee class", is(instanceOf(Employee.class))));
+		assertThat(emp.getFirstName(), describedAs("first name", is(TestObject.FIRST_NAME)));
+		assertThat(emp.getLastName(), describedAs("last name", is(TestObject.LAST_NAME)));
+		assertThat(emp.getEmail(), describedAs("email", is(TestObject.EMAIL)));
+		
+	}
 	
 	@Test
 	@Rollback
