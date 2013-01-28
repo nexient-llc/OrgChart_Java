@@ -47,7 +47,7 @@ public class TestObject {
 	public static Employee employee() 
 	{
 		
-		Employee emp = new Employee(r.nextInt(),FIRST_NAME, LAST_NAME, EMAIL, SKYPE_NAME, false,null, department(), null,null, null);
+		Employee emp = new Employee(r.nextInt(),FIRST_NAME, LAST_NAME, EMAIL, SKYPE_NAME, false,jobTitle(), department(), null,null, null);
 		emp.setEmpID(r.nextInt());
 		return emp;
 
