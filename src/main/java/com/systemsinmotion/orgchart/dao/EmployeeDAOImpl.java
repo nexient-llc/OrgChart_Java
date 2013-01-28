@@ -88,7 +88,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		
 	}
 
-
 	//find an employee by a combination of first and last name
 	@SuppressWarnings("unchecked")
 	public List<Employee> findByNameCombination(String fName, String lName) throws RuntimeException 
@@ -98,9 +97,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				" FROM "
 				+ Employee.class.getName()
 				+ " WHERE first_name LIKE ? "
-				, "%" + fName + "%"
 				+ " AND last_name LIKE ? "
-				, "%" + lName + "%"
+				, "%" + fName + "%" , "%" + lName + "%"
 				);
 		
 	}
