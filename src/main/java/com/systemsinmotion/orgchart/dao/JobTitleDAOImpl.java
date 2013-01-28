@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,8 +30,14 @@ public class JobTitleDAOImpl implements JobTitleDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<JobTitle> findAllJobTitles() {
-
-		return this.hibernateTemplate.find("FROM" + JobTitle.class.getName());
+		
+		try{
+	
+		return this.hibernateTemplate.find("FROM " + JobTitle.class.getName());
+		
+		
+		}catch(RuntimeException re)
+		{throw re;}
 
 	}
 
