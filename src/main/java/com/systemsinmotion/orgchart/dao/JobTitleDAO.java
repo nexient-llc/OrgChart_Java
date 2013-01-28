@@ -5,7 +5,7 @@ import java.util.List;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-interface JobTitleDAO {
+public interface JobTitleDAO {
 
 	public JobTitle findByJobTitleID(int id);
 
