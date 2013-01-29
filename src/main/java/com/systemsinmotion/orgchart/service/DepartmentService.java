@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.systemsinmotion.orgchart.dao.DepartmentDAO;
 import com.systemsinmotion.orgchart.dao.EmployeeDAO;
 import com.systemsinmotion.orgchart.entity.Department;
-import com.systemsinmotion.orgchart.entity.Employee;
 
 @Service("departmentService")
 public class DepartmentService {
@@ -38,21 +37,7 @@ public class DepartmentService {
 	}
 
 	public void removeDepartment(Department department) {
-		
-		//find all employees in the department that is to be deleted
-		List<Employee> emps = employeeDAO.findByDepartment(department);
-		
-		//update each employee record to remove the soon to be invalid department id
-		for (Employee emp : emps)
-		{
-			emp.setDept(null);
-			employeeDAO.update(emp);
-			
-		}
-		
-		//now remove the department from the department table
 		this.departmentDAO.delete(department);
-		
 	}
 
 }

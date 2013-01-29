@@ -65,15 +65,16 @@ public class EmployeeService {
 		List<Employee> emps = new ArrayList<Employee>();
 		
 		//call find by combination if both fields are populated
-		if( (!fName.equals("") || !fName.equals(null)) && (!lName.equals("") || !lName.equals(null)) )
+		if( !fName.equals("0")  && !lName.equals("0") )
 		{
 			
 			emps = this.employeeDAO.findByNameCombination(fName, lName);
 			
+			
 		}
 		
 		//call find by first name if fName is populated, but lName is not
-		else if( (!fName.equals("") || !fName.equals(null)) && (lName.equals("") || lName.equals(null)) )
+		else if( !fName.equals("0")  && lName.equals("0") )
 		{
 			
 			emps = this.employeeDAO.findByFirstName(fName);
@@ -81,7 +82,7 @@ public class EmployeeService {
 		}
 		
 		//call find by last name if fName is not populated, but lName is
-		else if( (fName.equals("") || fName.equals(null)) && (!lName.equals("") || !lName.equals(null)) )
+		else if( fName.equals("0")  && !lName.equals("0") )
 		{
 			
 			emps = this.employeeDAO.findByLastName(lName);
