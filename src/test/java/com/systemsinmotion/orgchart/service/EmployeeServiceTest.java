@@ -55,7 +55,6 @@ public class EmployeeServiceTest {
 		when(mockEmpDAO.findByFirstName(TestObject.FIRST_NAME)).thenReturn(listOfFoundEmps);
 		when(mockEmpDAO.findByLastName(TestObject.LAST_NAME)).thenReturn(listOfFoundEmps);
 		when(mockEmpDAO.findByNameCombination(TestObject.FIRST_NAME, TestObject.LAST_NAME)).thenReturn(listOfFoundEmps);
-		
 		when(mockEmpDAO.findByEmail(TestObject.EMAIL)).thenReturn(listOfFoundEmps);
 		when(mockEmpDAO.findByDepartment(mockDept)).thenReturn(listOfFoundEmps);
 		when(mockEmpDAO.findByJobTitle(mockJT)).thenReturn(listOfFoundEmps);
@@ -66,7 +65,7 @@ public class EmployeeServiceTest {
 	
 	@Test
 	@Rollback
-	public void shouldSaveAndReturnNewEmployeeID()
+	public void shouldSaveNewEmployeeAndReturnID()
 	{
 		
 		Integer newEmp = employeeService.createEmployeeRecord(mockEmp);

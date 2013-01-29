@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.dao.DepartmentDAO;
-import com.systemsinmotion.orgchart.dao.EmployeeDAO;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @Service("departmentService")
@@ -14,9 +13,7 @@ public class DepartmentService {
 
 	@Autowired
 	DepartmentDAO departmentDAO;
-	
-	@Autowired
-	EmployeeDAO employeeDAO;
+
 
 	public Department findDepartmentByID(Integer departmentId) {
 
