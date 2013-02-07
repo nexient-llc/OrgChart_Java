@@ -44,21 +44,42 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
-	public String doDepartments_GET(Model model) {
+	public String doDepartments_GET(Model model) 
+	{
 		
-		 List<Department> departments = departmentService.findAllDepartments();
-		 model.addAttribute("depts", departments);
-		 return View.DEPARTMENTS;
+		//retrieve the requested data from the database
+		List<Department> departments = departmentService.findAllDepartments();
+		
+		//pass it to the model for display
+		model.addAttribute("depts", departments);
+		
+		//and then return the view
+		return View.DEPARTMENTS;
 		 
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(@Valid Department newDept, Model model)
+	public String doDepartments_POST(@Valid Department newDept
+			,@RequestParam("parent_id") Integer parentID
+			,Model model)
 	{
 		
+		//find the assigned parent department based on the ID passed in from the form
+		if (parentID != null)
+		{
+			newDept.setParentDepartment(departmentService.findDepartmentByID(parentID));
+		}
+		
+		//save the new department object and populate its new ID
 		newDept.setDepartmentId(departmentService.storeDepartment(newDept));
+		
+		//grab the updated department list from the database 
 		List<Department> departments = departmentService.findAllDepartments();
+		
+		//pass the list to the model for display
 		model.addAttribute("depts", departments);
+		
+		//return the department view
 		return View.DEPARTMENTS;
 		
 	}
@@ -67,29 +88,103 @@ public class DefaultController {
 	public String doEmployees_GET(Model model)
 	{
 		
+		//retrieve the data to be displayed on the page
 		List<Employee> empsList = employeeService.findAllEmployees();
+		List<Department> deptsList = departmentService.findAllDepartments();
+		List<JobTitle> jtList = jobTitleService.findAllJobTitles();
+		
+		//pass the data lists to the model for display
 		model.addAttribute("emps", empsList);
+		model.addAttribute("depts", deptsList);
+		model.addAttribute("jobs", jtList);
+		
+		//return the employee view
 		return View.EMPLOYEES;
 		
 	}
 	
 	@RequestMapping(value="emps" , method=RequestMethod.POST)
-	public String doEmployees_POST(@Valid Employee newEmp, Model model)
+	public String doEmployees_POST(@Valid Employee newEmp
+			,@RequestParam("department_id") Integer deptID
+			,@RequestParam("jobTitle_id") Integer jtID
+			,Model model)
 	{
 		
-		newEmp.setEmpID(employeeService.createEmployeeRecord(newEmp));
+		//if the 'is manager' field was not checked, change it from null to false 
+		if(newEmp.getIsManager() == null)
+		{
+			newEmp.setIsManager(false);
+		}
+		
+		//find the assigned department data based on the ID passed in
+		if(deptID != null)
+		{
+			newEmp.setDept(departmentService.findDepartmentByID(deptID));
+		}
+		
+		//find the employee's job title
+		if(jtID != null)
+		{
+			newEmp.setJobTitle(jobTitleService.findByJobTitleID(jtID));
+		}
+		
+		//if the employee already exists, update the record
+		if(newEmp.getEmpID() != null)
+		{
+			employeeService.updateEmployeeRecord(newEmp);
+		}
+		
+		//otherwise, insert a new record and populate the employee id
+		else
+		{
+			newEmp.setEmpID(employeeService.createEmployeeRecord(newEmp));
+		}
+		
+		//retrieve the updated data from the database
 		List<Employee> empsList = employeeService.findAllEmployees();
+		
+		//pass the information to the model for display
 		model.addAttribute("emps", empsList);
+		
+		//and finally, return the employee view
 		return View.EMPLOYEES;
 		
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public String doEmployeeDelete(@Valid Employee emp
+			,Model model)
+	{
+		
+		//delete the selected employee record
+	    employeeService.deleteEmployeeRecord(emp);
+	    
+	    //retrive the updated information from the database
+	    List<Employee> emps = this.employeeService.findAllEmployees();
+	    List<Department> depts = this.departmentService.findAllDepartments();
+	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
+	    
+	    //pass that information to the model for diaplay
+	    model.addAttribute("emps", emps);
+	    model.addAttribute("depts", depts);
+	    model.addAttribute("jobs", jobs);
+	    
+	    //and return the employee view
+	    return View.EMPLOYEES;
+	    
 	}
 	
 	@RequestMapping(value="jobs", method=RequestMethod.GET)
 	public String doJobTitles_GET(Model model)
 	{
 		
+		//retrive the requested data from the database
 		List<JobTitle> jtList = jobTitleService.findAllJobTitles();
+		
+		//pass it to the model for display
 		model.addAttribute("jobs", jtList);
+		
+		//and return the job title view
 		return View.JOB_TITLES;
 		
 	}
@@ -98,15 +193,40 @@ public class DefaultController {
 	public String doJobTitles_POST(@Valid JobTitle newJT, Model model)
 	{
 		
+		//add the new job title to the datase, populating the object ID 
 		newJT.setJobTitleID(jobTitleService.createJobTitle(newJT));
+		
+		//retrieve the updated list of job titles from the database
 		List<JobTitle> jtList = jobTitleService.findAllJobTitles();
+		
+		//pass the data to the model for display
 		model.addAttribute("jobs", jtList);
+		
+		//and return the job title view
 		return View.JOB_TITLES;
 		
 	}
 	
-	public void setDepartmentService(DepartmentService departmentService) {
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
+	public String doEdit_POST(@RequestParam("hiddenEmpID") Integer incomingEmpID
+			,Model model) 
+	{
+		
+	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
+	    List<Department> depts = this.departmentService.findAllDepartments();
+	    Employee emp = this.employeeService.findEmployeeByID(incomingEmpID);
+	    model.addAttribute("jobs", jobs);
+	    model.addAttribute("depts", depts);
+	    model.addAttribute("emp", emp);
+	    return View.EDIT;
+	
+	}
+	
+	public void setDepartmentService(DepartmentService departmentService) 
+	{
+		
 		this.departmentService = departmentService;
+		
 	}
 	
 	public void setEmployeeService(EmployeeService employeeService)
