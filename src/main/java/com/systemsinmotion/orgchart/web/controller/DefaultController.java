@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +21,6 @@ import com.systemsinmotion.orgchart.web.View;
 
 @Controller
 public class DefaultController {
-
-	@SuppressWarnings("unused")
-	private static final Logger log = LoggerFactory
-			.getLogger(DefaultController.class);
 
 	@Autowired
 	EmployeeService employeeService;
@@ -84,7 +78,7 @@ public class DefaultController {
 		
 	}
 	
-	@RequestMapping(value="emps" , method=RequestMethod.GET)
+	@RequestMapping(value  = "emps" , method = RequestMethod.GET)
 	public String doEmployees_GET(Model model)
 	{
 		
@@ -103,7 +97,7 @@ public class DefaultController {
 		
 	}
 	
-	@RequestMapping(value="emps" , method=RequestMethod.POST)
+	@RequestMapping(value = "emps" , method = RequestMethod.POST)
 	public String doEmployees_POST(@Valid Employee newEmp
 			,@RequestParam("department_id") Integer deptID
 			,@RequestParam("jobTitle_id") Integer jtID
@@ -190,7 +184,8 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value="jobs", method=RequestMethod.POST)
-	public String doJobTitles_POST(@Valid JobTitle newJT, Model model)
+	public String doJobTitles_POST(@Valid JobTitle newJT
+			,Model model)
 	{
 		
 		//add the new job title to the datase, populating the object ID 
