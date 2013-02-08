@@ -11,10 +11,10 @@
 		<th>Department</th>
 	</tr> 
 	<c:forEach items="${emps}" var="emp">
-		<tr name="${emp.employeeId}"> 
-			<td><button id="${emp.employeeId}" class="editLink">edit</button></td>
+		<tr name="${emp.empID}"> 
+			<td><button id="${emp.empID}" class="editLink">edit</button></td>
 			<td>${emp.firstName} ${emp.lastName}</td> 
-			<td>${emp.department.name}</td> </tr>
+			<td>${emp.dept.name}</td> </tr>
 	</c:forEach> 
 </table>
 
@@ -62,7 +62,7 @@
 						<td><select name="jobTitle_id">
 								<option>...</option>
 								<c:forEach items="${jobs}" var="title">
-									<option value="${title.jobTitleId}">${title.description}</option>
+									<option value="${title.jobTitleID}">${title.desc}</option>
 								</c:forEach>
 							</select></td>
 					</tr>

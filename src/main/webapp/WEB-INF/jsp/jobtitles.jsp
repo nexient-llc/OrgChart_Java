@@ -14,7 +14,7 @@
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
-				<td>${job.description}</td> 
+				<td>${job.desc}</td> 
 			</tr>
 	</c:forEach> 
 </table>
