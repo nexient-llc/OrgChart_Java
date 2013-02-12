@@ -18,16 +18,47 @@
 <title>Systems In Motion - <tiles:getAsString name="title" /></title>
 </head>
 <body>
-	<tiles:insertAttribute name="page-heading" />
-	<table>
-		<tr>
-			<th><label id="navBarHome" style="color:#FFFFFF">Home</label></th>
-			<th><label id="navBarDepts" style="color:#FFFFFF">Departments</label></th>
-			<th><label id="navBarEmps" style="color:#FFFFFF">Employees</label></th>
-			<th><label id="navBarJobs" style="color:#FFFFFF">Job Titles</label></th>
-		</tr>
-	</table>
-	<tiles:insertAttribute name="body" />
+	
+	<div id="mainContainer">
+	
+		<!-- Header -->
+		<div id="headerContent">
+			<tiles:insertAttribute name="page-heading" />
+		</div>
+		
+		<div id="bodyContent">
+		
+			<div id="navBar">
+				<div id="navBarHome">
+					Home
+				</div>
+				
+				<div id="navBarDepts">
+					Departments
+				</div>
+				
+				<div id="navBarEmps">
+					Employees
+				</div>
+				
+				<div id="navBarJobs">
+					Job Titles
+				</div>
+			</div>
+		
+			<div id="pageBody">
+				<tiles:insertAttribute name="body" />
+			</div>
+			
+		</div>
+		
+		<!-- Footer -->
+		<div id="footerContent">
+			<tiles:insertAttribute name="page-footer" />
+		</div>
+		
+	</div>
+	
 </body>
 </html>
 

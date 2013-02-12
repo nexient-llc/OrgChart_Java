@@ -27,7 +27,7 @@
 	<fieldset>
 		<legend>Add Job Title</legend>
 		<form name="newJob" action="jobs" method="post">
-		<div><labeL>Job Title:</labeL><input type="text" name="description"/>
+		<div><labeL>Job Title:</labeL><input type="text" name="desc"/>
 			<button type="submit">Save</button>
 		</div>
 		<div></div>

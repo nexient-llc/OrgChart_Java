@@ -99,8 +99,8 @@ public class DefaultController {
 	
 	@RequestMapping(value = "emps" , method = RequestMethod.POST)
 	public String doEmployees_POST(@Valid Employee newEmp
-			,@RequestParam("department_id") Integer deptID
-			,@RequestParam("jobTitle_id") Integer jtID
+			,@RequestParam("departmentId") Integer deptID
+			,@RequestParam("jobTitleID") Integer jtID
 			,Model model)
 	{
 		
@@ -134,11 +134,15 @@ public class DefaultController {
 			newEmp.setEmpID(employeeService.createEmployeeRecord(newEmp));
 		}
 		
-		//retrieve the updated data from the database
+		//retrieve the data to be displayed on the page
 		List<Employee> empsList = employeeService.findAllEmployees();
+		List<Department> deptsList = departmentService.findAllDepartments();
+		List<JobTitle> jtList = jobTitleService.findAllJobTitles();
 		
-		//pass the information to the model for display
+		//pass the data lists to the model for display
 		model.addAttribute("emps", empsList);
+		model.addAttribute("depts", deptsList);
+		model.addAttribute("jobs", jtList);
 		
 		//and finally, return the employee view
 		return View.EMPLOYEES;

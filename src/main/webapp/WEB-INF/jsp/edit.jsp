@@ -8,7 +8,7 @@
 	<fieldset>
 		<form id="editEmp" name="editEmp" action="emps" method="post">
 			<div>
-				<input type="hidden" name="employeeId" value="${emp.employeeId}"/>
+				<input type="hidden" name="empID" value="${emp.empID}"/>
 				<table id="editEmpTable">
 					<tr>
 						<td><label>First Name:</labeL></td>
@@ -20,8 +20,8 @@
 					</tr>
 					<tr>
 						<td><label>Department:</label></td>
-						<td><select name="department_id">
-							<option value="${emp.department.departmentId}">${emp.department.name}</option>
+						<td><select name="departmentId">
+							<option value="${emp.dept.departmentId}">${emp.dept.name}</option>
 							<c:forEach items="${depts}" var="dept">
 								<option value="${dept.departmentId}">${dept.name}</option>
 							</c:forEach>
@@ -37,10 +37,10 @@
 					</tr>
 					<tr>
 						<td><labeL>Job Title:</label></td>
-						<td><select name="jobTitle_id">
-								<option value="${emp.jobTitle.jobTitleId}">${emp.jobTitle.description}</option>
+						<td><select name="jobTitleID">
+								<option value="${emp.jobTitle.jobTitleID}">${emp.jobTitle.desc}</option>
 								<c:forEach items="${jobs}" var="title">
-									<option value="${title.jobTitleId}">${title.description}</option>
+									<option value="${title.jobTitleID}">${title.desc}</option>
 								</c:forEach>
 							</select></td>
 					</tr>
