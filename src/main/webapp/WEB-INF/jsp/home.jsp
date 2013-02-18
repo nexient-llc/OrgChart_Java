@@ -1,6 +1,6 @@
 
 <div id="homeBody"> 
-	Some random speil about this site and its used, followed by a quick synopsis of what can be found in each section.
+	Some random speil about this site and its use, followed by a quick synopsis of what can be found in each section.
 	
 	<div id="innerHome">
 		<dl>

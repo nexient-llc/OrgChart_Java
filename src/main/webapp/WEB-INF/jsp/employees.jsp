@@ -1,33 +1,56 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
 
-<h3>Employees</h3>
-<table id="t1"> 
-	<tr> 
-		<th>Task</th>
-		<th>Employee Name</th>
-		<th>Department</th>
-	</tr> 
-	<c:forEach items="${emps}" var="emp">
-		<tr name="${emp.empID}"> 
-			<td><button id="${emp.empID}" class="editLink">edit</button></td>
-			<td>${emp.firstName} ${emp.lastName}</td> 
-			<td>${emp.dept.name}</td> </tr>
-	</c:forEach> 
-</table>
+<div id="empDisplay">
 
-<form id="editEmpForm" action="edit" method="post">
-	<input type="hidden" id="hiddenEmpID" name="hiddenEmpID" value="test" />
-</form>
+	<h3>Employees</h3>
+	
+	<table id="t1" cellpadding="4px"> 
+		<tr> 
+			<th>Employee Name</th>
+			<th>Department</th>
+			<th>Job Title</th>
+			<th></th>
+		</tr> 
+		<c:forEach items="${emps}" var="emp">
+			<tr name="${emp.empID}">
+				<td>
+					${emp.firstName} ${emp.lastName}
+				</td> 
+				
+				<td>${emp.dept.name}</td> 
+				
+				<td>${emp.jobTitle.desc}</td>
+				
+				<td>
+					<button id="${emp.empID}/edit" class="editLink">edit</button>
+					<button id="${emp.empID}/delete" class="deleteLink">delete</button>
+				</td>
+			</tr>
+		</c:forEach> 
+	</table>
 
-<div id="addBtn-container">
+	<form id="editEmpForm" action="edit" method="post">
+		<input type="hidden" id="hiddenEditEmpID" name="hiddenEditEmpID" />
+	</form>
+	
+	<form id="deleteEmpForm" action="basicDelete" method="post">
+		<input type="hidden" id="hiddenEmpID2" name="hiddenEmpID2" value="test" />
+	</form>
+
+	<div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
+	</div>
+
 </div>
 
-<div id="addChangeEntity" style="display:none">
-	<fieldset>
+<div id="addChangeEntity">
+	
+	<c:choose>
+	<c:when test="${empty selectedEmp}">
+	<h3>Add New Employee</h3>
+
+	<fieldset id="empFields">
 		<legend id="addChange-legend">Add Employee</legend>
 		<form name="newEmp" action="emps" method="post">
 			<div>
@@ -67,7 +90,7 @@
 							</select></td>
 					</tr>
 					<tr>
-						<td><label>Check if manager: </labeL></td>
+						<td><label>Manager: </labeL></td>
 						<td><input type="checkbox" name="isManager"/></td>
 					</tr>
 					<tr>
@@ -78,4 +101,24 @@
 			</div>
 		</form>
 	</fieldset>
+	</c:when>
+	
+	<c:otherwise>
+		<script type="text/javascript">
+			$(document).ready(
+					$('#addChangeEntity').toggle("slow", 
+							function()
+							{ 
+								$('#empDisplay').css('border-width','1px');
+								$('#empDisplay').css('border-style', 'none dashed none none');
+								$('#empDisplay').css('border-color', '#cfcece');
+								$('#empDisplay').css('height', $('#pageBody').height());
+							}
+					).css('display', 'inline-block')
+			);
+			
+		</script>
+		HELLO WORLD
+	</c:otherwise>
+	</c:choose>
 </div>
