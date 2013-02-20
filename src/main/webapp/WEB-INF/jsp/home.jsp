@@ -1,11 +1,18 @@
 
 <div id="homeBody"> 
-	Some random speil about this site and its use, followed by a quick synopsis of what can be found in each section.
+	<span>Welcome to the internal Human Resources SIM Employee Management tool.</span> 
 	
 	<div id="innerHome">
 		<dl>
 			<dt>Departments<dt>
-			<dd>Provides the user with the current list of departments, and gives the user the ability to add a new one.</dd>
+			<dd>
+				<ul>
+					<li>Search by department ID or name</li>
+					<li>View all current departments</li>
+					<li>Add a new department</li>
+					<li>Update or delete an existing department</li>
+				</ul>
+			</dd>
 			
 			<dt>Employees</dt>
 			<dd>Provide the user with a list of all current employees, their assigned department, and their job title.</dd>
