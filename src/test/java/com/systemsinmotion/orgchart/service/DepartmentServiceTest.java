@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +43,8 @@ public class DepartmentServiceTest {
 		when(mockDepartmentDAO.save(mockDepartment)).thenReturn(
 				TestObject.DEPT_ID);
 		when(mockDepartmentDAO.findAll()).thenReturn(departmentList);
+		when(mockDepartmentDAO.findByName(TestObject.DEPARTMENT_NAME)).thenReturn(departmentList);
+		when(mockDepartmentDAO.findByParentDepartment(mockDepartment)).thenReturn(departmentList);
 		departmentService.setDepartmentDAO(mockDepartmentDAO);
 		
 	}
@@ -68,6 +71,13 @@ public class DepartmentServiceTest {
 		assertEquals(TestObject.DEPT_ID,
 				departmentService.storeDepartment(mockDepartment));
 
+	}
+	
+	@Test
+	@Rollback
+	public void testFindDeptByName()
+	{
+		assertTrue(departmentService.findDepartmentByName(TestObject.DEPARTMENT_NAME).size() > 0);
 	}
 
 }

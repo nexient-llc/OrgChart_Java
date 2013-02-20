@@ -48,18 +48,10 @@ public class DepartmentDAOTest {
 		departmentDAO.delete(department);
 		departmentDAO.delete(parent);
 	}
-	
-//	@Test
-//	public void test() {
-////		fail("Not yet implemented");
-//		assertTrue("Not yet implemented", true);
-//	}
-
 
 	@Test
 	@Rollback
 	public void findAll_notNull() throws Exception {
-		//System.out.println(departmentDAO.toString());
 		List<Department> depts = departmentDAO.findAll();
 		assertNotNull(depts);
 		assertTrue(0 < depts.size());
@@ -85,16 +77,18 @@ public class DepartmentDAOTest {
 
 	@Test
 	@Rollback
-	public void findByName_null() throws Exception {
-		Department dept = departmentDAO.findByName(NOT_PRESENT_VALUE);
-		assertNull(dept);
+	public void findByName_noMatchFound() throws Exception {
+		List<Department> depts = departmentDAO.findByName(NOT_PRESENT_VALUE);
+		assertEquals(0, depts.size());
 	}
 
 	@Test
 	@Rollback
 	public void findByName() throws Exception {
-		Department dept = departmentDAO.findByName(this.department.getName());
-		assertNotNull(dept);
+		List<Department> depts = departmentDAO.findByName(this.department.getName());
+		assertNotNull(depts);
+		
+		Department dept = depts.get(0);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
 		assertNotNull(this.department.getManager());
@@ -122,12 +116,14 @@ public class DepartmentDAOTest {
 	@Test
 	@Rollback
 	public void update() throws Exception {
-		Department dept = departmentDAO.findByName(this.department.getName());
+		List<Department> depts = departmentDAO.findByName(this.department.getName());
+		Department dept = depts.get(0);
 		dept.setName(SOME_NEW_NAME);
 		departmentDAO.update(dept);
 
 		dept = null;
-		dept = departmentDAO.findByName(SOME_NEW_NAME);
+		depts = departmentDAO.findByName(SOME_NEW_NAME);
+		dept = depts.get(0);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
