@@ -5,9 +5,9 @@
 	<definition name="main" template="/WEB-INF/layouts/default_layout.jsp">
 		<put-attribute name="title" type="string" />
 		<put-attribute name="page-js" type="string" value="" />
-		<put-attribute name="page-heading" value="/WEB-INF/fragments/header.jsp" />
+		<put-attribute name="page-heading" value="/WEB-INF/fragments/header.jsp" cascade="true" />
 		<put-attribute name="body" />
-		<put-attribute name="page-footer" value="/WEB-INF/fragments/footer.jsp" />
+		<put-attribute name="page-footer" value="/WEB-INF/fragments/footer.jsp" cascade="true" />
 	</definition>
 	
 	<definition name="departments" extends="main">
@@ -28,17 +28,10 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/jobtitles.jsp" />
 	</definition>
 	
-	<definition name="edit" extends="main">
-		<put-attribute name="title" type="string" value="Edit Employee" />
-		<put-attribute name="page-js" type="string" value="../scripts/edit.js" />
-		<put-attribute name="body" value="/WEB-INF/jsp/edit.jsp" />
-	</definition>
-	
 	<definition name="home" extends="main">
 		<put-attribute name="title" type="string" value="Home" />
-		<put-attribute name="page-heading" value="/WEB-INF/fragments/header.jsp" />
+		<put-attribute name="page-js" type="string" value="" />
 		<put-attribute name="body" value="/WEB-INF/jsp/home.jsp" />
-		<put-attribute name="page-footer" value="/WEB-INF/fragments/footer.jsp" />
 	</definition>
 
 </tiles-definitions>
