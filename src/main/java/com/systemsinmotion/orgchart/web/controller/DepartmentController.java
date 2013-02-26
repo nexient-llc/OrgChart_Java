@@ -216,7 +216,7 @@ public class DepartmentController {
 			updateDept.setName(name);
 			
 			//set the parent dept
-			if(parentID == 0)
+			if(parentID == 0 || parentID == null)
 			{
 				updateDept.setParentDepartment(null);
 			}
@@ -243,7 +243,7 @@ public class DepartmentController {
 			else
 			{
 				//fail message
-				String msg = "An error has occured while updating your changes. Please try again.";
+				String msg = "An error has occured while saving your changes. Please try again.";
 				
 				//pass the info to the model for display
 				model.addAttribute("msg", msg);
@@ -284,7 +284,7 @@ public class DepartmentController {
 		}
 		else
 		{
-			//tell the user the addition was successful
+			//tell the user the addition was not successful
 			String msg = "New department, " + newDept.getName() + ", was not added. Please try again.";
 			
 			//pass the msg to the model for display
@@ -307,17 +307,29 @@ public class DepartmentController {
 			//retrieve the dept object based on the id passed in
 			Department deptToDelete = departmentService.findDepartmentByID(deptID);
 			
-			//grab the department name before deleting
-			String conf = deptToDelete.getName();
-			
-			//delete the selected record from the database
-			departmentService.removeDepartment(deptToDelete);
-			
-			//finish the success message
-			conf += " has been successfully deleted.";
-			
-			//pass it to the model
-			model.addAttribute("msg", conf);
+			//verify the object exists, before trying to delete it
+			if(deptToDelete != null)
+			{
+				//grab the department name before deleting
+				String conf = deptToDelete.getName();
+				
+				//delete the selected record from the database
+				departmentService.removeDepartment(deptToDelete);
+				
+				//finish the success message
+				conf += " has been successfully deleted.";
+				
+				//pass it to the model
+				model.addAttribute("msg", conf);
+			}
+			else
+			{
+				//create an error message
+				String conf = "An error has occurred. Department was not deleted. Please try again.";
+				
+				//pass it for display
+				model.addAttribute("msg", conf);
+			}
 			
 		}
 
