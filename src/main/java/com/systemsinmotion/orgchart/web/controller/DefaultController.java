@@ -31,51 +31,10 @@ public class DefaultController {
 	@Autowired
 	JobTitleService jobTitleService;
 	
-
+	//display the home page
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
-	}
-	
-	@RequestMapping(value = "depts", method = RequestMethod.GET)
-	public String doDepartments_GET(Model model) 
-	{
-		
-		//retrieve the requested data from the database
-		List<Department> departments = departmentService.findAllDepartments();
-		
-		//pass it to the model for display
-		model.addAttribute("depts", departments);
-		
-		//and then return the view
-		return View.DEPARTMENTS;
-		 
-	}
-	
-	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(@Valid Department newDept
-			,@RequestParam("parent_id") Integer parentID
-			,Model model)
-	{
-		
-		//find the assigned parent department based on the ID passed in from the form
-		if (parentID != null)
-		{
-			newDept.setParentDepartment(departmentService.findDepartmentByID(parentID));
-		}
-		
-		//save the new department object and populate its new ID
-		newDept.setDepartmentId(departmentService.storeDepartment(newDept));
-		
-		//grab the updated department list from the database 
-		List<Department> departments = departmentService.findAllDepartments();
-		
-		//pass the list to the model for display
-		model.addAttribute("depts", departments);
-		
-		//return the department view
-		return View.DEPARTMENTS;
-		
 	}
 	
 	@RequestMapping(value  = "emps" , method = RequestMethod.GET)
@@ -149,6 +108,32 @@ public class DefaultController {
 		
 	}
 	
+	@RequestMapping(value = "basicDelete", method = RequestMethod.POST)
+	public String doEmployeeDelete(@RequestParam("hiddenEmpID2") Integer empID
+			,Model model)
+	{
+		
+		//retrieve employee record based on passed ID
+		Employee emp = employeeService.findEmployeeByID(empID);
+		
+		//delete the selected employee record
+	    employeeService.deleteEmployeeRecord(emp);
+	    
+	    //retrive the updated information from the database
+	    List<Employee> emps = this.employeeService.findAllEmployees();
+	    List<Department> depts = this.departmentService.findAllDepartments();
+	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
+	    
+	    //pass that information to the model for diaplay
+	    model.addAttribute("emps", emps);
+	    model.addAttribute("depts", depts);
+	    model.addAttribute("jobs", jobs);
+	    
+	    //and return the employee view
+	    return View.EMPLOYEES;
+	    
+	}
+	
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public String doEmployeeDelete(@Valid Employee emp
 			,Model model)
@@ -207,17 +192,28 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
-	public String doEdit_POST(@RequestParam("hiddenEmpID") Integer incomingEmpID
+	public String doEdit_POST(@RequestParam("hiddenEditEmpID") Integer incomingEmpID
 			,Model model) 
 	{
 		
-	    List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
-	    List<Department> depts = this.departmentService.findAllDepartments();
+	    //basic model information to repopulate the table
+		//retrieve the data to be displayed on the page
+		List<Employee> empsList = employeeService.findAllEmployees();
+		List<Department> deptsList = departmentService.findAllDepartments();
+		List<JobTitle> jtList = jobTitleService.findAllJobTitles();
+		
+		//pass the data lists to the model for display
+		model.addAttribute("emps", empsList);
+		model.addAttribute("depts", deptsList);
+		model.addAttribute("jobs", jtList);
+		
+		
+		//now, lets also find the selected employee information and pass that into the model
 	    Employee emp = this.employeeService.findEmployeeByID(incomingEmpID);
-	    model.addAttribute("jobs", jobs);
-	    model.addAttribute("depts", depts);
-	    model.addAttribute("emp", emp);
-	    return View.EDIT;
+	    model.addAttribute("selectedEmp", emp);
+	    
+	    //not return the employee view with the information
+	    return View.EMPLOYEES;
 	
 	}
 	

@@ -77,7 +77,7 @@ select
 {
 	background-color: #0077c0;
 	color: #fff;
-	font-size: .75em;
+	font-size: .79em;
 	text-align: center;
 	margin: 0px 5px 5px 10px;
 	width: 80px;
@@ -143,6 +143,28 @@ select
 	margin-top: 0px;
 }
 
+.pageTitle
+{
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#0077c0),to(#151515) );
+	background-image: -webkit-linear-gradient(top, #0077c0, #151515);
+	background-image: -moz-linear-gradient(top, #0077c0, #151515);
+	background-image: -ms-linear-gradient(top, #0077c0, #151515);
+	background-image: -o-linear-gradient(top, #0077c0, #151515);
+	-moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -khtml-border-radius: 7px;
+    border-radius: 7px;
+	height: 2.5em;
+	border-bottom: 2px inset #000;
+}
+
+.pageTitle h2
+{
+	color: #fff;
+	line-height: 1.55em;
+	padding-left:3%;
+}
+
 #homeBody 
 {
 	width: 100%;
@@ -187,10 +209,26 @@ select
 	width: 95%;
 }
 
-#deptSearch table th
+.deptLabel
 {
 	width: 35%;
 	text-align: right;
+}
+
+.deptLabel span
+{
+	color: red;
+	font-size: 0.85em;
+}
+
+#deptSubtext
+{
+	font-size: 0.75em;
+}
+
+#deptSubtext span
+{
+	color: red;
 }
 
 .deptInput
@@ -203,7 +241,7 @@ select
 {
 	display: none;
 	margin-left: -4px;
-	padding: 15px 25px;
+	padding: 15px 0px 15px 25px;
 	width: 60%;
 }
 
@@ -239,7 +277,7 @@ select
 #deptFields
 {
 	margin: 0px auto;
-	width: 48%;
+	width: 50%;
 }
 
 #viewAll-container
@@ -303,4 +341,10 @@ select
 	height: 72px;
 	margin-bottom: 1em;
 	width: 190px;
+}
+
+.actionBtns
+{
+	width: 17%;
+	text-align: right;
 }
