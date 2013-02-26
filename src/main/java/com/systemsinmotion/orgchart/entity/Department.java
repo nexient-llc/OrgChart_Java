@@ -20,9 +20,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-/**
- * Department entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "DEPARTMENT")
 public class Department implements java.io.Serializable {

@@ -14,6 +14,31 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 
+	//save a new department record, return its generated ID	
+	public Integer save(Department department) 
+	{
+		try {
+			return (Integer) this.hibernateTemplate.save(department);
+		} 
+		catch (RuntimeException re) 
+		{
+			throw re;
+		}
+	}
+	
+	//update an existing record
+	public void update(Department department) 
+	{
+		try {
+			this.hibernateTemplate.update(department);
+		} 
+		catch (RuntimeException re) 
+		{
+			throw re;
+		}
+	}
+	
+	//delete a selected record
 	public void delete(Department department) 
 	{
 		try {
@@ -25,6 +50,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		}
 	}
 
+	//find all departments
 	@SuppressWarnings("unchecked")
 	public List<Department> findAll() 
 	{
@@ -39,6 +65,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		}
 	}
 
+	//find a specific department by ID
 	public Department findById(Integer id) 
 	{
 		try {
@@ -50,6 +77,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		}
 	}
 
+	//find a list of departments by whole or partial name
 	@SuppressWarnings("unchecked")
 	public List<Department> findByName(String name) 
 	{
@@ -66,6 +94,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		}
 	}
 
+	//find a list of departments based on parent dept
 	@SuppressWarnings("unchecked")
 	public List<Department> findByParentDepartment(Department department) 
 	{
@@ -80,32 +109,4 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		}
 	}
 
-	public Integer save(Department department) 
-	{
-		try {
-			return (Integer) this.hibernateTemplate.save(department);
-		} 
-		catch (RuntimeException re) 
-		{
-			throw re;
-		}
-	}
-
-	public void update(Department department) 
-	{
-		try {
-			this.hibernateTemplate.update(department);
-		} 
-		catch (RuntimeException re) 
-		{
-			throw re;
-		}
-	}
-
-//	@Override
-//	public String toString() {
-//		String newLine = System.getProperty("line.separator");
-//		return getClass().getName() + " {" + newLine + "\thibernateTemplate : "
-//				+ this.hibernateTemplate.toString() + newLine + "}";
-//	}
 }

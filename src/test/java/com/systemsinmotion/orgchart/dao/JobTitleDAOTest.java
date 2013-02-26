@@ -26,21 +26,23 @@ public class JobTitleDAOTest {
 	private JobTitle testJobTitle;
 
 	@Before
-	public void before() throws Exception {
+	public void before() throws Exception 
+	{
 		testJobTitle = TestObject.jobTitle();
 		int intJobTitle = jobTitleDAO.createJobTitle(testJobTitle);
 		testJobTitle.setJobTitleID(intJobTitle);
-
 	}
 	
 	@After
-	public void after() {
+	public void after() 
+	{
 		jobTitleDAO.deleteJobTitle(testJobTitle);
 	}
 
 	@Test
 	@Rollback
-	public void testfindByJobTitleID() {
+	public void testfindByJobTitleID() 
+	{
 		JobTitle actualJobTitle = jobTitleDAO.findByJobTitleID(testJobTitle.getJobTitleID());
 		assertEquals(TestObject.JOB_TITLE, actualJobTitle.getDesc());
 		assertTrue(TestObject.JOB_TITLE.equals(actualJobTitle.getDesc()));
@@ -48,25 +50,30 @@ public class JobTitleDAOTest {
 
 	@Test
 	@Rollback
-	public void testfindAllJobTitles() throws Exception {
-
+	public void testfindAllJobTitles() throws Exception 
+	{
 		List<JobTitle> jobTitleList = jobTitleDAO.findAllJobTitles();
 		assertNotNull(jobTitleList);
 		assertTrue(jobTitleList.size() > 0);
-		
-
+	}
+	
+	@Test
+	@Rollback
+	public void testFindByDescription() throws Exception
+	{
+		List<JobTitle> jtList = jobTitleDAO.findByDescription(TestObject.JOB_TITLE);
+		assertNotNull(jtList);
+		assertTrue(jtList.size() > 0);
 	}
 
 	@Test
 	@Rollback
-	public void testupdatejobTitle() {
+	public void testupdatejobTitle() 
+	{
 		testJobTitle.setDesc("job title update");
 		jobTitleDAO.updatejobTitle(testJobTitle);
-		JobTitle updateJobTitle = jobTitleDAO.findByJobTitleID(testJobTitle
-				.getJobTitleID());
-
+		JobTitle updateJobTitle = jobTitleDAO.findByJobTitleID(testJobTitle.getJobTitleID());
 		assertEquals("job title update", updateJobTitle.getDesc());
-
 	}
 
 }

@@ -18,15 +18,18 @@ public class DepartmentService {
 		this.departmentDAO = deparmentDAO;
 	}
 	
+	//create
 	public Integer storeDepartment(Department department) {
 		return this.departmentDAO.save(department);
 	}
 	
+	//update
 	public void updateDepartment(Department department)
 	{
 		this.departmentDAO.update(department);
 	}
 
+	//delete
 	public void removeDepartment(Department department) 
 	{
 		
@@ -51,15 +54,18 @@ public class DepartmentService {
 		
 	}
 	
+	//find all
 	public List<Department> findAllDepartments() {
 		return this.departmentDAO.findAll();
 
 	}
 
+	//find by ID
 	public Department findDepartmentByID(Integer departmentId) {
 		return this.departmentDAO.findById(departmentId);
 	}
 	
+	//find by name
 	public List<Department> findDepartmentByName(String name)
 	{
 		return this.departmentDAO.findByName(name);

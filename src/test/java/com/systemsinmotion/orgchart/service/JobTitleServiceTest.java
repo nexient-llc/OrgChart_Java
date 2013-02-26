@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,22 +36,20 @@ public class JobTitleServiceTest {
 	private ArrayList<JobTitle> findAllJobTitleList = new ArrayList<JobTitle>();
 
 	@Before
-	public void before() {
+	public void before() 
+	{
 
 		// Mocking up Job Title
 		when(mockJobTitle.getJobTitleID()).thenReturn(TestObject.JOB_TITLE_ID);
 		when(mockJobTitle.getDesc()).thenReturn(TestObject.JOB_TITLE);
 
 		// Mock up JobTitle DAO
-
 		findAllJobTitleList.add(mockJobTitle);
 
 		when(mockJobTitleDAO.findByJobTitleID(id)).thenReturn(mockJobTitle);
-		when(mockJobTitleDAO.findAllJobTitles())
-				.thenReturn(findAllJobTitleList);
-		when(mockJobTitleDAO.createJobTitle(mockJobTitle)).thenReturn(
-				TestObject.JOB_TITLE_ID);
-
+		when(mockJobTitleDAO.findAllJobTitles()).thenReturn(findAllJobTitleList);
+		when(mockJobTitleDAO.createJobTitle(mockJobTitle)).thenReturn(TestObject.JOB_TITLE_ID);
+		when(mockJobTitleDAO.findByDescription(TestObject.JOB_TITLE)).thenReturn(findAllJobTitleList);
 		jobTitleService.setJobTitleDAO(mockJobTitleDAO);
 
 	}
@@ -77,6 +76,15 @@ public class JobTitleServiceTest {
 		
 		assertEquals(TestObject.JOB_TITLE_ID, jobTitleService.createJobTitle(mockJobTitle) );
 
+	}
+	
+	@Test
+	@Rollback
+	public void testFindJobTitleByDescription() 
+	{
+		List<JobTitle> jtList = jobTitleService.findByJobTitleDescription(TestObject.JOB_TITLE);
+		assertNotNull(jtList);
+		assertTrue(jtList.size() > 0);
 	}
 
 }
