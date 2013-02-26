@@ -20,7 +20,7 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
-public class JobTileDAOTest {
+public class JobTitleDAOTest {
 	@Autowired
 	JobTitleDAO jobTitleDAO;
 	private JobTitle testJobTitle;
