@@ -58,127 +58,133 @@
 </div>
 
 <c:if test="${not empty msg}">
-	<div id="errorMsg"  style="display:inline-block;"> 
+	<div id="errorMsg"> 
 		<h3>${msg}</h3>
 	</div>
 </c:if>
 
-<div id="deptDisplay" <c:if test="${not empty depts}">style="display:inline-block;"</c:if>>
-
-	<h3>Department List</h3>
+<c:if test="${not empty depts}">
+	<div id="deptDisplay">
 	
-	<table id="t1" cellspacing="0px" cellpadding="4px"> 
-		<tr>
-			<th>Department Name</th>
-			<th>Parent Department</th>
-			<th></th>
-		</tr> 
+		<h3>Department List</h3>
 		
-		<c:forEach items="${depts}" var="dept" varStatus="loopStatus">
-			<tr id="${dept.departmentId}" style="background-color: ${loopStatus.index % 2 == 0 ? '#fff' : '#cfcece'}"> 
-				<td>${fn:toLowerCase(dept.name)}</td> 
-				<td>${fn:toLowerCase(dept.parentDepartment.name)}</td>
-				<td class="actionBtns">
-					<button id="edit" class="editLink">edit</button>
-					<button id="delete" class="deleteLink">delete</button>
-				</td>
-			</tr>
-		</c:forEach> 
-	</table>
-	
-</div>
-
-<div id="addDeptEntity" <c:if test="${not empty addDept}">style="display:inline-block;"</c:if>>
-	<h3>Add New Department</h3>
-	
-	<fieldset id="deptFields">
-		
-		<form name="newDept" id="newDept" action="depts" method="post">
-		
-			<input type="hidden" name="addNew" value="true" />
+		<table id="t1" cellspacing="0px" cellpadding="4px"> 
+			<tr>
+				<th>Department Name</th>
+				<th>Parent Department</th>
+				<th></th>
+			</tr> 
 			
-			<table>
-				<tr>
-					<th>
-						<label>Department Name:</label>
-					</th>
-					<td>
-						<input type="text" name="name"/>
+			<c:forEach items="${depts}" var="dept" varStatus="loopStatus">
+				<tr id="${dept.departmentId}" style="background-color: ${loopStatus.index % 2 == 0 ? '#fff' : '#cfcece'}"> 
+					<td>${fn:toLowerCase(dept.name)}</td> 
+					<td>${fn:toLowerCase(dept.parentDepartment.name)}</td>
+					<td class="actionBtns">
+						<button id="edit" class="editLink">edit</button>
+						<button id="delete" class="deleteLink">delete</button>
 					</td>
 				</tr>
-				
-				<tr>
-					<th>
-						<label>Parent Department:</label>
-					</th>
-					<td>
-						<select name="parent_id">
-							<option value="0">...</option>
-							<c:forEach items="${addDept}" var="dept">
-								<option value="${dept.departmentId}">${dept.name}</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-				
-				<tr>
-					<td colspan="2" align="right">
-						<button  type="button" class="cancelBtn">Cancel</button>
-						<button type="submit">Save</button>
-					</td>
-				</tr>
-			</table>
-
-		</form>
-	</fieldset>
-</div>
-
-<div id="editDeptEntity" <c:if test="${not empty editDept}">style="display:inline-block"</c:if> >
-	<h3>Edit Department</h3>
-	
-	<fieldset id="deptFields">
+			</c:forEach> 
+		</table>
 		
-		<form name="editDept" id="editDept" action="depts" method="post">
-			
-			<input type="hidden" name="update" value="true" />
-			<input type="hidden" name="editDeptID" id="editDeptID" value="${editDept.departmentId}" />
-			
-			<table>
-				<tr>
-					<th>
-						<label>Department Name:</label>
-					</th>
-					<td>
-						<input type="text" name="editName" id="editName" value="${editDept.name}" />
-					</td>
-				</tr>
-				
-				<tr>
-					<th>
-						<label>Parent Department:</label>
-					</th>
-					<td>
-						<select name="editParent_id" id="editParent_id">
-							<option value="0">...</option>
-							<c:forEach items="${deptsList}" var="dept">
-								<option value="${dept.departmentId}" <c:if test="${dept.departmentId eq dept.parentDepartment.name}">selected="selected"</c:if>>${dept.name}</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-				
-				<tr>
-					<td colspan="2" align="right">
-						<button type="button" class="cancelBtn">Cancel</button>
-						<button type="button" class="updateBtn">Update</button>
-						<button type="button" class="deleteLink">Delete</button>
-					</td>
-				</tr>
-			</table>
+	</div>
+</c:if>
 
-		</form>
-	</fieldset>
-</div>
+<c:if test="${not empty addDept}">
+	<div id="addDeptEntity">
+		<h3>Add New Department</h3>
+		
+		<fieldset class="deptFields">
+			
+			<form name="newDept" id="newDept" action="depts" method="post">
+			
+				<input type="hidden" name="addNew" value="true" />
+				
+				<table>
+					<tr>
+						<th>
+							<label>Department Name:</label>
+						</th>
+						<td>
+							<input type="text" name="name"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<th>
+							<label>Parent Department:</label>
+						</th>
+						<td>
+							<select name="parent_id">
+								<option value="0">...</option>
+								<c:forEach items="${addDept}" var="dept">
+									<option value="${dept.departmentId}">${dept.name}</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2" align="right">
+							<button  type="button" class="cancelBtn">Cancel</button>
+							<button type="submit">Save</button>
+						</td>
+					</tr>
+				</table>
+	
+			</form>
+		</fieldset>
+	</div>
+</c:if>
+
+<c:if test="${not empty editDept}">
+	<div id="editDeptEntity" >
+		<h3>Edit Department</h3>
+		
+		<fieldset class="deptFields">
+			
+			<form name="editDept" id="editDept" action="depts" method="post">
+				
+				<input type="hidden" name="update" value="true" />
+				<input type="hidden" name="editDeptID" id="editDeptID" value="${editDept.departmentId}" />
+				
+				<table>
+					<tr>
+						<th>
+							<label>Department Name:</label>
+						</th>
+						<td>
+							<input type="text" name="editName" id="editName" value="${editDept.name}" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th>
+							<label>Parent Department:</label>
+						</th>
+						<td>
+							<select name="editParent_id" id="editParent_id">
+								<option value="0">...</option>
+								<c:forEach items="${deptsList}" var="dept">
+									<option value="${dept.departmentId}" <c:if test="${dept.departmentId eq dept.parentDepartment.name}">selected="selected"</c:if>>${dept.name}</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2" class="actionBtns">
+							<button type="button" class="cancelBtn">Cancel</button>
+							<button type="button" class="updateBtn">Update</button>
+							<button type="button" class="deleteLink">Delete</button>
+						</td>
+					</tr>
+				</table>
+	
+			</form>
+		</fieldset>
+	</div>
+</c:if>
 			
 <form id="deleteDeptByID" action="depts" method="post">
 	<input type="hidden" id="deleteDeptID" name="deleteDeptID" value="0" />

@@ -9,14 +9,14 @@ $(document).ready(
 				if( !$.isNumeric($('#deptID').val().trim()) )
 				{
 					alert('No department id was supplied,  or supplied id was not numeric.');
-					$('#deptID').focus();
+					$('#deptID').focus().select();
 				}
 				
 				//verify that the id is greater then 0
 				else if ($('#deptID').val().trim() <= 0)
 				{
 					alert('Please enter a numeric id greater than 0.');
-					$('#deptID').focus();
+					$('#deptID').focus().select();
 				}
 
 				//otherwise submit the form
@@ -35,7 +35,7 @@ $(document).ready(
 				if($('#deptName').val() == null || $('#deptName').val().trim().length <= 0)
 				{
 					alert('No department name was entered. Please enter a name and search again.');
-					$('#deptName').focus();
+					$('#deptName').focus().select();
 				}
 				
 				//submit the form
@@ -135,14 +135,26 @@ $(document).ready(
 					//create the confirmation message for user
 					var message = "Are you sure you want to delete '" + deptName + "'?";
 					
-					//verify user wants to delete this record
-					if(confirm(message))
+					if($.isNumeric(deptID) && deptID > 0)
 					{
-						//populate the hidden form field
-						$('#deleteDeptID').val(deptID);
-						
-						//submit the form to delete the record
-						$('#deleteDeptByID').submit();
+						//verify user wants to delete this record
+						if(confirm(message))
+						{
+							//populate the hidden form field
+							$('#deleteDeptID').val(deptID);
+							
+							//submit the form to delete the record
+							$('#deleteDeptByID').submit();
+						}
+					}
+					else
+					{
+						message = "An error occured processing your request. The page will now refresh. Please try again.";
+						//verify user wants to delete this record
+						if(confirm(message))
+						{
+							location.reload();
+						}
 					}
 				}
 		);

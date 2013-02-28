@@ -157,39 +157,7 @@ public class DefaultController {
 	    
 	}
 	
-	@RequestMapping(value="jobs", method=RequestMethod.GET)
-	public String doJobTitles_GET(Model model)
-	{
-		
-		//retrive the requested data from the database
-		List<JobTitle> jtList = jobTitleService.findAllJobTitles();
-		
-		//pass it to the model for display
-		model.addAttribute("jobs", jtList);
-		
-		//and return the job title view
-		return View.JOB_TITLES;
-		
-	}
 	
-	@RequestMapping(value="jobs", method=RequestMethod.POST)
-	public String doJobTitles_POST(@Valid JobTitle newJT
-			,Model model)
-	{
-		
-		//add the new job title to the datase, populating the object ID 
-		newJT.setJobTitleID(jobTitleService.createJobTitle(newJT));
-		
-		//retrieve the updated list of job titles from the database
-		List<JobTitle> jtList = jobTitleService.findAllJobTitles();
-		
-		//pass the data to the model for display
-		model.addAttribute("jobs", jtList);
-		
-		//and return the job title view
-		return View.JOB_TITLES;
-		
-	}
 	
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	public String doEdit_POST(@RequestParam("hiddenEditEmpID") Integer incomingEmpID
