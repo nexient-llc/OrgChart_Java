@@ -14,7 +14,7 @@
 		<table>
 			<form name="deptByID" id="deptByID" action="depts" method="get">
 				<tr>
-					<td class="deptLabel">Find by ID:</td>
+					<td class="deptLabel">ID:</td>
 					<td><input type="text" id="deptID" name="deptID" class="deptInput" />
 					<td><button type="button" id="ByIDButton">Search</button></td>
 				</tr>
@@ -22,7 +22,7 @@
 			
 			<form name="deptByName" id="deptByName" action="depts" method="get">	
 				<tr>
-					<td class="deptLabel"><span>*</span> Find by Name:</td>
+					<td class="deptLabel"><span>*</span> Name:</td>
 					<td><input type="text" id="deptName" name="deptName" class="deptInput" />
 					<td><button type="button" id="ByNameButton">Search</button></td>
 				</tr>	

@@ -15,10 +15,25 @@
 			</dd>
 			
 			<dt>Employees</dt>
-			<dd>Provide the user with a list of all current employees, their assigned department, and their job title.</dd>
+			<dd>
+				<ul>
+					<li>Search for an employee by ID, name, or email</li>
+					<li>Retrieve a list of employees by department, title, or manager</li>
+					<li>Add a new employee</li>
+					<li>Update an employee's details</li>
+					<li>Delete an employee record</li>
+				</ul>
+			</dd>
 			
 			<dt>Job Titles</dt>
-			<dd>Provides the user with a list of all job titles, and gives the user the ability to add a new one.</dd>
+			<dd>
+				<ul>
+					<li>Search for a job title by name or ID</li>
+					<li>View all current available job titles</li>
+					<li>Add a new job title</li>
+					<li>Update or delete an existing job title</li>
+				</ul>
+			</dd>
 		</dl>
 	</div>
 </div>

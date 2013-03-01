@@ -13,7 +13,7 @@
 		<table>
 			<form name="jobByID" id="jobByID" action="jobs" method="get">
 				<tr>
-					<td class="jobLabel">Find by ID:</td>
+					<td class="jobLabel">ID:</td>
 					<td><input type="text" id="jobTitleID" name="jobTitleID" class="jobInput" />
 					<td><button type="button" id="ByIDButton">Search</button></td>
 				</tr>
@@ -21,7 +21,7 @@
 			
 			<form name="jobByName" id="jobByName" action="jobs" method="get">	
 				<tr>
-					<td class="jobLabel"><span>*</span> Find by Title:</td>
+					<td class="jobLabel"><span>*</span> Title:</td>
 					<td><input type="text" id="jobTitleName" name="jobTitleName" class="jobInput" />
 					<td><button type="button" id="ByNameButton">Search</button></td>
 				</tr>	
@@ -65,7 +65,7 @@
 		<table id="t1" cellspacing="0px" cellpadding="4px"> 
 			<c:forEach items="${jobs}" var="job" varStatus="loopStatus">
 				<tr id="${job.jobTitleID}" style="background-color: ${loopStatus.index % 2 == 0 ? '#fff' : '#cfcece'}"> 
-					<td>${job.desc}</td>
+					<td>${fn:toLowerCase(job.desc)}</td>
 					<td class="actionBtns">
 						<button type="button" class="editLink">edit</button>
 						<button type="button" class="deleteLink">delete</button>

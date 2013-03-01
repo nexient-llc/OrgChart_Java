@@ -22,6 +22,7 @@ select
 {
 	margin-left: 2px;
 	width: 155px;
+	text-transform: capitalize;
 }
 
 /*******************************************************************************************************************************/
@@ -402,6 +403,20 @@ select
 /************************************************** EMPLOYEE PAGE STYLES *******************************************************/
 /*******************************************************************************************************************************/
 
+#empSearch
+{
+	display: inline-block;
+	margin: 0px;
+	padding: 15px 0px 15px 25px;
+	border-width: 0px;
+	width: 33%;
+}
+
+#empSearch table
+{
+	width: 100%;
+}
+
 #empDisplay
 {
 	display: inline-block;
@@ -418,14 +433,57 @@ select
 	width: 95%;
 }
 
-#addChangeEntity 
+.empLabel
 {
-	display: none;
-	margin: 0px;
-	margin-left:31px;
-	padding: 15px 0px;
-	border: 0px;
-	width: 28%;
+	width: 35%;
+	text-align: right;
+}
+
+.empLabel span
+{
+	color: red;
+	font-size: 0.85em;
+}
+
+#empSubtext
+{
+	font-size: 0.75em;
+}
+
+#empSubtext span
+{
+	color: red;
+}
+
+.empInput
+{
+	text-align: right;
+	border: 3px double #cfcece;
+}
+
+#empDisplay, #editEmpEntity, #addEmpEntity
+{
+	display: inline-block;
+	margin-left: -4px;
+	padding: 15px 0px 15px 25px;
+	width: 60%;
+}
+
+#empSearch h3, #empDisplay h3, #editEmpEntity h3, #addEmpEntity h3
+{
+	width: 100%;
+	text-align: center;
+}
+
+#empDisplay table 
+{
+	width: 100%;
+}
+
+.empFields
+{
+	margin: 0px auto;
+	width: 50%;
 }
 
 /*******************************************************************************************************************************/
