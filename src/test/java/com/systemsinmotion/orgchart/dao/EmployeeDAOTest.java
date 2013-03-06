@@ -231,8 +231,10 @@ public class EmployeeDAOTest {
 	@Rollback
 	public void findByDepartmentTest_noMatchFound() throws Exception 
 	{
+		Department dept = new Department();
+		dept.setDepartmentId(NOT_PRESENT_ID);
 		
-		List<Employee> emps = employeeDAO.findByDepartment(new Department());
+		List<Employee> emps = employeeDAO.findByDepartment(dept);
 		assertThat(emps, describedAs("Instance of a list", is(instanceOf(List.class))));
 		assertThat(emps, describedAs("Not null", is(not(nullValue()))));
 		assertThat(emps, describedAs("Size is 0", hasSize(is(0))));
@@ -261,8 +263,10 @@ public class EmployeeDAOTest {
 	@Rollback
 	public void findByJobTitleTest_noMatchFound() throws Exception
 	{
+		JobTitle jt = new JobTitle();
+		jt.setJobTitleID(NOT_PRESENT_ID);
+		List<Employee> emps = employeeDAO.findByJobTitle(jt);
 		
-		List<Employee> emps = employeeDAO.findByJobTitle(new JobTitle());
 		assertThat(emps, describedAs("Instance of a list", is(instanceOf(List.class))));
 		assertThat(emps, describedAs("Size is 0", hasSize(is(0))));
 		assertThat(emps, describedAs("Not null", is(not(nullValue()))));
