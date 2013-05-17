@@ -12,9 +12,9 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://ordbhnlx1.c.systemsinmotion.com:3306/ORG_CHART" />
-		<property name="username" value="root" />
-		<property name="password" value="agwer22@@" />
+			value="jdbc:mysql://localhost:3306/ORG_CHART" />
+		<property name="username" value="bobloblaw" />
+		<property name="password" value="blahblahblah" />
 	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
