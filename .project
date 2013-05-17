@@ -21,11 +21,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/main/java/com/systemsinmotion/orgchart/entity/Employee.java</name>
-			<type>1</type>
-			<location>C:/Users/sbyks/git/OrgChart_Java/src/main/java/com/systemsinmotion/orgchart/entity/Employee.java</location>
-		</link>
-	</linkedResources>
 </projectDescription>
