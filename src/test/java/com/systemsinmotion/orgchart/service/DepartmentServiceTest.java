@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,46 +20,46 @@ import com.systemsinmotion.orgchart.dao.DepartmentDAO;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test-context.xml")
+@ContextConfiguration(locations = { "/test-context.xml" })
 public class DepartmentServiceTest {
-    
-    @Autowired
-    DepartmentService departmentService;
 
-    DepartmentDAO mockDepartmentDAO = mock(DepartmentDAO.class);
-    Department mockDepartment = mock(Department.class);
-    
-    private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>(); 
+	@Autowired
+	DepartmentService departmentService;
 
-    @Before
-    public void before() throws Exception {
-	when(mockDepartment.getDepartmentId()).thenReturn(TestObject.DEPT_ID);
-	listOfFoundDepts.add(mockDepartment);
-	when(mockDepartmentDAO.findAll()).thenReturn(listOfFoundDepts);
-	when(mockDepartmentDAO.findById(TestObject.DEPT_ID)).thenReturn(mockDepartment);
-	when(mockDepartmentDAO.save(mockDepartment)).thenReturn(TestObject.DEPT_ID);
-	departmentService.setDepartmentDAO(mockDepartmentDAO);
-    }
-    
-    @Test
-    @Rollback
-    public void shouldFindDepartmentbyID() {
-	assertNotNull(departmentService.findDepartmentByID(TestObject.DEPT_ID));
-	assertEquals(TestObject.DEPT_ID, departmentService.findDepartmentByID(TestObject.DEPT_ID).getDepartmentId());
-    }
-    
-    @Test
-    @Rollback
-    public void shouldFindAllDepartments(){
-	assertNotNull(departmentService.findAllDepartments());
-    }
-    
-    @Test
-    @Rollback
-    public void shouldStoreDepartmentUsingDepartmentDAO(){
-	assertNotNull(departmentService.storeDepartment(mockDepartment));
-	assertEquals(TestObject.DEPT_ID, departmentService.storeDepartment(mockDepartment));
-    }
+	DepartmentDAO mockDepartmentDAO = mock(DepartmentDAO.class);
+	Department mockDepartment = mock(Department.class);
 
+	private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>();
+
+	@Before
+	public void before() throws Exception {
+		when(this.mockDepartment.getDepartmentId()).thenReturn(TestObject.DEPT_ID);
+		this.listOfFoundDepts.add(this.mockDepartment);
+		when(this.mockDepartmentDAO.findAll()).thenReturn(this.listOfFoundDepts);
+		when(this.mockDepartmentDAO.findById(TestObject.DEPT_ID)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentDAO.save(this.mockDepartment)).thenReturn(TestObject.DEPT_ID);
+		this.departmentService.setDepartmentDAO(this.mockDepartmentDAO);
+	}
+
+	@Test
+	@Rollback
+	public void shouldFindAllDepartments() {
+		assertNotNull(this.departmentService.findAllDepartments());
+	}
+
+	@Test
+	@Rollback
+	public void shouldFindDepartmentbyID() {
+		assertNotNull(this.departmentService.findDepartmentByID(TestObject.DEPT_ID));
+		assertEquals(TestObject.DEPT_ID, this.departmentService.findDepartmentByID(TestObject.DEPT_ID)
+				.getDepartmentId());
+	}
+
+	@Test
+	@Rollback
+	public void shouldStoreDepartmentUsingDepartmentDAO() {
+		assertNotNull(this.departmentService.storeDepartment(this.mockDepartment));
+		assertEquals(TestObject.DEPT_ID, this.departmentService.storeDepartment(this.mockDepartment));
+	}
 
 }
