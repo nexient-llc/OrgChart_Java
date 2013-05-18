@@ -60,7 +60,7 @@ public class DepartmentDAOTest {
 		assertTrue("Not yet implemented", true);
 	}
 
-
+/*
 	@Test
 	@Rollback
 	public void findAll_notNull() throws Exception {
@@ -143,4 +143,5 @@ public class DepartmentDAOTest {
 		dept.setName(this.department.getName());
 		departmentDAO.save(dept);
 	}
+*/
 }

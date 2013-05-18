@@ -29,6 +29,9 @@ public class Department implements java.io.Serializable {
 
 	private static final long serialVersionUID = -5379179412533671591L;
 
+	@NotNull
+	@Id
+	@Column(name="DEPARTMENT_ID")
 	private Integer departmentId;
 	private Department parentDepartment;
 //	private Employee manager;
