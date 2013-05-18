@@ -27,23 +27,32 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "EMPLOYEE")
 public class Employee implements java.io.Serializable {
 
-	@NotNull
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "EMPLOYEE_ID", unique = true, nullable = false)
 	private Integer employeeId;
-	@NotNull
+	
 	@NotEmpty
-	@Size(min = 1, max = 20)
+	@Column(name = "FIRST_NAME", nullable = false, length = 20)
 	private String firstName;
-	@NotNull
+	
 	@NotEmpty
-	@Size(min = 1, max = 45)
+	@Column(name = "LAST_NAME", nullable = false, length = 45)
 	private String lastName;
-	@Size(min = 0, max = 100)
+	
+	@Column(name = "EMAIL", unique = true, length = 100)
 	private String email;
-	@Size(min = 0, max = 100)
+	
+	@Column(name = "SKYPE_NAME", unique = true, length = 100)
 	private String skypeName;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "JOB_TITLE_ID")
 	private Integer jobTitleId;
-	@NotNull
+	
+	@Column(name = "IS_MANAGER", nullable = false)
 	private Boolean isManager;
+	
 	private Integer managerId;
 	private Integer departmentId;
 	// Constructors
@@ -54,9 +63,10 @@ public class Employee implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-//	public Employee(String name) {
-//		this.name = name;
-//	}
+	public Employee(String firstname, String lastname) {
+		this.firstName = firstname;
+		this.lastName = lastname;
+	}
 
 	/** Partial Contructor **/
 //	public Department(Department parentDepartment,  String deptName,
