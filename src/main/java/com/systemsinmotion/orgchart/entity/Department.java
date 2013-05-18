@@ -29,16 +29,10 @@ public class Department implements java.io.Serializable {
 
 	private static final long serialVersionUID = -5379179412533671591L;
 
-	@NotNull
-	@Id
-	@Column(name="DEPARTMENT_ID")
 	private Integer departmentId;
 	private Department parentDepartment;
 //	private Employee manager;
 	
-	@NotNull
-	@NotEmpty
-	@Size(min = 1, max=45)
 	private String name; 
 	private Set<Department> departments = new HashSet<Department>(0);
 //	private Set<Employee> employees = new HashSet<Employee>(0);
@@ -104,7 +98,8 @@ public class Department implements java.io.Serializable {
 //	public void setManager(Employee employee) {
 //		this.manager = employee;
 //	}
-
+	@NotEmpty
+	@Size(min = 1, max=45)
 	@Column(name = "NAME", nullable = false, length = 45)
 	public String getName() {
 		return this.name;
