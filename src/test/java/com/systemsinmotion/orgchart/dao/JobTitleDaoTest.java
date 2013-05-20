@@ -38,22 +38,23 @@ public class JobTitleDaoTest {
 //	@Autowired
 //	IJobTitleDao jobTitleDao;
 //
-//	@After
-//	public void after() {
+	@After
+	public void after() {
 //		this.jobTitleDao.delete(this.jobTitle);
-//	}
+	}
 //
-//	@Before
-//	public void before() throws Exception {
+	@Before
+	public void before() throws Exception {
 //		this.jobTitle = Entities.jobTitle();
 //		this.jobTitle.setId(this.jobTitleDao.save(this.jobTitle));
-//	}
-//
-//	@Test
-//	public void created() {
+	}
+
+	@Test
+	public void created() {
+		//TODO pass this test
 //		assertNotNull(this.jobTitle);
 //		assertNotNull(this.jobTitle.getId());
-//	}
+	}
 //
 //	@Test(expected = DataIntegrityViolationException.class)
 //	public void duplicateName() throws Exception {
