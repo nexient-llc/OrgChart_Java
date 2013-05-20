@@ -51,7 +51,6 @@ public class JobTitleDaoTest {
 
 	@Test
 	public void created() {
-		//TODO pass this test
 		assertNotNull(this.jobTitle);
 		assertNotNull(this.jobTitle.getId());
 	}
@@ -63,49 +62,49 @@ public class JobTitleDaoTest {
 		this.jobTitleDao.save(dept);
 	}
 
-//	@Test
-//	public void findAll_notNull() throws Exception {
-//		System.out.println(this.jobTitleDao.toString());
-//		List<JobTitle> depts = this.jobTitleDao.findAll();
-//		assertNotNull(depts);
-//		assertTrue(0 < depts.size());
-//	}
-//
-//	@Test
-//	public void findByDeptId() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findById(this.jobTitle.getId());
-//		assertNotNull(dept);
-//		assertEquals(this.jobTitle.getName(), dept.getName());
-//	}
-//
-//	@Test
-//	public void findByDeptId_null() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findById(NOT_PRESENT_ID);
-//		assertNull(dept);
-//	}
-//
-//	@Test
-//	public void findByName() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findByName(this.jobTitle.getName());
-//		assertNotNull(dept);
-//		assertEquals(this.jobTitle.getName(), dept.getName());
-//	}
-//
-//	@Test
-//	public void findByName_null() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findByName(NOT_PRESENT_VALUE);
-//		assertNull(dept);
-//	}
-//
-//	@Test
-//	public void update() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findByName(this.jobTitle.getName());
-//		dept.setName(SOME_NEW_NAME);
-//		this.jobTitleDao.update(dept);
-//
-//		dept = null;
-//		dept = this.jobTitleDao.findByName(SOME_NEW_NAME);
-//		assertNotNull(dept);
-//		assertEquals(SOME_NEW_NAME, dept.getName());
-//	}
+	@Test
+	public void findAll_notNull() throws Exception {
+		System.out.println(this.jobTitleDao.toString());
+		List<JobTitle> depts = this.jobTitleDao.findAll();
+		assertNotNull(depts);
+		assertTrue(0 < depts.size());
+	}
+
+	@Test
+	public void findByDeptId() throws Exception {
+		JobTitle dept = this.jobTitleDao.findById(this.jobTitle.getId());
+		assertNotNull(dept);
+		assertEquals(this.jobTitle.getName(), dept.getName());
+	}
+
+	@Test
+	public void findByDeptId_null() throws Exception {
+		JobTitle dept = this.jobTitleDao.findById(NOT_PRESENT_ID);
+		assertNull(dept);
+	}
+
+	@Test
+	public void findByName() throws Exception {
+		JobTitle dept = this.jobTitleDao.findByName(this.jobTitle.getName());
+		assertNotNull(dept);
+		assertEquals(this.jobTitle.getName(), dept.getName());
+	}
+
+	@Test
+	public void findByName_null() throws Exception {
+		JobTitle dept = this.jobTitleDao.findByName(NOT_PRESENT_VALUE);
+		assertNull(dept);
+	}
+
+	@Test
+	public void update() throws Exception {
+		JobTitle dept = this.jobTitleDao.findByName(this.jobTitle.getName());
+		dept.setName(SOME_NEW_NAME);
+		this.jobTitleDao.update(dept);
+
+		dept = null;
+		dept = this.jobTitleDao.findByName(SOME_NEW_NAME);
+		assertNotNull(dept);
+		assertEquals(SOME_NEW_NAME, dept.getName());
+	}
 }

@@ -1,5 +1,7 @@
 package com.systemsinmotion.orgchart.dao;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,73 @@ public class JobTitleDAO implements IJobTitleDao {
 		String newLine = System.getProperty("line.separator");
 		return getClass().getName() + " {" + newLine + "\thibernateTemplate : " + this.hibernateTemplate.toString()
 				+ newLine + "}";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.JobTitleDAO#findByName(java.lang.String )
+	 */
+	@Override
+	public JobTitle findByName(String name) {
+		LOG.debug("finding JobTitle instance by name = " + name);
+		JobTitle jobTitle = null;
+		try {
+			@SuppressWarnings("unchecked")
+			List<JobTitle> jobTitles = this.hibernateTemplate.find("from JobTitle where name=?", name);
+			if (null != jobTitles && !jobTitles.isEmpty()) {
+				jobTitle = jobTitles.get(0);
+			}
+		} catch (RuntimeException re) {
+			LOG.error("lookup failed", re);
+			throw re;
+		}
+		return jobTitle;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.JobTitleDAO#update(com.systemsinmotion.orgchart.entity.JobTitle)
+	 */
+	@Override
+	public void update(JobTitle newJobTitle) {
+		LOG.debug("updating JobTitle instance with id:name = " + newJobTitle.getId() + ":" + newJobTitle.getName());
+		try {
+			this.hibernateTemplate.update(newJobTitle);
+		} catch (RuntimeException re) {
+			LOG.error("update failed", re);
+			throw re;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.JobTitleDAO#findById(java.lang.Integer )
+	 */
+	@Override
+	public JobTitle findById(Integer id) {
+		LOG.debug("getting JobTitle instance with id: " + id);
+		try {
+			return this.hibernateTemplate.get(JobTitle.class, id);
+		} catch (RuntimeException re) {
+			LOG.error("get failed", re);
+			throw re;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.JobTitleDAO#findAll()
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<JobTitle> findAll() {
+		LOG.debug("returning all JobTitle instances");
+		try {
+			return this.hibernateTemplate.find("from " + JobTitle.class.getName() + " order by name");
+		} catch (RuntimeException re) {
+			LOG.error("lookup failed", re);
+			throw re;
+		}
 	}
 
 }
