@@ -15,8 +15,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.systemsinmotion.orgchart.TestObject;
-import com.systemsinmotion.orgchart.dao.DepartmentDAO;
+import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.dao.IDepartmentDao;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,18 +26,18 @@ public class DepartmentServiceTest {
 	@Autowired
 	DepartmentService departmentService;
 
-	DepartmentDAO mockDepartmentDAO = mock(DepartmentDAO.class);
+	IDepartmentDao mockDepartmentDAO = mock(IDepartmentDao.class);
 	Department mockDepartment = mock(Department.class);
 
 	private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>();
 
 	@Before
 	public void before() throws Exception {
-		when(this.mockDepartment.getDepartmentId()).thenReturn(TestObject.DEPT_ID);
+		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.mockDepartmentDAO.findAll()).thenReturn(this.listOfFoundDepts);
-		when(this.mockDepartmentDAO.findById(TestObject.DEPT_ID)).thenReturn(this.mockDepartment);
-		when(this.mockDepartmentDAO.save(this.mockDepartment)).thenReturn(TestObject.DEPT_ID);
+		when(this.mockDepartmentDAO.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentDAO.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
 		this.departmentService.setDepartmentDAO(this.mockDepartmentDAO);
 	}
 
@@ -50,16 +50,16 @@ public class DepartmentServiceTest {
 	@Test
 	@Rollback
 	public void shouldFindDepartmentbyID() {
-		assertNotNull(this.departmentService.findDepartmentByID(TestObject.DEPT_ID));
-		assertEquals(TestObject.DEPT_ID, this.departmentService.findDepartmentByID(TestObject.DEPT_ID)
-				.getDepartmentId());
+		assertNotNull(this.departmentService.findDepartmentByID(Entities.DEPT_ID));
+		assertEquals(Entities.DEPT_ID, this.departmentService.findDepartmentByID(Entities.DEPT_ID)
+				.getId());
 	}
 
 	@Test
 	@Rollback
 	public void shouldStoreDepartmentUsingDepartmentDAO() {
 		assertNotNull(this.departmentService.storeDepartment(this.mockDepartment));
-		assertEquals(TestObject.DEPT_ID, this.departmentService.storeDepartment(this.mockDepartment));
+		assertEquals(Entities.DEPT_ID, this.departmentService.storeDepartment(this.mockDepartment));
 	}
 
 }
