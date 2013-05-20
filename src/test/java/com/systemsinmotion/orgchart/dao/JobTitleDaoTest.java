@@ -36,7 +36,7 @@ public class JobTitleDaoTest {
 	private JobTitle jobTitle;
 
 	@Autowired
-	IJobTitleDao jobTitleDao;
+	IJobTitleDAO jobTitleDao;
 
 	@After
 	public void after() {

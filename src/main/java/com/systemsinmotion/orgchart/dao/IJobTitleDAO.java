@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-public interface IJobTitleDao {
+public interface IJobTitleDAO {
 
 	/**
 	 * Deletes the <code>JobTitle</code> instance from the database.

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.systemsinmotion.orgchart.entity.Department;
 
-public interface IDepartmentDao {
+public interface IDepartmentDAO {
 
 	/**
 	 * Deletes the <code>Department</code> instance from the database.

@@ -34,10 +34,10 @@ public class EmployeeDaoTest {
 	private Employee manager;
 
 	@Autowired
-	IEmployeeDao employeeDao;
+	IEmployeeDAO employeeDao;
 
 	@Autowired
-	IDepartmentDao departmentDao;
+	IDepartmentDAO departmentDao;
 
 	@After
 	public void after() {

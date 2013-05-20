@@ -5,22 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.systemsinmotion.orgchart.dao.DepartmentDAO;
-import com.systemsinmotion.orgchart.dao.IDepartmentDao;
+import com.systemsinmotion.orgchart.dao.IDepartmentDAO;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @Service("departmentService")
 public class DepartmentService {
 
 	@Autowired
-	IDepartmentDao departmentDAO;
+	IDepartmentDAO departmentDAO;
 
 	public Department findDepartmentByID(Integer departmentId) {
 
 		return this.departmentDAO.findById(departmentId);
 	}
 
-	public void setDepartmentDAO(IDepartmentDao deparmentDAO) {
+	public void setDepartmentDAO(IDepartmentDAO deparmentDAO) {
 		this.departmentDAO = deparmentDAO;
 	}
 

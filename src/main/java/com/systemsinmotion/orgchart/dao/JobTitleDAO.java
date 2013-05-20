@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 /**
@@ -20,7 +19,7 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
  * @author Allen Polak
  */
 @Repository("jobTitleDAO")
-public class JobTitleDAO implements IJobTitleDao {
+public class JobTitleDAO implements IJobTitleDAO {
 	
 	/**
 	 * @see org.slf4j.Logger

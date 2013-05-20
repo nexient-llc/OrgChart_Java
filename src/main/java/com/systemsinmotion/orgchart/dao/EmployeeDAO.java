@@ -20,7 +20,7 @@ import com.systemsinmotion.orgchart.entity.Employee;
  * @author Allen Polak
  */
 @Repository("EmployeeDAO")
-public class EmployeeDao implements IEmployeeDao {
+public class EmployeeDAO implements IEmployeeDAO {
 
 	/**
 	 * @see org.slf4j.Logger
@@ -101,29 +101,6 @@ public class EmployeeDao implements IEmployeeDao {
 			LOG.error("get failed", re);
 			throw re;
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDAO#findByName(java.lang.String, java.lang.String)
-	 */
-	@Override
-	public Employee findByName(String first_name, String last_name) {
-		LOG.debug("finding Employee instance by full name = " + first_name + " " + last_name);
-		Employee employee = null;
-		try {
-			@SuppressWarnings("unchecked")
-			List<Employee> employees = this.hibernateTemplate.find(
-				"from " + Employee.class.getName() + " where first_name=" + first_name
-				+ " last_name=" + last_name);
-			if (null != employees && !employees.isEmpty()) {
-				employee = employees.get(0);
-			}
-		} catch (RuntimeException re) {
-			LOG.error("lookup failed", re);
-			throw re;
-		}
-		return employee;
 	}
 
 	/*

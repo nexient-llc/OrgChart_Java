@@ -5,7 +5,7 @@ import java.util.List;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
-public interface IEmployeeDao {
+public interface IEmployeeDAO {
 	
 	/**
 	 * Deletes the <code>Employee</code> instance from the database.
@@ -31,16 +31,6 @@ public interface IEmployeeDao {
 	 * @return Single <code>Employee</code> instance. Null if not found.
 	 */
 	public abstract Employee findById(Integer id);
-
-	/**
-	 * Returns a <code>Employee</code> instance with a given <code>first_name, last_name</code>
-	 * value.
-	 * 
-	 * @param first_name, last_name
-	 *            Name of the <code>Employee</code> to find
-	 * @return Instance of <code>Employee</code>. Null if not found.
-	 */
-	public abstract Employee findByName(String first_name, String last_name);
 	
 	/**
 	 * Returns a <code>Employee</code> list with a given <code>department</code>
