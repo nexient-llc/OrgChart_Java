@@ -31,7 +31,7 @@ public class Department implements java.io.Serializable {
 
 	@NotNull
 	@NotEmpty
-	@Size(min = 1, max = 45)
+	@Size(min = 1, max = 50)
 	private String name;
 	private Set<Department> departments = new HashSet<Department>(0);
 
