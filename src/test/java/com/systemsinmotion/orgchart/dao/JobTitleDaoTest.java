@@ -32,37 +32,37 @@ public class JobTitleDaoTest {
 	private static final String NOT_PRESENT_VALUE = "XXX";
 
 	private static final Integer NOT_PRESENT_ID = -666;
-//
-//	private JobTitle jobTitle;
-//
-//	@Autowired
-//	IJobTitleDao jobTitleDao;
-//
+
+	private JobTitle jobTitle;
+
+	@Autowired
+	IJobTitleDao jobTitleDao;
+
 	@After
 	public void after() {
-//		this.jobTitleDao.delete(this.jobTitle);
+		this.jobTitleDao.delete(this.jobTitle);
 	}
-//
+
 	@Before
 	public void before() throws Exception {
-//		this.jobTitle = Entities.jobTitle();
-//		this.jobTitle.setId(this.jobTitleDao.save(this.jobTitle));
+		this.jobTitle = Entities.jobTitle();
+		this.jobTitle.setId(this.jobTitleDao.save(this.jobTitle));
 	}
 
 	@Test
 	public void created() {
 		//TODO pass this test
-//		assertNotNull(this.jobTitle);
-//		assertNotNull(this.jobTitle.getId());
+		assertNotNull(this.jobTitle);
+		assertNotNull(this.jobTitle.getId());
 	}
-//
-//	@Test(expected = DataIntegrityViolationException.class)
-//	public void duplicateName() throws Exception {
-//		JobTitle dept = Entities.jobTitle();
-//		dept.setName(this.jobTitle.getName());
-//		this.jobTitleDao.save(dept);
-//	}
-//
+
+	@Test(expected = DataIntegrityViolationException.class)
+	public void duplicateName() throws Exception {
+		JobTitle dept = Entities.jobTitle();
+		dept.setName(this.jobTitle.getName());
+		this.jobTitleDao.save(dept);
+	}
+
 //	@Test
 //	public void findAll_notNull() throws Exception {
 //		System.out.println(this.jobTitleDao.toString());

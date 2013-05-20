@@ -34,11 +34,11 @@ public class DepartmentDAO implements IDepartmentDao {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#delete(com.systemsinmotion .orgchart.entity.Department)
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#delete(com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
 	public void delete(Department department) {
-		LOG.debug("deleting Department instance with name: " + department.getName());
+		LOG.debug("deleting Department instance with id:name = " + department.getId() + ":" + department.getName());
 		try {
 			this.hibernateTemplate.delete(department);
 		} catch (RuntimeException re) {
@@ -118,7 +118,7 @@ public class DepartmentDAO implements IDepartmentDao {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#save(com.systemsinmotion .orgchart.entity.Department)
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#save(com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
 	public Integer save(Department department) {

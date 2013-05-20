@@ -50,11 +50,11 @@ public class Entities {
 //		return emp;
 //	}
 
-//	public static JobTitle jobTitle() {
-//		JobTitle jobTitle = new JobTitle();
-//		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
-//		return jobTitle;
-//	}
+	public static JobTitle jobTitle() {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
+		return jobTitle;
+	}
 
 //	public static Employee manager() {
 //		Employee mgr = new Employee();
