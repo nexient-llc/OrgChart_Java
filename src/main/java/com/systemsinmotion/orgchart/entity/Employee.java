@@ -88,6 +88,69 @@ public class Employee implements java.io.Serializable {
 		this.employeeId = employeeId;
 	}
 
+	@Column(name = "FIRST_NAME", nullable = false, length = 20)
+	public String getFirstName() {
+		return this.firstName;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	@Column(name = "LAST_NAME", nullable = false, length = 45)
+	public String getLastName() {
+		return this.lastName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	@Column(name = "EMAIL", length = 100)
+	public String getEmail() {
+		return this.email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	@Column(name = "SKYPE_NAME", length = 100)
+	public String getSkypeName() {
+		return this.skypeName;
+	}
+	
+	public void setSkypeName(String skypeName) {
+		this.skypeName = skypeName;
+	}
+	
+	@Column(name = "JOB_TITLE_ID")
+	public Integer getJobTitleId() {
+		return this.jobTitleId;
+	}
+	
+	public void setJobTitleId(Integer jobTitleId) {
+		this.jobTitleId = jobTitleId;
+	}
+	
+//	@Column(name = "IS_MANAGER", nullable = false)
+//	public Boolean getIsManager() {
+//		return this.isManager;
+//	}
+//	
+//	public void setIsManager(Boolean isManager) {
+//		this.isManager = isManager;
+//	}
+	
+//	@Column(name = "DEPARTMENT_ID")
+//	public Integer getDepartmenrId() {
+//		return this.departmentId;
+//	}
+//	
+//	public void setDepartmentId(Integer departmentId) {
+//		this.departmentId = departmentId;
+//	}
+	
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "PARENT_DEPARTMENT_ID")
 //	public Department getParentDepartment() {
