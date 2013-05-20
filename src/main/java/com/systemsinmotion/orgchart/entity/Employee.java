@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -130,10 +133,13 @@ public class Employee implements Serializable {
 		this.managerId = managerId;
 	}
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "isManager")
 	public Set<Employee> getEmployees() {
 		return this.employees;
 	}
+	
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
+	
 }
