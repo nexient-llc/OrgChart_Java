@@ -111,11 +111,12 @@ public class EmployeeDAO implements IEmployeeDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> findByDepartment(Department department) {
-		if(department == null) { return null; }
+		if(department == null || department.getId() == null) { return null; }
 		LOG.debug("finding Employees by Department: " + department.getName());
 		try {
-			return this.hibernateTemplate.find("from " + Employee.class.getName() 
-				+ " where department_id=?", department.getId());
+			List<Employee> result = this.hibernateTemplate.find("from " + Employee.class.getName() 
+					+ " where department_id=?", department.getId());
+			return result.isEmpty() ? null : result;
 		} catch (RuntimeException re) {
 			LOG.error("lookup failed", re);
 			throw re;

@@ -63,7 +63,7 @@ public class EmployeeDaoTest {
 		this.manager = Entities.manager();
 		this.employeeDao.save(this.manager);
 	}
-//
+
 	@Test
 	public void findAll() throws Exception {
 		List<Employee> emps = this.employeeDao.findAll();
@@ -84,6 +84,14 @@ public class EmployeeDaoTest {
 	@Test
 	public void findByDepartment_null() throws Exception {
 		List<Employee> emps = this.employeeDao.findByDepartment(null);
+		assertNull("Expecting a null list of Employees but was non-null", emps);
+	}
+	
+	@Test
+	public void findByDepartment_empty() throws Exception {
+		Department nonExistantDepartment = Entities.department();
+		nonExistantDepartment.setId(EmployeeDaoTest.NOT_PRESENT_ID);
+		List<Employee> emps = this.employeeDao.findByDepartment(nonExistantDepartment);
 		assertNull("Expecting a null list of Employees but was non-null", emps);
 	}
 
