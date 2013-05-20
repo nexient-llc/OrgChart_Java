@@ -73,4 +73,24 @@ public interface IEmployeeDao {
 
 	public abstract String toString();
 
+	/**
+	 * Returns a <code>Employee</code> list with a given <code>Employee</code>
+	 * as a manager
+	 * 
+	 * @param manager
+	 *            Employee who manages the employees returned in the list
+	 * @return List of Employees. Empty list if none found.
+	 */
+	public abstract List<Employee> findByManager(Employee manager);
+
+	/**
+	 * Returns a <code>Employee</code> instance having a given <code>email</code>
+	 * value.
+	 * 
+	 * @param email
+	 *            unique email identifier of <code>Employee</code> instance to find
+	 * @return Single <code>Employee</code> instance. Null if not found.
+	 */
+	public abstract Employee findByEmail(String email);
+
 }

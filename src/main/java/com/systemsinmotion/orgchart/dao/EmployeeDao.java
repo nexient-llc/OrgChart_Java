@@ -78,7 +78,8 @@ public class EmployeeDao implements IEmployeeDao {
 	public List<Employee> findAll() {
 		LOG.debug("finding all Employee instances");
 		try {
-			return this.hibernateTemplate.find("from " + Employee.class.getName() + " order by last_name");
+			return this.hibernateTemplate.find("from " + Employee.class.getName() 
+				+ " order by last_name");
 		} catch (RuntimeException re) {
 			LOG.error("findAll() failed", re);
 			throw re;
@@ -91,9 +92,11 @@ public class EmployeeDao implements IEmployeeDao {
 	 */
 	@Override
 	public Employee findById(Integer id) {
+		if(id == null) { return null; }
 		LOG.debug("getting Employee instance with id = " + id);
 		try {
-			return this.hibernateTemplate.get(Employee.class, id);
+			Employee tmp = this.hibernateTemplate.get(Employee.class, id); 
+			return tmp;
 		} catch (RuntimeException re) {
 			LOG.error("get failed", re);
 			throw re;
@@ -111,7 +114,7 @@ public class EmployeeDao implements IEmployeeDao {
 		try {
 			@SuppressWarnings("unchecked")
 			List<Employee> employees = this.hibernateTemplate.find(
-				"from Employee where first_name=" + first_name
+				"from " + Employee.class.getName() + " where first_name=" + first_name
 				+ " last_name=" + last_name);
 			if (null != employees && !employees.isEmpty()) {
 				employee = employees.get(0);
@@ -126,18 +129,64 @@ public class EmployeeDao implements IEmployeeDao {
 	/*
 	 * (non-Javadoc)
 	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDAO#findByDepartment
-	 * (com.systemsinmotion.orgchart.entity.Employee)
+	 * (com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> findByDepartment(Department department) {
+		if(department == null) { return null; }
 		LOG.debug("finding Employees by Department: " + department.getName());
 		try {
-			return this.hibernateTemplate.find("from Department where departmentId.id=?", department.getId());
+			return this.hibernateTemplate.find("from " + Employee.class.getName() 
+				+ " where department_id=?", department.getId());
 		} catch (RuntimeException re) {
 			LOG.error("lookup failed", re);
 			throw re;
 		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDAO#findByManager
+	 * (com.systemsinmotion.orgchart.entity.Employee)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Employee> findByManager(Employee manager) {
+		if(manager == null || manager.getId() == null) { return null; }
+		LOG.debug("finding Employees by manager: " 
+			+ manager.getId() + ":" + manager.getLastName() + " " + manager.getFirstName());
+		try {
+			return this.hibernateTemplate.find("from " + Employee.class.getName() 
+				+ " where manager_id=?", manager.getId());
+		} catch (RuntimeException re) {
+			LOG.error("lookup failed", re);
+			throw re;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDAO#findByEmail
+	 * (java.lang.String)
+	 */
+	@Override
+	public Employee findByEmail(String email) {
+		if(email == null || email == "") { return null; }
+		LOG.debug("getting Employee instance with email = " + email);
+		Employee employee = null;
+		try {
+			@SuppressWarnings("unchecked")
+			List<Employee> employees = this.hibernateTemplate.find(
+				"from " + Employee.class.getName() + " where email=?", email);
+			if (employees != null && !employees.isEmpty()) {
+				employee = employees.get(0);
+			}
+		} catch (RuntimeException re) {
+			LOG.error("lookup failed", re);
+			throw re;
+		}
+		return employee;
 	}
 
 	/*
