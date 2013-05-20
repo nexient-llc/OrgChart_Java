@@ -177,8 +177,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -188,7 +188,7 @@
 				<configuration>
 					<changeLogFile>src/db/db.changelog.xml</changeLogFile>
 					<driver>org.hsqldb.jdbcDriver</driver>
-					<url>jdbc:hsqldb:hsql://localhost:9001</url>
+					<url>jdbc:hsqldb:hsql://localhost/</url>
 					<username>sa</username>
 					<password></password>
 				</configuration>

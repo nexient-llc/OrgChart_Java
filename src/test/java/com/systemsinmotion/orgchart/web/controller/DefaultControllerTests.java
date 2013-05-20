@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
-import com.systemsinmotion.orgchart.Entities;
+//import com.systemsinmotion.orgchart.entity;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 
@@ -47,19 +47,19 @@ public class DefaultControllerTests {
 		this.findAllDepartmentsList = new ArrayList<Department>();
 
 		this.mockDepartment2 = new Department();
-		this.mockDepartment2.setName(Entities.DEPARTMENT_NAME);
+//		this.mockDepartment2.setName(Entities.DEPARTMENT_NAME);
 
 		// set up mock Department
-		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
-		when(this.mockDepartment.getName()).thenReturn(Entities.DEPARTMENT_NAME);
+//		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
+//		when(this.mockDepartment.getName()).thenReturn(Entities.DEPARTMENT_NAME);
 
 		this.findAllDepartmentsList.add(this.mockDepartment);
 
 		// set up mock DepartmentService
 		when(this.mockDepartmentService.findAllDepartments()).thenReturn(this.findAllDepartmentsList);
-		when(this.mockDepartmentService.findDepartmentByID(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
-		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
-		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
+//		when(this.mockDepartmentService.findDepartmentByID(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+//		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
+//		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
 
 		this.controller.setDepartmentService(this.mockDepartmentService);
 
@@ -74,7 +74,7 @@ public class DefaultControllerTests {
 		this.findAllDepartmentsList = (ArrayList<Department>) (this.model.asMap().get("depts"));
 		// Then
 		assertNotNull(this.findAllDepartmentsList);
-		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
+//		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
 	}
 
 	// @SuppressWarnings("unchecked")
