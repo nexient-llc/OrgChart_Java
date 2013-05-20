@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
-import com.systemsinmotion.orgchart.TestObject;
+import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 
@@ -47,12 +47,12 @@ public class DefaultControllerTests {
 	//instantiate lists
 	findAllDepartmentsList = new ArrayList<Department>();
 	
-	mockDepartment2 = new Department(null, TestObject.DEPARTMENT_NAME, null);
+	mockDepartment2 = new Department(null, Entities.DEPARTMENT_NAME, null);
 	
 
 	// set up mock Department
-	when(mockDepartment.getDepartmentId()).thenReturn(TestObject.DEPT_ID);
-	when(mockDepartment.getName()).thenReturn(TestObject.DEPARTMENT_NAME);
+	when(mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
+	when(mockDepartment.getName()).thenReturn(Entities.DEPARTMENT_NAME);
 	
 	findAllDepartmentsList.add(mockDepartment);
 
@@ -60,12 +60,12 @@ public class DefaultControllerTests {
 	// set up mock DepartmentService
 	when(mockDepartmentService.findAllDepartments()).thenReturn(
 		findAllDepartmentsList);
-	when(mockDepartmentService.findDepartmentByID(TestObject.DEPT_ID))
+	when(mockDepartmentService.findDepartmentByID(Entities.DEPT_ID))
 		.thenReturn(mockDepartment);
 	when(mockDepartmentService.storeDepartment(mockDepartment)).thenReturn(
-		TestObject.DEPT_ID);
+		Entities.DEPT_ID);
 	when(mockDepartmentService.storeDepartment(mockDepartment2)).thenReturn(
-		TestObject.DEPT_ID);
+		Entities.DEPT_ID);
 
 	controller.setDepartmentService(mockDepartmentService);
 
@@ -80,7 +80,7 @@ public class DefaultControllerTests {
 	findAllDepartmentsList = (ArrayList<Department>) (model.asMap().get("depts"));
 	//Then
 	assertNotNull(findAllDepartmentsList);
-	assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(0).getDepartmentId());
+	assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(0).getId());
     }
     
 //    @SuppressWarnings("unchecked")
