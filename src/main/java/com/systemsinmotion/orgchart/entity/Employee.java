@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Employee implements java.io.Serializable {
 
 	@NotNull
-	private Integer employeeId;
+	private Integer id;
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 20)
@@ -37,13 +37,15 @@ public class Employee implements java.io.Serializable {
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String lastName;
+//	@Size(max = 1)
+//	private String middleInitial;
 	@Size(min = 0, max = 100)
 	private String email;
 	@Size(min = 0, max = 100)
 	private String skypeName;
-	private Integer jobTitleId;
 	@NotNull
 	private Boolean isManager;
+	private Integer jobTitleId;
 	private Integer managerId;
 	private Integer departmentId;
 	// Constructors
@@ -79,13 +81,13 @@ public class Employee implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "EMPLOYEE_ID", unique = true, nullable = false)
+	@Column(name = "ID", unique = true, nullable = false)
 	public Integer getEmployeeId() {
-		return this.employeeId;
+		return this.id;
 	}
 
-	public void setEmployeeId(Integer employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployeeId(Integer id) {
+		this.id = id;
 	}
 
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)
@@ -106,6 +108,11 @@ public class Employee implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 	
+//	@Column(name = "MIDDLE_INITIAL", length = 1)
+//	public String getMiddleInitial() {
+//		return this.middleInitial;
+//	}
+	
 	@Column(name = "EMAIL", length = 100)
 	public String getEmail() {
 		return this.email;
@@ -124,6 +131,15 @@ public class Employee implements java.io.Serializable {
 		this.skypeName = skypeName;
 	}
 	
+	@Column(name = "IS_MANAGER", nullable = false)
+	public Boolean getIsManager() {
+		return this.isManager;
+	}
+	
+	public void setIsManager(Boolean isManager) {
+		this.isManager = isManager;
+	}
+	
 	@Column(name = "JOB_TITLE_ID")
 	public Integer getJobTitleId() {
 		return this.jobTitleId;
@@ -133,23 +149,14 @@ public class Employee implements java.io.Serializable {
 		this.jobTitleId = jobTitleId;
 	}
 	
-//	@Column(name = "IS_MANAGER", nullable = false)
-//	public Boolean getIsManager() {
-//		return this.isManager;
-//	}
-//	
-//	public void setIsManager(Boolean isManager) {
-//		this.isManager = isManager;
-//	}
+	@Column(name = "DEPARTMENT_ID")
+	public Integer getDepartmentId() {
+		return this.departmentId;
+	}
 	
-//	@Column(name = "DEPARTMENT_ID")
-//	public Integer getDepartmenrId() {
-//		return this.departmentId;
-//	}
-//	
-//	public void setDepartmentId(Integer departmentId) {
-//		this.departmentId = departmentId;
-//	}
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
 	
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "PARENT_DEPARTMENT_ID")
@@ -161,15 +168,16 @@ public class Employee implements java.io.Serializable {
 //		this.parentDepartment = department;
 //	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "MANAGER_ID")
-//	public Employee getManager() {
-//		return this.manager;
-//	}
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "MANAGER_ID")
+	@Column(name = "MANAGER_ID")
+	public Integer getManager() {
+		return this.managerId;
+	}
 
-//	public void setManager(Employee employee) {
-//		this.manager = employee;
-//	}
+	public void setManager(Integer managerId) {
+		this.managerId = managerId;
+	}
 
 //	@Column(name = "NAME", nullable = false, length = 45)
 //	public String getName() {
