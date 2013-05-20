@@ -33,43 +33,42 @@ public class EmployeeDaoTest {
 	private Employee employee;
 	private Employee manager;
 
-//	@Autowired
-//	IEmployeeDao employeeDao;
-//
-//	@Autowired
-//	IDepartmentDao departmentDao;
-//
+	@Autowired
+	IEmployeeDao employeeDao;
+
+	@Autowired
+	IDepartmentDao departmentDao;
+
 	@After
 	public void after() {
-//		this.employeeDao.delete(this.employee);
-//		this.departmentDao.delete(this.department);
-//
-//		if (null != this.manager) {
-//			this.employeeDao.delete(this.manager);
-//		}
+		this.employeeDao.delete(this.employee);
+		this.departmentDao.delete(this.department);
+
+		if (null != this.manager) {
+			this.employeeDao.delete(this.manager);
+		}
 	}
 
 	@Before
 	public void before() throws Exception {
-//		this.department = Entities.department();
-//		this.departmentDao.save(this.department);
-//
-//		this.employee = Entities.employee();
-//		this.employee.setDepartment(this.department);
-//		this.employee.setId(this.employeeDao.save(this.employee));
+		this.department = Entities.department();
+		this.departmentDao.save(this.department);
+
+		this.employee = Entities.employee();
+		this.employee.setDepartment(this.department);
+		this.employee.setId(this.employeeDao.save(this.employee));
 	}
 
-//	private void createManager() {
-//		this.manager = Entities.manager();
-//		this.employeeDao.save(this.manager);
-//	}
+	private void createManager() {
+		this.manager = Entities.manager();
+		this.employeeDao.save(this.manager);
+	}
 //
 	@Test
 	public void findAll() throws Exception {
-		//TODO pass this test
-//		List<Employee> emps = this.employeeDao.findAll();
-//		assertNotNull(emps);
-//		assertTrue(0 < emps.size());
+		List<Employee> emps = this.employeeDao.findAll();
+		assertNotNull(emps);
+		assertTrue(0 < emps.size());
 	}
 //
 //	@Test
