@@ -29,9 +29,6 @@ public class Department implements java.io.Serializable {
 
 	private Department parentDepartment;
 
-	@NotNull
-	@NotEmpty
-	@Size(min = 1, max = 45)
 	private String name;
 	private Set<Department> departments = new HashSet<Department>(0);
 
@@ -47,6 +44,7 @@ public class Department implements java.io.Serializable {
 		return this.id;
 	}
 
+	@NotEmpty
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
