@@ -23,14 +23,14 @@ public class Entities {
 	private static Random r = new Random();
 
 	public static Department department() {
-		// Department department = new Department(null, null, departmentName(), null, null);
-		Department department = new Department(departmentName());
+		Department department = new Department();
+		department.setName(departmentName());
 		return department;
 	}
 
 	public static Department department(Department parent) {
-		// Department department = new Department(parent, manager(), departmentName(), null, null);
-		Department department = new Department(departmentName());
+		Department department = new Department();
+		department.setName(departmentName());
 		department.setParentDepartment(parent);
 		return department;
 	}
