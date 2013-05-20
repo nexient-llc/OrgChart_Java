@@ -1,0 +1,10 @@
+package com.systemsinmotion.orgchart.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+//@Entity
+//@Table(name = "EMPLOYEE")
+public class Employee implements java.io.Serializable {
+
+}

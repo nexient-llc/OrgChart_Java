@@ -18,13 +18,13 @@ import com.systemsinmotion.orgchart.entity.Department;
  * @see com.systemsinmotion.orgchart.entity.Department
  * @author Keith Skronek
  */
-@Repository("departmentDao")
-public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartmentDao {
+@Repository("departmentDAO")
+public class DepartmentDAO implements IDepartmentDao {
 
 	/**
 	 * @see org.slf4j.Logger
 	 */
-	private static final Logger LOG = LoggerFactory.getLogger(DepartmentDao.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DepartmentDAO.class);
 
 	/**
 	 * @see org.springframework.orm.hibernate3.HibernateTemplate
