@@ -42,6 +42,7 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		 List<Department> departments = departmentService.findAllDepartments();
+		 model.addAttribute("dept", new Department());
 		 model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
@@ -51,11 +52,12 @@ public class DefaultController {
 	}
 
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(Department dept, 
-			@RequestParam("parent_id") Integer parent, Model model) {
-		dept.setParentDepartment(departmentService.findDepartmentByID(parent));
+	public String doDepartments_POST(Department dept, Model model) {
+		Department parent = dept.getParentDepartment();
+		dept.setParentDepartment(parent.getId() == null ? null : parent);
 		departmentService.storeDepartment(dept);
 		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("dept", dept);
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
