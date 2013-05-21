@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Department entity. @author MyEclipse Persistence Tools
+ * Employee entity
  */
 @Entity
 @Table(name = "EMPLOYEE")
@@ -29,24 +29,30 @@ public class Employee implements java.io.Serializable {
 
 	@NotNull
 	private Integer id;
+
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 20)
 	private String firstName;
+
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String lastName;
-//	@Size(max = 1)
-//	private String middleInitial;
+
+	@Size(min = 0, max = 1)
+	private String middleInitial;
+
 	@Size(min = 0, max = 100)
 	private String email;
+
 	@Size(min = 0, max = 100)
 	private String skypeName;
+
 	@NotNull
-	private Boolean isManager;
 	private Integer jobTitleId;
-	private Integer managerId;
+
+	@NotNull
 	private Integer departmentId;
 	// Constructors
 
@@ -55,38 +61,15 @@ public class Employee implements java.io.Serializable {
 		
 	}
 
-	/** minimal constructor */
-//	public Employee(String name) {
-//		this.name = name;
-//	}
-
-	/** Partial Contructor **/
-//	public Department(Department parentDepartment,  String deptName,
-//		Set<Department> subDepartments) {
-//		this.parentDepartment = parentDepartment;
-//		this.name = deptName;
-//		this.departments = subDepartments;
-//	}
-	
-	/** full constructor */
-//	public Department(Department parentDepartment, Employee deptManager, String deptName,
-//			Set<Department> subDepartments, Set<Employee> deptEmployees) {
-//		this.parentDepartment = parentDepartment;
-//		this.manager = deptManager;
-//		this.name = deptName;
-//		this.departments = subDepartments;
-//		this.employees = deptEmployees;
-//	}
-
 	// Property accessors
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	public Integer getEmployeeId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setEmployeeId(Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -108,10 +91,14 @@ public class Employee implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 	
-//	@Column(name = "MIDDLE_INITIAL", length = 1)
-//	public String getMiddleInitial() {
-//		return this.middleInitial;
-//	}
+	@Column(name = "MIDDLE_INITIAL")
+	public String getMiddleInitial() {
+		return this.middleInitial;
+	}
+
+	public void setMiddleInitial(String middleInitial) {
+		this.middleInitial = middleInitial;
+	}
 	
 	@Column(name = "EMAIL", length = 100)
 	public String getEmail() {
@@ -129,15 +116,6 @@ public class Employee implements java.io.Serializable {
 	
 	public void setSkypeName(String skypeName) {
 		this.skypeName = skypeName;
-	}
-	
-	@Column(name = "IS_MANAGER", nullable = false)
-	public Boolean getIsManager() {
-		return this.isManager;
-	}
-	
-	public void setIsManager(Boolean isManager) {
-		this.isManager = isManager;
 	}
 	
 	@Column(name = "JOB_TITLE_ID")
@@ -158,6 +136,16 @@ public class Employee implements java.io.Serializable {
 		this.departmentId = departmentId;
 	}
 	
+	// Added for Entities.java
+	public void setDepartment(Department department) {
+		this.departmentId = department.getId();
+	}
+	
+	// Added for logging purposes
+	public String PrintFullName() {
+		return new StringBuilder(this.getFirstName()).append(" ").append(this.getMiddleInitial()).append(" ").append(this.getLastName()).toString();
+	}
+	
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "PARENT_DEPARTMENT_ID")
 //	public Department getParentDepartment() {
@@ -170,14 +158,14 @@ public class Employee implements java.io.Serializable {
 
 	//@ManyToOne(fetch = FetchType.LAZY)
 	//@JoinColumn(name = "MANAGER_ID")
-	@Column(name = "MANAGER_ID")
-	public Integer getManager() {
-		return this.managerId;
-	}
-
-	public void setManager(Integer managerId) {
-		this.managerId = managerId;
-	}
+//	@Column(name = "MANAGER_ID")
+//	public Integer getManager() {
+//		return this.managerId;
+//	}
+//
+//	public void setManager(Integer managerId) {
+//		this.managerId = managerId;
+//	}
 
 //	@Column(name = "NAME", nullable = false, length = 45)
 //	public String getName() {

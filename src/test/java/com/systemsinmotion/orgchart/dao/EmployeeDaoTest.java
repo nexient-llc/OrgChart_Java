@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-//import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
@@ -27,50 +27,52 @@ import com.systemsinmotion.orgchart.entity.Employee;
 @Transactional
 public class EmployeeDaoTest {
 
-//	private static final String NOT_PRESENT_VALUE = "XXX";
-//	private static final Integer NOT_PRESENT_ID = -666;
-//	private Department department;
-//	private Employee employee;
+	private static final String NOT_PRESENT_VALUE = "XXX";
+	private static final Integer NOT_PRESENT_ID = -666;
+	private Department department;
+	private Employee employee;
 //	private Employee manager;
-//
-//	@Autowired
-//	IEmployeeDao employeeDao;
-//
-//	@Autowired
-//	IDepartmentDao departmentDao;
-//
-//	@After
-//	public void after() {
-//		this.employeeDao.delete(this.employee);
-//		this.departmentDao.delete(this.department);
-//
+
+	@Autowired
+	IEmployeeDao employeeDao;
+
+	@Autowired
+	IDepartmentDao departmentDao;
+
+	@Before
+	public void before() throws Exception {
+		this.department = Entities.department();
+		this.departmentDao.save(this.department);
+
+		this.employee = Entities.employee();
+		this.employee.setDepartment(this.department);
+		this.employee.setId(this.employeeDao.save(this.employee));
+	}
+	
+	@After
+	public void after() {
+		this.employeeDao.delete(this.employee);
+		this.departmentDao.delete(this.department);
+
 //		if (null != this.manager) {
 //			this.employeeDao.delete(this.manager);
 //		}
-//	}
-//
-//	@Before
-//	public void before() throws Exception {
-//		this.department = Entities.department();
-//		this.departmentDao.save(this.department);
-//
-//		this.employee = Entities.employee();
-//		this.employee.setDepartment(this.department);
-//		this.employee.setId(this.employeeDao.save(this.employee));
-//	}
-//
+	}
+
 //	private void createManager() {
 //		this.manager = Entities.manager();
 //		this.employeeDao.save(this.manager);
 //	}
-//
-//	@Test
-//	public void findAll() throws Exception {
-//		List<Employee> emps = this.employeeDao.findAll();
-//		assertNotNull(emps);
-//		assertTrue(0 < emps.size());
-//	}
-//
+
+	@Test
+	public void findAll() throws Exception {
+		List<Employee> emps = this.employeeDao.findAll();
+		assertNotNull(emps);
+		assertTrue(0 < emps.size());
+	}
+	
+	
+
 //	@Test
 //	public void findByDepartment() throws Exception {
 //		List<Employee> emps = this.employeeDao.findByDepartment(this.employee.getDepartment());
