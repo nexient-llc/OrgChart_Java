@@ -40,9 +40,12 @@ public class DepartmentServiceTest {
 	public void before() throws Exception {
 		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
-		when(this.mockDepartmentDAO.findAll()).thenReturn(this.listOfFoundDepts);
-		when(this.mockDepartmentDAO.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
-		when(this.mockDepartmentDAO.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
+		when(this.mockDepartmentDAO.findAll())
+				.thenReturn(this.listOfFoundDepts);
+		when(this.mockDepartmentDAO.findById(Entities.DEPT_ID)).thenReturn(
+				this.mockDepartment);
+		when(this.mockDepartmentDAO.save(this.mockDepartment)).thenReturn(
+				Entities.DEPT_ID);
 		this.departmentService.setDepartmentDAO(this.mockDepartmentDAO);
 	}
 
@@ -55,14 +58,16 @@ public class DepartmentServiceTest {
 
 	@Test
 	public void findDepartmentByID() {
-		Department dept = this.departmentService.findDepartmentByID(Entities.DEPT_ID);
+		Department dept = this.departmentService
+				.findDepartmentByID(Entities.DEPT_ID);
 		assertNotNull(dept);
 		assertEquals(Entities.DEPT_ID, dept.getId());
 	}
 
 	@Test
 	public void storeDepartment() {
-		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment);
+		Integer deptId = this.departmentService
+				.storeDepartment(this.mockDepartment);
 		assertNotNull(deptId);
 		assertEquals(Entities.DEPT_ID, deptId);
 	}

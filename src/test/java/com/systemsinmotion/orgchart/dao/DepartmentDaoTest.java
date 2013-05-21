@@ -98,7 +98,8 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findByName() throws Exception {
-		Department dept = this.departmentDao.findByName(this.department.getName());
+		Department dept = this.departmentDao.findByName(this.department
+				.getName());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
@@ -112,7 +113,8 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findByParentDeptId() throws Exception {
-		List<Department> depts = this.departmentDao.findByParentDepartment(this.department.getParentDepartment());
+		List<Department> depts = this.departmentDao
+				.findByParentDepartment(this.department.getParentDepartment());
 		assertNotNull(depts);
 		assertEquals(1, depts.size());
 		Department dept = depts.get(0);
@@ -122,14 +124,16 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findByParentDeptId_null() throws Exception {
-		List<Department> depts = this.departmentDao.findByParentDepartment(new Department());
+		List<Department> depts = this.departmentDao
+				.findByParentDepartment(new Department());
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
 	}
 
 	@Test
 	public void update() throws Exception {
-		Department dept = this.departmentDao.findByName(this.department.getName());
+		Department dept = this.departmentDao.findByName(this.department
+				.getName());
 		dept.setName(SOME_NEW_NAME);
 		this.departmentDao.update(dept);
 

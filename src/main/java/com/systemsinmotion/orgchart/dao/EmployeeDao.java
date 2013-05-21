@@ -86,8 +86,14 @@ public class EmployeeDao implements IEmployeeDao {
 	public List<Employee> findByDept(Integer deptId) {
 		LOG.debug("find employee by department id: " + deptId);
 		try {
-			return (List<Employee>) this.hibernateTemplate.get(Employee.class,
-					deptId);
+			if (deptId != null) {
+				return (List<Employee>) this.hibernateTemplate.find(" from "
+						+ Employee.class.getName() + " where DEPARTMENT_ID = "
+						+ deptId);
+			}
+			return null;
+		} catch (IllegalArgumentException re) {
+			return null;
 		} catch (RuntimeException re) {
 			LOG.error("Finding by dept id failed: ", re);
 			throw re;
@@ -98,8 +104,9 @@ public class EmployeeDao implements IEmployeeDao {
 	public List<Employee> findByManager(Boolean isManager) {
 		LOG.debug("Finding employee by manager: " + isManager);
 		try {
-			return (List<Employee>) this.hibernateTemplate.get(Employee.class,
-					isManager);
+			return this.hibernateTemplate.find(" from "
+					+ Employee.class.getName() + " where IS_MANAGER = "
+					+ isManager);
 		} catch (RuntimeException re) {
 			LOG.error("Finding employee by manager failed: ", re);
 			throw re;
