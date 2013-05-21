@@ -30,9 +30,9 @@
 		<div><labeL>Dept Name:</labeL><input type="text" name="name"/>
 			<labeL>Parent Dept:</label>
 			<select name="parent_id">
-				<option>...</option>
+				<option></option>
 				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.departmentId}">${dept.name}</option>
+					<option value="${dept.id}">${dept.name}</option>
 				</c:forEach>
 			</select>
 			<button type="submit">Save</button>
