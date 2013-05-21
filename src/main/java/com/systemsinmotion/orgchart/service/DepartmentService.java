@@ -28,6 +28,11 @@ public class DepartmentService {
 	}
 
 	public Integer storeDepartment(Department department) {
+		Department parentDepartment = department.getParentDepartment();
+		if (parentDepartment != null
+				&& parentDepartment.getDepartmentId() == null) {
+			department.setParentDepartment(null);
+		}
 		return this.departmentDAO.save(department);
 	}
 

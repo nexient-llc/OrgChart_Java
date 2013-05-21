@@ -71,7 +71,7 @@ public class Department implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public void setParentDepartment(Department department) {
 		this.parentDepartment = department;
 	}

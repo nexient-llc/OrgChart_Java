@@ -32,8 +32,8 @@
 		<form name="newDept" action="depts" method="post">
 			<div>
 				<labeL>Dept Name:</labeL><input type="text" name="name" /> <labeL>Parent
-					Dept:</label> <select name="parent_id">
-					<option>...</option>
+					Dept:</label> <select name="parentDepartment.departmentId">
+					<option value="">...</option>
 					<c:forEach items="${depts}" var="dept">
 						<option value="${dept.departmentId}">${dept.name}</option>
 					</c:forEach>
