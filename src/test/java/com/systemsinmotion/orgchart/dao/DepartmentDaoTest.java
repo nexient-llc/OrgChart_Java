@@ -21,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
 
-// import com.systemsinmotion.orgchart.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
@@ -84,12 +82,17 @@ public class DepartmentDaoTest {
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
-		// assertNotNull(this.department.getManager());
 	}
 
 	@Test
-	public void findByDeptId_null() throws Exception {
+	public void findById_notPresent() throws Exception {
 		Department dept = this.departmentDao.findById(NOT_PRESENT_ID);
+		assertNull(dept);
+	}
+
+	@Test
+	public void findById_null() throws Exception {
+		Department dept = this.departmentDao.findById(null);
 		assertNull(dept);
 	}
 
@@ -99,7 +102,6 @@ public class DepartmentDaoTest {
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
-		// assertNotNull(this.department.getManager());
 	}
 
 	@Test
@@ -116,12 +118,12 @@ public class DepartmentDaoTest {
 		Department dept = depts.get(0);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
-		// assertNotNull(this.department.getManager());
 	}
 
 	@Test
 	public void findByParentDeptId_null() throws Exception {
 		List<Department> depts = this.departmentDao.findByParentDepartment(new Department());
+		assertNotNull(depts);
 		assertEquals(0, depts.size());
 	}
 
