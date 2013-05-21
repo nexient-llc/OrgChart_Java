@@ -1,10 +1,9 @@
 package com.systemsinmotion.orgchart.entity;
 
 import static org.junit.Assert.*;
-//import java.util.HashSet;
+
 import java.util.Random;
 import org.junit.Test;
-//import org.springframework.dao.DataIntegrityViolationException;
 
 public class DepartmentTest {
 
@@ -27,17 +26,16 @@ public class DepartmentTest {
 		assertNull(dep.getId());
 		assertNull(dep.getParentDepartment());
 		assertNull(dep.getName());
-		//assertTrue(dep.getDepartments().size() == 0);
 	}
 	
 	// All these set_get_name_* test should be using @Parameters, or something similar.
 	// However, as far as I can tell JUnit requires multiple test class to do
 	// parameterized tests.
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void set_get_name_null() {
 		Department dep = new Department();
 		dep.setName(nullName);
-		assertTrue(dep.getName().equals(nullName));
+		assertTrue(dep.getName() == null);
 	}
 
 	@Test
@@ -68,12 +66,20 @@ public class DepartmentTest {
 		assertTrue(dep.getName().equals(longName));
 	}
 	
+	@Test
+	public void set_get_name_random() {
+		Department dep = new Department();
+		String randomName = emptyName + r.nextInt();
+		dep.setName(randomName);
+		assertTrue(dep.getName().equals(randomName));
+	}
+	
 	// Ditto re: params for set_get_ids...
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void set_get_id_null() {
 		Department dep = new Department();
 		dep.setId(nullId);
-		assertTrue(dep.getId().equals(nullId));
+		assertTrue(dep.getId() == null);
 	}
 	
 	@Test
@@ -93,7 +99,6 @@ public class DepartmentTest {
 	@Test
 	public void set_get_id_huge() {
 		Department dep = new Department();
-		
 		dep.setId(hugeId);
 		assertTrue(dep.getId().equals(hugeId));
 	}
@@ -135,24 +140,4 @@ public class DepartmentTest {
 		assertTrue(depChild.getParentDepartment().getName().equals(randomDepName));
 	}
 	
-//	@Test
-//	public void set_get_deps_null() {
-//		Department dep = new Department();
-//		dep.setDepartments(null);
-//		assertTrue(dep.getDepartments() == null);
-//	}
-//	
-//	@Test
-//	public void set_get_deps_empty() {
-//		Department dep = new Department();
-//		dep.setDepartments(new HashSet<Department>(0));
-//		assertNotNull(dep.getDepartments());
-//		assertTrue(dep.getDepartments().size() == 0);
-//	}
-//	
-//	@Test
-//	public void set_get_deps_one() {
-//		Department dep = new Department();
-//		
-//	}
 }
