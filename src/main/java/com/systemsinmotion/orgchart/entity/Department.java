@@ -69,5 +69,13 @@ public class Department implements java.io.Serializable {
 	public void setParentDepartment(Department department) {
 		this.parentDepartment = department;
 	}
+	
+	@Override
+	public String toString() {
+		String parentName = (parentDepartment == null ? "null" : parentDepartment.getName());
+		return "{" + this.id 
+				+ ", " + (parentName == null ? "unknown" : parentName)
+				+ ", " + this.name + "}";
+	}
 
 }
