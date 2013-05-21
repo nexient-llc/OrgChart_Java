@@ -1,12 +1,17 @@
 package com.systemsinmotion.orgchart.dao;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.systemsinmotion.orgchart.entity.Department;
 
@@ -39,12 +44,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	@Override
 	public void delete(Department department) {
 		LOG.debug("deleting Department instance with name: " + department.getName());
-		try {
-			this.hibernateTemplate.delete(department);
-		} catch (RuntimeException re) {
-			LOG.error("delete failed", re);
-			throw re;
-		}
+		this.hibernateTemplate.delete(department);
 	}
 
 	/*
@@ -55,12 +55,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	@SuppressWarnings("unchecked")
 	public List<Department> findAll() {
 		LOG.debug("finding all Department instances");
-		try {
-			return this.hibernateTemplate.find("from " + Department.class.getName() + " order by name");
-		} catch (RuntimeException re) {
-			LOG.error("findAll() failed", re);
-			throw re;
-		}
+		return this.hibernateTemplate.find("from " + Department.class.getName() + " order by name");
 	}
 
 	/*
@@ -70,12 +65,12 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	@Override
 	public Department findById(Integer id) {
 		LOG.debug("getting Department instance with id: " + id);
-		try {
-			return this.hibernateTemplate.get(Department.class, id);
-		} catch (RuntimeException re) {
-			LOG.error("get failed", re);
-			throw re;
+		Department dept = null;
+
+		if (id != null) {
+			dept = this.hibernateTemplate.get(Department.class, id);
 		}
+		return dept;
 	}
 
 	/*
@@ -84,17 +79,20 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	 */
 	@Override
 	public Department findByName(String name) {
-		LOG.debug("finding Department instance by name");
+		LOG.debug("finding Department instance by name: " + name);
 		Department dept = null;
-		try {
+
+		if (StringUtils.hasText(name)) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Department.class);
+			criteria.add(Restrictions.eq("name", name));
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
 			@SuppressWarnings("unchecked")
-			List<Department> departments = this.hibernateTemplate.find("from Department where name=?", name);
+			List<Department> departments = this.hibernateTemplate.findByCriteria(criteria);
+
 			if (null != departments && !departments.isEmpty()) {
 				dept = departments.get(0);
 			}
-		} catch (RuntimeException re) {
-			LOG.error("lookup failed", re);
-			throw re;
 		}
 		return dept;
 	}
@@ -107,13 +105,16 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Department> findByParentDepartment(Department department) {
-		LOG.debug("finding child Departments for Department: " + department.getName());
-		try {
-			return this.hibernateTemplate.find("from Department where parentDepartment.id=?", department.getId());
-		} catch (RuntimeException re) {
-			LOG.error("lookup failed", re);
-			throw re;
+		List<Department> depts = Collections.EMPTY_LIST;
+
+		if (department != null && department.getId() != null) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Department.class);
+			criteria.add(Restrictions.eq("parentDepartment.id", department.getId()));
+
+			LOG.debug("finding child Departments for Department: " + department.getName());
+			depts = this.hibernateTemplate.findByCriteria(criteria);
 		}
+		return depts;
 	}
 
 	/*
@@ -123,12 +124,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	@Override
 	public Integer save(Department department) {
 		LOG.debug("saving Department instance with name: " + department.getName());
-		try {
-			return (Integer) this.hibernateTemplate.save(department);
-		} catch (RuntimeException re) {
-			LOG.error("save failed", re);
-			throw re;
-		}
+		return (Integer) this.hibernateTemplate.save(department);
 	}
 
 	/*
@@ -149,11 +145,6 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	@Override
 	public void update(Department department) {
 		LOG.debug("updating Department instance with name: " + department.getName());
-		try {
-			this.hibernateTemplate.update(department);
-		} catch (RuntimeException re) {
-			LOG.error("update failed", re);
-			throw re;
-		}
+		this.hibernateTemplate.update(department);
 	}
 }
