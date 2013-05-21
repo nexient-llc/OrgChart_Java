@@ -15,13 +15,14 @@
 </c:if>
 
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
-<title>Systems In Motion - <tiles:getAsString name="title" /></title>
+<title>Systems in Motion Organization Chart: <tiles:getAsString name="title" /></title>
 </head>
 <body>
+	<h1>Systems In Motion Organization Chart - <tiles:getAsString name="title" /></h1>
 	<tiles:insertAttribute name="page-heading" />
 	<table>
 		<tr>
-			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
+			<th><label id="navBarHome" color="#FFFFFF">Home</label></th>
 			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
 			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
 			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>

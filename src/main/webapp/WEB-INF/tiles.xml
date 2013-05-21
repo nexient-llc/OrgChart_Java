@@ -19,7 +19,7 @@
 	<definition name="home" extends="main">
 		<put-attribute name="title" type="string" value="Home" />
 		<put-attribute name="page-heading"
-			value="/WEB-INF/fragments/heading-no-login.jsp" />
+			value="/WEB-INF/fragments/heading-login.jsp" />
 		<put-attribute name="body" value="/WEB-INF/jsp/home.jsp" />
 	</definition>
 
