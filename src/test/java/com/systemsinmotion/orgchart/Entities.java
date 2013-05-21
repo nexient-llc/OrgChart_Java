@@ -4,8 +4,7 @@ import java.util.Random;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
-//import com.systemsinmotion.orgchart.entity.Employee;
-//import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public class Entities {
 
@@ -50,13 +49,13 @@ public class Entities {
 		emp.setIsManager(false);
 		return emp;
 	}
-//
-//	public static JobTitle jobTitle() {
-//		JobTitle jobTitle = new JobTitle();
-//		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
-//		return jobTitle;
-//	}
-//
+
+	public static JobTitle jobTitle() {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
+		return jobTitle;
+	}
+
 	public static Employee manager() {
 		Employee mgr = new Employee();
 		mgr.setFirstName(FIRST_NAME);
