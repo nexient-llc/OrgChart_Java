@@ -1,53 +1,32 @@
 package com.systemsinmotion.orgchart.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * JobTitle entity. @author MyEclipse Persistence Tools
+ * JobTitle entity.
  */
 @Entity
-@Table(name = "JOBTITLE")
+@Table(name = "JOB_TITLE")
 public class JobTitle implements java.io.Serializable {
 
+	private static final long serialVersionUID = -1900310580694044993L;
 	private Integer id;
 	private String name;
 
-	// Constructors
-
-	/** default constructor */
-	public JobTitle() {
-		
-	}
-
-
-
 	// Property accessors
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
-	public Integer getid() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setid(Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
