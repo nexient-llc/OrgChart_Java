@@ -38,7 +38,7 @@ public class DepartmentServiceTest {
 
 	@Before
 	public void before() throws Exception {
-		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
+		when(this.mockDepartment.getDepartmentId()).thenReturn(Entities.DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.mockDepartmentDAO.findAll())
 				.thenReturn(this.listOfFoundDepts);
@@ -61,7 +61,7 @@ public class DepartmentServiceTest {
 		Department dept = this.departmentService
 				.findDepartmentByID(Entities.DEPT_ID);
 		assertNotNull(dept);
-		assertEquals(Entities.DEPT_ID, dept.getId());
+		assertEquals(Entities.DEPT_ID, dept.getDepartmentId());
 	}
 
 	@Test

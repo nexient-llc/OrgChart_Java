@@ -45,6 +45,7 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findAll() {
 		LOG.debug("Finding all employees");
 		try {
@@ -83,6 +84,7 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByDept(Integer deptId) {
 		LOG.debug("find employee by department id: " + deptId);
 		try {
@@ -101,6 +103,7 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByManager(Boolean isManager) {
 		LOG.debug("Finding employee by manager: " + isManager);
 		try {
@@ -114,6 +117,7 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Employee findByEmail(String email) {
 		LOG.debug("Finding employee by email: " + email);
 		try {
@@ -131,6 +135,7 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByManagerId(Integer managerId) {
 		LOG.debug("Finding by manager id: " + managerId);
 		try {

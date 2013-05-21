@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.systemsinmotion.orgchart.dao.DepartmentDao;
 import com.systemsinmotion.orgchart.entity.Department;
 
-
 @Service("departmentService")
 public class DepartmentService {
 
@@ -26,7 +25,6 @@ public class DepartmentService {
 
 	public List<Department> findAllDepartments() {
 		return this.departmentDAO.findAll();
-
 	}
 
 	public Integer storeDepartment(Department department) {

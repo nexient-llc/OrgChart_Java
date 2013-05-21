@@ -107,9 +107,9 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	public List<Department> findByParentDepartment(Department department) {
 		List<Department> depts = Collections.EMPTY_LIST;
 
-		if (department != null && department.getId() != null) {
+		if (department != null && department.getDepartmentId() != null) {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Department.class);
-			criteria.add(Restrictions.eq("parentDepartment.id", department.getId()));
+			criteria.add(Restrictions.eq("parentDepartment.id", department.getDepartmentId()));
 
 			LOG.debug("finding child Departments for Department: " + department.getName());
 			depts = this.hibernateTemplate.findByCriteria(criteria);

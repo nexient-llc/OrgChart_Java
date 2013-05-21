@@ -2,7 +2,6 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
 
-import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface IJobTitleDao {

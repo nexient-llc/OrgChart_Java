@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Repository
@@ -46,6 +45,7 @@ public class JobTitleDao implements IJobTitleDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<JobTitle> findAll() {
 		LOG.debug("finding all job titles");
 		try {
@@ -74,6 +74,7 @@ public class JobTitleDao implements IJobTitleDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public JobTitle findByName(String name) {
 		LOG.debug("finding by name: " + name);
 		try {

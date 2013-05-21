@@ -25,7 +25,9 @@ public class Department implements java.io.Serializable {
 
 	private static final long serialVersionUID = -5379179412533671591L;
 
-	private Integer id;
+	private Integer departmentId;
+	private Integer parentDepartmentId;
+	private Integer managerId;
 
 	private Department parentDepartment;
 
@@ -43,8 +45,8 @@ public class Department implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	public Integer getDepartmentId() {
+		return this.departmentId;
 	}
 
 	@Column(name = "NAME", nullable = false, length = 50)
@@ -62,8 +64,8 @@ public class Department implements java.io.Serializable {
 		this.departments = departments;
 	}
 
-	public void setId(Integer departmentId) {
-		this.id = departmentId;
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
 	}
 
 	public void setName(String name) {
@@ -72,6 +74,24 @@ public class Department implements java.io.Serializable {
 
 	public void setParentDepartment(Department department) {
 		this.parentDepartment = department;
+	}
+	
+	@Column(name = "PARENT_DEPARTMENT_ID", insertable = false, updatable = false)
+	public Integer getParentDepartmentId() {
+		return parentDepartmentId;
+	}
+
+	public void setParentDepartmentId(Integer parentDepartmentId) {
+		this.parentDepartmentId = parentDepartmentId;
+	}
+	
+	@Column(name = "MANAGER_ID")
+	public Integer getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(Integer managerId) {
+		this.managerId = managerId;
 	}
 
 }

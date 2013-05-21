@@ -48,17 +48,17 @@ public class DepartmentDaoTest {
 	@Before
 	public void before() throws Exception {
 		this.parent = Entities.department();
-		this.parent.setId(this.departmentDao.save(this.parent));
+		this.parent.setDepartmentId(this.departmentDao.save(this.parent));
 		this.department = Entities.department(this.parent);
-		this.department.setId(this.departmentDao.save(this.department));
+		this.department.setDepartmentId(this.departmentDao.save(this.department));
 	}
 
 	@Test
 	public void created() {
 		assertNotNull(this.parent);
-		assertNotNull(this.parent.getId());
+		assertNotNull(this.parent.getDepartmentId());
 		assertNotNull(this.department);
-		assertNotNull(this.department.getId());
+		assertNotNull(this.department.getDepartmentId());
 	}
 
 	@Test(expected = DataIntegrityViolationException.class)
@@ -78,7 +78,7 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findByDeptId() throws Exception {
-		Department dept = this.departmentDao.findById(this.department.getId());
+		Department dept = this.departmentDao.findById(this.department.getDepartmentId());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());

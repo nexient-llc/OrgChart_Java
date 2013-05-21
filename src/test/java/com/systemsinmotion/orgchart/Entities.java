@@ -41,7 +41,7 @@ public class Entities {
 
 	public static Employee employee() {
 		Employee emp = new Employee();
-		emp.setDepartmentId(department().getId());
+		emp.setDepartmentId(department().getDepartmentId());
 		emp.setFirstName(FIRST_NAME);
 		emp.setLastName(LAST_NAME);
 		emp.setEmail(EMAIL + r.nextInt());

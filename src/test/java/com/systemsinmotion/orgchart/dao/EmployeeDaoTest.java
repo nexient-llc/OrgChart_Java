@@ -55,7 +55,7 @@ public class EmployeeDaoTest {
 		this.departmentDao.save(this.department);
 
 		this.employee = Entities.employee();
-		this.employee.setDepartmentId(this.department.getId());
+		this.employee.setDepartmentId(this.department.getDepartmentId());
 		this.employee.setId(this.employeeDao.save(this.employee));
 	}
 
