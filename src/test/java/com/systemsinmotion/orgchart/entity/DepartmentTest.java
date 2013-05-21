@@ -1,7 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
 import static org.junit.Assert.*;
-
 import java.util.Random;
 import org.junit.Test;
 
