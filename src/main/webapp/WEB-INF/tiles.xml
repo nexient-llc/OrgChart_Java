@@ -10,7 +10,7 @@
 		<put-attribute name="body" />
 	</definition>
 	
-	<definition name="departments" extends="main">
+	<definition name="depts" extends="main">
 		<put-attribute name="title" type="string" value="Departments" />
 		<put-attribute name="page-js" type="string" value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
