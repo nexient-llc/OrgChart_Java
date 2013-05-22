@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,6 +27,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee implements java.io.Serializable {
+
+	private static final long serialVersionUID = 6653979594581645307L;
 
 	@NotNull
 	private Integer id;
@@ -50,10 +53,12 @@ public class Employee implements java.io.Serializable {
 	private String skypeName;
 
 	@NotNull
-	private Integer jobTitleId;
+	//private Integer jobTitleId;
+	private JobTitle jobTitle;
 
 	@NotNull
-	private Integer departmentId;
+	//private Integer departmentId;
+	private Department department;
 	// Constructors
 
 	/** default constructor */
@@ -118,80 +123,29 @@ public class Employee implements java.io.Serializable {
 		this.skypeName = skypeName;
 	}
 	
-	@Column(name = "JOB_TITLE_ID")
-	public Integer getJobTitleId() {
-		return this.jobTitleId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "JOB_TITLE_ID")
+	public JobTitle getJobTitle() {
+		return this.jobTitle;
 	}
 	
-	public void setJobTitleId(Integer jobTitleId) {
-		this.jobTitleId = jobTitleId;
+	public void setJobTitle(JobTitle jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 	
-	@Column(name = "DEPARTMENT_ID")
-	public Integer getDepartmentId() {
-		return this.departmentId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "DEPARTMENT_ID")
+	public Department getDepartment() {
+		return this.department;
 	}
 	
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
-	}
-	
-	// Added for Entities.java
 	public void setDepartment(Department department) {
-		this.departmentId = department.getId();
+		this.department = department;
 	}
 	
 	// Added for logging purposes
 	public String PrintFullName() {
 		return new StringBuilder(this.getFirstName()).append(" ").append(this.getMiddleInitial()).append(" ").append(this.getLastName()).toString();
 	}
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "PARENT_DEPARTMENT_ID")
-//	public Department getParentDepartment() {
-//		return this.parentDepartment;
-//	}
-//
-//	public void setParentDepartment(Department department) {
-//		this.parentDepartment = department;
-//	}
-
-	//@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "MANAGER_ID")
-//	@Column(name = "MANAGER_ID")
-//	public Integer getManager() {
-//		return this.managerId;
-//	}
-//
-//	public void setManager(Integer managerId) {
-//		this.managerId = managerId;
-//	}
-
-//	@Column(name = "NAME", nullable = false, length = 45)
-//	public String getName() {
-//		return this.name;
-//	}
-//
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-//
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
-//	public Set<Department> getDepartments() {
-//		return this.departments;
-//	}
-//
-//	public void setDepartments(Set<Department> departments) {
-//		this.departments = departments;
-//	}
-
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
-//	public Set<Employee> getEmployees() {
-//		return this.employees;
-//	}
-//
-//	public void setEmployees(Set<Employee> employees) {
-//		this.employees = employees;
-//	}
 
 }
