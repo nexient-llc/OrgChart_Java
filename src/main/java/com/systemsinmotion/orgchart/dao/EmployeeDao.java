@@ -1,13 +1,19 @@
 package com.systemsinmotion.orgchart.dao;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 /**
@@ -66,10 +72,60 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#findById(java.lang.Integer )
+	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#findByDepartment(com.systemsinmotion.orgchart.entity.Department)
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByDepartment(Department department)
+	{
+		//List<Employee> emps = Collections.EMPTY_LIST;
+		List<Employee> emps = null;
+
+		if (department != null && department.getId() != null) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+			criteria.add(Restrictions.eq("department.id", department.getId()));
+
+			LOG.debug("finding employees in Department: " + department.getName());
+			emps = this.hibernateTemplate.findByCriteria(criteria);
+		}
+		return emps;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#findByEmail(java.lang.String)
+	 */
+	@Override
+	public Employee findByEmail(String email)
+	{
+		LOG.debug("finding Employee instance by email: " + email);
+		Employee emp = null;
+
+		if (StringUtils.hasText(email)) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+			criteria.add(Restrictions.eq("email", email));
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			@SuppressWarnings("unchecked")
+			List<Employee> emps = this.hibernateTemplate.findByCriteria(criteria);
+
+			if (emps != null && !emps.isEmpty()) {
+				emp = emps.get(0);
+			}
+		}
+		return emp;
+	}
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#findById(java.lang.Integer)
 	 */
 	@Override
 	public Employee findById(Integer id) {
+		if(id == null)
+			return null;
+		
 		LOG.debug("getting Employee instance with id: " + id);
 		try {
 			return this.hibernateTemplate.get(Employee.class, id);
