@@ -57,7 +57,7 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 	public List<Employee> findAll() {
 		LOG.debug("finding all Employee instances");
 		try {
-			return this.hibernateTemplate.find("from " + Employee.class.getName() + " order by name");
+			return this.hibernateTemplate.find("from " + Employee.class.getName() + " order by last_name");
 		} catch (RuntimeException re) {
 			LOG.error("findAll() failed", re);
 			throw re;
@@ -81,44 +81,6 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#findByName(java.lang.String )
-	 */
-//	@Override
-//	public Employee findByName(String name) {
-//		LOG.debug("finding Employee instance by name");
-//		Employee emp = null;
-//		try {
-//			@SuppressWarnings("unchecked")
-//			List<Department> departments = this.hibernateTemplate.find("from Department where name=?", name);
-//			if (null != departments && !departments.isEmpty()) {
-//				dept = departments.get(0);
-//			}
-//		} catch (RuntimeException re) {
-//			LOG.error("lookup failed", re);
-//			throw re;
-//		}
-//		return dept;
-//	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findByParentDepartment
-	 * (com.systemsinmotion.orgchart.entity.Department)
-	 */
-//	@Override
-//	@SuppressWarnings("unchecked")
-//	public List<Department> findByParentDepartment(Department department) {
-//		LOG.debug("finding child Departments for Department: " + department.getName());
-//		try {
-//			return this.hibernateTemplate.find("from Department where parentDepartment.id=?", department.getId());
-//		} catch (RuntimeException re) {
-//			LOG.error("lookup failed", re);
-//			throw re;
-//		}
-//	}
-
-	/*
-	 * (non-Javadoc)
 	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#save(com.systemsinmotion.orgchart.entity.Employee)
 	 */
 	@Override
@@ -136,25 +98,11 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 	 * (non-Javadoc)
 	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#toString()
 	 */
-//	@Override
-//	public String toString() {
-//		String newLine = System.getProperty("line.separator");
-//		return getClass().getName() + " {" + newLine + "\thibernateTemplate : " + this.hibernateTemplate.toString()
-//				+ newLine + "}";
-//	}
+	@Override
+	public String toString() {
+		String newLine = System.getProperty("line.separator");
+		return getClass().getName() + " {" + newLine + "\thibernateTemplate : " + this.hibernateTemplate.toString()
+				+ newLine + "}";
+	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#update(com.systemsinmotion .orgchart.entity.Department)
-	 */
-//	@Override
-//	public void update(Department department) {
-//		LOG.debug("updating Department instance with name: " + department.getName());
-//		try {
-//			this.hibernateTemplate.update(department);
-//		} catch (RuntimeException re) {
-//			LOG.error("update failed", re);
-//			throw re;
-//		}
-//	}
 }
