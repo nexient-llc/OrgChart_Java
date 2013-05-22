@@ -12,11 +12,15 @@
 	<table id="jobsTable">
 		<tr>
 			<th>Name</th>
-			<th>Description</th>
 		</tr>
 		<c:forEach items="${jobs}" var="job">
 			<tr>
 				<td>${job.name}</td>
+				<td><button type="button" class="editBtn" name="editJobs"
+						value="${job.id}">Edit</button></td>
+				<td><form name="dJob" action="deleteJob" method="post">
+						<button type="submit" value="${job.id}">X</button></td>
+				</form>
 			</tr>
 		</c:forEach>
 
@@ -29,8 +33,22 @@
 			<legend>Add Job Title</legend>
 			<form name="newJob" action="jobs" method="post">
 				<div>
-					<labeL>Job Title:</labeL><input type="text" name="name" />
-					<button type="submit">Save</button>
+					<labeL>Job Title:</labeL><input type="text" name="name" /></br>
+					<button type="submit" id="submitBtn">Save</button>
+					<button type="button" id="cancelBtn">Cancel</button>
+				</div>
+				<div></div>
+			</form>
+		</fieldset>
+	</div>
+	<div id="updateEntity" style="display: none">
+		<fieldset>
+			<legend>Add Job Title</legend>
+			<form name="updateJob" action="updateJobs" method="post">
+				<div>
+					<labeL>Job Title:</labeL><input type="text" name="name" /></br>
+					<button type="submit" id="submitBtn">Save</button>
+					<button type="button" id="cancelBtn">Cancel</button>
 				</div>
 				<div></div>
 			</form>

@@ -33,4 +33,8 @@ public class JobTitleService {
 	public void deleteJobTitle(JobTitle jobTitle) {
 		this.jobTitleDao.delete(jobTitle);
 	}
+
+	public void updateJobTitle(JobTitle jobTitle) {
+		this.jobTitleDao.update(jobTitle);
+	}
 }

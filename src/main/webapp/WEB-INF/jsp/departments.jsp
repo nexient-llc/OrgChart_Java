@@ -18,6 +18,7 @@
 			</sec:authorize> -->
 			<td>${dept.name}</td>
 			<td>${dept.parentDepartment.name}</td>
+			<td><button type="button" class="editBtn">Edit</button></td>
 		</tr>
 	</c:forEach>
 </table>
@@ -37,8 +38,9 @@
 					<c:forEach items="${depts}" var="dept">
 						<option value="${dept.departmentId}">${dept.name}</option>
 					</c:forEach>
-				</select>
-				<button type="submit">Save</button>
+				</select></br>
+				<button type="submit" id="submitBtn">Save</button>
+				<button type="button" id="cancelBtn">Cancel</button>
 			</div>
 			<div></div>
 		</form>

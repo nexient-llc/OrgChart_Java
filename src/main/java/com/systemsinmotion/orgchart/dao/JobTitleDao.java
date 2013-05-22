@@ -2,8 +2,10 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
+import javax.validation.ConstraintViolationException;
+
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -25,6 +27,8 @@ public class JobTitleDao implements IJobTitleDao {
 				+ jobTitle.getName());
 		try {
 			return (Integer) this.hibernateTemplate.save(jobTitle);
+		} catch (ConstraintViolationException re) {
+			return -1;
 		} catch (RuntimeException re) {
 			LOG.error("saving failed: ", re);
 			throw re;

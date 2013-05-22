@@ -39,6 +39,14 @@ public class DefaultController {
 		return View.HOME;
 	}
 
+	@RequestMapping(value = "deleteJob", method = RequestMethod.POST)
+	public String goHome(Integer jobTitleId, Model model) {
+		JobTitle jobTitle = jobTitleService.findJobTitleById(jobTitleId);
+		jobTitleService.deleteJobTitle(jobTitle);
+		getAllJobTitlesForView(model);
+		return View.JOB_TITLES;
+	}
+
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		// uncomment when database connection is set up. will throw error when
@@ -62,17 +70,23 @@ public class DefaultController {
 
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitle_GET(Model model) {
-		List<JobTitle> jobTitles = this.jobTitleService.findAllJobTitles();
-		model.addAttribute("jobs", jobTitles);
+		getAllJobTitlesForView(model);
 		return View.JOB_TITLES;
 	}
 
 	@RequestMapping(value = "jobs", method = RequestMethod.POST)
 	public String doJobTitle_POST(JobTitle jobTitle, Model model) {
-		jobTitleService.storeJobTitle(jobTitle);
+		if (jobTitleService.storeJobTitle(jobTitle) == -1) {
+			getAllJobTitlesForView(model);
+			return View.JOB_TITLES;
+		}
+		getAllJobTitlesForView(model);
+		return View.JOB_TITLES;
+	}
+
+	private void getAllJobTitlesForView(Model model) {
 		List<JobTitle> jobTitles = this.jobTitleService.findAllJobTitles();
 		model.addAttribute("jobs", jobTitles);
-		return View.JOB_TITLES;
 	}
 
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
@@ -93,7 +107,6 @@ public class DefaultController {
 		model.addAttribute("emps", employees);
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("depts", departments);
-		List<JobTitle> jobTitles = this.jobTitleService.findAllJobTitles();
-		model.addAttribute("jobs", jobTitles);
+		getAllJobTitlesForView(model);
 	}
 }

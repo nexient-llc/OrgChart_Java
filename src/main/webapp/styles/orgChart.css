@@ -70,6 +70,7 @@ SELECT {
 
 #addEntity {
 	margin-top: 1em;
+	width: 400px;
 }
 
 #login {
@@ -81,11 +82,16 @@ SELECT {
 #mainContainer {
 	position: relative;
 	width: 800px;
-	height: 800px;
 	margin: auto;
 	
 }
 
 #homeText {
 	font-size: 115%;
+}
+
+.ui-dialog-titlebar  {
+  background-color: #0177C0 !important;
+  background-image: none !important;
+  color: #000 !important;
 }
