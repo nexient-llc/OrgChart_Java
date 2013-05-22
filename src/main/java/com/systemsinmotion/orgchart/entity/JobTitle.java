@@ -55,7 +55,7 @@ public class JobTitle implements Serializable {
 		this.name = name;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "jobTitleId")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "jobTitle")
 	public Set<Employee> getEmployees() {
 		return employees;
 	}

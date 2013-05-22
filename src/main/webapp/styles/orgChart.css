@@ -77,3 +77,15 @@ SELECT {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+#mainContainer {
+	position: relative;
+	width: 800px;
+	height: 800px;
+	margin: auto;
+	
+}
+
+#homeText {
+	font-size: 115%;
+}

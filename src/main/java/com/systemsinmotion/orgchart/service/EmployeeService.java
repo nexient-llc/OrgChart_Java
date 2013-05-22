@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.dao.EmployeeDao;
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Service("employeeService")
 public class EmployeeService {
@@ -23,6 +25,14 @@ public class EmployeeService {
 	}
 
 	public Integer addEmployee(Employee employee) {
+		Department empDepartment = employee.getDepartment();
+		JobTitle empJobTitle = employee.getJobTitle();
+		if (empDepartment != null && empDepartment.getDepartmentId() == null) {
+			employee.setDepartment(null);
+		}
+		if (empJobTitle != null && empJobTitle.getId() == null) {
+			employee.setJobTitle(null);
+		}
 		return this.employeeDao.save(employee);
 	}
 

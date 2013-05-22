@@ -6,7 +6,7 @@
 		<put-attribute name="title" type="string" />
 		<put-attribute name="page-js" type="string" value="" />
 		<put-attribute name="page-heading"
-			value="/WEB-INF/fragments/heading-login.jsp" />
+			value="/WEB-INF/fragments/heading-no-login.jsp" />
 		<put-attribute name="body" />
 	</definition>
 
@@ -23,6 +23,14 @@
 			value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
 	</definition>
+
+	<definition name="jobtitles" extends="main">
+		<put-attribute name="title" type="string" value="JobTitles" />
+		<put-attribute name="page-js" type="string"
+			value="../scripts/departments.js" />
+		<put-attribute name="body" value="/WEB-INF/jsp/jobs.jsp" />
+	</definition>
+
 
 	<definition name="home" extends="main">
 		<put-attribute name="title" type="string" value="Home" />

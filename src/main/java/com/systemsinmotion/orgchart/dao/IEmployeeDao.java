@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 public interface IEmployeeDao {
@@ -16,7 +17,7 @@ public interface IEmployeeDao {
 
 	public abstract void update(Employee employee);
 
-	public abstract List<Employee> findByDept(Integer deptId);
+	public abstract List<Employee> findByDept(Department department);
 
 	public abstract List<Employee> findByManager(Boolean isManager);
 

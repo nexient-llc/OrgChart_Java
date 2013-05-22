@@ -37,11 +37,6 @@ public class Department implements java.io.Serializable {
 	private String name;
 	private Set<Department> departments = new HashSet<Department>(0);
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
-	public Set<Department> getDepartments() {
-		return this.departments;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
@@ -71,11 +66,11 @@ public class Department implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public void setParentDepartment(Department department) {
 		this.parentDepartment = department;
 	}
-	
+
 	@Column(name = "PARENT_DEPARTMENT_ID", insertable = false, updatable = false)
 	public Integer getParentDepartmentId() {
 		return parentDepartmentId;
@@ -84,7 +79,7 @@ public class Department implements java.io.Serializable {
 	public void setParentDepartmentId(Integer parentDepartmentId) {
 		this.parentDepartmentId = parentDepartmentId;
 	}
-	
+
 	@Column(name = "MANAGER_ID")
 	public Integer getManagerId() {
 		return managerId;
@@ -94,4 +89,8 @@ public class Department implements java.io.Serializable {
 		this.managerId = managerId;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
+	public Set<Department> getDepartments() {
+		return this.departments;
+	}
 }

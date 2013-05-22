@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 @Repository
@@ -85,13 +86,13 @@ public class EmployeeDao implements IEmployeeDao {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Employee> findByDept(Integer deptId) {
-		LOG.debug("find employee by department id: " + deptId);
+	public List<Employee> findByDept(Department department) {
+		LOG.debug("find employee by department: " + department.getName());
 		try {
-			if (deptId != null) {
+			if (department != null) {
 				return (List<Employee>) this.hibernateTemplate.find(" from "
 						+ Employee.class.getName() + " where DEPARTMENT_ID = "
-						+ deptId);
+						+ department.getDepartmentId());
 			}
 			return null;
 		} catch (IllegalArgumentException re) {

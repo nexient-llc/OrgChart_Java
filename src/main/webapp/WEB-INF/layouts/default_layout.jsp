@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <html>
-<head> 
+<head>
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
 <%@ include file="/WEB-INF/fragments/scripts.jsp"%>
 
@@ -18,16 +18,18 @@
 <title>Systems In Motion - <tiles:getAsString name="title" /></title>
 </head>
 <body>
-	<tiles:insertAttribute name="page-heading" />
-	<table>
-		<tr>
-			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
-			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
-			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
-			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>
-		</tr>
-	</table>
-	<tiles:insertAttribute name="body" />
+	<div id="mainContainer">
+		<tiles:insertAttribute name="page-heading" />
+		<table>
+			<tr>
+				<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
+				<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
+				<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
+				<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>
+			</tr>
+		</table>
+		<tiles:insertAttribute name="body" />
+	</div>
 </body>
 </html>
 

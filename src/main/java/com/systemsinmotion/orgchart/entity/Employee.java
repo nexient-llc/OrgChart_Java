@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -26,120 +28,122 @@ public class Employee implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1676017339639047503L;
-	
+
 	private Integer id;
-	
+
 	@NotNull
 	@NotEmpty
-	@Size(min = 1,max = 20)
+	@Size(min = 1, max = 20)
 	private String firstName;
-	
+
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 50)
 	private String lastName;
-	
+
 	@Size(min = 1, max = 100)
 	private String email;
 	private String skypeName;
-	
+
 	private Boolean isManager;
-	private Integer jobTitleId;
-	private Integer departmentId;
+	private JobTitle jobTitle;
+	private Department department;
 	private Integer managerId;
 	private Set<Employee> employees = new HashSet<Employee>(0);
-	
-//	getters and setters
+
+	// getters and setters
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)
 	public String getFirstName() {
 		return this.firstName;
 	}
-	
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	@Column(name = "LAST_NAME", nullable = false, length = 50)
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	@Column(name = "EMAIL", length = 100)
 	public String getEmail() {
 		return this.email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	@Column(name = "SKYPE_NAME", length = 100)
 	public String getSkypeName() {
 		return this.skypeName;
 	}
-	
+
 	public void setSkypeName(String skypeName) {
 		this.skypeName = skypeName;
 	}
-	
+
 	@Column(name = "IS_MANAGER")
 	public Boolean getIsManager() {
 		return this.isManager;
 	}
-	
+
 	public void setIsManager(Boolean isManager) {
 		this.isManager = isManager;
 	}
-	
-	@Column(name = "JOB_TITLE_ID")
-	public Integer getJobTitleId() {
-		return this.jobTitleId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "JOB_TITLE_ID")
+	public JobTitle getJobTitle() {
+		return this.jobTitle;
 	}
-	
-	public void setJobTitleId(Integer jobTitleId) {
-		this.jobTitleId = jobTitleId;
+
+	public void setJobTitle(JobTitle jobTitle) {
+		this.jobTitle = jobTitle;
 	}
-	
-	@Column(name = "DEPARTMENT_ID")
-	public Integer getDepartmentId() {
-		return this.departmentId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "DEPARTMENT_ID")
+	public Department getDepartment() {
+		return this.department;
 	}
-	
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
-	
+
 	@Column(name = "MANAGER_ID")
 	public Integer getManagerId() {
 		return this.managerId;
 	}
-	
+
 	public void setManagerId(Integer managerId) {
 		this.managerId = managerId;
 	}
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "isManager")
 	public Set<Employee> getEmployees() {
 		return this.employees;
 	}
-	
+
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
-	
+
 }

@@ -55,7 +55,7 @@ public class EmployeeDaoTest {
 		this.departmentDao.save(this.department);
 
 		this.employee = Entities.employee();
-		this.employee.setDepartmentId(this.department.getDepartmentId());
+		this.employee.setDepartment(this.department);
 		this.employee.setId(this.employeeDao.save(this.employee));
 	}
 
@@ -74,7 +74,7 @@ public class EmployeeDaoTest {
 	@Test
 	public void findByDepartment() throws Exception {
 		List<Employee> emps = this.employeeDao.findByDept(this.employee
-				.getDepartmentId());
+				.getDepartment());
 		assertNotNull("Expecting a non-null list of Employees but was null",
 				emps);
 		Employee emp = emps.get(0);
