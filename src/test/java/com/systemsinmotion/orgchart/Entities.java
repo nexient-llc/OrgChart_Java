@@ -40,6 +40,13 @@ public class Entities {
 		return DEPARTMENT_NAME + r.nextInt();
 	}
 
+	public static JobTitle jobTitle() {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
+		jobTitle.setId(JOB_TITLE_ID + r.nextInt());
+		return jobTitle;
+	}
+	
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
@@ -47,27 +54,10 @@ public class Entities {
 		emp.setLastName(LAST_NAME);
 		emp.setEmail(EMAIL + r.nextInt());
 		emp.setSkypeName(SKYPE_NAME + r.nextInt());
-		emp.setJobTitleId(JOB_TITLE_ID);
+		emp.setJobTitle(jobTitle());
 		emp.setId(EMPLOYEE_ID);
 		emp.setMiddleInitial(MIDDLE_INITIAL);
-//		emp.setIsManager(false);
 		return emp;
-	}
-
-	public static JobTitle jobTitle() {
-		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
-		return jobTitle;
-	}
-
-	public static Employee manager() {
-		Employee mgr = new Employee();
-		mgr.setFirstName(FIRST_NAME);
-		mgr.setLastName(LAST_NAME);
-		mgr.setEmail(EMAIL + r.nextInt());
-		mgr.setSkypeName(SKYPE_NAME + r.nextInt());
-//		mgr.setIsManager(true);
-		return mgr;
 	}
 
 }

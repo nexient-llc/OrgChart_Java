@@ -39,7 +39,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#delete(com.systemsinmotion .orgchart.entity.Department)
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#delete(com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
 	public void delete(Department department) {
@@ -49,7 +49,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findAll()
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#findAll()
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -60,7 +60,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findById(java.lang.Integer )
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#findById(java.lang.Integer)
 	 */
 	@Override
 	public Department findById(Integer id) {
@@ -75,7 +75,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findByName(java.lang.String )
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#findByName(java.lang.String)
 	 */
 	@Override
 	public Department findByName(String name) {
@@ -99,7 +99,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findByParentDepartment
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#findByParentDepartment
 	 * (com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
@@ -119,7 +119,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#save(com.systemsinmotion .orgchart.entity.Department)
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#save(com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
 	public Integer save(Department department) {
@@ -129,7 +129,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#toString()
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#toString()
 	 */
 	@Override
 	public String toString() {
@@ -140,7 +140,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#update(com.systemsinmotion .orgchart.entity.Department)
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#update(com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
 	public void update(Department department) {

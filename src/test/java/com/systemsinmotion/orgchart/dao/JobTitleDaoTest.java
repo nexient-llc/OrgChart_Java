@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-//import com.systemsinmotion.orgchart.Entities;
-//import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
@@ -27,84 +27,85 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class JobTitleDaoTest {
 
-//	private static final String SOME_NEW_NAME = "Some New Name";
-//
-//	private static final String NOT_PRESENT_VALUE = "XXX";
-//
-//	private static final Integer NOT_PRESENT_ID = -666;
-//
-//	private JobTitle jobTitle;
-//
-//	@Autowired
-//	IJobTitleDao jobTitleDao;
-//
-//	@After
-//	public void after() {
-//		this.jobTitleDao.delete(this.jobTitle);
-//	}
-//
-//	@Before
-//	public void before() throws Exception {
-//		this.jobTitle = Entities.jobTitle();
-//		this.jobTitle.setId(this.jobTitleDao.save(this.jobTitle));
-//	}
-//
-//	@Test
-//	public void created() {
-//		assertNotNull(this.jobTitle);
-//		assertNotNull(this.jobTitle.getId());
-//	}
-//
-//	@Test(expected = DataIntegrityViolationException.class)
-//	public void duplicateName() throws Exception {
-//		JobTitle dept = Entities.jobTitle();
-//		dept.setName(this.jobTitle.getName());
-//		this.jobTitleDao.save(dept);
-//	}
-//
-//	@Test
-//	public void findAll_notNull() throws Exception {
-//		System.out.println(this.jobTitleDao.toString());
-//		List<JobTitle> depts = this.jobTitleDao.findAll();
-//		assertNotNull(depts);
-//		assertTrue(0 < depts.size());
-//	}
-//
-//	@Test
-//	public void findByDeptId() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findById(this.jobTitle.getId());
-//		assertNotNull(dept);
-//		assertEquals(this.jobTitle.getName(), dept.getName());
-//	}
-//
-//	@Test
-//	public void findByDeptId_null() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findById(NOT_PRESENT_ID);
-//		assertNull(dept);
-//	}
-//
-//	@Test
-//	public void findByName() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findByName(this.jobTitle.getName());
-//		assertNotNull(dept);
-//		assertEquals(this.jobTitle.getName(), dept.getName());
-//	}
-//
-//	@Test
-//	public void findByName_null() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findByName(NOT_PRESENT_VALUE);
-//		assertNull(dept);
-//	}
-//
-//	@Test
-//	public void update() throws Exception {
-//		JobTitle dept = this.jobTitleDao.findByName(this.jobTitle.getName());
-//		dept.setName(SOME_NEW_NAME);
-//		this.jobTitleDao.update(dept);
-//
-//		dept = null;
-//		dept = this.jobTitleDao.findByName(SOME_NEW_NAME);
-//		assertNotNull(dept);
-//		assertEquals(SOME_NEW_NAME, dept.getName());
-//	}
+	private static final String SOME_NEW_NAME = "Some New Name";
+
+	private static final String NOT_PRESENT_VALUE = "XXX";
+
+	private static final Integer NOT_PRESENT_ID = -666;
+
+	private JobTitle jobTitle;
+
+	@Autowired
+	IJobTitleDao jobTitleDao;
+
+	@After
+	public void after() {
+		this.jobTitleDao.delete(this.jobTitle);
+	}
+
+	@Before
+	public void before() throws Exception {
+		this.jobTitle = Entities.jobTitle();
+		this.jobTitle.setId(this.jobTitleDao.save(this.jobTitle));
+	}
+
+	@Test
+	public void created() {
+		assertNotNull(this.jobTitle);
+		assertNotNull(this.jobTitle.getId());
+	}
+
+	@Test(expected = DataIntegrityViolationException.class)
+	public void duplicateName() throws Exception {
+		JobTitle jobTitle = Entities.jobTitle();
+		jobTitle.setName(this.jobTitle.getName());
+		this.jobTitleDao.save(jobTitle);
+	}
+
+	@Test
+	public void findAll_notNull() throws Exception {
+		System.out.println(this.jobTitleDao.toString());
+		List<JobTitle> jobs = this.jobTitleDao.findAll();
+		assertNotNull(jobs);
+		assertTrue(0 < jobs.size());
+	}
+
+	@Test
+	public void findByJobTitleId() throws Exception {
+		JobTitle job = this.jobTitleDao.findById(this.jobTitle.getId());
+		assertNotNull(job);
+		assertEquals(this.jobTitle.getName(), job.getName());
+	}
+
+	@Test
+	public void findByJobTitleId_null() throws Exception {
+		JobTitle job = this.jobTitleDao.findById(NOT_PRESENT_ID);
+		assertNull(job);
+	}
+
+	@Test
+	public void findByName() throws Exception {
+		JobTitle job = this.jobTitleDao.findByName(this.jobTitle.getName());
+		assertNotNull(job);
+		assertEquals(this.jobTitle.getName(), job.getName());
+	}
+
+	@Test
+	public void findByName_null() throws Exception {
+		JobTitle job = this.jobTitleDao.findByName(NOT_PRESENT_VALUE);
+		assertNull(job);
+	}
+
+	@Test
+	public void update() throws Exception {
+		JobTitle job = this.jobTitleDao.findByName(this.jobTitle.getName());
+		job.setName(SOME_NEW_NAME);
+		this.jobTitleDao.update(job);
+
+		job = null;
+		job = this.jobTitleDao.findByName(SOME_NEW_NAME);
+		assertNotNull(job);
+		assertEquals(SOME_NEW_NAME, job.getName());
+	}
+	
 }
