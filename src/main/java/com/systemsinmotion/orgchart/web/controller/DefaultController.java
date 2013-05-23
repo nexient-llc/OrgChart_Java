@@ -39,14 +39,6 @@ public class DefaultController {
 		return View.HOME;
 	}
 
-	@RequestMapping(value = "deleteJob", method = RequestMethod.POST)
-	public String goHome(Integer jobTitleId, Model model) {
-		JobTitle jobTitle = jobTitleService.findJobTitleById(jobTitleId);
-		jobTitleService.deleteJobTitle(jobTitle);
-		getAllJobTitlesForView(model);
-		return View.JOB_TITLES;
-	}
-
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		// uncomment when database connection is set up. will throw error when
@@ -98,6 +90,21 @@ public class DefaultController {
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
 	public String doEmployees_POST(Employee employee, Model model) {
 		employeeService.addEmployee(employee);
+		getDepartmentAndJobTitlesForEmployeeView(model);
+		return View.EMPLOYEES;
+	}
+
+	@RequestMapping(value = "deleteEmp", method = RequestMethod.POST)
+	public String doEmployeesRemove_POST(String action, Integer id, Model model) {
+		Employee employee = this.employeeService.findEmployeeById(id);
+		this.employeeService.deleteEmployee(employee);
+		getDepartmentAndJobTitlesForEmployeeView(model);
+		return View.EMPLOYEES;
+	}
+
+	@RequestMapping(value = "editEmps", method = RequestMethod.POST)
+	public String doEmployeesUpdate_POST(Employee employee, Model model) {
+		this.employeeService.updateEmployee(employee);
 		getDepartmentAndJobTitlesForEmployeeView(model);
 		return View.EMPLOYEES;
 	}

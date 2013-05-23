@@ -18,9 +18,6 @@
 				<td>${job.name}</td>
 				<td><button type="button" class="editBtn" name="editJobs"
 						value="${job.id}">Edit</button></td>
-				<td><form name="dJob" action="deleteJob" method="post">
-						<button type="submit" value="${job.id}">X</button></td>
-				</form>
 			</tr>
 		</c:forEach>
 

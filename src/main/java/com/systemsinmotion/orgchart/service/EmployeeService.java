@@ -39,4 +39,8 @@ public class EmployeeService {
 	public void deleteEmployee(Employee employee) {
 		this.employeeDao.delete(employee);
 	}
+
+	public void updateEmployee(Employee employee) {
+		this.employeeDao.update(employee);
+	}
 }

@@ -20,7 +20,18 @@ $(document).ready(function() {
 	$('#submitBtn').button();
 
 	$('.editBtn').button().click(function() {
-		// $('#addEntity').dialog({minWidth: 322});
+		 $('#editEntity').dialog({minWidth: 322});
+	});
+	
+	$('.delEmp').button().click(function(){
+		$.ajax({
+			url:	"deleteEmp",
+			type:	"POST",
+			data:	{action: "delete", id: $(this).val() },
+			success: function(){
+				window.location = "emps";
+			}
+		});
 	});
 
 

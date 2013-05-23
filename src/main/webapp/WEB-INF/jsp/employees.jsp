@@ -20,14 +20,27 @@
 		</tr>
 		<c:forEach items="${emps}" var="emp">
 			<tr>
-				<td>${emp.firstName}</td> 
+				<td>${emp.firstName}</td>
 				<td>${emp.lastName}</td>
 				<td>${emp.department.name}</td>
 				<td>${emp.jobTitle.name}</td>
-				<td><button type="button" class="editBtn" value="${emp.id}">Edit</button></td>
-			</tr> 
+				<td><button type="button" class="editBtn" value="${emp}">Edit</button>
+				</td>
+				<td>
+					<!-- <form name="deleteEmp" action="deleteEmp" method="post">
+						<input id="emp" name="id" type="hidden" value="${emp.id}" />
+						<input type="submit" value="X" onClick="return confirm( 'sure? ')"/>
+						<button type="submit" id="delEmp" value="${emp.id}">X</button>
+					</form> -->
+					<button type="submit" class="delEmp" value="${emp.id}">X</button>
+				</td>
+			</tr>
 		</c:forEach>
 	</table>
+
+
+
+
 
 	<div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>
@@ -57,7 +70,7 @@
 
 					<button type="submit" id="submitBtn">Save</button>
 					<button type="button" id="cancelBtn">Cancel</button>
-					
+
 				</div>
 				<div></div>
 			</form>
