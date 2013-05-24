@@ -17,18 +17,15 @@ $(document).ready(function() {
 		$('#addEntity').dialog("close");
 	});
 
-	$('#submitBtn').button();
-	$('#submitEditBtn').button();
-
-	$('#cancelEditBtn').button().click(function(){
+	$('#cancelEditBtn').button().click(function() {
 		$('#editEntity').dialog("close");
 	});
-	
-	$('.editEmp').button().click(function(){
+
+	$('.editEmp').button().click(function() {
 		$.ajax({
-			url:	"emps/"+ $(this).val(),
-			type:	"GET",
-			success: function(data){
+			url : "emps/" + $(this).val(),
+			type : "GET",
+			success : function(data) {
 				var form = $.parseJSON(data);
 				$('#empId').val(form.id);
 				$('#firstName').val(form.firstName);
@@ -40,12 +37,47 @@ $(document).ready(function() {
 				if (form.isManager) {
 					$('#isManager').attr('defaultChecked', true);
 				}
-				
-				$('#editEntity').dialog({minWidth: 322});
+				$('#editEntity').dialog({
+					minWidth : 322
+				});
 			}
 		});
 	});
 
+	$('.editJob').button().click(function() {
+		$.ajax({
+			url : "jobs/" + $(this).val(),
+			type : "GET",
+			success : function(data) {
+				var form = $.parseJSON(data);
+				$('#jobId').val(form.id);
+				$('#jobName').val(form.name);
+				$('#editEntity').dialog({
+					minWidth : 322
+				});
+			}
+		});
+	});
+	$('.submitEditBtn').button();
+	$('#submitBtn').button();
 
-
+	$('.editDept').button().click(function() {
+		$.ajax({
+			url : "depts/" + $(this).val(),
+			type : "GET",
+			success : function(data) {
+				var form = $.parseJSON(data);
+				$('#deptId').val(form.departmentId);
+				$('#deptName').val(form.name);
+				if (form.parentDepartment) {
+					$('#parentDeptName').val(form.parentDepartment.departmentId);
+				} else {
+					$('#parentDeptName').val("");
+				}
+				$('#editEntity').dialog({
+					minWidth : 322
+				});
+			}
+		});
+	});
 });

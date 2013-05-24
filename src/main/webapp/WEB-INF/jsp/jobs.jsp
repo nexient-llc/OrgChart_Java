@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <html>
@@ -15,9 +16,8 @@
 		</tr>
 		<c:forEach items="${jobs}" var="job">
 			<tr>
-				<td>${job.name}</td>
-				<td><button type="button" class="editBtn" name="editJobs"
-						value="${job.id}">Edit</button></td>
+				<td class="tableData">${job.name}</td>
+				<td><button type="button" class="editJob" value="${job.id}">Edit</button></td>
 			</tr>
 		</c:forEach>
 
@@ -38,17 +38,18 @@
 			</form>
 		</fieldset>
 	</div>
-	<div id="updateEntity" style="display: none">
+	<div id="editEntity" style="display: none">
 		<fieldset>
-			<legend>Add Job Title</legend>
-			<form name="updateJob" action="updateJobs" method="post">
+			<legend>Edit Job Title</legend>
+			<form:form name="editJob" action="jobs" method="put">
 				<div>
-					<labeL>Job Title:</labeL><input type="text" name="name" /></br>
-					<button type="submit" id="submitBtn">Save</button>
-					<button type="button" id="cancelBtn">Cancel</button>
+					<input type="hidden" name="id" id="jobId"/>
+					<labeL>Job Title:</labeL><input type="text" name="name" id="jobName" /></br>
+					<button type="submit" class="submitEditBtn">Save</button>
+					<button type="button" id="cancelEditBtn">Cancel</button>
 				</div>
 				<div></div>
-			</form>
+			</form:form>
 		</fieldset>
 	</div>
 </body>

@@ -28,16 +28,25 @@ public class DepartmentService {
 	}
 
 	public Integer storeDepartment(Department department) {
-		Department parentDepartment = department.getParentDepartment();
-		if (parentDepartment != null
-				&& parentDepartment.getDepartmentId() == null) {
-			department.setParentDepartment(null);
-		}
+		setParentNullIfNoParent(department);
 		return this.departmentDAO.save(department);
 	}
 
 	public void removeDepartment(Department department) {
 		this.departmentDAO.delete(department);
+	}
+
+	public void updateDepartment(Department department) {
+		setParentNullIfNoParent(department);
+		this.departmentDAO.update(department);
+	}
+
+	private void setParentNullIfNoParent(Department department) {
+		Department parentDepartment = department.getParentDepartment();
+		if (parentDepartment != null
+				&& parentDepartment.getDepartmentId() == null) {
+			department.setParentDepartment(null);
+		}
 	}
 
 }

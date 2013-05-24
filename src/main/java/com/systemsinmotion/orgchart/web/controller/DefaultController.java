@@ -45,19 +45,38 @@ public class DefaultController {
 
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		// uncomment when database connection is set up. will throw error when
-		// run
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
+		getDepartmentsForDepartmentView(model);
 		return View.DEPARTMENTS;
 	}
 
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
 	public String doDepartments_POST(Department newDepartment, Model model) {
 		departmentService.storeDepartment(newDepartment);
+		getDepartmentsForDepartmentView(model);
+		return View.DEPARTMENTS;
+	}
+
+	@RequestMapping(value = "depts", method = RequestMethod.PUT)
+	public String doDepartments_PUT(Department department, Model model) {
+		this.departmentService.updateDepartment(department);
+		getDepartmentsForDepartmentView(model);
+		return View.DEPARTMENTS;
+	}
+
+	@RequestMapping(value = "depts/{departmentId}", method = RequestMethod.GET)
+	public @ResponseBody
+	String doDepartments_preFillEditForm(
+			@PathVariable("departmentId") Integer departmentId) {
+		Department dept = this.departmentService
+				.findDepartmentByID(departmentId);
+		Gson gson = new Gson();
+		String json = gson.toJson(dept);
+		return json;
+	}
+
+	private void getDepartmentsForDepartmentView(Model model) {
 		List<Department> allDepts = departmentService.findAllDepartments();
 		model.addAttribute("depts", allDepts);
-		return View.DEPARTMENTS;
 	}
 
 	public void setDepartmentService(DepartmentService departmentService) {
@@ -66,67 +85,79 @@ public class DefaultController {
 
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitle_GET(Model model) {
-		getAllJobTitlesForView(model);
+		getJobTitlesForJobTitleView(model);
 		return View.JOB_TITLES;
 	}
 
 	@RequestMapping(value = "jobs", method = RequestMethod.POST)
 	public String doJobTitle_POST(JobTitle jobTitle, Model model) {
-		if (jobTitleService.storeJobTitle(jobTitle) == -1) {
-			getAllJobTitlesForView(model);
-			return View.JOB_TITLES;
-		}
-		getAllJobTitlesForView(model);
+		jobTitleService.storeJobTitle(jobTitle);
+		getJobTitlesForJobTitleView(model);
 		return View.JOB_TITLES;
 	}
 
-	private void getAllJobTitlesForView(Model model) {
+	@RequestMapping(value = "jobs", method = RequestMethod.PUT)
+	public String doJobTitle_PUT(JobTitle jobTitle, Model model) {
+		this.jobTitleService.updateJobTitle(jobTitle);
+		getJobTitlesForJobTitleView(model);
+		return View.JOB_TITLES;
+	}
+
+	@RequestMapping(value = "jobs/{jobId}", method = RequestMethod.GET)
+	public @ResponseBody
+	String doJobTitle_preFillEditForm(@PathVariable("jobId") Integer jobId) {
+		JobTitle job = this.jobTitleService.findJobTitleById(jobId);
+		Gson gson = new Gson();
+		String json = gson.toJson(job);
+		return json;
+	}
+
+	private void getJobTitlesForJobTitleView(Model model) {
 		List<JobTitle> jobTitles = this.jobTitleService.findAllJobTitles();
 		model.addAttribute("jobs", jobTitles);
 	}
 
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
-		getDepartmentAndJobTitlesForEmployeeView(model);
+		getDepartmentsJobTitlesEmployeesForEmployeeView(model);
 		return View.EMPLOYEES;
 	}
 
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public String doEmployees_POST(@RequestParam Integer id, Employee employee,
-			Model model) {
-		if (employeeService.findEmployeeById(employee.getId()) != null) {
-			employeeService.updateEmployee(employee);
-		} else {
-			employeeService.addEmployee(employee);
-		}
-		getDepartmentAndJobTitlesForEmployeeView(model);
+	public String doEmployees_POST(Employee employee, Model model) {
+		employeeService.addEmployee(employee);
+		getDepartmentsJobTitlesEmployeesForEmployeeView(model);
 		return View.EMPLOYEES;
 	}
 
-	@RequestMapping(value = "deleteEmp", method = RequestMethod.GET)
-	public String doEmployeesRemove_DELETE(@RequestParam Integer empId,
-			Model model) {
+	@RequestMapping(value = "emps", method = RequestMethod.PUT)
+	public String doEmployees_PUT(Employee employee, Model model) {
+		this.employeeService.updateEmployee(employee);
+		getDepartmentsJobTitlesEmployeesForEmployeeView(model);
+		return View.EMPLOYEES;
+	}
+
+	@RequestMapping(value = "emps", method = RequestMethod.DELETE)
+	public String doEmployees_DELETE(@RequestParam Integer empId, Model model) {
 		this.employeeService.deleteEmployee(this.employeeService
 				.findEmployeeById(empId));
-		getDepartmentAndJobTitlesForEmployeeView(model);
+		getDepartmentsJobTitlesEmployeesForEmployeeView(model);
 		return View.EMPLOYEES;
 	}
 
 	@RequestMapping(value = "emps/{empId}", method = RequestMethod.GET)
 	public @ResponseBody
-	String doEmployeesUpdate_preFillForm(
-			@PathVariable("empId") Integer employeeId, Model model) {
+	String doEmployees_preFillEditForm(@PathVariable("empId") Integer employeeId) {
 		Employee emp = this.employeeService.findEmployeeById(employeeId);
 		Gson gson = new Gson();
 		String json = gson.toJson(emp);
 		return json;
 	}
 
-	private void getDepartmentAndJobTitlesForEmployeeView(Model model) {
+	private void getDepartmentsJobTitlesEmployeesForEmployeeView(Model model) {
 		List<Employee> employees = this.employeeService.findAllEmployees();
 		model.addAttribute("emps", employees);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		getAllJobTitlesForView(model);
+		getDepartmentsForDepartmentView(model);
+		getJobTitlesForJobTitleView(model);
 	}
 }
