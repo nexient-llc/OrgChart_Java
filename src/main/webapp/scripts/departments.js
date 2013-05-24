@@ -18,18 +18,30 @@ $(document).ready(function() {
 	});
 
 	$('#submitBtn').button();
+	$('#submitEditBtn').button();
 
-	$('.editBtn').button().click(function() {
-		 $('#editEntity').dialog({minWidth: 322});
+	$('#cancelEditBtn').button().click(function(){
+		$('#editEntity').dialog("close");
 	});
 	
-	$('.delEmp').button().click(function(){
+	$('.editEmp').button().click(function(){
 		$.ajax({
-			url:	"deleteEmp",
-			type:	"POST",
-			data:	{action: "delete", id: $(this).val() },
-			success: function(){
-				window.location = "emps";
+			url:	"emps/"+ $(this).val(),
+			type:	"GET",
+			success: function(data){
+				var form = $.parseJSON(data);
+				$('#empId').val(form.id);
+				$('#firstName').val(form.firstName);
+				$('#lastName').val(form.lastName);
+				$('#email').val(form.email);
+				$('#skypeName').val(form.skypeName);
+				$('#department').val(form.department.departmentId);
+				$('#jobTitle').val(form.jobTitle.id);
+				if (form.isManager) {
+					$('#isManager').attr('defaultChecked', true);
+				}
+				
+				$('#editEntity').dialog({minWidth: 322});
 			}
 		});
 	});

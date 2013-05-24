@@ -19,7 +19,7 @@ public interface IEmployeeDao {
 
 	public abstract List<Employee> findByDept(Department department);
 
-	public abstract List<Employee> findByManager(Boolean isManager);
+	public abstract List<Employee> findByIsManager(Boolean isManager);
 
 	public abstract List<Employee> findByManagerId(Integer managerId);
 

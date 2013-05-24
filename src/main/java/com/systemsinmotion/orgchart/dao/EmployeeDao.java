@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -87,30 +88,23 @@ public class EmployeeDao implements IEmployeeDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> findByDept(Department department) {
-		LOG.debug("find employee by department: " + department.getName());
-		try {
-			if (department != null) {
-				return (List<Employee>) this.hibernateTemplate.find(" from "
-						+ Employee.class.getName() + " where DEPARTMENT_ID = "
-						+ department.getDepartmentId());
-			}
-			return null;
-		} catch (IllegalArgumentException re) {
-			return null;
-		} catch (RuntimeException re) {
-			LOG.error("Finding by dept id failed: ", re);
-			throw re;
+		List<Employee> emps = Collections.EMPTY_LIST;
+		if (department != null && department.getDepartmentId() != null) {
+			LOG.debug("find employee by department: " + department.getName());
+			emps = (List<Employee>) this.hibernateTemplate
+					.find(" from Employee where department.departmentId = "
+							+ department.getDepartmentId());
 		}
+		return emps;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Employee> findByManager(Boolean isManager) {
+	public List<Employee> findByIsManager(Boolean isManager) {
 		LOG.debug("Finding employee by manager: " + isManager);
 		try {
-			return this.hibernateTemplate.find(" from "
-					+ Employee.class.getName() + " where IS_MANAGER = "
-					+ isManager);
+			return this.hibernateTemplate
+					.find(" from Employee where isManager = " + isManager);
 		} catch (RuntimeException re) {
 			LOG.error("Finding employee by manager failed: ", re);
 			throw re;

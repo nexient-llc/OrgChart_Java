@@ -1,10 +1,7 @@
 package com.systemsinmotion.orgchart.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,9 +20,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "EMPLOYEE")
 public class Employee implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1676017339639047503L;
 
 	private Integer id;
@@ -49,7 +42,6 @@ public class Employee implements Serializable {
 	private JobTitle jobTitle;
 	private Department department;
 	private Integer managerId;
-	private Set<Employee> employees = new HashSet<Employee>(0);
 
 	// getters and setters
 	@Id
@@ -135,15 +127,6 @@ public class Employee implements Serializable {
 
 	public void setManagerId(Integer managerId) {
 		this.managerId = managerId;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "isManager")
-	public Set<Employee> getEmployees() {
-		return this.employees;
-	}
-
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
 	}
 
 }

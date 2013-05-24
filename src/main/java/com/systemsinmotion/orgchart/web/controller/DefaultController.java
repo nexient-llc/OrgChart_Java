@@ -7,9 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -88,25 +92,34 @@ public class DefaultController {
 	}
 
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public String doEmployees_POST(Employee employee, Model model) {
-		employeeService.addEmployee(employee);
+	public String doEmployees_POST(@RequestParam Integer id, Employee employee,
+			Model model) {
+		if (employeeService.findEmployeeById(employee.getId()) != null) {
+			employeeService.updateEmployee(employee);
+		} else {
+			employeeService.addEmployee(employee);
+		}
 		getDepartmentAndJobTitlesForEmployeeView(model);
 		return View.EMPLOYEES;
 	}
 
-	@RequestMapping(value = "deleteEmp", method = RequestMethod.POST)
-	public String doEmployeesRemove_POST(String action, Integer id, Model model) {
-		Employee employee = this.employeeService.findEmployeeById(id);
-		this.employeeService.deleteEmployee(employee);
+	@RequestMapping(value = "deleteEmp", method = RequestMethod.GET)
+	public String doEmployeesRemove_DELETE(@RequestParam Integer empId,
+			Model model) {
+		this.employeeService.deleteEmployee(this.employeeService
+				.findEmployeeById(empId));
 		getDepartmentAndJobTitlesForEmployeeView(model);
 		return View.EMPLOYEES;
 	}
 
-	@RequestMapping(value = "editEmps", method = RequestMethod.POST)
-	public String doEmployeesUpdate_POST(Employee employee, Model model) {
-		this.employeeService.updateEmployee(employee);
-		getDepartmentAndJobTitlesForEmployeeView(model);
-		return View.EMPLOYEES;
+	@RequestMapping(value = "emps/{empId}", method = RequestMethod.GET)
+	public @ResponseBody
+	String doEmployeesUpdate_preFillForm(
+			@PathVariable("empId") Integer employeeId, Model model) {
+		Employee emp = this.employeeService.findEmployeeById(employeeId);
+		Gson gson = new Gson();
+		String json = gson.toJson(emp);
+		return json;
 	}
 
 	private void getDepartmentAndJobTitlesForEmployeeView(Model model) {
