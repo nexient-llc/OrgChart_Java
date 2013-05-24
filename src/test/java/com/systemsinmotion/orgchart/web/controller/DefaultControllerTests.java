@@ -61,21 +61,21 @@ public class DefaultControllerTests {
 		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
 		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
 
-		this.controller.setDepartmentService(this.mockDepartmentService);
+//		this.controller.setDepartmentService(this.mockDepartmentService);
 
 	}
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testModelShouldContainNewDepartmentList() {
-		// Given
-		this.controller.doDepartments_GET(this.model);
-		// When
-		this.findAllDepartmentsList = (ArrayList<Department>) (this.model.asMap().get("depts"));
-		// Then
-		assertNotNull(this.findAllDepartmentsList);
-		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
-	}
+//	@SuppressWarnings("unchecked")
+//	@Test
+//	public void testModelShouldContainNewDepartmentList() {
+//		// Given
+//		this.controller.doDepartments_GET(this.model);
+//		// When
+//		this.findAllDepartmentsList = (ArrayList<Department>) (this.model.asMap().get("depts"));
+//		// Then
+//		assertNotNull(this.findAllDepartmentsList);
+//		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
+//	}
 
 	// @SuppressWarnings("unchecked")
 	// @Test

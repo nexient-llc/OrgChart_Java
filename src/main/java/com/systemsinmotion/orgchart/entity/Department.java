@@ -37,23 +37,23 @@ public class Department implements java.io.Serializable {
 		return this.id;
 	}
 
+	public void setId(Integer departmentId) {
+		this.id = departmentId;
+	}
+	
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
 		return this.parentDepartment;
-	}
-
-	public void setId(Integer departmentId) {
-		this.id = departmentId;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public void setParentDepartment(Department department) {

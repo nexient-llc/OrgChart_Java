@@ -35,30 +35,11 @@ public class DefaultController {
 	EmployeeService employeeService;
 
 	@Autowired
-	DepartmentService departmentService;
-
-	@Autowired
 	JobTitleService jobTitleService;
 	
-
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
-	}
-	
-	@RequestMapping(value = "depts", method = RequestMethod.GET)
-	public String doDepartments_GET(Model model) {
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
-	}
-	
-	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(@ModelAttribute("department") Department department, BindingResult result, Model model) {
-		departmentService.storeDepartment(department);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
 	}
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
@@ -75,10 +56,6 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
-	}
-
 	public void setJobTitleService(JobTitleService jobTitleService) {
 		this.jobTitleService = jobTitleService;
 	}

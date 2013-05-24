@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c"    uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <h3>Departments</h3> 
 <table id="t1"> 
@@ -26,18 +26,18 @@
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Department</legend>
-		<form name="newDept" action="depts" method="post">
-		<div><labeL>Dept Name:</labeL><input type="text" name="name"/>
+		<form:form modelAttribute="newDept" action="depts" method="post">
+		<div><labeL>Dept Name:</labeL><form:input path="name" type="text" />
 			<labeL>Parent Dept:</label>
-			<select name="parent_id">
+			<form:select path="parentDepartment">
 				<option>...</option>
 				<c:forEach items="${depts}" var="dept">
 					<option value="${dept.id}">${dept.name}</option>
 				</c:forEach>
-			</select>
+			</form:select>
 			<button type="submit">Save</button>
 		</div>
 		<div></div>
-		</form>
+		</form:form>
 	</fieldset>
 </div>
