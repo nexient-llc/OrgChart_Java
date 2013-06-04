@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
 		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<sec:http auto-config="true" use-expressions="true">
+		<sec:intercept-url pattern="/styles*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<sec:intercept-url pattern="/images*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<sec:intercept-url pattern="/scripts*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<sec:intercept-url pattern="/app/admin*" access="hasRole('ROLE_ADMIN')" />
 		<sec:form-login login-page="/app/login"
 			authentication-failure-url="/app/login"
@@ -16,11 +23,45 @@
 			invalidate-session="true" />
 	</sec:http>
 
+	<context:annotation-config />
+	<context:component-scan base-package="com.systemsinmotion.orgchart" />
+
+<!--
 	<sec:authentication-manager>
 		<sec:authentication-provider>
-			<!-- users-by-username-query is same as the default so not needed -->
 			<sec:jdbc-user-service data-source-ref="dataSource"
 				authorities-by-username-query="select u.username, ur.authority from users u, user_roles ur where u.user_id = ur.user_id and u.username =?" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+	<bean id="authenticationSuccessHandler"
+		class="com.systemsinmotion.orgchart.web.security.AuthenticationSuccessHandler" />
+-->
+<!--
+	<sec:authentication-manager>
+		<sec:authentication-provider user-service-ref="userDetailsService" />
+	</sec:authentication-manager>
+
+	<bean id="authenticationSuccessHandler"
+		class="com.systemsinmotion.orgchart.web.security.AuthenticationSuccessHandler" />
+-->
+
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userDetailsService"/>
+	</bean>
+
+	<bean id="authenticationManager"
+		class="org.springframework.security.authentication.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="daoAuthenticationProvider" />
+			</list>
+		</property>
+	</bean>
+
+	<sec:authentication-manager>
+		<sec:authentication-provider user-service-ref="userDetailsService">
 		</sec:authentication-provider>
 	</sec:authentication-manager>
 

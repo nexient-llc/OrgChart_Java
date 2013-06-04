@@ -35,15 +35,22 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 	</bean>
-		
+
+	<!--
 	<bean id="department" class="com.systemsinmotion.orgchart.entity.Department" />
+	-->
 	<bean id="departmentFormatter" class="com.systemsinmotion.orgchart.converter.DepartmentFormatter" />
+	<!--
+	<bean id="jobTitle" class="com.systemsinmotion.orgchart.entity.JobTitle" />
+	-->
+	<bean id="jobTitleFormatter" class="com.systemsinmotion.orgchart.converter.JobTitleFormatter" />
 	
 	<bean id="conversionService"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="formatters">
 			<set>
 				<ref bean="departmentFormatter" />
+				<ref bean="jobTitleFormatter" />
 			</set>
 		</property>
 	</bean>
