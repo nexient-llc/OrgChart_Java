@@ -46,7 +46,7 @@ public class Entities {
 		jobTitle.setId(JOB_TITLE_ID + r.nextInt());
 		return jobTitle;
 	}
-	
+
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());

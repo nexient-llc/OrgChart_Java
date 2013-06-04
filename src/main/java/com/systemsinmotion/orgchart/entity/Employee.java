@@ -2,18 +2,12 @@ package com.systemsinmotion.orgchart.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -53,17 +47,16 @@ public class Employee implements java.io.Serializable {
 	private String skypeName;
 
 	@NotNull
-	//private Integer jobTitleId;
 	private JobTitle jobTitle;
 
 	@NotNull
-	//private Integer departmentId;
 	private Department department;
+
 	// Constructors
 
 	/** default constructor */
 	public Employee() {
-		
+
 	}
 
 	// Property accessors
@@ -82,20 +75,20 @@ public class Employee implements java.io.Serializable {
 	public String getFirstName() {
 		return this.firstName;
 	}
-	
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	@Column(name = "LAST_NAME", nullable = false, length = 45)
 	public String getLastName() {
 		return this.lastName;
 	}
-	
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	@Column(name = "MIDDLE_INITIAL")
 	public String getMiddleInitial() {
 		return this.middleInitial;
@@ -104,48 +97,50 @@ public class Employee implements java.io.Serializable {
 	public void setMiddleInitial(String middleInitial) {
 		this.middleInitial = middleInitial;
 	}
-	
+
 	@Column(name = "EMAIL", length = 100)
 	public String getEmail() {
 		return this.email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	@Column(name = "SKYPE_NAME", length = 100)
 	public String getSkypeName() {
 		return this.skypeName;
 	}
-	
+
 	public void setSkypeName(String skypeName) {
 		this.skypeName = skypeName;
 	}
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "JOB_TITLE_ID")
 	public JobTitle getJobTitle() {
 		return this.jobTitle;
 	}
-	
+
 	public void setJobTitle(JobTitle jobTitle) {
 		this.jobTitle = jobTitle;
 	}
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "DEPARTMENT_ID")
 	public Department getDepartment() {
 		return this.department;
 	}
-	
+
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-	
+
 	// Added for logging purposes
 	public String PrintFullName() {
-		return new StringBuilder(this.getFirstName()).append(" ").append(this.getMiddleInitial()).append(" ").append(this.getLastName()).toString();
+		return new StringBuilder(this.getFirstName()).append(" ")
+				.append(this.getMiddleInitial()).append(" ")
+				.append(this.getLastName()).toString();
 	}
 
 }

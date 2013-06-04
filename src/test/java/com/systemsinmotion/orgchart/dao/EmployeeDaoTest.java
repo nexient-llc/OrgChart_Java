@@ -39,7 +39,7 @@ public class EmployeeDaoTest {
 
 	@Autowired
 	IDepartmentDao departmentDao;
-	
+
 	@Autowired
 	IJobTitleDao jobTitleDao;
 
@@ -47,16 +47,16 @@ public class EmployeeDaoTest {
 	public void before() throws Exception {
 		this.department = Entities.department();
 		this.departmentDao.save(this.department);
-		
+
 		this.job = Entities.jobTitle();
 		this.jobTitleDao.save(job);
-		
+
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
-		this.employee.setJobTitle(this.job);
+		this.employee.setJobTitle(job);
 		this.employee.setId(this.employeeDao.save(this.employee));
 	}
-	
+
 	@After
 	public void after() {
 		this.employeeDao.delete(this.employee);
@@ -73,8 +73,10 @@ public class EmployeeDaoTest {
 
 	@Test
 	public void findByDepartment() throws Exception {
-		List<Employee> emps = this.employeeDao.findByDepartment(this.employee.getDepartment());
-		assertNotNull("Expecting a non-null list of Employees but was null", emps);
+		List<Employee> emps = this.employeeDao.findByDepartment(this.employee
+				.getDepartment());
+		assertNotNull("Expecting a non-null list of Employees but was null",
+				emps);
 		Employee emp = emps.get(0);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
@@ -128,5 +130,5 @@ public class EmployeeDaoTest {
 		Employee emp = this.employeeDao.findById(NOT_PRESENT_ID);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
-	
+
 }
