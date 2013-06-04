@@ -342,7 +342,7 @@ code {
 	display: block;
 	position: relative;
 	margin-bottom: 1.5em;
-	background: #e5e8eb url('../images/bg-code.png') no-repeat 0px 0px;
+	background: #e5e8eb url('/orgchart/images/bg-code.png') no-repeat 0px 0px;
 	padding: 10px;
 	text-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
 	color: #46596c;
@@ -418,7 +418,7 @@ table td.preview {
 	-moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
 	box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
 	border: solid 1px #6e93b0;
-	background: url('../images/btn-lg-bg.png') repeat-x 0px 0px;
+	background: url('/orgchart/images/btn-lg-bg.png') repeat-x 0px 0px;
 	text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
 	color: #234e70 !important;
 	margin-bottom: 5px;
@@ -459,7 +459,7 @@ table td.preview {
 	-moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
 	box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
 	border: solid 1px #6e93b0;
-	background: url('../images/btn-sm-bg.png') repeat-x 0px 0px;
+	background: url('/orgchart/images/btn-sm-bg.png') repeat-x 0px 0px;
 	height: 27px;
 	line-height: 26px;
 	text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;

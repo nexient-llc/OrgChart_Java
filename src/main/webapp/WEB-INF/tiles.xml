@@ -12,8 +12,24 @@
 	
 	<definition name="depts" extends="main">
 		<put-attribute name="title" type="string" value="Departments" />
-		<put-attribute name="page-js" type="string" value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
+		<put-list-attribute name="page-scripts">
+			<add-attribute value="/orgchart/scripts/add_entity.js" />
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="jobs" extends="main">
+		<put-attribute name="title" type="string" value="Job Titles" />
+		<put-attribute name="page-js0" type="string" value="/orgchart/scripts/add_entity.js" />
+		<put-attribute name="page-js1" type="string" value="/orgchart/scripts/popupEditor.js" />
+		<put-attribute name="body" value="/WEB-INF/jsp/job_titles.jsp" />
+	</definition>
+
+	<definition name="emps" extends="main">
+		<put-attribute name="title" type="string" value="Employees" />
+		<put-attribute name="page-js0" type="string" value="/orgchart/scripts/add_entity.js" />
+		<put-attribute name="page-js1" type="string" value="/orgchart/scripts/popupEditor.js" />
+		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
 	</definition>
 	
 	<definition name="home" extends="main">
@@ -32,7 +48,7 @@
 	
 	<definition name="admin/login" extends="main">
 		<put-attribute name="title" type="string" value="Login" />
-		<put-attribute name="page-js" type="string" value="../scripts/login.js" />
+		<put-attribute name="page-js" type="string" value="/orgchart/scripts/login.js" />
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-no-login.jsp" />
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/login.jsp" />

@@ -16,7 +16,7 @@
 	</c:if>
 
 
-	<form action="<c:url value='/app/j_spring_security_check' />"
+	<form action="<c:url value='/app/admin/j_spring_security_check' />"
 		method='POST'>
 		<input type="hidden" name="page" value="${param.page}" />
 		<div>

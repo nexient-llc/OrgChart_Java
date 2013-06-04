@@ -7,12 +7,14 @@
 <head> 
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
 <%@ include file="/WEB-INF/fragments/scripts.jsp"%>
+<%@page import="java.util.ArrayList" %>
 
-<tiles:useAttribute id="pageJS" name="page-js"
-	classname="java.lang.String" ignore="true" />
-<c:if test="${not empty pageJS}">
-	<script type="text/javascript" src="${pageJS}"></script>
-</c:if>
+<tiles:useAttribute id="list" name="page-scripts" classname="java.util.ArrayList" ignore="true" />
+<c:forEach var="item" items="${list}">
+	<c:if test="${not empty item}">
+		<script type="text/javascript" src="${item}"></script>
+	</c:if>
+</c:forEach>
 
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
 <title>Systems In Motion - <tiles:getAsString name="title" /></title>
