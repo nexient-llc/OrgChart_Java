@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
@@ -30,6 +31,7 @@ public class EmployeeDaoTest {
 	private static final String NOT_PRESENT_VALUE = "XXX";
 	private static final Integer NOT_PRESENT_ID = -666;
 	private Department department;
+	private JobTitle jobTitle;
 	private Employee employee;
 	private Employee manager;
 
@@ -39,10 +41,14 @@ public class EmployeeDaoTest {
 	@Autowired
 	IDepartmentDao departmentDao;
 
+	@Autowired
+	IJobTitleDao jobTitleDao;
+
 	@After
 	public void after() {
 		this.employeeDao.delete(this.employee);
 		this.departmentDao.delete(this.department);
+		this.jobTitleDao.delete(this.jobTitle);
 
 		if (null != this.manager) {
 			this.employeeDao.delete(this.manager);
@@ -54,8 +60,12 @@ public class EmployeeDaoTest {
 		this.department = Entities.department();
 		this.departmentDao.save(this.department);
 
+		this.jobTitle = Entities.jobTitle();
+		this.jobTitleDao.save(jobTitle);
+
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
+		this.employee.setJobTitle(jobTitle);
 		this.employee.setId(this.employeeDao.save(this.employee));
 	}
 
@@ -97,6 +107,26 @@ public class EmployeeDaoTest {
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
 		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
+
+	@Test
+	public void findByLastName() throws Exception {
+		List<Employee> emps = this.employeeDao.findByLastName(this.employee
+				.getLastName());
+		assertNotNull("Expecting a non-null Employee but was null", emps);
+
+		Employee emp = emps.get(0);
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+	}
+
+	@Test
+	public void findByFirstName() throws Exception {
+		List<Employee> emps = this.employeeDao.findByFirstName(this.employee
+				.getFirstName());
+		assertNotNull("Expecting a non-null Employee but was null", emps);
+
+		Employee emp = emps.get(0);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 	}
 
 	@Test
@@ -158,5 +188,17 @@ public class EmployeeDaoTest {
 	public void findByManagerId_null() throws Exception {
 		List<Employee> emps = this.employeeDao.findByManagerId(null);
 		assertNull(emps);
+	}
+
+	@Test
+	public void findByJobTitle() throws Exception {
+		List<Employee> emps = this.employeeDao.findByJobTitle(this.employee
+				.getJobTitle());
+		assertNotNull("Expecting a non-null Employee but was null", emps);
+		if (emps.size() > 0) {
+			Employee emp = emps.get(0);
+			assertEquals(this.employee.getJobTitle(), emp.getJobTitle());
+		}
+
 	}
 }
