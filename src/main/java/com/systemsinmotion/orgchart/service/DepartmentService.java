@@ -28,6 +28,7 @@ public class DepartmentService {
 	}
 
 	public Integer storeDepartment(Department department) {
+		dontChangeParentIfSameAsDept(department);
 		setParentNullIfNoParent(department);
 		return this.departmentDAO.save(department);
 	}
@@ -37,6 +38,7 @@ public class DepartmentService {
 	}
 
 	public void updateDepartment(Department department) {
+		dontChangeParentIfSameAsDept(department);
 		setParentNullIfNoParent(department);
 		this.departmentDAO.update(department);
 	}
@@ -46,6 +48,19 @@ public class DepartmentService {
 		if (parentDepartment != null
 				&& parentDepartment.getDepartmentId() == null) {
 			department.setParentDepartment(null);
+		}
+	}
+
+	private void dontChangeParentIfSameAsDept(Department department) {
+		if ((department.getDepartmentId() != null && department
+				.getParentDepartment().getDepartmentId() != null)
+				&& (department.getDepartmentId().intValue() == department
+						.getParentDepartment().getDepartmentId().intValue())) {
+			Department currentDeptInDb = departmentDAO.findById(department
+					.getDepartmentId());
+			department.setParentDepartment(currentDeptInDb
+					.getParentDepartment());
+
 		}
 	}
 
