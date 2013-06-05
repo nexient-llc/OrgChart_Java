@@ -23,5 +23,5 @@
 
 	<input type="submit" value="update" />
 	
-	<a href="/app/depts"><button type="button">cancel</button></a>
+	<a href="/orgchart/app/depts"><button type="button">cancel</button></a>
 </form:form>

@@ -42,6 +42,10 @@ public class DepartmentController {
 	// save a new department
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String doDepartments_POST(@ModelAttribute("modelDept") @Valid Department newDept, Model model) {
+		// deal with the transient instance
+		Department parentDept = newDept.getParentDepartment();
+		if(parentDept.getId() == null &&
+			parentDept.getName() == )
 		departmentService.storeDepartment(newDept);
 		loadModelData(model);
 		return View.DEPARTMENTS;
