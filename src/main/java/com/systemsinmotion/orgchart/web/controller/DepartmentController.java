@@ -32,12 +32,14 @@ public class DepartmentController {
 	@Autowired
 	DepartmentService departmentService;
 
+	// Get the default page for departments
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		loadModelData(model);
 		return View.DEPARTMENTS;
 	}
 
+	// save a new department
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String doDepartments_POST(@ModelAttribute("modelDept") @Valid Department newDept, Model model) {
 		departmentService.storeDepartment(newDept);
@@ -45,6 +47,7 @@ public class DepartmentController {
 		return View.DEPARTMENTS;
 	}
 
+	// delete department with given id
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public String doDepartments_DELETE(@PathVariable Integer id, Model model) {
 		Department delDept = departmentService.findDepartmentByID(id);
@@ -53,10 +56,19 @@ public class DepartmentController {
 		return View.DEPARTMENTS;
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public String doDepartments_UPDATE(@PathVariable Integer id, @ModelAttribute("modelDept") Department upDept,
-			Model model) {
-		// Department delDept = departmentService.findDepartmentByID(id);
+	// load department with given id into the edit form
+	@RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+	public String doEditDept_GET(@PathVariable Integer id, Model model) {
+		List<Department> departments = departmentService.findAllDepartments();
+		Department updateDept = departmentService.findDepartmentByID(id);
+		model.addAttribute("depts", departments);
+		model.addAttribute("modelDept", updateDept);
+		return View.EDIT_DEPARTMENT;
+	}
+
+	// save changes made in edit form, see above
+	@RequestMapping(value = "edit", method = RequestMethod.PUT)
+	public String doDepartments_UPDATE(@ModelAttribute("modelDept") @Valid Department upDept, Model model) {
 		departmentService.updateDepartment(upDept);
 		loadModelData(model);
 		return View.DEPARTMENTS;

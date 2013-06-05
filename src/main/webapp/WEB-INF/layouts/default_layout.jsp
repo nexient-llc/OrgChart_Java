@@ -9,12 +9,10 @@
 <%@ include file="/WEB-INF/fragments/scripts.jsp"%>
 <%@page import="java.util.ArrayList" %>
 
-<tiles:useAttribute id="list" name="page-scripts" classname="java.util.ArrayList" ignore="true" />
-<c:forEach var="item" items="${list}">
-	<c:if test="${not empty item}">
-		<script type="text/javascript" src="${item}"></script>
-	</c:if>
-</c:forEach>
+<tiles:insertAttribute id="item" name="page-js" classname="java.lang.String" />
+<c:if test="${not empty item}">
+	<script type="text/javascript" src="${item}"></script>
+</c:if>
 
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
 <title>Systems In Motion - <tiles:getAsString name="title" /></title>
