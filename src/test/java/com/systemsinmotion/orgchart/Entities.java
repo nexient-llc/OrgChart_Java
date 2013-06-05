@@ -3,8 +3,8 @@ package com.systemsinmotion.orgchart;
 import java.util.Random;
 
 import com.systemsinmotion.orgchart.entity.Department;
-import com.systemsinmotion.orgchart.entity.Employee;
-import com.systemsinmotion.orgchart.entity.JobTitle;
+/*import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;*/
 
 public class Entities {
 
@@ -38,7 +38,7 @@ public class Entities {
 	private static String departmentName() {
 		return DEPARTMENT_NAME + r.nextInt();
 	}
-
+/*
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
@@ -64,6 +64,6 @@ public class Entities {
 		mgr.setSkypeName(SKYPE_NAME + r.nextInt());
 		mgr.setIsManager(true);
 		return mgr;
-	}
+	}*/
 
 }
