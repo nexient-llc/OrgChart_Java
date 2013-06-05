@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.web;
 public class View {
 	public static final String HOME = "home";
 	public static final String DEPARTMENTS = "depts";
+	public static final String EDIT_DEPARTMENT = "edit_depts";
 	public static final String JOB_TITLES = "jobs";
 	public static final String EMPLOYEES = "emps";
 	public static final String LOGIN = "login";
