@@ -1,6 +1,5 @@
 package com.systemsinmotion.orgchart.dao;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -44,8 +43,7 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 	 */
 	@Override
 	public void delete(Employee employee) {
-		LOG.debug("deleting Employee instance with name: " + employee.PrintFullName()
-				+ " " + employee.getLastName());
+		LOG.debug("deleting Employee instance with name: " + employee.PrintFullName() + " " + employee.getLastName());
 		try {
 			this.hibernateTemplate.delete(employee);
 		} catch (RuntimeException re) {
@@ -72,13 +70,13 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#findByDepartment(com.systemsinmotion.orgchart.entity.Department)
+	 * @see
+	 * com.systemsinmotion.orgchart.dao.EmployeeDao#findByDepartment(com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Employee> findByDepartment(Department department)
-	{
-		//List<Employee> emps = Collections.EMPTY_LIST;
+	public List<Employee> findByDepartment(Department department) {
+		// List<Employee> emps = Collections.EMPTY_LIST;
 		List<Employee> emps = null;
 
 		if (department != null && department.getId() != null) {
@@ -90,14 +88,13 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		}
 		return emps;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#findByEmail(java.lang.String)
 	 */
 	@Override
-	public Employee findByEmail(String email)
-	{
+	public Employee findByEmail(String email) {
 		LOG.debug("finding Employee instance by email: " + email);
 		Employee emp = null;
 
@@ -115,17 +112,16 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		}
 		return emp;
 	}
-	
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.systemsinmotion.orgchart.dao.EmployeeDao#findById(java.lang.Integer)
 	 */
 	@Override
 	public Employee findById(Integer id) {
-		if(id == null)
+		if (id == null)
 			return null;
-		
+
 		LOG.debug("getting Employee instance with id: " + id);
 		try {
 			return this.hibernateTemplate.get(Employee.class, id);
@@ -148,6 +144,16 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 			LOG.error("save failed", re);
 			throw re;
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDao#update(com.systemsinmotion.orgchart.entity.Department)
+	 */
+	@Override
+	public void update(Employee employee) {
+		LOG.debug("updating Employee instance with name: " + employee.PrintFullName());
+		this.hibernateTemplate.update(employee);
 	}
 
 	/*

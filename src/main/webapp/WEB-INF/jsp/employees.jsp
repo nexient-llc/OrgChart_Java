@@ -5,8 +5,8 @@
 
 <h3>Employees</h3> 
 <table id="t1"> 
-	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
+	<tr>
+		<th colspan="2">Task</th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Middle Initial</th>
@@ -17,9 +17,17 @@
 	</tr> 
 	<c:forEach items="${emps}" var="emp">
 		<tr> 
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<td>delete</td>
-			</sec:authorize> -->
+			<td>
+			<form action="<c:url value='/app/emps/${emp.id}'/>" method="post">
+				<input type="hidden" name="_method" value="DELETE" />
+				<input type="submit" value="delete" />
+			</form>
+			</td>
+			<td>
+			<form action="<c:url value='/app/emps/edit/${emp.id}'/>" method="get">
+				<input type="submit" value="edit" />
+			</form>
+			</td>
 			<td>${emp.firstName}</td> 
 			<td>${emp.lastName}</td> 
 			<td>${emp.middleInitial}</td> 
@@ -37,7 +45,7 @@
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Employee</legend>
-		<form:form modelAttribute="newEmp" action="emps" method="post">
+		<form:form modelAttribute="modelEmp" action="/app/emps" method="post">
 		<div>
 			<form:input type="hidden" path="id" value="-1" />
 			<labeL>First Name:</labeL><form:input path="firstName" type="text" />
