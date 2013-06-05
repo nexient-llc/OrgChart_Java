@@ -1,6 +1,5 @@
 package com.systemsinmotion.orgchart.dao;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -13,7 +12,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 /**
@@ -117,7 +115,7 @@ public class JobTitleDao implements IJobTitleDao {
 		LOG.debug("updating JobTitle instance with name: " + jobTitle.getName());
 		this.hibernateTemplate.update(jobTitle);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.systemsinmotion.orgchart.dao.JobTitleDao#toString()
