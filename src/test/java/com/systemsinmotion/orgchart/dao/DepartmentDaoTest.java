@@ -50,7 +50,8 @@ public class DepartmentDaoTest {
 		this.parent = Entities.department();
 		this.parent.setDepartmentId(this.departmentDao.save(this.parent));
 		this.department = Entities.department(this.parent);
-		this.department.setDepartmentId(this.departmentDao.save(this.department));
+		this.department.setDepartmentId(this.departmentDao
+				.save(this.department));
 	}
 
 	@Test
@@ -78,7 +79,8 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findByDeptId() throws Exception {
-		Department dept = this.departmentDao.findById(this.department.getDepartmentId());
+		Department dept = this.departmentDao.findById(this.department
+				.getDepartmentId());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
@@ -142,4 +144,5 @@ public class DepartmentDaoTest {
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
+	
 }
