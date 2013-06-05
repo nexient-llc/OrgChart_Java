@@ -21,7 +21,6 @@ public class Department implements java.io.Serializable {
 	private static final long serialVersionUID = -5379179412533671591L;
 
 	private Integer departmentId;
-	private Integer parentDepartmentId;
 	private Integer managerId;
 
 	private Department parentDepartment;
@@ -43,12 +42,6 @@ public class Department implements java.io.Serializable {
 		return this.name;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
-	public Department getParentDepartment() {
-		return this.parentDepartment;
-	}
-
 	public void setDepartmentId(Integer departmentId) {
 		this.departmentId = departmentId;
 	}
@@ -57,17 +50,14 @@ public class Department implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
+	public Department getParentDepartment() {
+		return this.parentDepartment;
+	}
+
 	public void setParentDepartment(Department department) {
 		this.parentDepartment = department;
-	}
-
-	@Column(name = "PARENT_DEPARTMENT_ID", insertable = false, updatable = false)
-	public Integer getParentDepartmentId() {
-		return parentDepartmentId;
-	}
-
-	public void setParentDepartmentId(Integer parentDepartmentId) {
-		this.parentDepartmentId = parentDepartmentId;
 	}
 
 	@Column(name = "MANAGER_ID")
