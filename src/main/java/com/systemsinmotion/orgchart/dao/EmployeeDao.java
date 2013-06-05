@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Repository
 public class EmployeeDao implements IEmployeeDao {
@@ -140,6 +141,49 @@ public class EmployeeDao implements IEmployeeDao {
 			return null;
 		} catch (RuntimeException re) {
 			LOG.error("Finding by manager id failed: ", re);
+			throw re;
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByLastName(String lastName) {
+		List<Employee> emps = Collections.EMPTY_LIST;
+		try {
+			LOG.debug("Finding by last name: " + lastName);
+			emps = (List<Employee>) this.hibernateTemplate.find(
+					" from Employee where lastName =?", lastName);
+		} catch (RuntimeException re) {
+			LOG.error("Finding by last name failed: ", re);
+			throw re;
+		}
+		return emps;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByFirstName(String firstName) {
+		List<Employee> emps = Collections.EMPTY_LIST;
+		try {
+			LOG.debug("Finding by first name: " + firstName);
+			emps = this.hibernateTemplate.find(
+					" from Employee where firstName=?", firstName);
+		} catch (RuntimeException re) {
+			LOG.error("Finding by first name failed: ", re);
+			throw re;
+		}
+		return emps;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByJobTitle(JobTitle jobTitle) {
+		LOG.debug("Finding by job title: " + jobTitle.getName());
+		try {
+			return this.hibernateTemplate.find(
+					" from Employee where jobTitle.id = ?", jobTitle.getId());
+		} catch (RuntimeException re) {
+			LOG.error("Finding by job title failed: ", re);
 			throw re;
 		}
 	}
