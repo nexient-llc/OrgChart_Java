@@ -43,9 +43,7 @@ public class DepartmentController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String doDepartments_POST(@ModelAttribute("modelDept") @Valid Department newDept, Model model) {
 		// deal with the transient instance
-		Department parentDept = newDept.getParentDepartment();
-		if(parentDept.getId() == null &&
-			parentDept.getName() == )
+		newDept = checkForEmptyParent(newDept);
 		departmentService.storeDepartment(newDept);
 		loadModelData(model);
 		return View.DEPARTMENTS;
@@ -73,6 +71,7 @@ public class DepartmentController {
 	// save changes made in edit form, see above
 	@RequestMapping(value = "edit", method = RequestMethod.PUT)
 	public String doDepartments_UPDATE(@ModelAttribute("modelDept") @Valid Department upDept, Model model) {
+		upDept = checkForEmptyParent(upDept);
 		departmentService.updateDepartment(upDept);
 		loadModelData(model);
 		return View.DEPARTMENTS;
@@ -90,6 +89,14 @@ public class DepartmentController {
 		model.addAttribute("depts", departments);
 		model.addAttribute("modelDept", newDept);
 		model.addAttribute("parentDept", parentDept);
+	}
+
+	private Department checkForEmptyParent(Department department) {
+		Department parentDept = department.getParentDepartment();
+		if (parentDept.getId() == null && parentDept.getName() == null && parentDept.getParentDepartment() == null) {
+			department.setParentDepartment(null);
+		}
+		return department;
 	}
 
 }
