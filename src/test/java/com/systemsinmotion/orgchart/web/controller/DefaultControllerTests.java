@@ -1,7 +1,8 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -93,7 +94,7 @@ public class DefaultControllerTests {
 
 		model.addAttribute("depts", findAllDepartmentsList);
 		// Given
-//		controller.doDepartments_POST(mockDepartment2, null, model);
+		controller.doDepartments_POST(mockDepartment2, model);
 		// When
 		findAllDepartmentsList = (ArrayList<Department>) model.asMap().get(
 				"depts");
@@ -101,9 +102,9 @@ public class DefaultControllerTests {
 		// Then
 		assertNotNull(findAllDepartmentsList);
 		assertTrue(findAllDepartmentsList.size() > 0);
-		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(1)
+		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(0)
 				.getDepartmentId());
-		assertEquals(findAllDepartmentsList.get(1).getName(),
+		assertEquals(findAllDepartmentsList.get(0).getName(),
 				Entities.DEPARTMENT_NAME);
 
 	}
