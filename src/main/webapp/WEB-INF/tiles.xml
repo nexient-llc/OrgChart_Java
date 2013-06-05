@@ -12,22 +12,16 @@
 
 	<definition name="departments" extends="main">
 		<put-attribute name="title" type="string" value="Departments" />
-		<put-attribute name="page-js" type="string"
-			value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
 	</definition>
 
 	<definition name="employees" extends="main">
 		<put-attribute name="title" type="string" value="Employees" />
-		<put-attribute name="page-js" type="string"
-			value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
 	</definition>
 
 	<definition name="jobtitles" extends="main">
 		<put-attribute name="title" type="string" value="JobTitles" />
-		<put-attribute name="page-js" type="string"
-			value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/jobs.jsp" />
 	</definition>
 

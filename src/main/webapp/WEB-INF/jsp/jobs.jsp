@@ -22,35 +22,22 @@
 		</c:forEach>
 
 	</table>
-	<div id="addBtn-container">
-		<button type="button" id="addBtn" style="width: 45px;">Add</button>
+	<div id="addJobsBtn-container">
+		<button type="button" id="addJobBtn" style="width: 45px;">Add</button>
 	</div>
-	<div id="addEntity" style="display: none">
+	<div id="addJobsEntity" style="display: none">
 		<fieldset>
-			<legend>Add Job Title</legend>
-			<form name="newJob" action="jobs" method="post">
-				<div>
-					<labeL>Job Title:</labeL><input type="text" name="name" /></br>
+			<legend id="jobsFormLegend">Add Job Title</legend>
+			<form:form id="newJobForm" class="addJob" name="newJob" action="jobs" method="post">
+				<div id="jobsFormInputs">
+					<labeL>Job Title:</labeL><input type="text" name="name" id="name"/><br>
 					<button type="submit" id="submitBtn">Save</button>
-					<button type="button" id="cancelBtn">Cancel</button>
-				</div>
-				<div></div>
-			</form>
-		</fieldset>
-	</div>
-	<div id="editEntity" style="display: none">
-		<fieldset>
-			<legend>Edit Job Title</legend>
-			<form:form name="editJob" action="jobs" method="put">
-				<div>
-					<input type="hidden" name="id" id="jobId"/>
-					<labeL>Job Title:</labeL><input type="text" name="name" id="jobName" /></br>
-					<button type="submit" class="submitEditBtn">Save</button>
-					<button type="button" id="cancelEditBtn">Cancel</button>
+					<button type="button" id="cancelJobsBtn">Cancel</button>
 				</div>
 				<div></div>
 			</form:form>
 		</fieldset>
 	</div>
+
 </body>
 </html>

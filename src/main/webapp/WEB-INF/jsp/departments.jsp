@@ -24,47 +24,26 @@
 	</c:forEach>
 </table>
 
-<div id="addBtn-container">
-	<button type="button" id="addBtn" style="width: 45px;">Add</button>
+<div id="addDeptBtn-container">
+	<button type="button" id="addDeptBtn" style="width: 45px;">Add</button>
 </div>
 
-<div id="addEntity" style="display: none">
+<div id="addDeptEntity" style="display: none">
 	<fieldset>
-		<legend>Add Department</legend>
-		<form name="newDept" action="depts" method="post">
-			<div>
-				<labeL>Dept Name:</labeL><input type="text" name="name" /> <labeL>Parent
-					Dept:</label> <select name="parentDepartment.departmentId">
+		<legend id="deptFormLegend">Add Department</legend>
+		<form:form id="newDeptForm" class="addDept" name="newDept" action="depts" method="post">
+			<div id="deptFormInputs">
+				<label for="name">Dept Name:</label><input type="text" name="name" id="name"/>* <br><labeL>Parent
+					Dept:</label> <select name="parentDepartment.departmentId" id="parentDepartment.departmentId">
 					<option value="">...</option>
 					<c:forEach items="${depts}" var="dept">
 						<option value="${dept.departmentId}">${dept.name}</option>
 					</c:forEach>
-				</select></br>
+				</select><br>
 				<button type="submit" id="submitBtn">Save</button>
-				<button type="button" id="cancelBtn">Cancel</button>
+				<button type="button" id="cancelDeptBtn">Cancel</button>
 			</div>
-			<div></div>
-		</form>
-	</fieldset>
-</div>
-
-<div id="editEntity" style="display: none">
-	<fieldset>
-		<legend>Edit Department</legend>
-		<form:form name="editDept" action="depts" method="put">
-			<div>
-				<input type="hidden" name="departmentId" id="deptId">
-				<labeL>Dept Name:</labeL><input type="text" name="name" id="deptName"/> <labeL>Parent
-					Dept:</label> <select name="parentDepartment.departmentId" id="parentDeptName">
-					<option value="">...</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.departmentId}">${dept.name}</option>
-					</c:forEach>
-				</select></br>
-				<button type="submit" class="submitEditBtn">Save</button>
-				<button type="button" id="cancelEditBtn">Cancel</button>
-			</div>
-			<div></div>
+			<div style="padding-top:5px"><footer>Required Fields indicated with a *</footer></div>
 		</form:form>
 	</fieldset>
 </div>

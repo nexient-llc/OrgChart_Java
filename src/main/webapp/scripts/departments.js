@@ -1,83 +1,86 @@
 $(document).ready(function() {
-	$('#addBtn-container').css('width', $('#t1').width());
+	$('#addDeptBtn-container').css('width', $('#t1').width());
 
-	$('#addBtn').button().click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
-			$('#addEntity').dialog({
-				minWidth : 322
+	$('#addDeptBtn').button().click(function() {
+		
+		if ($('#newDeptForm').hasClass("editDept")) {
+			$('#newDeptForm').removeClass("editDept");
+			$('#newDeptForm').addClass("addDept");
+			$("#putDeptMethod").remove();
+			
+			// Change title to Add Department and clear all the fields
+			$("#deptFormLegend").text("Add Department");
+			$("#departmentId").remove();
+			$('#name').val("");
+			$('#parentDepartment\\.departmentId').val("");
+		}
+		
+		$('#addDeptBtn-container').fadeToggle("fast", "linear", function() {
+			$('#addDeptEntity').dialog({
+				minWidth : 381
 			});
 		});
+		
+		validateDeptForm();
 	});
 
-	$('#addEntity').bind('dialogclose', function(event) {
-		$('#addBtn-container').fadeToggle("fast", "linear");
+	$('#addDeptEntity').bind('dialogclose', function(event) {
+		$('#addDeptBtn-container').fadeToggle("fast", "linear");
 	});
 
-	$('#cancelBtn').button().click(function() {
-		$('#addEntity').dialog("close");
+	$('#cancelDeptBtn').button().click(function() {
+		$('#addDeptEntity').dialog("close");
+		$('#name').val("");
+		$('#parentDepartment\\.departmentId').val("");
 	});
 
-	$('#cancelEditBtn').button().click(function() {
-		$('#editEntity').dialog("close");
-	});
-
-	$('.editEmp').button().click(function() {
-		$.ajax({
-			url : "emps/" + $(this).val(),
-			type : "GET",
-			success : function(data) {
-				var form = $.parseJSON(data);
-				$('#empId').val(form.id);
-				$('#firstName').val(form.firstName);
-				$('#lastName').val(form.lastName);
-				$('#email').val(form.email);
-				$('#skypeName').val(form.skypeName);
-				$('#department').val(form.department.departmentId);
-				$('#jobTitle').val(form.jobTitle.id);
-				if (form.isManager) {
-					$('#isManager').attr('defaultChecked', true);
-				}
-				$('#editEntity').dialog({
-					minWidth : 322
-				});
-			}
-		});
-	});
-
-	$('.editJob').button().click(function() {
-		$.ajax({
-			url : "jobs/" + $(this).val(),
-			type : "GET",
-			success : function(data) {
-				var form = $.parseJSON(data);
-				$('#jobId').val(form.id);
-				$('#jobName').val(form.name);
-				$('#editEntity').dialog({
-					minWidth : 322
-				});
-			}
-		});
-	});
-	$('.submitEditBtn').button();
 	$('#submitBtn').button();
 
 	$('.editDept').button().click(function() {
+		// change Add Department form to Edit Department
+		if ($('#newDeptForm').hasClass("addDept")) {
+			$('#newDeptForm').removeClass("addDept");
+			$('#newDeptForm').addClass("editDept");
+			$('#newDeptForm').prepend("<input type='hidden' name='_method' value='put' id='putDeptMethod'/>");
+			
+			// Change title of form to Edit Department and add hidden input
+			// field which has the id of the dept
+			$("#deptFormLegend").text("Edit Department");
+			$("#deptFormInputs").prepend("<input type='hidden' name='departmentId' id='departmentId' />");
+		}
+
+		
+		// prepopulate the form with the employee info from an ajax call
 		$.ajax({
 			url : "depts/" + $(this).val(),
-			type : "GET",
-			success : function(data) {
-				var form = $.parseJSON(data);
-				$('#deptId').val(form.departmentId);
-				$('#deptName').val(form.name);
-				if (form.parentDepartment) {
-					$('#parentDeptName').val(form.parentDepartment.departmentId);
-				} else {
-					$('#parentDeptName').val("");
-				}
-				$('#editEntity').dialog({
-					minWidth : 322
-				});
+			type : "GET"
+		}).done(function(data){
+			var form = $.parseJSON(data);
+			$('#departmentId').val(form.departmentId);
+			$('#name').val(form.name);
+			if (form.parentDepartment) {
+				$('#parentDepartment\\.departmentId').val(form.parentDepartment.departmentId);
+			} else {
+				$('#parentDepartment\\.departmentId').val("");
 			}
+			
+			$('#addDeptBtn-container').fadeToggle("fast", "linear");
+			
+			$('#addDeptEntity').dialog({
+				minWidth : 381
+			});
+			validateDeptForm();
 		});
 	});
+	
+	validateDeptForm = function() {
+		$('#newDeptForm').validate({
+			rules: {
+				name: {
+					required: true,
+				}
+			}
+		});
+	}
+	
 });
