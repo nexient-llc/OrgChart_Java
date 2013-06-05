@@ -1,6 +1,5 @@
 package com.systemsinmotion.orgchart.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,10 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -31,8 +30,8 @@ public class Department implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
-	//@OneToMany(fetch = FetchType.EAGER)
-	//@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="DEPARTMENT")
+	// @OneToMany(fetch = FetchType.EAGER)
+	// @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="DEPARTMENT")
 	public Integer getId() {
 		return this.id;
 	}
@@ -40,7 +39,7 @@ public class Department implements java.io.Serializable {
 	public void setId(Integer departmentId) {
 		this.id = departmentId;
 	}
-	
+
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
@@ -49,7 +48,7 @@ public class Department implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
@@ -58,6 +57,31 @@ public class Department implements java.io.Serializable {
 
 	public void setParentDepartment(Department department) {
 		this.parentDepartment = department;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Department other = (Department) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }
