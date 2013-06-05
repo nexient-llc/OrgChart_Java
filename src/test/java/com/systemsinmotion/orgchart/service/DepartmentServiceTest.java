@@ -42,7 +42,7 @@ public class DepartmentServiceTest {
 		when(this.mockDepartmentDAO.findAll()).thenReturn(this.listOfFoundDepts);
 		when(this.mockDepartmentDAO.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(this.mockDepartmentDAO.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
-		this.departmentService.setDepartmentDAO(this.mockDepartmentDAO);
+	//	this.departmentService.setDepartmentDAO(this.mockDepartmentDAO);
 	}
 
 	@Test
