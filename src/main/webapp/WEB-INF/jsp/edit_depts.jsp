@@ -15,13 +15,11 @@
 
 	<labeL>Parent Dept:</label>
 	<form:select path="parentDepartment">
-		<option value="-1">...</option>
-		<c:forEach items="${depts}" var="dept">
-			<option value="${dept.id}">${dept.name}</option>
-		</c:forEach>
+		<form:option value="-1">...</form:option>
+		<form:options items="${depts}" itemValue="id" itemLabel="name" />
 	</form:select>
 
 	<input type="submit" value="update" />
-	
+
 	<a href="/orgchart/app/depts"><button type="button">cancel</button></a>
 </form:form>

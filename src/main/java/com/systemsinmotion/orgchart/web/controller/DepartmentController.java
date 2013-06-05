@@ -42,7 +42,7 @@ public class DepartmentController {
 	// save a new department
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String doDepartments_POST(@ModelAttribute("modelDept") @Valid Department newDept, Model model) {
-		// deal with the transient instance
+		// deal with transient instance if it exists
 		newDept = checkForEmptyParent(newDept);
 		departmentService.storeDepartment(newDept);
 		loadModelData(model);
