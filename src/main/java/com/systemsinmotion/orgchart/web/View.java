@@ -5,7 +5,9 @@ public class View {
 	public static final String DEPARTMENTS = "depts";
 	public static final String EDIT_DEPARTMENT = "edit_depts";
 	public static final String JOB_TITLES = "jobs";
+	public static final String EDIT_JOB_TITLE = "edit_jobs";
 	public static final String EMPLOYEES = "emps";
+	public static final String EDIT_EMPLOYEE = "edit_emps";
 	public static final String LOGIN = "login";
 	public static final String ADMIN_DEFAULT = "admin/default";
 	public static final String ADMIN_LOGIN = "admin/login";

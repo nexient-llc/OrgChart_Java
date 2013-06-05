@@ -16,7 +16,7 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
 	</definition>
 	
-		<definition name="edit_depts" extends="main">
+	<definition name="edit_depts" extends="main">
 		<put-attribute name="title" type="string" value="Edit Department" />
 		<put-attribute name="page-js" type="string" value="/orgchart/scripts/add_entity.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/edit_depts.jsp" />
@@ -27,11 +27,21 @@
 		<put-attribute name="page-js" type="string" value="/orgchart/scripts/add_entity.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/job_titles.jsp" />
 	</definition>
+	
+	<definition name="edit_jobs" extends="main">
+		<put-attribute name="title" type="string" value="Edit Job Title" />
+		<put-attribute name="body" value="/WEB-INF/jsp/edit_jobs.jsp" />
+	</definition>
 
 	<definition name="emps" extends="main">
 		<put-attribute name="title" type="string" value="Employees" />
 		<put-attribute name="page-js" type="string" value="/orgchart/scripts/add_entity.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
+	</definition>
+	
+	<definition name="edit_emps" extends="main">
+		<put-attribute name="title" type="string" value="Edit Employee" />
+		<put-attribute name="body" value="/WEB-INF/jsp/edit_emps.jsp" />
 	</definition>
 	
 	<definition name="home" extends="main">
