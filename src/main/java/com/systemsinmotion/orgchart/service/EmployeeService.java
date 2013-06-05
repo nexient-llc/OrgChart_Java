@@ -43,4 +43,21 @@ public class EmployeeService {
 	public void updateEmployee(Employee employee) {
 		this.employeeDao.update(employee);
 	}
+
+	public List<Employee> findEmployeeByLastName(String lastName) {
+		return this.employeeDao.findByLastName(lastName);
+	}
+
+	public List<Employee> findEmployeeByFirstName(String firstName) {
+		return this.employeeDao.findByFirstName(firstName);
+	}
+
+	public List<Employee> findEmployeeByDept(Department department) {
+		return this.employeeDao.findByDept(department);
+	}
+
+	public List<Employee> findEmployeeByJob(JobTitle jobTitle) {
+		return this.employeeDao.findByJobTitle(jobTitle);
+	}
+
 }
