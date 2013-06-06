@@ -296,6 +296,15 @@ public class DefaultController {
 		return json;
 	}
 
+	@RequestMapping(value = "empsFilterPage", method = RequestMethod.GET)
+	private @ResponseBody
+	String doGetAllEntitiesForAutocomplete(Model mode) {
+		List<Employee> employees = this.employeeService.findAllEmployees();
+		Gson gson = new Gson();
+		String json = gson.toJson(employees);
+		return json;
+	}
+
 	/**
 	 * Do employees_ filter table.
 	 * 
