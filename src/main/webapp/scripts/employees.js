@@ -117,8 +117,31 @@ $(document).ready(function() {
 	}
 	
 	$("#filterEmpBtn").button().click(function(){
-		$('#filterEmpEntity').dialog({
-			width: 381
+		$.ajax({
+			url: "empsFilterPage",
+			type: "GET"
+		}).done(function(data){
+			var incomingJsonData = $.parseJSON(data);
+			var firstNames = [];
+			var lastNames = [];
+			
+			for (var i = 0; i < incomingJsonData.length; i++) {
+				firstNames[i] = incomingJsonData[i].firstName;
+				lastNames[i] = incomingJsonData[i].lastName;
+			}
+			
+			$("#filterFirstName").autocomplete({
+				source: firstNames,
+				appendTo: '#filterEmpEntity'
+			});
+			$("#filterLastName").autocomplete({
+				source: lastNames,
+				appendTo: '#filterEmpEntity'
+			});
+			
+			$('#filterEmpEntity').dialog({
+				width: 381
+			});
 		});
 	});
 	
