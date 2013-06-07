@@ -41,7 +41,7 @@ public class EmployeeDaoTest {
 	IDepartmentDao departmentDao;
 
 	@Autowired
-	IJobTitleDao jobTitleDao;
+	JobTitleDao jobTitleDao;
 
 	@Before
 	public void before() throws Exception {
@@ -73,10 +73,8 @@ public class EmployeeDaoTest {
 
 	@Test
 	public void findByDepartment() throws Exception {
-		List<Employee> emps = this.employeeDao.findByDepartment(this.employee
-				.getDepartment());
-		assertNotNull("Expecting a non-null list of Employees but was null",
-				emps);
+		List<Employee> emps = this.employeeDao.findByDepartment(this.employee.getDepartment());
+		assertNotNull("Expecting a non-null list of Employees but was null", emps);
 		Employee emp = emps.get(0);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());

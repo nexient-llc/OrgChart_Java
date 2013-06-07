@@ -23,7 +23,7 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
  * @author Steven Byks
  */
 @Repository("jobTitleDao")
-public class JobTitleDao implements IJobTitleDao {
+public class JobTitleDao implements IDao<JobTitle> {
 
 	/**
 	 * @see org.slf4j.Logger

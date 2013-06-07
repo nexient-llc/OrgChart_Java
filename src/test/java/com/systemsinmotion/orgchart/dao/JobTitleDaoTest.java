@@ -36,7 +36,7 @@ public class JobTitleDaoTest {
 	private JobTitle jobTitle;
 
 	@Autowired
-	IJobTitleDao jobTitleDao;
+	JobTitleDao jobTitleDao;
 
 	@After
 	public void after() {
@@ -107,5 +107,5 @@ public class JobTitleDaoTest {
 		assertNotNull(job);
 		assertEquals(SOME_NEW_NAME, job.getName());
 	}
-	
+
 }
