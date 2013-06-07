@@ -25,13 +25,13 @@ public class AdminController {
 		return View.ADMIN_LOGIN;
 	}
 
-	@RequestMapping(value = "j_spring_security_check", method = RequestMethod.POST)
-	public String do_Security_Check(@RequestParam String page,
-			@RequestParam String j_username, Model model) {
-		// remove the first something/
-		model.addAttribute("page", page.substring(page.lastIndexOf('/') + 1));
-		model.addAttribute("name", j_username);
-		return View.ADMIN_DEFAULT;
-	}
+	// @RequestMapping(value = "j_spring_security_check", method = RequestMethod.POST)
+	// public String do_Security_Check(@RequestParam String page,
+	// @RequestParam String j_username, Model model) {
+	// // remove the first something/
+	// model.addAttribute("page", page.substring(page.lastIndexOf('/') + 1));
+	// model.addAttribute("name", j_username);
+	// return View.ADMIN_DEFAULT;
+	// }
 
 }

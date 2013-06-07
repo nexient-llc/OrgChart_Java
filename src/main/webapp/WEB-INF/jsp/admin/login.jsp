@@ -16,16 +16,15 @@
 	</c:if>
 
 
-	<form action="<c:url value='/app/admin/j_spring_security_check' />"
-		method='POST'>
+	<form action="<c:url value='j_spring_security_check' />" method='POST'>
 		<input type="hidden" name="page" value="${param.page}" />
 		<div>
-			<label for="j_username">User:</label><input type='text'
-				name='j_username'>
+			<label>User:</label>
+			<input type='text' name='j_username'>
 		</div>
 		<div>
-			<label for="j_password">Password:</label><input type='password'
-				name='j_password' />
+			<label>Password:</label>
+			<input type='password' name='j_password' />
 		</div>
 		<div>
 			<button type="submit">Submit</button>
