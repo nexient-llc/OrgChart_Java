@@ -52,16 +52,15 @@ public class DepartmentService {
 	}
 
 	private void dontChangeParentIfSameAsDept(Department department) {
-		if ((department.getDepartmentId() != null && department
-				.getParentDepartment().getDepartmentId() != null)
+		if ((department.getParentDepartment() != null)
+				&& (department.getDepartmentId() != null && department
+						.getParentDepartment().getDepartmentId() != null)
 				&& (department.getDepartmentId().intValue() == department
 						.getParentDepartment().getDepartmentId().intValue())) {
 			Department currentDeptInDb = departmentDAO.findById(department
 					.getDepartmentId());
 			department.setParentDepartment(currentDeptInDb
 					.getParentDepartment());
-
 		}
 	}
-
 }
