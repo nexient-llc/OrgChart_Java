@@ -21,9 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "DEPARTMENT")
-public class Department implements java.io.Serializable {
-
-	private static final long serialVersionUID = -5379179412533671591L;
+public class Department {
 
 	private Integer id;
 
