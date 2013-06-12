@@ -19,6 +19,8 @@
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />
+	<h2>Organization Chart</h2>
+	<div id="login"><a href="">Log in</a></div>
 	<table>
 		<tr>
 			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
