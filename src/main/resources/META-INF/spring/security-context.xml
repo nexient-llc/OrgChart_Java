@@ -19,7 +19,7 @@
 		<sec:intercept-url pattern="/app/admin/extreme/**" access="hasRole('supervisor')"/>
 		<sec:intercept-url pattern="/app/admin/**" access="isAuthenticated()"/>
 	-->
-		<sec:intercept-url pattern="/app/admin/**" access="hasRole('ROLE_ADMIN')" /> 
+		<sec:intercept-url pattern="/app/admin/**" requires-channel="https" access="hasRole('ROLE_ADMIN')" /> 
 		<!-- Allow all other requests. In a real application you should adopt a whitelisting approach where access is not allowed by default -->
 		<sec:intercept-url pattern="/**" access="permitAll"/>
 		<sec:form-login/>

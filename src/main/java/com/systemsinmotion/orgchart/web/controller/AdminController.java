@@ -18,9 +18,13 @@ public class AdminController {
 		return View.ADMIN_DEFAULT;
 	}
 
+	// @RequestMapping(value="login", method = RequestMethod.GET)
+	// public String doAdminLogin(Model model) {
+	// return new String();
+	// }
+
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doAdminDepts(Model model) {
-		// return doDepartments_GET(model);
 		return "forward:/app/depts";
 	}
 
