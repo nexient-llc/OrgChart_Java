@@ -23,6 +23,7 @@
   <servlet-mapping>
     <servlet-name>Spring MVC Servlet</servlet-name>
     <url-pattern>/app/*</url-pattern>
+    
   </servlet-mapping>
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
@@ -31,6 +32,8 @@
   <filter-mapping>
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/app/*</url-pattern>
+    <url-pattern>/spring_security_login</url-pattern>
+    <url-pattern>/j_spring_security_check</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>characterEncodingFilter</filter-name>

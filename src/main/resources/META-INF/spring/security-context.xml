@@ -11,25 +11,50 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<sec:global-method-security pre-post-annotations="enabled"/>
+	<sec:http security="none" pattern="/static/**"/>
+	<sec:http security="none" pattern="/loggedout.jsp"/>
+	<sec:http use-expressions="true">
+	<!-- 
+		<sec:intercept-url pattern="/app/admin/extreme/**" access="hasRole('supervisor')"/>
+		<sec:intercept-url pattern="/app/admin/**" access="isAuthenticated()"/>
+	-->
+		<sec:intercept-url pattern="/app/admin/**" access="hasRole('ROLE_ADMIN')" /> 
+		<!-- Allow all other requests. In a real application you should adopt a whitelisting approach where access is not allowed by default -->
+		<sec:intercept-url pattern="/**" access="permitAll"/>
+		<sec:form-login/>
+		<sec:logout delete-cookies="JSESSIONID" logout-success-url="/loggedout.jsp"/> 
+		<sec:remember-me/>
+		<!-- Uncomment to enable X509 client authentication support <x509 /> -->
+
+		<!-- Uncomment to limit the number of sessions a user can have -->
+		<sec:session-management invalid-session-url="/timeout.jsp">
+			<sec:concurrency-control error-if-maximum-exceeded="true" max-sessions="1"/>
+		</sec:session-management>
+	</sec:http> 
+	<!-- Usernames/Passwords are rod/koala dianne/emu scott/wombat peter/opal -->
+	<bean class="org.springframework.security.crypto.password.StandardPasswordEncoder" id="encoder"/>
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:password-encoder ref="encoder"/> 
+			<sec:user-service>
+				<sec:user authorities="ROLE_ADMIN" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" name="rod"/>
+				<sec:user authorities="ROLE_ADMIN" password="957ea522524a41cbfb649a3e293d56268f840fd5b661b499b07858bc020d6d223f912e3ab303b00f" name="dianne"/> 
+				<sec:user authorities="ROLE_USER" password="fb1f9e48058d30dc21c35ab4cf895e2a80f2f03fac549b51be637196dfb6b2b7276a89c65e38b7a1" name="scott"/>
+				<sec:user authorities="ROLE_USER" password="e175750688deee19d7179d444bfaf92129f4eea8b4503d83eb8f92a7dd9cda5fbae73638c913e420" name="peter"/>
+			</sec:user-service>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+		
+		
+<!--
 	<sec:global-method-security secured-annotations="enabled" />
 	
 	<sec:http auto-config="true" use-expressions="true">
 		<sec:intercept-url pattern="/styles*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<sec:intercept-url pattern="/images*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<sec:intercept-url pattern="/scripts*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<!--
-		<sec:intercept-url pattern="/app/admin*" access="hasRole('ROLE_ADMIN')" />
-		-->
 		<sec:intercept-url pattern="/app/admin/login" requires-channel="https" />
-		<!-- 
-		<sec:form-login
-			login-page="/app/login"
-			authentication-failure-url="/app/login" />
-			authentication-success-handler-ref="authenticationSuccessHandler" />
-		<sec:logout
-			logout-success-url="/app/login"
-			invalidate-session="true" />
-		-->
 	</sec:http>
 
 	<sec:authentication-manager>
@@ -38,18 +63,7 @@
 			authorities-by-username-query="select username,authority from users where username=?" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
-
-
-<!-- 
-	<sec:authentication-manager>
-		<sec:authentication-provider>
-			<sec:password-encoder hash="sha"/>
-			<sec:user-service>
-				<sec:user name="admin" password="5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8" authorities="ROLE_ADMIN" />
-			</sec:user-service>
-		</sec:authentication-provider>
-	</sec:authentication-manager>
- -->
+-->
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.systemsinmotion.orgchart" />
