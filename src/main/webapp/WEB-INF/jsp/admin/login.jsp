@@ -1,33 +1,32 @@
 <!DOCTYPE html>
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%> 
+<%@ page   contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 
-<fieldset>
-	<legend>Login</legend>
+<h3>Login with Username and Password (Custom Page)</h3>
 
-	<c:if
-		test="${not empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
-		<div class="errorblock">
-			Your login attempt was not successful, try again.<br /> Caused :
-			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-		</div>
-	</c:if>
+<c:if test="${not empty error}">
+	<div class="errorblock">
+		Your login attempt was not successful, try again.<br /> Caused :
+		${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+	</div>
+</c:if>
 
-
-	<form action="<c:url value='j_spring_security_check' />" method='POST'>
-		<input type="hidden" name="page" value="${param.page}" />
-		<div>
-			<label>User:</label>
-			<input type='text' name='j_username'>
-		</div>
-		<div>
-			<label>Password:</label>
-			<input type='password' name='j_password' />
-		</div>
-		<div>
-			<button type="submit">Submit</button>
-		</div>
-	</form>
-</fieldset>
+<form name='f' action="<c:url value='/j_spring_security_check' />" method='POST'>
+ 	<table>
+		<tr>
+			<td>User:</td>
+			<td><input type='text' name='j_username' value=''></td>
+		</tr>
+		<tr>
+			<td>Password:</td>
+			<td><input type='password' name='j_password' /></td>
+		</tr>
+		<tr>
+			<td colspan='2'><input name="submit" type="submit" value="submit" /></td>
+		</tr>
+		<tr>
+			<td colspan='2'><input name="reset" type="reset" /></td>
+		</tr>
+	</table>
+</form>

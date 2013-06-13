@@ -3,7 +3,7 @@
 
 <div id="heading">
 	<div id="login" <sec:authorize access="hasRole('ROLE_ADMIN')">style="visibility:hidden"</sec:authorize>>
-		<a href="<c:url value='/app/admin/depts' />">login to edit</a>
+		<a href="<c:url value='/app/admin/default' />">login to edit</a>
 	</div>
 	<div class="sim-logo"></div>
 </div>
