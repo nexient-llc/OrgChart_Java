@@ -36,6 +36,14 @@
 	<bean class="org.springframework.security.crypto.password.StandardPasswordEncoder" id="encoder"/>
 	<sec:authentication-manager>
 		<sec:authentication-provider>
+			<sec:password-encoder ref="encoder"/>
+			<sec:jdbc-user-service data-source-ref="dataSource" 
+			authorities-by-username-query="select username,authority from authorities where username=?"/>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+	<!-- 
+	<sec:authentication-manager>
+		<sec:authentication-provider>
 			<sec:password-encoder ref="encoder"/> 
 			<sec:user-service>
 				<sec:user authorities="ROLE_ADMIN" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" name="rod"/>
@@ -45,6 +53,7 @@
 			</sec:user-service>
 		</sec:authentication-provider>
 	</sec:authentication-manager>
+	 -->
 		
 		
 <!--
