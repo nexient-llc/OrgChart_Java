@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 /**
@@ -28,6 +29,17 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		this.hibernateTemplate.delete(employee);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#save(com.systemsinmotion .orgchart.entity.Department)
+	 */
+	@Override
+	public Integer save(Employee employee) {
+		//LOG.debug("saving Employee instance with name: " + employee.getName());
+		return (Integer) this.hibernateTemplate.save(employee);
+	}
+
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> findAll() {
@@ -47,5 +59,19 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		return null;
 	}
 
+	public List<Employee> findByDepartment(Department name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Employee> findByManager(Employee name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Employee findByEmail(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

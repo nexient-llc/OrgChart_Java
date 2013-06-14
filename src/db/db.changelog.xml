@@ -30,7 +30,7 @@
 	</changeSet>
 
 	<changeSet id="4" author="kskronek">
-		<createTable tableName="job_title">
+		<createTable tableName="jobtitle">
 			<column name="id" type="int" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false" />
 			</column>
@@ -41,7 +41,7 @@
 	</changeSet>
 
 	<changeSet id="5" author="kskronek">
-		<addUniqueConstraint tableName="job_title"
+		<addUniqueConstraint tableName="jobtitle"
 			columnNames="name" />
 	</changeSet>
 
@@ -63,16 +63,16 @@
 				<constraints unique="true" uniqueConstraintName="unq_employee_skype_name" />
 			</column>
 			<column name="is_manager" type="boolean" defaultValue="false" />
-			<column name="job_title_id" type="int" />
+			<column name="jobtitle_id" type="int" />
 			<column name="department_id" type="int" />
 			<column name="manager_id" type="int" />
 		</createTable>
 	</changeSet>
 
 	<changeSet id="7" author="kskronek">
-		<addForeignKeyConstraint constraintName="fk_employee_job_title"
-			baseTableName="employee" baseColumnNames="job_title_id"
-			referencedTableName="job_title" referencedColumnNames="id" />
+		<addForeignKeyConstraint constraintName="fk_employee_jobtitle"
+			baseTableName="employee" baseColumnNames="jobtitle_id"
+			referencedTableName="jobtitle" referencedColumnNames="id" />
 	</changeSet>
 
 	<changeSet id="8" author="kskronek">
@@ -118,21 +118,21 @@
 	</changeSet>
 	
 	<changeSet id="14" author="sbyks">
-		<insert tableName="job_title">
+		<insert tableName="jobtitle">
 			<column name="name" value="Jr. Developer" />
 			<column name="id" value="1001" />
 		</insert>
 	</changeSet>
 	
 	<changeSet id="15" author="sbyks">
-		<insert tableName="job_title">
+		<insert tableName="jobtitle">
 			<column name="name" value="Developer" />
 			<column name="id" value="1002" />
 		</insert>
 	</changeSet>
 
 	<changeSet id="16" author="sbyks">
-		<insert tableName="job_title">
+		<insert tableName="jobtitle">
 			<column name="name" value="Analyst" />
 			<column name="id" value="1003" />
 		</insert>
@@ -145,7 +145,7 @@
 			<column name="last_name" value="Law" />
 			<column name="email" value="blaw@systemsinmotion.com" />
 			<column name="skype_name" value="bob.law.sim.aa" />
-			<column name="job_title_id" value="1003" />
+			<column name="jobtitle_id" value="1003" />
 			<column name="department_id" value="104" />
 		</insert>
 	</changeSet>

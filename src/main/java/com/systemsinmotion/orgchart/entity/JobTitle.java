@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "JOB_TITLE")
-public class Job_Title { 
+public class JobTitle { 
 	private Integer id;
 
 	@NotNull

@@ -1,4 +1,4 @@
-/*package com.systemsinmotion.orgchart.dao;
+package com.systemsinmotion.orgchart.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -108,4 +108,3 @@ public class JobTitleDaoTest {
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
 }
-*/

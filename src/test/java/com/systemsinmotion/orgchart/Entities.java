@@ -3,8 +3,10 @@ package com.systemsinmotion.orgchart;
 import java.util.Random;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
 /*import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;*/
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public class Entities {
 
@@ -38,15 +40,15 @@ public class Entities {
 	private static String departmentName() {
 		return DEPARTMENT_NAME + r.nextInt();
 	}
-/*
+
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
-		emp.setFirstName(FIRST_NAME);
-		emp.setLastName(LAST_NAME);
+		emp.setFirst_Name(FIRST_NAME);
+		emp.setLast_Name(LAST_NAME);
 		emp.setEmail(EMAIL + r.nextInt());
-		emp.setSkypeName(SKYPE_NAME + r.nextInt());
-		emp.setIsManager(false);
+		emp.setskype_name(SKYPE_NAME + r.nextInt());
+		emp.setIs_Manager(false);
 		return emp;
 	}
 
@@ -58,12 +60,12 @@ public class Entities {
 
 	public static Employee manager() {
 		Employee mgr = new Employee();
-		mgr.setFirstName(FIRST_NAME);
-		mgr.setLastName(LAST_NAME);
+		mgr.setFirst_Name(FIRST_NAME);
+		mgr.setLast_Name(LAST_NAME);
 		mgr.setEmail(EMAIL + r.nextInt());
-		mgr.setSkypeName(SKYPE_NAME + r.nextInt());
-		mgr.setIsManager(true);
+		mgr.setskype_name(SKYPE_NAME + r.nextInt());
+		mgr.setIs_Manager(true);
 		return mgr;
-	}*/
+	}
 
 }

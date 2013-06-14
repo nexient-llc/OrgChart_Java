@@ -1,4 +1,4 @@
-/*package com.systemsinmotion.orgchart.dao;
+package com.systemsinmotion.orgchart.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -76,8 +76,8 @@ public class EmployeeDaoTest {
 		List<Employee> emps = this.employeeDao.findByDepartment(this.employee.getDepartment());
 		assertNotNull("Expecting a non-null list of Employees but was null", emps);
 		Employee emp = emps.get(0);
-		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getFirst_Name(), emp.getFirst_Name());
+		assertEquals(this.employee.getLast_Name(), emp.getLast_Name());
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
 
@@ -91,8 +91,8 @@ public class EmployeeDaoTest {
 	public void findByEmail() throws Exception {
 		Employee emp = this.employeeDao.findByEmail(this.employee.getEmail());
 		assertNotNull("Expecting a non-null Employee but was null", emp);
-		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getFirst_Name(), emp.getFirst_Name());
+		assertEquals(this.employee.getLast_Name(), emp.getLast_Name());
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
 
@@ -112,8 +112,8 @@ public class EmployeeDaoTest {
 	public void findById() throws Exception {
 		Employee emp = this.employeeDao.findById(this.employee.getId());
 		assertNotNull("Expecting a non-null Employee but was null", emp);
-		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getFirst_Name(), emp.getFirst_Name());
+		assertEquals(this.employee.getLast_Name(), emp.getLast_Name());
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
 
@@ -134,14 +134,15 @@ public class EmployeeDaoTest {
 		createManager();
 
 		this.employee.setManager(this.manager);
-		this.employeeDao.update(this.employee);
+		//TODO: Write employee.update()
+		//this.employeeDao.update(this.employee);
 
 		List<Employee> emps = this.employeeDao.findByManager(this.employee.getManager());
 		assertNotNull("Expecting a non-null Employee but was null", emps);
 		assertTrue("Expecting at least one employee found for manager but none was found", emps.size() > 0);
 		Employee emp = emps.get(0);
-		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getFirst_Name(), emp.getFirst_Name());
+		assertEquals(this.employee.getLast_Name(), emp.getLast_Name());
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
 
@@ -156,4 +157,4 @@ public class EmployeeDaoTest {
 		List<Employee> emps = this.employeeDao.findByManager(null);
 		assertNull(emps);
 	}
-}*/
+}

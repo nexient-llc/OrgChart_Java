@@ -1,7 +1,9 @@
 package com.systemsinmotion.orgchart.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 public interface IEmployeeDao {
@@ -13,6 +15,17 @@ public interface IEmployeeDao {
 	 *            Employee instance to delete
 	 */
 	public abstract void delete(Employee employee);
+	
+	/**
+	 * Saves a give <code>Department</code instance and returns its generated
+	 * id.
+	 * 
+	 * @param department
+	 *            The <code>Department</code> instance to be saved
+	 * @return The identifier (id) of the new <code>Department</code> instance.
+	 */
+	public abstract Integer save(Employee employee);
+
 	
 	/**
 	 * Returns all <code>Employee</code> instances as a <code>List</code>
@@ -40,5 +53,35 @@ public interface IEmployeeDao {
 	 * @return Instance of <code>Employee</code>. Null if not found.
 	 */
 	public abstract Employee findByName(String name);
+
+	/**
+	 * Returns an <code>Employee</code> List with a given <code>department</code>
+	 * value.
+	 * 
+	 * @param department
+	 *            Name of the <code>Department</code> to find
+	 * @return <code>Employee</code> List. Null if not found.
+	 */
+	public abstract List<Employee> findByDepartment(Department department);
+
+	/**
+	 * Returns an <code>Employee</code> List with a given <code>manager</code>
+	 * value.
+	 * 
+	 * @param manager
+	 *            Name of the <code>Manager</code> to find
+	 * @return <code>Employee</code> List. Null if not found.
+	 */
+	public abstract List<Employee> findByManager(Employee manager);
+
+	/**
+	 * Returns an <code>Employee</code> List with a given <code>department</code>
+	 * value.
+	 * 
+	 * @param name
+	 *            Name of the <code>department</code> to find
+	 * @return <code>Employee</code> List. Null if not found.
+	 */
+	public abstract Employee findByEmail(String name);
 
 }
