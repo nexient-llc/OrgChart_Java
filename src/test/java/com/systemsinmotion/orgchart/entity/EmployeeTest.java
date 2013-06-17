@@ -13,34 +13,34 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
-import com.systemsinmotion.orgchart.dao.IJobTitleDao;
+import com.systemsinmotion.orgchart.dao.IEmployeeDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-public class JobTitleTest {
+public class EmployeeTest {
 
-	private JobTitle jobTitle;
+	private Employee employee;
 
 	@Autowired
-	IJobTitleDao jobTitleDao;
+	IEmployeeDao employeeDao;
 
 	@After
 	public void after() {
-		this.jobTitleDao.delete(this.jobTitle);
+		this.employeeDao.delete(this.employee);
 	}
 
 	@Before
 	public void before() throws Exception {
-		this.jobTitle = Entities.jobTitle();
-		this.jobTitle.setId(this.jobTitleDao.save(this.jobTitle));
+		this.employee = Entities.employee();
+		this.employee.setId(this.employeeDao.save(this.employee));
 	}
 
 	@Test
 	public void created() {
-		assertNotNull(this.jobTitle);
-		assertNotNull(this.jobTitle.getId());
+		assertNotNull(this.employee);
+		assertNotNull(this.employee.getId());
 	}
 
 }

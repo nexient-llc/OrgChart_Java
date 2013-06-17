@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 /**
  * A data access object (DAO) providing persistence and search support for Employee entities. 
@@ -38,7 +39,6 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		//LOG.debug("saving Employee instance with name: " + employee.getName());
 		return (Integer) this.hibernateTemplate.save(employee);
 	}
-
 
 	@Override
 	@SuppressWarnings("unchecked")
