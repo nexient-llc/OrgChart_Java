@@ -34,7 +34,7 @@ public class EmployeeDaoTest {
 	private Employee manager;
 
 	@Autowired
-	IEmployeeDao employeeDao;
+	EmployeeDao employeeDao;
 
 	@Autowired
 	IDepartmentDao departmentDao;
