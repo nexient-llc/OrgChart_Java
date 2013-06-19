@@ -14,6 +14,7 @@
 	<import resource="security-context.xml" />
 	<!-- -->
 
+	<context:annotation-config/>
 	<context:component-scan base-package="com.systemsinmotion.orgchart" />
 
 	<bean id="tilesConfigurer"
@@ -32,5 +33,7 @@
 	</bean>
 		
 	<bean id="department" class="com.systemsinmotion.orgchart.entity.Department" />
+	<bean id="employee" class="com.systemsinmotion.orgchart.entity.Employee" />
+	<bean id="jobtitle" class="com.systemsinmotion.orgchart.entity.JobTitle" />
 
 </beans>

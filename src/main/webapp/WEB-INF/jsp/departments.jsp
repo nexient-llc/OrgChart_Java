@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
 
 <h3>Departments</h3> 
-<table id="t1"> 
+<%-- <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
 		<th>Dept Name</th> <th>Parent Dept</th>
@@ -41,3 +38,4 @@
 		</form>
 	</fieldset>
 </div>
+ --%>

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+/*$(document).ready(function() {
 	$('#addBtn-container').css('width', $('#t1').width());
 
 	$('#addBtn').click(function() {
@@ -8,3 +8,4 @@ $(document).ready(function() {
 	});
 	
 });
+*/

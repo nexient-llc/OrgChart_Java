@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
+import com.systemsinmotion.orgchart.service.EmployeeService;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
@@ -26,33 +30,43 @@ public class DefaultController {
 	private static final Logger log = LoggerFactory
 			.getLogger(DefaultController.class);
 
-//	@Autowired
-//	EmployeeService employeeService;
+	@Autowired
+	EmployeeService employeeService;
 
 	@Autowired
 	DepartmentService departmentService;
 
-//	@Autowired
-//	JobTitleService jobTitleService;
-	
+	@Autowired
+	JobTitleService jobTitleService;
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
-	}
+	} 
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+		 List<Department> departments = departmentService.findAllDepartments();
+		 model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 	
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	public String doEmployees_GET(Model model) {
+		 String[] employees = {"a","b","c"};
+		 model.addAttribute("emps", employees);
+		return View.EMPLOYEES;
+	}
+
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	public String doJobTitles_GET(Model model) {
+		 List<JobTitle> jobtitles = jobTitleService.findAllJobTitles();
+		 model.addAttribute("jobs", jobtitles);
+		return View.JOB_TITLES;
+	}
+
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
-
-
 
 }

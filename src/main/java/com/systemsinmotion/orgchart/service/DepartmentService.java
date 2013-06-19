@@ -18,8 +18,8 @@ public class DepartmentService {
 		return this.departmentDAO.findById(departmentId);
 	}
 
-	public void setDepartmentDAO(DepartmentDao deparmentDAO) {
-		this.departmentDAO = deparmentDAO;
+	public void setDepartmentDAO(DepartmentDao departmentDAO) {
+		this.departmentDAO = departmentDAO;
 	}
 
 	public List<Department> findAllDepartments() {
