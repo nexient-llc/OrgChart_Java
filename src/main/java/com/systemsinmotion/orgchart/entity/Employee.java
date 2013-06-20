@@ -1,34 +1,37 @@
-// Some Errors to Fix with class relationships/need to fix job/department/manager
-
 package com.systemsinmotion.orgchart.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+//Creates an Entity (Table) for Employees
 
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee implements java.io.Serializable {
 	
 	// Serialization Seems Broken
+	// Declare variables for Employee Table
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String skypeName;
-	private boolean isManager;
+	private Boolean isManager;
 	private JobTitle jobTitleId;
 	private Department departmentId;
 	private Employee managerId;
 	
 	// Getters and Setters:
-	// ID
-	// Need to Fix relationships
 	
+	// ID Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true )
@@ -39,7 +42,7 @@ public class Employee implements java.io.Serializable {
 		this.id = id;
 	}
 	
-	// FIRST NAME
+	// FIRST NAME Column
 	@Column(name = "FIRST_NAME", nullable = false, length = 50)
 	public String getFirstName() {
 		return firstName;
@@ -48,7 +51,7 @@ public class Employee implements java.io.Serializable {
 		this.firstName = firstName;
 	}
 	
-	// LAST NAME
+	// LAST NAME Column
 	@Column(name = "LAST_NAME", nullable = false, length = 50)
 	public String getLastName() {
 		return lastName;
@@ -57,7 +60,7 @@ public class Employee implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 	
-	// EMAIL
+	// EMAIL Column
 	@Column(name = "EMAIL", nullable = true, length = 50)
 	public String getEmail() {
 		return email;
@@ -66,7 +69,7 @@ public class Employee implements java.io.Serializable {
 		this.email = email;
 	}
 	
-	// SKYPE NAME
+	// SKYPE NAME Column
 	@Column(name = "SKYPE_NAME", nullable = true, length = 50)
 	public String getSkypeName() {
 		return skypeName;
@@ -75,16 +78,18 @@ public class Employee implements java.io.Serializable {
 		this.skypeName = skypeName;
 	}
 	
-	// IS MANAGER
+	// IS MANAGER Column
 	@Column(name = "IS_MANAGER", nullable = true )
-	public boolean isManager() {
+	public Boolean isManager() {
 		return isManager;
 	}
-	public void setManager(boolean isManager) {
+	public void setManager(Boolean isManager) {
 		this.isManager = isManager;
 	}
 	
-	// JOB TITLE
+	// JOB TITLE ID Column
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
 	public JobTitle getJobTitleId() {
 		return jobTitleId;
 	}
@@ -92,7 +97,9 @@ public class Employee implements java.io.Serializable {
 		this.jobTitleId = jobTitleId;
 	}
 	
-	// DEPARTMENT ID
+	// DEPARTMENT ID Column
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Department_ID", referencedColumnName ="ID")
 	public Department getDepartmentId() {
 		return departmentId;
 	}
@@ -100,7 +107,8 @@ public class Employee implements java.io.Serializable {
 		this.departmentId = departmentId;
 	}
 	
-	// MANAGER ID
+	// MANAGER ID Column
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
 	public Employee getManagerId() {
 		return managerId;
 	}

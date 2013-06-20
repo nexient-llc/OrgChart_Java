@@ -17,11 +17,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
+//Creates an Entity (Table) for Department
+
 @Entity
 @Table(name = "DEPARTMENT")
 public class Department implements java.io.Serializable {
 	
 	// Serialization Seems Broken
+	// Declare variables for Departments
 	private static final long serialVersionUID = 1L; 
 	private Integer id;
 	private Department parentDepartment;
@@ -30,10 +33,12 @@ public class Department implements java.io.Serializable {
 	@Size(min = 1, max = 45)
 	private String name;
 	private Set<Department> departments = new HashSet<Department>(0);
+	private Employee managerId;
 	
 	
 	// Getters and Setters
-	// PARENT DEPARTMENTS
+	
+	// PARENT DEPARTMENT Column
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
@@ -44,7 +49,7 @@ public class Department implements java.io.Serializable {
 		this.parentDepartment = department;
 	}
 	
-	// DEPARTMENTS
+	// DEPARTMENTS Column
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
 	public Set<Department> getDepartments() {
 		return this.departments;
@@ -54,7 +59,7 @@ public class Department implements java.io.Serializable {
 		this.departments = departments;
 	}
 	
-	// ID
+	// ID Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
@@ -66,7 +71,7 @@ public class Department implements java.io.Serializable {
 		this.id = departmentId;
 	}
 	
-	// NAME
+	// NAME Column
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
@@ -75,5 +80,19 @@ public class Department implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	// Manager ID Column
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
+	public Employee getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(Employee managerId) {
+		this.managerId = managerId;
+	}
+
+	
+
 
 }
