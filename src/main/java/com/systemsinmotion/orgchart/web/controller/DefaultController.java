@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.systemsinmotion.orgchart.dao.DepartmentDao;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -43,14 +44,25 @@ public class DefaultController {
 	public String doGet() {
 		return View.HOME;
 	} 
-	
+
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		 List<Department> departments = departmentService.findAllDepartments();
-		 model.addAttribute("depts", departments);
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 	
+	@RequestMapping(value = "depts", method = RequestMethod.POST)
+	public String doDepartments_POST(Department newDept, Integer parent_id, Model model) {
+		newDept.setParentDepartment(departmentService.findDepartmentByID(parent_id));
+		newDept.setId(departmentService.storeDepartment(newDept));
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		for (Department d : departments)
+			System.out.println(d.getName());
+		return View.DEPARTMENTS;
+	}
+
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
 		 String[] employees = {"a","b","c"};

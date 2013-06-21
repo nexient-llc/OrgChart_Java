@@ -29,7 +29,7 @@ LEGEND {
 }
 
 TABLE,TD {
-/* 	border: 0px solid #0177C0; */
+ 	border: 0px solid #0177C0; 
 	border-collapse: collapse;
 	border-spacing: 0 0;
 }
@@ -76,4 +76,10 @@ SELECT {
 	float: right;
 	cursor: pointer;
 	text-decoration: underline;
+}
+
+.column {
+	margin: 100 px;
+	padding: 100 px;
+	float: left;
 }

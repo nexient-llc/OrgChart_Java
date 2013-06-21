@@ -1,4 +1,4 @@
-package com.systemsinmotion.orgchart.dao;
+/*package com.systemsinmotion.orgchart.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
@@ -157,4 +158,4 @@ public class EmployeeDaoTest {
 		List<Employee> emps = this.employeeDao.findByManager(null);
 		assertNull(emps);
 	}
-}
+}*/
