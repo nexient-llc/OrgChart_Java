@@ -12,7 +12,6 @@ import javax.persistence.Table;
 @Table(name = "JOB_TITLE")
 public class JobTitle implements java.io.Serializable {
 	
-	// Serialization Seems Broken
 	// Declare variables for Job Title Table
 	private static final long serialVersionUID = 1L;
 	private Integer id;

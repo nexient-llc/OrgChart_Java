@@ -16,7 +16,6 @@ import javax.persistence.Table;
 @Table(name = "EMPLOYEE")
 public class Employee implements java.io.Serializable {
 	
-	// Serialization Seems Broken
 	// Declare variables for Employee Table
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -88,7 +87,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// JOB TITLE ID Column
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
 	public JobTitle getJobTitleId() {
 		return jobTitleId;
@@ -98,7 +97,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// DEPARTMENT ID Column
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Department_ID", referencedColumnName ="ID")
 	public Department getDepartmentId() {
 		return departmentId;

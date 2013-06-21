@@ -1,5 +1,4 @@
 package com.systemsinmotion.orgchart.dao;
-
 import java.util.Collections;
 import java.util.List;
 

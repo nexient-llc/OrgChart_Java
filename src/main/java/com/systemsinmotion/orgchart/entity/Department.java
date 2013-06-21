@@ -23,7 +23,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "DEPARTMENT")
 public class Department implements java.io.Serializable {
 	
-	// Serialization Seems Broken
 	// Declare variables for Departments
 	private static final long serialVersionUID = 1L; 
 	private Integer id;
@@ -82,7 +81,7 @@ public class Department implements java.io.Serializable {
 	}
 	
 	// Manager ID Column
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
 	public Employee getManagerId() {
 		return managerId;
