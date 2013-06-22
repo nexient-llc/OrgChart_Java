@@ -37,7 +37,7 @@ public class Department implements java.io.Serializable {
 	
 	// Getters and Setters
 	
-	// PARENT DEPARTMENT Column
+	// PARENT DEPARTMENT ID Column
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
@@ -48,7 +48,6 @@ public class Department implements java.io.Serializable {
 		this.parentDepartment = department;
 	}
 	
-	// DEPARTMENTS Column
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
 	public Set<Department> getDepartments() {
 		return this.departments;

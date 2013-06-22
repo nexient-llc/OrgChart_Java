@@ -1,9 +1,3 @@
-/*
- 	 * JobTitle Interface
-	 * Job Entity - Needs Save/Update/Delete
-	 * Job Entity Search - Id, Name, All
-*/
-
 package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
