@@ -26,7 +26,7 @@ public class Employee implements java.io.Serializable {
 	private Boolean isManager;
 	private JobTitle jobTitle;
 	private Department department;
-	private Integer manager;
+	private Employee manager;
 	
 	// Getters and Setters:
 	
@@ -107,11 +107,12 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// MANAGER
-	@Column(name = "MANAGER_ID", nullable = true)
-	public Integer getManager() {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName ="ID")
+	public Employee getManager() {
 		return manager;
 	}
-	public void setManager(Integer manager) {
+	public void setManager(Employee manager) {
 		this.manager = manager;
 	}
 

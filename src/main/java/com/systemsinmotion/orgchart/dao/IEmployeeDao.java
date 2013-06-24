@@ -16,5 +16,12 @@ public interface IEmployeeDao {
 	public abstract List<Employee> findAll();
 	
 	public abstract List<Employee> findByDepartment(Department department);
+	
+	public abstract Employee findByEmail(String email);
+	
+	public abstract Employee findById(Integer id);
+	
+	public abstract List<Employee> findByManager(Employee manager);
+	 
 
 }

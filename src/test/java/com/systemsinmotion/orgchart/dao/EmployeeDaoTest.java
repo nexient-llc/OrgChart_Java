@@ -63,7 +63,7 @@ public class EmployeeDaoTest {
 		this.manager = Entities.manager();
 		this.employeeDao.save(this.manager);
 	}
-
+/*
 	@Test
 	public void findAll() throws Exception {
 		List<Employee> emps = this.employeeDao.findAll();
@@ -88,7 +88,7 @@ public class EmployeeDaoTest {
 		assertNull("Expecting a null list of Employees but was non-null", emps);
 	}
 	
-	/*
+	
 	@Test
 	public void findByEmail() throws Exception {
 		Employee emp = this.employeeDao.findByEmail(this.employee.getEmail());
@@ -97,7 +97,8 @@ public class EmployeeDaoTest {
 		assertEquals(this.employee.getLastName(), emp.getLastName());
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
-
+	
+	
 	@Test
 	public void findByEmail_null() throws Exception {
 		Employee emp = this.employeeDao.findByEmail(null);
@@ -109,7 +110,8 @@ public class EmployeeDaoTest {
 		Employee emp = this.employeeDao.findByEmail(NOT_PRESENT_VALUE);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
-
+	
+	
 	@Test
 	public void findById() throws Exception {
 		Employee emp = this.employeeDao.findById(this.employee.getId());
@@ -129,8 +131,9 @@ public class EmployeeDaoTest {
 	public void findById_XXX() throws Exception {
 		Employee emp = this.employeeDao.findById(NOT_PRESENT_ID);
 		assertNull("Expecting a null Employee but was non-null", emp);
-	}
-
+	}*/
+	
+	
 	@Test
 	public void findByManagerId() throws Exception {
 		createManager();
@@ -146,7 +149,8 @@ public class EmployeeDaoTest {
 		assertEquals(this.employee.getLastName(), emp.getLastName());
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
-
+	
+	
 	@Test
 	public void findByManagerId_empty() throws Exception {
 		List<Employee> emps = this.employeeDao.findByManager(Entities.employee());
@@ -157,5 +161,5 @@ public class EmployeeDaoTest {
 	public void findByManagerId_null() throws Exception {
 		List<Employee> emps = this.employeeDao.findByManager(null);
 		assertNull(emps);
-	}*/
+	}
 }
