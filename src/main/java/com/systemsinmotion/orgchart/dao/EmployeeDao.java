@@ -1,13 +1,17 @@
 package com.systemsinmotion.orgchart.dao;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 @Repository
@@ -34,14 +38,30 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		this.hibernateTemplate.delete(employee);
 		
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Employee> findAll() {
-		List<Employee> employee;
-		employee = this.hibernateTemplate.find("FROM" + Employee.class.getName());
-		return employee;
+		List<Employee> employees = Collections.EMPTY_LIST;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+		employees = this.hibernateTemplate.findByCriteria(criteria);
+		return employees;
+		
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByDepartment(Department department){
+		List<Employee> employees = Collections.EMPTY_LIST;
+
+		if (department != null && department.getId() != null) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+			criteria.add(Restrictions.eq("department.id", department.getId()));
+			employees = this.hibernateTemplate.findByCriteria(criteria);
+			return employees;
+		}
+		
+		return null;
+		
+	}
+
 	
 }

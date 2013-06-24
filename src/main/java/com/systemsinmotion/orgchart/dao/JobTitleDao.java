@@ -25,7 +25,7 @@ public class JobTitleDao implements com.systemsinmotion.orgchart.dao.IJobTitleDa
 
 	@Override
 	public void update(JobTitle jobTitle) {
-		Log.debug("Updating JobTitle" + jobTitle.getName()));
+		Log.debug("Updating JobTitle" + jobTitle.getName());
 		this.hibernateTemplate.update(jobTitle);
 		
 	}

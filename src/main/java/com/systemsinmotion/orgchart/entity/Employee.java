@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-//Creates an Entity (Table) for Employees
+// An Entity (Table) for Employees
 
 @Entity
 @Table(name = "EMPLOYEE")
@@ -24,13 +24,13 @@ public class Employee implements java.io.Serializable {
 	private String email;
 	private String skypeName;
 	private Boolean isManager;
-	private JobTitle jobTitleId;
-	private Department departmentId;
-	private Employee managerId;
+	private JobTitle jobTitle;
+	private Department department;
+	private Integer manager;
 	
 	// Getters and Setters:
 	
-	// ID Column
+	// ID 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true )
@@ -41,7 +41,7 @@ public class Employee implements java.io.Serializable {
 		this.id = id;
 	}
 	
-	// FIRST NAME Column
+	// FIRST NAME
 	@Column(name = "FIRST_NAME", nullable = false, length = 50)
 	public String getFirstName() {
 		return firstName;
@@ -50,7 +50,7 @@ public class Employee implements java.io.Serializable {
 		this.firstName = firstName;
 	}
 	
-	// LAST NAME Column
+	// LAST NAME
 	@Column(name = "LAST_NAME", nullable = false, length = 50)
 	public String getLastName() {
 		return lastName;
@@ -59,7 +59,7 @@ public class Employee implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 	
-	// EMAIL Column
+	// EMAIL
 	@Column(name = "EMAIL", nullable = true, length = 50)
 	public String getEmail() {
 		return email;
@@ -68,7 +68,7 @@ public class Employee implements java.io.Serializable {
 		this.email = email;
 	}
 	
-	// SKYPE NAME Column
+	// SKYPE NAME
 	@Column(name = "SKYPE_NAME", nullable = true, length = 50)
 	public String getSkypeName() {
 		return skypeName;
@@ -77,42 +77,42 @@ public class Employee implements java.io.Serializable {
 		this.skypeName = skypeName;
 	}
 	
-	// IS MANAGER Column
+	// IS MANAGER
 	@Column(name = "IS_MANAGER", nullable = true )
-	public Boolean isManager() {
+	public Boolean getIsManager() {
 		return isManager;
 	}
-	public void setManager(Boolean isManager) {
+	public void setIsManager(Boolean isManager) {
 		this.isManager = isManager;
 	}
 	
-	// JOB TITLE ID Column
+	// JOB TITLE
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
-	public JobTitle getJobTitleId() {
-		return jobTitleId;
+	public JobTitle getJobTitle() {
+		return jobTitle;
 	}
-	public void setJobTitleId(JobTitle jobTitleId) {
-		this.jobTitleId = jobTitleId;
+	public void setJobTitle(JobTitle jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 	
-	// DEPARTMENT ID Column
+	// DEPARTMENT
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Department_ID", referencedColumnName ="ID")
-	public Department getDepartmentId() {
-		return departmentId;
+	public Department getDepartment() {
+		return department;
 	}
-	public void setDepartmentId(Department departmentId) {
-		this.departmentId = departmentId;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 	
-	// MANAGER ID Column
-	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
-	public Employee getManagerId() {
-		return managerId;
+	// MANAGER
+	@Column(name = "MANAGER_ID", nullable = true)
+	public Integer getManager() {
+		return manager;
 	}
-	public void setManagerId(Employee managerId) {
-		this.managerId = managerId;
+	public void setManager(Integer manager) {
+		this.manager = manager;
 	}
 
 }
