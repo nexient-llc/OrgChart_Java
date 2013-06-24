@@ -1,32 +1,35 @@
 $(document).ready(function() {
-	$('#addBtn-container').css('width', $('#t1').width());
+			
+	$('#addEntity, #editEntity, #crudform').hide();
 
-	$('#addBtn').click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
-			$('#addEntity').fadeToggle("fast", "linear");
-		});
-	});
-	
-	$('#cancelBtn').click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
-			$('#addEntity').fadeToggle("fast", "linear");
-		});
+	$('#toggleCrudBtn').click(function() {
+		if ($('#editEntity').is(":visible")) {
+			$('#editEntity, #crudform').hide("fast", "linear");
+			$('#toggleCrudBtn').text("Add");
+		} else if ($('#addEntity').is(":visible")) {
+			$('#addEntity, #crudform').hide("fast", "linear");
+			$('#toggleCrudBtn').text("Add");
+		} else {
+			$('#crudform, #addEntity').show('fast', 'linear');
+			$('#toggleCrudBtn').text("Cancel");
+		}
 	});
 	
 	$('.click_row').mouseenter(function() {
 		$(this).find('.edit_icon').css('background', 'url(../images/editicon.png) no-repeat');
 		$(this).css('background', '#EEE')
-	}).mouseout(function() {
+	}).mouseleave(function() {
 		$(this).find('.edit_icon').css('background', 'none');
 		$(this).css('background', '#FFF')
 	});
 
 	$('.click_row').click(function() {
+		$('#addBtn-container, #addEntity').hide();
 		thisname = $(this).find('.deptname').text();
+		$('#delete_legend').text('Delete ' + thisname);
 		$('#dept_input').val(thisname);
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
-			$('#editEntity').fadeToggle("fast", "linear");
-		});
+		$('#crudform, #editEntity').show("fast", "linear");
+		$('#toggleCrudBtn').text("Cancel");
 	});
 	
 });

@@ -12,7 +12,6 @@ BODY {
 }
 
 FIELDSET {
-	margin-left: 0;
 }
 
 H3 {
@@ -63,7 +62,7 @@ SELECT {
 	width: 190px;
 }
 
-#addBtn-container {
+#addBtn-container, #delBtn-container {
 	margin-top: 0.5em;
 	/*text-align: center;*/
 }

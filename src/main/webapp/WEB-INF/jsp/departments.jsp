@@ -1,5 +1,8 @@
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%> 
+<%@ taglib prefix="sec"
+ uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 
@@ -7,8 +10,9 @@
 <div class="column">
 	<table id="t1"> 
 	<tr >
- 	<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<th ></th><!--  </sec:authorize>--> 
+ 		<th ><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
+		<!--  </sec:authorize>--> 
+		</th>
 		<th>Dept Name</th>
 		<th>Parent Dept</th>
 	</tr>
@@ -25,47 +29,57 @@
 </table>
 </div>
 <div class="column">
-	<div id="addBtn-container">
-			<button type="button" id="addBtn" style="width: 45px;">Add</button>	
+	&nbsp;&nbsp;
+</div>
+<div class="column">
+	<div id="toggleCrudBtn-container">
+			<button type="button" id="toggleCrudBtn" style="width: 5em">Add</button>	
 	</div>
-	<div id="addEntity" style="display:none">
-		<fieldset>
-			<legend>Add Department</legend>
-			<form name="newDept" action="depts" method="post">
-			<div>
-				<button type=button id="cancelBtn">Cancel</button>
-				<label>Dept Name:</label><input type="text" name="name"/>
-				<label>Parent Dept:</label>
-				<select name="parent_id">
-					<option>...</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
-				<button type="submit">Save</button>
-			</div>
-			<div></div>
-			</form>
-		</fieldset>
-	</div>
-	<div id="editEntity" style="display:none">
-		<fieldset>
-			<legend>Edit Department</legend>
-			<form name="editDept" action="depts" method="post">
-			<div>
-				<button type=button id="cancelBtn">Cancel</button>
-				<label>Dept Name:</label><input type="text" name="name" id="dept_input" />
-				<label>Parent Dept:</label>
-				<select name="parent_id">
-					<option>...</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
-				<button type="submit">Save</button>
-			</div>
-			<div></div>
-			</form>
-		</fieldset>
+	<div id="crudform" >
+		<div id="addEntity" >
+			<fieldset>
+				<legend>Add Department</legend>
+				<form name="newDept" action="depts" method="post">
+				<div>
+					<label>Dept Name:</label><input type="text" name="name"/>
+					<label>Parent Dept:</label>
+					<select name="parent_id">
+						<option>...</option>
+						<c:forEach items="${depts}" var="dept">
+							<option value="${dept.id}">${dept.name}</option>
+						</c:forEach>
+					</select>
+					<button type="submit">Save</button>
+				</div>
+				<div></div>
+				</form>
+			</fieldset>
+		</div>
+		<div id="editEntity" >
+			<fieldset>
+				<legend>Edit Department</legend>
+				<form name="editDept" action="depts" method="post">
+				<div>
+					<label>Dept Name:</label><input type="text" name="name" id="dept_input" />
+					<label>Parent Dept:</label>
+					<select name="parent_id">
+						<option>...</option>
+						<c:forEach items="${depts}" var="dept">
+							<option value="${dept.id}">${dept.name}</option>
+						</c:forEach>
+					</select>
+					<button type="submit">Save</button>
+					<br />
+				</div>
+				<div></div>
+				</form>
+			</fieldset>
+			<fieldset>
+				<legend id="delete_legend">Delete</legend>
+				<form name="deleteDept" action="depts" method="post">
+					<button type=button id="deleteBtn" >Delete</button>
+				</form>
+			</fieldset>
+		</div>
 	</div>
 </div>
