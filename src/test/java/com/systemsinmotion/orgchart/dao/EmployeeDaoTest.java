@@ -63,7 +63,7 @@ public class EmployeeDaoTest {
 		this.manager = Entities.manager();
 		this.employeeDao.save(this.manager);
 	}
-/*
+
 	@Test
 	public void findAll() throws Exception {
 		List<Employee> emps = this.employeeDao.findAll();
@@ -131,7 +131,7 @@ public class EmployeeDaoTest {
 	public void findById_XXX() throws Exception {
 		Employee emp = this.employeeDao.findById(NOT_PRESENT_ID);
 		assertNull("Expecting a null Employee but was non-null", emp);
-	}*/
+	}
 	
 	
 	@Test

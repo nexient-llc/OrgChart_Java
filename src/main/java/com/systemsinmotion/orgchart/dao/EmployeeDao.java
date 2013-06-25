@@ -2,12 +2,9 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,8 +15,6 @@ import com.systemsinmotion.orgchart.entity.Employee;
 
 @Repository
 public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDao{
-	
-	public static final Logger log = LoggerFactory.getLogger(EmployeeDao.class);
 	
 	@Autowired
 	HibernateTemplate hibernateTemplate;
@@ -99,10 +94,13 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		List<Employee> employees = Collections.EMPTY_LIST;
 		if(manager != null){
 			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
-			criteria.add(Restrictions.eq("manager", manager));
+			criteria.add(Restrictions.eq("manager.id", manager.getId()));
 			employees = this.hibernateTemplate.findByCriteria(criteria);
-			return employees;
+			if(!employees.isEmpty()){
+				return employees;
+			}
 		}
-		else return null;
+		return null;
 	}
 }
+

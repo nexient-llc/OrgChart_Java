@@ -54,14 +54,16 @@ public class JobTitleDaoTest {
 		assertNotNull(this.jobTitle);
 		assertNotNull(this.jobTitle.getId());
 	}
-
+	
+	
 	@Test(expected = DataIntegrityViolationException.class)
 	public void duplicateName() throws Exception {
 		JobTitle dept = Entities.jobTitle();
 		dept.setName(this.jobTitle.getName());
 		this.jobTitleDao.save(dept);
 	}
-
+	
+	
 	@Test
 	public void findAll_notNull() throws Exception {
 		System.out.println(this.jobTitleDao.toString());
@@ -69,7 +71,8 @@ public class JobTitleDaoTest {
 		assertNotNull(depts);
 		assertTrue(0 < depts.size());
 	}
-
+	
+	/*
 	@Test
 	public void findByDeptId() throws Exception {
 		JobTitle dept = this.jobTitleDao.findById(this.jobTitle.getId());
@@ -107,4 +110,5 @@ public class JobTitleDaoTest {
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
+	*/
 }

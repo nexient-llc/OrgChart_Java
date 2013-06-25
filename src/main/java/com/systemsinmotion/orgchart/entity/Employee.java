@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+
+
 
 // An Entity (Table) for Employees
 
@@ -107,7 +111,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// MANAGER
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "MANAGER_ID", referencedColumnName ="ID")
 	public Employee getManager() {
 		return manager;
