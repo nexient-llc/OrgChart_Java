@@ -30,7 +30,7 @@ public class DepartmentServiceTest {
 	@Autowired
 	DepartmentService departmentService;
 
-	IDepartmentDao mockDepartmentDAO = mock(IDepartmentDao.class);
+	IDepartmentDao mockDepartmentDao = mock(IDepartmentDao.class);
 	Department mockDepartment = mock(Department.class);
 
 	private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>();
@@ -39,10 +39,10 @@ public class DepartmentServiceTest {
 	public void before() throws Exception {
 		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
-		when(this.mockDepartmentDAO.findAll()).thenReturn(this.listOfFoundDepts);
-		when(this.mockDepartmentDAO.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
-		when(this.mockDepartmentDAO.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
-		this.departmentService.setDepartmentDAO(this.mockDepartmentDAO);
+		when(this.mockDepartmentDao.findAll()).thenReturn(this.listOfFoundDepts);
+		when(this.mockDepartmentDao.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentDao.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
+		this.departmentService.setDepartmentDao(this.mockDepartmentDao);
 	}
 
 	@Test
