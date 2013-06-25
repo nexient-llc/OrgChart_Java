@@ -24,12 +24,29 @@ $(document).ready(function() {
 	});
 
 	$('.click_row').click(function() {
-		$('#addBtn-container, #addEntity').hide();
+		$('#addEntity').hide();
 		thisname = $(this).find('.deptname').text();
+		thisparent = $(this).find('.deptparentid').text();
+		thisid = $(this).attr('id');
 		$('#delete_legend').text('Delete ' + thisname);
-		$('#dept_input').val(thisname);
+		$('#dept_put_id, #dept_del_id').val(thisid);
+		$('#dept_put_name, #dept_del_name').val(thisname);
+		$('#dept_put_parent_id').val(thisparent);
+		$('.test').text(thisparent);
 		$('#crudform, #editEntity').show("fast", "linear");
 		$('#toggleCrudBtn').text("Cancel");
 	});
-	
+
+	$("#submitUpdateBtn").click(function() { 
+		 var element = document.getElementById("methodChanger");
+		 element.parentNode.removeChild(element);
+		 $('#putOrDelDept').prepend("<input type='hidden' name='_method' value='put' id='methodChanger'/>");
+	});
+
+	$("#submitDelBtn").click(function() { 
+		 var element = document.getElementById("methodChanger");
+		 element.parentNode.removeChild(element);
+		 $('#putOrDelDept').prepend("<input type='hidden' name='_method' value='delete' id='methodChanger'/>");
+	});
+
 });

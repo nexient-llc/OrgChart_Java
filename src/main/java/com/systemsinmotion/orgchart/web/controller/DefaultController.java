@@ -1,23 +1,17 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.validation.Valid;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.systemsinmotion.orgchart.dao.DepartmentDao;
 import com.systemsinmotion.orgchart.entity.Department;
-import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
@@ -53,16 +47,28 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(Department newDept, Integer parent_id, Model model) {
-		newDept.setParentDepartment(departmentService.findDepartmentByID(parent_id));
-		newDept.setId(departmentService.storeDepartment(newDept));
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		for (Department d : departments)
-			System.out.println(d.getName());
-		return View.DEPARTMENTS;
+	public String doDepartments_POST(Department newDept, Integer new_parent_id, Model model) {
+			newDept.setParentDepartment(departmentService.findDepartmentByID(new_parent_id));
+			newDept.setId(departmentService.storeDepartment(newDept));
+			List<Department> departments = departmentService.findAllDepartments();
+			model.addAttribute("depts", departments);
+			return View.DEPARTMENTS;
 	}
 
+	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
+	public String doDepartments_DELETE(String id, Model model) {
+			Map <String, Object> theMap = model.asMap();
+			for (String key : theMap.keySet()) {
+				System.out.println(key + " " + theMap.get(key));
+			}
+			Integer id_int = Integer.parseInt(id);
+			Department deptToDelete = departmentService.findDepartmentByID(id_int);
+			departmentService.removeDepartment(deptToDelete);
+			List<Department> departments = departmentService.findAllDepartments();
+			model.addAttribute("depts", departments);
+			return View.DEPARTMENTS;
+	}
+	
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
 		 String[] employees = {"a","b","c"};
