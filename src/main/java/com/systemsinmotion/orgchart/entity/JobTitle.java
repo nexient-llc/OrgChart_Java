@@ -39,6 +39,5 @@ public class JobTitle implements java.io.Serializable {
 	
 	public void setName(String name) {
 		this.name = name;
-	}
-	
+	}	
 }

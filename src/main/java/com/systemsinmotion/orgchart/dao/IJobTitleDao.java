@@ -14,7 +14,7 @@ public interface IJobTitleDao {
 	
 	public abstract JobTitle findById(Integer id);
 	
-	public abstract JobTitle findByName(String name);
-	
 	public abstract List<JobTitle> findAll();
+	
+	public abstract JobTitle findByName(String name);
 }
