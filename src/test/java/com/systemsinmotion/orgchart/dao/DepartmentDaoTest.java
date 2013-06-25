@@ -6,8 +6,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,12 +36,6 @@ public class DepartmentDaoTest {
 
 	@Autowired
 	IDepartmentDao departmentDao;
-
-	@After
-	public void after() {
-		this.departmentDao.delete(this.department);
-		this.departmentDao.delete(this.parent);
-	}
 
 	@Before
 	public void before() throws Exception {
