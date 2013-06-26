@@ -7,7 +7,7 @@ import com.systemsinmotion.orgchart.dao.IJobTitleDao;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Service
-public class JobTitleServce {
+public class JobTitleService {
 
 	@Autowired
 	IJobTitleDao JobTitleDao;
@@ -24,11 +24,23 @@ public class JobTitleServce {
 		this.JobTitleDao.delete(jobTitle);
 	}
 	
-	public List<JobTitle> findAllJobTitless(){
+	public List<JobTitle> findAllJobTitles(){
 		return this.JobTitleDao.findAll();
 	}
 	
 	public JobTitle findJobTitleById(Integer jobTitleId){
 		return this.JobTitleDao.findById(jobTitleId);
+	}
+	
+	public JobTitle findJobByName(String name){
+		return this.JobTitleDao.findByName(name);
+	}
+	
+	public void deleteJob(JobTitle jobTitle){
+		this.JobTitleDao.delete(jobTitle);
+	}
+	
+	public void updateJobTitle(JobTitle jobTitle){
+		this.JobTitleDao.update(jobTitle);
 	}
 }
