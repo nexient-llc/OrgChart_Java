@@ -2,7 +2,6 @@ package com.systemsinmotion.orgchart.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.dao.IJobTitleDao;
-import com.systemsinmotion.orgchart.dao.JobTitleDao;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +26,6 @@ public class JobTitleServiceTest {
 
 	@Autowired
 	JobTitleService jobTitleService;
-	@Autowired
-	JobTitleDao jobTitleDao;
 	JobTitle mockJobTitle = mock(JobTitle.class);
 	IJobTitleDao mockJobTitleDao = mock(IJobTitleDao.class);
 	
@@ -77,21 +73,12 @@ public class JobTitleServiceTest {
 	
 	@Test
 	public void removeJobTitle(){
-		JobTitle jobTitle = Entities.jobTitle();
-		jobTitleDao.save(jobTitle);
-		jobTitleDao.delete(jobTitle);
-		JobTitle jobTitleCheck = jobTitleDao.findById(jobTitle.getId());
-		assertNull(jobTitleCheck);
 		
 	}
 	
 	@Test
 	public void updateJobTitle() {
-		JobTitle jobTitle = Entities.jobTitle();
-		jobTitleDao.save(jobTitle);
-		jobTitle.setName("Test Name");
-		jobTitleDao.update(jobTitle);
-		assertEquals("Test Name", jobTitle.getName());
+		
 	}
 	
 }
