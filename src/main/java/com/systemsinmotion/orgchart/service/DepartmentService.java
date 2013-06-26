@@ -35,23 +35,4 @@ public class DepartmentService {
 		this.DepartmentDao.delete(department);
 	}
 	
-	//
-	// NEED TO WRITE TESTS FOR METHODS BELOW
-	//
-	
-	public List<Department> findByParentDepartment(Department department){
-		if(department.getId() == department.getParentDepartment().getId()){
-			return null;
-		}
-		return this.DepartmentDao.findByParentDepartment(department);
-	}
-	
-	public Department findByDepartmentName(Department department){
-		
-		return this.DepartmentDao.findByName(department.getName());
-	}
-	
-	public void updateDepartment(Department department){
-		this.DepartmentDao.update(department);
-	}
 }

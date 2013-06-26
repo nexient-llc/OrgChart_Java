@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.service;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -33,7 +34,6 @@ public class DepartmentServiceTest {
 
 	@Autowired
 	DepartmentService departmentService;
-
 	IDepartmentDao mockDepartmentDao = mock(IDepartmentDao.class);
 	Department mockDepartment = mock(Department.class);
 
@@ -70,10 +70,4 @@ public class DepartmentServiceTest {
 		assertEquals(Entities.DEPT_ID, deptId);
 	}
 	
-	@Test
-	public void removeDepartment(){
-		// MAKE TEST TO SEE IF DEPARTMENT IS DELETED
-	
-	}
-
 }
