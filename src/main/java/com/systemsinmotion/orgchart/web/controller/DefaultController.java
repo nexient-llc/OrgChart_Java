@@ -47,20 +47,25 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(Department newDept, Integer new_parent_id, Model model) {
-			newDept.setParentDepartment(departmentService.findDepartmentByID(new_parent_id));
+	public String doDepartments_POST(Department newDept, Integer parent_id, Model model) {
+			newDept.setParentDepartment(departmentService.findDepartmentByID(parent_id));
 			newDept.setId(departmentService.storeDepartment(newDept));
 			List<Department> departments = departmentService.findAllDepartments();
 			model.addAttribute("depts", departments);
 			return View.DEPARTMENTS;
 	}
 
+	@RequestMapping(value = "depts", method = RequestMethod.PUT)
+	public String doDepartments_PUT(Department changedDept, Integer parent_id, Model model) {
+			changedDept.setParentDepartment(departmentService.findDepartmentByID(parent_id));
+			departmentService.updateDepartment(changedDept);
+			List<Department> departments = departmentService.findAllDepartments();
+			model.addAttribute("depts", departments);
+			return View.DEPARTMENTS;
+	}
+	
 	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
 	public String doDepartments_DELETE(String id, Model model) {
-			Map <String, Object> theMap = model.asMap();
-			for (String key : theMap.keySet()) {
-				System.out.println(key + " " + theMap.get(key));
-			}
 			Integer id_int = Integer.parseInt(id);
 			Department deptToDelete = departmentService.findDepartmentByID(id_int);
 			departmentService.removeDepartment(deptToDelete);

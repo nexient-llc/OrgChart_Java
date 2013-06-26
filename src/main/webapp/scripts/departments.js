@@ -17,10 +17,10 @@ $(document).ready(function() {
 	
 	$('.click_row').mouseenter(function() {
 		$(this).find('.edit_icon').css('background', 'url(../images/editicon.png) no-repeat');
-		$(this).css('background', '#EEE')
+		$(this).css('background', '#DDD')
 	}).mouseleave(function() {
 		$(this).find('.edit_icon').css('background', 'none');
-		$(this).css('background', '#FFF')
+		$(this).css('background', '#EEE')
 	});
 
 	$('.click_row').click(function() {
@@ -32,21 +32,8 @@ $(document).ready(function() {
 		$('#dept_put_id, #dept_del_id').val(thisid);
 		$('#dept_put_name, #dept_del_name').val(thisname);
 		$('#dept_put_parent_id').val(thisparent);
-		$('.test').text(thisparent);
 		$('#crudform, #editEntity').show("fast", "linear");
 		$('#toggleCrudBtn').text("Cancel");
-	});
-
-	$("#submitUpdateBtn").click(function() { 
-		 var element = document.getElementById("methodChanger");
-		 element.parentNode.removeChild(element);
-		 $('#putOrDelDept').prepend("<input type='hidden' name='_method' value='put' id='methodChanger'/>");
-	});
-
-	$("#submitDelBtn").click(function() { 
-		 var element = document.getElementById("methodChanger");
-		 element.parentNode.removeChild(element);
-		 $('#putOrDelDept').prepend("<input type='hidden' name='_method' value='delete' id='methodChanger'/>");
 	});
 
 });

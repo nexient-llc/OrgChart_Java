@@ -19,17 +19,9 @@
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />
-	<h2>Organization Chart</h2>
-	<div id="login"><a href="">Log in</a></div>
-	<table>
-		<tr>
-			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
-			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
-			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
-			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>
-		</tr>
-	</table>
+	<div id="container">
 	<tiles:insertAttribute name="body" />
+	</div>
 </body>
 </html>
 

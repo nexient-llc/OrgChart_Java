@@ -1,14 +1,15 @@
 @charset "UTF-8";
 
 A,BODY,DIV,H1,H2,H3,H4,H5,SPAN,TD,TH {
-	color: #0177C0;
+	color: #111;
 	font-family: sans-serif;
 	font-size: 0.90em;
 }
 
 BODY {
-	background-color: #FFF;
-	padding: 1em;
+	background-color: #EEE;
+	margin:0;
+	padding:0;
 }
 
 FIELDSET {
@@ -58,17 +59,30 @@ SELECT {
 .sim-logo {
 	background: white 0px -270px url(../images/sim-sprite.png) no-repeat;
 	height: 72px;
-	margin-bottom: 1em;
 	width: 190px;
 }
 
-#addBtn-container, #delBtn-container {
-	margin-top: 0.5em;
-	/*text-align: center;*/
+#heading {
+	background: #FFF;
+	padding: 2em 2em 0 2em;
+}
+
+#container {
+	width: 100%;
+	padding-left: 2em;
+}
+
+.column {
+	right-margin: 1em;
+	float: left;
+}
+
+#addBtn-container {
+	margin-top: 0.1em;
 }
 
 #addEntity {
-	margin-top: 1em;
+	margin-top: .1em;
 }
 
 #login {
@@ -77,8 +91,8 @@ SELECT {
 	text-decoration: underline;
 }
 
-.column {
-	margin: 100 px;
-	padding: 100 px;
-	float: left;
+.deptname, .deptparent, .deptparent_id {
+	color: #0177C0;
+	text-decoration: underline;
+	font-size: 1em;
 }

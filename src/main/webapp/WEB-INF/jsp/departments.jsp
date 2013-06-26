@@ -59,8 +59,7 @@
 		<div id="editEntity" >
 			<fieldset>
 				<legend>Edit Department</legend>
-				<form:form method="put" id="putDept">
-					<input type='hidden' name='_method' value='put' id='methodChanger' />
+				<form:form name="updateDept" method="put" id="putDept">
 					<label>Dept Name:</label>
 					<input type="hidden" name="id" id="dept_put_id" />
 					<input type="text" name="name" id="dept_put_name" />
@@ -71,18 +70,14 @@
 							<option value="${dept.id}">${dept.name}</option>
 						</c:forEach>
 					</select>
-					<div class="test"></div>
-					<button type="submit" id="submitUpdateBtn" >Update</button>
+					<button type="submit">Update</button>
 					</form:form>
 			</fieldset>
 			<fieldset>
 				<legend id="delete_legend"></legend>
 				<form:form method="delete" id="delDept">
-					<input type='hidden' name='_method' value='delete' id='methodChanger' />
 					<input type="hidden" name="id" id="dept_del_id" />
-<!-- 					<input type="hidden" name="name" id="dept_del_name" />
-						<input type="hidden" name="parent_id" id="dept_del_parent_id" />
- -->				<button type="submit" id="submitDelBtn" >Delete</button>
+					<button type="submit">Delete</button>
 				</form:form>
 			</fieldset>
 		</div>
