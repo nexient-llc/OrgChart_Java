@@ -36,9 +36,6 @@ public class JobTitleService {
 		return this.JobTitleDao.findByName(name);
 	}
 	
-	public void deleteJob(JobTitle jobTitle){
-		this.JobTitleDao.delete(jobTitle);
-	}
 	
 	public void updateJobTitle(JobTitle jobTitle){
 		this.JobTitleDao.update(jobTitle);

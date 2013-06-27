@@ -35,4 +35,16 @@ public class DepartmentService {
 		this.DepartmentDao.delete(department);
 	}
 	
+	public void updateDepartment(Department department){
+		this.DepartmentDao.update(department);
+	}
+	
+	public void findDepartmentByName(String deptName){
+		this.DepartmentDao.findByName(deptName);
+	}
+	
+	public void findDeptByParent(Department parent){
+		this.DepartmentDao.findByParentDepartment(parent);
+	}
+	
 }

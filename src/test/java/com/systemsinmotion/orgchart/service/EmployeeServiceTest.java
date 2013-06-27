@@ -1,6 +1,7 @@
 package com.systemsinmotion.orgchart.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +26,7 @@ public class EmployeeServiceTest {
 	EmployeeService employeeService;
 	Employee mockEmployee = mock(Employee.class);
 	IEmployeeDao mockEmployeeDao = mock(IEmployeeDao.class);
+
 	
 	ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
 	
@@ -34,6 +36,8 @@ public class EmployeeServiceTest {
 		this.employeeService.setEmployeeDao(this.mockEmployeeDao);
 		when(this.mockEmployeeDao.save(this.mockEmployee)).thenReturn(Entities.EMPLOYEE_ID);
 		when(this.mockEmployeeDao.findAll()).thenReturn(listOfEmployees);
+		when(this.mockEmployee.getId()).thenReturn(Entities.EMPLOYEE_ID);
+		when(this.mockEmployeeDao.findById(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
 	}
 	
 
@@ -45,16 +49,16 @@ public class EmployeeServiceTest {
 	}
 	
 	@Test
-	public void updateEmployee(){
-		
+	public void findAllEmployees(){
+		List<Employee> employees = this.employeeService.findAllEmployees();
+		assertNotNull(employees);
+		assertEquals(1, employees.size());
 	}
 	
 	@Test
-	public void removeEmployee(){
-		
-	}
-	
-	public void findAllEmployees(){
-		
+	public void findEmployeeById(){
+		Employee employee = this.employeeService.findEmployeeById(Entities.EMPLOYEE_ID);
+		assertNotNull(employee);
+		assertEquals(Entities.EMPLOYEE_ID, employee.getId());
 	}
 }

@@ -33,14 +33,15 @@ public class JobTitleServiceTest {
 	
 	@Before
 	public void before() throws Exception {
-		when(this.mockJobTitle.getId()).thenReturn(Entities.JOB_TITLE_ID);
+		this.jobTitleService.setJobTitleDao(this.mockJobTitleDao);
 		this.listOfFoundJobs.add(this.mockJobTitle);
+		when(this.mockJobTitle.getId()).thenReturn(Entities.JOB_TITLE_ID);
 		when(this.mockJobTitleDao.findAll()).thenReturn(this.listOfFoundJobs);
 		when(this.mockJobTitleDao.findById(Entities.JOB_TITLE_ID)).thenReturn(this.mockJobTitle);
 		when(this.mockJobTitleDao.save(this.mockJobTitle)).thenReturn(Entities.JOB_TITLE_ID);
 		when(this.mockJobTitleDao.findByName(Entities.JOB_TITLE_NAME)).thenReturn(this.mockJobTitle);
 		when(this.mockJobTitle.getName()).thenReturn(Entities.JOB_TITLE_NAME);
-		this.jobTitleService.setJobTitleDao(this.mockJobTitleDao);
+		
 	}
 	
 	@Test
@@ -57,12 +58,6 @@ public class JobTitleServiceTest {
 		assertEquals(Entities.JOB_TITLE_ID, job.getId());
 	}
 
-	@Test
-	public void storeDepartment() {
-		Integer jobId = this.jobTitleService.storeJobTitle(this.mockJobTitle);
-		assertNotNull(jobId);
-		assertEquals(Entities.JOB_TITLE_ID, jobId);
-	}
 	
 	@Test
 	public void findJobTitleByName(){
@@ -72,13 +67,10 @@ public class JobTitleServiceTest {
 	}
 	
 	@Test
-	public void removeJobTitle(){
-		
-	}
-	
-	@Test
-	public void updateJobTitle() {
-		
+	public void storeJobTitle() {
+		Integer jobId = this.jobTitleService.storeJobTitle(this.mockJobTitle);
+		assertNotNull(jobId);
+		assertEquals(Entities.JOB_TITLE_ID, jobId);
 	}
 	
 }
