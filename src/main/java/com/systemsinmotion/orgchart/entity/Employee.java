@@ -91,7 +91,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// JOB TITLE
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
 	public JobTitle getJobTitle() {
 		return jobTitle;
@@ -101,7 +101,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// DEPARTMENT
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Department_ID", referencedColumnName ="ID")
 	public Department getDepartment() {
 		return department;

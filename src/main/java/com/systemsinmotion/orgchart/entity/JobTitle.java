@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 // Creates an Entity (Table) for Job Title
 @Entity
@@ -16,9 +20,9 @@ public class JobTitle implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
+	private String description;
 	
 	// Getters and Setters:
-	
 	// ID Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,5 +43,15 @@ public class JobTitle implements java.io.Serializable {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "DESCRIPTION", length = 50, nullable = true)
+	public String getDescription() {
+		return description;
+	}
+
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}	
 }
