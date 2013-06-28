@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -68,7 +69,7 @@ public class DefaultControllerTests {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testModelShouldContainNewDepartmentList() {
+	public void modelShouldContainNewDepartmentList() {
 		// Given
 		this.controller.doDepartments_GET(this.model);
 		// When
@@ -78,22 +79,31 @@ public class DefaultControllerTests {
 		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
 	}
 
-	 @SuppressWarnings("unchecked")
+/*	 @SuppressWarnings("unchecked")
 	 @Test
-	 public void testModelShouldUpdateOnDepartmentPagePost() {
-	
-	 model.addAttribute("depts", findAllDepartmentsList);
-	 //Given
-	 controller.doDepartments_POST(mockDepartment2, null, model);
-	 //When
-	 findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
-	
-	 //Then
-	 assertNotNull(findAllDepartmentsList);
-	 assertTrue(findAllDepartmentsList.size() > 0);
-	 assertEquals(mockDepartment2.getId(), findAllDepartmentsList.get(1).getId());
-	 assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
-	
+	 public void modelShouldUpdateOnDepartmentPagePost() {
+		
+		 model.addAttribute("depts", findAllDepartmentsList);
+		 //Given
+		 controller.doDepartments_POST(mockDepartment2, model);
+		 //When
+		 findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+		
+		 //Then
+		 assertNotNull(findAllDepartmentsList);
+		 assertTrue(findAllDepartmentsList.size() > 0);
+		 assertEquals(mockDepartment2.getId(), findAllDepartmentsList.get(1).getId());
+		 assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
+		
 	 }
-
+*/
+/*	 @Test
+	 public void canDeleteDepartment() {
+		// When
+		System.out.println("Test will try to delete Name: " + mockDepartment.getName() + ", id:" + mockDepartment.getId());
+		controller.doDepartments_DELETE("22", model);
+		// Then
+		System.out.println("Test tried to delete Name: " + mockDepartment.getName() + ", id:" + mockDepartment.getId());
+		assertNull(mockDepartment);
+	 }*/
 }

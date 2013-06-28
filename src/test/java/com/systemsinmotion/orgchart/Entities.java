@@ -10,7 +10,7 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public class Entities {
 
-	public static final String DEPARTMENT_NAME = "Department";
+	public static final String DEPARTMENT_NAME = "Department of Mocking";
 	public static final Integer DEPT_ID = 22;
 	public static final String EMAIL = "email";
 	public static final Integer EMPLOYEE_ID = 5;

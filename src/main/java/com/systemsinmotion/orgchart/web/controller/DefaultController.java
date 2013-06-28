@@ -1,7 +1,6 @@
 package com.systemsinmotion.orgchart.web.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,33 +44,39 @@ public class DefaultController {
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
-	
+
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(Department newDept, Integer parent_id, Model model) {
-			newDept.setParentDepartment(departmentService.findDepartmentByID(parent_id));
-			newDept.setId(departmentService.storeDepartment(newDept));
-			List<Department> departments = departmentService.findAllDepartments();
-			model.addAttribute("depts", departments);
-			return View.DEPARTMENTS;
+	public String doDepartments_POST(Department newDept, Model model) {
+		if (newDept.getParentDepartment().getId() == 0) {
+			newDept.setParentDepartment(null);
+		}
+		departmentService.storeDepartment(newDept);
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
 	}
 
 	@RequestMapping(value = "depts", method = RequestMethod.PUT)
-	public String doDepartments_PUT(Department changedDept, Integer parent_id, Model model) {
-			changedDept.setParentDepartment(departmentService.findDepartmentByID(parent_id));
-			departmentService.updateDepartment(changedDept);
-			List<Department> departments = departmentService.findAllDepartments();
-			model.addAttribute("depts", departments);
-			return View.DEPARTMENTS;
+	public String doDepartments_PUT(Department changedDept, Model model) {
+		// changedDept.setParentDepartment(departmentService.findDepartmentByID(parent_id));
+		departmentService.updateDepartment(changedDept);
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
 	public String doDepartments_DELETE(String id, Model model) {
-			Integer id_int = Integer.parseInt(id);
-			Department deptToDelete = departmentService.findDepartmentByID(id_int);
-			departmentService.removeDepartment(deptToDelete);
-			List<Department> departments = departmentService.findAllDepartments();
-			model.addAttribute("depts", departments);
-			return View.DEPARTMENTS;
+		System.out.print("id: " + id + ". \n");
+		Integer id_int = Integer.parseInt(id);
+		System.out.print("id_int: " + id_int + " \n");
+		Department deptToDelete = departmentService.findDepartmentByID(id_int);
+		System.out.println("Controller will try to delete Name: " + deptToDelete.getName() + ", id:" + deptToDelete.getId() + ".");
+		departmentService.removeDepartment(deptToDelete);
+		System.out.println("Controller tried to delete Name: " + deptToDelete.getName() + ", id:" + deptToDelete.getId() + ".");
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
 	}
 	
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
@@ -88,6 +93,7 @@ public class DefaultController {
 		return View.JOB_TITLES;
 	}
 
+	// Used in tests.
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}

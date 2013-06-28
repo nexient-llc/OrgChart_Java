@@ -42,18 +42,18 @@
 		<div id="addEntity" >
 			<fieldset>
 				<legend>Add Department</legend>
-				<form name="newDept" action="depts" method="post">
+				<form:form name="newDept" method="post" >
 					<label>Dept Name:</label>
 					<input type="text" name="name"/>
 					<label>Parent Dept:</label>
-					<select name="parent_id" id="put_parent_id" >
-						<option>...</option>
+					<select name="parentDepartment.id" id="put_parent_id" >
+						<option value="0" >...</option>
 						<c:forEach items="${depts}" var="dept">
 							<option value="${dept.id}">${dept.name}</option>
 						</c:forEach>
 					</select>
-					<button type="submit">Save</button>
-				</form>
+					<button type="submit" id="saveBtn">Save</button>
+				</form:form>
 			</fieldset>
 		</div>
 		<div id="editEntity" >
@@ -64,7 +64,7 @@
 					<input type="hidden" name="id" id="dept_put_id" />
 					<input type="text" name="name" id="dept_put_name" />
 					<label>Parent Dept:</label>
-					<select name="parent_id" id="dept_put_parent_id">
+					<select name="parentDepartment.id" id="dept_put_parent_id">
 						<option>...</option>
 						<c:forEach items="${depts}" var="dept">
 							<option value="${dept.id}">${dept.name}</option>

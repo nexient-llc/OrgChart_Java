@@ -36,4 +36,13 @@ $(document).ready(function() {
 		$('#toggleCrudBtn').text("Cancel");
 	});
 
+	$('#saveBtn').click(function(){
+		if ($("#dept_put_parent_id").val().length() == 0) {
+			$("#dept_put_parent_id").val(0);
+			window.alert("Changed it to zero.");
+		} else {
+			window.alert("Didn't need to change it.");
+		}
+	});
+	
 });
