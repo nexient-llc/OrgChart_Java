@@ -107,5 +107,14 @@ public class DefaultController {
 		model.addAttribute("emps", employee);
 		return View.EMPLOYEES;
 	}
+	
+	@RequestMapping(value="emps", method= RequestMethod.POST)
+	public String doEmployee_POST(Employee employee, Model model){
+		employeeService.storeEmployee(employee);
+		List<Employee> employees = employeeService.findAllEmployees();
+		model.addAttribute("emps", employees);
+		return View.EMPLOYEES;
+		
+	}
 
 }

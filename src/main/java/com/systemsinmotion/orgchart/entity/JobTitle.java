@@ -6,10 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 // Creates an Entity (Table) for Job Title
 @Entity
@@ -45,7 +41,7 @@ public class JobTitle implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "DESCRIPTION", length = 50, nullable = true)
+	@Column(name = "DESCRIPTION", length = 250, nullable = true)
 	public String getDescription() {
 		return description;
 	}

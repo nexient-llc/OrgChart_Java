@@ -1,8 +1,7 @@
 package com.systemsinmotion.orgchart.service;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -61,4 +60,10 @@ public class DepartmentServiceTest {
 		assertEquals(Entities.DEPT_ID, deptId);
 	}
 	
+	@Test
+	public void removeDepartment(){
+		this.departmentService.storeDepartment(this.mockDepartment);
+		this.departmentService.removeDepartment(this.mockDepartment);
+		verify(this.mockDepartmentDao).delete(this.mockDepartment);
+	}
 }
