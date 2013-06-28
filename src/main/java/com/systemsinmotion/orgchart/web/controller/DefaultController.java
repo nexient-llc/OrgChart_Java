@@ -43,10 +43,6 @@ public class DefaultController {
 	}
 	
 	// DEPARTMENT
-	//NEEDS:
-		//PUT?
-		//DELETE?
-		//OR does another controller handle this i.e. Admin?
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
@@ -67,35 +63,8 @@ public class DefaultController {
 		this.departmentService = departmentService;
 	}
 	
-	// JOBTITLE
-	// NEEDS:
-		//PUT
-		//DELETE
-		//OR does another controller handle this i.e. Admin?
-	public void setJobTitleService(JobTitleService jobTitleService){
-		this.jobTitleService = jobTitleService;
-	}
-	
-	@RequestMapping(value = "jobs", method = RequestMethod.GET)
-	public String doJobTitle_GET(Model model) {
-		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
-		model.addAttribute("jobs", jobTitle);
-		return View.JOB_TITLES;
-	}
-	
-	@RequestMapping(value ="jobs", method = RequestMethod.POST)
-	public String doJobTitle_POST(JobTitle job, Model model){
-		jobTitleService.storeJobTitle(job);
-		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
-		model.addAttribute("jobs", jobTitle);
-		return View.JOB_TITLES;
-	}
 
-	// EMPLOYEES
-	// NEEDS:
-		// PUT
-		// DELETE
-		//OR does another controller handle this i.e. Admin?
+	// EMPLOYEE 
 	
 	public void setEmployeeService(EmployeeService employeeService){
 		this.employeeService = employeeService;
@@ -115,6 +84,35 @@ public class DefaultController {
 		model.addAttribute("emps", employees);
 		return View.EMPLOYEES;
 		
+	}
+	
+	// JOBS
+	
+	public void setJobTitleService(JobTitleService jobTitleService){
+		this.jobTitleService = jobTitleService;
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	public String doJobTitle_GET(Model model) {
+		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobs", jobTitle);
+		return View.JOB_TITLES;
+	}
+	
+	@RequestMapping(value ="jobAdd", method = RequestMethod.POST)
+	public String doJobTitle_POST(JobTitle job, Model model){
+		jobTitleService.storeJobTitle(job);
+		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobs", jobTitle);
+		return View.JOB_TITLES;
+	}
+	
+	@RequestMapping(value="jobUpdate", method = RequestMethod.PUT)
+	public String doJobTitle_PUT(JobTitle job, Model model){
+		jobTitleService.updateJobTitle(job);
+		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobs", jobTitle);
+		return View.JOB_TITLES;
 	}
 
 }
