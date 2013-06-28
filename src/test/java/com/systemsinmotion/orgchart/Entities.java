@@ -6,6 +6,7 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
+
 public class Entities {
 
 	public static final String DEPARTMENT_NAME = "Department";
@@ -50,6 +51,7 @@ public class Entities {
 		return emp;
 	}
 
+	
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
 		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());

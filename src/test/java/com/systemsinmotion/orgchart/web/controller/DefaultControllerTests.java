@@ -56,11 +56,11 @@ public class DefaultControllerTests {
 		this.findAllDepartmentsList.add(this.mockDepartment);
 
 		// set up mock DepartmentService
-		when(this.mockDepartmentService.findAllDepartments()).thenReturn(this.findAllDepartmentsList);
+/*		when(this.mockDepartmentService.findAllDepartments()).thenReturn(this.findAllDepartmentsList);
 		when(this.mockDepartmentService.findDepartmentByID(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
 		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
-
+*/
 		this.controller.setDepartmentService(this.mockDepartmentService);
 
 	}
