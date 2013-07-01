@@ -2,10 +2,10 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 
@@ -79,31 +79,41 @@ public class DefaultControllerTests {
 		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
 	}
 
-/*	 @SuppressWarnings("unchecked")
+	 @SuppressWarnings("unchecked")
 	 @Test
 	 public void modelShouldUpdateOnDepartmentPagePost() {
 		
 		 model.addAttribute("depts", findAllDepartmentsList);
+		 System.out.println(findAllDepartmentsList);
 		 //Given
-		 controller.doDepartments_POST(mockDepartment2, model);
+		 controller.doDepartments_POST(mockDepartment, model);
 		 //When
 		 findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
 		
 		 //Then
 		 assertNotNull(findAllDepartmentsList);
 		 assertTrue(findAllDepartmentsList.size() > 0);
-		 assertEquals(mockDepartment2.getId(), findAllDepartmentsList.get(1).getId());
-		 assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
+		 assertEquals(mockDepartment.getId(), findAllDepartmentsList.get(0).getId());
+		 assertEquals(findAllDepartmentsList.get(0).getName(), mockDepartment.getName());
 		
 	 }
-*/
-/*	 @Test
+	 
+	 @Test
+	 public void canCreateDepartment() {
+		controller.doDepartments_POST(mockDepartment, model);
+		verify(mockDepartmentService).storeDepartment(mockDepartment);
+	 }
+
+	 @Test
+	 public void canUpdateDepartment() {
+		controller.doDepartments_PUT(mockDepartment, model);
+		verify(mockDepartmentService).updateDepartment(mockDepartment);
+	 }
+	 
+	 @Test
 	 public void canDeleteDepartment() {
-		// When
-		System.out.println("Test will try to delete Name: " + mockDepartment.getName() + ", id:" + mockDepartment.getId());
-		controller.doDepartments_DELETE("22", model);
-		// Then
-		System.out.println("Test tried to delete Name: " + mockDepartment.getName() + ", id:" + mockDepartment.getId());
-		assertNull(mockDepartment);
-	 }*/
+		controller.doDepartments_DELETE(mockDepartment.getId().toString(), model);
+		verify(mockDepartmentService).removeDepartment(mockDepartment);
+	 }	 
+
 }

@@ -8,30 +8,34 @@ import org.springframework.stereotype.Service;
 import com.systemsinmotion.orgchart.dao.JobTitleDao;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-@Service("jobtitleService")
+@Service("jobTitleService")
 public class JobTitleService {
 
 	@Autowired
-	JobTitleDao jobtitleDAO;
+	JobTitleDao jobtitleDao;
 
 	public JobTitle findJobTitleByID(Integer jobtitleId) {
-		return this.jobtitleDAO.findById(jobtitleId);
+		return this.jobtitleDao.findById(jobtitleId);
 	}
 
 	public void setJobTitleDAO(JobTitleDao deparmentDAO) {
-		this.jobtitleDAO = jobtitleDAO;
+		this.jobtitleDao = jobtitleDao;
 	}
 
 	public List<JobTitle> findAllJobTitles() {
-		return this.jobtitleDAO.findAll();
+		return this.jobtitleDao.findAll();
 	}
 
 	public Integer storeJobTitle(JobTitle jobtitle) {
-		return this.jobtitleDAO.save(jobtitle);
+		return this.jobtitleDao.save(jobtitle);
+	}
+
+	public void updateJobTitle(JobTitle jobtitle) {
+		this.jobtitleDao.update(jobtitle);
 	}
 
 	public void removeJobTitle(JobTitle jobtitle) {
-		this.jobtitleDAO.delete(jobtitle);
+		this.jobtitleDao.delete(jobtitle);
 	}
 
 }

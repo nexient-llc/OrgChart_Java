@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +22,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "DEPARTMENT")
-public class Department {
+public class Department implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9027899052990758103L;
 
 	private Integer id;
 
