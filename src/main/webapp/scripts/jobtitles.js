@@ -18,15 +18,14 @@ $(document).ready(function() {
 	});
 	
 	//Edit Entity: Show Form/Hide Button/Set Up Form
+	//Need to work on form auto completion
 	$('.editBtn').click(function(){
-		jobId = $(this).attr('value')
-		alert(jobId);
+		job = $(this).attr('value')
 		$('.editBtn').hide();
 		$('#editEntity').show();
 		$('#jobId').attr({
-			"value": jobId
-		});
-		
+			"value": job
+		});	
 		
 	});
 	

@@ -41,13 +41,12 @@
 		</legend>
 			<form:form id = "editJob" action="jobUpdate" method="put">
 				<div>
-					<input id="jobId" type = "hidden" value="id" >
+					<input id = "jobId" type="hidden" name="id"/>
 					<label>Job Name *</label>
 					<input type="text" name="name"/>
 					<labeL>Job Description *</label>
 					<input type="text" name="description"/>
 					<button type="submit">Save</button>
-					<!-- Customize Footer Later -->
 					<button type="reset" id="cancelEditBtn">Cancel</button>
 					<footer>Required Fields indicated with a *</footer>
 				</div>
