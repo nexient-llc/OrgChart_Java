@@ -35,15 +35,14 @@
 
 <!--  EDIT JOB TITLE FORM -->
 <div id ="editEntity" style="display:none">
-
 	<fieldset>
 		<legend>
 			Edit Job Title
 		</legend>
-			<form:form name = "editJob" action="jobUpdate" method="put">
-			<input type="hidden" name="_method" value="PUT"/> 
+			<form:form id = "editJob" name = "editJob" action="jobUpdate" method="put">
 				<div>
-					<labeL>Job Name *</labeL>
+					<labeL>Job Name *</label>
+					<input id="jobId" type = "hidden" name="id" >
 					<input type="text" name="name"/>
 					<labeL>Job Description *</label>
 					<input type="text" name="description"/>
@@ -52,7 +51,6 @@
 					<button type="reset" id="cancelEditBtn">Cancel</button>
 					<footer>Required Fields indicated with a *</footer>
 				</div>
-				
 			</form:form>
 	</fieldset>
 </div>
@@ -66,7 +64,7 @@
 		<tr> 
 			<td>${job.name}</td>
 			<td>${job.description}</td>
-			<td><button type="button" class="editBtn">Edit</button></td>
+			<td><button value = "${job.id}" type="button" class="editBtn">Edit</button></td>
 		</tr>
 	</c:forEach> 
 </table>

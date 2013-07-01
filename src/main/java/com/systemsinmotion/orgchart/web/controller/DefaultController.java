@@ -19,6 +19,7 @@ import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @Controller
 public class DefaultController {
@@ -111,7 +112,7 @@ public class DefaultController {
 	public String doJobTitle_PUT(JobTitle job, Model model){
 		jobTitleService.updateJobTitle(job);
 		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
-		model.addAttribute("jobs", jobTitle);
+		model.addAttribute("jobUpdate", jobTitle);
 		return View.JOB_TITLES;
 	}
 
