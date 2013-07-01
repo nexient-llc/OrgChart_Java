@@ -54,6 +54,22 @@
 	</fieldset>
 </div>
 
+<div id="deleteEntity" style ="display:none">
+
+	<fieldset>
+	<legend>Delete Job Title</legend>
+	<form:form id = "deleteJob" action="jobDelete" method ="delete">
+	<div>
+	<input id="jobIdDelete" type="hidden" name="id"/>
+	<button type="submit">Delete</button>
+	<button type="reset" class="cancelEditBtn">Cancel</button>
+	</div>
+	</form:form>
+		
+	</fieldset>
+
+</div>
+
 <table id="t1">
 	<tr>
 		<th>Job Name</th>
@@ -63,7 +79,9 @@
 		<tr> 
 			<td>${job.name}</td>
 			<td>${job.description}</td>
+			
 			<td><button value = "${job.id}" type="button" class="editBtn">Edit</button></td>
+			<td><button value = "${job.id}" type="button" class="deleteBtn">Delete</button></td>
 		</tr>
 	</c:forEach> 
 </table>

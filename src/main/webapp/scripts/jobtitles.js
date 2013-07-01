@@ -29,12 +29,24 @@ $(document).ready(function() {
 		
 	});
 	
-	
+	$(".deleteBtn").click(function(){
+		job = $(this).attr('value')
+		$('.deleteBtn').hide();
+		$('#deleteEntity').show();
+		$('#jobIdDelete').attr({
+			"value": job
+		});
+	});
 	
 	// Cancel Entity: Show Button/Hide Form
-	$("#cancelEditBtn").click(function(){
-		$('#editEntity').hide();
-		$('.editBtn').fadeToggle("slow","linear");
+	$(".cancelEditBtn").click(function(){
+		$('#deleteEntity').hide();
+		$('.deleteBtn').fadeToggle("slow", "linear");
 			
+	});
+	
+	$('#cancelEditBtn').click(function(){
+		$('#editEntity').hide();
+		$('.editBtn').show();
 	});
 });

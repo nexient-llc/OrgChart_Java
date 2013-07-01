@@ -117,5 +117,13 @@ public class DefaultController {
 		model.addAttribute("jobs", jobTitle);
 		return View.JOB_TITLES;
 	}
+	
+	@RequestMapping(value = "jobDelete", method = RequestMethod.DELETE)
+	public String doJobTitle_DELETE(JobTitle job, Model model){
+		jobTitleService.removeJobTitle(job);
+		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobs", jobTitle);
+		return View.JOB_TITLES;
+	}
 
 }
