@@ -39,10 +39,10 @@
 		<legend>
 			Edit Job Title
 		</legend>
-			<form:form id = "editJob" name = "editJob" action="jobUpdate" method="put">
+			<form:form id = "editJob" action="jobUpdate" method="put">
 				<div>
-					<labeL>Job Name *</label>
-					<input id="jobId" type = "hidden" name="id" >
+					<input id="jobId" type = "hidden" value="id" >
+					<label>Job Name *</label>
 					<input type="text" name="name"/>
 					<labeL>Job Description *</label>
 					<input type="text" name="description"/>

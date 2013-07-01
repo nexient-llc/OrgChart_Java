@@ -59,7 +59,7 @@
 </filter>
 <filter-mapping>
     <filter-name>multipartFilter</filter-name>
-    <url-pattern>/springrest/*</url-pattern>
+    <url-pattern>/*</url-pattern>
 </filter-mapping>
 <filter>
     <filter-name>httpMethodFilter</filter-name>
@@ -67,7 +67,7 @@
 </filter>
 <filter-mapping>
     <filter-name>httpMethodFilter</filter-name>
-    <url-pattern>/springrest/*</url-pattern>
+    <url-pattern>/*</url-pattern>
 </filter-mapping>
 
   

@@ -24,7 +24,7 @@ $(document).ready(function() {
 		$('.editBtn').hide();
 		$('#editEntity').show();
 		$('#jobId').attr({
-			"name": jobId
+			"value": jobId
 		});
 		
 		

@@ -112,7 +112,7 @@ public class DefaultController {
 	public String doJobTitle_PUT(JobTitle job, Model model){
 		jobTitleService.updateJobTitle(job);
 		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
-		model.addAttribute("jobUpdate", jobTitle);
+		model.addAttribute("jobs", jobTitle);
 		return View.JOB_TITLES;
 	}
 
