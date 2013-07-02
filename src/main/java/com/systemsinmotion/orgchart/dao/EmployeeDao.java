@@ -28,7 +28,7 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 	public Integer create(Employee e) 
 	{		
 		LOG.debug("saving: " + e.getFirstName() + " " + e.getLastName());	
-		return(Integer) this.hibernateTemplate.save(e);						 		
+		return (Integer) this.hibernateTemplate.save(e);						 		
 	}
 
 	@Override
