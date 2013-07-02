@@ -1,74 +1,69 @@
 $(document).ready(function() {
-	// CSS Properties
-	$('#addBtn-container').css('width', $('#t1').width()); 
 	
-////////////////////////////////////////Add Entity//////////////////////////////////
-	$('#addBtn').click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
-			$('#addEntity').fadeToggle("fast", "linear");
-			
-		});
-			
-	});
+	$('#addBtn-container').css('width', $('#t1').width());
 	
-	$('#addBtn').click(function(){
-		$('#newJob').submit(function(){
-			if(!$('input').val()){
-				alert("Not Valid; Please enter Name and Description")
-				return false;
-			}
-		});
-	});
-			
-////////////////////////////////////////Edit Entity//////////////////////////////////
-
-	$('.editBtn').click(function(){
-		job = $(this).attr('value')
-		$('.editBtn').hide();
-		$('#editEntity').show();
-		$('#jobId').attr({
-			"value": job
-		});
+	$('.startBtn').click(function(){
+		button = $(this).attr('id');
 		
-		// Edit Form Validation
-		$('#editJob').submit(function(){
-			if(!$('#jobName').val()){
-				alert("Not Valid; Please enter Name and Description")
-				return false;
-			}
-		});
+		if(button == 'addBtn'){
+			$('#addBtn').hide();
+			$('#addEntity').slideToggle('4000', "swing");
+			$('#newJob').submit(function(){
+				if(!$('input').val()){
+					alert("Not Valid; Please enter Name and Description")
+					return false;
+				}
+			});
+		}
 		
+		if(button == 'editBtn'){
+			$('#editBtn').hide();
+			$('#editEntity').slideToggle('4000', "swing");
+			jobId = $(this).attr('value')
+			$('#jobId').attr({
+				"value": jobId
+			});
+			
+			$('#editJob').submit(function(){
+				if($('#editName').attr('value') == ''){
+					alert("Not Valid; Please enter Name");
+					return false;
+				}
+				
+				if($('#editDescription').attr('value') == ''){
+					alert('Not valid; Please enter a Description');
+					return false;
+				}
+			});
+			
+		}
+		
+		if(button == 'deleteBtn'){
+			$('#deleteBtn').hide();
+			$('#deleteEntity').slideToggle('4000', "swing");
+			jobId = $(this).attr('value')
+			$('#jobIdDelete').attr({
+				"value": jobId
+			})
+		}
+			
 	});
-	
-////////////////////////////////////////Delete Entity/////////////////////////////////////////
-	// Delete Entity
-	$(".deleteBtn").click(function(){
-		job = $(this).attr('value')
-		$('.deleteBtn').hide();
-		$('#deleteEntity').show();
-		$('#jobIdDelete').attr({
-			"value": job
-		});
-	});
-
-	
-//////////////////////////////////////// Cancel /////////////////////////////////////////
 	
 	$('.cancel').click(function(){
 		
 		if($('#cancelAddBtn')){
 			$('#addEntity').hide();
-			$('#addBtn-container').show();
+			$('#addBtn').show();
 		}
 		
 		if($('#cancelDeleteBtn')){
 			$('#deleteEntity').hide();
-			$('.deleteBtn').show();
+			$('.startBtn').show();
 		}
 		
 		if($('#cancelEditBtn')){
 			$('#editEntity').hide();
-			$('.editBtn').show();
+			$('.startBtn').show();
 		}
 		
 	});

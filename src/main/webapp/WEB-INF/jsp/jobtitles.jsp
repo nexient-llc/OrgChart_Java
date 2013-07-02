@@ -4,10 +4,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!-- Header Information -->
-<h1>Systems In Motion Organization Chart</h1>
-<h1>Job Titles</h1>
+<div>
+	<header>
+	<h1>Systems In Motion Organization Chart</h1>
+	<h2>Job Titles</h2>
+	</header>
+</div>
+
 <!-- ADD JOB BUTTON -->
-<div id="addBtn-container"><button type="button" id="addBtn" style="width: 45px;">Add</button></div>
+<div><button type="button" id="addBtn" class ="startBtn" style="width: 45px;">Add</button></div>
 
 <!-- ADD JOB TITLE FORM -->
 <div id="addEntity" style="display:none">
@@ -21,7 +26,7 @@
 					<input type="text" name="name"/>
 					<labeL>Job Description *</label>
 					<input type="text" name="description"/>
-					<button type="submit">Save</button>
+					<button type="submit" class ="submitBtn">Save</button>
 					<!-- Customize Footer Later -->
 					<button type="reset" id="cancelAddBtn" class="cancel">Cancel</button>
 					<footer>Required Fields indicated with a *</footer>
@@ -36,14 +41,14 @@
 		<legend>
 			Edit Job Title
 		</legend>
-			<form:form id = "editJob" action="jobUpdate" method="put">
+			<form:form id="editJob" action="jobUpdate" method="put">
 				<div>
-					<input id = "jobId" type="hidden" name="id"/>
+					<input id="jobId" type="hidden" name="id"/>
 					<label>Job Name *</label>
-					<input id="jobName" type="text" name="name"/>
+					<input id="editName" type="text" name="name"/>
 					<labeL>Job Description *</label>
-					<input id="jobDescription" type="text" name="description"/>
-					<button id="editSubmit" type="submit">Save</button>
+					<input id="editDescription" type="text" name="description"/>
+					<button id="editSubmit" type="submit" class="submitBtn">Save</button>
 					<button type="reset" id="cancelEditBtn" class="cancel">Cancel</button>
 					<footer>Required Fields indicated with a *</footer>
 				</div>
@@ -61,8 +66,8 @@
 		<tr> 
 			<td>${job.name}</td>
 			<td>${job.description}</td>
-			<td><button value = "${job.id}" type="button" class="editBtn">Edit</button></td>
-			<td><button value = "${job.id}" type="button" class="deleteBtn">Delete</button></td>
+			<td><button value = "${job.id}" type="button" id="editBtn" class="startBtn">Edit</button></td>
+			<td><button value = "${job.id}" type="button" id="deleteBtn" class ="startBtn">Delete</button></td>
 		</tr>
 	</c:forEach> 
 </table>
