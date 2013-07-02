@@ -2,33 +2,46 @@ $(document).ready(function() {
 	// CSS Properties
 	$('#addBtn-container').css('width', $('#t1').width()); 
 	
-	// Add Entity: Show Form/Hide Button
+////////////////////////////////////////Add Entity//////////////////////////////////
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#addEntity').fadeToggle("fast", "linear");
+			
 		});
 			
 	});
 	
-	// Cancel Entity: Hide From/Show Button
-	$("#cancelBtn").click(function(){
-		$('#addEntity').hide();
-		$('#addBtn-container').fadeToggle("slow","linear");
-			
+	$('#addBtn').click(function(){
+		$('#newJob').submit(function(){
+			if(!$('input').val()){
+				alert("Not Valid; Please enter Name and Description")
+				return false;
+			}
+		});
 	});
-	
-	//Edit Entity: Show Form/Hide Button/Set Up Form
-	//Need to work on form auto completion
+			
+////////////////////////////////////////Edit Entity//////////////////////////////////
+
 	$('.editBtn').click(function(){
 		job = $(this).attr('value')
 		$('.editBtn').hide();
 		$('#editEntity').show();
 		$('#jobId').attr({
 			"value": job
-		});	
+		});
+		
+		// Edit Form Validation
+		$('#editJob').submit(function(){
+			if(!$('#jobName').val()){
+				alert("Not Valid; Please enter Name and Description")
+				return false;
+			}
+		});
 		
 	});
 	
+////////////////////////////////////////Delete Entity/////////////////////////////////////////
+	// Delete Entity
 	$(".deleteBtn").click(function(){
 		job = $(this).attr('value')
 		$('.deleteBtn').hide();
@@ -37,16 +50,27 @@ $(document).ready(function() {
 			"value": job
 		});
 	});
+
 	
-	// Cancel Entity: Show Button/Hide Form
-	$(".cancelEditBtn").click(function(){
-		$('#deleteEntity').hide();
-		$('.deleteBtn').fadeToggle("slow", "linear");
-			
-	});
+//////////////////////////////////////// Cancel /////////////////////////////////////////
 	
-	$('#cancelEditBtn').click(function(){
-		$('#editEntity').hide();
-		$('.editBtn').show();
+	$('.cancel').click(function(){
+		
+		if($('#cancelAddBtn')){
+			$('#addEntity').hide();
+			$('#addBtn-container').show();
+		}
+		
+		if($('#cancelDeleteBtn')){
+			$('#deleteEntity').hide();
+			$('.deleteBtn').show();
+		}
+		
+		if($('#cancelEditBtn')){
+			$('#editEntity').hide();
+			$('.editBtn').show();
+		}
+		
 	});
 });
+	

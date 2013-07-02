@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 // Creates an Entity (Table) for Job Title
 @Entity
@@ -15,6 +17,8 @@ public class JobTitle implements java.io.Serializable {
 	// Declare variables for Job Title Table
 	private static final long serialVersionUID = 1L;
 	private Integer id;
+	@NotNull
+	@Size(min = 1, max = 50)
 	private String name;
 	private String description;
 	
