@@ -3,10 +3,13 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.systemsinmotion.orgchart.dao.IJobTitleDao;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Service
+@Transactional
 public class JobTitleService {
 
 	@Autowired

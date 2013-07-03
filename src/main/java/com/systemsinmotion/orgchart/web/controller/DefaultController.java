@@ -47,6 +47,11 @@ public class DefaultController {
 	
 	// DEPARTMENT
 	
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
+	
+	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		List<Department> departments = departmentService.findAllDepartments();
@@ -62,9 +67,22 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 	
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
+	@RequestMapping(value = "deptsEdit", method = RequestMethod.PUT)
+	public String doDepartment_EDIT(Department dept, Model model){
+		departmentService.updateDepartment(dept);
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
 	}
+	
+	@RequestMapping(value ="deptsDelete", method = RequestMethod.DELETE)
+	public String doDepartment_DELETE(Department dept, Model model){
+		departmentService.removeDepartment(dept);
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
+	}
+	
 	
 
 	// EMPLOYEE 

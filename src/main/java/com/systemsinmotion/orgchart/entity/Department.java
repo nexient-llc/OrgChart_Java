@@ -80,7 +80,7 @@ public class Department implements java.io.Serializable {
 	}
 	
 	// Manager
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
 	public Employee getManager() {
 		return manager;

@@ -57,6 +57,7 @@
 </div>
 
 <!-- LIST JOBS - EDIT/DELETE BUTTONS -->
+<div>
 <table id="t1">
 	<tr>
 		<th>Job Name</th>
@@ -71,6 +72,7 @@
 		</tr>
 	</c:forEach> 
 </table>
+</div>
 
 <!-- Delete JOB -->
 <div id="deleteEntity" style ="display:none">

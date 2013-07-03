@@ -1,13 +1,15 @@
 <!DOCTYPE HTML>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<h3>Employees</h3>
-
-<div id="addBtn-container">
-		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
+<div>
+	<header>
+	<h1>Employees</h1>
+	</header>
 </div>
+
+<div id="addBtn-container"><button type="button" id="addBtn" style="width: 45px;">Add</button></div>
 
 <div id="addEntity" style="display:none">
 	<fieldset>
@@ -28,6 +30,7 @@
 	</fieldset>
 </div>
 
+<div>
 <table id="t1">
 	<tr>
 		<th>First Name</th>
@@ -44,3 +47,4 @@
 		</tr>
 	</c:forEach> 
 </table>
+</div>
