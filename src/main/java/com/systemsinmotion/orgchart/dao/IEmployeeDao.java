@@ -7,13 +7,12 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 public interface IEmployeeDao 
-{
-		
+{		
 	Integer create(Employee e);
 	
 	Employee read(Serializable id); 
 	
-	//public abstract void delete(Employee e);
+	void delete(Employee e);
 		
 	List<Employee> queryAll();
 	
@@ -24,6 +23,6 @@ public interface IEmployeeDao
 	List<Employee> queryByJobTitle(String jobTitle);
 
 	List<Employee> queryByMultipleCriteria(String lastName, String firstName, int dept_Id,  String jobTitle);
-	
 
+	Employee queryByEmail(String email);
 }

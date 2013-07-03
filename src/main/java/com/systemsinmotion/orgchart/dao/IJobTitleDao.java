@@ -6,11 +6,17 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface IJobTitleDao 
 {
-	public void add(JobTitle job);
+	public Integer create(JobTitle job);
 	
-	public List<JobTitle> Display_Unflitered_List();
+	public void delete(JobTitle job);
 	
-	public void update(JobTitle job, String description_In);
+	public List<JobTitle> queryAll();
+	
+	public void update(JobTitle job);
+
+	public JobTitle queryById(Integer id);
+
+	public JobTitle queryByName(String name);
 		
 	
 }
