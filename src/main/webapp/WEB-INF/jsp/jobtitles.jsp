@@ -3,14 +3,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!-- Header Information -->
-<div>
-	<header>
-	<h1>Systems In Motion Organization Chart</h1>
-	<h2>Job Titles</h2>
-	</header>
-</div>
-
 <!-- ADD JOB BUTTON -->
 <div><button type="button" id="addBtn" class ="startBtn" style="width: 45px;">Add</button></div>
 
@@ -62,6 +54,8 @@
 	<tr>
 		<th>Job Name</th>
 		<th>Job Description</th>
+		<th>Edit</th> 
+		<th>Delete</th>
 	</tr> 
 	<c:forEach items="${jobs}" var="job">
 		<tr> 

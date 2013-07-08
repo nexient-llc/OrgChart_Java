@@ -3,12 +3,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<div>
-	<header>
-	<h1>Employees</h1>
-	</header>
-</div>
-
 <div id="addBtn-container"><button type="button" id="addBtn" style="width: 45px;">Add</button></div>
 
 <div id="addEntity" style="display:none">

@@ -2,12 +2,7 @@ $(document).ready(function() {
 	
 	$('#checkForParents').click(function(){
 		
-		$.ajax({
-			url: 'findAllParentId',
-			type: 'GET'
-		}).done(function(data){
-			alert(data);
-		});
+		
 		
 	});
 	
@@ -98,11 +93,22 @@ $(document).ready(function() {
 			'value': deptToDeleteId
 		});
 		
+		$.ajax({
+			url: 'findAllParentId',
+			type: 'GET'
+		}).done(function(data){
+			parentId = $.parseJSON(data)
+			
+			$.each(parentId, function(i,l){
+				if(deptToDeleteId == l){
+					alert(l)
+	
+				}
+			});
+		});
+		
 		$('#deleteForm').submit(function(){
-			
-			// IF( dept id == a parent id)
-			// Don't submit
-			
+				return false;
 		})
 	});
 	

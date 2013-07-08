@@ -3,16 +3,6 @@
 <%@ taglib prefix="sec"uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
-<!-- HEADER -->
-<div>
-	<header>
-	<h1>Departments</h1>
-	</header>
-</div>
-
-<button id="checkForParents" type="button" >CheckForParents</button>
-
 <!-- ADD BUTTON -->
 <div id="addBtn-container"><button type="button" id="addBtn" style="width: 45px;">Add</button></div>
 
@@ -64,28 +54,15 @@
 	</fieldset>
 </div>
 
-<!-- DELETE FORM -->
-<div id="deleteEntity" style="display:none">
-	<fieldset>
-		<legend>Delete Department</legend>
-		<h1>Delete </h1>
-			<form:form id="deleteForm" action="deptsDelete" method="delete">
-			<div>	
-					
-					<input type="hidden" id="deptDeleteId" name="id"/>
-					<button type="submit">Delete</button>
-					<button class = "reset" type="reset">Cancel</button>
-			</div>
-			</form:form>
-	</fieldset>
-</div>
-
 <!-- DEPARTMENT TABLE -->
 <div>
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Department Name</th> <th>Parent Department</th>
+		<th>Department Name</th> 
+		<th>Parent Department</th>
+		<th>Edit</th> 
+		<th>Delete</th>
 	</tr> 
 	<c:forEach items="${depts}" var="dept">
 		<tr> 
@@ -99,4 +76,18 @@
 		</tr>
 	</c:forEach>
 </table>
+</div>
+
+<!-- DELETE FORM -->
+<div id="deleteEntity" style="display:none">
+	<fieldset>
+		<legend>Delete Department</legend>
+			<form:form id="deleteForm" action="deptsDelete" method="delete">
+			<div>	
+					<input type="hidden" id="deptDeleteId" name="id"/>
+					<button type="submit">Delete</button>
+					<button class = "reset" type="reset">Cancel</button>
+			</div>
+			</form:form>
+	</fieldset>
 </div>

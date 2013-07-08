@@ -58,7 +58,7 @@ public class DefaultController {
 			}
 		}
 		Gson json = new Gson();
-		String test = json.toJson(departments);
+		String test = json.toJson(parentId);
 		return test;
 	}
 	

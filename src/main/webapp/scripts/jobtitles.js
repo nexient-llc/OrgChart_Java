@@ -39,7 +39,7 @@ $(document).ready(function() {
 		}
 		
 		if(button == 'deleteBtn'){
-			$('#deleteBtn').hide();
+			$('.startBtn').hide();
 			$('#deleteEntity').slideToggle('4000', "swing");
 			jobId = $(this).attr('value')
 			$('#jobIdDelete').attr({
