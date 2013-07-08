@@ -1,21 +1,16 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+// import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.google.gson.Gson;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -24,8 +19,8 @@ import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
 
+// NEED TO ADD CATCH ERRORS
 @Controller
 public class DefaultController {
 
@@ -51,6 +46,20 @@ public class DefaultController {
 	// DEPARTMENT
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
+	}
+	
+	@RequestMapping(value = "findAllParentId", method = RequestMethod.GET)
+	public @ResponseBody String doParentId_GET(){
+		List<Integer> parentId = new ArrayList<Integer>();
+		List<Department> departments = departmentService.findAllDepartments();
+		for(int i=0; i<departments.size(); i++){
+			if(departments.get(i).getParentDepartment() != null){
+				parentId.add(departments.get(i).getParentDepartment().getId());
+			}
+		}
+		Gson json = new Gson();
+		String test = json.toJson(departments);
+		return test;
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
@@ -85,7 +94,6 @@ public class DefaultController {
 	}
 
 	// EMPLOYEE 
-	
 	public void setEmployeeService(EmployeeService employeeService){
 		this.employeeService = employeeService;
 	}
@@ -107,7 +115,6 @@ public class DefaultController {
 	}
 	
 	// JOBS
-	
 	public void setJobTitleService(JobTitleService jobTitleService){
 		this.jobTitleService = jobTitleService;
 	}

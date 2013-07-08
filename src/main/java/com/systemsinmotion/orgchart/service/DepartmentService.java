@@ -1,13 +1,14 @@
 package com.systemsinmotion.orgchart.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.systemsinmotion.orgchart.dao.IDepartmentDao;
 import com.systemsinmotion.orgchart.entity.Department;
+
+// THROW ERRORS HERE
+// CATCH THEM IN CONTROLLER
 
 @Service("departmentService")
 @Transactional
@@ -36,7 +37,7 @@ public class DepartmentService {
 	}
 
 	public void removeDepartment(Department department) {
-		this.DepartmentDao.delete(department);
+			this.DepartmentDao.delete(department);
 	}
 	
 	public void updateDepartment(Department department){

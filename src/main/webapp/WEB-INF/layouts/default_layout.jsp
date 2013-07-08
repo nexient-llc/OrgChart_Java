@@ -8,6 +8,7 @@
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
 <%@ include file="/WEB-INF/fragments/scripts.jsp"%>
 
+
 <tiles:useAttribute id="pageJS" name="page-js"
 	classname="java.lang.String" ignore="true" />
 <c:if test="${not empty pageJS}">

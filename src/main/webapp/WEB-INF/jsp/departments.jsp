@@ -11,6 +11,8 @@
 	</header>
 </div>
 
+<button id="checkForParents" type="button" >CheckForParents</button>
+
 <!-- ADD BUTTON -->
 <div id="addBtn-container"><button type="button" id="addBtn" style="width: 45px;">Add</button></div>
 
@@ -33,7 +35,6 @@
 				<input id ="deptId" type="hidden" name="id"/>
 				<button class="submit" type="submit">Save</button>
 				<button class = "reset" type="reset">Cancel</button>
-				
 			</div>
 		</form:form>
 	</fieldset>

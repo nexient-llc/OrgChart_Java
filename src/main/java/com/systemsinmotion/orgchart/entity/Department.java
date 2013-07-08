@@ -1,8 +1,5 @@
 package com.systemsinmotion.orgchart.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,7 +27,6 @@ public class Department implements java.io.Serializable {
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String name;
-	private Set<Department> departments = new HashSet<Department>(0);
 	private Employee manager;
 	
 	
@@ -46,15 +41,6 @@ public class Department implements java.io.Serializable {
 	
 	public void setParentDepartment(Department department) {
 		this.parentDepartment = department;
-	}
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
-	public Set<Department> getDepartments() {
-		return this.departments;
-	}
-	
-	public void setDepartments(Set<Department> departments) {
-		this.departments = departments;
 	}
 	
 	// ID
@@ -89,8 +75,5 @@ public class Department implements java.io.Serializable {
 	public void setManager(Employee managerId) {
 		this.manager = managerId;
 	}
-
-	
-
 
 }

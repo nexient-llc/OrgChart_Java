@@ -1,5 +1,16 @@
 $(document).ready(function() {
 	
+	$('#checkForParents').click(function(){
+		
+		$.ajax({
+			url: 'findAllParentId',
+			type: 'GET'
+		}).done(function(data){
+			alert(data);
+		});
+		
+	});
+	
 	// CSS Properties
 	$('#addBtn-container').css('width', $('#t1').width());
 	
