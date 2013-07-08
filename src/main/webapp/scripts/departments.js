@@ -3,7 +3,6 @@ $(document).ready(function() {
 	$('#addBtn-container').css('width', $('#t1').width());
 	
 	$('#addBtn').click(function() {
-		$('#add').show();
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#Entity').fadeToggle("fast", "linear");
 		});
@@ -23,6 +22,12 @@ $(document).ready(function() {
 				$('#parentId').attr({
 					'name': 'noParent'
 				});
+				
+			if(!$('#deptName').val()){
+				alert('Please enter a name!')
+				return false;
+			}
+			
 			}
 		});
 		
@@ -40,7 +45,7 @@ $(document).ready(function() {
 		
 		$('#deleteEntity').show();
 		
-		deptToDeleteId = $(this).attr('value')
+		deptToDeleteId = $(this).attr('value');
 		$('#deptDeleteId').attr({
 			'value': deptToDeleteId
 		});
@@ -57,20 +62,28 @@ $(document).ready(function() {
 		
 		$('#editDepartmentForm').submit(function(){
 			
-			if($('select').val() != '...'){
-				parentDepartment = $('select').val();
+			var selectEdit = $('#selectEdit').val();
+			
+			if(selectEdit != '...'){
+				editparentDepartment = selectEdit;
 				$('#parentEditId').attr({
-				'value': parentDepartment
+				'value': editparentDepartment
 				});
 			}
 			
-			if($('select').val() == '...') {
+			if(selectEdit == '...') {
+				
 				$('#parentEditId').attr({
 					'name': 'noParent'
 				});
 			}
+			
+			if(!$('#deptEditName').val()){
+				alert('Please enter a Name')
+				return false;
+			}
+			
 		});
-		
 		
 	});
 	

@@ -52,7 +52,6 @@
     <welcome-file>home.jsp</welcome-file>
   </welcome-file-list>
   
-  <!-- XXXXXXXX -->
   <filter>
     <filter-name>multipartFilter</filter-name>
     <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
