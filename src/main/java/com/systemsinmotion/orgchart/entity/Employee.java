@@ -1,12 +1,15 @@
 package com.systemsinmotion.orgchart.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
@@ -26,57 +30,25 @@ public class Employee implements Serializable
 {
 	private static final long serialVersionUID = 2786300800604338231L;
 	
-	private int Id;
+	private Integer id;	
 	
 	@Id
 	@GeneratedValue (strategy= GenerationType.AUTO)
-	@Column(name = "ID", nullable = false, unique = true)
-	public int getId() {
-		return Id;
+	@Column(name = "ID", unique = true , nullable = false )
+	public Integer getId() {
+		return this.id;
 	}
-	public void setId(int id) {
-		Id = id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	@NotNull
-	private String email;
+	
+	
+	
 	
 	@NotNull
 	@Size(min = 1, max = 20)
 	private String firstName;
 	
-	@NotNull
-	@Size(min = 1, max = 45)
-	private String lastName;
-		
-	@NotNull
-	@Size(min = 1, max = 45)
-	private String skypeName;
-	
-	@NotNull
-	private Boolean isManager;
-
-//	private int manager_Id;
-//	
-//	@Column(name="MANAGER_ID")
-//	public int getManager_Id() {
-//		return manager_Id;
-//	}
-//	public void setManager_Id(int manager_Id) {
-//		this.manager_Id = manager_Id;
-//	}
-	
-	private Department department;
-		
-	@NotNull
-	private JobTitle jobTitle;
-	
-	@Column(name = "IS_MANAGER")
-	public Boolean getIsManager() {
-		return isManager;
-	}
-	public void setIsManager(Boolean isManager) {
-		this.isManager = isManager;
-	}
 	
 	@Column(name="FIRST_NAME", nullable = false, length = 20)
 	public String getFirstName() {
@@ -86,23 +58,35 @@ public class Employee implements Serializable
 		this.firstName = firstName;
 	}
 	
-	@Column(name="LAST_NAME")
-	public String getLastName() {
-		return lastName;
-	}
 	
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	
+	@NotNull
+	@Size(min = 1, max = 45)
+	private String lastName;
+	
+	
+	
+	
+	@NotNull
+	private String email;
+		
+	
 	
 	@Column(name = "EMAIL")
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 	
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+		
+	@NotNull
+	@Size(min = 1, max = 45)
+	private String skypeName;
+	
+	
 	@Column(name = "SKYPE_NAME")
 	public String getSkypeName() {
 		return skypeName;
@@ -111,16 +95,62 @@ public class Employee implements Serializable
 		this.skypeName = skype;
 	}
 	
+	
+	
+	@NotNull
+	private Boolean is_Manager;
+
+	@Column(name = "IS_MANAGER")
+	public Boolean getIsManager() {
+		return is_Manager;
+	}
+	public void setIsManager(Boolean isManager) {
+		this.is_Manager = isManager;
+	}
+	
+		
+	private Employee manager;
+		
+	@ManyToOne (fetch = FetchType.EAGER)
+	@JoinColumn(name = "MANAGER_ID" , referencedColumnName = "ID")
+	public Employee getManager() 
+	{
+		return this.manager;
+	}
+	
+	public void setManager(Employee manager) {
+		this.manager = manager;
+		
+	}
+
+
+	
+	private Set<Employee> employees = new HashSet<Employee>(0);
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "manager")
+	public Set<Employee> getEmployees() {
+		return this.employees;
+	}
+	
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+	
+	private Department department;
+		
 	@NotNull
 	@ManyToOne (cascade=CascadeType.ALL)
-	@JoinColumn(name = "DEPARTMENT_ID")
-	
+	@JoinColumn(name = "DEPARTMENT_ID")	
 	public Department getDepartment() {
 		return department;
 	}
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+	
+		
+	
+	private JobTitle jobTitle;
 	
 	@ManyToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name = "JOB_TITLE_ID")
@@ -131,4 +161,15 @@ public class Employee implements Serializable
 		this.jobTitle = jobTitle;
 	}
 	
+		
+	@Column(name="LAST_NAME")
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+
 }

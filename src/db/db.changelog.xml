@@ -18,6 +18,7 @@
 		</createTable>
 	</changeSet>
 
+
 	<changeSet id="2" author="kskronek">
 		<addForeignKeyConstraint constraintName="fk_dept_parent"
 			baseTableName="department" baseColumnNames="parent_department_id"

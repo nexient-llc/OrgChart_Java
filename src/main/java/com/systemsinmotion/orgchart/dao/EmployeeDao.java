@@ -2,7 +2,10 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import javax.persistence.criteria.Order;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
@@ -133,11 +136,45 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		return employees;		
 	}
 
+	
+	@SuppressWarnings("unchecked")
+	public Employee queryById(Integer Id)
+	{
+		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+		
+		criteria.add(Restrictions.eq("id", Id));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.addOrder(org.hibernate.criterion.Order.asc("id"));
+		
+		
+		List<Employee> emps=this.hibernateTemplate.findByCriteria(criteria);
+		
+		Employee result = null;
+		
+		if (emps.size()>0)	
+			result=emps.get(0);
+				
+		return result;
+	}
+	
 	@Override
 	public Employee read(Serializable id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void update(Employee employee) {		
+		LOG.debug("updating Employee instance with name: " + employee.getFirstName() + " " +employee.getLastName());
+		this.hibernateTemplate.update(employee);		
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Employee> queryByManager(Employee manager) {	
+		return this.hibernateTemplate.find("from Employee where manager.id=?",manager.getId());
+
+		}
+
 
 
 	

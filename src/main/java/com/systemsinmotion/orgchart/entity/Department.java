@@ -26,7 +26,7 @@ public class Department implements java.io.Serializable {
 	private static final long serialVersionUID = -5379179412533671591L;
 
 	private Integer id;
-
+	
 	private Department parentDepartment;
 
 	@NotNull

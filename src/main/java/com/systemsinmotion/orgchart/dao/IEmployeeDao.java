@@ -22,7 +22,13 @@ public interface IEmployeeDao
 	
 	List<Employee> queryByJobTitle(String jobTitle);
 
+	List<Employee> queryByManager(Employee manager);
+	
 	List<Employee> queryByMultipleCriteria(String lastName, String firstName, int dept_Id,  String jobTitle);
 
+	Employee queryById(Integer Id);
+	
 	Employee queryByEmail(String email);
+
+	void update(Employee employee);
 }

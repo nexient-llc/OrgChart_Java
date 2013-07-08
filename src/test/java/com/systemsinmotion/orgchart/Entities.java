@@ -48,7 +48,7 @@ public class Entities {
 	
 	public static Employee employee() {
 		Employee emp = new Employee();
-//		emp.setJobTitle(jobTitle());
+		emp.setJobTitle(jobTitle());
 		emp.setDepartment(department());
 		emp.setFirstName(FIRST_NAME);
 		emp.setLastName(LAST_NAME);
@@ -61,6 +61,8 @@ public class Entities {
 	
 	public static Employee manager() {
 		Employee mgr = new Employee();
+		mgr.setJobTitle(jobTitle());
+		mgr.setDepartment(department());		
 		mgr.setFirstName(FIRST_NAME);
 		mgr.setLastName(LAST_NAME);
 		mgr.setEmail(EMAIL + r.nextInt());
