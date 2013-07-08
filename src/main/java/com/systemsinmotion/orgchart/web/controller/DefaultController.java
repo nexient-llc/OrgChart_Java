@@ -1,7 +1,10 @@
 package com.systemsinmotion.orgchart.web.controller;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,11 +49,9 @@ public class DefaultController {
 	}
 	
 	// DEPARTMENT
-	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
-	
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
@@ -58,7 +59,7 @@ public class DefaultController {
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
-
+	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
 	public String doDepartments_POST(Department dept, Model model) {
 		departmentService.storeDepartment(dept);

@@ -57,8 +57,7 @@
 				<input id ="parentEditId" type="hidden" name="parentDepartment.id"/>
 				<input id ="deptEditId" type="hidden" name="id"/>
 				<button type="submit">Save</button>
-				<button class = "reset" type="reset">Cancel</button>
-				
+				<button class = "reset" type="reset">Cancel</button>	
 			</div>
 		</form:form>
 	</fieldset>
@@ -95,8 +94,8 @@
 			<td>${dept.name}</td> 
 			<td>${dept.parentDepartment.name}</td>
 			<td><button class ="editBtn" type="button" value='${dept.id}'>Edit</button></td>
-			<td><button class ="deleteBtn" type="button" value='${dept.id}' onClick="testFunction()">Delete</button></td>
+			<td><button class ="deleteBtn" type="button" value='${dept.id}'>Delete</button></td>
 		</tr>
-	</c:forEach> 
+	</c:forEach>
 </table>
 </div>
