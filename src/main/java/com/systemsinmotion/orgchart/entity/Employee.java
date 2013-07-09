@@ -122,19 +122,6 @@ public class Employee implements Serializable
 		this.manager = manager;
 		
 	}
-
-
-	
-	private Set<Employee> employees = new HashSet<Employee>(0);
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "manager")
-	public Set<Employee> getEmployees() {
-		return this.employees;
-	}
-	
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
-	}
 	
 	private Department department;
 		

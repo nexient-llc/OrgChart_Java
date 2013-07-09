@@ -18,6 +18,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.dao.DepartmentDao;
 import com.systemsinmotion.orgchart.dao.IDepartmentDao;
 import com.systemsinmotion.orgchart.entity.Department;
 
@@ -30,45 +31,47 @@ public class DepartmentServiceTest {
 	@Autowired
 	DepartmentService departmentService;
 
-	IDepartmentDao mockDepartmentDAO = mock(IDepartmentDao.class);
+	//IDepartmentDao mockDepartmentDAO = mock(IDepartmentDao.class);
+	
+	DepartmentDao mockDepartmentDAO = mock(DepartmentDao.class);
 	Department mockDepartment = mock(Department.class);
 
 	private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>();
 
 	@Before
 	public void before() throws Exception {
+	
 		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.mockDepartmentDAO.findAll()).thenReturn(this.listOfFoundDepts);
 		when(this.mockDepartmentDAO.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(this.mockDepartmentDAO.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
-	//	this.departmentService.setDepartmentDAO(this.mockDepartmentDAO);
+	
+		this.departmentService.setDepartmentDAO(this.mockDepartmentDAO);	
 	}
 
 	@Test
 	public void findAllDepartments() {
-/*		List<Department> depts = this.departmentService.findAllDepartments();
+		List<Department> depts = this.departmentService.findAllDepartments();
 		assertNotNull(depts);
 		assertEquals(1, depts.size());
-*/
+
 	}
 
 	@Test
 	public void findDepartmentByID() {
-	/*
+	
 		Department dept = this.departmentService.findDepartmentByID(Entities.DEPT_ID);
 		assertNotNull(dept);
 		assertEquals(Entities.DEPT_ID, dept.getId());
-	*/
+	
 	}
 
 	@Test
 	public void storeDepartment() {
-	/*	Integer deptId = this.departmentService.storeDepartment(this.mockDepartment);
+		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment);
 		assertNotNull(deptId);
-		assertEquals(Entities.DEPT_ID, deptId);
-	*/
-	
+		assertEquals(Entities.DEPT_ID, deptId);	
 	}
 
 }
