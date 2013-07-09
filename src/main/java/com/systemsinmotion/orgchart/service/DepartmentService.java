@@ -23,7 +23,6 @@ public class DepartmentService {
 		return this.DepartmentDao.findById(departmentId);
 	}
 
-	
 	public void setDepartmentDao(IDepartmentDao deparmentDao) {
 		this.DepartmentDao = deparmentDao;
 	}

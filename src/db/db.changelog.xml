@@ -151,10 +151,15 @@
 	</changeSet>
 	
 	<changeSet id="18" author="mcmillen">
-	<addColumn tableName="job_title">
-	<column name="description" type="varchar(250)"/>
-	</addColumn>
+		<addColumn tableName="job_title">
+			<column name="description" type="varchar(250)"/>
+		</addColumn>
 	</changeSet>
-
-
+	
+	<changeSet id="19" author="mcmillen">
+		<addColumn tableName="employee">
+			<column name="middle_name" type="varchar(250)"/>
+		</addColumn>
+	</changeSet>
+	
 </databaseChangeLog>

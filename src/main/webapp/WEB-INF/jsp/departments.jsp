@@ -3,10 +3,11 @@
 <%@ taglib prefix="sec"uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<header>Systems In Motion Organization Chart</header>
 <!-- ADD BUTTON -->
 <div id="addBtn-container"><button type="button" id="addBtn" style="width: 45px;">Add</button></div>
 
-<!-- ADD/EDIT ENTITY FORM -->
+<!-- ADD ENTITY FORM -->
 <div id="Entity" style="display:none">
 	<fieldset>
 		<legend>Add Department</legend>
@@ -30,7 +31,7 @@
 	</fieldset>
 </div>
 
-<!-- ADD/EDIT ENTITY FORM -->
+<!-- EDIT ENTITY FORM -->
 <div id="editEntity" style="display:none">
 	<fieldset>
 		<legend >Edit Department</legend>

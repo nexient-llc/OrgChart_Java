@@ -17,7 +17,7 @@ $(document).ready(function() {
 		}
 		
 		if(button == 'editBtn'){
-			$('#editBtn').hide();
+			$('#addBtn').hide();
 			$('#editEntity').slideToggle('4000', "swing");
 			jobId = $(this).attr('value')
 			$('#jobId').attr({
@@ -39,7 +39,6 @@ $(document).ready(function() {
 		}
 		
 		if(button == 'deleteBtn'){
-			$('.startBtn').hide();
 			$('#deleteEntity').slideToggle('4000', "swing");
 			jobId = $(this).attr('value')
 			$('#jobIdDelete').attr({
@@ -64,6 +63,7 @@ $(document).ready(function() {
 		if($('#cancelEditBtn')){
 			$('#editEntity').hide();
 			$('.startBtn').show();
+			$('#addBtn').show();
 		}
 		
 	});

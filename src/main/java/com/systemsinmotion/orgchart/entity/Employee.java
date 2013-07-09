@@ -22,6 +22,7 @@ public class Employee implements java.io.Serializable {
 	private Integer id;
 	private String firstName;
 	private String lastName;
+	private String middleName;
 	private String email;
 	private String skypeName;
 	private Boolean isManager;
@@ -49,6 +50,16 @@ public class Employee implements java.io.Serializable {
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+	
+	// MIDDLE NAME (ONLY INITIAL)
+	@Column(name = "MIDDLE_NAME", nullable = true, length = 5)
+	public String getMiddleName() {
+		return middleName;
+	}
+	
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
 	}
 	
 	// LAST NAME
@@ -116,5 +127,5 @@ public class Employee implements java.io.Serializable {
 	public void setManager(Employee manager) {
 		this.manager = manager;
 	}
-
+	
 }

@@ -4,8 +4,6 @@
 
 <html>
 	<header>
-		<h1>
-			Welcome to the Systems in Motion Organizational Management Application
-		</h1>
+		Welcome to the Systems in Motion Organizational Management Application
 	</header>
 </html>

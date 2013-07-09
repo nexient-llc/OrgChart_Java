@@ -5,27 +5,27 @@ $(document).ready(function() {
 	
 	// Add Department Form 
 	$('#addBtn').click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
-			$('#Entity').fadeToggle("fast", "linear");
-		});
+		$('#addBtn').hide();
+		$('#Entity').slideToggle('4000', "swing");
 		
 		// Submit Validation
 		$('#departmentForm').submit(function(){
 			
+			// '...' value of no parent
 			if($('select').val() != '...'){
 				
-				 var parentDepartment = $('select').val();
+				var parentDepartment = $('select').val();
 				$('#parentId').attr({
 				'value': parentDepartment
 				});
 			}
-			
+			// Change name of name field
 			if($('select').val() == '...') {
 				
 				$('#parentId').attr({
 					'name': 'noParent'
 				});
-				
+			// Form Field Validation
 			if(!$('#deptName').val()){
 				alert('Please enter a name!')
 				return false;
@@ -38,15 +38,17 @@ $(document).ready(function() {
 	
 	// Edit Form
 	$('.editBtn').click(function(){
-		
+		$('#addBtn').hide();
+		// Button has Entity Id value
 		var id = $(this).attr('value')
 		$('#deptEditId').attr({
 			'value': id
 		});
 		
-		$('#editEntity').show();
+		$('#editEntity').slideToggle('4000', "swing");
 		
 		// Submit Validation
+		// Same Logic as Add Form
 		$('#editDepartmentForm').submit(function(){
 			
 			var selectEdit = $('#selectEdit').val();
@@ -75,22 +77,28 @@ $(document).ready(function() {
 	
 	// Delete Form
 	$('.deleteBtn').click(function(){
-		$('#deleteEntity').show();
+		$('#deleteEntity').slideToggle('4000', "swing");
 		
+		// Entity To Delete
 		var deptToDeleteId = $(this).attr('value');
 		
+		// Request All Parent ID's
 		var requestDelete = $.ajax({
 			url: 'findAllParentId',
 			type: 'GET'
 		});
-
+		
+		// Add Id to delete to Form
 		$('#deptDeleteId').attr({
 			'value': deptToDeleteId
 		});
 		
+		// Validation that Entity can properly be removed
 		$('#deleteForm').unbind().submit(function(){
 			var canDelete = true;
 			
+			// Check ID against All Parent ID's
+			// Cannot delete an ID that matches a parent
 			requestDelete.done(function(data){
 				parentId = $.parseJSON(data)
 				$.each(parentId, function(i,l){
@@ -111,7 +119,7 @@ $(document).ready(function() {
 	
 	// Cancel Button
 	$('.reset').click(function(){
-			$('#addBtn-container').show();
+			$('#addBtn').show();
 			$('#Entity').hide();
 			$('#editEntity').hide();
 			$('#deleteEntity').hide();

@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<header>Systems In Motion Organization Chart : Employee Page</header>
 <div id="addBtn-container"><button type="button" id="addBtn" style="width: 45px;">Add</button></div>
 
 <div id="addEntity" style="display:none">

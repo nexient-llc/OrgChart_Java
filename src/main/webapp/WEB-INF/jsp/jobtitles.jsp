@@ -3,6 +3,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<header>Systems In Motion Organization Chart</header>
+
 <!-- ADD JOB BUTTON -->
 <div><button type="button" id="addBtn" class ="startBtn" style="width: 45px;">Add</button></div>
 
@@ -12,18 +14,17 @@
 		<legend>
 			Add New Job Title
 		</legend>
-			<form id="newJob" action="jobAdd" method="post">
+			<form:form id="newJob" action="jobAdd" method="post">
 				<div>
 					<labeL>Job Name *</labeL>
 					<input type="text" name="name"/>
 					<labeL>Job Description *</label>
 					<input type="text" name="description"/>
 					<button type="submit" class ="submitBtn">Save</button>
-					<!-- Customize Footer Later -->
 					<button type="reset" id="cancelAddBtn" class="cancel">Cancel</button>
 					<footer>Required Fields indicated with a *</footer>
 				</div>
-			</form>
+			</form:form>
 	</fieldset>
 </div>
 

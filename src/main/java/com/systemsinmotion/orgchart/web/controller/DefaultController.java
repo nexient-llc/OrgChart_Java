@@ -51,6 +51,7 @@ public class DefaultController {
 	@RequestMapping(value = "findAllParentId", method = RequestMethod.GET)
 	public @ResponseBody String doParentId_GET(){
 		List<Integer> parentId = new ArrayList<Integer>();
+		// Should add a findAllParentIds in DAO
 		List<Department> departments = departmentService.findAllDepartments();
 		for(int i=0; i<departments.size(); i++){
 			if(departments.get(i).getParentDepartment() != null){
@@ -105,13 +106,20 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
-	@RequestMapping(value="emps", method= RequestMethod.POST)
+	@RequestMapping(value="emps", method = RequestMethod.POST)
 	public String doEmployee_POST(Employee employee, Model model){
 		employeeService.storeEmployee(employee);
 		List<Employee> employees = employeeService.findAllEmployees();
 		model.addAttribute("emps", employees);
 		return View.EMPLOYEES;
-		
+	}
+	
+	@RequestMapping(value="emps", method = RequestMethod.PUT)
+	public String doEmployee_PUT(Employee employee, Model model){
+		employeeService.updateEmployee(employee);
+		List<Employee> employees = employeeService.findAllEmployees();
+		model.addAttribute("emps", employees);
+		return View.EMPLOYEES;
 	}
 	
 	// JOBS
