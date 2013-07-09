@@ -1,11 +1,5 @@
 $(document).ready(function() {
 	
-	$('#checkForParents').click(function(){
-		
-		
-		
-	});
-	
 	// CSS Properties
 	$('#addBtn-container').css('width', $('#t1').width());
 	
@@ -16,8 +10,6 @@ $(document).ready(function() {
 		});
 		
 		// Submit Validation
-		// IF option ... No Parent
-			// Change attribute name so Parent not submitted.
 		$('#departmentForm').submit(function(){
 			
 			if($('select').val() != '...'){
@@ -55,8 +47,6 @@ $(document).ready(function() {
 		$('#editEntity').show();
 		
 		// Submit Validation
-		// IF option ... No Parent
-			// Change attribute name so Parent not submitted.
 		$('#editDepartmentForm').submit(function(){
 			
 			var selectEdit = $('#selectEdit').val();
@@ -89,27 +79,34 @@ $(document).ready(function() {
 		
 		var deptToDeleteId = $(this).attr('value');
 		
+		var requestDelete = $.ajax({
+			url: 'findAllParentId',
+			type: 'GET'
+		});
+
 		$('#deptDeleteId').attr({
 			'value': deptToDeleteId
 		});
 		
-		$.ajax({
-			url: 'findAllParentId',
-			type: 'GET'
-		}).done(function(data){
-			parentId = $.parseJSON(data)
+		$('#deleteForm').unbind().submit(function(){
+			var canDelete = true;
 			
-			$.each(parentId, function(i,l){
-				if(deptToDeleteId == l){
-					alert(l)
-	
-				}
-			});
+			requestDelete.done(function(data){
+				parentId = $.parseJSON(data)
+				$.each(parentId, function(i,l){
+					if(deptToDeleteId == l){
+						canDelete = false;
+						return false;
+					}
+				})
+			})
+			if(!canDelete){
+				alert('Cannot Delete a Parent Department')
+				$('#deleteEntity').hide();
+				return false;
+			}
 		});
 		
-		$('#deleteForm').submit(function(){
-				return false;
-		})
 	});
 	
 	// Cancel Button
