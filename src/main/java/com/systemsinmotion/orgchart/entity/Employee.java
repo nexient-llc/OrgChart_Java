@@ -1,5 +1,7 @@
 package com.systemsinmotion.orgchart.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -29,6 +33,12 @@ public class Employee implements java.io.Serializable {
 	private JobTitle jobTitle;
 	private Department department;
 	private Employee manager;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "EMPLOYEE_JOBS",
+			joinColumns = {@JoinColumn(name="EMPLOYEE_ID", referencedColumnName ="ID")},
+			inverseJoinColumns = {@JoinColumn(name="JOB_ID", referencedColumnName="ID")})
+	private Set<JobTitle> jobs = new HashSet<JobTitle>();
 	
 	// Getters and Setters:
 	
@@ -98,7 +108,7 @@ public class Employee implements java.io.Serializable {
 		this.isManager = isManager;
 	}
 	
-	// JOB TITLE
+	// JobTitle
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn( name = "JOB_TITLE_ID", referencedColumnName = "ID")
 	public JobTitle getJobTitle() {
@@ -107,6 +117,7 @@ public class Employee implements java.io.Serializable {
 	public void setJobTitle(JobTitle jobTitle) {
 		this.jobTitle = jobTitle;
 	}
+	
 	
 	// DEPARTMENT
 	@ManyToOne(fetch = FetchType.EAGER)
