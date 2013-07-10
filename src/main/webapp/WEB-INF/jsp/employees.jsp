@@ -11,17 +11,34 @@
 		<legend>
 			Add New Employee
 		</legend>
-			<form name="newEmp" action="emps" method="post">
+			<form:form name="newEmp" action="emps" method="post">
 				<div>
 					<labeL>First Name *</labeL>
-					<input type="text" name="firstname"/>
+						<input type="text" name="firstName"/>
 					<labeL>Last Name *</label>
-					<input type="text" name="lastname"/>
-					<button type="submit">Save</button>
-					<!-- Customize Footer Later -->
+						<input type="text" name="lastName"/>
+					<label>Middle Initial</label>
+						<input type="text" name="middleName">
+					<label>Departments *</label>
+						<select>
+							<c:forEach items="${depts}" var = "dept" >
+								<option>${dept.name}</option>
+							</c:forEach>
+						</select>
+					<label>Email *</label>
+						<input type="text" name="email" />
+					<label>Skype *</label>
+						<input type="text" name ="skypeName"/>
+					<label>Job Titles *</label>
+						<select>
+							<c:forEach items="${jobs}" var = "job" >
+								<option>${job.name}</option>
+							</c:forEach>
+						</select>
+					<button type="submit">Submit</button>
 					<footer>Required Fields indicated with a *</footer>
 				</div>
-			</form>
+			</form:form>
 	</fieldset>
 </div>
 

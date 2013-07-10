@@ -62,6 +62,9 @@ public interface IDepartmentDao {
 	 */
 	public abstract void update(Department department);
 
+	@Override
 	public abstract String toString();
+	
+	public abstract List<Integer> findAllParentDepartmentIds();
 
 }

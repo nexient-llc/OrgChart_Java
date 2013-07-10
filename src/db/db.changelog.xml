@@ -161,5 +161,6 @@
 			<column name="middle_name" type="varchar(250)"/>
 		</addColumn>
 	</changeSet>
+
 	
 </databaseChangeLog>

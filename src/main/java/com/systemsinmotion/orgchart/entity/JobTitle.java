@@ -1,13 +1,10 @@
 package com.systemsinmotion.orgchart.entity;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,11 +21,7 @@ public class JobTitle implements java.io.Serializable {
 	@Size(min = 1, max = 50)
 	private String name;
 	private String description;
-	
-	@ManyToMany(mappedBy = "jobs")
-	private Set<Employee> employees = new HashSet<Employee>();
-	
-	// Getters and Setters:
+
 	// ID Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,7 +49,6 @@ public class JobTitle implements java.io.Serializable {
 		return description;
 	}
 
-	
 	public void setDescription(String description) {
 		this.description = description;
 	}	

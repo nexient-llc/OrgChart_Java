@@ -2,7 +2,7 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.Collections;
 import java.util.List;
-import org.hibernate.Criteria;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,7 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		this.hibernateTemplate.delete(employee);
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> findAll() {
 		
@@ -43,6 +44,7 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		return employees;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> findByDepartment(Department department){
 		
@@ -58,6 +60,7 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		return null;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Employee findByEmail(String email) {
 		
@@ -66,7 +69,7 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		if(StringUtils.hasText(email)){
 			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
 			criteria.add(Restrictions.eq("email", email));
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 			List<Employee> employees = this.hibernateTemplate.findByCriteria(criteria);
 			
 			if (employees != null && !employees.isEmpty()){

@@ -30,6 +30,10 @@ public class DepartmentService {
 	public List<Department> findAllDepartments() {
 		return this.DepartmentDao.findAll();
 	}
+	
+	public List<Integer> findAllParentDepartmentIds(){
+		return this.DepartmentDao.findAllParentDepartmentIds();
+	}
 
 	public Integer storeDepartment(Department department) {
 		return this.DepartmentDao.save(department);

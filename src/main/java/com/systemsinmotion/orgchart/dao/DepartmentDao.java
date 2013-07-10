@@ -1,8 +1,9 @@
 package com.systemsinmotion.orgchart.dao;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.hibernate.Criteria;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -83,7 +84,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 		if (StringUtils.hasText(name)) {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Department.class);
 			criteria.add(Restrictions.eq("name", name));
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 
 			@SuppressWarnings("unchecked")
 			List<Department> departments = this.hibernateTemplate.findByCriteria(criteria);
@@ -144,5 +145,21 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	public void update(Department department) {
 		LOG.debug("updating Department instance with name: " + department.getName());
 		this.hibernateTemplate.update(department);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> findAllParentDepartmentIds(){
+		
+		List<Integer> parentIds = new ArrayList<Integer>();
+		List<Department> departments = hibernateTemplate.find("from " + Department.class.getName() + " order by name");
+		
+		for(int i=0; i<departments.size(); i++){
+			if(departments.get(i).getParentDepartment() != null){
+				parentIds.add(departments.get(i).getParentDepartment().getId());
+			}
+		}
+		
+		return parentIds;
 	}
 }
