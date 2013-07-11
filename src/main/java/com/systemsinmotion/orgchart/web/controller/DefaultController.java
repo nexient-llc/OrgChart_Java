@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.PathVariable;
+// import org.springframework.web.bind.annotation.PathVariable; // Needed for AJAX CALLS WITH AUTOCOMPLETE FOR FORM FIELDS
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,14 +47,6 @@ public class DefaultController {
 		this.departmentService = departmentService;
 	}
 	
-	@RequestMapping(value = "findAllParentId", method = RequestMethod.GET)
-	public @ResponseBody String doParentId_GET(){
-		List<Integer> parentId = departmentService.findAllParentDepartmentIds();
-		Gson json = new Gson();
-		String test = json.toJson(parentId);
-		return test;
-	}
-	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		List<Department> departments = departmentService.findAllDepartments();
@@ -64,26 +56,47 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
 	public String doDepartments_POST(Department dept, Model model) {
-		departmentService.storeDepartment(dept);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
+		try{
+			departmentService.storeDepartment(dept);
+			String departmentPost = doDepartments_GET(model);
+			return departmentPost;
+		}catch(Exception E){
+			String departmentPost = doDepartments_GET(model);
+			return departmentPost;
+		}
 	}
 	
 	@RequestMapping(value = "deptsEdit", method = RequestMethod.PUT)
 	public String doDepartment_EDIT(Department dept, Model model){
-		departmentService.updateDepartment(dept);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
+		try{
+			departmentService.updateDepartment(dept);
+			String departmentPut = doDepartments_GET(model);
+			return departmentPut;
+		}catch(Exception E){
+			String departmentPut = doDepartments_GET(model);
+			return departmentPut;
+		}
 	}
 	
 	@RequestMapping(value ="deptsDelete", method = RequestMethod.DELETE)
 	public String doDepartment_DELETE(Department dept, Model model){
-		departmentService.removeDepartment(dept);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
+		
+		try{
+			departmentService.removeDepartment(dept);
+			String departmentDelete = doDepartments_GET(model);
+			return departmentDelete;
+		} catch(Exception E){
+			String departmentDelete = doDepartments_GET(model);
+			return departmentDelete;
+		}
+	}
+	
+	@RequestMapping(value = "findAllParentId", method = RequestMethod.GET)
+	public @ResponseBody String doParentId_GET(){
+		List<Integer> parentId = departmentService.findAllParentDepartmentIds();
+		Gson json = new Gson();
+		String parentIds = json.toJson(parentId);
+		return parentIds;
 	}
 
 	// EMPLOYEE 
@@ -104,26 +117,45 @@ public class DefaultController {
 	
 	@RequestMapping(value="emps", method = RequestMethod.POST)
 	public String doEmployee_POST(Employee employee, Model model){
-		employeeService.storeEmployee(employee);
-		List<Employee> employees = employeeService.findAllEmployees();
-		model.addAttribute("emps", employees);
-		return View.EMPLOYEES;
+		
+		try{
+			employeeService.storeEmployee(employee);
+			String employeePost = doEmployee_GET(model);
+			return employeePost;
+		}
+		catch(Exception E){
+			String employeePost = doEmployee_GET(model);
+			return employeePost;
+		}
+	
 	}
 	
 	@RequestMapping(value="emps", method = RequestMethod.PUT)
 	public String doEmployee_PUT(Employee employee, Model model){
-		employeeService.updateEmployee(employee);
-		List<Employee> employees = employeeService.findAllEmployees();
-		model.addAttribute("emps", employees);
-		return View.EMPLOYEES;
+		try{
+			employeeService.updateEmployee(employee);
+			String employeePut = doEmployee_GET(model);
+			return employeePut;
+		}
+		
+		catch(Exception E){
+			String employeePut = doEmployee_GET(model);
+			return employeePut;
+		}
 	}
 	
 	@RequestMapping(value="emps", method = RequestMethod.DELETE)
 	public String doEmployee_DELETE(Employee employee, Model model){
-		employeeService.removeEmployee(employee);
-		List<Employee> employees = employeeService.findAllEmployees();
-		model.addAttribute("emps", employees);
-		return View.EMPLOYEES;
+		try{
+			employeeService.removeEmployee(employee);
+			String employeeDelete = doEmployee_GET(model);
+			return employeeDelete;
+		}
+		
+		catch(Exception E){
+			String employeeDelete = doEmployee_GET(model);
+			return employeeDelete;
+		}
 	}
 	
 	// JOBS
@@ -140,26 +172,38 @@ public class DefaultController {
 	
 	@RequestMapping(value ="jobAdd", method = RequestMethod.POST)
 	public String doJobTitle_POST(JobTitle job, Model model){
-		jobTitleService.storeJobTitle(job);
-		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
-		model.addAttribute("jobs", jobTitle);
-		return View.JOB_TITLES;
+		try{
+			jobTitleService.storeJobTitle(job);
+			String jobTitlePost = doJobTitle_GET(model);
+			return jobTitlePost;
+		}catch(Exception E){
+			String jobTitlePost = doJobTitle_GET(model);
+			return jobTitlePost;
+		}
 	}
 	
 	@RequestMapping(value="jobUpdate", method = RequestMethod.PUT)
 	public String doJobTitle_PUT(JobTitle job, Model model){
-		jobTitleService.updateJobTitle(job);
-		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
-		model.addAttribute("jobs", jobTitle);
-		return View.JOB_TITLES;
+		try{
+			jobTitleService.updateJobTitle(job);
+			String jobTitlePut = doJobTitle_GET(model);
+			return jobTitlePut;
+		}catch(Exception E){
+			String jobTitlePut = doJobTitle_GET(model);
+			return jobTitlePut;
+		}
 	}
 	
 	@RequestMapping(value = "jobDelete", method = RequestMethod.DELETE)
 	public String doJobTitle_DELETE(JobTitle job, Model model){
-		jobTitleService.removeJobTitle(job);
-		List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
-		model.addAttribute("jobs", jobTitle);
-		return View.JOB_TITLES;
+		try{
+			jobTitleService.removeJobTitle(job);
+			String jobTitleDelete = doJobTitle_GET(model);
+			return jobTitleDelete;
+		}catch(Exception E){
+			String jobTitleDelete = doJobTitle_GET(model);
+			return jobTitleDelete;
+		}
 	}
 
 }

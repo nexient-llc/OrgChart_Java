@@ -10,7 +10,7 @@ import com.systemsinmotion.orgchart.dao.IEmployeeDao;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
-@Service
+@Service("employeeService")
 @Transactional
 public class EmployeeService {
 	

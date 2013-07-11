@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 // An Entity (Table) for Employees
 
@@ -20,13 +22,23 @@ public class Employee implements java.io.Serializable {
 	// Declare variables for Employee Table
 	private static final long serialVersionUID = 1L;
 	private Integer id;
+	@NotNull
+	@Size(min=1, max=100)
 	private String firstName;
+	@NotNull
+	@Size(min=1, max=100)
 	private String lastName;
 	private String middleName;
+	@NotNull
+	@Size(min=1, max=100)
 	private String email;
+	@NotNull
+	@Size(min=1, max=100)
 	private String skypeName;
 	private Boolean isManager;
+	@NotNull
 	private JobTitle jobTitle;
+	@NotNull
 	private Department department;
 	private Employee manager;
 
@@ -42,7 +54,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// FIRST NAME
-	@Column(name = "FIRST_NAME", nullable = false, length = 50)
+	@Column(name = "FIRST_NAME", length = 50 , nullable = false)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -61,7 +73,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// LAST NAME
-	@Column(name = "LAST_NAME", nullable = false, length = 50)
+	@Column(name = "LAST_NAME", length = 50, nullable = false)
 	public String getLastName() {
 		return lastName;
 	}
@@ -70,7 +82,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// EMAIL
-	@Column(name = "EMAIL", nullable = true, length = 50)
+	@Column(name = "EMAIL", length = 50, nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -79,7 +91,7 @@ public class Employee implements java.io.Serializable {
 	}
 	
 	// SKYPE NAME
-	@Column(name = "SKYPE_NAME", nullable = true, length = 50)
+	@Column(name = "SKYPE_NAME", length = 50, nullable = false)
 	public String getSkypeName() {
 		return skypeName;
 	}
@@ -98,7 +110,7 @@ public class Employee implements java.io.Serializable {
 	
 	// JobTitle
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
+	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID", nullable = false)
 	public JobTitle getJobTitle() {
 		return jobTitle;
 	}
@@ -109,7 +121,7 @@ public class Employee implements java.io.Serializable {
 	
 	// DEPARTMENT
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Department_ID", referencedColumnName ="ID")
+	@JoinColumn(name = "Department_ID", referencedColumnName ="ID", nullable = false)
 	public Department getDepartment() {
 		return department;
 	}

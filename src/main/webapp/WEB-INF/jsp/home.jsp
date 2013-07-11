@@ -5,5 +5,7 @@
 <html>
 	<header>
 		Welcome to the Systems in Motion Organizational Management Application
+		<br/>
+		Systems In Motion Organization Chart
 	</header>
 </html>

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.systemsinmotion.orgchart.dao.IJobTitleDao;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-@Service
+@Service("jobTitleService")
 @Transactional
 public class JobTitleService {
 
