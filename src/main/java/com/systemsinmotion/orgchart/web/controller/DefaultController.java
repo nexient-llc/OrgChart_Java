@@ -169,7 +169,14 @@ public class DefaultController {
 		model.addAttribute("jobs", jobTitles);
 		return View.EMPLOYEES;
 	}
-
+	
+	@RequestMapping(value = "findAllEmployees", method = RequestMethod.GET)
+	public @ResponseBody String doEmployeeAuto(){
+		List<Employee>	employees = employeeService.findAllEmployees();
+		Gson json = new Gson();
+		String employeesAuto = json.toJson(employees);
+		return employeesAuto;
+	}
 	
 	// JOBS
 	public void setJobTitleService(JobTitleService jobTitleService){

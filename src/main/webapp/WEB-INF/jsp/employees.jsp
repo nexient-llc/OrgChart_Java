@@ -6,7 +6,7 @@
 <header>Systems In Motion Organization Chart : Employees</header>
 <br/>
 
-<div id="Filter" style="display:none">
+<div id="Filter" style="display:table;">
 	<fieldset>
 		<legend>Employee Filter</legend>
 		<form:form id="formFilter" action="empsFilter" method="get">
@@ -31,13 +31,10 @@
 				<br/>
 				<br/>
 			<button id ="submitFilter" type="submit">Filter</button>
-			<button id="restFilter" type="submit">Reset</button>
-			<button class="cancelBtn" type="button">Hide Filter</button>
+			<button id="resetFilter" type="submit">Reset</button>
 		</form:form>
 	</fieldset>
 </div>
-
-<button type="button" id="filterBtn">Filter</button>
 
 <div id="addBtn-container"><button type="submit" id="addBtn" >Add</button></div>
 

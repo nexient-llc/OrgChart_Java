@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
 	$('#addBtn-container').css('width', $('#t1').width());
 
 	$('#addBtn').click(function() {
@@ -41,15 +42,6 @@ $(document).ready(function() {
 		
 	});
 	
-	
-	$("#filterBtn").click(function(){
-		$('#Filter').show();
-		$('#addBtn-container').hide();
-		$('#filterBtn').hide();
-	});
-	
-	
-	
 	$('#resetFilter').click(function(){
 		$('#firstNameInput').attr({
 			value: ""
@@ -59,21 +51,45 @@ $(document).ready(function() {
 			value: ""
 		});
 	});
-	
-	
-	// Could most likely just separate buttons/forms in divs and just show hide divs... 
-	// Should have thought of that sooner...
+
 	$('.cancelBtn').click(function(){
 		$('#Add').hide();
 		$('#Edit').hide();
 		$('#Entity').hide();
 		$('#deleteEntity').hide();
-		$('#Filter').hide();
-		$('#filterBtn').show();
 		$('#deleteBtn').show();
 		$('#addBtn-container').fadeToggle("fast", "linear");
 		$('#addBtn').show();
 		$('#editBtn').show();
 	});
 	
+	var requestEmployeeList = $.ajax({
+		url: 'findAllEmployees',
+		type: 'GET',
+	});
+	
+	var employees = requestEmployeeList.done(function(data){
+		temp = $.parseJSON(data);
+		var firstNameList = new Array();
+		var lastNameList = new Array();
+		
+		$.each(temp, function(i, l){
+			
+				if(($.inArray(l.firstName, firstNameList)) == -1){
+					firstNameList.push(l.firstName);
+			
+				}
+				if(($.inArray(l.lastName, lastNameList)) == -1){
+					lastNameList.push(l.lastName);
+				}
+			});
+		
+		$('#firstNameInput').autocomplete({
+			source: firstNameList
+		})
+		
+		$('#lastNameInput').autocomplete({
+			source: lastNameList
+		})
+	});	
 });
