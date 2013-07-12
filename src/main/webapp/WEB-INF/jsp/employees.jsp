@@ -5,7 +5,41 @@
 
 <header>Systems In Motion Organization Chart : Employees</header>
 <br/>
-<div id="addBtn-container"><button type="button" id="addBtn" style="width: 45px;">Add</button></div>
+
+<div id="Filter" style="display:none">
+	<fieldset>
+		<legend>Employee Filter</legend>
+		<form:form id="formFilter" action="empsFilter" method="get">
+			<label>First Name</label>
+				<input id="firstNameInput"	name="firstName" />
+			<label>Last Name</label>
+				<input id="lastNameInput" name="lastName" />
+			<label>Departments</label>
+				<select name="department">
+					<option></option>
+					<c:forEach items="${depts}" var="dept">
+					<option value="${dept.id}">${dept.name}</option>
+					</c:forEach>
+				</select>
+			<label>Job Titles</label>
+				<select name="jobTitle">
+					<option></option>
+					<c:forEach items="${jobs}" var="job">
+					<option value="${job.id}">${job.name}</option>
+					</c:forEach>
+				</select>
+				<br/>
+				<br/>
+			<button id ="submitFilter" type="submit">Filter</button>
+			<button id="restFilter" type="submit">Reset</button>
+			<button class="cancelBtn" type="button">Hide Filter</button>
+		</form:form>
+	</fieldset>
+</div>
+
+<button type="button" id="filterBtn">Filter</button>
+
+<div id="addBtn-container"><button type="submit" id="addBtn" >Add</button></div>
 
 <div id="Entity" style="display:none">
 	<fieldset>
@@ -84,10 +118,11 @@
 		</tr>
 	</c:forEach> 
 </table>
+</div>
 <div id="deleteEntity" style="display:none">
 <fieldset>
 		<legend>Delete Employee</legend>
-<form:form name="deleteEmp" method="delete" action="emps">
+<form:form name="deleteEmp" method="delete" action="deleteEmps">
 	<input id="deleteInput" type="hidden" name="id"/>
 	<button class ="submitBtn" type="submit">Delete</button>
 	<button class ="cancelBtn" type="reset">Cancel</button>

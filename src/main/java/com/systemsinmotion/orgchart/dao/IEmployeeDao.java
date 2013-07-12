@@ -5,6 +5,7 @@ import java.util.List;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
+
 public interface IEmployeeDao {
 	
 	public abstract Integer save(Employee employee);
@@ -22,6 +23,8 @@ public interface IEmployeeDao {
 	public abstract Employee findById(Integer id);
 	
 	public abstract List<Employee> findByManager(Employee manager);
+	
+	public abstract List<Employee> findByFilter(String firstName, String lastName, Integer department, Integer jobTitle);
 	 
 
 }

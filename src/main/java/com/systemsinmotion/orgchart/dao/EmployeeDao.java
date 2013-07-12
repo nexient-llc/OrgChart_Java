@@ -46,22 +46,6 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Employee> findByDepartment(Department department){
-		
-		List<Employee> employees = Collections.EMPTY_LIST;
-		
-		if (department != null && department.getId() != null) {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
-			criteria.add(Restrictions.eq("department.id", department.getId()));
-			employees = this.hibernateTemplate.findByCriteria(criteria);
-			
-			return employees;
-		}
-		return null;
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
 	public Employee findByEmail(String email) {
 		
 		Employee employee = null;
@@ -78,6 +62,24 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 			}
 		return employee;
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByDepartment(Department department){
+		
+		List<Employee> employees = Collections.EMPTY_LIST;
+		
+		if (department != null && department.getId() != null) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+			criteria.add(Restrictions.eq("department.id", department.getId()));
+			employees = this.hibernateTemplate.findByCriteria(criteria);
+			
+			return employees;
+		}
+		return null;
+	}
+
+	
 
 	@Override
 	public Employee findById(Integer id) {
@@ -107,5 +109,30 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByFilter(String firstName, String lastName, Integer department, Integer jobTitle){
+		List<Employee> employees = Collections.EMPTY_LIST;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+		if(!firstName.isEmpty()){
+			criteria.add(Restrictions.eq("firstName", firstName));
+		}
+		if(!lastName.isEmpty()){
+			criteria.add(Restrictions.eq("lastName", lastName));
+		}
+		
+		if(department != null){
+			criteria.add(Restrictions.eq("department.id", department));
+		}
+		
+		if(jobTitle != null){
+			criteria.add(Restrictions.eq("jobTitle.id", jobTitle));
+		}
+	
+		employees = this.hibernateTemplate.findByCriteria(criteria);
+		
+		return employees;
+	}
+	
 }
 

@@ -1,14 +1,13 @@
 package com.systemsinmotion.orgchart.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.systemsinmotion.orgchart.dao.IEmployeeDao;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+
 
 @Service("employeeService")
 @Transactional
@@ -47,6 +46,10 @@ public class EmployeeService {
 	
 	public Employee findEmployeeByEmail(String email){
 		return this.EmployeeDao.findByEmail(email);
+	}
+	
+	public List<Employee> findEmployeeByFilter(String firstName, String lastName, Integer department, Integer jobTitle){
+		return this.EmployeeDao.findByFilter(firstName, lastName, department, jobTitle);
 	}
 	
 	public List<Employee> findEmployeeByManager(Employee manager){

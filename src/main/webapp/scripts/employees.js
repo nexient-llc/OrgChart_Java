@@ -5,7 +5,7 @@ $(document).ready(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#Entity').fadeToggle("fast", "linear");
 			$('#Add').show();
-			
+			$('#filterBtn').hide();
 			$('#formMethod').attr({
 				value: "post"
 			});
@@ -17,7 +17,7 @@ $(document).ready(function() {
 		$('#Entity').fadeToggle("fast", "linear");
 		$('#Edit').show();
 		
-		var entityId = $('#indivEdit').val();
+		var entityId =  $(this).attr('value')
 		
 		$('#editId').attr({
 			name: "id",
@@ -33,7 +33,7 @@ $(document).ready(function() {
 		
 		$('#deleteEntity').show();
 		
-		var deleteId = $('#indivDelete').val();
+		var deleteId = $(this).attr('value')
 		
 		$('#deleteInput').attr({
 			value: deleteId
@@ -41,11 +41,35 @@ $(document).ready(function() {
 		
 	});
 	
+	
+	$("#filterBtn").click(function(){
+		$('#Filter').show();
+		$('#addBtn-container').hide();
+		$('#filterBtn').hide();
+	});
+	
+	
+	
+	$('#resetFilter').click(function(){
+		$('#firstNameInput').attr({
+			value: ""
+		});
+		
+		$('#lastNameInput').attr({
+			value: ""
+		});
+	});
+	
+	
+	// Could most likely just separate buttons/forms in divs and just show hide divs... 
+	// Should have thought of that sooner...
 	$('.cancelBtn').click(function(){
 		$('#Add').hide();
 		$('#Edit').hide();
 		$('#Entity').hide();
 		$('#deleteEntity').hide();
+		$('#Filter').hide();
+		$('#filterBtn').show();
 		$('#deleteBtn').show();
 		$('#addBtn-container').fadeToggle("fast", "linear");
 		$('#addBtn').show();

@@ -144,7 +144,7 @@ public class DefaultController {
 		}
 	}
 	
-	@RequestMapping(value="emps", method = RequestMethod.DELETE)
+	@RequestMapping(value="deleteEmps", method = RequestMethod.DELETE)
 	public String doEmployee_DELETE(Employee employee, Model model){
 		try{
 			employeeService.removeEmployee(employee);
@@ -157,6 +157,19 @@ public class DefaultController {
 			return employeeDelete;
 		}
 	}
+	
+	// EMPLOYEE FILTER
+	@RequestMapping(value="empsFilter", method = RequestMethod.GET)
+	public String doEmployeeFilter(String firstName, String lastName, Integer department, Integer jobTitle, Model model){
+		List<Employee> employees = employeeService.findEmployeeByFilter(firstName, lastName, department, jobTitle);
+		List<Department> departments = departmentService.findAllDepartments();
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("emps", employees);
+		model.addAttribute("depts", departments);
+		model.addAttribute("jobs", jobTitles);
+		return View.EMPLOYEES;
+	}
+
 	
 	// JOBS
 	public void setJobTitleService(JobTitleService jobTitleService){
