@@ -18,7 +18,18 @@ public class DepartmentService {
 
 		return this.departmentDAO.findById(departmentId);
 	}
+	
+	public Department findDepartmentByName(String deptName) {
 
+		return this.departmentDAO.findByName(deptName);
+	}
+
+public void updateDepartment(Department department){
+
+	this.departmentDAO.update(department);
+	
+}
+	
 	public void setDepartmentDAO(DepartmentDao deparmentDAO) {
 		this.departmentDAO = deparmentDAO;
 	}

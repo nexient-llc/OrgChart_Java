@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.web.controller;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.service.DepartmentService;
+import com.systemsinmotion.orgchart.service.EmployeeService;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
@@ -26,14 +29,18 @@ public class DefaultController {
 	private static final Logger log = LoggerFactory
 			.getLogger(DefaultController.class);
 
-//	@Autowired
-//	EmployeeService employeeService;
+	@Autowired
+	EmployeeService employeeService;
 
 	@Autowired
 	DepartmentService departmentService;
 
-//	@Autowired
-//	JobTitleService jobTitleService;
+	@Autowired
+	JobTitleService jobTitleService;
+
+	
+	@Autowired 
+	Department department;
 	
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
@@ -44,15 +51,113 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+		 List<Department> departments = departmentService.findAllDepartments();
+		 model.addAttribute("depts", departments);
+		
+		 		 
 		return View.DEPARTMENTS;
 	}
+	
+
+	
+	
+	@RequestMapping(value="depts", method=RequestMethod.POST)
+	public String doCreateDepartmemnt(@RequestParam("name") String name, @RequestParam(value="parent_id", defaultValue="-1") Integer parent_id, Model model)
+{
+	
+		
+		if (parent_id>0)
+		{	
+			Department tempDept=departmentService.findDepartmentByID(parent_id);		
+			this.department.setParentDepartment(tempDept);		
+		}
+		
+		this.department.setName(name);
+		
+		departmentService.storeDepartment(this.department);
+		
+	return doDepartments_GET(model);
+}
+	
+	
+	
+	
+	@RequestMapping(value="remove_depts", method=RequestMethod.POST)
+	public String doDeleteDepartmemnt(@RequestParam("id") Integer id, Model model)
+{		
+		//test for value selected
+	if (id>0)
+		{	
+			this.department=this.departmentService.findDepartmentByID(id);			
+			this.departmentService.removeDepartment(this.department);						
+		}
+	
+		return doDepartments_GET(model);
+
+		
+}
+	
+	
+
+	@RequestMapping(value="update_dept", method=RequestMethod.POST)
+	public String doUpdateDepartmemnt(@RequestParam("newName") String newName,  @RequestParam(value="parent_id") Integer parent_id, 
+			@RequestParam(value="oldName") String oldName, Model model)
+{	
+		
+		this.department= this.departmentService.findDepartmentByName(oldName);
+		
+		if (parent_id>0)
+		{	
+			Department tempDept=departmentService.findDepartmentByID(parent_id);		
+			this.department.setParentDepartment(tempDept);		
+		}
+		
+		
+		else this.department.setParentDepartment(null);
+		
+		this.department.setName(newName);
+		this.departmentService.updateDepartment(this.department);
+		
+
+		return doDepartments_GET(model);
+	
+		
+}
+	
+	
+	
+	
 	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
 
 
+	
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	public String doEmployees_GET(Model model) {
+		//uncomment when database connection is set up. will throw error when run
+//		 List<Department> departments = departmentService.findAllDepartments();
+//		 model.addAttribute("depts", departments);
+		return View.EMPLOYEES;
+	}
+	
+	public void seteMPLOYEEService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
+
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	public String doJobTitles_GET(Model model) {
+		//uncomment when database connection is set up. will throw error when run
+//		 List<Department> departments = departmentService.findAllDepartments();
+//		 model.addAttribute("depts", departments);
+		return View.JOB_TITLES;
+	}
+	
+	public void setJobTitleService(JobTitleService jobTitleService) {
+		this.jobTitleService = jobTitleService;
+	}	
+	
 
 }
