@@ -16,13 +16,14 @@
 			authentication-failure-url="/app/admin/login"
 			authentication-success-handler-ref="authenticationSuccessHandler" />
 		<sec:logout logout-success-url="/app/admin/login"
+			logout-url="/app/j_spring_security_logout"
 			invalidate-session="true" />
 	</sec:http>
 
 	<sec:authentication-manager>
 		<sec:authentication-provider>
 		<sec:user-service>
-			<sec:user name="testuser" authorities="ROLE_ADMIN"  password="password" />
+			<sec:user name="TestAdmin" authorities="ROLE_ADMIN"  password="password" />
 		</sec:user-service>
 			<sec:jdbc-user-service data-source-ref="dataSource"
 				authorities-by-username-query="select u.username, ur.authority from users u, user_roles ur where u.user_id = ur.user_id and u.username =?" />
