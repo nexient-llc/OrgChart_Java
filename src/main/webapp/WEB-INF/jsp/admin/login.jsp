@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 
 <fieldset>
 	<legend>Login</legend>
@@ -23,6 +22,7 @@
 			<label for="j_username">User:</label><input type='text'
 				name='j_username'>
 		</div>
+		
 		<div>
 			<label for="j_password">Password:</label><input type='password'
 				name='j_password' />
