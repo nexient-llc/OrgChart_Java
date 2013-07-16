@@ -11,12 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
@@ -42,6 +43,9 @@ public class DefaultController {
 	@Autowired 
 	Department department;
 	
+	@Autowired 
+	JobTitle jobTitle;
+	
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
@@ -59,7 +63,6 @@ public class DefaultController {
 	}
 	
 
-	
 	
 	@RequestMapping(value="depts", method=RequestMethod.POST)
 	public String doCreateDepartmemnt(@RequestParam("name") String name, @RequestParam(value="parent_id", defaultValue="-1") Integer parent_id, Model model)
@@ -96,9 +99,7 @@ public class DefaultController {
 
 		
 }
-	
-	
-
+		
 	@RequestMapping(value="update_dept", method=RequestMethod.POST)
 	public String doUpdateDepartmemnt(@RequestParam("newName") String newName,  @RequestParam(value="parent_id") Integer parent_id, 
 			@RequestParam(value="oldName") String oldName, Model model)
@@ -118,20 +119,14 @@ public class DefaultController {
 		this.department.setName(newName);
 		this.departmentService.updateDepartment(this.department);
 		
-
-		return doDepartments_GET(model);
-	
+		return doDepartments_GET(model);	
 		
 }
-	
-	
-	
-	
+		
 	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
-
 
 	
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
@@ -148,11 +143,40 @@ public class DefaultController {
 
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
-	public String doJobTitles_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+	public String doJobTitles_GET(Model model) 
+	{		
+		 List<JobTitle> jobs = jobTitleService.findAllJobTitles();
+		 model.addAttribute("jobs", jobs);
 		return View.JOB_TITLES;
+	}
+	
+	
+	@RequestMapping(value="addJob", method=RequestMethod.POST)
+	public String doJobTitles_Add(@RequestParam("name") String name,  Model model)
+	{
+		
+		if (name==null)
+			return doJobTitles_GET(model);
+		
+		this.jobTitle.setName(name);		
+		this.jobTitleService.storeJobTitle(this.jobTitle);				
+		return doJobTitles_GET(model);
+	}
+	
+	
+	@RequestMapping(value="update_job", method=RequestMethod.POST)
+	public String doJobTitles_Edit(@RequestParam("newName") String newName,  
+			@RequestParam(value="oldName") String oldName, Model model)
+	{
+		
+		if (newName==null||oldName==null) 
+		return doJobTitles_GET(model);
+		
+		this.jobTitle= this.jobTitleService.findJobTitleByName(oldName);
+		this.jobTitle.setName(newName);
+		this.jobTitleService.updateJobTitle(this.jobTitle);
+		
+		return doJobTitles_GET(model);
 	}
 	
 	public void setJobTitleService(JobTitleService jobTitleService) {
