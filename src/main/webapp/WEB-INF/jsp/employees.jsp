@@ -6,7 +6,7 @@
 <header>Systems In Motion Organization Chart : Employees</header>
 
 <div>
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
 	<br/>
 	
 	<!-- Filter Employees -->
@@ -39,6 +39,8 @@
 			</form:form>
 		</fieldset>
 	</div>
+	</sec:authorize>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 	
 	<div id="addBtn-container"><button type="submit" id="addBtn" >Add</button></div>
 	
@@ -133,6 +135,30 @@
 	</fieldset>
 	</div>
 	
+	</sec:authorize>
+	
+	<!-- EMPLOYEE TABLE FOR USERS -->
+	<sec:authorize access="hasRole('ROLE_USER')">
+	<div>
+	<table id="t1">
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Middle Name</th>
+			<th>Department Name</th>
+			<th>Job Title</th>
+		</tr> 
+		<c:forEach items="${emps}" var="emp">
+			<tr> 
+				<td>${emp.firstName}</td> 
+				<td>${emp.lastName}</td>
+				<td>${emp.middleName}</td>
+				<td>${emp.department.name}</td>
+				<td>${emp.jobTitle.name}</td>
+			</tr>
+		</c:forEach> 
+	</table>
+	</div>
 	</sec:authorize>
 	
 </div>

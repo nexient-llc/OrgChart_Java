@@ -83,3 +83,21 @@
 	</fieldset>
 </div>
 </sec:authorize>
+
+<!-- Job Table For Non-Admin -->
+<sec:authorize access="hasRole('ROLE_USER')">
+<div>
+<table id="t1">
+	<tr>
+		<th>Job Name</th>
+		<th>Job Description</th>
+	</tr> 
+	<c:forEach items="${jobs}" var="job">
+		<tr> 
+			<td>${job.name}</td>
+			<td>${job.description}</td>
+		</tr>
+	</c:forEach> 
+</table>
+</div>
+</sec:authorize>

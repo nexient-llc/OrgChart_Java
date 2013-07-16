@@ -41,5 +41,3 @@
 </fieldset>
     </c:otherwise>
 </c:choose>
-
-

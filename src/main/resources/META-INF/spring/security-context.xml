@@ -8,10 +8,9 @@
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<sec:http auto-config="true" use-expressions="true">
-
+		<sec:intercept-url pattern="/app/admin*" access="hasRole('ROLE_USER')"/>
 		<sec:intercept-url pattern="/app/admin*" access="hasRole('ROLE_ADMIN')" />
 		<sec:form-login login-page="/app/admin/login"
-			default-target-url="/app/home"
 			login-processing-url="/app/j_spring_security_check"
 			authentication-failure-url="/app/admin/login"
 			authentication-success-handler-ref="authenticationSuccessHandler" />
@@ -24,6 +23,7 @@
 		<sec:authentication-provider>
 		<sec:user-service>
 			<sec:user name="TestAdmin" authorities="ROLE_ADMIN"  password="password" />
+			<sec:user name="mcmillen" authorities="ROLE_USER" password="password"	/>
 		</sec:user-service>
 			<sec:jdbc-user-service data-source-ref="dataSource"
 				authorities-by-username-query="select u.username, ur.authority from users u, user_roles ur where u.user_id = ur.user_id and u.username =?" />

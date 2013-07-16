@@ -98,3 +98,20 @@
 	</sec:authorize>
 	
 </div>
+<!-- Department Table For Non-Admin -->
+<sec:authorize access="hasRole('ROLE_USER')">
+<div>
+	<table id="t1"> 
+		<tr>
+			<th>Department Name</th> 
+			<th>Parent Department</th>
+		</tr> 
+		<c:forEach items="${depts}" var="dept">
+			<tr> 
+				<td>${dept.name}</td> 
+				<td>${dept.parentDepartment.name}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	</div>
+</sec:authorize>
