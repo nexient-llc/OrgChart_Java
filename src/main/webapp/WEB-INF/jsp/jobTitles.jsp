@@ -67,15 +67,13 @@
 <div id="delEntity" style="display:none">
 	<fieldset>
 		<legend>Delete Job Title</legend>
-		<form name="oldDept" action="remove_depts" method="post">
+		<form name="oldjob" action="remove_job" method="post">
 		<div><labeL>Job Title Description:</labeL>
-		<%-- <input type="text" name="name"/>--%>
-	<%-- 		<labeL>Parent Dept:</label>
-	--%>
-		<select name="id">
+
+		<select name="name">
 				<option value= "-1"></option>
-				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.id}">${dept.name}</option>
+				<c:forEach items="${jobs}" var="job">
+					<option value="${job.name}">${job.name}</option>
 				</c:forEach>
 			</select>
 	
@@ -83,5 +81,6 @@
 		</div>
 		<div></div>
 		</form>
+		<button type= "button" class="cancelButton"> cancel </button>
 	</fieldset>
 </div>

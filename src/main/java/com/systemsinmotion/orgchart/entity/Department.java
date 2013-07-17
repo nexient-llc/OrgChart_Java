@@ -30,7 +30,7 @@ public class Department implements java.io.Serializable {
 	private Department parentDepartment;
 
 	@NotNull
-	@NotEmpty
+	//@NotEmpty
 	@Size(min = 1, max = 45)
 	private String name;
 	private Set<Department> departments = new HashSet<Department>(0);

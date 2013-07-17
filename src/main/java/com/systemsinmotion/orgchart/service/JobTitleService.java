@@ -47,8 +47,8 @@ public class JobTitleService
 		return this.jobTitleDao.create(JobTitle);
 	}
 
-	public void removeJobTitle(JobTitle JobTitle) {
-		this.jobTitleDao.delete(JobTitle);
+	public void removeJobTitle(JobTitle jobTitle) {
+		this.jobTitleDao.delete(jobTitle);
 	}
 
 

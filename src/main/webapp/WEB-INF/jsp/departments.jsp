@@ -22,7 +22,7 @@
 				<td>delete</td>
 			</sec:authorize> -->
 			<td>	
-				<button type="button" class="editBtn" style="width: 25px; font-size:65%" title=${dept.name} > 
+				<button type="button" class="editBtn" style="width: 25px; font-size:65%"  > 
 			edit </button>
 			</td>	
 			<td>${dept.name}</td> 

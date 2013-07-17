@@ -97,7 +97,7 @@ public class Employee implements Serializable
 	
 	
 	
-	@NotNull
+	//@NotNull
 	private Boolean is_Manager;
 
 	@Column(name = "IS_MANAGER")
@@ -125,7 +125,7 @@ public class Employee implements Serializable
 	
 	private Department department;
 		
-	@NotNull
+	//@NotNull
 	@ManyToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name = "DEPARTMENT_ID")	
 	public Department getDepartment() {
@@ -139,6 +139,7 @@ public class Employee implements Serializable
 	
 	private JobTitle jobTitle;
 	
+	//@NotNull
 	@ManyToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name = "JOB_TITLE_ID")
 	public JobTitle getJobTitle() {

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
@@ -38,7 +39,6 @@ public class DefaultController {
 
 	@Autowired
 	JobTitleService jobTitleService;
-
 	
 	@Autowired 
 	Department department;
@@ -46,7 +46,6 @@ public class DefaultController {
 	@Autowired 
 	JobTitle jobTitle;
 	
-
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
@@ -81,7 +80,6 @@ public class DefaultController {
 		
 	return doDepartments_GET(model);
 }
-	
 	
 	
 	
@@ -132,10 +130,32 @@ public class DefaultController {
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+		 List<Employee> employees = this.employeeService.findAll();
+		 model.addAttribute("emps", employees);
+		 
+		 
+		 //get job titles for add
+		 List<JobTitle> jobs = jobTitleService.findAllJobTitles();
+		 model.addAttribute("jobs", jobs);
+		 
+		 //get departments for add
+		 List<Department> departments = departmentService.findAllDepartments();
+		 model.addAttribute("depts", departments);
+		 		 
 		return View.EMPLOYEES;
 	}
+	
+	
+	@RequestMapping(value = "addEmp", method = RequestMethod.POST)
+	public String doEmployees_ADD(Employee employee, Model model) {
+				
+		this.employeeService.storeEmployee(employee); 
+		 
+		return doEmployees_GET(model);
+	}
+	
+	
+	
 	
 	public void seteMPLOYEEService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
@@ -176,6 +196,15 @@ public class DefaultController {
 		this.jobTitle.setName(newName);
 		this.jobTitleService.updateJobTitle(this.jobTitle);
 		
+		return doJobTitles_GET(model);
+	}
+	
+	
+	@RequestMapping(value="remove_job", method= RequestMethod.POST)
+	public String doRemoveJobTitle(@RequestParam(value="name") String name,   Model model)
+	{
+		this.jobTitle= this.jobTitleService.findJobTitleByName(name);
+		this.jobTitleService.removeJobTitle(this.jobTitle);
 		return doJobTitles_GET(model);
 	}
 	

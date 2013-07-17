@@ -92,7 +92,7 @@ public class JobTitleDao implements com.systemsinmotion.orgchart.dao.IJobTitleDa
 	@Override
 	public void delete(JobTitle job) 
 	{
-		LOG.debug("deleting "+ job.getName());
+		//LOG.debug("deleting "+ job.getName());
 		this.hibernateTemplate.delete(job);
 	}
 
