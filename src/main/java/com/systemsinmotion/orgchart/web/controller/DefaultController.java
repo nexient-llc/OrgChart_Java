@@ -51,36 +51,35 @@ public class DefaultController {
 		return View.HOME;
 	}
 	
+	
+	//begin dept methods
+	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-		 List<Department> departments = departmentService.findAllDepartments();
-		 model.addAttribute("depts", departments);
+		 getDepartmentModel(model);
 		
 		 		 
 		return View.DEPARTMENTS;
 	}
-	
 
+	private void getDepartmentModel(Model model) {
+		List<Department> departments = departmentService.findAllDepartments();
+		 model.addAttribute("depts", departments);
+	}
+	
+	
 	
 	@RequestMapping(value="depts", method=RequestMethod.POST)
-	public String doCreateDepartmemnt(@RequestParam("name") String name, @RequestParam(value="parent_id", defaultValue="-1") Integer parent_id, Model model)
+	public String doCreateDepartmemnt(Department dept, Model model)
 {
-	
+			
+		departmentService.storeDepartment(dept);
 		
-		if (parent_id>0)
-		{	
-			Department tempDept=departmentService.findDepartmentByID(parent_id);		
-			this.department.setParentDepartment(tempDept);		
-		}
+		 getDepartmentModel(model);
 		
-		this.department.setName(name);
-		
-		departmentService.storeDepartment(this.department);
-		
-	return doDepartments_GET(model);
+		 return View.DEPARTMENTS;
 }
-	
 	
 	
 	@RequestMapping(value="remove_depts", method=RequestMethod.POST)
@@ -93,16 +92,14 @@ public class DefaultController {
 			this.departmentService.removeDepartment(this.department);						
 		}
 	
-		return doDepartments_GET(model);
-
-		
+	 getDepartmentModel(model);	
+	 return View.DEPARTMENTS;		
 }
 		
 	@RequestMapping(value="update_dept", method=RequestMethod.POST)
 	public String doUpdateDepartmemnt(@RequestParam("newName") String newName,  @RequestParam(value="parent_id") Integer parent_id, 
 			@RequestParam(value="oldName") String oldName, Model model)
-{	
-		
+{			
 		this.department= this.departmentService.findDepartmentByName(oldName);
 		
 		if (parent_id>0)
@@ -110,64 +107,95 @@ public class DefaultController {
 			Department tempDept=departmentService.findDepartmentByID(parent_id);		
 			this.department.setParentDepartment(tempDept);		
 		}
-		
-		
+				
 		else this.department.setParentDepartment(null);
 		
 		this.department.setName(newName);
 		this.departmentService.updateDepartment(this.department);
 		
-		return doDepartments_GET(model);	
+		 getDepartmentModel(model);
 		
+		return View.DEPARTMENTS;			
 }
-		
-	
+			
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
 
+		
+//begin employee methods
 	
+
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
-		 List<Employee> employees = this.employeeService.findAll();
-		 model.addAttribute("emps", employees);
-		 
-		 
-		 //get job titles for add
-		 List<JobTitle> jobs = jobTitleService.findAllJobTitles();
-		 model.addAttribute("jobs", jobs);
-		 
-		 //get departments for add
-		 List<Department> departments = departmentService.findAllDepartments();
-		 model.addAttribute("depts", departments);
+		
+		 getEmployeeModel(model);
 		 		 
 		return View.EMPLOYEES;
+	}
+
+	private void getEmployeeModel(Model model) {
+
+		List<Employee> employees = this.employeeService.findAll();
+		
+		model.addAttribute("emps", employees);
+		 		 
+		 getJobTitleModel(model);
+		 
+		 getDepartmentModel(model);
 	}
 	
 	
 	@RequestMapping(value = "addEmp", method = RequestMethod.POST)
 	public String doEmployees_ADD(Employee employee, Model model) {
-				
-		this.employeeService.storeEmployee(employee); 
-		 
-		return doEmployees_GET(model);
+	
+		this.employeeService.storeEmployee(employee); 		 
+	
+		getEmployeeModel(model);
+		
+		return View.EMPLOYEES;
 	}
 	
 	
-	
-	
-	public void seteMPLOYEEService(EmployeeService employeeService) {
+	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
 
+	@RequestMapping(value="remove_emp", method=RequestMethod.POST )
+	public String doEmployees_remove(Employee employee, Model model)
+	{
+		this.employeeService.removeEmployee(employee);		
+		getEmployeeModel(model);		
+		return View.EMPLOYEES;		
+	}
+	
+	
+	
+	@RequestMapping(value="update_emp", method=RequestMethod.POST)
+	public String doEmployees_update(Employee employee, Model model)
+	{		
+		this.employeeService.updateEmployee(employee);	
+		getEmployeeModel(model);
+		return View.EMPLOYEES;
+	}
+	
+	
+	
+	
+	
+	//begin jobTitle Methods
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitles_GET(Model model) 
 	{		
-		 List<JobTitle> jobs = jobTitleService.findAllJobTitles();
-		 model.addAttribute("jobs", jobs);
+		 getJobTitleModel(model);
+		 
 		return View.JOB_TITLES;
+	}
+
+	private void getJobTitleModel(Model model) {
+		List<JobTitle> jobs = jobTitleService.findAllJobTitles();
+		 model.addAttribute("jobs", jobs);
 	}
 	
 	
@@ -180,7 +208,10 @@ public class DefaultController {
 		
 		this.jobTitle.setName(name);		
 		this.jobTitleService.storeJobTitle(this.jobTitle);				
-		return doJobTitles_GET(model);
+		
+		 getJobTitleModel(model);
+		
+		return View.JOB_TITLES;
 	}
 	
 	
@@ -196,21 +227,23 @@ public class DefaultController {
 		this.jobTitle.setName(newName);
 		this.jobTitleService.updateJobTitle(this.jobTitle);
 		
-		return doJobTitles_GET(model);
+		 getJobTitleModel(model);
+		
+		return View.JOB_TITLES;
 	}
-	
-	
+		
 	@RequestMapping(value="remove_job", method= RequestMethod.POST)
 	public String doRemoveJobTitle(@RequestParam(value="name") String name,   Model model)
 	{
 		this.jobTitle= this.jobTitleService.findJobTitleByName(name);
 		this.jobTitleService.removeJobTitle(this.jobTitle);
-		return doJobTitles_GET(model);
+	
+		 getJobTitleModel(model);
+		return View.JOB_TITLES;
 	}
 	
 	public void setJobTitleService(JobTitleService jobTitleService) {
 		this.jobTitleService = jobTitleService;
 	}	
-	
 
 }

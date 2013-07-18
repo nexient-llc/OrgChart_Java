@@ -4,12 +4,17 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<div id="addBtn-container">
-		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
-		<button type="button" id="delBtn" style="width: 50px;"> Delete </button>
-</div>
+
 
 <h3>Departments</h3> 
+
+<div id="addBtn-container">
+	<button type="button" id="addBtn" style="width: 40px; font-size:65%;">Add</button>	
+		<button type="button" id="delBtn" style="width: 40px; font-size:65%;"> Delete </button>
+</div>
+
+<br/>
+
 <table id="t1"> 
 	<tr>	
 	<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
@@ -40,12 +45,11 @@
 
 <div id="updateEntity" style="display:none">
 	<fieldset>
-		<legend>Update Department</legend>
-		<form name="newDept" action="update_dept" method="post">
-		<div><labeL>Dept Name:</labeL>
-		<input id="updateOldName" type="text"
-		 name="oldName" style= "display: none;"/>
-		
+		<legend>Update Department</legend>		
+		<form name="editDept" action="update_dept" method="post">		
+		<div><labeL>Dept Name:</labeL>	
+		<input id="updateOldName" type="text"	
+		 name="oldName" style= "display: none;"/>		
 		<input id="updateName" type="text" name="newName"/>
 			<labeL>Parent Dept:</label>
 			<select name="parent_id">		
@@ -69,7 +73,7 @@
 		<form name="newDept" action="depts" method="post">
 		<div><labeL>Dept Name:</labeL><input type="text" name="name"/>
 			<labeL>Parent Dept:</label>
-			<select name="parent_id">		
+			<select name="parentDepartment.id">		
 				<option value="-1">(none)</option>
 				<c:forEach items="${depts}" var="dept">
 					<option value="${dept.id}">${dept.name}</option>

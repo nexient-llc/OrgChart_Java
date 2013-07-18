@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.systemsinmotion.orgchart.dao.EmployeeDao;
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
-
+@Transactional
 @Service("employeeService")
 public class EmployeeService 
 {
@@ -24,7 +27,13 @@ public class EmployeeService
 		this.employeeDao=employeeDao;  
 		
 	}
+			
+	public void updateEmployee(Employee employee){
+
+		this.employeeDao.update(employee);
 		
+	}
+	
 	public List<Employee> findAll()
 	{
 		

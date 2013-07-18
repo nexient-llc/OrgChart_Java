@@ -126,7 +126,7 @@ public class Employee implements Serializable
 	private Department department;
 		
 	//@NotNull
-	@ManyToOne (cascade=CascadeType.ALL)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn(name = "DEPARTMENT_ID")	
 	public Department getDepartment() {
 		return department;
@@ -140,7 +140,7 @@ public class Employee implements Serializable
 	private JobTitle jobTitle;
 	
 	//@NotNull
-	@ManyToOne (cascade=CascadeType.ALL)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn(name = "JOB_TITLE_ID")
 	public JobTitle getJobTitle() {
 		return jobTitle;

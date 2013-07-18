@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name = "DEPARTMENT")
@@ -29,16 +30,16 @@ public class Department implements java.io.Serializable {
 	
 	private Department parentDepartment;
 
-	@NotNull
+	//@NotNull
 	//@NotEmpty
 	@Size(min = 1, max = 45)
 	private String name;
-	private Set<Department> departments = new HashSet<Department>(0);
+	//private Set<Department> departments = new HashSet<Department>(0);
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
+/*	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "parentDepartment")
 	public Set<Department> getDepartments() {
 		return this.departments;
-	}
+	}*/
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,7 +48,8 @@ public class Department implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "NAME", nullable = false, length = 50)
+	//@Transactional
+	@Column(name = "NAME",  length = 50)
 	public String getName() {
 		return this.name;
 	}
@@ -58,9 +60,9 @@ public class Department implements java.io.Serializable {
 		return this.parentDepartment;
 	}
 
-	public void setDepartments(Set<Department> departments) {
+/*	public void setDepartments(Set<Department> departments) {
 		this.departments = departments;
-	}
+	}*/
 
 	public void setId(Integer departmentId) {
 		this.id = departmentId;

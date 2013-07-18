@@ -9,13 +9,14 @@
 		<button type="button" id="delBtn" style="width: 40px; font-size:65%;"> Delete </button>
 </div>
 
-
+<br/>
 <table id="t1"> 
 	<tr>	
 	<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
 		<td>  </td><th> Employee Name </th> <th> Department </th> <th> Job Title </th> 
 	</tr> 
+	
 	<c:forEach items="${emps}" var="emp">
 		<tr> 	
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -25,45 +26,22 @@
 				<button type="button" class="editBtn" style="width: 25px; font-size:65%" > 
 			edit </button>
 			</td>	
-			<td>${emp.firstName} ${emp.lastName}</td> <td> ${emp.department.name}</td> <td>${emp.jobTitle.name}</td>
-												
-			
-			</tr>
-			
-			
+			<td style="display:none"> ${emp.firstName} </td>
+			<td style="display:none"> ${emp.lastName} </td>
+			<td style="display:none"> ${emp.email} </td>
+			<td style="display:none"> ${emp.skypeName} </td>	
+			<td style="display:none"> ${emp.id} </td>	
+			<td>${emp.firstName} ${emp.lastName}</td>
+			 <td> ${emp.department.name}</td> 
+			 <td>${emp.jobTitle.name}</td>																	
+		</tr>
 	</c:forEach> 
 </table>
-
-
-<div id="updateEntity" style="display:none">
-	<fieldset>
-		<legend>Update Department</legend>
-		<form name="newDept" action="update_dept" method="post">
-		<div><labeL>Dept Name:</labeL>
-		<input id="updateOldName" type="text"
-		 name="oldName" style= "display: none;"/>
-		
-		<input id="updateName" type="text" name="newName"/>
-			<labeL>Parent Dept:</label>
-			<select name="parent_id">		
-				<option value="-1">(none)</option>
-				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.id}">${dept.name}</option>
-				</c:forEach>
-			</select>
-			<button type="submit">Update</button>
-		</div>
-		<div></div>
-		</form>
-	</fieldset>
-</div>
-
-
 
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Employee</legend>
-		<form name="Employee" action="addEmp" method="post">
+		<form name="Employee.id" action="addEmp" method="post">
 		<div><labeL>First Name:</labeL><input type="text" name="firstName"/>
 			<br/><labeL>Last Name:</label>
 			<input type="text" name="lastName"/>
@@ -92,3 +70,72 @@
 		<button type= "button" class="cancelButton"> cancel </button>
 	</fieldset>
 </div>
+
+
+
+<div id="delEntity" style="display:none">
+	<fieldset>
+		<legend>Delete Department</legend>
+		<form name="oldEmp" action="remove_emp" method="post">
+		<div><labeL>Dept Name:</labeL>
+
+		<select name="id">
+				<option value= "-1"></option>
+				<c:forEach items="${emps}" var="emp">
+					<option value="${emp.id}"> ${emp.firstName} ${emp.lastName}${emp.id} </option>
+				</c:forEach>
+			</select>
+	
+			<button type="submit">Delete</button>
+		</div>
+		<div></div>
+		</form>
+	</fieldset>
+</div>
+
+<div id="updateEntity" style="display:none">
+	<fieldset>
+		<legend>Update Employee</legend>
+		<form name="newDept" action="update_emp" method="post">
+		<div>
+		
+		<labeL> First Name: </labeL>
+		<input id="firstName" type="text"
+		 name="firstName"/>
+		 
+		 <br/>
+		
+		<label>Last Name: </label>
+		<input id="lastName" type="text" name="lastName"/>
+		<br/>	
+			<label>Department: </label>			
+			<select name="department.id">					
+				<c:forEach items="${depts}" var="dept">
+					<option value="${dept.id}">${dept.name}</option>
+				</c:forEach>
+			</select>
+			<br/>
+			<label>Job Title: </label>			
+			<select name="jobTitle.id">					
+				<c:forEach items="${jobs}" var="job">
+					<option value="${job.id}">${job.name}</option>
+				</c:forEach>
+			</select>
+			
+			<br/>
+		<label>E-mail: </label>
+		<input id="email" type="text" name="email"/>
+		
+		<br/>		
+		<label>Skype name: </label>
+		<input id="skypeName" type="text" name="skypeName"/>
+		<input id= "id"  name="id"  style="display:none"/>
+			
+			<br/>
+			<button type="submit">Update</button>
+		</div>
+		<div></div>
+		</form>
+	</fieldset>
+</div>
+

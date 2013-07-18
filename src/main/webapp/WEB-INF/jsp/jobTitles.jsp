@@ -2,14 +2,14 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-
+<h3>Job Titles</h3> 
 
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 40px;  font-size:65%;">Add</button>	
 		<button type="button" id="delBtn" style="width: 40px;  font-size:65%;"> Delete </button>
 </div>
 
-<h3>Job Titles</h3> 
+<br/>
 <table id="t1"> 
 	<tr>	
 	<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->

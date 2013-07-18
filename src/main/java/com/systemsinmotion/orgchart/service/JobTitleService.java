@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.dao.JobTitleDao;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-
+@Transactional
 @Service("jobTitleService")
 public class JobTitleService 
 {
