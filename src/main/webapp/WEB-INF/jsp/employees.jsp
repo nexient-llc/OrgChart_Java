@@ -4,6 +4,52 @@
 
 <h3>Employees</h3> 
 
+
+<div id= "showFilterBtn-container" style="display:none;">
+ <button type="button" id="showFilterBtn" style="width: 40px; font-size:65%;">Show Filter</button>
+ </div>
+
+<div id="filterEntity">
+	<fieldset>
+		<legend>Search by</legend>
+
+<div style="float: right;"> <button type="button" id="hideFilterBtn"style="width: 40px; font-size:65%;" >hide</button>
+	
+	  </div>
+		<form name="search" action="search_emp" method="post">
+	<div>		<button type="submit" style="width: 40px; font-size:65%;">Search</button>
+			<button type="button" id="searchClear"style="width: 40px; font-size:65%;" >clear</button>
+	</div>
+		
+	<div>
+	<label> full name: </label><input id="filterFullName" name= "firstName" type= text/>
+
+	<br/>	
+		<label>Department:</labeL>
+		<select name="department.id">
+				<option value= "-1"></option>
+				<c:forEach items="${depts}" var="dept">
+					<option value="${dept.id}"> ${dept.name} </option>
+				</c:forEach>
+			</select>
+	
+		<label>Job Title:</labeL>
+		<select name="jobTitle.id">
+				<option value= "-1"></option>
+				<c:forEach items="${jobs}" var="job">
+					<option value="${job.id}"> ${job.name}</option>
+				</c:forEach>
+			</select>
+	
+	
+		
+		</div>
+		
+		</form>
+
+	</fieldset>
+</div>
+
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 40px; font-size:65%;">Add</button>	
 		<button type="button" id="delBtn" style="width: 40px; font-size:65%;"> Delete </button>

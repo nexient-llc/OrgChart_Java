@@ -129,20 +129,22 @@ public class DefaultController {
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
 		
-		 getEmployeeModel(model);
+		 getEmployeeModel(model, null);
 		 		 
 		return View.EMPLOYEES;
 	}
 
-	private void getEmployeeModel(Model model) {
+	private void getEmployeeModel(Model model, List<Employee> emps_In) {
 
-		List<Employee> employees = this.employeeService.findAll();
 		
-		model.addAttribute("emps", employees);
-		 		 
-		 getJobTitleModel(model);
-		 
-		 getDepartmentModel(model);
+		if (emps_In==null)
+		{
+			List<Employee> employees = this.employeeService.findAll();		
+			model.addAttribute("emps", employees);
+		}	 		 
+
+		getJobTitleModel(model);		 
+		getDepartmentModel(model);
 	}
 	
 	
@@ -151,7 +153,7 @@ public class DefaultController {
 	
 		this.employeeService.storeEmployee(employee); 		 
 	
-		getEmployeeModel(model);
+		getEmployeeModel(model, null);
 		
 		return View.EMPLOYEES;
 	}
@@ -165,20 +167,27 @@ public class DefaultController {
 	public String doEmployees_remove(Employee employee, Model model)
 	{
 		this.employeeService.removeEmployee(employee);		
-		getEmployeeModel(model);		
+		getEmployeeModel(model, null);		
 		return View.EMPLOYEES;		
 	}
-	
-	
-	
+		
 	@RequestMapping(value="update_emp", method=RequestMethod.POST)
 	public String doEmployees_update(Employee employee, Model model)
-	{		
-		this.employeeService.updateEmployee(employee);	
-		getEmployeeModel(model);
+	{				
+		this.employeeService.updateEmployee(employee);			
+		getEmployeeModel(model, null);	
 		return View.EMPLOYEES;
 	}
-	
+		
+	//search
+	@RequestMapping(value="search_emp", method=RequestMethod.POST)
+	public String doEmployees_filterSearch(Employee employee, Model model)
+	{						
+		List<Employee>employees =this.employeeService.findbyCriteria(employee);		
+		model.addAttribute("emps", employees);
+		getEmployeeModel(model, employees);
+		return View.EMPLOYEES;
+	}
 	
 	
 	

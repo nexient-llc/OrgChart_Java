@@ -24,7 +24,7 @@ public interface IEmployeeDao
 
 	List<Employee> queryByManager(Employee manager);
 	
-	List<Employee> queryByMultipleCriteria(String lastName, String firstName, int dept_Id,  String jobTitle);
+	List<Employee> queryByMultipleCriteria(Employee employee);
 
 	Employee queryById(Integer Id);
 	

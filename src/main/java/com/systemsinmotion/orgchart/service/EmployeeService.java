@@ -13,8 +13,7 @@ import com.systemsinmotion.orgchart.entity.Employee;
 @Transactional
 @Service("employeeService")
 public class EmployeeService 
-{
-	
+{	
 	@Autowired EmployeeDao employeeDao;
 
 	public Employee findEmployeeById(Integer Id)	
@@ -28,16 +27,19 @@ public class EmployeeService
 		
 	}
 			
-	public void updateEmployee(Employee employee){
-
-		this.employeeDao.update(employee);
-		
-	}
-	
-	public List<Employee> findAll()
+	public void updateEmployee(Employee employee)
 	{
-		
+		this.employeeDao.update(employee);		
+	}	
+
+	public List<Employee> findAll()
+	{		
 		return this.employeeDao.queryAll();
+	}
+		
+	public List<Employee> findbyCriteria(Employee employee)
+	{		
+		return this.employeeDao.queryByMultipleCriteria(employee);
 	}
 		
 	public Integer storeEmployee(Employee employee)
@@ -46,12 +48,10 @@ public class EmployeeService
 		return this.employeeDao.create(employee); 
 	}
 	
-
 	public void removeEmployee (Employee employee) 
 	{
 		this.employeeDao.delete(employee);
-	}
-	
+	}	
 }
 
 

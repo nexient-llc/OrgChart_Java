@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Repository("employeeDao")
 public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDao 
@@ -113,27 +114,42 @@ public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDa
 		
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Employee> queryByMultipleCriteria(String lastName, String firstName, int dept_Id,  String jobTitle)
+	public List<Employee> queryByMultipleCriteria(Employee employee)
 	{
+		
+		String fullName=null;
+
 		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
-		
-		if (jobTitle!=null)
-		criteria.add(Restrictions.eq("jobTitle", jobTitle));
 				
-		if (dept_Id>0)
-		criteria.add(Restrictions.eq("dept_ID", dept_Id));
-		
-		if (firstName!=null)			
-		criteria.add(Restrictions.eq("firstName", firstName));
-		
-		if (lastName!=null)
-		criteria.add(Restrictions.eq("lastName", lastName));
+				//if name entered (entire name in first name field)
+				if( (employee.getFirstName()!=null)&&(!employee.getFirstName().isEmpty()))
+				{	
+					fullName=employee.getFirstName();
+
+					String lastName=fullName.substring(fullName.indexOf(" ")+1);
+					String firstName=fullName.substring(0, fullName.indexOf(" ")); 						
+	
+					
+					criteria.add(Restrictions.eq("firstName", firstName));
+					
+					if (lastName!=null)
+					criteria.add(Restrictions.eq("lastName", lastName));
+												
+				}
+				
+				if(employee.getJobTitle().getId()>0)			
+					criteria.add(Restrictions.eq("jobTitle", employee.getJobTitle()));
 						
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		/*		if (employee.getDepartment().getId()>0)
+					criteria.add(Restrictions.eq("dept_ID", employee.getDepartment().getId()));
+		*/	
+						
+				criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
-		List<Employee> employees = hibernateTemplate.findByCriteria(criteria); 
-								
-		return employees;		
+				List<Employee> employees = hibernateTemplate.findByCriteria(criteria); 
+							
+				
+				return employees;		
 	}
 
 	

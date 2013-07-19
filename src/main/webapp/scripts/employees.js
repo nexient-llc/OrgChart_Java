@@ -60,6 +60,17 @@ $('#delBtn').click( function()
 });
 
 
+//toggle hide search	
+$('#hideFilterBtn').click(function(){
+	$('#filterEntity').fadeToggle("fast", "linear" ,function(){$('#showFilterBtn-container').fadeToggle("fast", "linear"); } );
+});
+
+
+$('#showFilterBtn').click(function(){
+	$('#filterEntity').fadeToggle("fast", "linear" ,function(){$('#showFilterBtn-container').fadeToggle("fast", "linear"); } );
+});
+
+
 
 
 });
