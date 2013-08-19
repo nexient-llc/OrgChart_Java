@@ -36,12 +36,12 @@ public class Employee {
 	}
 	
 	@Column (name = "FIRST_NAME", nullable = false, length = 20)
-	public String getFirst_name() {
+	public String getFirstName() {
 		return first_name;
 	}
 	
 	@Column (name = "LAST_NAME", nullable = false, length = 50)
-	public String getLast_name() {
+	public String getLastName() {
 		return last_name;
 	}
 	
