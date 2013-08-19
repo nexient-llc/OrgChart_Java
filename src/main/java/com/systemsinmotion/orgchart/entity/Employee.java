@@ -1,10 +1,15 @@
 package com.systemsinmotion.orgchart.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,55 +22,59 @@ public class Employee {
 	private String email;
 	private String skype_name;
 	private boolean is_manager;
-	private int job_title_id;
-	private int department_id;
-	private int manager_id;
 	
+	private Collection<JobTitle> jobTitle = new ArrayList<JobTitle>();
+	private Collection<Department> department = new ArrayList<Department>();
+	private Collection<Employee> manager = new ArrayList<Employee>();
+
 	@Id
-	@Column (name = "id", nullable = false, unique = true)
+	@Column (name = "ID", nullable = false, unique = true)
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
 	
-	@Column (name = "first_name", nullable = false, length = 20)
+	@Column (name = "FIRST_NAME", nullable = false, length = 20)
 	public String getFirst_name() {
 		return first_name;
 	}
 	
-	@Column (name = "last_name", nullable = false, length = 50)
+	@Column (name = "LAST_NAME", nullable = false, length = 50)
 	public String getLast_name() {
 		return last_name;
 	}
 	
-	@Column (name = "email", unique = true, length = 100)
+	@Column (name = "EMAIL", unique = true, length = 100)
 	public String getEmail() {
 		return email;
 	}
 	
-	@Column (name = "skype_name", unique = true, length = 100)
+	@Column (name = "SKYPE_NAME", unique = true, length = 100)
 	public String getSkype_name() {
 		return skype_name;
 	}
 	
-	@Column (name = "is_manager")
+	@Column (name = "IS_MANAGER")
 	public boolean isIs_manager() {
 		return is_manager;
 	}
 	
-	@Column (name = "job_title_id")
-	public int getJob_title_id() {
-		return job_title_id;
+	@ManyToOne
+	@JoinColumn (name="JOB_TITLE_ID", referencedColumnName="ID")
+	public Collection<JobTitle> getJobTitle() {
+		return jobTitle;
 	}
-	
-	@Column (name = "department_id")
-	public int getDepartment_id() {
-		return department_id;
+
+	@ManyToOne
+	@JoinColumn (name="DEPARTMENT_ID", referencedColumnName="ID")
+	public Collection<Department> getDepartment() {
+		return department;
 	}
-	
-	@Column (name = "manager_id")
-	public int getManager_id() {
-		return manager_id;
+
+	@ManyToOne
+	@JoinColumn (name="MANAGER_ID", referencedColumnName="ID")
+	public Collection<Employee> getManager() {
+		return manager;
 	}
 	
 	public void setId(int id) {
@@ -92,15 +101,15 @@ public class Employee {
 		this.is_manager = is_manager;
 	}
 	
-	public void setJob_title_id(int job_title_id) {
-		this.job_title_id = job_title_id;
+	public void setManager(Collection<Employee> manager) {
+		this.manager = manager;
 	}
 	
-	public void setDepartment_id(int department_id) {
-		this.department_id = department_id;
+	public void setDepartment(Collection<Department> department) {
+		this.department = department;
 	}
-	
-	public void setManager_id(int manager_id) {
-		this.manager_id = manager_id;
+
+	public void setJobTitle(Collection<JobTitle> jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 }
