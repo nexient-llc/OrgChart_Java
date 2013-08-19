@@ -96,7 +96,7 @@ public interface IEmployeeDao {
 	 * @return All <code>Employee</code> instances with the corresponding ManagerId.
 	 *			  Null if not found.
 	 */
-	public abstract List<Employee> findByManager(Integer managerId);
+	public abstract List<Employee> findByManager(int managerId);
 	
 	/**
 	 * Returns all <code>Employee</code> instances having a given <code>Manager</code>
