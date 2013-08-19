@@ -7,9 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table (name = "JOB_TITLE")
@@ -26,7 +23,7 @@ public class JobTitle {
 		return id;
 	}
 	
-	@Column (name = "NAME", nullable = false, length = 50)
+	@Column (name = "NAME", nullable = false, unique = true, length = 50)
 	public String getName() {
 		return name;
 	}
