@@ -29,7 +29,7 @@ public interface IEmployeeDao {
 	 *            Identifier of <code>Employee</code> instance to find
 	 * @return Single <code>Employee</code> instance. Null if not found.
 	 */
-	public abstract Employee findById(int id);
+	public abstract Employee findById(Integer id);
 
 	/**
 	 * Returns all <code>Employee</code> instances having a given <code>first_name</code>
@@ -87,17 +87,30 @@ public interface IEmployeeDao {
 	public abstract List<Employee> findByManagerStatus(boolean is_Manager);
 	
 	/**
-	 * Returns all <code>Employee</code> instances having a given <code>Manager_id</code>
+	 * Returns all <code>Employee</code> instances having a given <code>ManagerId</code>
 	 * value.
 	 * 
-	 * @param employee
+	 * @param managerId
 	 *            Contains value of a manager's id which <code>Employee</code> instances are associated with
 	 *            
-	 * @return All <code>Employee</code> instances with the corresponding Manager.
+	 * @return All <code>Employee</code> instances with the corresponding ManagerId.
 	 *			  Null if not found.
 	 */
-	public abstract List<Employee> findByManagerId(Employee employee);
+	public abstract List<Employee> findByManager(Integer managerId);
 	
+	/**
+	 * Returns all <code>Employee</code> instances having a given <code>Manager</code>
+	 * <code>Employee</code> instance.
+	 * 
+	 * @param manager
+	 *            Contains value of a <code>Employee</code> instance corresponding to a manager
+	 *            which <code>Employee</code> instances are associated with.
+	 *            
+	 * @return All <code>Employee</code> instances with the corresponding <code>Employee</code> instance
+	 * 			as manager. Null if not found.
+	 *
+	 */
+	public abstract List<Employee> findByManager(Employee manager);
 	/**
 	 * Returns all <code>Employee</code> instances having a given <code>Job_Title_Id</code>
 	 * value.
@@ -108,19 +121,19 @@ public interface IEmployeeDao {
 	 * @return All <code>Employee</code> instances with the corresponding Job_Title_Id.
 	 *			  Null if not found.
 	 */
-	public abstract List<Employee> findByJobTitleId(Employee employee);
+	public abstract List<Employee> findByJobTitle(Employee employee);
 	
 	/**
 	 * Returns all <code>Employee</code> instances having a given <code>Department_id</code>
 	 * value.
 	 * 
-	 * @param employee
+	 * @param departmentId
 	 *            Contains value of a department's id which <code>Employee</code> instances are associated with
 	 *            
-	 * @return All <code>Employee</code> instances with the corresponding department.
+	 * @return All <code>Employee</code> instances with the corresponding department ID.
 	 *			  Null if not found.
 	 */
-	public abstract List<Employee> findByDepartmentId(Employee employee);
+	public abstract List<Employee> findByDepartment(Integer departmentId);
 	
 	/**
 	 * Saves a give <code>Employee</code instance and returns its generated

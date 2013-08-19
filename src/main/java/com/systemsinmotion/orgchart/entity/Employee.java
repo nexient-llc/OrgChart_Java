@@ -2,6 +2,8 @@ package com.systemsinmotion.orgchart.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,9 +26,9 @@ public class Employee {
 	private String skype_name;
 	private boolean is_manager;
 	
-	private Collection<JobTitle> jobTitle = new ArrayList<JobTitle>();
-	private Collection<Department> department = new ArrayList<Department>();
-	private Collection<Employee> manager = new ArrayList<Employee>();
+	private JobTitle jobTitle = new JobTitle();
+	private Department department = new Department();
+	private Employee manager = new Employee();
 
 	@Id
 	@Column (name = "ID", nullable = false, unique = true)
@@ -60,22 +62,19 @@ public class Employee {
 		return is_manager;
 	}
 	
-	@ManyToOne
-	@JoinColumn (name="JOB_TITLE_ID", referencedColumnName="ID")
-	public Collection<JobTitle> getJobTitle() {
-		return jobTitle;
+	@Column (name="JOB_TITLE_ID")
+	public int getJobTitle() {
+		return jobTitle.getId();
 	}
 
-	@ManyToOne
-	@JoinColumn (name="DEPARTMENT_ID", referencedColumnName="ID")
-	public Collection<Department> getDepartment() {
-		return department;
+	@Column (name="DEPARTMENT_ID")
+	public int getDepartment() {
+		return department.getId();
 	}
 
-	@ManyToOne (fetch=FetchType.EAGER)
-	@JoinColumn (name="MANAGER_ID", referencedColumnName="ID")
-	public Collection<Employee> getManager() {
-		return manager;
+	@Column (name = "MANAGER_ID")
+	public int getManager() {
+		return manager.getId();
 	}
 	
 	public void setId(int id) {
@@ -102,15 +101,15 @@ public class Employee {
 		this.is_manager = is_manager;
 	}
 	
-	public void setManager(Collection<Employee> manager) {
+	public void setManager(Employee manager) {
 		this.manager = manager;
 	}
 	
-	public void setDepartment(Collection<Department> department) {
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
-	public void setJobTitle(Collection<JobTitle> jobTitle) {
+	public void setJobTitle(JobTitle jobTitle) {
 		this.jobTitle = jobTitle;
 	}
 }
