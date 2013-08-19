@@ -188,7 +188,7 @@
 				<configuration>
 					<changeLogFile>src/db/db.changelog.xml</changeLogFile>
 					<driver>org.hsqldb.jdbcDriver</driver>
-					<url>jdbc:hsqldb:hsql://localhost:9001</url>
+					<url>jdbc:hsqldb:hsql://localhost/orgChartdb</url>
 					<username>sa</username>
 					<password></password>
 				</configuration>
