@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -71,7 +72,7 @@ public class Employee {
 		return department;
 	}
 
-	@ManyToOne
+	@ManyToOne (fetch=FetchType.EAGER)
 	@JoinColumn (name="MANAGER_ID", referencedColumnName="ID")
 	public Collection<Employee> getManager() {
 		return manager;
