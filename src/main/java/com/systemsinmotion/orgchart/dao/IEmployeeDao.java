@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 public interface IEmployeeDao {
@@ -111,6 +112,7 @@ public interface IEmployeeDao {
 	 *
 	 */
 	public abstract List<Employee> findByManager(Employee manager);
+	
 	/**
 	 * Returns all <code>Employee</code> instances having a given <code>Job_Title_Id</code>
 	 * value.
@@ -133,8 +135,9 @@ public interface IEmployeeDao {
 	 * @return All <code>Employee</code> instances with the corresponding department ID.
 	 *			  Null if not found.
 	 */
-	public abstract List<Employee> findByDepartment(Integer departmentId);
+	public abstract List<Employee> findByDepartment(int departmentId);
 	
+	public abstract List<Employee> findByDepartment(Department department);
 	/**
 	 * Saves a give <code>Employee</code instance and returns its generated
 	 * id.

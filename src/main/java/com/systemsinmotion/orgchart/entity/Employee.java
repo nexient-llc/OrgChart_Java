@@ -63,18 +63,18 @@ public class Employee {
 	}
 	
 	@Column (name="JOB_TITLE_ID")
-	public int getJobTitle() {
-		return jobTitle.getId();
+	public JobTitle getJobTitle() {
+		return jobTitle;
 	}
 
 	@Column (name="DEPARTMENT_ID")
-	public int getDepartment() {
-		return department.getId();
+	public Department getDepartment() {
+		return department;
 	}
 
 	@Column (name = "MANAGER_ID")
-	public int getManager() {
-		return manager.getId();
+	public Employee getManager() {
+		return manager;
 	}
 	
 	public void setId(int id) {
