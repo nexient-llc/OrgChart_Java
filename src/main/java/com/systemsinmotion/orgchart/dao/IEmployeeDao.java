@@ -117,6 +117,18 @@ public interface IEmployeeDao {
 	 * Returns all <code>Employee</code> instances having a given <code>Job_Title_Id</code>
 	 * value.
 	 * 
+	 * @param id
+	 *            Contains value of a Job Title's id which <code>Employee</code> instances are associated with
+	 *            
+	 * @return All <code>Employee</code> instances with the corresponding Job_Title_Id.
+	 *			  Null if not found.
+	 */
+	public abstract List<Employee> findByJobTitle(int jobTitleId);
+	
+	/**
+	 * Returns all <code>Employee</code> instances having a given <code>Job_Title_Id</code>
+	 * value.
+	 * 
 	 * @param employee
 	 *            Contains value of a Job Title's id which <code>Employee</code> instances are associated with
 	 *            
@@ -124,7 +136,7 @@ public interface IEmployeeDao {
 	 *			  Null if not found.
 	 */
 	public abstract List<Employee> findByJobTitle(Employee employee);
-	
+
 	/**
 	 * Returns all <code>Employee</code> instances having a given <code>Department_id</code>
 	 * value.

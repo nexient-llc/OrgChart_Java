@@ -16,10 +16,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
@@ -27,17 +29,23 @@ import com.systemsinmotion.orgchart.entity.Employee;
 @Transactional
 public class EmployeeDaoTest {
 
+	public static final String SOME_NEW_EMAIL = "new@email.com";
+	
 	private static final String NOT_PRESENT_VALUE = "XXX";
 	private static final Integer NOT_PRESENT_ID = -666;
 	private Department department;
 	private Employee employee;
 	private Employee manager;
+	private JobTitle jobTitle;
 
 	@Autowired
 	IEmployeeDao employeeDao;
 
 	@Autowired
 	IDepartmentDao departmentDao;
+	
+	@Autowired
+	IJobTitleDao jobTitleDao;
 
 	@After
 	public void after() {
@@ -53,17 +61,51 @@ public class EmployeeDaoTest {
 	public void before() throws Exception {
 		this.department = Entities.department();
 		this.departmentDao.save(this.department);
+		
+		this.jobTitle = Entities.jobTitle();
+		this.jobTitleDao.save(this.jobTitle);
 
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
+		this.employee.setJobTitle(this.jobTitle);
 		this.employee.setId(this.employeeDao.save(this.employee));
 	}
 
+	@Test
+	public void created() throws Exception {
+		assertNotNull(this.employee);
+		assertNotNull(this.employee.getId());
+		assertNotNull(this.department);
+		assertNotNull(this.department.getId());
+		assertNotNull(this.jobTitle);
+		assertNotNull(this.jobTitle.getId());
+	}
+	
 	private void createManager() {
 		this.manager = Entities.manager();
 		this.employeeDao.save(this.manager);
 	}
-
+	
+	@Test
+	private void createdManager(){
+		assertNotNull(this.manager);
+		assertNotNull(this.manager.getId());
+	}
+	
+	@Test(expected=DataIntegrityViolationException.class)
+	private void duplicateEmail() throws Exception{
+		Employee empl = Entities.employee();
+		empl.setEmail(this.employee.getEmail());
+		this.employeeDao.save(empl);
+	}
+	
+	@Test(expected=DataIntegrityViolationException.class)
+	private void duplicateSkype() throws Exception{
+		Employee empl = Entities.employee();
+		empl.setSkype_name(this.employee.getSkype_name());
+		this.employeeDao.save(empl);
+	}
+	
 	@Test
 	public void findAll() throws Exception {
 		List<Employee> emps = this.employeeDao.findAll();
@@ -85,6 +127,19 @@ public class EmployeeDaoTest {
 	public void findByDepartment_null() throws Exception {
 		List<Employee> emps = this.employeeDao.findByDepartment(null);
 		assertNull("Expecting a null list of Employees but was non-null", emps);
+	}
+	
+	@Test
+	public void findByJobTitleId() throws Exception {
+		List<Employee> emps = this.employeeDao.findByJobTitle(this.employee.getJobTitle());
+		assertNotNull(emps);
+		assertEquals(1, emps.size()); //should be only one since only one employee record
+		//TODO write find by job title id
+	}
+	
+	@Test
+	public void findByJobTitle_null() throws Exception {
+		//TODO write find by job title with id of null
 	}
 
 	@Test
@@ -117,6 +172,12 @@ public class EmployeeDaoTest {
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
 
+	@Test
+	public void findById_Empty() throws Exception {
+		Employee empl = this.employeeDao.findById(NOT_PRESENT_ID);
+		assertNull(empl);
+	}
+	
 	@Test
 	public void findById_null() throws Exception {
 		Employee emp = this.employeeDao.findById(null);
@@ -155,5 +216,17 @@ public class EmployeeDaoTest {
 	public void findByManagerId_null() throws Exception {
 		List<Employee> emps = this.employeeDao.findByManager(null);
 		assertNull(emps);
+	}
+	
+	@Test
+	public void update() throws Exception {
+		Employee empl = this.employeeDao.findByEmail(this.employee.getEmail());
+		empl.setEmail(SOME_NEW_EMAIL);
+		this.employeeDao.update(empl);
+		
+		empl = null;
+		empl = this.employeeDao.findByEmail(SOME_NEW_EMAIL);
+		assertNotNull(empl);
+		assertEquals(SOME_NEW_EMAIL, empl.getEmail());
 	}
 }

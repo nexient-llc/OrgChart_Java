@@ -83,7 +83,7 @@ public class DepartmentDaoTest {
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
 	}
-
+	
 	@Test
 	public void findById_notPresent() throws Exception {
 		Department dept = this.departmentDao.findById(NOT_PRESENT_ID);
@@ -126,7 +126,6 @@ public class DepartmentDaoTest {
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
 	}
-
 	@Test
 	public void update() throws Exception {
 		Department dept = this.departmentDao.findByName(this.department.getName());

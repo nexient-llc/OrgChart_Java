@@ -1,17 +1,14 @@
 package com.systemsinmotion.orgchart.entity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -47,12 +44,12 @@ public class Employee {
 		return last_name;
 	}
 	
-	@Column (name = "EMAIL", unique = true, length = 100)
+	@Column (name = "EMAIL", unique = true, nullable = false, length = 100)
 	public String getEmail() {
 		return email;
 	}
 	
-	@Column (name = "SKYPE_NAME", unique = true, length = 100)
+	@Column (name = "SKYPE_NAME", unique = true, nullable = false, length = 100)
 	public String getSkype_name() {
 		return skype_name;
 	}
@@ -62,17 +59,20 @@ public class Employee {
 		return is_manager;
 	}
 	
-	@Column (name="JOB_TITLE_ID")
+	@ManyToMany
+	@JoinColumn (name = "JOB_TITLE_ID", referencedColumnName = "ID", nullable = false)
 	public JobTitle getJobTitle() {
 		return jobTitle;
 	}
 
-	@Column (name="DEPARTMENT_ID")
+	@ManyToOne
+	@JoinColumn (name="DEPARTMENT_ID", referencedColumnName = "ID", nullable = false)
 	public Department getDepartment() {
 		return department;
 	}
 
-	@Column (name = "MANAGER_ID")
+	@ManyToOne
+	@JoinColumn (name = "MANAGER_ID", referencedColumnName = "ID")
 	public Employee getManager() {
 		return manager;
 	}
