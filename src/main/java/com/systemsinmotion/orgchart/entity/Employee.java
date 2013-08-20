@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table (name = "EMPLOYEE")
 public class Employee {
 
-	private int id;
+	private Integer id;
 	private String first_name;
 	private String last_name;
 	private String email;
@@ -30,7 +30,7 @@ public class Employee {
 	@Id
 	@Column (name = "ID", nullable = false, unique = true)
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
