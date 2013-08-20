@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +16,6 @@ public class JobTitle {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	@OneToMany (mappedBy="job_title_id")
 	@Column (name = "ID", nullable = false, unique = true)
 	public Integer getId() {
 		return id;

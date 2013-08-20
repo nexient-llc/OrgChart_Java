@@ -32,5 +32,6 @@
 	</bean>
 		
 	<bean id="department" class="com.systemsinmotion.orgchart.entity.Department" />
-
+	<bean id="employee" class="com.systems.inmotion.orgchart.entity.Employee" />
+	<bean id="jobTitle" class="com.systemsinmotion.orgchart.entity.JobTitle" />
 </beans>
