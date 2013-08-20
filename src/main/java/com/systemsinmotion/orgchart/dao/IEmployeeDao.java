@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface IEmployeeDao {
 	
@@ -135,7 +136,7 @@ public interface IEmployeeDao {
 	 * @return All <code>Employee</code> instances with the corresponding Job_Title_Id.
 	 *			  Null if not found.
 	 */
-	public abstract List<Employee> findByJobTitle(Employee employee);
+	public abstract List<Employee> findByJobTitle(JobTitle jobTitle);
 
 	/**
 	 * Returns all <code>Employee</code> instances having a given <code>Department_id</code>

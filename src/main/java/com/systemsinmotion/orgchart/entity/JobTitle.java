@@ -12,14 +12,14 @@ import javax.persistence.Table;
 @Table (name = "JOB_TITLE")
 public class JobTitle {
 	
-	private int id;
+	private Integer id;
 	private String name;
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	@OneToMany (mappedBy="job_title_id")
 	@Column (name = "ID", nullable = false, unique = true)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	

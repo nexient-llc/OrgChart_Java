@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Repository("employeeDao")
 public class EmployeeDao implements IEmployeeDao {
@@ -180,33 +181,62 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
-	public List<Employee> findByJobTitle(Employee employee) {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public List<Employee> findByJobTitle(JobTitle jobTitle) {
+		List<Employee> empls = Collections.EMPTY_LIST;
+
+		if(jobTitle != null && jobTitle.getId() != null){
+			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+			criteria.add(Restrictions.eq("jobTitle.id", jobTitle.getId()));
+
+			LOG.debug("finding all Employees with the Job Title: " + jobTitle.getName());
+			empls = this.hibernateTemplate.findByCriteria(criteria);
+		}
+		return empls;
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByDepartment(int departmentId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Employee> empls = Collections.EMPTY_LIST;
+
+		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+		criteria.add(Restrictions.eq("department.id", departmentId));
+
+		LOG.debug("finding all Employees with the Department ID of: " + departmentId);
+		empls = this.hibernateTemplate.findByCriteria(criteria);
+			
+		return empls;
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findByDepartment(Department department) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Employee> empls = Collections.EMPTY_LIST;
+
+		if(department != null && department.getId() != null){
+			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+			criteria.add(Restrictions.eq("department.id", department.getId()));
+
+			LOG.debug("finding all Employees with the Department Title: " + department.getName());
+			empls = this.hibernateTemplate.findByCriteria(criteria);
+		}
+		return empls;
 	}
 
 	@Override
 	public int save(Employee employee) {
-		// TODO Auto-generated method stub
-		return 0;
+		LOG.debug("Saving Employee instance with email: " + employee.getEmail());
+		return (Integer) this.hibernateTemplate.save(employee);
 	}
 
 	@Override
 	public void update(Employee employee) {
 		// TODO Auto-generated method stub
-
+		LOG.debug("updating Department instance with information: \n" +
+				  "Name: " + employee.getFirstName() + " " + employee.getLastName() +
+				  "\nEmail: " + employee.getEmail() + "\nSkype: " + employee.getSkype_name());
+		this.hibernateTemplate.update(employee);
 	}
 
 }
