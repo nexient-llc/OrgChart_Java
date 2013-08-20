@@ -232,7 +232,6 @@ public class EmployeeDao implements IEmployeeDao {
 
 	@Override
 	public void update(Employee employee) {
-		// TODO Auto-generated method stub
 		LOG.debug("updating Department instance with information: \n" +
 				  "Name: " + employee.getFirstName() + " " + employee.getLastName() +
 				  "\nEmail: " + employee.getEmail() + "\nSkype: " + employee.getSkype_name());

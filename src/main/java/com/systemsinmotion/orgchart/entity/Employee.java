@@ -81,11 +81,11 @@ public class Employee {
 		this.id = id;
 	}
 	
-	public void setFirst_name(String first_name) {
+	public void setFirstName(String first_name) {
 		this.first_name = first_name;
 	}
 	
-	public void setLast_name(String last_name) {
+	public void setLastName(String last_name) {
 		this.last_name = last_name;
 	}
 	
@@ -93,11 +93,11 @@ public class Employee {
 		this.email = email;
 	}
 	
-	public void setSkype_name(String skype_name) {
+	public void setSkypeName(String skype_name) {
 		this.skype_name = skype_name;
 	}
 	
-	public void setIs_manager(boolean is_manager) {
+	public void setIsManager(boolean is_manager) {
 		this.is_manager = is_manager;
 	}
 	

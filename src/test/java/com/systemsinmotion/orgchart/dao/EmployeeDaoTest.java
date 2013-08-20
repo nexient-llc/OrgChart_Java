@@ -81,28 +81,28 @@ public class EmployeeDaoTest {
 		assertNotNull(this.jobTitle.getId());
 	}
 	
-	private void createManager() {
+	public void createManager() {
 		this.manager = Entities.manager();
 		this.employeeDao.save(this.manager);
 	}
 	
 	@Test
-	private void createdManager(){
+	public void createdManager(){
 		assertNotNull(this.manager);
 		assertNotNull(this.manager.getId());
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
-	private void duplicateEmail() throws Exception{
+	public void duplicateEmail() throws Exception{
 		Employee empl = Entities.employee();
 		empl.setEmail(this.employee.getEmail());
 		this.employeeDao.save(empl);
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
-	private void duplicateSkype() throws Exception{
+	public void duplicateSkype() throws Exception{
 		Employee empl = Entities.employee();
-		empl.setSkype_name(this.employee.getSkype_name());
+		empl.setSkypeName(this.employee.getSkype_name());
 		this.employeeDao.save(empl);
 	}
 	
@@ -134,7 +134,6 @@ public class EmployeeDaoTest {
 		List<Employee> emps = this.employeeDao.findByJobTitle(this.employee.getJobTitle());
 		assertNotNull(emps);
 		assertEquals(1, emps.size()); //should be only one since only one employee record
-		//TODO write find by job title id
 	}
 	
 	@Test
