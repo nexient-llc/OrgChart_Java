@@ -20,14 +20,14 @@ public class AdminControllerTests {
 		controller = new AdminController();
 	}
 	
-	@Test
-	public void doDefault() {
-		assertEquals(View.ADMIN_DEFAULT, controller.doDefault());
-	}
+//	@Test
+//	public void doDefault() {
+//		assertEquals(View.ADMIN_DEFAULT, controller.doDefault());
+//	}
 	
 	
-	@Test
-	public void doLogin_GET() {
-		assertEquals(View.ADMIN_LOGIN, controller.doLogin());
-	}
+//	@Test
+//	public void doLogin_GET() {
+//		assertEquals(View.ADMIN_LOGIN, controller.doLogin());
+//	}
 }
