@@ -41,6 +41,10 @@ public class Employee implements Serializable{
 	@NotEmpty
 	private Department department;
 	
+	@NotNull
+	@NotEmpty
+	private JobTitle jobTitle;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
@@ -52,7 +56,7 @@ public class Employee implements Serializable{
 		this.id = employeeId;
 	}
 	
-	@Column(name = "FIRST_NAME")
+	@Column(name = "FIRST_NAME", nullable = false)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -60,7 +64,7 @@ public class Employee implements Serializable{
 		this.firstName = firstName;
 	}
 	
-	@Column(name = "LAST_NAME")
+	@Column(name = "LAST_NAME", nullable = false)
 	public String getLastName() {
 		return lastName;
 	}
@@ -76,7 +80,7 @@ public class Employee implements Serializable{
 		this.middleInitial = middleInitial;
 	}
 	
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL", unique = true, nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -84,7 +88,7 @@ public class Employee implements Serializable{
 		this.email = email;
 	}
 	
-	@Column(name = "SKYPE_NAME")
+	@Column(name = "SKYPE_NAME", unique = true, nullable = false)
 	public String getSkypeName() {
 		return skypeName;
 	}
@@ -92,11 +96,19 @@ public class Employee implements Serializable{
 		this.skypeName = skypeName;
 	}
 	
-	@Column(name = "DEPARTMENT")
+	@Column(name = "DEPARTMENT", nullable = false)
 	public Department getDepartment() {
 		return department;
 	}
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+	
+	@Column(name = "JOB_TITLE", nullable = false)
+	public JobTitle getJobTitle() {
+		return jobTitle;
+	}
+	public void setJobTitle(JobTitle jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 }
