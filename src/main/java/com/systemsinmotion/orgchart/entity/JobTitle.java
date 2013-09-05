@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "JOB_TITLE")
@@ -15,6 +18,8 @@ public class JobTitle implements Serializable {
 	
 	private static final long serialVersionUID = -1900310580694044993L;
 	
+	@NotNull
+	@NotEmpty
 	private String name;
 	private Integer id;
 	
@@ -29,6 +34,7 @@ public class JobTitle implements Serializable {
 		this.id = jobTitleId;
 	}
 	
+	@Column(name = "NAME", unique = true, nullable = false)
 	public String getName() {
 		return this.name;
 	}
