@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Employee implements Serializable{
@@ -14,11 +17,26 @@ public class Employee implements Serializable{
 	private static final long serialVersionUID = 3450281497951703763L;
 	
 	private Integer id;
+	
+	@NotNull
+	@NotEmpty
 	private String firstName;
+	private char middleInitial;
+	
+	@NotNull
+	@NotEmpty
 	private String lastName;
+	
+	@NotNull
+	@NotEmpty
 	private String email;
+	
+	@NotNull
+	@NotEmpty
 	private String skypeName;
-	private boolean isManager;
+	
+	@NotNull
+	@NotEmpty
 	private Department department;
 	
 	@Id
@@ -48,6 +66,14 @@ public class Employee implements Serializable{
 		this.lastName = lastName;
 	}
 	
+	@Column(name = "MIDDLE_INITIAL")
+	public char getMiddleInitial() {
+		return middleInitial;
+	}
+	public void setMiddleInitial(char middleInitial) {
+		this.middleInitial = middleInitial;
+	}
+	
 	@Column(name = "EMAIL")
 	public String getEmail() {
 		return email;
@@ -62,14 +88,6 @@ public class Employee implements Serializable{
 	}
 	public void setSkypeName(String skypeName) {
 		this.skypeName = skypeName;
-	}
-	
-	@Column(name = "IS_MANAGER")
-	public boolean getIsManager() {
-		return isManager;
-	}
-	public void setIsManager(boolean isManager) {
-		this.isManager = isManager;
 	}
 	
 	@Column(name = "DEPARTMENT")

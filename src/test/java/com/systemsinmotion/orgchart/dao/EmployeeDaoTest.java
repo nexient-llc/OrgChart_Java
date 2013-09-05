@@ -31,7 +31,6 @@ public class EmployeeDaoTest {
 	private static final Integer NOT_PRESENT_ID = -666;
 	private Department department;
 	private Employee employee;
-	private Employee manager;
 
 //	@Autowired
 //	IEmployeeDao employeeDao;
@@ -43,10 +42,6 @@ public class EmployeeDaoTest {
 //	public void after() {
 //		this.employeeDao.delete(this.employee);
 //		this.departmentDao.delete(this.department);
-//
-//		if (null != this.manager) {
-//			this.employeeDao.delete(this.manager);
-//		}
 //	}
 
 //	@Before
@@ -57,11 +52,6 @@ public class EmployeeDaoTest {
 //		this.employee = Entities.employee();
 //		this.employee.setDepartment(this.department);
 //		this.employee.setId(this.employeeDao.save(this.employee));
-//	}
-
-//	private void createManager() {
-//		this.manager = Entities.manager();
-//		this.employeeDao.save(this.manager);
 //	}
 
 	@Test
@@ -127,33 +117,5 @@ public class EmployeeDaoTest {
 //	public void findById_XXX() throws Exception {
 //		Employee emp = this.employeeDao.findById(NOT_PRESENT_ID);
 //		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
-
-//	@Test
-//	public void findByManagerId() throws Exception {
-//		createManager();
-//
-//		this.employee.setManager(this.manager);
-//		this.employeeDao.update(this.employee);
-//
-//		List<Employee> emps = this.employeeDao.findByManager(this.employee.getManager());
-//		assertNotNull("Expecting a non-null Employee but was null", emps);
-//		assertTrue("Expecting at least one employee found for manager but none was found", emps.size() > 0);
-//		Employee emp = emps.get(0);
-//		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.getLastName());
-//		assertEquals(this.employee.getEmail(), emp.getEmail());
-//	}
-
-//	@Test
-//	public void findByManagerId_empty() throws Exception {
-//		List<Employee> emps = this.employeeDao.findByManager(Entities.employee());
-//		assertNull(emps);
-//	}
-
-//	@Test
-//	public void findByManagerId_null() throws Exception {
-//		List<Employee> emps = this.employeeDao.findByManager(null);
-//		assertNull(emps);
 //	}
 }
