@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "JOB_TITLE")
 public class JobTitle implements Serializable {
 	
 	private static final long serialVersionUID = -1900310580694044993L;
