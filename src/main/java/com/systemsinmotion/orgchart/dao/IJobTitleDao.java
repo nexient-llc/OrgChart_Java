@@ -1,5 +1,5 @@
 package com.systemsinmotion.orgchart.dao;
 
-public class IJobTitleDao {
+public interface IJobTitleDao {
 
 }
