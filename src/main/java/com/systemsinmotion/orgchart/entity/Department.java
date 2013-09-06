@@ -34,6 +34,16 @@ public class Department implements java.io.Serializable {
 	@Size(min = 1, max = 45)
 	private String name;
 	private Set<Department> departments = new HashSet<Department>(0);
+	private Set<Employee> employees = new HashSet<Employee>(0);
+	
+	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
 	public Set<Department> getDepartments() {
