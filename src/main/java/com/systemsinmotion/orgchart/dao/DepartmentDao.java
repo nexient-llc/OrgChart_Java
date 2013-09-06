@@ -90,7 +90,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 			@SuppressWarnings("unchecked")
 			List<Department> departments = this.hibernateTemplate.findByCriteria(criteria);
 
-			if (null != departments && !departments.isEmpty()) {
+			if (departments != null && !departments.isEmpty()) {
 				dept = departments.get(0);
 			}
 		}
