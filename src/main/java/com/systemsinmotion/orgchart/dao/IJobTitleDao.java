@@ -1,5 +1,50 @@
 package com.systemsinmotion.orgchart.dao;
 
-public interface IJobTitleDao {
+import java.util.List;
 
+import com.systemsinmotion.orgchart.entity.JobTitle;
+
+public interface IJobTitleDao {
+	
+	/**
+	 * Deletes given instance of JobTitle from database
+	 * 
+	 * @param jobTitle
+	 * 			JobTitle instance to delete
+	 */
+	public abstract void delete(JobTitle jobTitle);
+	
+	/**
+	 * Returns all JobTitle instances as a List
+	 * 
+	 * @return List of JobTitles
+	 */
+	public abstract List<JobTitle> findAll();
+	
+	/**
+	 * Returns instance of JobTitle with a given id
+	 * 
+	 * @param id
+	 * 			Id of JobTitle to find
+	 * @return Instance of JobTitle. Null if not found.
+	 */
+	public abstract JobTitle findById(Integer id);
+	
+	/**
+	 * Saves a given JobTitle instance and returns its generated id
+	 * 
+	 * @param jobTitle
+	 * 			The JobTitle instance to be saved
+	 * @return Generated id for instance of JobTitle
+	 */
+	public abstract Integer save(JobTitle jobTitle);
+	
+	/**
+	 * Updates a given JobTitle instance with new values
+	 * 
+	 * @param jobTitle
+	 * 			JobTitle instance to be updated
+	 */
+	public abstract void update(JobTitle jobTitle);
+	
 }
