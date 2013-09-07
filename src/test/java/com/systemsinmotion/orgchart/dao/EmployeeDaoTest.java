@@ -32,90 +32,91 @@ public class EmployeeDaoTest {
 	private Department department;
 	private Employee employee;
 
-//	@Autowired
-//	IEmployeeDao employeeDao;
-//
-//	@Autowired
-//	IDepartmentDao departmentDao;
+	@Autowired
+	IEmployeeDao employeeDao;
 
-//	@After
-//	public void after() {
-//		this.employeeDao.delete(this.employee);
-//		this.departmentDao.delete(this.department);
-//	}
+	@Autowired
+	IDepartmentDao departmentDao;
 
-//	@Before
-//	public void before() throws Exception {
-//		this.department = Entities.department();
-//		this.departmentDao.save(this.department);
-//
-//		this.employee = Entities.employee();
-//		this.employee.setDepartment(this.department);
-//		this.employee.setId(this.employeeDao.save(this.employee));
-//	}
+	@After
+	public void after() {
+		this.employeeDao.delete(this.employee);
+		this.departmentDao.delete(this.department);
+	}
+
+	@Before
+	public void before() throws Exception {
+		this.department = Entities.department();
+		this.departmentDao.save(this.department);
+
+		this.employee = Entities.employee();
+		this.employee.setDepartment(this.department);
+		this.employee.setId(this.employeeDao.save(this.employee));
+	}
 
 	@Test
 	public void findAll() throws Exception {
-//		List<Employee> emps = this.employeeDao.findAll();
-//		assertNotNull(emps);
-//		assertTrue(0 < emps.size());
+		List<Employee> emps = this.employeeDao.findAll();
+		assertNotNull(emps);
+		assertTrue(0 < emps.size());
 	}
 
-//	@Test
-//	public void findByDepartment() throws Exception {
-//		List<Employee> emps = this.employeeDao.findByDepartment(this.employee.getDepartment());
-//		assertNotNull("Expecting a non-null list of Employees but was null", emps);
-//		Employee emp = emps.get(0);
-//		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.getLastName());
-//		assertEquals(this.employee.getEmail(), emp.getEmail());
-//	}
+	@Test
+	public void findByDepartment() throws Exception {
+		List<Employee> emps = this.employeeDao.findByDepartment(this.employee.getDepartment());
+		assertNotNull("Expecting a non-null list of Employees but was null", emps);
+		Employee emp = emps.get(0);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
 
-//	@Test
-//	public void findByDepartment_null() throws Exception {
-//		List<Employee> emps = this.employeeDao.findByDepartment(null);
-//		assertNull("Expecting a null list of Employees but was non-null", emps);
-//	}
+	@Test
+	public void findByDepartment_null() throws Exception {
+		List<Employee> emps = this.employeeDao.findByDepartment(null);
+		assertNotNull(emps);
+		assertEquals(0, emps.size());
+	}
 
-//	@Test
-//	public void findByEmail() throws Exception {
-//		Employee emp = this.employeeDao.findByEmail(this.employee.getEmail());
-//		assertNotNull("Expecting a non-null Employee but was null", emp);
-//		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.getLastName());
-//		assertEquals(this.employee.getEmail(), emp.getEmail());
-//	}
+	@Test
+	public void findByEmail() throws Exception {
+		Employee emp = this.employeeDao.findByEmail(this.employee.getEmail());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
 
-//	@Test
-//	public void findByEmail_null() throws Exception {
-//		Employee emp = this.employeeDao.findByEmail(null);
-//		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
+	@Test
+	public void findByEmail_null() throws Exception {
+		Employee emp = this.employeeDao.findByEmail(null);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
 
-//	@Test
-//	public void findByEmailTest_XXX() throws Exception {
-//		Employee emp = this.employeeDao.findByEmail(NOT_PRESENT_VALUE);
-//		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
+	@Test
+	public void findByEmailTest_XXX() throws Exception {
+		Employee emp = this.employeeDao.findByEmail(NOT_PRESENT_VALUE);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
 
-//	@Test
-//	public void findById() throws Exception {
-//		Employee emp = this.employeeDao.findById(this.employee.getId());
-//		assertNotNull("Expecting a non-null Employee but was null", emp);
-//		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.getLastName());
-//		assertEquals(this.employee.getEmail(), emp.getEmail());
-//	}
+	@Test
+	public void findById() throws Exception {
+		Employee emp = this.employeeDao.findById(this.employee.getId());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
 
-//	@Test
-//	public void findById_null() throws Exception {
-//		Employee emp = this.employeeDao.findById(null);
-//		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
+	@Test
+	public void findById_null() throws Exception {
+		Employee emp = this.employeeDao.findById(null);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
 
-//	@Test
-//	public void findById_XXX() throws Exception {
-//		Employee emp = this.employeeDao.findById(NOT_PRESENT_ID);
-//		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
+	@Test
+	public void findById_XXX() throws Exception {
+		Employee emp = this.employeeDao.findById(NOT_PRESENT_ID);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
 }
