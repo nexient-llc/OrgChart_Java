@@ -122,7 +122,7 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findByParentDeptId_null() throws Exception {
-		List<Department> depts = this.departmentDao.findByParentDepartment(new Department());
+		List<Department> depts = this.departmentDao.findByParentDepartment(null);
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
 	}
