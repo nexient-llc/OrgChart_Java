@@ -25,7 +25,7 @@ public class Employee implements Serializable{
 	@NotNull
 	@NotEmpty
 	private String firstName;
-	private char middleInitial;
+	private String middleInitial;
 	
 	@NotNull
 	@NotEmpty
@@ -39,12 +39,8 @@ public class Employee implements Serializable{
 	@NotEmpty
 	private String skypeName;
 	
-	@NotNull
-	@NotEmpty
 	private Department department;
 	
-	@NotNull
-	@NotEmpty
 	private JobTitle jobTitle;
 	
 	@Id
@@ -75,10 +71,10 @@ public class Employee implements Serializable{
 	}
 	
 	@Column(name = "MIDDLE_INITIAL")
-	public char getMiddleInitial() {
+	public String getMiddleInitial() {
 		return middleInitial;
 	}
-	public void setMiddleInitial(char middleInitial) {
+	public void setMiddleInitial(String middleInitial) {
 		this.middleInitial = middleInitial;
 	}
 	
