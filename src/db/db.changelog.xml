@@ -11,7 +11,6 @@
 				<constraints primaryKey="true" nullable="false" />
 			</column>
 			<column name="parent_department_id" type="int" />
-			<column name="manager_id" type="int" />
 			<column name="name" type="varchar(50)">
 				<constraints nullable="false" />
 			</column>
@@ -53,6 +52,7 @@
 			<column name="first_name" type="varchar(20)">
 				<constraints nullable="false" />
 			</column>
+			<column name="middle_initial" type="varchar(1)" />
 			<column name="last_name" type="varchar(50)">
 				<constraints nullable="false" />
 			</column>
@@ -62,10 +62,8 @@
 			<column name="skype_name" type="varchar(100)">
 				<constraints unique="true" uniqueConstraintName="unq_employee_skype_name" />
 			</column>
-			<column name="is_manager" type="boolean" defaultValue="false" />
 			<column name="job_title_id" type="int" />
 			<column name="department_id" type="int" />
-			<column name="manager_id" type="int" />
 		</createTable>
 	</changeSet>
 
@@ -79,12 +77,6 @@
 		<addForeignKeyConstraint constraintName="fk_employee_department"
 			baseTableName="employee" baseColumnNames="department_id"
 			referencedTableName="department" referencedColumnNames="id" />
-	</changeSet>
-
-	<changeSet id="9" author="kskronek">
-		<addForeignKeyConstraint constraintName="fk_employee_manager"
-			baseTableName="employee" baseColumnNames="manager_id"
-			referencedTableName="employee" referencedColumnNames="id" />
 	</changeSet>
 	
 	<changeSet id="10" author="sbyks">
