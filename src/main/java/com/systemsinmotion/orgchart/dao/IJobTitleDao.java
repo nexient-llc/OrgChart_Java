@@ -31,6 +31,15 @@ public interface IJobTitleDao {
 	public abstract JobTitle findById(Integer id);
 	
 	/**
+	 * Returns instance of JobTitle with a given name
+	 * 
+	 * @param name
+	 * 			Name of JobTitle instance to find
+	 * @return Instance of JobTitle. Null if void.
+	 */
+	public abstract JobTitle findByName(String name);
+	
+	/**
 	 * Saves a given JobTitle instance and returns its generated id
 	 * 
 	 * @param jobTitle
