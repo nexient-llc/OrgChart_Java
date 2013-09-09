@@ -15,7 +15,6 @@ public class DepartmentService {
 	IDepartmentDao departmentDAO;
 
 	public Department findDepartmentByID(Integer departmentId) {
-
 		return this.departmentDAO.findById(departmentId);
 	}
 
@@ -25,15 +24,26 @@ public class DepartmentService {
 
 	public List<Department> findAllDepartments() {
 		return this.departmentDAO.findAll();
-
 	}
 
 	public Integer storeDepartment(Department department) {
+		validateDepartment(department);
 		return this.departmentDAO.save(department);
 	}
 
 	public void removeDepartment(Department department) {
 		this.departmentDAO.delete(department);
+	}
+	
+	private void validateDepartment(Department department) {
+		Department parentDepartment = this.findDepartmentByID(department.getParentDepartment().getId());
+		
+		//Make sure the department is not its own parent
+		if (parentDepartment != null && parentDepartment.getId() == department.getId()) {
+			parentDepartment = null;
+		}
+		
+		department.setParentDepartment(parentDepartment);
 	}
 
 }
