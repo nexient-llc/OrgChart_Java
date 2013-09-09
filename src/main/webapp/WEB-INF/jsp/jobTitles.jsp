@@ -10,7 +10,24 @@
   </tr>
   <c:forEach items="${jobs}" var="job">
     <tr>
-      <td>${job.first_name}</td>
+      <!-- May be job.description -->
+      <td>${job.name}</td>
     </tr>
   </c:forEach>
 </table>
+
+<div id="addBtn-container">
+  <button type="button" id="addBtn" style="width: 45px;">Add</button>
+</div>
+
+<div id="addEntity" style="display:none">
+  <fieldset>
+    <legend>Add Job Title</legend>
+    <form name="newJob" action="jobs" method="post">
+      <div>
+        <label>Job Title Name:</label><input type="text" name="name"/>
+        <button type="submit">Save</button>
+      </div>
+    </form>
+  </fieldset>
+</div>

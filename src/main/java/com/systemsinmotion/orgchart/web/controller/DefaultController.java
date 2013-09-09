@@ -49,7 +49,9 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
 	public String doDepartments_POST(Department department, Integer number, Model model){
-		//TODO
+		departmentService.storeDepartment(department);
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 	
@@ -62,7 +64,9 @@ public class DefaultController {
 	
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
 	public String doEmployees_POST(Employee employee, Integer number, Model model){
-		//TODO
+		employeeService.storeEmployee(employee);
+		List<Employee> employees = employeeService.findAllEmployees();
+		model.addAttribute("emps", employees);
 		return View.EMPLOYEES;
 	}
 	
@@ -75,7 +79,9 @@ public class DefaultController {
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.POST)
 	public String doJobTitles_POST(JobTitle jobTitle, Integer number, Model model){
-		//TODO
+		jobTitleService.storeJobTitle(jobTitle);
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobs", jobTitles);
 		return View.JOB_TITLES;
 	}
 	
