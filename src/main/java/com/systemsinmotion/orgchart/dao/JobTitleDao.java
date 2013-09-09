@@ -32,7 +32,7 @@ public class JobTitleDao implements com.systemsinmotion.orgchart.dao.IJobTitleDa
 	@SuppressWarnings("unchecked")
 	public List<JobTitle> findAll() {
 		LOG.debug("finding all Job Title instances");
-		return this.hibernateTemplate.find("from " + JobTitle.class.getName() + "order by DESCRIPTION");
+		return this.hibernateTemplate.find("from " + JobTitle.class.getName() + " order by DESCRIPTION");
 	}
 
 	@Override

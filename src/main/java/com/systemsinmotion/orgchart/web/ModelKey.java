@@ -5,6 +5,6 @@ public class ModelKey {
 	public static final String DEPARTMENTS = "depts";
 	public static final String JOB_TITLE = "job";
 	public static final String JOB_TITLES = "jobs";
-	public static final String EMPLOYEE = "empl";
-	public static final String EMPLOYEES = "empls";
+	public static final String EMPLOYEE = "emp";
+	public static final String EMPLOYEES = "emps";
 }
