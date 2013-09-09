@@ -47,7 +47,7 @@ public class Department implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "NAME", nullable = false, length = 50)
+	@Column(name = "NAME",  nullable = false, unique = true, length = 50)
 	public String getName() {
 		return this.name;
 	}

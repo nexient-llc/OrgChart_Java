@@ -18,7 +18,7 @@ import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Repository("employeeDao")
-public class EmployeeDao implements IEmployeeDao {
+public class EmployeeDao implements com.systemsinmotion.orgchart.dao.IEmployeeDao {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EmployeeDao.class);
 
@@ -35,7 +35,7 @@ public class EmployeeDao implements IEmployeeDao {
 	@SuppressWarnings("unchecked")
 	public List<Employee> findAll() {
 		LOG.debug("finding all Employee instances");
-		return this.hibernateTemplate.find("from " + Employee.class.getName() + " order by name");
+		return this.hibernateTemplate.find("from " + Employee.class.getName() + " order by FIRST_NAME");
 	}
 
 	@Override
@@ -138,27 +138,12 @@ public class EmployeeDao implements IEmployeeDao {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Employee> findByManager(int managerId) {
-		LOG.debug("getting Employee instances with a manager with the id of: " + managerId);
-		List<Employee> empls = Collections.EMPTY_LIST;
-
-		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
-		criteria.add(Restrictions.eq("manager_Id", managerId));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
-		empls = this.hibernateTemplate.findByCriteria(criteria);
-
-		return empls;
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
 	public List<Employee> findByManager(Employee manager) {
 		List<Employee> empls = Collections.EMPTY_LIST;
 
 		if(manager != null && manager.getId() != null){
 			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
-			criteria.add(Restrictions.eq("manager_id", manager));
+			criteria.add(Restrictions.eq("manager_id", manager.getId()));
 
 			LOG.debug("finding all Employees with the Manager: " + manager.getFirstName() + " " + manager.getLastName());
 			empls = this.hibernateTemplate.findByCriteria(criteria);
@@ -234,7 +219,7 @@ public class EmployeeDao implements IEmployeeDao {
 	public void update(Employee employee) {
 		LOG.debug("updating Department instance with information: \n" +
 				  "Name: " + employee.getFirstName() + " " + employee.getLastName() +
-				  "\nEmail: " + employee.getEmail() + "\nSkype: " + employee.getSkype_name());
+				  "\nEmail: " + employee.getEmail() + "\nSkype: " + employee.getSkypeName());
 		this.hibernateTemplate.update(employee);
 	}
 

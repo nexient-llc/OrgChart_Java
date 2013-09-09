@@ -40,12 +40,13 @@ public class EmployeeDaoTest {
 
 	@Autowired
 	IEmployeeDao employeeDao;
-
+	
 	@Autowired
 	IDepartmentDao departmentDao;
 	
 	@Autowired
 	IJobTitleDao jobTitleDao;
+	
 
 	@After
 	public void after() {
@@ -88,6 +89,8 @@ public class EmployeeDaoTest {
 	
 	@Test
 	public void createdManager(){
+		createManager();
+		
 		assertNotNull(this.manager);
 		assertNotNull(this.manager.getId());
 	}
@@ -102,7 +105,7 @@ public class EmployeeDaoTest {
 	@Test(expected=DataIntegrityViolationException.class)
 	public void duplicateSkype() throws Exception{
 		Employee empl = Entities.employee();
-		empl.setSkypeName(this.employee.getSkype_name());
+		empl.setSkypeName(this.employee.getSkypeName());
 		this.employeeDao.save(empl);
 	}
 	
@@ -126,7 +129,7 @@ public class EmployeeDaoTest {
 	@Test
 	public void findByDepartment_null() throws Exception {
 		List<Employee> emps = this.employeeDao.findByDepartment(null);
-		assertNull("Expecting a null list of Employees but was non-null", emps);
+		assertTrue(emps.size() == 0);
 	}
 	
 	@Test
@@ -190,31 +193,15 @@ public class EmployeeDaoTest {
 	}
 
 	@Test
-	public void findByManagerId() throws Exception {
-		createManager();
-
-		this.employee.setManager(this.manager);
-		this.employeeDao.update(this.employee);
-
-		List<Employee> emps = this.employeeDao.findByManager(this.employee.getManager());
-		assertNotNull("Expecting a non-null Employee but was null", emps);
-		assertTrue("Expecting at least one employee found for manager but none was found", emps.size() > 0);
-		Employee emp = emps.get(0);
-		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-		assertEquals(this.employee.getLastName(), emp.getLastName());
-		assertEquals(this.employee.getEmail(), emp.getEmail());
-	}
-
-	@Test
 	public void findByManagerId_empty() throws Exception {
 		List<Employee> emps = this.employeeDao.findByManager(Entities.employee());
-		assertNull(emps);
+		assertTrue(emps.size() == 0);
 	}
 
 	@Test
 	public void findByManagerId_null() throws Exception {
 		List<Employee> emps = this.employeeDao.findByManager(null);
-		assertNull(emps);
+		assertTrue(emps.size() == 0);
 	}
 	
 	@Test

@@ -29,7 +29,7 @@ public interface IJobTitleDao {
 	 *            Identifier of <code>JobTitle</code> instance to find
 	 * @return Single <code>JobTitle</code> instance. Null if not found.
 	 */
-	public abstract JobTitle findById(int id);
+	public abstract JobTitle findById(Integer id);
 
 	/**
 	 * Returns a <code>JobTitle</code> instance with a given <code>name</code>
@@ -49,7 +49,7 @@ public interface IJobTitleDao {
 	 *            The <code>JobTitle</code> instance to be saved
 	 * @return The identifier (id) of the new <code>JobTitle</code> instance.
 	 */
-	public abstract int save(JobTitle jobTitle);
+	public abstract Integer save(JobTitle jobTitle);
 
 	/**
 	 * Updates an existing <code>JobTitle</code> instance with new values.

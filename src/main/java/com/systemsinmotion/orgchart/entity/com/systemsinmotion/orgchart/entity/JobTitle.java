@@ -9,8 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table (name = "JOB_TITLE")
-public class JobTitle {
-	
+public class JobTitle implements java.io.Serializable {
+	private static final long serialVersionUID = -7585641524151978244L;
 	private Integer id;
 	private String name;
 	
@@ -21,7 +21,7 @@ public class JobTitle {
 		return id;
 	}
 	
-	@Column (name = "NAME", nullable = false, unique = true, length = 50)
+	@Column (name = "DESCRIPTION", nullable = false, unique = true, length = 50)
 	public String getName() {
 		return name;
 	}

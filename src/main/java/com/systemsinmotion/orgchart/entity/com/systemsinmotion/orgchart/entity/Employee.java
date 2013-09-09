@@ -1,20 +1,25 @@
 package com.systemsinmotion.orgchart.entity;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Entity
 @Table (name = "EMPLOYEE")
-public class Employee {
+public class Employee implements java.io.Serializable{
+
+
+	private static final long serialVersionUID = 8429214739535369098L;
 
 	private Integer id;
 	private String first_name;
@@ -23,9 +28,9 @@ public class Employee {
 	private String skype_name;
 	private boolean is_manager;
 	
-	private JobTitle jobTitle = new JobTitle();
-	private Department department = new Department();
-	private Employee manager = new Employee();
+	private JobTitle jobTitle;
+	private Department department;
+	private Employee manager;
 
 	@Id
 	@Column (name = "ID", nullable = false, unique = true)
@@ -50,16 +55,16 @@ public class Employee {
 	}
 	
 	@Column (name = "SKYPE_NAME", unique = true, nullable = false, length = 100)
-	public String getSkype_name() {
+	public String getSkypeName() {
 		return skype_name;
 	}
 	
 	@Column (name = "IS_MANAGER")
-	public boolean isIs_manager() {
+	public boolean isIsManager() {
 		return is_manager;
 	}
 	
-	@ManyToMany
+	@OneToOne
 	@JoinColumn (name = "JOB_TITLE_ID", referencedColumnName = "ID", nullable = false)
 	public JobTitle getJobTitle() {
 		return jobTitle;
@@ -71,10 +76,10 @@ public class Employee {
 		return department;
 	}
 
-	@ManyToOne
-	@JoinColumn (name = "MANAGER_ID", referencedColumnName = "ID")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
 	public Employee getManager() {
-		return manager;
+		return this.manager;
 	}
 	
 	public void setId(int id) {

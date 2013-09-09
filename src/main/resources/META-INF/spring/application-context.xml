@@ -12,9 +12,12 @@
 
 	<import resource="dao-context.xml" />
 	<import resource="security-context.xml" />
-	<!-- -->
+	
+    <context:annotation-config />
 
 	<context:component-scan base-package="com.systemsinmotion.orgchart" />
+	
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 
 	<bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
@@ -30,8 +33,8 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 	</bean>
-		
-	<bean id="department" class="com.systemsinmotion.orgchart.entity.Department" />
-	<bean id="employee" class="com.systems.inmotion.orgchart.entity.Employee" />
-	<bean id="jobTitle" class="com.systemsinmotion.orgchart.entity.JobTitle" />
+
+    <bean id="department" class="com.systemsinmotion.orgchart.entity.Department"></bean>
+    <bean id="employee" class="com.systemsinmotion.orgchart.entity.Employee"></bean>
+    <bean id="jobTitle" class="com.systemsinmotion.orgchart.entity.JobTitle"></bean>
 </beans>
