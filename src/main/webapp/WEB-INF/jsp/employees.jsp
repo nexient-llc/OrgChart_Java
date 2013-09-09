@@ -43,14 +43,14 @@
         <select name="jobTitle">
           <option>...</option>
           <c:forEach items="${jobs}" var="job">
-            <option value="${job.jobTitleId}">${job.name}</option>
+            <option value="${job.id}">${job.name}</option>
           </c:forEach>
         </select>
         <label>Employee's Department:</label>
         <select name="department">
           <option>...</option>
           <c:forEach items="${depts}" var="dept">
-            <option value="${dept.departmentId}">${dept.name}</option>
+            <option value="${dept.id}">${dept.name}</option>
           </c:forEach>
         </select>
         <button type="submit">Save</button>
