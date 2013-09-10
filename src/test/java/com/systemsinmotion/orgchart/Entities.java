@@ -10,6 +10,7 @@ public class Entities {
 
 	public static final String DEPARTMENT_NAME = "Department";
 	public static final Integer DEPT_ID = 22;
+	public static final Integer PARENT_DEPT_ID = 23;
 	public static final String EMAIL = "email";
 	public static final Integer EMPLOYEE_ID = 5;
 	public static final String FIRST_NAME = "first name";

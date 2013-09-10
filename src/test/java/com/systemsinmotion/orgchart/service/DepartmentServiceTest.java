@@ -32,15 +32,19 @@ public class DepartmentServiceTest {
 
 	IDepartmentDao mockDepartmentDao = mock(IDepartmentDao.class);
 	Department mockDepartment = mock(Department.class);
+	Department mockParentDepartment = mock(Department.class);
 
 	private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>();
 
 	@Before
 	public void before() throws Exception {
 		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
+		when(this.mockDepartment.getParentDepartment()).thenReturn(mockParentDepartment);
+		when(this.mockParentDepartment.getId()).thenReturn(Entities.PARENT_DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.mockDepartmentDao.findAll()).thenReturn(this.listOfFoundDepts);
 		when(this.mockDepartmentDao.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentDao.findById(Entities.PARENT_DEPT_ID)).thenReturn(this.mockParentDepartment);
 		when(this.mockDepartmentDao.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
 		this.departmentService.setDepartmentDao(this.mockDepartmentDao);
 	}
