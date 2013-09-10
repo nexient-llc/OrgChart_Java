@@ -40,11 +40,11 @@
 		<legend>Edit Department</legend>
 		<form:form id="editDepartmentForm" method="put" action="deptEdit" >
 		  <div><input id="editId" type="hidden" name="id" />
-		  <input id="ParentIdEdit" type="hidden" name="parentDepartment.id" />
+		  <input id="editParentId" type="hidden" name="parentDepartment.id" />
 		  <label>Dept Name:</label>
 		  <input type="text" name="name" />
-		  <select name="parent_id_edit" >
-				<option>...</option>
+		  <select id="parent_id_edit" >
+				<option value="...">...</option>
 				<c:forEach items="${depts}" var="dept">
 					<option value="${dept.id}">${dept.name}</option>
 				</c:forEach>

@@ -51,7 +51,7 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "deptCreate", method = { RequestMethod.POST })
-	public String doDepartments_POST(@ModelAttribute("department") Department department, Integer number, Model model){
+	public String doDepartments_POST(Department department, Integer number, Model model){
 		departmentService.storeDepartment(department);
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("depts", departments);
