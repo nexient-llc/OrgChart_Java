@@ -144,7 +144,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	 */
 	@Override
 	public void update(Department department) {
-		LOG.debug("updating Department instance with name: " + department.getName());
+		//LOG.debug("updating Department instance with name: " + department.getName());
 		this.hibernateTemplate.update(department);
 	}
 }

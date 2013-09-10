@@ -20,12 +20,13 @@ $(document).ready(function() {
 		
 		if(parentSelect != '...'){
 			$('#parentIdEdit').attr({
-				value : parentSelect
+				'value' : parentSelect
 			}); //end of ParentIdEdit
 		}
-		else{
+		
+		if(parentSelect == "..."){
 			$('#parentIdEdit').attr({
-				'name': 'No Parent Specified'
+				'value' : 'No Parent Specified'
 			}); //end of parentIdEdit
 		} //end of if
 		
