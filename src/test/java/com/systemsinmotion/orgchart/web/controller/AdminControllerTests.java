@@ -20,10 +20,10 @@ public class AdminControllerTests {
 		controller = new AdminController();
 	}
 	
-//	@Test
-//	public void doDefault() {
+	@Test
+	public void doDefault() {
 //		assertEquals(View.ADMIN_DEFAULT, controller.doDefault());
-//	}
+	}
 	
 	
 //	@Test
