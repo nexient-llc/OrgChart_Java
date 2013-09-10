@@ -48,6 +48,14 @@
     <filter-name>characterEncodingFilter</filter-name>
     <url-pattern>/app/*</url-pattern>
   </filter-mapping>
+  <filter>
+    <filter-name>HttpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>HttpMethodFilter</filter-name>
+    <servlet-name>Spring MVC Servlet</servlet-name>
+  </filter-mapping>
   <welcome-file-list>
     <welcome-file>home.jsp</welcome-file>
   </welcome-file-list>

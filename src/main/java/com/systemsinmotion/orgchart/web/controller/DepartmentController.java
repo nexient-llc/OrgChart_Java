@@ -22,16 +22,21 @@ public class DepartmentController {
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		 List<Department> departments = departmentService.findAllDepartments();
-		 model.addAttribute("depts", departments);
+		loadModel(model);
 		return View.DEPARTMENTS;
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String doDepartments_POST(@ModelAttribute("department") Department department, Model model) {
 		this.departmentService.storeDepartment(department);
-		List<Department> departments = this.departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
+		loadModel(model);
+		return View.DEPARTMENTS;
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.PUT)
+	public String doDepartments_PUT(@ModelAttribute("department") Department department, Model model) {
+		this.departmentService.updateDepartment(department);
+		loadModel(model);
 		return View.DEPARTMENTS;
 	}
 	
@@ -42,5 +47,10 @@ public class DepartmentController {
 	
 	public void setDepartmentService(DepartmentService mockDepartmentService) {
 		this.departmentService = mockDepartmentService;
+	}
+	
+	private void loadModel(Model model) {
+		List<Department> activeDepartments = this.departmentService.findAllActiveDepartments();
+		model.addAttribute("depts", activeDepartments);
 	}
 }

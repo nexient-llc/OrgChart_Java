@@ -28,6 +28,8 @@ public class Department implements java.io.Serializable {
 	private Integer id;
 
 	private Department parentDepartment;
+	
+	private boolean isInactive;
 
 	@NotNull
 	@NotEmpty
@@ -66,6 +68,15 @@ public class Department implements java.io.Serializable {
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
 		return this.parentDepartment;
+	}
+	
+	@Column(name = "IS_INACTIVE")
+	public boolean getIsInactive() {
+		return this.isInactive;
+	}
+	
+	public void setIsInactive(boolean isInactive) {
+		this.isInactive = isInactive;
 	}
 
 	public void setDepartments(Set<Department> departments) {

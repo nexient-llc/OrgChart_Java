@@ -25,10 +25,22 @@ public class DepartmentService {
 	public List<Department> findAllDepartments() {
 		return this.departmentDAO.findAll();
 	}
+	
+	public List<Department> findAllActiveDepartments() {
+		return this.departmentDAO.findAllActive();
+	}
 
 	public Integer storeDepartment(Department department) {
 		validateDepartment(department);
 		return this.departmentDAO.save(department);
+	}
+	
+	public void updateDepartment(Department department) {
+		validateDepartment(department);
+		if (department.getIsInactive()) {
+			department.setName(department.getName() + " (Inactive)");
+		}
+		this.departmentDAO.update(department);
 	}
 
 	public void removeDepartment(Department department) {
@@ -47,3 +59,4 @@ public class DepartmentService {
 	}
 
 }
+

@@ -147,4 +147,13 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 		LOG.debug("updating Department instance with name: " + department.getName());
 		this.hibernateTemplate.update(department);
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Department> findAllActive() {
+		LOG.debug("finding all Department instances");
+		DetachedCriteria criteria = DetachedCriteria.forClass(Department.class);
+		criteria.add(Restrictions.eq("isInactive", false));
+		return this.hibernateTemplate.findByCriteria(criteria);
+	}
 }

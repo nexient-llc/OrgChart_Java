@@ -20,6 +20,13 @@ public interface IDepartmentDao {
 	 * @return List of Departments
 	 */
 	public abstract List<Department> findAll();
+	
+	/**
+	 * Returns all Department instances that are active as a List
+	 * 
+	 * @return List of Departments
+	 */
+	public abstract List<Department> findAllActive();
 
 	/**
 	 * Returns a <code>Department</code> instance having a given <code>id</code>

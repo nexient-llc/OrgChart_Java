@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -68,6 +69,12 @@ public class DepartmentServiceTest {
 		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment);
 		assertNotNull(deptId);
 		assertEquals(Entities.DEPT_ID, deptId);
+	}
+	
+	@Test
+	public void updateDepartment() {
+		this.departmentService.updateDepartment(mockDepartment);
+		Mockito.verify(this.mockDepartmentDao).update(mockDepartment);
 	}
 
 }
