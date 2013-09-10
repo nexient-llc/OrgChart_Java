@@ -7,8 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -40,6 +43,8 @@ public class DefaultController {
 		return View.HOME;
 	}
 	
+	//Department methods
+	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		List<Department> departments = departmentService.findAllDepartments();
@@ -47,13 +52,28 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 	
-	@RequestMapping(value = "depts", method = RequestMethod.POST)
+	@RequestMapping(value = "deptCreate", method = RequestMethod.POST)
 	public String doDepartments_POST(Department department, Integer number, Model model){
 		departmentService.storeDepartment(department);
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
+	
+	@RequestMapping(value = "deptEdit", method = RequestMethod.POST)
+	public String doDepartment_PUT(final Department department, final BindingResult result){
+		//TODO: have it go to a show page.
+		departmentService.updateDepartment(department);
+		return View.DEPARTMENTS;
+	}
+	
+	@RequestMapping(value = "deleteDept", method = RequestMethod.DELETE)
+	public String doDepartment_DELETE(Department department, Model model){
+		//TODO
+		departmentService.deleteDepartment(department);
+		return doDepartments_GET(model);
+	}
+	//employee methods
 	
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model){
@@ -69,6 +89,8 @@ public class DefaultController {
 		model.addAttribute("emps", employees);
 		return View.EMPLOYEES;
 	}
+	
+	//job Title methods
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitles_GET(Model model){

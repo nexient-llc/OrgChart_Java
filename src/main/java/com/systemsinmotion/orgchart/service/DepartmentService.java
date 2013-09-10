@@ -28,6 +28,14 @@ public class DepartmentService {
 
 	}
 
+	public void updateDepartment(Department department){
+		this.departmentDAO.update(department);
+	}
+	
+	public void deleteDepartment(Department department){
+		this.departmentDAO.delete(department);
+	}
+	
 	public Integer storeDepartment(Department department) {
 		return this.departmentDAO.save(department);
 	}

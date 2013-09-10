@@ -52,7 +52,7 @@ public class Department implements java.io.Serializable {
 		return this.name;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
 		return this.parentDepartment;
