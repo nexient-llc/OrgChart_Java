@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,8 +153,11 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	@SuppressWarnings("unchecked")
 	public List<Department> findAllActive() {
 		LOG.debug("finding all Department instances");
+		
 		DetachedCriteria criteria = DetachedCriteria.forClass(Department.class);
 		criteria.add(Restrictions.eq("isInactive", false));
+		criteria.addOrder(Order.asc("name"));
+		
 		return this.hibernateTemplate.findByCriteria(criteria);
 	}
 }

@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.dao;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,13 @@ public class JobTitleDao implements IJobTitleDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<JobTitle> findAll() {
 		LOG.debug("finding all JobTitle instances");
-		return this.hibernateTemplate.loadAll(JobTitle.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(JobTitle.class);
+		criteria.addOrder(Order.asc("name"));
+		
+		return this.hibernateTemplate.findByCriteria(criteria);
 	}
 
 	@Override

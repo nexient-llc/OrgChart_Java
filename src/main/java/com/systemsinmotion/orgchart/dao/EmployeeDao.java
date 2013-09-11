@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,14 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Employee> findAll() {
 		LOG.debug("finding all Employee instances");
-		return this.hibernateTemplate.loadAll(Employee.class);
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+		criteria.addOrder(Order.asc("lastName"));
+		
+		return this.hibernateTemplate.findByCriteria(criteria);
 	}
 
 	@Override
@@ -76,6 +82,7 @@ public class EmployeeDao implements IEmployeeDao {
 		if (department != null && department.getId() != null) {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
 			criteria.add(Restrictions.eq("department.id", department.getId()));
+			criteria.addOrder(Order.asc("lastName"));
 			
 			LOG.debug("finding Employee instance by Department: " + department.getName());
 			employees = this.hibernateTemplate.findByCriteria(criteria);
@@ -92,6 +99,7 @@ public class EmployeeDao implements IEmployeeDao {
 		if (jobTitle != null && jobTitle.getId() != null) {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
 			criteria.add(Restrictions.eq("jobTitle.id", jobTitle.getId()));
+			criteria.addOrder(Order.asc("lastName"));
 			
 			LOG.debug("finding Employee instance by JobTitle: " + jobTitle.getName());
 			employees = this.hibernateTemplate.findByCriteria(criteria);
