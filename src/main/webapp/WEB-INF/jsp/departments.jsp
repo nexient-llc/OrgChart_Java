@@ -12,7 +12,6 @@
 		<th>Parent Dept</th>
 	</tr> 
 	<c:forEach items="${depts}" var="dept">
-	<c:if test="${!dept.isInactive}">
 		<tr class="deptRow" data-dept-id="${dept.id}" data-dept-name="${dept.name}" data-parent-dept-id="${dept.parentDepartment.id}"> 
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
@@ -21,7 +20,6 @@
 			<td>${dept.parentDepartment.name}</td>
 			<td style="padding:0"><button class="editDepartment" style="margin-top:0;margin-bottom:0">Edit</td>
 		</tr>
-	</c:if>
 	</c:forEach> 
 </table>
 
