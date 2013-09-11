@@ -44,10 +44,6 @@ TH {
 	color: white;
 }
 
-SELECT {
-	margin-left: -1px;	
-}
-
 .errorblock {
 	color: #ff0000;
 	background-color: #ffEEEE;
@@ -76,4 +72,18 @@ SELECT {
 	float: right;
 	cursor: pointer;
 	text-decoration: underline;
+}
+
+ul.ui-autocomplete {
+	border: 1px solid black;
+	background-color: white;
+	list-style:none;
+    	padding: 2px;
+    	margin: 0;
+    	display:block;
+	float:left;
+}
+
+.ui-autocomplete a {
+	color: black;
 }
