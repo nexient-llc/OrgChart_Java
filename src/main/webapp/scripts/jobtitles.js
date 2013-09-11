@@ -43,6 +43,11 @@ $(document).ready(function() {
 			alert("Another Job Title exists with that name.");
 			return false;
 		}
+		
+		if (submittedName.length == 0) {
+			alert("Must complete all required fields")
+			return false
+		}
 	});
 
 });

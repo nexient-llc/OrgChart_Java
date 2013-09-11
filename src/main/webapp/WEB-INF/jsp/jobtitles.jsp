@@ -31,9 +31,11 @@
 		<form:form modelAttribute="jobTitle" action="jobs" method="post">
 		<div>
 			<label>Job Title:</label>
-			<form:input path="name" />
+			<form:input path="name" />*<br />
 			<button type="submit">Save</button>
 			<button type="reset" id="cancelAdd">Cancel</button>
+			<br />
+			<h5>Required fields indicated with a *</h5>
 		</div>
 		<div></div>
 		</form:form>
@@ -47,7 +49,7 @@
 			<div>
 				<form:hidden path="id" />
 				<label>Job Title:</label>
-				<form:input path="name" />*
+				<form:input path="name" />*<br />
 				<button type="submit">Save</button>
 				<button type="reset" id="cancelEdit">Cancel</button>
 				<br />

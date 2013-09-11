@@ -33,14 +33,16 @@
 		<form:form modelAttribute="department" action="depts" method="post">
 		<div>
 			<label>Dept Name:</label>
-			<form:input path="name" />
+			<form:input path="name" />*<br />
 			<label>Parent Dept:</label>
 			<form:select path="parentDepartment.id">
 				<form:option value="-1" label="---" />
 				<form:options items="${depts}" itemValue="id" itemLabel="name" />
-			</form:select>
+			</form:select><br />
 			<button type="submit">Save</button>
 			<button type="reset" id="cancelAdd">Cancel</button>
+			<br />
+			<h5>Required fields indicated with a *</h5>
 		</div>
 		<div></div>
 		</form:form>
@@ -55,12 +57,12 @@
 				<form:hidden path="id" />
 				<form:hidden path="isInactive" />
 				<label>Dept Name:</label>
-				<form:input path="name" />*
+				<form:input path="name" />*<br />
 				<label>Parent Dept:</label>
 				<form:select path="parentDepartment.id">
 					<form:option value="-1" label="---" />
 					<form:options items="${depts}" itemValue="id" itemLabel="name" />
-				</form:select>*
+				</form:select>*<br />
 				<button type="submit">Save</button>
 				<button type="reset" id="cancelEdit">Cancel</button>
 				<button id="removeDept" type="button">Remove Department</button>

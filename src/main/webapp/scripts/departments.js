@@ -35,8 +35,11 @@ $(document).ready(function() {
 	});
 	
 	$('#removeDept').click(function() {
-		$(this).siblings('input#isInactive').val('true');
-		$('#editEntity form#department').submit();
+		var confirmation = window.confirm("Are you sure you would like to remove this department?");
+		if (confirmation) {
+			$(this).siblings('input#isInactive').val('true');
+			$('#editEntity form#department').submit();
+		}
 	});
 	
 	$('form').submit(function() {
@@ -46,7 +49,7 @@ $(document).ready(function() {
 			allDepts.push($(this).text());
 		});
 		
-		if ($.inArray(submittedName, allDepts) > -1) {
+		if ($.inArray(submittedName, allDepts) > -1 && $(this).find('input#isInactive').val() == 'false') {
 			alert("Another department exists with that name.");
 			return false;
 		}
@@ -54,6 +57,11 @@ $(document).ready(function() {
 		if (submittedName.indexOf("(Inactive)") > -1) {
 			alert("Cannot create an inactive department");
 			return false;
+		}
+		
+		if (submittedName.length == 0) {
+			alert("Must complete all required fields")
+			return false
 		}
 	});
 
