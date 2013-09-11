@@ -50,4 +50,8 @@ public class JobTitleController {
 		model.addAttribute("jobs", jobTitles);
 	}
 	
+	public void setJobTitleService(JobTitleService mockJobTitleService) {
+		this.jobTitleService = mockJobTitleService;
+	}
+	
 }

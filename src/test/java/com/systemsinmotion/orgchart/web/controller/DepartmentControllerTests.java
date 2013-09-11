@@ -43,7 +43,7 @@ public class DepartmentControllerTests {
 		when(mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
 		departments.add(mockDepartment);
 		
-		when(mockDepartmentService.findAllDepartments()).thenReturn(departments);
+		when(mockDepartmentService.findAllActiveDepartments()).thenReturn(departments);
 		
 		controller.setDepartmentService(mockDepartmentService);
 	}
@@ -65,6 +65,18 @@ public class DepartmentControllerTests {
 		String returnvalue = controller.doDepartments_POST(mockDepartment2, model);
 		ArrayList<Department> depts = (ArrayList<Department>) model.asMap().get("depts");
 		Mockito.verify(mockDepartmentService).storeDepartment(mockDepartment2);
+		assertNotNull(returnvalue);
+		assertNotNull(depts);
+		assertEquals(View.DEPARTMENTS, returnvalue);
+		assertEquals(Entities.DEPT_ID, depts.get(0).getId());
+	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void doDepartments_PUT() {
+		String returnvalue = controller.doDepartments_PUT(mockDepartment2, model);
+		ArrayList<Department> depts = (ArrayList<Department>) model.asMap().get("depts");
+		Mockito.verify(mockDepartmentService).updateDepartment(mockDepartment2);
 		assertNotNull(returnvalue);
 		assertNotNull(depts);
 		assertEquals(View.DEPARTMENTS, returnvalue);

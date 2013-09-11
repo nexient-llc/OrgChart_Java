@@ -64,4 +64,16 @@ public class EmployeeController {
 		return new Employee();
 	}
 	
+	
+	public void setEmployeeService(EmployeeService mockEmployeeService) {
+		this.employeeService = mockEmployeeService;
+	}
+	
+	public void setDepartmentService(DepartmentService mockDepartmentService) {
+		this.departmentService = mockDepartmentService;
+	}
+	
+	public void setJobTitleService(JobTitleService mockJobTitleService) {
+		this.jobTitleService = mockJobTitleService;
+	}
 }
