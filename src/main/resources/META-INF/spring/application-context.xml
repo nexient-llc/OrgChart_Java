@@ -30,7 +30,9 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 	</bean>
-		
+	
 	<bean id="department" class="com.systemsinmotion.orgchart.entity.Department" />
+	<bean id="employee" class="com.systemsinmotion.orgchart.entity.Employee" />
+	<bean id="jobTitle" class="com.systemsinmotion.orgchart.entity.JobTitle" />
 
 </beans>
