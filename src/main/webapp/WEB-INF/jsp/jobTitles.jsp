@@ -7,11 +7,15 @@
 <table id="t1">
   <tr>
     <th>Job Title Name</th>
+    <th></th>
+    <th></th>
   </tr>
   <c:forEach items="${jobs}" var="job">
     <tr>
       <!-- May be job.description -->
       <td>${job.name}</td>
+      <td><button class="editBtn" style="width:45px;" value="${job.id}">Edit</button></td>
+      <td><button class="removeBtn" style="width:80px;" value="${job.id}">Remove</button></td>
     </tr>
   </c:forEach>
 </table>

@@ -12,15 +12,19 @@
     <th>Manager</th>
     <th>JobTitle</th>
     <th>Department</th>
+    <th></th>
+    <th></th>
   </tr>
-  <c:forEach items="${empls}" var="empl">
+  <c:forEach items="${emps}" var="empl">
     <tr>
-      <td>${empl.first_name} ${empl.middle_initial} ${empl.last_name}</td>
+      <td>${empl.firstName} ${empl.lastName}</td>
       <td>${empl.email}</td>
-      <td>${empl.skype_name}</td>
-      <td>${empl.manager.first_name} ${empl.manager.last_name}</td>
-      <td>${empl.job_title.name}</td>
+      <td>${empl.skypeName}</td>
+      <td>${empl.manager.firstName} ${empl.manager.lastName}</td>
+      <td>${empl.jobTitle.name}</td>
       <td>${empl.department.name}</td>
+      <td><button class="editBtn" style="width:45px;" value="${empl.id}">Edit</button></td>
+      <td><button class="removeBtn" style="width:80px;" value="${empl.id}">Remove</button></td>
     </tr>
   </c:forEach>
 </table>
@@ -29,32 +33,16 @@
   <button type="button" id="addBtn" style="width: 45px;">Add</button>
 </div>
 
+<!-- Edit Form -->
+<div id="editEntity" style="display:none">
+	<jsp:include page="../fragments/EmployeeForm.jsp">
+		<jsp:param value="Edit" name="formType"/>
+	</jsp:include>
+</div>
+
+<!-- Create Form -->
 <div id="addEntity" style="display:none">
-  <fieldset>
-    <legend>Add Employee</legend>
-    <form name="newEmp" action="emps" method="post">
-      <div>
-        <label>Employee's First Name:</label><input type="text" name="first_name"/>
-        <label>Employee's Middle Initial:</label><input type="text" name="middle_initial"/>
-        <label>Employee's Last Name:</label><input type="text" name="last_name"/>
-        <label>Employee's Skype:</label><input type="text" name="skype_name"/>
-        <label>Employee's Email:</label><input type="email" name="email"/>
-        <label>Employee's Job Title:</label>
-        <select name="jobTitle">
-          <option>...</option>
-          <c:forEach items="${jobs}" var="job">
-            <option value="${job.id}">${job.name}</option>
-          </c:forEach>
-        </select>
-        <label>Employee's Department:</label>
-        <select name="department">
-          <option>...</option>
-          <c:forEach items="${depts}" var="dept">
-            <option value="${dept.id}">${dept.name}</option>
-          </c:forEach>
-        </select>
-        <button type="submit">Save</button>
-      </div>
-    </form>
-  </fieldset>
+	<jsp:include page="../fragments/EmployeeForm.jsp">
+		<jsp:param value="Create" name="formType"/>
+	</jsp:include>
 </div>

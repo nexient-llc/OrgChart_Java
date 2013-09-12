@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -30,46 +30,12 @@ public class DefaultController {
 	EmployeeService employeeService;
 
 	@Autowired
-	DepartmentService departmentService;
-
-	@Autowired
 	JobTitleService jobTitleService;
 	
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
-	}
-	
-	//Department methods
-	
-	@RequestMapping(value = "depts", method = RequestMethod.GET)
-	public String doDepartments_GET(Model model) {
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
-	}
-	
-	@RequestMapping(value = "deptCreate", method = { RequestMethod.POST })
-	public String doDepartments_POST(Department department, Integer number, Model model){
-		departmentService.storeDepartment(department);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
-	}
-	
-	@RequestMapping(value = "deptEdit", method = { RequestMethod.POST })
-	public String doDepartment_PUT(Department department, Model model){
-		//TODO: have it go to a show page.
-		departmentService.updateDepartment(department);
-		return doDepartments_GET(model);
-	}
-	
-	@RequestMapping(value = "deptRemove", method = RequestMethod.POST)
-	public String doDepartment_DELETE(Department department, Model model){
-		//TODO
-		departmentService.deleteDepartment(department);
-		return doDepartments_GET(model);
 	}
 	
 	//employee methods
@@ -81,12 +47,25 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
-	@RequestMapping(value = "emps", method = RequestMethod.POST)
+	@RequestMapping(value = "empCreate", method = RequestMethod.POST)
 	public String doEmployees_POST(Employee employee, Integer number, Model model){
 		employeeService.storeEmployee(employee);
 		List<Employee> employees = employeeService.findAllEmployees();
 		model.addAttribute("emps", employees);
 		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = "empEdit", method = RequestMethod.POST)
+	public String doEmployees_PUT(Employee employee, Model model){
+		//TODO: have it go to a show page
+		employeeService.updateEmployee(employee);
+		return doEmployees_GET(model);
+	}
+	
+	@RequestMapping(value = "empRemove", method = RequestMethod.POST)
+	public String doEmployee_DELETE(Employee employee, Model model){
+		employeeService.removeEmployee(employee);
+		return doEmployees_GET(model);
 	}
 	
 	//job Title methods
@@ -106,10 +85,19 @@ public class DefaultController {
 		return View.JOB_TITLES;
 	}
 	
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
+	@RequestMapping(value = "jobEdit", method = RequestMethod.POST)
+	public String doJobTitles_PUT(JobTitle jobTitle, Model model){
+		//TODO: Go to a show page
+		this.jobTitleService.updateJobTitle(jobTitle);
+		return doJobTitles_GET(model);
 	}
 	
+	@RequestMapping(value = "jobRemove", method = RequestMethod.POST)
+	public String doJobTitles_DELETE(JobTitle jobTitle, Model model){
+		this.jobTitleService.removeJobTitle(jobTitle);
+		return doJobTitles_GET(model);
+	}
+
 	public void setEmployeeService(EmployeeService employeeService){
 		this.employeeService = employeeService;
 	}

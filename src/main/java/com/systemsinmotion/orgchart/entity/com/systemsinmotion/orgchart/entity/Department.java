@@ -74,4 +74,11 @@ public class Department implements java.io.Serializable {
 		this.parentDepartment = department;
 	}
 
+	public String toString(){
+		String output = "Department " + this.name;
+		if(this.parentDepartment != null){
+			output += " with parent " + this.parentDepartment.name;
+		}
+		return output;
+	}
 }

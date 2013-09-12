@@ -30,6 +30,10 @@ public class JobTitleService {
 		return this.jobTitleDAO.save(jobTitle);
 	}
 	
+	public void updateJobTitle(JobTitle jobTitle){
+		this.jobTitleDAO.update(jobTitle);
+	}
+	
 	public void removeJobTitle(JobTitle jobTitle){
 		this.jobTitleDAO.delete(jobTitle);
 	}

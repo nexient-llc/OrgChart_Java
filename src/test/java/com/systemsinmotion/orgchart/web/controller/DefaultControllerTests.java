@@ -93,7 +93,23 @@ public class DefaultControllerTests {
 	  //Then
 	  assertNotNull(findAllDepartmentsList);
 	  assertTrue(findAllDepartmentsList.size() > 0);
-	  assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(1).getId());
-	  assertEquals(findAllDepartmentsList.get(1).getName(), Entities.DEPARTMENT_NAME);
+	  assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(0).getId());
+	  assertEquals(findAllDepartmentsList.get(0).getName(), Entities.DEPARTMENT_NAME);
   }
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnDepartmentPagePut() {
+		model.addAttribute("depts", findAllDepartmentsList);
+		controller.doDepartments_POST(mockDepartment2, null, model);
+		mockDepartment2.setName("TEST");
+		controller.doDepartment_PUT(mockDepartment2, model);
+		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+		
+		assertNotNull(findAllDepartmentsList);
+		assertTrue(findAllDepartmentsList.size() == 1);
+		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(0).getId());
+		assertEquals("TEST", findAllDepartmentsList.get(0).getName());
+		
+	}
 }

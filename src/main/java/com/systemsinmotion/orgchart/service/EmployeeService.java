@@ -30,6 +30,10 @@ public class EmployeeService {
 		return this.employeeDAO.save(employee);
 	}
 	
+	public void updateEmployee(Employee employee){
+		this.employeeDAO.update(employee);
+	}
+	
 	public void removeEmployee(Employee employee){
 		this.employeeDAO.delete(employee);
 	}
