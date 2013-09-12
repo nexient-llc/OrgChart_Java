@@ -35,7 +35,7 @@ public class DepartmentController {
 		return View.DEPARTMENTS;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST )
+	@RequestMapping(value = "CreateEmp", method = RequestMethod.POST )
 	public ModelAndView doDepartments_POST(@ModelAttribute("DEPARTMENT") Department department, BindingResult result){
 		departmentService.storeDepartment(department);
 		List<Department> departments = departmentService.findAllDepartments();
@@ -45,7 +45,7 @@ public class DepartmentController {
 		return mav;
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(value = "EditEmp", method = RequestMethod.POST)
 	public String doDepartment_PUT(@ModelAttribute("DEPARTMENT") Department department, Model model){
 		//TODO: have it go to a show page.
 		//if the input form has no value will give a department with all null values
@@ -62,7 +62,7 @@ public class DepartmentController {
 		return doDepartments_GET(model);
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value = "RemoveEmp", method = RequestMethod.POST)
 	public String doDepartment_DELETE(@ModelAttribute("DEPARTMENT") Department department, Model model){
 		departmentService.deleteDepartment(department);
 		return doDepartments_GET(model);

@@ -34,6 +34,7 @@
 <div id="editEntity" style="display:none"> 
 	<jsp:include page="../fragments/departmentForm.jsp">
 		<jsp:param name="formType" value="Edit" />
+		<jsp:param name="method" value="put" />
 	</jsp:include>
 </div>
 
@@ -41,6 +42,7 @@
 <div id="addEntity" style="display:none">
 	<jsp:include page="../fragments/departmentForm.jsp">
 		<jsp:param name="formType" value="Create" />
+		<jsp:param name="method" value="post" />
 	</jsp:include>
 </div> 
 

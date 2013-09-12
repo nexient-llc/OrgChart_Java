@@ -3,17 +3,17 @@
 
 <fieldset>
 	<legend>${param.formType} Department</legend>
-	<form:form id="${param.formType}DepartmentForm" modelAttribute="DEPARTMENT" method="put">
-		<div>
-			<input id="${param.formType}Id" type="hidden" name="id" /> 
-			<input id="${param.formType}ParentId" type="hidden" name="parentDepartment" /> 
+	<form:form id="${param.formType}DepartmentForm" action="${param.formType}Emp" modelAttribute="DEPARTMENT" method="${param.method}">
+		<div>  
 			<label>Dept	Name:</label> 
-			<form:input path="name" /> <form:select path="parentDepartment.id">
+			<form:input path="name" />
+			<form:select path="parentDepartment.id">
 				<form:option value="...">...</form:option>
 				<c:forEach items="${depts}" var="dept">
 					<form:option value="${dept.id}">${dept.name}</form:option>
 				</c:forEach>
-			</form:select> <input type="submit" value="Save" />
+			</form:select> 
+			<input type="submit" value="Save" />
 		</div>
 	</form:form>
 </fieldset>
