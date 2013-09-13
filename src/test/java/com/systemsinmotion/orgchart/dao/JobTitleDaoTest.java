@@ -38,11 +38,6 @@ public class JobTitleDaoTest {
 	@Autowired
 	IJobTitleDao jobTitleDao;
 
-	@After
-	public void after() {
-		this.jobTitleDao.delete(this.jobTitle);
-	}
-
 	@Before
 	public void before() throws Exception {
 		this.jobTitle = Entities.jobTitle();

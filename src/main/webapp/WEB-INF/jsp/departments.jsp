@@ -19,8 +19,8 @@
 			</sec:authorize> -->
 			<td>${dept.name}</td> 
 			<td>${dept.parentDepartment.name}</td>
-			<td><button class="editBtn" style="width:45px;" value="${dept.id}">Edit</button></td>
-			<td><button class="removeBtn" style="width:80px;" value="${dept.id}">Remove</button></td>
+			<td><button class="editBtn" style="visibility:visible; width:45px;" name="${dept.id}">Edit</button></td>
+			<td><button class="removeBtn" style="visibility:visible; width:80px;" name="${dept.id}">Remove</button></td>
 		</tr>
 	</c:forEach> 
 </table>
@@ -31,7 +31,7 @@
 </div>
 
 <!-- Edit Form -->
-<div id="editEntity" style="display:none"> 
+<div id="EditEntity" style="display:none;"> 
 	<jsp:include page="../fragments/departmentForm.jsp">
 		<jsp:param name="formType" value="Edit" />
 		<jsp:param name="method" value="put" />
@@ -40,7 +40,7 @@
 </div>
 
 <!-- Add Form -->
-<div id="addEntity" style="display:none">
+<div id="CreateEntity" style="display:none;">
 	<jsp:include page="../fragments/departmentForm.jsp">
 		<jsp:param name="formType" value="Create" />
 		<jsp:param name="method" value="post" />
@@ -49,10 +49,10 @@
 </div> 
 
 <!-- Delete Form -->
-<div id="removeEntity" style="display:none">
+<div id="removeEntity" style="display:none;">
 	<fieldset>
 		<legend>Remove Department?</legend>
-		<form:form id="removeDepartmentForm" action="removeDept" method="delete">
+		<form:form id="removeDepartmentForm" modelAttribute="DEPARTMENT" action="removeDept" method="delete">
 			<div>
 				<label>Are you sure?</label>
 				<input id="removeDepartmentId" type="hidden" name="id" />

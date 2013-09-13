@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
@@ -38,12 +40,12 @@ public class DepartmentDaoTest {
 
 	@Autowired
 	IDepartmentDao departmentDao;
-
-	@After
-	public void after() {
-		this.departmentDao.delete(this.department);
-		this.departmentDao.delete(this.parent);
-	}
+	
+	@Autowired
+	IEmployeeDao employeeDao;
+	
+	@Autowired
+	IJobTitleDao jobTitleDao;
 
 	@Before
 	public void before() throws Exception {
@@ -136,5 +138,27 @@ public class DepartmentDaoTest {
 		dept = this.departmentDao.findByName(SOME_NEW_NAME);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
+	}
+	
+	@Test
+	public void removeReferences() throws Exception {
+		Employee emp = Entities.employee();
+		JobTitle job = Entities.jobTitle();
+		
+		this.jobTitleDao.save(job);
+		
+		emp.setJobTitle(job);
+		emp.setDepartment(this.parent);
+		
+		emp.setId(this.employeeDao.save(emp));
+		assertNotNull(emp);
+		assertNotNull(emp.getId());
+		assertEquals(1, this.employeeDao.findByDepartment(this.parent).size());
+		
+		this.departmentDao.delete(this.parent);
+		assertNull(this.departmentDao.findByName(this.parent.getName()));
+		assert(1 == this.departmentDao.findAll().size());
+		assertNull(this.departmentDao.findById(department.getId()).getParentDepartment());
+		assertNull(this.employeeDao.findById(emp.getId()).getDepartment());
 	}
 }

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 	
 <h3>Employees</h3>
 <table id="t1">
@@ -34,15 +35,31 @@
 </div>
 
 <!-- Edit Form -->
-<div id="editEntity" style="display:none">
+<div id="EditEntity" style="display:none">
 	<jsp:include page="../fragments/EmployeeForm.jsp">
 		<jsp:param value="Edit" name="formType"/>
+		<jsp:param value="put" name="method"/>
+		<jsp:param value="EditEmp" name="action"/>
 	</jsp:include>
 </div>
 
 <!-- Create Form -->
-<div id="addEntity" style="display:none">
+<div id="CreateEntity" style="display:none">
 	<jsp:include page="../fragments/EmployeeForm.jsp">
 		<jsp:param value="Create" name="formType"/>
+		<jsp:param value="post" name="method"/>
+		<jsp:param value="CreateEmp" name="action"/>
 	</jsp:include>
+</div>
+
+<!-- Remove Form -->
+<div id="RemoveEntity" style="display:none">
+	<form:form action="RemoveEmp" id="removeEntity" modelAttribute="EMPLOYEE" method="delete">
+		<fieldset>
+			<legend>Remove Employee</legend>
+			<input id="removeEmployeeId" type="hidden" name="id">
+			<label>Are you sure?</label>
+			<input type="submit" value="Delete" />
+		</fieldset>
+	</form:form>
 </div>

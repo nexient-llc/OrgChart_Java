@@ -3,7 +3,7 @@
 
 <fieldset>
     <legend>${param.formType} Employee</legend>
-    <form:form id="${param.formType}Emp" action="emp${param.formType}" method="post">
+    <form:form id="${param.formType}Emp" action="${param.action}" method="${param.method}">
       <div>
         <label>Employee's First Name:</label><input type="text" name="first_name"/>
         <label>Employee's Middle Initial:</label><input type="text" name="middle_initial"/>
@@ -11,7 +11,7 @@
         <label>Employee's Skype:</label><input type="text" name="skype_name"/>
         <label>Employee's Email:</label><input type="email" name="email"/>
         <label>Employee's Job Title:</label>
-        <input id="id" type="hidden" name="id" />
+        <input id="employeeId" type="hidden" name="id" />
         <input id="${param.formType}DepartmentId" type="hidden" name="department.id" />
 		<input id="${param.formType}JobTitleId" type="hidden" name="jobTitle.id" />
         <select id="job_id_${param.formType}" name="jobTitle">

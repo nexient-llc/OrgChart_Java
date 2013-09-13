@@ -1,19 +1,22 @@
 $(document).ready(function() {
-	var lastClickedButton;
-	var lastEntity;
-	
+	var $lastClickedButton = null;
+
 	$('#addBtn-container').css('width', $('#t1').width());
 
+	//Add Button
 	$('#addBtn').click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
-			$('#addEntity').fadeToggle("fast", "linear");
-		});
+		$("#CreateEntity").fadeIn("fast");
+		$("#removeEntity").fadeOut("fast");
+		$("#EditEntity").fadeOut("fast", "linear");
+		
+		resetButton($(this));
 	});
-	
+
+	//Create Form Submit
 	$("#CreateEntity").submit(function(){
 		var deptParId = $('parent_id_Create').attr('value');
-		
-		if(deptParId == "..."){
+
+		if(deptParId == 0){
 			$('CreateParentId').attr({
 				'name': 'No Parent Specified'
 			});
@@ -24,33 +27,49 @@ $(document).ready(function() {
 		}
 	});
 
-	// controls the edit form and associated edit buttons
-	$(".editBtn").click(function() {
-		var id = this.val();
-		$("#editEntity").fadeToggle("fast", "linear");
-		$('#EditId').attr({
-			'value': id
-		});
-	}); // end of editBtn click
-	
+	//Edit Button
+	$('.editBtn').click(function() {
+		$("#EditEntity").fadeIn("fast");
+
+		$("#removeEntity").fadeOut("fast");
+
+		$("#CreateEntity").fadeOut("fast");
+		
+		resetButton($(this));
+		
+	});
+
+	//Edit Form Submit
 	$("#EditEntity").submit(function(){
 		var deptParId = $("#parent_id_Edit").val();
-		
-		if(deptParId == "..."){
+
+		if(deptParId == 0){
 			$('#EditParentId').attr('value', null);
 		} else {
 			$('#EditParentId').attr('value', deptParId);
 		}
 	});
 
-	// controls deleting of item
-	$(".removeBtn").click(function() {
-		var deptToDeleteId = $(this).val();
+	//Remove Button
+	$('.removeBtn').click(function() {
+		$("#removeEntity").fadeIn("fast");
 
-		$("#removeDepartmentId").attr('value', deptToDeleteId);
+		$("#EditEntity").fadeOut("fast");
+
+		$("#CreateEntity").fadeOut("fast");
 		
-		$('#removeEntity').fadeToggle("fast", "linear");
+		resetButton($(this));
 	});
-}); //end of document
+	
+	function resetButton($button){
+		$button.fadeOut("fast");
+		
+		if($lastClickedButton != null){
+			$lastClickedButton.fadeIn("fast");
+		}
+		
+		$lastClickedButton = $button;
+	}
+});
 
 

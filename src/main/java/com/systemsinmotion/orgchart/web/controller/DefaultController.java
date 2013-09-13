@@ -35,35 +35,7 @@ public class DefaultController {
 		return View.HOME;
 	}
 	
-	//employee methods
 	
-	@RequestMapping(value = "emps", method = RequestMethod.GET)
-	public String doEmployees_GET(Model model){
-		List<Employee> employees = employeeService.findAllEmployees();
-		model.addAttribute("emps", employees);
-		return View.EMPLOYEES;
-	}
-	
-	@RequestMapping(value = "empCreate", method = RequestMethod.POST)
-	public String doEmployees_POST(Employee employee, Integer number, Model model){
-		employeeService.storeEmployee(employee);
-		List<Employee> employees = employeeService.findAllEmployees();
-		model.addAttribute("emps", employees);
-		return View.EMPLOYEES;
-	}
-	
-	@RequestMapping(value = "empEdit", method = RequestMethod.POST)
-	public String doEmployees_PUT(Employee employee, Model model){
-		//TODO: have it go to a show page
-		employeeService.updateEmployee(employee);
-		return doEmployees_GET(model);
-	}
-	
-	@RequestMapping(value = "empRemove", method = RequestMethod.POST)
-	public String doEmployee_DELETE(Employee employee, Model model){
-		employeeService.removeEmployee(employee);
-		return doEmployees_GET(model);
-	}
 	
 	//job Title methods
 	
@@ -93,10 +65,6 @@ public class DefaultController {
 	public String doJobTitles_DELETE(JobTitle jobTitle, Model model){
 		this.jobTitleService.removeJobTitle(jobTitle);
 		return doJobTitles_GET(model);
-	}
-
-	public void setEmployeeService(EmployeeService employeeService){
-		this.employeeService = employeeService;
 	}
 	
 	public void setJobTitleService(JobTitleService jobTitleService){

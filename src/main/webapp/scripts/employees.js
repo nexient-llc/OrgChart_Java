@@ -6,19 +6,19 @@ $(document).ready(function() {
 	});
 	
 	$('.editBtn').click(function(){
-		$('#editEntity').fadeToggle("fast", "linear");
+		$('#editEntity').fadeIn("fast");
 		var id = this.val();
+		
+		$('#EditId').attr({
+			'value': id
+		});
 	});
 	
 	$('#EditEmp').submit(function(){
 		var jobId = $('#[job_id_^]').attr('value');
 		var deptId = $('#[department_id_^]').attr('value');
 		
-		$('#id').attr({
-			'value': id
-		});
-		
-		if(deptId == "..."){
+		if(deptId == 0){
 			$('EditEmp').attr({
 				'name': 'no Department Specified'
 			});

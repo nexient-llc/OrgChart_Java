@@ -3,6 +3,9 @@ package com.systemsinmotion.orgchart.dao;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.PostRemove;
+import javax.persistence.PreRemove;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
 
 /**
  * A data access object (DAO) providing persistence and search support for Employee entities. Transaction control of the
@@ -36,6 +40,9 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	 */
 	@Autowired
 	HibernateTemplate hibernateTemplate;
+	
+	@Autowired
+	IEmployeeDao employeeDao;
 
 	/*
 	 * (non-Javadoc)
@@ -44,6 +51,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	@Override
 	public void delete(Department department) {
 		LOG.debug("deleting Department instance with name: " + department.getName());
+		removeReferences(department);
 		this.hibernateTemplate.delete(department);
 	}
 
@@ -146,5 +154,20 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	public void update(Department department) {
 		//LOG.debug("updating Department instance with name: " + department.getName());
 		this.hibernateTemplate.update(department);
+	}
+	
+	public void removeReferences(Department department){
+		List<Department> depts = findByParentDepartment(department);
+		List<Employee> emps = this.employeeDao.findByDepartment(department);
+
+		for(Department dept : depts){
+			dept.setParentDepartment(null);
+			update(dept);
+		}
+
+		for(Employee emp : emps){
+			emp.setDepartment(null);
+			this.employeeDao.update(emp);
+		}
 	}
 }

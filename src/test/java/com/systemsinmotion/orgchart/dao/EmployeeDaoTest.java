@@ -46,17 +46,6 @@ public class EmployeeDaoTest {
 	
 	@Autowired
 	IJobTitleDao jobTitleDao;
-	
-
-	@After
-	public void after() {
-		this.employeeDao.delete(this.employee);
-		this.departmentDao.delete(this.department);
-
-		if (null != this.manager) {
-			this.employeeDao.delete(this.manager);
-		}
-	}
 
 	@Before
 	public void before() throws Exception {
