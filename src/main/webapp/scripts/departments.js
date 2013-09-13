@@ -26,11 +26,11 @@ $(document).ready(function() {
 
 	// controls the edit form and associated edit buttons
 	$(".editBtn").click(function() {
-		var id = $(this).attr('value');
+		var id = this.val();
 		$("#editEntity").fadeToggle("fast", "linear");
 		$('#EditId').attr({
-			'value' : id
-		}); // end of EditId
+			'value': id
+		});
 	}); // end of editBtn click
 	
 	$("#EditEntity").submit(function(){

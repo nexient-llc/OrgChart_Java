@@ -35,8 +35,9 @@ public class DepartmentController {
 		return View.DEPARTMENTS;
 	}
 	
-	@RequestMapping(value = "CreateEmp", method = RequestMethod.POST )
+	@RequestMapping(value = "createDept", method = RequestMethod.POST )
 	public ModelAndView doDepartments_POST(@ModelAttribute("DEPARTMENT") Department department, BindingResult result){
+		setParent(department);
 		departmentService.storeDepartment(department);
 		List<Department> departments = departmentService.findAllDepartments();
 		ModelAndView mav = new ModelAndView();
@@ -45,15 +46,11 @@ public class DepartmentController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "EditEmp", method = RequestMethod.POST)
+	@RequestMapping(value = "editDept", method = RequestMethod.POST)
 	public String doDepartment_PUT(@ModelAttribute("DEPARTMENT") Department department, Model model){
 		//TODO: have it go to a show page.
-		//if the input form has no value will give a department with all null values
-		//cleans input
 		try{
-			if(department.getParentDepartment().getName() == null){
-				department.setParentDepartment(null);
-			}
+			setParent(department);
 			departmentService.updateDepartment(department);
 		} catch(Exception e){
 			e.printStackTrace(System.out);
@@ -62,7 +59,7 @@ public class DepartmentController {
 		return doDepartments_GET(model);
 	}
 	
-	@RequestMapping(value = "RemoveEmp", method = RequestMethod.POST)
+	@RequestMapping(value = "removeDept", method = RequestMethod.POST)
 	public String doDepartment_DELETE(@ModelAttribute("DEPARTMENT") Department department, Model model){
 		departmentService.deleteDepartment(department);
 		return doDepartments_GET(model);
@@ -72,4 +69,16 @@ public class DepartmentController {
 		this.departmentService = departmentService;
 	}
 	
+	private void setParent(Department department){
+		//checks if no parent specified. If not set parent department to null
+		//if one is specified then find that parent department and associate it
+		//to the department being saved
+		Integer parentId = department.getParentDepartment().getId();
+		if(parentId == null){
+			department.setParentDepartment(null);
+		}
+		else{
+			department.setParentDepartment(this.departmentService.findDepartmentByID(parentId));
+		}
+	}
 }

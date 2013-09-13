@@ -3,8 +3,9 @@
 
 <fieldset>
 	<legend>${param.formType} Department</legend>
-	<form:form id="${param.formType}DepartmentForm" action="${param.formType}Emp" modelAttribute="DEPARTMENT" method="${param.method}">
+	<form:form id="${param.formType}DepartmentForm" action="${param.action}" modelAttribute="DEPARTMENT" method="${param.method}">
 		<div>  
+			<input type="hidden" name="id" id="${param.formType}Id" />
 			<label>Dept	Name:</label> 
 			<form:input path="name" />
 			<form:select path="parentDepartment.id">

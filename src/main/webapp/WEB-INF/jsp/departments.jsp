@@ -35,6 +35,7 @@
 	<jsp:include page="../fragments/departmentForm.jsp">
 		<jsp:param name="formType" value="Edit" />
 		<jsp:param name="method" value="put" />
+		<jsp:param name="action" value="/depts/editDept" />
 	</jsp:include>
 </div>
 
@@ -43,6 +44,7 @@
 	<jsp:include page="../fragments/departmentForm.jsp">
 		<jsp:param name="formType" value="Create" />
 		<jsp:param name="method" value="post" />
+		<jsp:param name="action" value="/depts/createDept" />
 	</jsp:include>
 </div> 
 
@@ -50,7 +52,7 @@
 <div id="removeEntity" style="display:none">
 	<fieldset>
 		<legend>Remove Department?</legend>
-		<form:form id="removeDepartmentForm" action="deptRemove" method="delete">
+		<form:form id="removeDepartmentForm" action="depts/removeDept" method="delete">
 			<div>
 				<label>Are you sure?</label>
 				<input id="removeDepartmentId" type="hidden" name="id" />
