@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	var $lastClickedButton = null;
-	var id = null;
 
 	$('#addBtn-container').css('width', $('#t1').width());
 
@@ -15,28 +14,15 @@ $(document).ready(function() {
 
 	//Create Form Submit
 	$("#CreateEntity").submit(function(){
-		var deptParId = $('parent_id_Create').attr('value');
-
-		if(deptParId == 0){
-			$('CreateParentId').attr({
-				'name': 'No Parent Specified'
-			});
-		} else {
-			$('CreateParentId').attr({
-				'value': deptParId
-			});
-		}
+		//TODO ID
 	});
 
 	//Edit Button
 	$('.editBtn').click(function() {
-		id = $(this).val();
-		
-		$("#EditId").attr({
-			'value': id
-		});
 		$("#EditEntity").fadeIn("fast");
+
 		$("#removeEntity").fadeOut("fast");
+
 		$("#CreateEntity").fadeOut("fast");
 		
 		resetButton($(this));
@@ -45,22 +31,11 @@ $(document).ready(function() {
 
 	//Edit Form Submit
 	$("#EditEntity").submit(function(){
-		var deptParId = $("#parent_id_Edit").val();
-
-		if(deptParId == 0){
-			$('#EditParentId').attr('value', null);
-		} else {
-			$('#EditParentId').attr('value', deptParId);
-		}
+		//TODO id
 	});
 
 	//Remove Button
 	$('.removeBtn').click(function() {
-		id = $(this).val();
-		
-		$('#removeDepartmentId').attr({
-			'value': id
-		});
 		$("#removeEntity").fadeIn("fast");
 
 		$("#EditEntity").fadeOut("fast");

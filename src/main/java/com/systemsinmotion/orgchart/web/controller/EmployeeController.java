@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.service.DepartmentService;
@@ -40,7 +41,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "CreateEmp", method = RequestMethod.POST)
-	public ModelAndView doEmployees_POST(Employee employee, Integer number, Model model){
+	public ModelAndView doEmployees_POST(@ModelAttribute("EMPLOYEE") Employee employee, Integer number, Model model){
 		setJob(employee);
 		setDepartment(employee);
 		employeeService.storeEmployee(employee);
@@ -52,7 +53,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "EditEmp", method = RequestMethod.POST)
-	public String doEmployees_PUT(Employee employee, Model model){
+	public String doEmployees_PUT(@ModelAttribute("EMPLOYEE") Employee employee, Model model){
 		//TODO: have it go to a show page
 		try{
 			setJob(employee);
@@ -66,7 +67,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "RemoveEmp", method = RequestMethod.POST)
-	public String doEmployee_DELETE(Employee employee, Model model){
+	public String doEmployee_DELETE(@ModelAttribute("EMPLOYEE") Employee employee, Model model){
 		employeeService.removeEmployee(employee);
 		return doEmployees_GET(model);
 	}

@@ -19,8 +19,8 @@
 			</sec:authorize> -->
 			<td>${dept.name}</td> 
 			<td>${dept.parentDepartment.name}</td>
-			<td><button class="editBtn" style="visibility:visible; width:45px;" name="${dept.id}">Edit</button></td>
-			<td><button class="removeBtn" style="visibility:visible; width:80px;" name="${dept.id}">Remove</button></td>
+			<td><button class="editBtn" style="visibility:visible; width:45px;" value="${dept.id}">Edit</button></td>
+			<td><button class="removeBtn" style="visibility:visible; width:80px;" value="${dept.id}">Remove</button></td>
 		</tr>
 	</c:forEach> 
 </table>

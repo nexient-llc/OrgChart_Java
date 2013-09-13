@@ -3,9 +3,6 @@ package com.systemsinmotion.orgchart.dao;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.PostRemove;
-import javax.persistence.PreRemove;
-
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
