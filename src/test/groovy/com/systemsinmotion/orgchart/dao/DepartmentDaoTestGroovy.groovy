@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.dao
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -39,9 +40,9 @@ class DepartmentDaoTestGroovy extends GroovyTestCase {
 	@Before
 	void setUp() throws Exception {
 		this.parent = Entities.department()
-		this.parent.id = departmentDao.save(parent)
-		this.department = Entities.department(parent) 
-		this.department.id = departmentDao.save(department)
+		this.parent.id = departmentDao.save(this.parent)
+		this.department = Entities.department(this.parent) 
+		this.department.id = departmentDao.save(this.department)
 	}
 
 	@Test
@@ -65,7 +66,7 @@ class DepartmentDaoTestGroovy extends GroovyTestCase {
 		assertNotNull(depts);
 		assertTrue(0 < depts.size)
 	}
-
+	
 	@Test
 	void testFindByDeptId() throws Exception {
 		def dept = this.departmentDao.findById(this.department.id)

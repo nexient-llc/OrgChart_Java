@@ -18,7 +18,6 @@ import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
-@RequestMapping("/depts")
 public class DepartmentController {
 	
 	@SuppressWarnings("unused")
@@ -27,7 +26,7 @@ public class DepartmentController {
 	@Autowired
 	DepartmentService departmentService;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("depts", departments);
@@ -74,7 +73,7 @@ public class DepartmentController {
 		//if one is specified then find that parent department and associate it
 		//to the department being saved
 		Integer parentId = department.getParentDepartment().getId();
-		if(parentId == null){
+		if(parentId == 0){
 			department.setParentDepartment(null);
 		}
 		else{

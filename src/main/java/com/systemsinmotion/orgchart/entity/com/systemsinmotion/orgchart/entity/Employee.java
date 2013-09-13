@@ -64,13 +64,13 @@ public class Employee implements java.io.Serializable{
 		return is_manager;
 	}
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn (name = "JOB_TITLE_ID", referencedColumnName = "ID", nullable = false)
 	public JobTitle getJobTitle() {
 		return jobTitle;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn (name="DEPARTMENT_ID", referencedColumnName = "ID", nullable = false)
 	public Department getDepartment() {
 		return department;

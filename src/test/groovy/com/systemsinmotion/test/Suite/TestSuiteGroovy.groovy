@@ -9,7 +9,7 @@ public class TestSuiteGroovy extends TestSuite {
      public static TestSuite suite() throws Exception {
          TestSuite suite = new TestSuite();
          GroovyTestSuite gsuite = new GroovyTestSuite();
-         suite.addTestSuite(gsuite.compile(TEST_ROOT + "dao/DepartmentDaoTestGroovy.groovy"));
+         //suite.addTestSuite(gsuite.compile(TEST_ROOT + "dao/DepartmentDaoTestGroovy.groovy"));
          return suite;
      }
 }

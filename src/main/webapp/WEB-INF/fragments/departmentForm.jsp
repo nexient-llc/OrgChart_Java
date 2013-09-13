@@ -9,7 +9,7 @@
 			<label>Dept	Name:</label> 
 			<form:input path="name" />
 			<form:select path="parentDepartment.id">
-				<form:option value="...">...</form:option>
+				<form:option value="0">...</form:option>
 				<c:forEach items="${depts}" var="dept">
 					<form:option value="${dept.id}">${dept.name}</form:option>
 				</c:forEach>
