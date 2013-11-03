@@ -1,2 +1,6 @@
-/.settings/
-/target/
+/.metadata
+/.settings
+/bin
+/build
+/target
+/RemoteSystemsTempFiles
