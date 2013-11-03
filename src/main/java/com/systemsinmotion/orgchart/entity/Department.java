@@ -33,12 +33,20 @@ public class Department implements java.io.Serializable {
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String name;
+
+	private Set<Employee> employees = new HashSet<Employee>();
+
 	private Set<Department> departments = new HashSet<Department>(0);
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
 	public Set<Department> getDepartments() {
 		return this.departments;
 	}
+
+	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+	// public Set<Employee> getEmployees() {
+	// return this.employees;
+	// }
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
