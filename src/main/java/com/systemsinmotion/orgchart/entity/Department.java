@@ -43,10 +43,10 @@ public class Department implements java.io.Serializable {
 		return this.departments;
 	}
 
-	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
-	// public Set<Employee> getEmployees() {
-	// return this.employees;
-	// }
+	 @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+	 public Set<Employee> getEmployees() {
+	 return this.employees;
+	 }
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
