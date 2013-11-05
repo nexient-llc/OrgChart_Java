@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
@@ -39,7 +40,10 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
-	public String doEmployees() {
+	public String doEmployees(Model model) {
+		/* Provide information needed by the jsp in the form of attributes. */
+		List<Employee> employees = employeeService.findAllEmployees();
+		model.addAttribute("emps", employees);
 		return View.EMPLOYEES;
 	}
 	
