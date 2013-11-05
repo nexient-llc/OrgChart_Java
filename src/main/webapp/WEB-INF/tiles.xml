@@ -18,6 +18,7 @@
 	
 	<definition name="employees" extends="main">
 		<put-attribute name="title" type="string" value="Systems in Motion > Org Chart > Employees" />
+		<put-attribute name="page-js" type="string" value="../scripts/employees.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
 	</definition>
 	

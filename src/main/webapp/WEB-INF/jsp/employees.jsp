@@ -18,6 +18,7 @@
 		<th> Role </th> <!--  Manager or Employee -->
  		<th> Skype </th> 
  		<th> Email </th>
+ 		<th> Actions </th>
 	</tr> 
 	
 	<!--  Rows -->
@@ -56,8 +57,25 @@
 			</td>
 	 		<td>${emp.skypeName}</td> 
 	 		<td> ${emp.email}</td>
+	 		<td>
+	 			<!--  Actions  -->
+	 			<form action="javascript:;">
+	 				<input type="submit" value="edit" name="empEdit" class="empEditBtn" data-id="${emp.id}">
+	 			</form>
+	 		</td>
 	</c:forEach> 
 </table>
+
+<div class="hidden" id="empEditDialog" title="Edit Employee">
+  <form>
+  <fieldset>
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
+  </fieldset>
+  </form>
+</div>
 
 <!-- 
 <div id="addBtn-container">
