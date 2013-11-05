@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -55,9 +56,8 @@ public class DefaultController {
 	String employeesPreFillForm(@PathVariable Integer id) {
 		// Employee employee = this.employeeService.findById(id);
 
-		// Gson gson = new Gson();
-		// String json = gson.toJson(employee);
-		// return json;
+		Gson gson = new Gson();
+
 		return null;
 	}
 
