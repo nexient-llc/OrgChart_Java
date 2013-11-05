@@ -22,7 +22,7 @@ public class JobTitleService {
 		this.jobTitleDao = jobTitleDao;
 	}
 
-	public List<JobTitle> findAlljobTitles() {
+	public List<JobTitle> findAllJobTitles() {
 		return this.jobTitleDao.findAll();
 	}
 
@@ -30,7 +30,7 @@ public class JobTitleService {
 		return this.jobTitleDao.save(department);
 	}
 
-	public void removejobTitle(JobTitle department) {
+	public void removeJobTitle(JobTitle department) {
 		this.jobTitleDao.delete(department);
 	}
 
