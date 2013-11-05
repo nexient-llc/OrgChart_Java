@@ -26,6 +26,8 @@ public class Employee implements java.io.Serializable {
 
 	private Department department;
 
+	private Employee manager;
+
 	private JobTitle jobTitle;
 
 	@Id
@@ -76,15 +78,15 @@ public class Employee implements java.io.Serializable {
 	}
 
 	@Column(name = "IS_MANAGER")
-	public boolean isManager() {
+	public boolean getIsManager() {
 		return isManager;
 	}
 
-	public void setManager(boolean isManager) {
+	public void setIsManager(boolean isManager) {
 		this.isManager = isManager;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "job_title_id", referencedColumnName = "id", nullable = false, unique = true)
 	public JobTitle getJobTitle() {
 		return jobTitle;
@@ -94,7 +96,7 @@ public class Employee implements java.io.Serializable {
 		this.jobTitle = jobTitle;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, unique = true)
 	public Department getDepartment() {
 		return department;
@@ -102,6 +104,16 @@ public class Employee implements java.io.Serializable {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "manager_id", referencedColumnName = "id", nullable = true, unique = false)
+	public Employee getManager() {
+		return manager;
+	}
+
+	public void setManager(Employee manager) {
+		this.manager = manager;
 	}
 
 }

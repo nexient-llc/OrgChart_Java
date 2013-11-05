@@ -17,6 +17,7 @@ public class JobTitle implements java.io.Serializable {
 	
 	private String name;
 	
+	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}

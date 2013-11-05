@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.systemsinmotion.orgchart.dao.IEmployeeDao;
 import com.systemsinmotion.orgchart.entity.Employee;
 
@@ -11,7 +12,7 @@ import com.systemsinmotion.orgchart.entity.Employee;
 public class EmployeeService {
 
 	@Autowired
-	IEmployeeDao employeeDao;
+	private IEmployeeDao employeeDao;
 
 	public Employee findDepartmentByID(Integer employeeId) {
 		return this.employeeDao.findById(employeeId);
