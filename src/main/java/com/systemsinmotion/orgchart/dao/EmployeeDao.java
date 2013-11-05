@@ -39,7 +39,7 @@ public class EmployeeDao implements IEmployeeDao {
 	@Override
 	@SuppressWarnings("unchecked")	
 	public List<Employee> findAll() {
-		LOG.debug("Listing all Departments");
+		LOG.debug("Listing all employees: " + "from " + Employee.class.getName() + " order by id");
 		return this.hibernateTemplate.find("from " + Employee.class.getName() + " order by id");
 	}
 
