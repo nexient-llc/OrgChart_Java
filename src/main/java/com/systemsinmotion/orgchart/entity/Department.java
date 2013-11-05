@@ -14,10 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "DEPARTMENT")
@@ -29,9 +25,6 @@ public class Department implements java.io.Serializable {
 	
 	private Department parentDepartment;
 
-	@NotNull
-	@NotEmpty
-	@Size(min = 1, max = 45)
 	private String name;
 
 	private Set<Employee> employees = new HashSet<Employee>();
@@ -59,7 +52,7 @@ public class Department implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "NAME", nullable = false, length = 50)
+	@Column(name = "NAME")
 	public String getName() {
 		return this.name;
 	}
