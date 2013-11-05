@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -27,10 +28,32 @@
 			</sec:authorize> -->
 			<td>${emp.id}</td> 
 			<td>${emp.firstName} ${emp.lastName}</td>
-			<td>todo: fix</td>
-			<td>todo: fix</td>
-	 		<td>todo: fix</td>  
-			<td></th> <!--  Manager or Employee -->
+			<td>
+				<!--  Display the employees department if they have one  -->
+				<c:catch var="exception">${emp.jobTitle.name}</c:catch>
+				<c:if test="${not empty exception}"> None </c:if>
+			</td>
+			<td>
+				<!--  Display the employees department if they have one  -->
+				<c:catch var="exception">${emp.department.name}</c:catch>
+				<c:if test="${not empty exception}"> None </c:if>
+			</td>
+	 		<td>
+				<!--  Display the employees manager if they have one  -->
+				<c:catch var="exception">${emp.manager.firstName} ${emp.manager.lastName}</c:catch>
+				<c:if test="${not empty exception}">None</c:if>
+	 		</td> 
+			<td> 
+				<!--  Display whether or not an employee is a manager.  -->
+				<c:choose>
+				  <c:when test="${emp.isManager}">
+				  	Manager
+				  </c:when>
+				  <c:otherwise>
+				  	Employee
+				  </c:otherwise>
+				</c:choose>
+			</td>
 	 		<td>${emp.skypeName}</td> 
 	 		<td> ${emp.email}</td>
 	</c:forEach> 
