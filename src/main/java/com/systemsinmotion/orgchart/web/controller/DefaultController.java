@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
@@ -48,7 +49,9 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
-	public String doJobTitles() {
+	public String doJobTitles(Model model) {
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobs", jobTitles);
 		return View.JOB_TITLES;
 	}
 	
