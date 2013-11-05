@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -43,16 +44,33 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+		 List<Department> departments = departmentService.findAllDepartments();
+		 model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
+	}
+	
+	@RequestMapping(value = "depts", method = RequestMethod.POST)
+	public String doDepartments_POST(Model model, Department newDepartment, @RequestParam("parent_id") Integer parentId ) {
+		/* Ensure a valid department was sent in. */
+		if(newDepartment == null) return View.DEPARTMENTS;
+		
+		/* Validate and set the parent id. */
+		if(parentId > -1) {
+			Department parentDepartment = departmentService.findDepartmentByID(parentId);
+			newDepartment.setParentDepartment(parentDepartment);
+		}
+		
+		/* Store the new department. */
+		departmentService.storeDepartment(newDepartment);
+		
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		
 		return View.DEPARTMENTS;
 	}
 	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
-
-
 
 }

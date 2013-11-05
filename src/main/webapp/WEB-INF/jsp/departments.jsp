@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <h3>Departments</h3> 
 <table id="t1"> 
@@ -26,18 +27,18 @@
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Department</legend>
-		<form name="newDept" action="depts" method="post">
-		<div><labeL>Dept Name:</labeL><input type="text" name="name"/>
-			<labeL>Parent Dept:</label>
-			<select name="parent_id">
-				<option>...</option>
-				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.departmentId}">${dept.name}</option>
-				</c:forEach>
-			</select>
-			<button type="submit">Save</button>
-		</div>
-		<div></div>
-		</form>
+		<form:form name="newDept" action="depts" method="post">
+			<div>
+				<label>Dept Name:</label><input type="text" name="name"/>
+				<label>Parent Dept:</label>
+				<select name="parent_id">
+					<option value="-1">No Parent</option>
+					<c:forEach items="${depts}" var="dept">
+						<option value="${dept.id}">${dept.name}</option>
+					</c:forEach>
+				</select>
+				<button type="submit">Save</button>
+			</div>
+		</form:form>
 	</fieldset>
 </div>

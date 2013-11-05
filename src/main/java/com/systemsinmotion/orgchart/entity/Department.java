@@ -26,7 +26,7 @@ public class Department implements java.io.Serializable {
 	private static final long serialVersionUID = -5379179412533671591L;
 
 	private Integer id;
-
+	
 	private Department parentDepartment;
 
 	@NotNull
@@ -43,9 +43,13 @@ public class Department implements java.io.Serializable {
 		return this.departments;
 	}
 
-	 @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+	 public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
 	 public Set<Employee> getEmployees() {
-	 return this.employees;
+		 return this.employees;
 	 }
 
 	@Id
