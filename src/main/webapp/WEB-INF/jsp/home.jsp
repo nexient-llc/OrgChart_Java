@@ -1,7 +1,3 @@
-<html>
-<head title="Systems in Motion Organization Chart: Home Page"></head>
-
-<body>
 <div id='mainContent'>
 	<h1>Welcome to the Systems in Motion Organizational Management Application</h1>
 	<div>
@@ -10,5 +6,3 @@
 		<a href="/OrgChart_Java/app/jobs">Job Titles</a><br/>
 	</div>
 </div>
-</body>
-</html>
