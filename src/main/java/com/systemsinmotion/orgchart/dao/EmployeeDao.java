@@ -2,39 +2,77 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
 
-import com.systemsinmotion.orgchart.entity.Department;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+
 import com.systemsinmotion.orgchart.entity.Employee;
 
 public class EmployeeDao implements IEmployeeDao {
 
+	/**
+	 * @see org.slf4j.Logger
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger(DepartmentDao.class);
+	
+	@Autowired
+	HibernateTemplate hibernateTemplate;
+	
+	/* (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDao#delete(com.systemsinmotion.orgchart.entity.Employee)
+	 */
 	@Override
 	public void delete(Employee employee) {
-		// TODO Auto-generated method stub
-
+		String fullName = employee.getFirstName() + " " + employee.getLastName();
+		
+		LOG.debug("Deleting employee named " + fullName);
+		
+		this.hibernateTemplate.delete(employee);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDao#findAll()
+	 */
 	@Override
+	@SuppressWarnings("unchecked")	
 	public List<Employee> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		LOG.debug("Listing all Departments");
+		return this.hibernateTemplate.find("from " + Employee.class.getName() + " order by id");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDao#findById(java.lang.Integer)
+	 */
 	@Override
 	public Employee findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		LOG.debug("Attempting to find an employee by id" + id.toString());
+		
+		Employee employee = null;
+		
+		if( null != id ) {
+			employee = this.hibernateTemplate.get(Employee.class, id);
+		}
+		
+		return employee;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDao#save(com.systemsinmotion.orgchart.entity.Employee)
+	 */
 	@Override
 	public Integer save(Employee employee) {
-		// TODO Auto-generated method stub
-		return null;
+		LOG.debug("Saving an Employee.");
+		return (Integer) this.hibernateTemplate.save(employee);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDao#update(com.systemsinmotion.orgchart.entity.Employee)
+	 */
 	@Override
 	public void update(Employee employee) {
-		// TODO Auto-generated method stub
-
+		LOG.debug("Updating an Employee");
+		this.hibernateTemplate.update(employee);;
 	}
 
 }
