@@ -38,6 +38,16 @@ public class DefaultController {
 		return View.HOME;
 	}
 	
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	public String doEmployees() {
+		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	public String doJobTitles() {
+		return View.JOB_TITLES;
+	}
+	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		 List<Department> departments = departmentService.findAllDepartments();
