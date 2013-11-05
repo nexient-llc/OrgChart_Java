@@ -23,7 +23,6 @@ public class EmployeeService {
 
 	public List<Employee> findAllEmployees() {
 		return this.employeeDao.findAll();
-
 	}
 
 	public Integer storeEmployee(Employee employee) {
