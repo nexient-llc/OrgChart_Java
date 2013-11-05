@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<h3>Employee List</h3> 
+<h3>Job Title List</h3> 
 <table id="t1"> 
 	<!--  Heading -->
 	<tr>
