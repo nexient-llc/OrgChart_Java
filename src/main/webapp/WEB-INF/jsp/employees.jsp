@@ -67,7 +67,7 @@
 </table>
 
 <div class="hidden" id="empEditDialog" title="Edit Employee">
-  <h1> Press submit to accept changes. </h1>
+  <b>Edit Area:</b>
   <form:form action="employees/edit" method="put">
   <input type="hidden" name="id" id="id"/>
   <fieldset>
@@ -104,35 +104,24 @@
     <label for="email">Email</label>
     <input type="text" name="email" id="email"/> <br>
     
-    <ul id="errors" style="color:red;">
-  	</ul>
-  
-    <br><input type="submit" value="Submit Changes" id="editSubmit"/>
+    <h1> Press submit to accept changes. </h1>
+    <input type="submit" value="Submit" id="editSubmit"/>
   </fieldset>
   </form:form>
+  
+  <br>
+  <b>DANGER ZONE:</b>
+  <form action="employee/delete" method="post">
+  	<fieldset>
+  	Type the employee's <b>last name</b> and hit delete to remove them permanently:
+  	<input type="text" name="deleteName" id="deleteName"/>
+  	<br>
+  	<input type="submit" value="Remove" id="deleteSubmit"/>
+  	</fieldset>
+  </form>
 </div>
 
-<!-- 
+ 
 <div id="addBtn-container">
-		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
+		<button type="button" id="addBtn">Add New Employee</button>	
 </div>
-
-<div id="addEntity" style="display:none">
-	<fieldset>
-		<legend>Add Department</legend>
-		<form:form name="newDept" action="depts" method="post">
-			<div>
-				<label>Dept Name:</label><input type="text" name="name"/>
-				<label>Parent Dept:</label>
-				<select name="parent_id">
-					<option value="-1">No Parent</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
-				<button type="submit">Save</button>
-			</div>
-		</form:form>
-	</fieldset>
-</div>
- -->
