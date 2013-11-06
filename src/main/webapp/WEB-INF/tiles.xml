@@ -11,38 +11,38 @@
 	</definition>
 	
 	<definition name="departments" extends="main">
-		<put-attribute name="title" type="string" value="Systems in Motion > Org Chart > Departments" />
+		<put-attribute name="title" type="string" value=" > Org Chart > Departments" />
 		<put-attribute name="page-js" type="string" value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
 	</definition>
 	
 	<definition name="employees" extends="main">
-		<put-attribute name="title" type="string" value="Systems in Motion > Org Chart > Employees" />
+		<put-attribute name="title" type="string" value=" > Org Chart > Employees" />
 		<put-attribute name="page-js" type="string" value="../scripts/employees.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
 	</definition>
 	
 	<definition name="job_titles" extends="main">
-		<put-attribute name="title" type="string" value="Systems in Motion > Org Chart > Job Titles" />
+		<put-attribute name="title" type="string" value=" > Org Chart > Job Titles" />
 		<put-attribute name="body" value="/WEB-INF/jsp/jobtitles.jsp" />
 	</definition>
 	
 	<definition name="home" extends="main">
-		<put-attribute name="title" type="string" value="Systems in Motion > Org Chart > Home" />
+		<put-attribute name="title" type="string" value=" > Org Chart > Home" />
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-no-login.jsp" />
 		<put-attribute name="body" value="/WEB-INF/jsp/home.jsp" />
 	</definition>
 
 	<definition name="admin/default" extends="main">
-		<put-attribute name="title" type="string" value="Systems in Motion > Org Chart > Admin" />
+		<put-attribute name="title" type="string" value=" > Org Chart > Admin" />
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-no-login.jsp" />
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/default.jsp" />
 	</definition>
 	
 	<definition name="admin/login" extends="main">
-		<put-attribute name="title" type="string" value="Systems in Motion > Org Chart > Admin > Login" />
+		<put-attribute name="title" type="string" value=" > Org Chart > Admin > Login" />
 		<put-attribute name="page-js" type="string" value="../scripts/login.js" />
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-no-login.jsp" />
