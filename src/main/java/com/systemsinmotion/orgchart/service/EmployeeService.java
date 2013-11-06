@@ -26,6 +26,23 @@ public class EmployeeService {
 		return this.employeeDao.findAll();
 	}
 
+	public void updateEmployee(Employee employee) {
+		/*
+		 * An employee cannot manage himself, also handle when the employee is
+		 * updated to have no manager.
+		 */
+		if (employee.getManager() != null) {
+			if (employee.getManager().getId() == null) {
+				employee.setManager(null);
+			} else {
+				if (employee.getManager().getId() == employee.getId())
+					return;
+			}
+		}
+
+		this.employeeDao.update(employee);
+	}
+
 	public Integer storeEmployee(Employee employee) {
 		return this.employeeDao.save(employee);
 	}
