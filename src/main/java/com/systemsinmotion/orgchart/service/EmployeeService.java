@@ -51,4 +51,21 @@ public class EmployeeService {
 		this.employeeDao.delete(employee);
 	}
 
+	/*
+	 * Fails if no employee by that id exists, or if the confirm string is not
+	 * equivalent to their last name.
+	 */
+	public void removeEmployee(Integer id, String confirmString) {
+		if (confirmString == null || confirmString.isEmpty())
+			return;
+
+		Employee employee = this.findById(id);
+
+		if (employee == null)
+			return;
+
+		if (employee.getLastName().equals(confirmString))
+			this.employeeDao.delete(employee);
+	}
+
 }

@@ -41,6 +41,7 @@ $(document).ready(function() {
 			 
 			/* Pre-fill edit forms. */
 			$("#id").val(employee.id);
+			$("#deleteId").val(employee.id);
 			$("#firstName").val(employee.firstName);
 			$("#lastName").val(employee.lastName);
 			$("#lastName").val(employee.lastName);

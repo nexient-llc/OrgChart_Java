@@ -67,6 +67,14 @@ public class DefaultController {
 		return "redirect:../" + View.EMPLOYEES;
 	}
 	
+	/* Handles employee delete requests */
+	@RequestMapping(value = "employees/delete", method = RequestMethod.POST)
+	public String doEmployeeDelete(@RequestParam String confirmString,
+			@RequestParam Integer deleteId, Model model) {
+		employeeService.removeEmployee(deleteId, confirmString);
+		return "redirect:../" + View.EMPLOYEES;
+	}
+
 	/* Returns JSON object given an employee ID */
 	@RequestMapping(value = "employees/{id}/json", method = RequestMethod.GET)
 	public @ResponseBody

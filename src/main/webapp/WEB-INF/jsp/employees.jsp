@@ -113,8 +113,9 @@
   <b>DANGER ZONE:</b>
   <form action="employees/delete" method="post">
   	<fieldset>
-  	Type the employee's <b>last name</b> and hit delete to remove them permanently:
-  	<input type="text" name="deleteName" id="deleteName"/>
+  	<input type="hidden" name="deleteId" id="deleteId"/>
+  	Type the employee's <b>last name</b> (case sensitive) and presse remove to erase them permanently:
+  	<input type="text" name="confirmString" id="deleteName"/>
   	<br>
   	<input type="submit" value="Remove" id="deleteSubmit"/>
   	</fieldset>
