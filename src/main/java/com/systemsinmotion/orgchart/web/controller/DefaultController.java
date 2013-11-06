@@ -47,16 +47,25 @@ public class DefaultController {
 	public String doEmployees(Model model) {
 		/* Provide information needed by the jsp in the form of attributes. */
 		List<Employee> employees = employeeService.findAllEmployees();
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		List<Department> departments = departmentService.findAllDepartments();
+
 		model.addAttribute("emps", employees);
+		model.addAttribute("jobs", jobTitles);
+		model.addAttribute("depts", departments);
+
 		return View.EMPLOYEES;
 	}
 	
-	@RequestMapping(value = "emps/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "emps/{id}/json", method = RequestMethod.GET)
 	public @ResponseBody
 	String employeesPreFillForm(@PathVariable Integer id) {
-		// Employee employee = this.employeeService.findById(id);
+		Employee employee = this.employeeService.findById(id);
 
-		Gson gson = new Gson();
+		if (employee != null) {
+			Gson gson = new Gson();
+			return gson.toJson(employee);
+		}
 
 		return null;
 	}
@@ -67,7 +76,7 @@ public class DefaultController {
 		model.addAttribute("jobs", jobTitles);
 		return View.JOB_TITLES;
 	}
-	
+
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		 List<Department> departments = departmentService.findAllDepartments();

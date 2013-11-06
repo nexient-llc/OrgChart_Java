@@ -1,9 +1,5 @@
 package com.systemsinmotion.orgchart.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,24 +21,6 @@ public class Department implements java.io.Serializable {
 	private Department parentDepartment;
 
 	private String name;
-
-	private Set<Employee> employees = new HashSet<Employee>();
-
-	private Set<Department> departments = new HashSet<Department>(0);
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
-	public Set<Department> getDepartments() {
-		return this.departments;
-	}
-
-	 public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
-	 public Set<Employee> getEmployees() {
-		 return this.employees;
-	 }
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,10 +38,6 @@ public class Department implements java.io.Serializable {
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
 		return this.parentDepartment;
-	}
-
-	public void setDepartments(Set<Department> departments) {
-		this.departments = departments;
 	}
 
 	public void setId(Integer departmentId) {

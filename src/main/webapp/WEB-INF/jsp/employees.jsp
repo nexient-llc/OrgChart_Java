@@ -69,10 +69,39 @@
 <div class="hidden" id="empEditDialog" title="Edit Employee">
   <form>
   <fieldset>
-    <label for="name">Name</label>
-    <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" class="text ui-widget-content ui-corner-all" />
+    
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" class="text ui-widget-content ui-corner-all" />
+    
+    <label for="jobTitles">Job Title</label>
+	<select name="jobTitles" id="jobTitles">
+		<c:forEach items="${jobs}" var="job">
+			<option value="${job.id}" >${job.name}</option>
+		</c:forEach>
+	</select>
+	
+    <label for="departments">Departments</label>
+	<select name="departments" id="departments">
+		<c:forEach items="${depts}" var="dept">
+			<option value="${dept.id}" >${dept.name}</option>
+		</c:forEach>
+	</select>
+    
+    <label for="manager">Managed By:</label>
+    <input type="text" id="manager" value="click to lookup"/>
+    
+    <label for="isManager">Is Manager? </label>
+    <input type="checkbox" id="isManager"/>
+    <br>
+ 
+    <label for="skypeName">Skype Name</label>
+    <input type="text" id="skypeName" value="" class="text ui-widget-content ui-corner-all" />
+    
     <label for="email">Email</label>
-    <input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
+    <input type="text" id="email" value="" class="text ui-widget-content ui-corner-all" />
+    
   </fieldset>
   </form>
 </div>

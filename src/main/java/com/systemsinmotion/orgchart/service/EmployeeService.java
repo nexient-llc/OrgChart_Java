@@ -14,7 +14,7 @@ public class EmployeeService {
 	@Autowired
 	private IEmployeeDao employeeDao;
 
-	public Employee findEmployeeByID(Integer employeeId) {
+	public Employee findById(Integer employeeId) {
 		return this.employeeDao.findById(employeeId);
 	}
 
