@@ -6,15 +6,15 @@ $(document).ready(function() {
 	});
 	
 	$('#navBarDepts').click(function() {
-		window.location = path + "depts";	
+		window.location = path + "departments";	
 	});
 	
 	$('#navBarEmps').click(function() {
-		window.location = path + "emps";	
+		window.location = path + "employees";	
 	});
 	
 	$('#navBarJobs').click(function() {
-		window.location = path + "jobs";	
+		window.location = path + "jobtitles";	
 	});
 	
 });
