@@ -43,8 +43,25 @@ $(document).ready(function() {
 			
 			/* Select appropriate Department */
 			selectByValue($('#departments'), employee.department.id);
+			
+			/* Check Is Manager box if they're a manager. Make sure
+			 * it's unchecked if they're not. */
+			if(employee.isManager == true) {
+				$('#isManager').prop('checked',true);
+			} else {
+				$('#isManager').prop('checked',false);
+			}
 		});
 		
-		$("#empEditDialog").dialog();
+		$("#empEditDialog").dialog({
+			modal: true,
+			width: 400
+		});
+		
+		
+		/* Clear manager field on focus. */
+		$('#manager').on('click focusin', function() {
+		    this.value = '';
+		});
 	});
 });
