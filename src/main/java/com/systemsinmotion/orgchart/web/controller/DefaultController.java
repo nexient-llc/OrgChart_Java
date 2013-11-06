@@ -30,13 +30,13 @@ public class DefaultController {
 			.getLogger(DefaultController.class);
 
 	@Autowired
-	EmployeeService employeeService;
+	private EmployeeService employeeService;
 
 	@Autowired
-	DepartmentService departmentService;
+	private DepartmentService departmentService;
 
 	@Autowired
-	JobTitleService jobTitleService;
+	private JobTitleService jobTitleService;
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String doGet() {
@@ -44,7 +44,7 @@ public class DefaultController {
 	}
 	
 	/* Handles employee list landing page. */
-	@RequestMapping(value = "/emps", method = RequestMethod.GET)
+	@RequestMapping(value = "employees", method = RequestMethod.GET)
 	public String doEmployees(Model model) {
 		/* Provide information needed by the jsp in the form of attributes. */
 		List<Employee> employees = employeeService.findAllEmployees();
@@ -59,14 +59,16 @@ public class DefaultController {
 	}
 
 	/* Handles edit request */
-	@RequestMapping(value = "/emps/edit", method = RequestMethod.PUT)
-	public String doEmployeeEdit(Employee employee) {
-		// employeeService.storeEmployee(employee);
-		return "redirect:";
+	@RequestMapping(value = "employees/edit", method = RequestMethod.PUT)
+	public String doEmployeeEdit(Employee employee, Model model) {
+
+		employeeService.updateEmployee(employee);
+
+		return "redirect:../" + View.EMPLOYEES;
 	}
 	
 	/* Returns JSON object given an employee ID */
-	@RequestMapping(value = "/emps/{id}/json", method = RequestMethod.GET)
+	@RequestMapping(value = "employees/{id}/json", method = RequestMethod.GET)
 	public @ResponseBody
 	String employeesPreFillForm(@PathVariable Integer id) {
 		Employee employee = this.employeeService.findById(id);
@@ -79,21 +81,21 @@ public class DefaultController {
 		return null;
 	}
 
-	@RequestMapping(value = "/jobs", method = RequestMethod.GET)
+	@RequestMapping(value = "jobtitles", method = RequestMethod.GET)
 	public String doJobTitles(Model model) {
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("jobs", jobTitles);
 		return View.JOB_TITLES;
 	}
 
-	@RequestMapping(value = "/depts", method = RequestMethod.GET)
+	@RequestMapping(value = "departments", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		 List<Department> departments = departmentService.findAllDepartments();
 		 model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 	
-	@RequestMapping(value = "/depts", method = RequestMethod.POST)
+	@RequestMapping(value = "departments", method = RequestMethod.POST)
 	public String doDepartments_POST(Model model, Department newDepartment, @RequestParam("parent_id") Integer parentId ) {
 		/* Ensure a valid department was sent in. */
 		if(newDepartment == null) return View.DEPARTMENTS;
