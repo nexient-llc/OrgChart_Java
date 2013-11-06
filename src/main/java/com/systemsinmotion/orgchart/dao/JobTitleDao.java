@@ -2,6 +2,9 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +55,29 @@ public class JobTitleDao implements IJobTitleDao {
 			jobTitle = this.hibernateTemplate.get(JobTitle.class, id);
 		}
 		
+		return jobTitle;
+	}
+
+	@Override
+	public JobTitle findByName(String name) {
+		LOG.debug("Finding a job with name " + name);
+
+		JobTitle jobTitle = null;
+		
+		if( null != name ) {
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(JobTitle.class);
+			criteria.add(Restrictions.eq("name", name));
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			@SuppressWarnings("unchecked")
+			List<JobTitle> queryResults = this.hibernateTemplate
+					.findByCriteria(criteria);
+
+			if (null != queryResults && !queryResults.isEmpty())
+				jobTitle = queryResults.get(0);
+		}
+
 		return jobTitle;
 	}
 
