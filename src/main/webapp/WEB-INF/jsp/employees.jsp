@@ -111,7 +111,7 @@
   
   <br>
   <b>DANGER ZONE:</b>
-  <form action="employee/delete" method="post">
+  <form action="employees/delete" method="post">
   	<fieldset>
   	Type the employee's <b>last name</b> and hit delete to remove them permanently:
   	<input type="text" name="deleteName" id="deleteName"/>
