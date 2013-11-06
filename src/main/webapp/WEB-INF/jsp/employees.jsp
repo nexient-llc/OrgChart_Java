@@ -68,41 +68,46 @@
 
 <div class="hidden" id="empEditDialog" title="Edit Employee">
   <h1> Press submit to accept changes. </h1>
-  <form:form action="emps/edit" method="put">
+  <form:form action="employees/edit" method="put">
+  <input type="hidden" name="id" id="id"/>
   <fieldset>
     <label for="firstName">First Name</label>
-    <input type="text" id="firstName"/> <br>
+    <input type="text" name="firstName" id="firstName"/> <br>
     
     <label for="lastName">Last Name</label>
-    <input type="text" id="lastName" /> <br>
+    <input type="text" name="lastName" id="lastName" /> <br>
     
     <label for="jobTitles">Job Title</label>
-	<select name="jobTitles" id="jobTitles">
+	<select name="jobTitle.id" id="jobTitle">
 		<c:forEach items="${jobs}" var="job">
 			<option value="${job.id}" >${job.name}</option>
 		</c:forEach>
 	</select> <br>
 	
-    <label for="departments">Departments</label>
-	<select name="departments" id="departments">
+    <label for="department">Departments</label>
+	<select name="department.id" id="JobTitle">
 		<c:forEach items="${depts}" var="dept">
 			<option value="${dept.id}" >${dept.name}</option>
 		</c:forEach>
 	</select> <br>
     
     <label for="manager">Managed By:</label>
-    <input type="text" id="manager" value="(enter id, see list)"/> <br>
+    <input type="text" name="manager.id" id="manager"/> <br>
+    <span class="error" id="managerError" style="color: red"></span>
     
     <label for="isManager">Is Manager? </label>
     <input type="checkbox" name="isManager" id="isManager"/> <br>
  
     <label for="skypeName">Skype Name</label>
-    <input type="text" id="skypeName" /> <br>
+    <input type="text" name="skypeName" id="skypeName" /> <br>
     
     <label for="email">Email</label>
-    <input type="text" id="email"/> <br>
+    <input type="text" name="email" id="email"/> <br>
     
-    <br><input type="submit" value="Submit Changes"/>
+    <ul id="errors" style="color:red;">
+  	</ul>
+  
+    <br><input type="submit" value="Submit Changes" id="editSubmit"/>
   </fieldset>
   </form:form>
 </div>
