@@ -18,7 +18,7 @@
 		<th> Role </th> <!--  Manager or Employee -->
  		<th> Skype </th> 
  		<th> Email </th>
- 		<th> Actions </th>
+ 		<th> Edit/Delete </th>
 	</tr> 
 	
 	<!--  Rows -->
@@ -66,9 +66,9 @@
 	</c:forEach> 
 </table>
 
-<div class="hidden" id="empEditDialog" title="Edit Employee">
+<div class="hidden" id="empEditDialog" title="Add/Edit Employees">
   <b>Edit Area:</b>
-  <form:form action="employees/edit" method="put">
+  <form:form id="editForm" action="employees/edit" method="put">
   <input type="hidden" name="id" id="id"/>
   <fieldset>
     <label for="firstName">First Name</label>
@@ -109,20 +109,20 @@
   </fieldset>
   </form:form>
   
+  <div id="dangerZone">
   <br>
   <b>DANGER ZONE:</b>
   <form action="employees/delete" method="post">
   	<fieldset>
   	<input type="hidden" name="deleteId" id="deleteId"/>
-  	Type the employee's <b>last name</b> (case sensitive) and presse remove to erase them permanently:
+  	Type the employee's <b>last name</b> (case sensitive) and press remove to erase them permanently:
   	<input type="text" name="confirmString" id="deleteName"/>
   	<br>
   	<input type="submit" value="Remove" id="deleteSubmit"/>
   	</fieldset>
   </form>
+  </div>
 </div>
 
- 
-<div id="addBtn-container">
-		<button type="button" id="addBtn">Add New Employee</button>	
-</div>
+
+<button type="button" id="addBtn">Add New Employee</button>	

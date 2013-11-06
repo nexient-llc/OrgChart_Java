@@ -44,6 +44,13 @@ public class EmployeeService {
 	}
 
 	public Integer storeEmployee(Employee employee) {
+		/* If manager is left blank null the reference. */
+		if (employee.getManager() != null) {
+			if (employee.getManager().getId() == null) {
+				employee.setManager(null);
+			}
+		}
+
 		return this.employeeDao.save(employee);
 	}
 

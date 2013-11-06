@@ -75,6 +75,13 @@ public class DefaultController {
 		return "redirect:../" + View.EMPLOYEES;
 	}
 
+	/* Handles adding an employee */
+	@RequestMapping(value = "employees/add", method = RequestMethod.PUT)
+	public String doEmployeeAdd(Employee employee, Model model) {
+		employeeService.storeEmployee(employee);
+		return "redirect:../" + View.EMPLOYEES;
+	}
+
 	/* Returns JSON object given an employee ID */
 	@RequestMapping(value = "employees/{id}/json", method = RequestMethod.GET)
 	public @ResponseBody

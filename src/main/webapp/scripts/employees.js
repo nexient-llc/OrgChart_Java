@@ -22,7 +22,30 @@ function selectByValue(obj, val) {
 	});
 }
 
+function popupDialog() {
+	$("#empEditDialog").dialog({
+		modal: true,
+		width: 400
+	});
+}
+
+
 $(document).ready(function() {
+	$("#addBtn").click(function() {
+		popupDialog();
+		$("#id").val('');
+		$("#deleteId").val('');
+		$("#firstName").val('');
+		$("#lastName").val('');
+		$("#skypeName").val('');
+		$("#email").val('');
+		$("#isManager").prop('checked',false);
+		$("#manager").val('');
+		$("#dangerZone").css('display','none');
+		$("#editForm").attr("action", "employees/add");
+
+	});
+	
 	$(".empEditBtn").click(function() {
 		
 		/* Requests JSON representing an employee
@@ -48,6 +71,8 @@ $(document).ready(function() {
 			$("#skypeName").val(employee.skypeName);
 			$("#email").val(employee.email);
 			$("#isManager").prop('checked', employee.isManager	);
+			$("#dangerZone").css('display', 'inline');
+			$("#editForm").attr("action", "employees/edit");
 			
 			if(employee.manager != undefined && employee.manager.id != undefined)
 				$("#manager").val(employee.manager.id);
@@ -85,12 +110,8 @@ $(document).ready(function() {
 				}
 				
 			});
+			
+			popupDialog();
 		});
-		
-		$("#empEditDialog").dialog({
-			modal: true,
-			width: 400
-		});
-	
 	});
 });
