@@ -6,7 +6,6 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-@SuppressWarnings("unused")
 public class Entities {
 
 	public static final String DEPARTMENT_NAME = "Department";
@@ -40,7 +39,6 @@ public class Entities {
 		return DEPARTMENT_NAME + r.nextInt();
 	}
 
-/*	
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
@@ -67,5 +65,5 @@ public class Entities {
 		mgr.setIsManager(true);
 		return mgr;
 	}
-*/
+
 }
