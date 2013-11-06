@@ -12,7 +12,7 @@ import com.systemsinmotion.orgchart.entity.Department;
 public class DepartmentService {
 
 	@Autowired
-	IDepartmentDao departmentDAO;
+	private IDepartmentDao departmentDAO;
 
 	public Department findDepartmentByID(Integer departmentId) {
 		return this.departmentDAO.findById(departmentId);

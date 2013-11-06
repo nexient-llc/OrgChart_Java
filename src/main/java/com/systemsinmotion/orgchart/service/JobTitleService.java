@@ -12,7 +12,7 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 public class JobTitleService {
 
 	@Autowired
-	IJobTitleDao jobTitleDao;
+	private IJobTitleDao jobTitleDao;
 
 	public JobTitle findJobTitletByID(Integer jobTitleId) {
 		return this.jobTitleDao.findById(jobTitleId);
