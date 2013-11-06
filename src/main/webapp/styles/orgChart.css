@@ -68,6 +68,12 @@ SELECT {
 	display: none;	
 }
 
+span #error {
+	font-weight: bold;
+	font-size: 10px;
+	color: red;
+}
+
 #addBtn-container {
 	margin-top: 0.5em;
 	/*text-align: center;*/
