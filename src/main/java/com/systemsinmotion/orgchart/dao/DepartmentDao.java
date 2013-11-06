@@ -35,7 +35,7 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 	 * @see org.springframework.orm.hibernate3.HibernateTemplate
 	 */
 	@Autowired
-	HibernateTemplate hibernateTemplate;
+	private HibernateTemplate hibernateTemplate;
 
 	/*
 	 * (non-Javadoc)

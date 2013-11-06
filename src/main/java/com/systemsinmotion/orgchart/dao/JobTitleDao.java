@@ -19,7 +19,7 @@ public class JobTitleDao implements IJobTitleDao {
 	private static final Logger LOG = LoggerFactory.getLogger(JobTitleDao.class);
 	
 	@Autowired
-	HibernateTemplate hibernateTemplate;
+	private HibernateTemplate hibernateTemplate;
 	
 	/* (non-Javadoc)
 	 * @see com.systemsinmotion.orgchart.dao.IJobTitleDao#delete(com.systemsinmotion.orgchart.entity.JobTitle)

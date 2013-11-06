@@ -19,7 +19,7 @@ public class EmployeeDao implements IEmployeeDao {
 	private static final Logger LOG = LoggerFactory.getLogger(DepartmentDao.class);
 	
 	@Autowired
-	HibernateTemplate hibernateTemplate;
+	private HibernateTemplate hibernateTemplate;
 	
 	/* (non-Javadoc)
 	 * @see com.systemsinmotion.orgchart.dao.IEmployeeDao#delete(com.systemsinmotion.orgchart.entity.Employee)
