@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.web.View;
@@ -29,24 +32,56 @@ public class DepartmentController {
 	@RequestMapping(value = "departments", method = RequestMethod.POST)
 	public String doDepartments_POST(Department newDepartment,
 			@RequestParam("parent_id") Integer parentId, Model model) {
-		/* Ensure a valid department was sent in. */
-		if (newDepartment == null)
-			return View.DEPARTMENTS;
 
-		/* Validate and set the parent id. */
-		if (parentId > -1) {
-			Department parentDepartment = departmentService
-					.findDepartmentByID(parentId);
-			newDepartment.setParentDepartment(parentDepartment);
-		}
-
-		/* Store the new department. */
 		departmentService.storeDepartment(newDepartment);
 
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
+		return doDepartments_GET(model);
+	}
 
-		return View.DEPARTMENTS;
+	@RequestMapping(value = "departments/edit", method = RequestMethod.PUT)
+	public String doDepartmentsEdit_PUT(Department department, Model model) {
+		/*
+		 * See removeDepartment comment regarding the try/catch. Same applies
+		 * here.
+		 */
+		try {
+		departmentService.updateDepartment(department);
+		} catch (Exception e) {
+		}
+		return "redirect:../" + View.DEPARTMENTS;
+	}
+
+	@RequestMapping(value = "departments/{id}/json", method = RequestMethod.GET)
+	public @ResponseBody
+	String doDepartmentPrefillForm_GET(@PathVariable Integer id) {
+		Department department = departmentService.findDepartmentByID(id);
+
+		Gson gson = new Gson();
+
+		if (department != null) {
+			return gson.toJson(department);
+		}
+
+		return null;
+	}
+
+	@RequestMapping(value = "departments/delete", method = RequestMethod.POST)
+	String doDepartmentDelete_POST(
+			@RequestParam("confirmString") String confirmString,
+			@RequestParam("deleteId") Integer deleteId, Model model) {
+
+		/*
+		 * If an exception is thrown it's likely because employees have this
+		 * department listed as their department and depend on this entry
+		 * existing. For now we'll just silently catch it and redisplay the
+		 * page.
+		 */
+		try {
+			departmentService.removeDepartmentConfirm(deleteId, confirmString);
+		} catch (Exception e) {
+		}
+
+		return doDepartments_GET(model);
 	}
 
 	public DepartmentService getDepartmentService() {

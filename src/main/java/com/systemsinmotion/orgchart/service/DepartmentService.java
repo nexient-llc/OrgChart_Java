@@ -28,11 +28,37 @@ public class DepartmentService {
 	}
 
 	public Integer storeDepartment(Department department) {
+		Department parent = department.getParentDepartment();
+		if (parent != null) {
+			if (parent.getId() == null || parent.getId() == -1) {
+				department.setParentDepartment(null);
+			}
+		}
+
 		return this.departmentDAO.save(department);
 	}
 
 	public void removeDepartment(Department department) {
 		this.departmentDAO.delete(department);
+	}
+
+	public void removeDepartmentConfirm(Integer removeId, String confirmString) {
+		Department department = this.findDepartmentByID(removeId);
+
+		if (department != null && confirmString.equals(department.getName())) {
+			this.departmentDAO.delete(department);
+		}
+	}
+
+	public void updateDepartment(Department department) {
+		Department parent = department.getParentDepartment();
+		if (parent != null) {
+			if (parent.getId() == null || parent.getId() == -1) {
+				department.setParentDepartment(null);
+			}
+		}
+
+		this.departmentDAO.update(department);
 	}
 
 }

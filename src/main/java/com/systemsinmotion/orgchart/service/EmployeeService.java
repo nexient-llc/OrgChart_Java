@@ -18,7 +18,7 @@ public class EmployeeService {
 		return this.employeeDao.findById(employeeId);
 	}
 
-	public void setDepartmentDAO(IEmployeeDao employeeDao) {
+	public void setEmployeeDao(IEmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
 	}
 

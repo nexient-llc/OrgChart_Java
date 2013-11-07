@@ -29,7 +29,6 @@ function popupDialog() {
 	});
 }
 
-
 $(document).ready(function() {
 	$("#addBtn").click(function() {
 		popupDialog();
