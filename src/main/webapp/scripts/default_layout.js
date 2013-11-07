@@ -14,7 +14,7 @@ $(document).ready(function() {
 	});
 	
 	$('#navBarJobs').click(function() {
-		window.location = path + "jobtitles";	
+		window.location = path + "job_titles";	
 	});
 	
 });

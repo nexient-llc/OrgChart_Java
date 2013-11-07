@@ -12,6 +12,7 @@
 		<!-- <th>Task</th></sec:authorize> --> 
 		<th>ID</th> 
 		<th>Name</th>
+		<th>Edit/Remove</th>
 	</tr> 
 	
 	<!--  Rows -->
@@ -22,30 +23,38 @@
 			</sec:authorize> -->
 			<td>${job.id}</td> 
 			<td>${job.name}</td>
+			<td>
+				<input type="submit" value="Edit" class="jobEditBtn" data-id="${job.id}">
+			</td>
 	</c:forEach> 
-</table>
+</table>	
 
-<!-- 
-<div id="addBtn-container">
-		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
-</div>
-
-<div id="addEntity" style="display:none">
+<div class="hidden" id="jobEditDialog" title="Add/Edit Job Titles">
+	<h1>Edit Area:</h1>
 	<fieldset>
-		<legend>Add Department</legend>
-		<form:form name="newDept" action="depts" method="post">
-			<div>
-				<label>Dept Name:</label><input type="text" name="name"/>
-				<label>Parent Dept:</label>
-				<select name="parent_id">
-					<option value="-1">No Parent</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
-				<button type="submit">Save</button>
-			</div>
-		</form:form>
+	<form:form id="editForm" action="job_titles/edit" method="put">
+		<label for="name">Name</label>
+		<input type="text" id="name" name="name"/>
+		<input type="hidden" id="id" name="id"/>
+    	<h1> Press submit to accept changes. </h1>
+		<input type="submit" name="editSubmit" value="Submit"/>
 	</fieldset>
+	</form:form>
+	
+	<div id="dangerZone">
+	<br>
+	<b>DANGER ZONE:</b>
+	<form action="job_titles/delete" method="post">
+		<fieldset>
+		<input type="hidden" name="deleteId" id="deleteId"/>
+		Type the title's <b>name</b> (case sensitive) and press remove to erase it permanently:
+		<input type="text" name="confirmString" id="deleteName"/>
+		<br>
+		<input type="submit" value="Remove" id="deleteSubmit"/>
+		</fieldset>
+	</form>
+	</div>
 </div>
- -->
+
+<br>
+<button type="button" id="addBtn">Add Job Title</button>	
