@@ -55,7 +55,15 @@ public class EmployeeService {
 	}
 
 	public void removeEmployee(Employee employee) {
-		this.employeeDao.delete(employee);
+		/*
+		 * Silently fail, this usually happens when you're trying to delete a
+		 * user when other users have him as their manager.
+		 */
+		try {
+			this.employeeDao.delete(employee);
+		} catch (Exception e) {
+		}
+
 	}
 
 	/*

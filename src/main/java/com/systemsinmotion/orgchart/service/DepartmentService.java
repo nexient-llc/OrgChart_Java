@@ -56,6 +56,9 @@ public class DepartmentService {
 			if (parent.getId() == null || parent.getId() == -1) {
 				department.setParentDepartment(null);
 			}
+			if (parent.getId() == department.getId()) {
+				return; // You cannot be your own parent department.
+			}
 		}
 
 		this.departmentDAO.update(department);
