@@ -17,18 +17,19 @@ import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
+@RequestMapping("/job_titles")
 public class JobTitleController {
 	@Autowired
 	private JobTitleService jobTitleService;
 
-	@RequestMapping(value = "job_titles", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String doJobTitles(Model model) {
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("jobs", jobTitles);
 		return View.JOB_TITLES;
 	}
 
-	@RequestMapping(value = "job_titles/{id}/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/json", method = RequestMethod.GET)
 	public @ResponseBody
 	String doJobTitlePrefillForm_GET(@PathVariable Integer id) {
 		JobTitle jobTitle = jobTitleService.findJobTitletByID(id);
@@ -41,13 +42,13 @@ public class JobTitleController {
 		return null;
 	}
 
-	@RequestMapping(value = "job_titles/edit", method = RequestMethod.PUT)
+	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
 	String doJobTitleEdit_PUT(JobTitle jobTitle) {
 		jobTitleService.updateJobTitle(jobTitle);
 		return "redirect:../" + View.JOB_TITLES;
 	}
 	
-	@RequestMapping(value = "job_titles/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String doJobTitleRemove_POST(
 			@RequestParam("deleteId") Integer deleteId,
 			@RequestParam("confirmString") String confirmString)
@@ -56,7 +57,7 @@ public class JobTitleController {
 		return "redirect:../" + View.JOB_TITLES;
 	}
 
-	@RequestMapping(value = "job_titles/add", method = RequestMethod.PUT)
+	@RequestMapping(value = "/add", method = RequestMethod.PUT)
 	public String doJobTitleAdd_PUT(JobTitle jobTitle) {
 		jobTitleService.storeJobTitle(jobTitle);
 		return "redirect:../" + View.JOB_TITLES;

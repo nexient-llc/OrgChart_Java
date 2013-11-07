@@ -21,6 +21,7 @@ import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
+@RequestMapping("/employees")
 public class EmployeeController {
 
 	@Autowired
@@ -33,7 +34,7 @@ public class EmployeeController {
 	private JobTitleService jobTitleService;
 
 	/* Handles employee list landing page. */
-	@RequestMapping(value = "employees", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
 		/* Provide information needed by the jsp in the form of attributes. */
 		List<Employee> employees = employeeService.findAllEmployees();
@@ -48,7 +49,7 @@ public class EmployeeController {
 	}
 
 	/* Handles edit request */
-	@RequestMapping(value = "employees/edit", method = RequestMethod.PUT)
+	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
 	public String doEmployeeEdit_PUT(Employee employee, Model model) {
 
 		employeeService.updateEmployee(employee);
@@ -57,7 +58,7 @@ public class EmployeeController {
 	}
 
 	/* Handles employee delete requests */
-	@RequestMapping(value = "employees/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String doEmployeeDelete_POST(@RequestParam String confirmString,
 			@RequestParam Integer deleteId, Model model) {
 		employeeService.removeEmployee(deleteId, confirmString);
@@ -65,14 +66,14 @@ public class EmployeeController {
 	}
 
 	/* Handles adding an employee */
-	@RequestMapping(value = "employees/add", method = RequestMethod.PUT)
+	@RequestMapping(value = "/add", method = RequestMethod.PUT)
 	public String doEmployeeAdd_PUT(Employee employee, Model model) {
 		employeeService.storeEmployee(employee);
 		return "redirect:../" + View.EMPLOYEES;
 	}
 
 	/* Returns JSON object given an employee ID */
-	@RequestMapping(value = "employees/{id}/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/json", method = RequestMethod.GET)
 	public @ResponseBody
 	String doEmployeesPrefillForm_GET(@PathVariable Integer id) {
 		Employee employee = this.employeeService.findById(id);

@@ -17,19 +17,20 @@ import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
+@RequestMapping(value = "/departments")
 public class DepartmentController {
 
 	@Autowired
 	private DepartmentService departmentService;
 
-	@RequestMapping(value = "departments", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 
-	@RequestMapping(value = "departments", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String doDepartments_POST(Department newDepartment,
 			@RequestParam("parent_id") Integer parentId, Model model) {
 
@@ -38,7 +39,7 @@ public class DepartmentController {
 		return doDepartments_GET(model);
 	}
 
-	@RequestMapping(value = "departments/edit", method = RequestMethod.PUT)
+	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
 	public String doDepartmentsEdit_PUT(Department department, Model model) {
 		/*
 		 * See removeDepartment comment regarding the try/catch. Same applies
@@ -49,10 +50,10 @@ public class DepartmentController {
 		} catch (Exception e) {
 		}
 
-		return "redirect:../" + View.DEPARTMENTS;
+		return "redirect:" + "../" + View.DEPARTMENTS;
 	}
 
-	@RequestMapping(value = "departments/{id}/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/json", method = RequestMethod.GET)
 	public @ResponseBody
 	String doDepartmentPrefillForm_GET(@PathVariable Integer id) {
 		Department department = departmentService.findDepartmentByID(id);
@@ -66,7 +67,7 @@ public class DepartmentController {
 		return null;
 	}
 
-	@RequestMapping(value = "departments/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	String doDepartmentDelete_POST(
 			@RequestParam("confirmString") String confirmString,
 			@RequestParam("deleteId") Integer deleteId, Model model) {
@@ -82,13 +83,13 @@ public class DepartmentController {
 		} catch (Exception e) {
 		}
 
-		return "redirect:../" + View.DEPARTMENTS;
+		return "redirect:" + "../" + View.DEPARTMENTS;
 	}
 
-	@RequestMapping(value = "departments/add", method = RequestMethod.PUT)
+	@RequestMapping(value = "/add", method = RequestMethod.PUT)
 	String doDepartmentAdd_PUT(Department department, Model model) {
 		departmentService.storeDepartment(department);
-		return "redirect:../" + View.DEPARTMENTS;
+		return "redirect:" + "../" + View.DEPARTMENTS;
 	}
 
 	public DepartmentService getDepartmentService() {
