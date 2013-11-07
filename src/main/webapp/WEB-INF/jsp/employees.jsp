@@ -60,7 +60,7 @@
 	 		<td>
 	 			<!--  Actions  -->
 	 			<form action="javascript:;">
-	 				<input type="submit" value="edit" name="empEdit" class="empEditBtn" data-id="${emp.id}">
+	 				<input type="submit" value="Edit" name="empEdit" class="empEditBtn" data-id="${emp.id}">
 	 			</form>
 	 		</td>
 	</c:forEach> 
