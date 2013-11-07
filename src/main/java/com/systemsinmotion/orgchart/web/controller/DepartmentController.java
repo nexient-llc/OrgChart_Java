@@ -45,9 +45,10 @@ public class DepartmentController {
 		 * here.
 		 */
 		try {
-		departmentService.updateDepartment(department);
+			departmentService.updateDepartment(department);
 		} catch (Exception e) {
 		}
+
 		return "redirect:../" + View.DEPARTMENTS;
 	}
 
@@ -81,7 +82,13 @@ public class DepartmentController {
 		} catch (Exception e) {
 		}
 
-		return doDepartments_GET(model);
+		return "redirect:../" + View.DEPARTMENTS;
+	}
+
+	@RequestMapping(value = "departments/add", method = RequestMethod.PUT)
+	String doDepartmentAdd_PUT(Department department, Model model) {
+		departmentService.storeDepartment(department);
+		return "redirect:../" + View.DEPARTMENTS;
 	}
 
 	public DepartmentService getDepartmentService() {
