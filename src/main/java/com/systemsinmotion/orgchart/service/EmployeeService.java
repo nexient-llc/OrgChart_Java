@@ -40,7 +40,10 @@ public class EmployeeService {
 			}
 		}
 
-		this.employeeDao.update(employee);
+		try {
+			this.employeeDao.update(employee);
+		} catch (Exception e) {
+		}
 	}
 
 	public Integer storeEmployee(Employee employee) {
@@ -51,7 +54,12 @@ public class EmployeeService {
 			}
 		}
 
-		return this.employeeDao.save(employee);
+		try {
+			return this.employeeDao.save(employee);
+		} catch (Exception e) {
+		}
+
+		return null;
 	}
 
 	public void removeEmployee(Employee employee) {
@@ -80,7 +88,7 @@ public class EmployeeService {
 			return;
 
 		if (employee.getLastName().equals(confirmString))
-			this.employeeDao.delete(employee);
+			removeEmployee(employee);
 	}
 
 }
