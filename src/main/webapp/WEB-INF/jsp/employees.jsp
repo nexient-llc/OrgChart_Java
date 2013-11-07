@@ -30,7 +30,7 @@
 				<td>delete</td>
 			</sec:authorize> -->
 			<td>${emp.id}</td>
-			<td>${emp.firstName}${emp.lastName}</td>
+			<td>${emp.firstName} ${emp.lastName}</td>
 			<td>
 				<!--  Display the employees department if they have one  --> <c:catch
 					var="exception">${emp.jobTitle.name}</c:catch> <c:if

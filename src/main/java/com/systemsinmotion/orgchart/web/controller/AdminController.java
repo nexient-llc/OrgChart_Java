@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class AdminController {
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -15,7 +15,7 @@ public class AdminController {
 		return View.ADMIN_DEFAULT;
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String doLogin() {
 		return View.ADMIN_LOGIN;
 	}
