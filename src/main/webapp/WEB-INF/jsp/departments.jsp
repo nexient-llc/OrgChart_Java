@@ -25,7 +25,7 @@
 	</c:forEach> 
 </table>
 
-<div class="hidden" id="depEditDialog" title="Edit/Delete Departments">
+<div class="hidden" id="depEditDialog" title="Add/Edit Departments">
 	<h1>Edit Area:</h1>
 	<fieldset>
 	<form:form id="editForm" action="departments/edit" method="put">

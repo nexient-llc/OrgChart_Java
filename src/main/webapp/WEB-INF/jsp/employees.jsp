@@ -18,7 +18,7 @@
 		<th> Role </th> <!--  Manager or Employee -->
  		<th> Skype </th> 
  		<th> Email </th>
- 		<th> Edit/Delete </th>
+ 		<th> Edit/Remove </th>
 	</tr> 
 	
 	<!--  Rows -->
