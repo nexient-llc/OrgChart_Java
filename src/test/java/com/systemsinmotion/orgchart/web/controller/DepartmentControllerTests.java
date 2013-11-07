@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,19 +23,18 @@ import com.systemsinmotion.orgchart.service.DepartmentService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
-public class DefaultControllerTests {
+public class DepartmentControllerTests {
 
 	@Autowired
-	DefaultController controller;
+	private DepartmentController controller;
 
-	DepartmentService mockDepartmentService = mock(DepartmentService.class);
+	private DepartmentService mockDepartmentService = mock(DepartmentService.class);
 
-	Department mockDepartment = mock(Department.class);
+	private Department mockDepartment = mock(Department.class);
 
-	Department mockDepartment2;
+	private Department mockDepartment2;
 
-	// Map model = new HashMap<String, Object>();
-	Model model = new ExtendedModelMap();
+	private Model model = new ExtendedModelMap();
 
 	private ArrayList<Department> findAllDepartmentsList;
 
@@ -61,8 +61,7 @@ public class DefaultControllerTests {
 		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
 		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
 
-		this.controller.setDepartmentService(this.mockDepartmentService);
-
+		controller.setDepartmentService(mockDepartmentService);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -77,22 +76,28 @@ public class DefaultControllerTests {
 		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
 	}
 
-	// @SuppressWarnings("unchecked")
-	// @Test
-	// public void testModelShouldUpdateOnDepartmentPagePost() {
-	//
-	// model.addAttribute("depts", findAllDepartmentsList);
-	// //Given
-	// controller.doDepartments_POST(mockDepartment2, null, model);
-	// //When
-	// findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
-	//
-	// //Then
-	// assertNotNull(findAllDepartmentsList);
-	// assertTrue(findAllDepartmentsList.size() > 0);
-	// assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(1).getDepartmentId());
-	// assertEquals(findAllDepartmentsList.get(1).getName(), TestObject.DEPARTMENT_NAME);
-	//
-	// }
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnDepartmentPagePost() {
+
+		model.addAttribute("depts", findAllDepartmentsList);
+		// Given
+		controller.doDepartments_POST(mockDepartment2, null, model);
+		// When
+		findAllDepartmentsList = (ArrayList<Department>) model.asMap().get(
+				"depts");
+
+		// Then
+		assertNotNull(findAllDepartmentsList);
+		assertTrue(findAllDepartmentsList.size() > 0);
+
+		// Commented out for now as I'm unsure where TestObject is supposed
+		// to come from.
+		// assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(1)
+		// .getDepartmentId());
+		// assertEquals(findAllDepartmentsList.get(1).getName(),
+		// TestObject.DEPARTMENT_NAME);
+
+	}
 
 }
