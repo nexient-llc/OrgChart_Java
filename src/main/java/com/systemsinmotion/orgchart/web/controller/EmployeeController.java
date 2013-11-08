@@ -1,6 +1,5 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,15 +53,17 @@ public class EmployeeController {
 			if(filterSelect.equals("manager")) {
 				try{
 					Employee manager = employeeService.findById(Integer.parseInt(filterString));
-					employees = employeeService.findEmployeeByManager(manager);
+					employees = employeeService.findByManager(manager);
 				} catch(Exception e) {
 					
 				}
 			} else if(filterSelect.equals("department")) {
 				Department department = departmentService.findByName(filterString);
-				employees = employeeService.findEmployeeByDepartment(department);
-			} else if(filterSelect.equals("email")) {
-				employee = employeeService.findEmployeeByEmail(filterString);
+				employees = employeeService.findByDepartment(department);
+			} else if(filterSelect.equals("name")) {
+				employees = employeeService.findByFullName(filterString);
+			} else if (filterSelect.equals("email")) {
+				employee = employeeService.findByEmail(filterString);
 			}
 			
 			if(null != employees) {

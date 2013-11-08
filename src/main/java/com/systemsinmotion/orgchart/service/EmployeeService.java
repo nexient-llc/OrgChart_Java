@@ -92,24 +92,31 @@ public class EmployeeService {
 			removeEmployee(employee);
 	}
 	
-	public List<Employee> findEmployeeByDepartment(Department department) {
+	public List<Employee> findByDepartment(Department department) {
 		if(null == department)
 			return null;
 		
 		return employeeDao.findByDepartment(department);
 	}
 	
-	public List<Employee> findEmployeeByManager(Employee manager) {
+	public List<Employee> findByManager(Employee manager) {
 		if(null == manager)
 			return null;
 		
 		return employeeDao.findByManager(manager);
 	}
 	
-	public Employee findEmployeeByEmail(String email) {
+	public Employee findByEmail(String email) {
 		if(null == email)
 			return null;
 		
 		return employeeDao.findByEmail(email);
+	}
+
+	public List<Employee> findByFullName(String name) {
+		if (name == null)
+			return null;
+
+		return employeeDao.findByFullName(name);
 	}
 }

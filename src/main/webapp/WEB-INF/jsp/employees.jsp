@@ -78,6 +78,7 @@
 	<label for="empFilter">Filter by:</label>
 	<select name="empFilter" id="empFilterSelect">
 		<option value="none">No Filter</option>
+		<option value="name">Full Name</option>
 		<option value="email">Email</option>
 		<option value="manager">Manager (by Id)</option>
 		<option value="department">Department (by Name)</option>
