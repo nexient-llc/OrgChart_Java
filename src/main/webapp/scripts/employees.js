@@ -81,4 +81,45 @@ $(document).ready(function() {
 			popupDialog($("#empEditDialog"));
 		});
 	});
+	
+	/* Autocomplete for filtering */
+	$("#empFilterString").keyup(function(){
+		
+		var search = $("#empFilterString").val();
+		var acBox = $("#autoComplete");
+		acBox.empty();
+		
+		/* Hide autocomplete suggestions if there
+		 * is no text.
+		 */
+		if(search.length == 0) {
+			acBox.css("display", "none");
+			return; // In fact, no need to query.
+		}
+		
+		$.ajax({
+			url: "employees/getBy/name/"+search+"/json",
+			type: "GET",
+			dataType: "json"
+		
+		}).done(function(employees){
+			acBox.empty();
+			/* No results found */
+			if(employees == undefined || employees.length == 0) {
+				acBox.css("display", none);
+				return;
+			}
+		
+			acBox.css("display", "inline");
+			acBox.attr("size", employees.length+1);
+			for(var i = 0; i < employees.length; ++i) {
+				acBox
+		          .append($('<option>', { value : employees[i].id })
+		          .text("" + employees[i].id + " - " + employees[i].firstName + 
+		        		" " + employees[i].lastName)); 
+			}
+		});
+	
+	});
+	
 });

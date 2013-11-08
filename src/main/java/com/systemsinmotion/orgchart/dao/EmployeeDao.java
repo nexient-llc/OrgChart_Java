@@ -140,21 +140,21 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
-	public List<Employee> findByFullName(String name) {
-		if(StringUtils.hasText(name)) {
-			String[] splitName = StringUtils.split(name, " ");
-			if (splitName != null && splitName.length > 1) {
-				List<Employee> employees = null;
-				
-				DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
-				criteria.add(Restrictions.eq("firstName", splitName[0]));
-				criteria.add(Restrictions.eq("lastName", splitName[1]));
+	public List<Employee> findByFullName(String firstName, String lastName) {
 
-				return hibernateTemplate.findByCriteria(criteria);
-			}
+		List<Employee> employees = null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+
+		if (null != firstName) {
+			firstName = "%" + firstName + "%";
+			criteria.add(Restrictions.like("firstName", firstName).ignoreCase());
 		}
-		
-		return null;
+		if (null != lastName) {
+			lastName = "%" + lastName + "%";
+			criteria.add(Restrictions.like("lastName", lastName).ignoreCase());
+		}
+
+		return hibernateTemplate.findByCriteria(criteria);
 	}
 
 	/* (non-Javadoc)

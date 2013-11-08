@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.systemsinmotion.orgchart.dao.IEmployeeDao;
 import com.systemsinmotion.orgchart.entity.Department;
@@ -117,6 +118,14 @@ public class EmployeeService {
 		if (name == null)
 			return null;
 
-		return employeeDao.findByFullName(name);
+		if (!StringUtils.hasText(name))
+			return null;
+
+		String[] parts = StringUtils.split(name, " ");
+
+		if (null == parts)
+			return employeeDao.findByFullName(name, null);
+
+		return employeeDao.findByFullName(parts[0], parts[1]);
 	}
 }

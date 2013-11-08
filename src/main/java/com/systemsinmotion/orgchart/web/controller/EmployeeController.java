@@ -122,4 +122,18 @@ public class EmployeeController {
 
 		return null;
 	}
+
+	/* Returns JSON object given a name to search name by. */
+	@RequestMapping(value = "/getBy/name/{name}/json", method = RequestMethod.GET)
+	public @ResponseBody
+	String doEmployeeFetchEmployeesBy_GET(@PathVariable String name) {
+		List<Employee> employees = employeeService.findByFullName(name);
+
+		if (employees != null) {
+			Gson gson = new Gson();
+			return gson.toJson(employees);
+		}
+
+		return null;
+	}
 }

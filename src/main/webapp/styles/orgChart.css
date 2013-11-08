@@ -88,3 +88,10 @@ span #error {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+#autoComplete {
+	border: 1px solid black;
+	display: none;
+	width: 200px;
+	margin-left: 105px;
+}

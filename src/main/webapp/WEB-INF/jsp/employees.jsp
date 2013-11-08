@@ -85,9 +85,12 @@
 	</select>
 	<br>
 	<label for="empFilterString">Using: </label>
-	<input type="text" name="empFilterString" id="empFilterString"/>
+	<input style="width: 200px;" type="text" name="empFilterString" id="empFilterString" autocomplete="off"/>
 	<input type="submit" name="filterSubmit" value="Apply Filter"/>
 </form>
+
+<select name="autoComplete" id="autoComplete">
+</select>
 
 <div class="hidden" id="empEditDialog" title="Add/Edit Employees">
 	<b>Edit Area:</b>
