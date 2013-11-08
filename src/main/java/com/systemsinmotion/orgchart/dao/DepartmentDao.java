@@ -87,9 +87,12 @@ public class DepartmentDao implements com.systemsinmotion.orgchart.dao.IDepartme
 			criteria.add(Restrictions.eq("name", name));
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-			@SuppressWarnings("unchecked")
-			List<Department> departments = this.hibernateTemplate.findByCriteria(criteria);
-
+			List<Department> departments = null;
+			
+			try {
+				departments = this.hibernateTemplate.findByCriteria(criteria);
+			} catch(Exception e) {}
+			
 			if (null != departments && !departments.isEmpty()) {
 				dept = departments.get(0);
 			}

@@ -1,10 +1,12 @@
 package com.systemsinmotion.orgchart.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,13 +37,47 @@ public class EmployeeController {
 
 	/* Handles employee list landing page. */
 	@RequestMapping(method = RequestMethod.GET)
-	public String doEmployees_GET(Model model) {
+	public String doEmployees_GET(Model model, 
+			@RequestParam(value="empFilterString", required = false) String filterString,
+			@RequestParam(value="empFilter", required = false) String filterSelect) {
+		
 		/* Provide information needed by the jsp in the form of attributes. */
-		List<Employee> employees = employeeService.findAllEmployees();
+		List<Employee> allEmployees = employeeService.findAllEmployees();
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		List<Department> departments = departmentService.findAllDepartments();
 
-		model.addAttribute("emps", employees);
+		/* Filtering */
+		if(filterSelect != null && filterString != null && StringUtils.hasText(filterString)) {
+			Employee employee = null;
+			List<Employee> employees = null;
+			
+			if(filterSelect.equals("manager")) {
+				try{
+					Employee manager = employeeService.findById(Integer.parseInt(filterString));
+					employees = employeeService.findEmployeeByManager(manager);
+				} catch(Exception e) {
+					
+				}
+			} else if(filterSelect.equals("department")) {
+				Department department = departmentService.findByName(filterString);
+				employees = employeeService.findEmployeeByDepartment(department);
+			} else if(filterSelect.equals("email")) {
+				employee = employeeService.findEmployeeByEmail(filterString);
+			}
+			
+			if(null != employees) {
+				if(null != employee) {
+					employees.add(employee);
+				}
+				
+				if(!employees.isEmpty()) {
+					model.addAttribute("emps", employees);
+				}
+			}
+		} else {
+			model.addAttribute("emps", allEmployees);
+		}
+		
 		model.addAttribute("jobs", jobTitles);
 		model.addAttribute("depts", departments);
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.systemsinmotion.orgchart.dao.IDepartmentDao;
 import com.systemsinmotion.orgchart.entity.Department;
@@ -62,6 +63,13 @@ public class DepartmentService {
 		}
 
 		this.departmentDAO.update(department);
+	}
+	
+	public Department findByName(String name) {
+		if(null != name && StringUtils.hasText(name))
+			return this.departmentDAO.findByName(name);
+		
+		return null;
 	}
 
 }

@@ -4,7 +4,6 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <h3>Employee List</h3>
 <table id="t1">
 	<!--  Heading -->
@@ -68,6 +67,27 @@
 	</c:forEach>
 </table>
 
+<button type="button" id="addBtn">Add New Employee</button>
+
+<br>
+<br>
+<b>Filter: You can choose to only view employees with certain characteristics.</b>
+<br>
+<br>
+<form action="employees" method="get">
+	<label for="empFilter">Filter by:</label>
+	<select name="empFilter" id="empFilterSelect">
+		<option value="none">No Filter</option>
+		<option value="email">Email</option>
+		<option value="manager">Manager</option>
+		<option value="department">Department</option>
+	</select>
+	<br>
+	<label for="empFilterString">Using: </label>
+	<input type="text" name="empFilterString" id="empFilterString"/>
+	<input type="submit" name="filterSubmit" value="Apply Filter"/>
+</form>
+
 <div class="hidden" id="empEditDialog" title="Add/Edit Employees">
 	<b>Edit Area:</b>
 	<form:form id="editForm" action="employees/edit" method="put">
@@ -115,6 +135,3 @@
 		</form>
 	</div>
 </div>
-
-
-<button type="button" id="addBtn">Add New Employee</button>

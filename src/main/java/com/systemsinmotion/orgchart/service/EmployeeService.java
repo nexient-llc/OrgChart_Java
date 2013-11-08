@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.dao.IEmployeeDao;
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 @Service("employeeService")
@@ -90,5 +91,25 @@ public class EmployeeService {
 		if (employee.getLastName().equals(confirmString))
 			removeEmployee(employee);
 	}
-
+	
+	public List<Employee> findEmployeeByDepartment(Department department) {
+		if(null == department)
+			return null;
+		
+		return employeeDao.findByDepartment(department);
+	}
+	
+	public List<Employee> findEmployeeByManager(Employee manager) {
+		if(null == manager)
+			return null;
+		
+		return employeeDao.findByManager(manager);
+	}
+	
+	public Employee findEmployeeByEmail(String email) {
+		if(null == email)
+			return null;
+		
+		return employeeDao.findByEmail(email);
+	}
 }
