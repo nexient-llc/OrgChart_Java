@@ -7,9 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,38 +18,29 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "DEPARTMENT")
-public class Department implements java.io.Serializable {
+public class Department extends BaseEntity {
 
 	private static final long serialVersionUID = -5379179412533671591L;
 
-	private Integer id;
+	private Set<Department> childDepartments = new HashSet<Department>(0);
 
-	private Department parentDepartment;
+	private Set<Employee> employees = new HashSet<Employee>();
 
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String name;
 
-	private Set<Employee> employees = new HashSet<Employee>();
-
-	private Set<Department> departments = new HashSet<Department>(0);
+	private Department parentDepartment;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
-	public Set<Department> getDepartments() {
-		return this.departments;
+	public Set<Department> getChildDepartments() {
+		return this.childDepartments;
 	}
 
-	 @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
-	 public Set<Employee> getEmployees() {
-	 return this.employees;
-	 }
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+	public Set<Employee> getEmployees() {
+		return this.employees;
 	}
 
 	@Column(name = "NAME", nullable = false, length = 50)
@@ -66,12 +54,12 @@ public class Department implements java.io.Serializable {
 		return this.parentDepartment;
 	}
 
-	public void setDepartments(Set<Department> departments) {
-		this.departments = departments;
+	public void setChildDepartments(Set<Department> departments) {
+		this.childDepartments = departments;
 	}
 
-	public void setId(Integer departmentId) {
-		this.id = departmentId;
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
 	}
 
 	public void setName(String name) {
