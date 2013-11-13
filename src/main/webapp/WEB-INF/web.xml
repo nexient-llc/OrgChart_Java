@@ -24,6 +24,7 @@
     <servlet-name>Spring MVC Servlet</servlet-name>
     <url-pattern>/app/*</url-pattern>
   </servlet-mapping>
+  <!-- 
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -32,6 +33,7 @@
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/app/*</url-pattern>
   </filter-mapping>
+   -->
   <filter>
     <filter-name>characterEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
