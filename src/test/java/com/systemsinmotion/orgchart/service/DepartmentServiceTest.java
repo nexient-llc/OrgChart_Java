@@ -18,7 +18,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
-import com.systemsinmotion.orgchart.dao.IDepartmentDao;
+import com.systemsinmotion.orgchart.dao.DepartmentDao;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,7 +30,7 @@ public class DepartmentServiceTest {
 	@Autowired
 	DepartmentService departmentService;
 
-	IDepartmentDao mockDepartmentDAO = mock(IDepartmentDao.class);
+	DepartmentDao mockDepartmentDAO = mock(DepartmentDao.class);
 	Department mockDepartment = mock(Department.class);
 
 	private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>();
