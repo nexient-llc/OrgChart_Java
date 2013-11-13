@@ -35,8 +35,8 @@ public class JobTitleDaoTest {
 
 	private JobTitle jobTitle;
 
-//	@Autowired
-//	IJobTitleDao jobTitleDao;
+	@Autowired
+	JobTitleDao jobTitleDao;
 
 //	@After
 //	public void after() {
@@ -49,6 +49,11 @@ public class JobTitleDaoTest {
 //		this.jobTitle.setId(this.jobTitleDao.save(this.jobTitle));
 //	}
 
+	@Test
+	public void testInstantiation() {
+		assertNotNull(jobTitleDao);
+	}
+	
 //	@Test
 //	public void created() {
 //		assertNotNull(this.jobTitle);

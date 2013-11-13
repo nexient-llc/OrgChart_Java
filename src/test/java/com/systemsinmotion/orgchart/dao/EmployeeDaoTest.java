@@ -37,7 +37,7 @@ public class EmployeeDaoTest {
 //	IEmployeeDao employeeDao;
 
 	@Autowired
-	IDepartmentDao departmentDao;
+	DepartmentDao departmentDao;
 
 //	@After
 //	public void after() {
@@ -59,6 +59,11 @@ public class EmployeeDaoTest {
 //		this.employee.setId(this.employeeDao.save(this.employee));
 //	}
 
+	@Test
+	public void testInstantiation() {
+		assertNotNull(departmentDao);
+	}
+	
 //	private void createManager() {
 //		this.manager = Entities.manager();
 //		this.employeeDao.save(this.manager);
