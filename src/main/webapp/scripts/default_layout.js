@@ -1,19 +1,20 @@
+var path = "/OrgChart_Java/app/";
+
 $(document).ready(function() {
 	$('#navBarHome').click(function() {
-		window.location = "/app/home";	
+		window.location = path + "home";	
 	});
 	
 	$('#navBarDepts').click(function() {
-		window.location = "/app/depts";	
+		window.location = path + "depts";	
 	});
 	
 	$('#navBarEmps').click(function() {
-		window.location = "/app/emps";	
+		window.location = path + "emps";	
 	});
 	
 	$('#navBarJobs').click(function() {
-		window.location = "/app/jobs";	
+		window.location = path + "jobs";	
 	});
-	
 	
 });

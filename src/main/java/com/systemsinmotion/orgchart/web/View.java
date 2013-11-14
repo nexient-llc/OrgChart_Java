@@ -9,4 +9,5 @@ public class View {
 	public static final String EMPLOYEES = "employees";
 	public static final String JOB_TITLES = "jobtitles";
 	public static final String EDIT = "edit";
+	public static final String AJAX = "ajax";
 }

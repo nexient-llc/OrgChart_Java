@@ -57,7 +57,7 @@ SELECT {
 }
 
 .sim-logo {
-	background: white 0px -270px url(/images/sim-sprite.png) no-repeat;
+	background: white 0px -270px url(../images/sim-sprite.png) no-repeat;
 	height: 72px;
 	margin-bottom: 1em;
 	width: 190px;
