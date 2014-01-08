@@ -21,7 +21,7 @@ public abstract class BaseEntity implements Serializable {
 		return this.id;
 	}
 
-	public void setId(Integer departmentId) {
-		this.id = departmentId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

@@ -40,32 +40,41 @@ public class Entities {
 		return DEPARTMENT_NAME + r.nextInt();
 	}
 
-/*	
-	public static Employee employee() {
-		Employee emp = new Employee();
-		emp.setDepartment(department());
-		emp.setFirstName(FIRST_NAME);
-		emp.setLastName(LAST_NAME);
-		emp.setEmail(EMAIL + r.nextInt());
-		emp.setSkypeName(SKYPE_NAME + r.nextInt());
-		emp.setIsManager(false);
-		return emp;
-	}
-
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
+		jobTitle.setName(jobTitleName());
 		return jobTitle;
 	}
 
-	public static Employee manager() {
-		Employee mgr = new Employee();
-		mgr.setFirstName(FIRST_NAME);
-		mgr.setLastName(LAST_NAME);
-		mgr.setEmail(EMAIL + r.nextInt());
-		mgr.setSkypeName(SKYPE_NAME + r.nextInt());
-		mgr.setIsManager(true);
-		return mgr;
+	private static String jobTitleName() {
+		return JOB_TITLE_NAME + r.nextInt();
 	}
-*/
+
+	public static Employee employee() {
+		Employee employee = new Employee();
+		employee.setFirstName(employeeFirstName());
+		employee.setLastName(employeeLastName());
+		employee.setEmail(employeeEmail());
+		employee.setId(EMPLOYEE_ID + r.nextInt());
+		return employee;
+	}
+
+	private static String employeeEmail() {
+		return EMAIL + r.nextInt();
+	}
+
+	private static String employeeLastName() {
+		return LAST_NAME + r.nextInt();
+	}
+
+	private static String employeeFirstName() {
+		return FIRST_NAME + r.nextInt();
+	}
+
+	public static Employee manager() {
+		Employee manager = new Employee();
+		manager.setFirstName(employeeFirstName());
+		manager.setLastName(employeeLastName());
+		return manager;
+	}
 }
