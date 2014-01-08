@@ -1,4 +1,3 @@
-var path = "/OrgChart_Java/app/";
 
 $(document).ready(function() {
 	$('#navBarHome').click(function() {
