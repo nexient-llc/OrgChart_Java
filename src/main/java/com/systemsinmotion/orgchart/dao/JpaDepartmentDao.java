@@ -147,4 +147,5 @@ public class JpaDepartmentDao implements com.systemsinmotion.orgchart.dao.Depart
 		LOG.debug("updating Department instance with name: " + department.getName());
 		this.hibernateTemplate.update(department);
 	}
+	
 }
