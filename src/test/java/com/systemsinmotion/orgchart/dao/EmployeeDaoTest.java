@@ -38,36 +38,28 @@ public class EmployeeDaoTest {
 
 	@Autowired
 	DepartmentDao departmentDao;
+    private Object employeeDao;
 
-//	@After
-//	public void after() {
-//		this.employeeDao.delete(this.employee);
-//		this.departmentDao.delete(this.department);
-//
-//		if (null != this.manager) {
-//			this.employeeDao.delete(this.manager);
-//		}
-//	}
 
-//	@Before
-//	public void before() throws Exception {
-//		this.department = Entities.department();
-//		this.departmentDao.save(this.department);
-//
-//		this.employee = Entities.employee();
-//		this.employee.setDepartment(this.department);
-//		this.employee.setId(this.employeeDao.save(this.employee));
-//	}
+	@Before
+	public void before() throws Exception {
+		this.department = Entities.department();
+		this.departmentDao.save(this.department);
+
+		this.employee = Entities.employee();
+		this.employee.setDepartment(this.department);
+		this.employee.setId(this.employeeDao.save(this.employee));
+	}
 
 	@Test
 	public void testInstantiation() {
 		assertNotNull(departmentDao);
 	}
 	
-//	private void createManager() {
-//		this.manager = Entities.manager();
-//		this.employeeDao.save(this.manager);
-//	}
+	private void createManager() {
+		this.manager = Entities.manager();
+		this.employeeDao.save(this.manager);
+	}
 
 //	@Test
 //	public void findAll() throws Exception {

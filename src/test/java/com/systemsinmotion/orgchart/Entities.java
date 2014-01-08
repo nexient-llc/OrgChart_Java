@@ -40,7 +40,8 @@ public class Entities {
 		return DEPARTMENT_NAME + r.nextInt();
 	}
 
-/*	
+
+	
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
@@ -67,5 +68,7 @@ public class Entities {
 		mgr.setIsManager(true);
 		return mgr;
 	}
-*/
+
+
+	
 }
