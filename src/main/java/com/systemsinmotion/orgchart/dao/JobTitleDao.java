@@ -60,4 +60,6 @@ public interface JobTitleDao {
 	 */
 	void update(JobTitle jobTitle);
 
+	JobTitle findById(Integer id);
+
 }
