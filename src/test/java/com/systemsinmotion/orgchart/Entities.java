@@ -52,4 +52,29 @@ public class Entities {
 		return JOB_TITLE_NAME + r.nextInt();
 	}
 
+	public static Employee employee() {
+		Employee employee = new Employee();
+		employee.setFirstName(randomEmployeeFirstName());
+		employee.setLastName(randomEmployeeLastName());
+		employee.setEmail(EMAIL + r.nextInt());
+		return employee;
+	}
+
+	private static String randomEmployeeFirstName(){
+		return FIRST_NAME + r.nextInt();
+	}
+	
+	private static String randomEmployeeLastName(){
+		return LAST_NAME + r.nextInt();
+	}
+
+	public static Employee manager() {
+		Employee aManager = new Employee();
+		aManager.setFirstName(randomEmployeeFirstName());
+		aManager.setLastName(randomEmployeeLastName());
+		aManager.setEmail(EMAIL + r.nextInt());
+		aManager.setIsManager(true);
+		return aManager;
+		
+	}
 }

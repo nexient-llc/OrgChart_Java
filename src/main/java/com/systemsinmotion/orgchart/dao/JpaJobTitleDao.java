@@ -12,7 +12,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Repository("jobTitleDao")
@@ -81,7 +80,6 @@ public class JpaJobTitleDao implements JobTitleDao {
 	public Integer save(JobTitle jobTitle) {
 		LOG.debug("saving Department instance with name: " + jobTitle.getName());
 		return (Integer) this.hibernateTemplate.save(jobTitle);
-		//return null;
 	}
 
 	@Override
