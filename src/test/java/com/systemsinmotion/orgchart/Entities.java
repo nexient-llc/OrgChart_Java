@@ -21,7 +21,7 @@ public class Entities {
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
 
-	private static Random r = new Random();
+	private static Random random = new Random();
 
 	public static Department department() {
 		Department department = new Department();
@@ -37,7 +37,7 @@ public class Entities {
 	}
 
 	private static String departmentName() {
-		return DEPARTMENT_NAME + r.nextInt();
+		return DEPARTMENT_NAME + random.nextInt();
 	}
 
 /*	
