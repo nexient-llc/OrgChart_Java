@@ -55,7 +55,6 @@ public class Entities {
 		employee.setFirstName(employeeFirstName());
 		employee.setLastName(employeeLastName());
 		employee.setEmail(employeeEmail());
-		employee.setId(EMPLOYEE_ID + r.nextInt());
 		return employee;
 	}
 

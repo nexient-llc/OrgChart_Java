@@ -39,7 +39,7 @@ public class JpaEmployeeDao implements EmployeeDao {
 	@Override
 	public List<Employee> findAll() {
 		LOG.debug("finding all Employee instances");
-		return this.hibernateTemplate.find("from Employee emp order by emp.firstName");
+		return this.hibernateTemplate.find("from Employee e order by e.lastName");
 	}
 
 	@SuppressWarnings("unchecked")

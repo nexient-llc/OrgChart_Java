@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,8 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -18,10 +17,12 @@ public class Employee extends BaseEntity {
 
 	private static final long serialVersionUID = 2786300800604338231L;
 	
+	
 	@NotNull
 	@NotEmpty
 	@Size(min = 1,max = 20)
 	private String firstName;
+	
 	
 	@NotNull
 	@NotEmpty
@@ -29,7 +30,7 @@ public class Employee extends BaseEntity {
 	private String lastName;
 	
 	private Department department;
-
+	
 	private String email;
 	
 	private Employee manager;
@@ -44,7 +45,7 @@ public class Employee extends BaseEntity {
 		return this.lastName;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getDepartment() {
 		return department;
@@ -80,7 +81,5 @@ public class Employee extends BaseEntity {
 	public void setManager(Employee manager) {
 		this.manager = manager;
 	}
-
-	
 }
 

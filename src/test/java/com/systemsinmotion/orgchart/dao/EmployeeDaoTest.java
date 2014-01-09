@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,15 +41,20 @@ public class EmployeeDaoTest {
 	@Before
 	public void before() throws Exception {
 		this.department = Entities.department();
-		this.departmentDao.save(this.department);
+		Integer deptId = this.departmentDao.save(this.department);
+		this.department.setId(deptId);
+		System.out.println("deptId : " + deptId);
 
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
-		this.employee.setId(this.employeeDao.save(this.employee));
+		Integer empId = this.employeeDao.save(this.employee);
+		this.employee.setId(empId);
+		System.out.println("empId : " + empId);
 	}
 
 	@Test
 	public void testInstantiation() {
+		assertNotNull(employeeDao);
 		assertNotNull(departmentDao);
 	}
 	

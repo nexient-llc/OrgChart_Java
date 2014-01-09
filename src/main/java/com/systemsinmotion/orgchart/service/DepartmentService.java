@@ -15,7 +15,6 @@ public class DepartmentService {
 	DepartmentDao departmentDAO;
 
 	public Department findDepartmentByID(Integer departmentId) {
-
 		return this.departmentDAO.findById(departmentId);
 	}
 
@@ -25,7 +24,6 @@ public class DepartmentService {
 
 	public List<Department> findAllDepartments() {
 		return this.departmentDAO.findAll();
-
 	}
 
 	public Integer storeDepartment(Department department) {
