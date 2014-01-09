@@ -21,7 +21,7 @@ public class JpaJobTitleDao implements JobTitleDao {
 	/**
 	 * @see org.slf4j.Logger
 	 */
-	private static final Logger LOG = LoggerFactory.getLogger(JpaDepartmentDao.class);
+	private static final Logger LOG = LoggerFactory.getLogger(JpaJobTitleDao.class);
 
 	/**
 	 * @see org.springframework.orm.hibernate3.HibernateTemplate
