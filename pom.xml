@@ -13,7 +13,7 @@
 	<packaging>war</packaging>
 	<name>OrgChart</name>
 	<description>Systems In Motion OrgChart Application</description>
-	
+
 	<properties>
 		<hibernate.version>4.2.1.Final</hibernate.version><!-- 3.1.0.GA -->
 		<jsp.version>2.1</jsp.version>
@@ -32,6 +32,14 @@
 			<id>jboss-public-repository-group</id>
 			<name>JBoss Public Maven Repository Group</name>
 			<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 
@@ -123,7 +131,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.4.2.RELEASE</version>
+			<version>1.5.0.M1</version>
 		</dependency>
 
 		<dependency>
