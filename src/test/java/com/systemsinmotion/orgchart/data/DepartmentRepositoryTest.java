@@ -1,4 +1,4 @@
-package com.systemsinmotion.orgchart.dao;
+package com.systemsinmotion.orgchart.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -6,26 +6,30 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Random;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.config.JPAConfig;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test-context.xml")
+@ContextConfiguration(classes = JPAConfig.class)
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-public class DepartmentDaoTest {
+public class DepartmentRepositoryTest {
+
+	private static Random random = new Random();
 
 	private static final String SOME_NEW_NAME = "Some New Name";
 
@@ -37,20 +41,15 @@ public class DepartmentDaoTest {
 	private Department parent;
 
 	@Autowired
-	DepartmentRepo departmentRepo;
-
-	@After
-	public void after() {
-		this.departmentRepo.delete(this.department);
-		this.departmentRepo.delete(this.parent);
-	}
+	DepartmentRepository repository;
 
 	@Before
 	public void before() throws Exception {
 		this.parent = Entities.department();
-		this.parent.setId(this.departmentRepo.save(this.parent).getId());
+		this.parent = this.repository.saveAndFlush(parent);
+
 		this.department = Entities.department(this.parent);
-		this.department.setId(this.departmentRepo.save(this.department).getId());
+		this.department = this.repository.saveAndFlush(department);
 	}
 
 	@Test
@@ -65,20 +64,20 @@ public class DepartmentDaoTest {
 	public void duplicateName() throws Exception {
 		Department dept = Entities.department();
 		dept.setName(this.department.getName());
-		this.departmentRepo.save(dept);
+		this.repository.save(dept);
 	}
 
 	@Test
 	public void findAll_notNull() throws Exception {
-		System.out.println(this.departmentRepo.toString());
-		List<Department> depts = this.departmentRepo.findAll();
+		System.out.println(this.repository.toString());
+		List<Department> depts = this.repository.findAll();
 		assertNotNull(depts);
 		assertTrue(0 < depts.size());
 	}
 
 	@Test
 	public void findByDeptId() throws Exception {
-		Department dept = this.departmentRepo.findById(this.department.getId());
+		Department dept = this.repository.findOne(this.department.getId());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
@@ -86,19 +85,19 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findById_notPresent() throws Exception {
-		Department dept = this.departmentRepo.findById(NOT_PRESENT_ID);
+		Department dept = this.repository.findOne(NOT_PRESENT_ID);
 		assertNull(dept);
 	}
 
-	@Test
+	@Test(expected = InvalidDataAccessApiUsageException.class)
 	public void findById_null() throws Exception {
-		Department dept = this.departmentRepo.findById(null);
+		Department dept = this.repository.findOne(null);
 		assertNull(dept);
 	}
 
 	@Test
 	public void findByName() throws Exception {
-		Department dept = this.departmentRepo.findByName(this.department.getName());
+		Department dept = this.repository.findByName(this.department.getName());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
@@ -106,13 +105,15 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findByName_null() throws Exception {
-		Department dept = this.departmentRepo.findByName(NOT_PRESENT_VALUE);
+		Department dept = this.repository.findByName(NOT_PRESENT_VALUE);
 		assertNull(dept);
 	}
 
 	@Test
 	public void findByParentDeptId() throws Exception {
-		List<Department> depts = this.departmentRepo.findByParentDepartment(this.department.getParentDepartment());
+		List<Department> depts = this.repository
+				.findByParentDepartmentId(this.department.getParentDepartment()
+						.getId());
 		assertNotNull(depts);
 		assertEquals(1, depts.size());
 		Department dept = depts.get(0);
@@ -121,20 +122,21 @@ public class DepartmentDaoTest {
 	}
 
 	@Test
-	public void findByParentDeptId_null() throws Exception {
-		List<Department> depts = this.departmentRepo.findByParentDepartment(new Department());
+	public void findByParentDeptId_unknowId() throws Exception {
+		List<Department> depts = this.repository
+				.findByParentDepartmentId(random.nextInt());
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
 	}
 
 	@Test
 	public void update() throws Exception {
-		Department dept = this.departmentRepo.findByName(this.department.getName());
+		Department dept = this.repository.findByName(this.department.getName());
 		dept.setName(SOME_NEW_NAME);
-		this.departmentRepo.update(dept);
+		this.repository.saveAndFlush(dept);
 
 		dept = null;
-		dept = this.departmentRepo.findByName(SOME_NEW_NAME);
+		dept = this.repository.findByName(SOME_NEW_NAME);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}

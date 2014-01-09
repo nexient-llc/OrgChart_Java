@@ -5,33 +5,33 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.systemsinmotion.orgchart.dao.DepartmentDao;
+import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @Service("departmentService")
 public class DepartmentService {
 
 	@Autowired
-	DepartmentDao departmentDAO;
-
-	public Department findDepartmentByID(Integer departmentId) {
-		return this.departmentDAO.findById(departmentId);
-	}
-
-	public void setDepartmentDAO(DepartmentDao deparmentDAO) {
-		this.departmentDAO = deparmentDAO;
-	}
+	DepartmentRepository repository;
 
 	public List<Department> findAllDepartments() {
-		return this.departmentDAO.findAll();
+		return this.repository.findAll();
 	}
 
-	public Integer storeDepartment(Department department) {
-		return this.departmentDAO.save(department);
+	public Department findDepartmentByID(Integer departmentId) {
+		return this.repository.findOne(departmentId);
 	}
 
 	public void removeDepartment(Department department) {
-		this.departmentDAO.delete(department);
+		this.repository.delete(department);
+	}
+
+	public void setRepository(DepartmentRepository repository) {
+		this.repository = repository;
+	}
+
+	public Department storeDepartment(Department department) {
+		return this.repository.save(department);
 	}
 
 }
