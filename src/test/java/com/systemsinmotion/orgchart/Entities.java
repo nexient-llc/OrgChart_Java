@@ -49,30 +49,30 @@ public class Entities {
 	}
 	
 	private static String jobName(){
-		return JOB_TITLE_NAME + r.nextInt();
+		return JOB_TITLE_NAME + random.nextInt();
 	}
 
 	public static Employee employee() {
 		Employee employee = new Employee();
 		employee.setFirstName(randomEmployeeFirstName());
 		employee.setLastName(randomEmployeeLastName());
-		employee.setEmail(EMAIL + r.nextInt());
+		employee.setEmail(EMAIL + random.nextInt());
 		return employee;
 	}
 
 	private static String randomEmployeeFirstName(){
-		return FIRST_NAME + r.nextInt();
+		return FIRST_NAME + random.nextInt();
 	}
 	
 	private static String randomEmployeeLastName(){
-		return LAST_NAME + r.nextInt();
+		return LAST_NAME + random.nextInt();
 	}
 
 	public static Employee manager() {
 		Employee aManager = new Employee();
 		aManager.setFirstName(randomEmployeeFirstName());
 		aManager.setLastName(randomEmployeeLastName());
-		aManager.setEmail(EMAIL + r.nextInt());
+		aManager.setEmail(EMAIL + random.nextInt());
 		aManager.setIsManager(true);
 		return aManager;
 		

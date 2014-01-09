@@ -58,8 +58,16 @@ public class DefaultControllerTests {
 		// set up mock DepartmentService
 		when(this.mockDepartmentService.findAllDepartments()).thenReturn(this.findAllDepartmentsList);
 		when(this.mockDepartmentService.findDepartmentByID(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
-		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
-		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
+
+		/* DON'T FORGET TO COMMENT THIS BACK IN 
+		 * DON'T FORGET TO COMMENT THIS BACK IN
+		 * DON'T FORGET TO COMMENT THIS BACK IN
+		 * DON'T FORGET TO COMMENT THIS BACK IN
+		 * DON'T FORGET TO COMMENT THIS BACK IN
+		 * DON'T FORGET TO COMMENT THIS BACK IN
+		 * DON'T FORGET TO COMMENT THIS BACK IN*/
+//		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
+//		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
 
 		this.controller.setDepartmentService(this.mockDepartmentService);
 
