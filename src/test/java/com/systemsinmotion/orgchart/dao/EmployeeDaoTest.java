@@ -38,7 +38,9 @@ public class EmployeeDaoTest {
 
 	@Autowired
 	DepartmentDao departmentDao;
-    private Object employeeDao;
+	
+    @Autowired
+	EmployeeDao employeeDao;
 
 
 	@Before
@@ -51,15 +53,15 @@ public class EmployeeDaoTest {
 		this.employee.setId(this.employeeDao.save(this.employee));
 	}
 
-	@Test
-	public void testInstantiation() {
-		assertNotNull(departmentDao);
-	}
+//	@Test
+//	public void testInstantiation() {
+//		assertNotNull(departmentDao);
+//	}
 	
-	private void createManager() {
-		this.manager = Entities.manager();
-		this.employeeDao.save(this.manager);
-	}
+//	private void createManager() {
+//		this.manager = Entities.manager();
+//		this.employeeDao.save(this.manager);
+//	}
 
 //	@Test
 //	public void findAll() throws Exception {

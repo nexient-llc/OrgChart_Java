@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,14 +73,14 @@ public class JobTitleDaoTest {
 
 	@Test
 	public void findByDeptId() throws Exception {
-		JobTitle dept = this.jobTitleDao.findById(this.jobTitle.getId());
+		JobTitle dept = this.jobTitleDao.read(this.jobTitle.getId());
 		assertNotNull(dept);
 		assertEquals(this.jobTitle.getName(), dept.getName());
 	}
 
 	@Test
 	public void findByDeptId_null() throws Exception {
-		JobTitle dept = this.jobTitleDao.findById(NOT_PRESENT_ID);
+		JobTitle dept = this.jobTitleDao.read(NOT_PRESENT_ID);
 		assertNull(dept);
 	}
 

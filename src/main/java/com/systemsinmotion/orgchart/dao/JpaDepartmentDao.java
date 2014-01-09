@@ -16,20 +16,24 @@ import org.springframework.util.StringUtils;
 import com.systemsinmotion.orgchart.entity.Department;
 
 /**
- * A data access object (DAO) providing persistence and search support for Employee entities. Transaction control of the
- * save(), update() and delete() operations must be handled externally by senders of these methods or must be manually
- * added to each of these methods for data to be persisted to the JPA datastore.
+ * A data access object (DAO) providing persistence and search support for
+ * Employee entities. Transaction control of the save(), update() and delete()
+ * operations must be handled externally by senders of these methods or must be
+ * manually added to each of these methods for data to be persisted to the JPA
+ * datastore.
  * 
  * @see com.systemsinmotion.orgchart.entity.Department
  * @author Keith Skronek
  */
 @Repository("departmentDao")
-public class JpaDepartmentDao implements com.systemsinmotion.orgchart.dao.DepartmentDao {
+public class JpaDepartmentDao implements
+		com.systemsinmotion.orgchart.dao.DepartmentDao {
 
 	/**
 	 * @see org.slf4j.Logger
 	 */
-	private static final Logger LOG = LoggerFactory.getLogger(JpaDepartmentDao.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(JpaDepartmentDao.class);
 
 	/**
 	 * @see org.springframework.orm.hibernate3.HibernateTemplate
@@ -39,28 +43,37 @@ public class JpaDepartmentDao implements com.systemsinmotion.orgchart.dao.Depart
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#delete(com.systemsinmotion .orgchart.entity.Department)
+	 * 
+	 * @see
+	 * com.systemsinmotion.orgchart.dao.DepartmentDAO#delete(com.systemsinmotion
+	 * .orgchart.entity.Department)
 	 */
 	@Override
 	public void delete(Department department) {
-		LOG.debug("deleting Department instance with name: " + department.getName());
+		LOG.debug("deleting Department instance with name: "
+				+ department.getName());
 		this.hibernateTemplate.delete(department);
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findAll()
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Department> findAll() {
 		LOG.debug("finding all Department instances");
-		return this.hibernateTemplate.find("from " + Department.class.getName() + " order by name");
+		return this.hibernateTemplate.find("from " + Department.class.getName()
+				+ " order by name");
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findById(java.lang.Integer )
+	 * 
+	 * @see
+	 * com.systemsinmotion.orgchart.dao.DepartmentDAO#findById(java.lang.Integer
+	 * )
 	 */
 	@Override
 	public Department findById(Integer id) {
@@ -75,7 +88,10 @@ public class JpaDepartmentDao implements com.systemsinmotion.orgchart.dao.Depart
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findByName(java.lang.String )
+	 * 
+	 * @see
+	 * com.systemsinmotion.orgchart.dao.DepartmentDAO#findByName(java.lang.String
+	 * )
 	 */
 	@Override
 	public Department findByName(String name) {
@@ -83,12 +99,14 @@ public class JpaDepartmentDao implements com.systemsinmotion.orgchart.dao.Depart
 		Department dept = null;
 
 		if (StringUtils.hasText(name)) {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Department.class);
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(Department.class);
 			criteria.add(Restrictions.eq("name", name));
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 			@SuppressWarnings("unchecked")
-			List<Department> departments = this.hibernateTemplate.findByCriteria(criteria);
+			List<Department> departments = this.hibernateTemplate
+					.findByCriteria(criteria);
 
 			if (null != departments && !departments.isEmpty()) {
 				dept = departments.get(0);
@@ -99,7 +117,9 @@ public class JpaDepartmentDao implements com.systemsinmotion.orgchart.dao.Depart
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#findByParentDepartment
+	 * 
+	 * @see
+	 * com.systemsinmotion.orgchart.dao.DepartmentDAO#findByParentDepartment
 	 * (com.systemsinmotion.orgchart.entity.Department)
 	 */
 	@Override
@@ -108,10 +128,13 @@ public class JpaDepartmentDao implements com.systemsinmotion.orgchart.dao.Depart
 		List<Department> depts = Collections.EMPTY_LIST;
 
 		if (department != null && department.getId() != null) {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Department.class);
-			criteria.add(Restrictions.eq("parentDepartment.id", department.getId()));
+			DetachedCriteria criteria = DetachedCriteria
+					.forClass(Department.class);
+			criteria.add(Restrictions.eq("parentDepartment.id",
+					department.getId()));
 
-			LOG.debug("finding child Departments for Department: " + department.getName());
+			LOG.debug("finding child Departments for Department: "
+					+ department.getName());
 			depts = this.hibernateTemplate.findByCriteria(criteria);
 		}
 		return depts;
@@ -119,32 +142,41 @@ public class JpaDepartmentDao implements com.systemsinmotion.orgchart.dao.Depart
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#save(com.systemsinmotion .orgchart.entity.Department)
+	 * 
+	 * @see
+	 * com.systemsinmotion.orgchart.dao.DepartmentDAO#save(com.systemsinmotion
+	 * .orgchart.entity.Department)
 	 */
 	@Override
 	public Integer save(Department department) {
-		LOG.debug("saving Department instance with name: " + department.getName());
+		LOG.debug("saving Department instance with name: "
+				+ department.getName());
 		return (Integer) this.hibernateTemplate.save(department);
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#toString()
 	 */
 	@Override
 	public String toString() {
 		String newLine = System.getProperty("line.separator");
-		return getClass().getName() + " {" + newLine + "\thibernateTemplate : " + this.hibernateTemplate.toString()
-				+ newLine + "}";
+		return getClass().getName() + " {" + newLine + "\thibernateTemplate : "
+				+ this.hibernateTemplate.toString() + newLine + "}";
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#update(com.systemsinmotion .orgchart.entity.Department)
+	 * 
+	 * @see
+	 * com.systemsinmotion.orgchart.dao.DepartmentDAO#update(com.systemsinmotion
+	 * .orgchart.entity.Department)
 	 */
 	@Override
 	public void update(Department department) {
-		LOG.debug("updating Department instance with name: " + department.getName());
+		LOG.debug("updating Department instance with name: "
+				+ department.getName());
 		this.hibernateTemplate.update(department);
 	}
 }

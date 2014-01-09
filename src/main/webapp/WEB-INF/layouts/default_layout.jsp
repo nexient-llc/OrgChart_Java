@@ -13,7 +13,9 @@
 <c:if test="${not empty pageJS}">
 	<script type="text/javascript" src="${pageJS}"></script>
 </c:if>
-
+<script type="text/javascript">
+var path = "${pageContext.request.contextPath}/app/";
+</script>
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
 <title>Systems In Motion - <tiles:getAsString name="title" /></title>
 </head>
