@@ -49,6 +49,7 @@ public class JobTitleDaoTest {
 		this.jobTitle.setId(this.jobTitleDao.save(this.jobTitle));
 	}
 
+
 	@Test
 	public void testInstantiation() {
 		assertNotNull(jobTitleDao);

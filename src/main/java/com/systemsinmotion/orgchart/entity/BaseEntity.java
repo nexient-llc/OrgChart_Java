@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -7,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
@@ -23,5 +28,24 @@ public abstract class BaseEntity implements Serializable {
 
 	public void setId(Integer departmentId) {
 		this.id = departmentId;
+	}
+
+	@Override
+	public String toString() {
+		String thisAsString = null;
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			thisAsString = mapper.writeValueAsString(this);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return thisAsString;
 	}
 }
