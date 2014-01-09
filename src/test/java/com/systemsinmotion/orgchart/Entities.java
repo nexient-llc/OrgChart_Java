@@ -40,6 +40,12 @@ public class Entities {
 		return DEPARTMENT_NAME + random.nextInt();
 	}
 
+	public static JobTitle jobTitle() {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
+		return jobTitle;
+	}
+
 /*	
 	public static Employee employee() {
 		Employee emp = new Employee();
@@ -52,11 +58,7 @@ public class Entities {
 		return emp;
 	}
 
-	public static JobTitle jobTitle() {
-		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
-		return jobTitle;
-	}
+	
 
 	public static Employee manager() {
 		Employee mgr = new Employee();
