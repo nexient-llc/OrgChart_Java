@@ -51,13 +51,13 @@ public class Entities {
 		emp.setIsManager(false);
 		return emp;
 	}
-
+*/
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
+		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
 		return jobTitle;
 	}
-
+/*
 	public static Employee manager() {
 		Employee mgr = new Employee();
 		mgr.setFirstName(FIRST_NAME);

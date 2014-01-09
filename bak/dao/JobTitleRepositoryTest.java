@@ -1,4 +1,4 @@
-package com.systemsinmotion.orgchart.dao;
+package com.systemsinmotion.orgchart.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -19,13 +19,14 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.config.JPAConfig;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test-context.xml")
+@ContextConfiguration(classes = JPAConfig.class)
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-public class JobTitleDaoTest {
+public class JobTitleRepositoryTest {
 
 	private static final String SOME_NEW_NAME = "Some New Name";
 
@@ -36,7 +37,7 @@ public class JobTitleDaoTest {
 	private JobTitle jobTitle;
 
 	@Autowired
-	JobTitleDao jobTitleDao;
+	JobTitleRepository jobTitleRepository;
 
 //	@Before
 //	public void before() throws Exception {
@@ -46,7 +47,7 @@ public class JobTitleDaoTest {
 
 	@Test
 	public void testInstantiation() {
-		assertNotNull(jobTitleDao);
+		assertNotNull(jobTitleRepository);
 	}
 	
 //	@Test

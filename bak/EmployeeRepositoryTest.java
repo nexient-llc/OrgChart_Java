@@ -1,4 +1,4 @@
-package com.systemsinmotion.orgchart.dao;
+package com.systemsinmotion.orgchart.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -18,6 +18,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.config.JPAConfig;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
@@ -25,7 +26,7 @@ import com.systemsinmotion.orgchart.entity.Employee;
 @ContextConfiguration("/test-context.xml")
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-public class EmployeeDaoTest {
+public class EmployeeRepositoryTest {
 
 	private static final String NOT_PRESENT_VALUE = "XXX";
 	private static final Integer NOT_PRESENT_ID = -666;
@@ -33,11 +34,11 @@ public class EmployeeDaoTest {
 	private Employee employee;
 	private Employee manager;
 
-//	@Autowired
-//	IEmployeeDao employeeDao;
+	@Autowired
+	EmployeeRepository employeeRepository;
 
 	@Autowired
-	DepartmentDao departmentDao;
+	DepartmentRepository departmentRepository;
 
 //	@After
 //	public void after() {
@@ -49,19 +50,19 @@ public class EmployeeDaoTest {
 //		}
 //	}
 
-//	@Before
-//	public void before() throws Exception {
-//		this.department = Entities.department();
-//		this.departmentDao.save(this.department);
-//
-//		this.employee = Entities.employee();
-//		this.employee.setDepartment(this.department);
-//		this.employee.setId(this.employeeDao.save(this.employee));
-//	}
+	@Before
+	public void before() throws Exception {
+		this.department = Entities.department();
+		this.departmentRepository.save(this.department);
+
+		this.employee = Entities.employee();
+		this.employee.setDepartment(this.department);
+		this.employee.setId(this.employeeRepository.save(this.employee));
+	}
 
 	@Test
 	public void testInstantiation() {
-		assertNotNull(departmentDao);
+		assertNotNull(departmentRepository);
 	}
 	
 //	private void createManager() {
