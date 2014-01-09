@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.systemsinmotion.orgchart.entity.Department;
 
-@Repository("departmentDao")
-public interface DepartmentRepository extends JpaRepository<Department, Integer>{
+public interface DepartmentRepoNOTUSED extends JpaRepository<Department, Integer>{
 	
 	List<Department> findAll();
 

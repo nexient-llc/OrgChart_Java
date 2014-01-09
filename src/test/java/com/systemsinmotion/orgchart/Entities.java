@@ -61,7 +61,11 @@ public class Entities {
 	}
 
 	private static String randomEmployeeFirstName(){
-		return FIRST_NAME + random.nextInt();
+		String addToEmployee = FIRST_NAME + random.nextInt();
+		if(addToEmployee.length() > 20){
+			addToEmployee = addToEmployee.substring(0, 20);
+		}
+		return addToEmployee;
 	}
 	
 	private static String randomEmployeeLastName(){

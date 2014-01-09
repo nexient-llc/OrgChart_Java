@@ -37,7 +37,7 @@ public class DepartmentDaoTest {
 	private Department parent;
 
 	@Autowired
-	DepartmentRepository departmentDao;
+	DepartmentRepoNOTUSED departmentDao;
 
 	@After
 	public void after() {
