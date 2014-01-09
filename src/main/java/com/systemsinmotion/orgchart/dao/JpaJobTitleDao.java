@@ -77,7 +77,7 @@ public class JpaJobTitleDao implements JobTitleDao {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#save(com.systemsinmotion .orgchart.entity.Department)
+	 * @see com.systemsinmotion.orgchart.dao.DepartmentDAO#save(com.systemsinmotion.orgchart.entity.JobTitle)
 	 */
 	@Override
 	public Integer save(JobTitle jobTitle) {
