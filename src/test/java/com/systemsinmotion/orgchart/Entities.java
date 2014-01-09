@@ -40,7 +40,17 @@ public class Entities {
 		return DEPARTMENT_NAME + r.nextInt();
 	}
 
-/*	
+	public static JobTitle jobTitle() {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(jobTitleName());
+		
+		return jobTitle;
+	}
+
+	private static String jobTitleName() {
+		return JOB_TITLE_NAME + r.nextInt();
+	}
+
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
@@ -52,12 +62,6 @@ public class Entities {
 		return emp;
 	}
 
-	public static JobTitle jobTitle() {
-		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
-		return jobTitle;
-	}
-
 	public static Employee manager() {
 		Employee mgr = new Employee();
 		mgr.setFirstName(FIRST_NAME);
@@ -67,5 +71,5 @@ public class Entities {
 		mgr.setIsManager(true);
 		return mgr;
 	}
-*/
+
 }

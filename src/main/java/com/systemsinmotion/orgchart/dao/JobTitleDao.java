@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.dao;
 
 import java.util.List;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface JobTitleDao {
@@ -50,6 +51,16 @@ public interface JobTitleDao {
 	 */
 	Integer save(JobTitle jobTitle);
 
+	/**
+	 * Returns a <code>Job Title</code> instance having a given <code>id</code>
+	 * value.
+	 * 
+	 * @param id
+	 *            Identifier of <code>Job Title</code> instance to find
+	 * @return Single <code>Job Title</code> instance. Null if not found.
+	 */
+	public abstract JobTitle findById(Integer id);
+	
 	String toString();
 
 	/**
