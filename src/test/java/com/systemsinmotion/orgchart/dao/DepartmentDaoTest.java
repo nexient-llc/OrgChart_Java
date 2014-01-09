@@ -37,7 +37,7 @@ public class DepartmentDaoTest {
 	private Department parent;
 
 	@Autowired
-	DepartmentDao departmentDao;
+	DepartmentRepo departmentDao;
 
 	@After
 	public void after() {
@@ -48,9 +48,9 @@ public class DepartmentDaoTest {
 	@Before
 	public void before() throws Exception {
 		this.parent = Entities.department();
-		this.parent.setId(this.departmentDao.save(this.parent));
+		this.parent.setId(this.departmentDao.save(this.parent).getId());
 		this.department = Entities.department(this.parent);
-		this.department.setId(this.departmentDao.save(this.department));
+		this.department.setId(this.departmentDao.save(this.department).getId());
 	}
 
 	@Test
