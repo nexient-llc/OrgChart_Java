@@ -22,10 +22,6 @@ public class Department extends BaseEntity {
 
 	private static final long serialVersionUID = -5379179412533671591L;
 
-	private Set<Department> childDepartments = new HashSet<Department>(0);
-
-	private Set<Employee> employees = new HashSet<Employee>();
-
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 45)
@@ -33,33 +29,15 @@ public class Department extends BaseEntity {
 
 	private Department parentDepartment;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
-	public Set<Department> getChildDepartments() {
-		return this.childDepartments;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
-	public Set<Employee> getEmployees() {
-		return this.employees;
-	}
-
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
 		return this.parentDepartment;
-	}
-
-	public void setChildDepartments(Set<Department> departments) {
-		this.childDepartments = departments;
-	}
-
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
 	}
 
 	public void setName(String name) {
