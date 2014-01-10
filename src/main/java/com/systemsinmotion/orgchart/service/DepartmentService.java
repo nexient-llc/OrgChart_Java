@@ -19,7 +19,7 @@ public class DepartmentService {
 	}
 
 	public Department findDepartmentByID(Integer departmentId) {
-		return this.repository.findOne(departmentId);
+		return this.repository.findById(departmentId);
 	}
 
 	public void removeDepartment(Department department) {
