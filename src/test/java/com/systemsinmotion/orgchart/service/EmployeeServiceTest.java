@@ -52,6 +52,7 @@ public class EmployeeServiceTest {
 		when(this.mockEmployee.getFirstName()).thenReturn(Entities.FIRST_NAME);
 		when(this.mockEmployee.getLastName()).thenReturn(Entities.LAST_NAME);
 		when(this.mockEmployee.getId()).thenReturn(Entities.EMPLOYEE_ID);
+		when(this.mockEmployee.getEmail()).thenReturn(Entities.EMAIL);
 		this.listOfFoundEmployees.add(this.mockEmployee);
 		when(this.mockEmployeeRepository.findAll()).thenReturn(this.listOfFoundEmployees);
 		when(this.mockEmployeeRepository.findById(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
@@ -59,6 +60,7 @@ public class EmployeeServiceTest {
 		when(this.mockEmployeeRepository.findByFirstNameAndLastName(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(this.mockEmployee);
 		when(this.mockEmployeeRepository.findByFirstName(Entities.FIRST_NAME)).thenReturn(this.mockEmployee);
 		when(this.mockEmployeeRepository.findByLastName(Entities.LAST_NAME)).thenReturn(this.mockEmployee);
+		when(this.mockEmployeeRepository.findByEmail(Entities.EMAIL)).thenReturn(this.mockEmployee);
 		when(this.mockEmployeeRepository.findByDepartment(this.mockDepartment)).thenReturn(this.listOfFoundEmployees);
 		this.employeeService.setRepository(this.mockEmployeeRepository);
 		
@@ -116,6 +118,15 @@ public class EmployeeServiceTest {
 		Employee emp = emps.get(0);
 		assertEquals(Entities.FIRST_NAME, emp.getFirstName());
 		assertEquals(Entities.LAST_NAME, emp.getLastName());
+	}
+	
+	@Test
+	public void findEmployeeByEmail() {
+		Employee emp = this.employeeService.findByEmail(Entities.EMAIL);
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(Entities.FIRST_NAME, emp.getFirstName());
+		assertEquals(Entities.LAST_NAME, emp.getLastName());
+		assertEquals(Entities.EMAIL, emp.getEmail());
 	}
 	
 	

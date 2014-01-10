@@ -48,4 +48,8 @@ public class EmployeeService {
 		return this.employeeRepository.findByDepartment(department);
 	}
 
+	public Employee findByEmail(String email) {
+		return this.employeeRepository.findByEmail(email);
+	}
+
 }
