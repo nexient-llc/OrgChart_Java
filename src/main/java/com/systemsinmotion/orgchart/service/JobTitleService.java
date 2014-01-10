@@ -19,6 +19,10 @@ public class JobTitleService {
 		return this.repository.findAll();
 	}
 	
+	public JobTitle findJobTitleById(Integer jobId){
+		return this.repository.findOne(jobId);
+	}
+	
 	public void setRepository(JobTitleRepository repository){
 		this.repository = repository;
 	}
