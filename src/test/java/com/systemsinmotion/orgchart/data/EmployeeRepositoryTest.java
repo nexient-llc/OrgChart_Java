@@ -151,5 +151,29 @@ public class EmployeeRepositoryTest {
 //		List<Employee> emps = this.employeeRepository.findByManager(null);
 //		assertNull(emps);
 //	}
+	
+	@Test
+	public void findByFirstName() throws Exception {
+		Employee emp = this.employeeRepository.findByFirstName(this.employee.getFirstName());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+	}
+	
+	@Test
+	public void findByLastName() throws Exception {
+		Employee emp = this.employeeRepository.findByLastName(this.employee.getLastName());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+	}
+	
+	@Test
+	public void findByFirstAndLastName() throws Exception {
+		Employee emp = this.employeeRepository.findByFirstNameAndLastName(this.employee.getFirstName(), this.employee.getLastName());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+	}
 
 }
