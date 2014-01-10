@@ -66,7 +66,7 @@ public class JobTitleServiceTest {
 	
 	@Test
 	public void storeJobTitle() {
-		Integer jobTitleId = this.jobTitleService.storeDepartment(this.mockJobTitle).getId();
+		Integer jobTitleId = this.jobTitleService.storeJobTitle(this.mockJobTitle).getId();
 		assertNotNull(jobTitleId);
 		assertEquals(Entities.JOB_TITLE_ID, jobTitleId);
 	}

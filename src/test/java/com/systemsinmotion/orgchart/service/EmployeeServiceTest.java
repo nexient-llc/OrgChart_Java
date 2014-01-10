@@ -19,7 +19,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
@@ -36,7 +38,14 @@ public class EmployeeServiceTest {
 	EmployeeRepository mockEmployeeRepository = mock(EmployeeRepository.class);
 	Employee mockEmployee = mock(Employee.class);
 	
+//	@Autowired
+//	DepartmentService departmentService;
+//
+//	DepartmentRepository mockDepartmentRepo = mock(DepartmentRepository.class);
+	Department mockDepartment = mock(Department.class);
+	
 	private ArrayList<Employee> listOfFoundEmployees = new ArrayList<Employee>();
+	private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>();
 	
 	@Before
 	public void before() throws Exception {
@@ -47,35 +56,67 @@ public class EmployeeServiceTest {
 		when(this.mockEmployeeRepository.findAll()).thenReturn(this.listOfFoundEmployees);
 		when(this.mockEmployeeRepository.findById(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
 		when(this.mockEmployeeRepository.save(this.mockEmployee)).thenReturn(this.mockEmployee);
-//		when(this.mockEmployeeRepository.findByName(Entities.JOB_TITLE_NAME)).thenReturn(this.mockEmployee);
-//		this.jobTitleService.setRepository(this.mockEmployeeRepository);
+		when(this.mockEmployeeRepository.findByFirstNameAndLastName(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(this.mockEmployee);
+		when(this.mockEmployeeRepository.findByFirstName(Entities.FIRST_NAME)).thenReturn(this.mockEmployee);
+		when(this.mockEmployeeRepository.findByLastName(Entities.LAST_NAME)).thenReturn(this.mockEmployee);
+		when(this.mockEmployeeRepository.findByDepartment(this.mockDepartment)).thenReturn(this.listOfFoundEmployees);
+		this.employeeService.setRepository(this.mockEmployeeRepository);
+		
+		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
+		this.listOfFoundDepts.add(this.mockDepartment);
 	}
 	
 	@Test
 	public void findAllEmployees() {
-//		List<JobTitle> jobs = this.jobTitleService.findAllJobTitles();
-//		assertNotNull(jobs);
-//		assertEquals(1, jobs.size());
+		List<Employee> emps = this.employeeService.findAllEmployees();
+		assertNotNull(emps);
+		assertEquals(1, emps.size());
 	}
 	
-//	@Test
-//	public void findJobTitleByID() {
-//		JobTitle jobTitle = this.jobTitleService.findJobTitleByID(Entities.JOB_TITLE_ID);
-//		assertNotNull(jobTitle);
-//		assertEquals(Entities.JOB_TITLE_ID, jobTitle.getId());
-//	}
-//	
-//	@Test
-//	public void storeJobTitle() {
-//		Integer jobTitleId = this.jobTitleService.storeDepartment(this.mockEmployee).getId();
-//		assertNotNull(jobTitleId);
-//		assertEquals(Entities.JOB_TITLE_ID, jobTitleId);
-//	}
-//	
-//	@Test
-//	public void findJobTitleByName(){
-//		JobTitle jobTitle = this.jobTitleService.findJobTitleByName(Entities.JOB_TITLE_NAME);
-//		assertNotNull(jobTitle);
-//		assertEquals(Entities.JOB_TITLE_NAME, jobTitle.getName());
-//	}
+	@Test
+	public void findEmployeeByID() {
+		Employee emp = this.employeeService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
+	}
+	
+	@Test
+	public void storeEmployee() {
+		Integer employeeId = this.employeeService.storeEmployee(this.mockEmployee).getId();
+		assertNotNull(employeeId);
+		assertEquals(Entities.EMPLOYEE_ID, employeeId);
+	}
+	
+	@Test
+	public void findEmployeeByName(){
+		Employee employee = this.employeeService.findEmployeeByName(Entities.FIRST_NAME, Entities.LAST_NAME);
+		assertNotNull(employee);
+		assertEquals(Entities.FIRST_NAME, employee.getFirstName());
+		assertEquals(Entities.LAST_NAME, employee.getLastName());
+	}
+	
+	@Test
+	public void findEmployeeByFirstName(){
+		Employee employee = this.employeeService.findEmployeeByFirstName(Entities.FIRST_NAME);
+		assertNotNull(employee);
+		assertEquals(Entities.FIRST_NAME, employee.getFirstName());
+	}
+	
+	@Test
+	public void findEmployeeByLastName(){
+		Employee employee = this.employeeService.findEmployeeByLastName(Entities.LAST_NAME);
+		assertNotNull(employee);
+		assertEquals(Entities.LAST_NAME, employee.getLastName());
+	}
+	
+	@Test
+	public void findEmployeeByDepartment() {
+		List<Employee> emps = this.employeeService.findByDepartment(this.mockDepartment);
+		assertNotNull("Expecting a non-null list of Employees but was null", emps);
+		Employee emp = emps.get(0);
+		assertEquals(Entities.FIRST_NAME, emp.getFirstName());
+		assertEquals(Entities.LAST_NAME, emp.getLastName());
+	}
+	
+	
 }

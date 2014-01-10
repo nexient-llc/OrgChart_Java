@@ -27,7 +27,7 @@ public class JobTitleService {
 		return this.jobTitleRepository.findById(jobTitleID);
 	}
 
-	public JobTitle storeDepartment(JobTitle jobTitle) {
+	public JobTitle storeJobTitle(JobTitle jobTitle) {
 		return this.jobTitleRepository.save(jobTitle);
 	}
 
