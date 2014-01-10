@@ -1,5 +1,7 @@
 package com.systemsinmotion.orgchart.service;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -41,30 +43,33 @@ public class DepartmentServiceTest {
 		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.departmentRepo.findAll()).thenReturn(this.listOfFoundDepts);
-		when(this.departmentRepo.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
-		when(this.departmentRepo.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
-		this.departmentService.setDepartmentDAO(this.departmentRepo);
+		when(this.departmentRepo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		//Original version below
+		//when(this.departmentRepo.save(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
+		when(this.departmentRepo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
+		this.departmentService.setRepository(this.departmentRepo);
 	}
 
 	@Test
 	public void findAllDepartments() {
 		List<Department> depts = this.departmentService.findAllDepartments();
-//		assertNotNull(depts);
-//		assertEquals(1, depts.size());
+		assertNotNull(depts);
+		assertEquals(1, depts.size());
 	}
 
 	@Test
 	public void findDepartmentByID() {
 		Department dept = this.departmentService.findDepartmentByID(Entities.DEPT_ID);
-//		assertNotNull(dept);
-//		assertEquals(Entities.DEPT_ID, dept.getId());
+		assertNotNull(dept);
+		assertEquals(Entities.DEPT_ID, dept.getId());
 	}
 
 	@Test
 	public void storeDepartment() {
-//		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment);
-//		assertNotNull(deptId);
-//		assertEquals(Entities.DEPT_ID, deptId);
+		//Added .getId()
+		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment).getId();
+		assertNotNull(deptId);
+		assertEquals(Entities.DEPT_ID, deptId);
 	}
 
 }

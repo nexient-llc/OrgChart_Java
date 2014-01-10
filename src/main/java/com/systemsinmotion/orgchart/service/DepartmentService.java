@@ -34,4 +34,9 @@ public class DepartmentService {
 		return this.repository.save(department);
 	}
 
+//	public void setDepartmentDAO(DepartmentRepository departmentRepo) {
+//		this.repository = departmentRepo; 
+//		
+//	}
+
 }
