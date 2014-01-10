@@ -2,6 +2,9 @@ package com.systemsinmotion.orgchart.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,6 +18,8 @@ public class Employee extends BaseEntity {
 	private static final long serialVersionUID = 2786300800604338231L;
 	
 	private Department department;
+	private JobTitle jobTitle;
+	private Employee manager;
 	
 	@NotNull
 	@NotEmpty
@@ -58,15 +63,28 @@ public class Employee extends BaseEntity {
 		return this.skypeName;
 	}
 	
-	@Column(name = "IS_MANAGER", )
+	@Column(name = "IS_MANAGER")
 	public Boolean getIsManager(){
 		return this.isManager;
 	}
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
+	public JobTitle getJobTitle() {
+		return jobTitle;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getDepartment() {
 		return department;
 	}
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
+	public Employee getManager(){
+		return manager;
+	}
 	
 	public void setFirstName(String name){
 		this.firstName = name;
@@ -88,10 +106,16 @@ public class Employee extends BaseEntity {
 		this.isManager = bool;
 	}
 	
-	 void setDepartment(Department department) {
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
 	
+	public void setJobTitle(JobTitle jobTitle){
+		this.jobTitle = jobTitle;
+	}
 	
+	public void setManager(Employee manager){
+		this.manager = manager;
+	}
 
 }

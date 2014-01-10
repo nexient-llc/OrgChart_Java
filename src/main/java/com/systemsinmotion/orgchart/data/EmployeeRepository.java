@@ -11,7 +11,9 @@ import com.systemsinmotion.orgchart.entity.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
 	
-	
-	
-	
+	List<Employee> findByDepartmentId(Integer id);
+	Employee findByEmail(String email);
+	Employee findById(Integer id);
+	List<Employee> findByManagerId(Integer id);
+
 }
