@@ -19,6 +19,10 @@ public class EmployeeService {
 	public void setRepository(EmployeeRepository repository) {
 		this.employeeRepository = repository;
 	}
+	
+	public void removeEmployee(Employee employee) {
+		this.employeeRepository.delete(employee);
+	}
 
 	public List<Employee> findAllEmployees() {
 		return this.employeeRepository.findAll();

@@ -1,7 +1,6 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -13,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
@@ -22,6 +22,7 @@ import com.systemsinmotion.orgchart.service.DepartmentService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
+@WebAppConfiguration("/src/main/webapp")
 public class DefaultControllerTests {
 
 	@Autowired
@@ -54,17 +55,15 @@ public class DefaultControllerTests {
 		when(this.mockDepartment.getName()).thenReturn(Entities.DEPARTMENT_NAME);
 
 		this.findAllDepartmentsList.add(this.mockDepartment);
+		this.findAllDepartmentsList.add(this.mockDepartment2);
 
 		// set up mock DepartmentService
 		when(this.mockDepartmentService.findAllDepartments()).thenReturn(this.findAllDepartmentsList);
 		when(this.mockDepartmentService.findDepartmentByID(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 
-		
-		/* DON'T FORGET TO UNCOMMENT THIS!
-		 * 
-		 */
-		//when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
-		//when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
+	
+		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(this.mockDepartment2);
 
 		this.controller.setDepartmentService(this.mockDepartmentService);
 
@@ -80,28 +79,25 @@ public class DefaultControllerTests {
 		// Then
 		assertNotNull(this.findAllDepartmentsList);
 		
-		/* DON'T FORGET TO UNCOMMENT THIS!
-		 * 
-		 */
-		//assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
+		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
 	}
 
-	// @SuppressWarnings("unchecked")
-	// @Test
-	// public void testModelShouldUpdateOnDepartmentPagePost() {
-	//
-	// model.addAttribute("depts", findAllDepartmentsList);
-	// //Given
-	// controller.doDepartments_POST(mockDepartment2, null, model);
-	// //When
-	// findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
-	//
-	// //Then
-	// assertNotNull(findAllDepartmentsList);
-	// assertTrue(findAllDepartmentsList.size() > 0);
-	// assertEquals(TestObject.DEPT_ID, findAllDepartmentsList.get(1).getDepartmentId());
-	// assertEquals(findAllDepartmentsList.get(1).getName(), TestObject.DEPARTMENT_NAME);
-	//
-	// }
+	 @SuppressWarnings("unchecked")
+	 @Test
+	 public void testModelShouldUpdateOnDepartmentPagePost() {
+	
+	 model.addAttribute("depts", findAllDepartmentsList);
+	 //Given
+	 this.controller.doDepartments_POST(mockDepartment2, model);
+	 //When
+	 findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+	
+	 //Then
+	 assertNotNull(findAllDepartmentsList);
+	 assertTrue(findAllDepartmentsList.size() > 0);
+	 assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(0).getId());
+	 assertEquals(findAllDepartmentsList.get(0).getName(), Entities.DEPARTMENT_NAME);
+	
+	 }
 
 }

@@ -18,6 +18,10 @@ public class JobTitleService {
 	public void setRepository(JobTitleRepository repository) {
 		this.jobTitleRepository = repository;
 	}
+	
+	public void removeJobTitle(JobTitle jobTitle) {
+		this.jobTitleRepository.delete(jobTitle);
+	}
 
 	public List<JobTitle> findAllJobTitles() {
 		return this.jobTitleRepository.findAll();

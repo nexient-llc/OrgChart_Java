@@ -44,14 +44,26 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
+		 List<Department> departments = departmentService.findAllDepartments();
+		 model.addAttribute("dept", new Department());
+		 model.addAttribute("depts", departments);
+		 return View.DEPARTMENTS;
 	}
 	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
+	
+	@RequestMapping(value = "depts", method = RequestMethod.POST)
+    public String doDepartments_POST(Department dept, Model model) {
+            Department parent = dept.getParentDepartment();
+            dept.setParentDepartment(parent.getId() == null ? null : parent);
+            departmentService.storeDepartment(dept);
+            List<Department> departments = departmentService.findAllDepartments();
+            model.addAttribute("dept", dept);
+            model.addAttribute("depts", departments);
+            return View.DEPARTMENTS;
+    }
 
 
 
