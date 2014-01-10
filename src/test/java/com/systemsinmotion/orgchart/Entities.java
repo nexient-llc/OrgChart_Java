@@ -17,7 +17,7 @@ public class Entities {
 	public static final Integer EMPLOYEE_ID = 5;
 	public static final String FIRST_NAME = "first name";
 	public static final String JOB_TITLE = "Job Title";
-	public static final Integer JOB_TITLE_ID = 5;
+	public static final Integer JOB_TITLE_ID = 7;
 	public static final String JOB_TITLE_NAME = "JobTitle";
 	public static final String LAST_NAME = "last name";
 	public static final Integer MANAGER_ID = 1;

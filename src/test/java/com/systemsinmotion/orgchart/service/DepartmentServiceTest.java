@@ -31,7 +31,6 @@ public class DepartmentServiceTest {
 	@Autowired
 	DepartmentService departmentService;
 
-//	DepartmentDao mockDepartmentDAO = mock(DepartmentDao.class);
 	DepartmentRepository mockDepartmentRepo = mock(DepartmentRepository.class);
 	Department mockDepartment = mock(Department.class);
 
