@@ -30,4 +30,8 @@ public class JobTitleService {
 	public JobTitle storeDepartment(JobTitle jobTitle) {
 		return this.jobTitleRepository.save(jobTitle);
 	}
+
+	public JobTitle findJobTitleByName(String name) {
+		return this.jobTitleRepository.findByName(name);
+	}
 }

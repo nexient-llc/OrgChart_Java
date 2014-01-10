@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.JobTitleRepository;
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,10 +41,12 @@ public class JobTitleServiceTest {
 	@Before
 	public void before() throws Exception {
 		when(this.mockJobTitle.getId()).thenReturn(Entities.JOB_TITLE_ID);
+		when(this.mockJobTitle.getName()).thenReturn(Entities.JOB_TITLE_NAME);
 		this.listOfFoundJobTitles.add(this.mockJobTitle);
 		when(this.mockJobTitleRepository.findAll()).thenReturn(this.listOfFoundJobTitles);
 		when(this.mockJobTitleRepository.findById(Entities.JOB_TITLE_ID)).thenReturn(this.mockJobTitle);
 		when(this.mockJobTitleRepository.save(this.mockJobTitle)).thenReturn(this.mockJobTitle);
+		when(this.mockJobTitleRepository.findByName(Entities.JOB_TITLE_NAME)).thenReturn(this.mockJobTitle);
 		this.jobTitleService.setRepository(this.mockJobTitleRepository);
 	}
 	
@@ -68,5 +69,12 @@ public class JobTitleServiceTest {
 		Integer jobTitleId = this.jobTitleService.storeDepartment(this.mockJobTitle).getId();
 		assertNotNull(jobTitleId);
 		assertEquals(Entities.JOB_TITLE_ID, jobTitleId);
+	}
+	
+	@Test
+	public void findJobTitleByName(){
+		JobTitle jobTitle = this.jobTitleService.findJobTitleByName(Entities.JOB_TITLE_NAME);
+		assertNotNull(jobTitle);
+		assertEquals(Entities.JOB_TITLE_NAME, jobTitle.getName());
 	}
 }
