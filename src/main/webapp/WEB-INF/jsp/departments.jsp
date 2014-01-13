@@ -39,25 +39,33 @@
 		<th>Dept Name</th> <th>Parent Dept</th>
 	</tr> 
 	<c:forEach items="${depts}" var="dept">
-		<tr> 
+		<tr id="ViewDepts"> 
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
 			<td>${dept.name}</td> 
-			<td>${dept.parentDepartment.name}</td> 
-			<td><button id="editBtn">Edit</button></td>
+			<td>${dept.parentDepartment.name}</td>
+			<td><button class="editBtn" value="${dept.id}">Edit</button></td>
 		</tr>
-	</c:forEach> 
+		<tr id="EditDepts${dept.id}" style="display:none">
+			<td><input path="name" name="deptName" value=${dept.name}></td>
+			<td><select path="parentDepartment.id" value=${dept.parentDepartment.id}>
+				<c:forEach items="${depts}" var="dept2">
+					<option value="${dept2.id}" label="${dept2.name}"/>
+				</c:forEach>
+			</select></td>
+		</tr>
+	</c:forEach>
 </table>
 
 <div id="editEntity" style="display:none">
 	<fieldset>
-		<legend>Add Department</legend>
+		<legend>Edit Department</legend>
 		<form:form modelAttribute="dept" action="depts" method="post">
 			<table>
 				<tr>
 					<td>Dept Name:</td>
-					<td><form:input path="name" /></td>
+					<td><form:input path="name" value="test" /></td>
 				</tr>
 				<tr>
 					<td>Parent Dept:</td>

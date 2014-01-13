@@ -56,8 +56,8 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
     public String doDepartments_POST(Department dept, Model model) {
-            //Department parent = dept.getParentDepartment();
-            //dept.setParentDepartment(parent.getId() == null ? null : parent);
+            Department parent = dept.getParentDepartment();
+            dept.setParentDepartment(parent.getId() == null ? null : parent);
             departmentService.storeDepartment(dept);
             List<Department> departments = departmentService.findAllDepartments();
             model.addAttribute("dept", dept);
