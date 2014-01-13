@@ -34,4 +34,8 @@ public class DepartmentService {
 		return this.repository.save(department);
 	}
 
+	public void setDepartmentRepository(DepartmentRepository mockDepartmentRepo) {
+		this.repository = mockDepartmentRepo;
+	}
+
 }

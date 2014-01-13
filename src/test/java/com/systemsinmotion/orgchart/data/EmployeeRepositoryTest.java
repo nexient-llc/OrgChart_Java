@@ -1,4 +1,4 @@
-package com.systemsinmotion.orgchart.dao;
+package com.systemsinmotion.orgchart.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -18,14 +18,15 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.config.JPAConfig;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test-context.xml")
+@ContextConfiguration(classes = JPAConfig.class)
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-public class EmployeeDaoTest {
+public class EmployeeRepositoryTest {
 
 	private static final String NOT_PRESENT_VALUE = "XXX";
 	private static final Integer NOT_PRESENT_ID = -666;
@@ -34,52 +35,54 @@ public class EmployeeDaoTest {
 	private Employee manager;
 
 	@Autowired
-	IEmployeeDao employeeDao;
+	EmployeeRepository employeeRepo;
 
 	@Autowired
-	DepartmentDao departmentDao;
+	DepartmentRepository departmentRepo;
 
 	@After
 	public void after() {
-		this.employeeDao.delete(this.employee);
-		this.departmentDao.delete(this.department);
+		this.employeeRepo.delete(this.employee);
+		this.departmentRepo.delete(this.department);
 
 		if (null != this.manager) {
-			this.employeeDao.delete(this.manager);
+			this.employeeRepo.delete(this.manager);
 		}
 	}
 
 	@Before
 	public void before() throws Exception {
 		this.department = Entities.department();
-		this.departmentDao.save(this.department);
+		this.departmentRepo.save(this.department);
 
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
-		this.employee.setId(this.employeeDao.save(this.employee));
+		this.employeeRepo.save(this.employee);
 	}
 
 	@Test
 	public void testInstantiation() {
-		assertNotNull(departmentDao);
+		assertNotNull(departmentRepo);
 	}
-	
+
 	private void createManager() {
 		this.manager = Entities.manager();
-		this.employeeDao.save(this.manager);
+		this.employeeRepo.save(this.manager);
 	}
 
 	@Test
 	public void findAll() throws Exception {
-		List<Employee> emps = this.employeeDao.findAll();
+		List<Employee> emps = this.employeeRepo.findAll();
 		assertNotNull(emps);
 		assertTrue(0 < emps.size());
 	}
 
 	@Test
 	public void findByDepartment() throws Exception {
-		List<Employee> emps = this.employeeDao.findByDepartment(this.employee.getDepartment());
-		assertNotNull("Expecting a non-null list of Employees but was null", emps);
+		List<Employee> emps = this.employeeRepo.findByDepartment(this.employee
+				.getDepartment());
+		assertNotNull("Expecting a non-null list of Employees but was null",
+				emps);
 		Employee emp = emps.get(0);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
@@ -88,13 +91,13 @@ public class EmployeeDaoTest {
 
 	@Test
 	public void findByDepartment_null() throws Exception {
-		List<Employee> emps = this.employeeDao.findByDepartment(null);
-		assertNull("Expecting a null list of Employees but was non-null", emps);
+		List<Employee> emps = this.employeeRepo.findByDepartment(null);
+		assertTrue(emps.size() == 0);
 	}
 
 	@Test
 	public void findByEmail() throws Exception {
-		Employee emp = this.employeeDao.findByEmail(this.employee.getEmail());
+		Employee emp = this.employeeRepo.findByEmail(this.employee.getEmail());
 		assertNotNull("Expecting a non-null Employee but was null", emp);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
@@ -102,20 +105,20 @@ public class EmployeeDaoTest {
 	}
 
 	@Test
-	public void findByEmail_null() throws Exception {
-		Employee emp = this.employeeDao.findByEmail(null);
+	public void fintdByEmail_null() throws Exception {
+		Employee emp = this.employeeRepo.findByEmail(null);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
 
 	@Test
 	public void findByEmailTest_XXX() throws Exception {
-		Employee emp = this.employeeDao.findByEmail(NOT_PRESENT_VALUE);
+		Employee emp = this.employeeRepo.findByEmail(NOT_PRESENT_VALUE);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
 
 	@Test
 	public void findById() throws Exception {
-		Employee emp = this.employeeDao.findById(this.employee.getId());
+		Employee emp = this.employeeRepo.findById(this.employee.getId());
 		assertNotNull("Expecting a non-null Employee but was null", emp);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
@@ -124,13 +127,13 @@ public class EmployeeDaoTest {
 
 	@Test
 	public void findById_null() throws Exception {
-		Employee emp = this.employeeDao.findById(null);
+		Employee emp = this.employeeRepo.findById(null);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
 
 	@Test
 	public void findById_XXX() throws Exception {
-		Employee emp = this.employeeDao.findById(NOT_PRESENT_ID);
+		Employee emp = this.employeeRepo.findById(NOT_PRESENT_ID);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
 
@@ -139,11 +142,14 @@ public class EmployeeDaoTest {
 		createManager();
 
 		this.employee.setManager(this.manager);
-		this.employeeDao.update(this.employee);
+		this.employeeRepo.save(this.employee);
 
-		List<Employee> emps = this.employeeDao.findByManager(this.employee.getManager());
+		List<Employee> emps = this.employeeRepo.findByManagerId(this.employee
+				.getManager().getId());
 		assertNotNull("Expecting a non-null Employee but was null", emps);
-		assertTrue("Expecting at least one employee found for manager but none was found", emps.size() > 0);
+		assertTrue(
+				"Expecting at least one employee found for manager but none was found",
+				emps.size() > 0);
 		Employee emp = emps.get(0);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
@@ -151,14 +157,25 @@ public class EmployeeDaoTest {
 	}
 
 	@Test
-	public void findByManagerId_empty() throws Exception {
-		List<Employee> emps = this.employeeDao.findByManager(Entities.employee());
-		assertNull(emps);
+	public void findByManagerId_null() throws Exception {
+		List<Employee> emps = this.employeeRepo.findByManagerId(null);
+		assertNotNull(emps);
 	}
 
 	@Test
-	public void findByManagerId_null() throws Exception {
-		List<Employee> emps = this.employeeDao.findByManager(null);
-		assertNull(emps);
+	public void findByManager_null() throws Exception {
+		List<Employee> emps = this.employeeRepo.findByManager(null);
+		assertNotNull(emps);
+	}
+
+	@Test
+	public void findByIsManager() throws Exception {
+		this.employee.setIsManager(true);
+		this.employeeRepo.save(this.employee);
+
+		List<Employee> emps = this.employeeRepo.findByIsManager(true);
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+
 	}
 }
