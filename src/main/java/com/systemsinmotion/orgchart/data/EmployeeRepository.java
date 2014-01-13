@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
@@ -22,5 +23,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	Employee findByLastName(String lastName);
 	
 	Employee findByFirstNameAndLastName(String firstName, String lastName);
+	
+	List<Employee> findByJobTitle(JobTitle jobTitle);
 	
 }

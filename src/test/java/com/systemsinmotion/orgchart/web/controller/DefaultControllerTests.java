@@ -86,17 +86,17 @@ public class DefaultControllerTests {
 	 @Test
 	 public void testModelShouldUpdateOnDepartmentPagePost() {
 	
-	 model.addAttribute("depts", findAllDepartmentsList);
-	 //Given
-	 this.controller.doDepartments_POST(mockDepartment2, model);
-	 //When
-	 findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+		 model.addAttribute("depts", findAllDepartmentsList);
+		 //Given
+		 this.controller.doDepartments_POST(mockDepartment2, model);
+		 //When
+		 findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
 	
-	 //Then
-	 assertNotNull(findAllDepartmentsList);
-	 assertTrue(findAllDepartmentsList.size() > 0);
-	 assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(0).getId());
-	 assertEquals(findAllDepartmentsList.get(0).getName(), Entities.DEPARTMENT_NAME);
+		 //Then
+		 assertNotNull(findAllDepartmentsList);
+		 assertTrue(findAllDepartmentsList.size() > 0);
+		 assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(0).getId());
+		 assertEquals(findAllDepartmentsList.get(0).getName(), Entities.DEPARTMENT_NAME);
 	
 	 }
 

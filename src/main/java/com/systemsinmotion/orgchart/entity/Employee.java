@@ -19,6 +19,7 @@ public class Employee extends BaseEntity {
 	
 	private Department department;
 	private Employee manager;
+	private JobTitle jobTitle;
 	
 	@NotNull
 	@NotEmpty
@@ -87,6 +88,16 @@ public class Employee extends BaseEntity {
 	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
 	public Employee getManager(){
 		return this.manager;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
+	public JobTitle getJobTitle() {
+		return jobTitle;
+	}
+	
+	public void setJobTitle(JobTitle jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 	
 	

@@ -9,6 +9,7 @@ import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.entity.BaseEntity;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Service("employeeService")
 public class EmployeeService {
@@ -54,6 +55,10 @@ public class EmployeeService {
 
 	public Employee findByEmail(String email) {
 		return this.employeeRepository.findByEmail(email);
+	}
+	
+	public List<Employee> findByJobTitle(JobTitle jobTitle) {
+		return this.employeeRepository.findByJobTitle(jobTitle);
 	}
 
 }
