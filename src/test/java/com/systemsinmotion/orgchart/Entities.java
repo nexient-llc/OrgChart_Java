@@ -58,16 +58,15 @@ public class Entities {
 		return emp;
 	}
 
-	
-/*
+
 	public static Employee manager() {
 		Employee mgr = new Employee();
 		mgr.setFirstName(FIRST_NAME);
 		mgr.setLastName(LAST_NAME);
-		mgr.setEmail(EMAIL + r.nextInt());
-		mgr.setSkypeName(SKYPE_NAME + r.nextInt());
+		mgr.setEmail(EMAIL + random.nextInt());
+		mgr.setSkypeName(SKYPE_NAME + random.nextInt());
 		mgr.setIsManager(true);
 		return mgr;
 	}
-*/
+
 }
