@@ -46,20 +46,20 @@ public class Entities {
 		return jobTitle;
 	}
 
-/*	
+	
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
 		emp.setFirstName(FIRST_NAME);
 		emp.setLastName(LAST_NAME);
-		emp.setEmail(EMAIL + r.nextInt());
-		emp.setSkypeName(SKYPE_NAME + r.nextInt());
+		emp.setEmail(EMAIL + random.nextInt());
+		emp.setSkypeName(SKYPE_NAME + random.nextInt());
 		emp.setIsManager(false);
 		return emp;
 	}
 
 	
-
+/*
 	public static Employee manager() {
 		Employee mgr = new Employee();
 		mgr.setFirstName(FIRST_NAME);
