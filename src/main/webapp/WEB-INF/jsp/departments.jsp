@@ -28,6 +28,7 @@
 				</tr>
 			</table>
 			<input type=submit />
+			<button id="cancelBtn">Cancel</button>
 		</form:form>
 	</fieldset>
 </div>
@@ -43,6 +44,31 @@
 				<td>delete</td>
 			</sec:authorize> -->
 			<td>${dept.name}</td> 
-			<td>${dept.parentDepartment.name}</td> </tr>
+			<td>${dept.parentDepartment.name}</td> 
+			<td><button id="editBtn">Edit</button></td>
+		</tr>
 	</c:forEach> 
 </table>
+
+<div id="editEntity" style="display:none">
+	<fieldset>
+		<legend>Add Department</legend>
+		<form:form modelAttribute="dept" action="depts" method="post">
+			<table>
+				<tr>
+					<td>Dept Name:</td>
+					<td><form:input path="name" /></td>
+				</tr>
+				<tr>
+					<td>Parent Dept:</td>
+					<td><form:select path="parentDepartment.id">
+							<form:option value="" label="" />
+							<form:options items="${depts}" itemValue="id" itemLabel="name" />
+					</form:select></td>
+				</tr>
+			</table>
+			<input type=submit />
+			<button id="cancelBtn">Cancel</button>
+		</form:form>
+	</fieldset>
+</div>
