@@ -20,8 +20,6 @@ public class EmployeeService {
 	public List<Employee> findAllEmployees() {
 		return this.repository.findAll();
 	}
-
-	
 	
 	public void removeEmployee(Employee employee) {
 		this.repository.delete(employee);
@@ -32,7 +30,6 @@ public class EmployeeService {
 	}
 	
 	public void setRepository(EmployeeRepository repository) {
-		// TODO Auto-generated method stub
 		this.repository = repository;
 	}
 	

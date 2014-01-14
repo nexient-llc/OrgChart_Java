@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
+import com.systemsinmotion.orgchart.service.EmployeeService;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
@@ -26,14 +30,14 @@ public class DefaultController {
 	private static final Logger log = LoggerFactory
 			.getLogger(DefaultController.class);
 
-//	@Autowired
-//	EmployeeService employeeService;
+	@Autowired
+	EmployeeService employeeService;
 
 	@Autowired
 	DepartmentService departmentService;
 
-//	@Autowired
-//	JobTitleService jobTitleService;
+	@Autowired
+	JobTitleService jobTitleService;
 	
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
@@ -44,10 +48,79 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+		List<Department> departments = departmentService.findAllDepartments();
+    	model.addAttribute("dept", new Department());
+		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
+	
+    @RequestMapping(value = "depts", method = RequestMethod.POST)
+    public String doDepartments_POST(Department dept, Integer parentDepartmentId, Model model) {
+    	Department testDepartment = departmentService.findDepartmentByName(dept.getName());
+    	if(testDepartment != null){
+    		dept = testDepartment;
+    	}
+    	
+    	if(parentDepartmentId != null){
+    		Department parent = departmentService.findDepartmentById(parentDepartmentId);// dept.getParentDepartment();
+    		dept.setParentDepartment(parentDepartmentId == null ? null : parent);
+    	}
+    	departmentService.storeDepartment(dept);
+    	List<Department> departments = departmentService.findAllDepartments();
+    	model.addAttribute("dept", dept);
+    	model.addAttribute("depts", departments);
+    	return View.DEPARTMENTS;
+    }
+    
+    
+    @RequestMapping(value = "depts", method = RequestMethod.PUT)
+    public String doDepartments_PUT(Department dept, Integer parentDepartmentId, Model model) {
+    	Department testDepartment = departmentService.findDepartmentByName(dept.getName());
+    	if(testDepartment != null){
+    		dept = testDepartment;
+    	}
+    	
+    	if(parentDepartmentId != null){
+    		Department parent = departmentService.findDepartmentById(parentDepartmentId);// dept.getParentDepartment();
+    		dept.setParentDepartment(parentDepartmentId == null ? null : parent);
+    	}
+    	departmentService.storeDepartment(dept);
+    	List<Department> departments = departmentService.findAllDepartments();
+    	model.addAttribute("dept", dept);
+    	model.addAttribute("depts", departments);
+    	return View.DEPARTMENTS;
+    }
+    
+	
+//	@RequestMapping(value = "login", method = RequestMethod.GET)
+//	public String doLogin_GET(){
+//		return View.LOGIN;
+//	}
+//	
+//	@RequestMapping(value = "jobtitles", method = RequestMethod.GET)
+//	public String doJobTitles_GET(Model model){
+//		List<JobTitle> jobtitles = jobTitleService.findAllJobTitles();
+//		model.addAttribute("jobtitles", jobtitles);
+//		return View.JOB_TITLES;
+//	}
+//	
+//	@RequestMapping(value = "edit", method = RequestMethod.GET)
+//	public String doEdit_GET(/*Model model*/){
+//		return View.EDIT;
+//	}
+//	
+//	@RequestMapping(value = "ajax", method = RequestMethod.GET)
+//	public String doAjax_GET(){
+//		return View.AJAX;
+//	}
+//	
+//	@RequestMapping(value = "employees", method = RequestMethod.GET)
+//	public String doEmployees_GET(Model model){
+//		List<Employee> emps = employeeService.findAllEmployees();
+//		model.addAttribute("employees", emps);
+//		return View.EMPLOYEES;
+//	}
+	
 	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;

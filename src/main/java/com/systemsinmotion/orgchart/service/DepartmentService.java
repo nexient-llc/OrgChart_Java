@@ -22,6 +22,10 @@ public class DepartmentService {
 		return this.repository.findOne(departmentId);
 	}
 
+	public Department findDepartmentByName(String name){
+		return this.repository.findByName(name);
+	}
+	
 	public void removeDepartment(Department department) {
 		this.repository.delete(department);
 	}

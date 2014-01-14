@@ -55,10 +55,10 @@ public class EmployeeServiceTest {
 		when(this.mockEmployeeRepository.findById(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(this.mockEmployeeRepository.findById(Entities.MANAGER_ID)).thenReturn(mockManager);
 		when(this.mockEmployeeRepository.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
-		when(this.mockEmployeeRepository.findOne(Entities.MANAGER_ID)).thenReturn(mockManager);
+		//when(this.mockEmployeeRepository.findOne(Entities.MANAGER_ID)).thenReturn(mockManager);
 		when(this.mockEmployeeRepository.findByDepartmentId(Entities.DEPT_ID)).thenReturn(listOfEmployees);
 		when(this.mockEmployeeRepository.save(this.mockEmployee)).thenReturn(this.mockEmployee);
-		when(this.mockEmployeeRepository.save(this.mockManager)).thenReturn(this.mockManager);
+		//when(this.mockEmployeeRepository.save(this.mockManager)).thenReturn(this.mockManager);
 		when(this.mockEmployeeRepository.findByEmail(Entities.EMAIL)).thenReturn(mockEmployee);
 		when(this.mockEmployeeRepository.findByManagerId(Entities.MANAGER_ID)).thenReturn(listOfEmployeeByManager);
 		this.employeeService.setRepository(this.mockEmployeeRepository);
@@ -97,6 +97,11 @@ public class EmployeeServiceTest {
 		assertEquals(emps.size(), 1);
 	}
 	
+	@Test
+	public void storeEmployee(){
+		Employee emp = this.employeeService.storeEmployee(mockEmployee);
+		assertNotNull(emp);
+	}
 }
 
 
