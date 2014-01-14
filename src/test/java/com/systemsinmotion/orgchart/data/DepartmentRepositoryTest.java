@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.JPAConfig;
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JPAConfig.class)
@@ -42,12 +44,14 @@ public class DepartmentRepositoryTest {
 
 	@Autowired
 	DepartmentRepository repository;
+	
+	@Autowired
+	EmployeeRepository employeeRepo;
 
 	@Before
 	public void before() throws Exception {
 		this.parent = Entities.department();
 		this.parent = this.repository.saveAndFlush(parent);
-
 		this.department = Entities.department(this.parent);
 		this.department = this.repository.saveAndFlush(department);
 	}
@@ -131,6 +135,7 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void update() throws Exception {
+		String oldName = this.department.getName();
 		Department dept = this.repository.findByName(this.department.getName());
 		dept.setName(SOME_NEW_NAME);
 		this.repository.saveAndFlush(dept);
@@ -139,5 +144,21 @@ public class DepartmentRepositoryTest {
 		dept = this.repository.findByName(SOME_NEW_NAME);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
+		
+		Department dept2 = this.repository.findByName(oldName);
+		assertNull(dept2);
 	}
+	
+//	@Test
+//	public void infiniteJoin() throws Exception{
+//		Department dept = Entities.department();
+//		repository.save(dept);
+//		Employee emp1 = Entities.employee();
+//		emp1.setDepartment(dept);
+//		Employee emp2 = Entities.employee();
+//		emp2.setDepartment(dept);
+//		employeeRepo.save(emp1);
+//		employeeRepo.save(emp2);
+//		Department dep2 = repository.findById(dept.getId());
+//	}
 }

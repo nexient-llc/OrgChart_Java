@@ -7,4 +7,63 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('#cancelAddBtn').click(function(e){
+		e.preventDefault();
+		$('#addEntity').fadeToggle("fast", "linear", function() {
+			$('#addBtn-container').fadeToggle("fast", "linear");
+		});
+	});
+	
+	$('.editDeptBtn').click(function() {
+//		$('#t1 .activeEditDept').fadeOut("fast","linear",function(){
+//			$('#t1 .activeEditDept .cancelDeptEditBtn').click();
+//		});
+		var deptNum = $(this).val();
+		$('#deptRow'+deptNum).fadeToggle("fast","linear",function(){
+//			$(this).addClass("activeEditDept");
+			$('#editDeptRow'+deptNum).fadeToggle("fast","linear");
+		});
+		
+		$('#editDeptRow'+deptNum+' .editDeptName').val($('#deptRow'+deptNum+' .deptName').data('value'));
+		$('#editDeptRow'+deptNum+' .editDeptParent').val($('#deptRow'+deptNum+' .deptParent').data('value'));
+	});
+	
+	
+	
+	$('.cancelDeptEditBtn').click(function(e){
+		e.preventDefault();
+		var deptNum = $(this).val();
+		$('#editDeptRow'+deptNum).fadeToggle("fast","linear",function(){
+			$('#deptRow'+deptNum).fadeToggle("fast","linear");
+		});
+		
+		$('#editDeptRow'+deptNum+' .editDeptName').val("");
+		$('#editDeptRow'+deptNum+' .editDeptParent').val("");
+	});
+	
+	$('.removeDeptBtn').click(function(){	
+		$.ajax({
+			type: "DELETE",
+			url: "depts/" + $(this).val(),
+			success: function(){
+				window.location.href="depts";
+			}
+		});
+	});
+	
+	$('.saveDeptBtn').click(function(){
+		var deptNum = $(this).val();
+		$.ajax({
+			type: "PUT",
+			url: "depts",
+			data: {
+					id: $(this).val(),
+					name: $('#editDeptRow'+deptNum+' .editDeptName').val(), 
+					parentId: $('#editDeptRow'+deptNum+' .editDeptParent').val()
+				  },
+			success: function(){
+				window.location.href="depts";
+			}
+		});
+	});
 });

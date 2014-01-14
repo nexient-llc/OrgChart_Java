@@ -47,7 +47,7 @@ public class Entities {
 	}
 
 	private static String jobTitleName() {
-		return JOB_TITLE_NAME + r.nextInt();
+		return JOB_TITLE_NAME + random.nextInt();
 	}
 
 	public static Employee employee() {
@@ -59,15 +59,21 @@ public class Entities {
 	}
 
 	private static String employeeEmail() {
-		return EMAIL + r.nextInt();
+		return EMAIL + random.nextInt();
 	}
 
 	private static String employeeLastName() {
-		return LAST_NAME + r.nextInt();
+		String name = LAST_NAME + random.nextInt();
+		if(name.length() > 50)
+			name = name.substring(0,50);
+		return name;
 	}
 
 	private static String employeeFirstName() {
-		return FIRST_NAME + r.nextInt();
+		String name = FIRST_NAME + random.nextInt();
+		if(name.length() > 20)
+			name = name.substring(0,20);
+		return name;
 	}
 
 	public static Employee manager() {
