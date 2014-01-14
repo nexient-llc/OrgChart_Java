@@ -24,7 +24,42 @@ $(document).ready(function() {
 	});
 	
 	$('.saveBtn').click(function(evnt) {
-		//TODO
+		
+		var num = $(this).val();
+		$.ajax({
+			url : "depts",
+			type: "PUT",
+			data : {
+				id : num ,
+				name : $('#deptName'+num).val() ,
+				parentID : $('#deptParentId'+num).val()
+			},
+			
+			success: function(response){
+				window.location.href="depts";
+			},			
+		});
+		
+		$('#EditDepts'+num).fadeToggle("fast", "linear", function(){
+			$('#ViewDepts'+num).fadeToggle("fast", "linear");
+		});
 	});
 	
+	$('.cancelEditBtn').click(function(evnt){
+		var num = $(this).val();
+		$('#EditDepts'+num).fadeToggle("fast", "linear", function(){
+			$('#ViewDepts'+num).fadeToggle("fast", "linear");
+		});
+	});
+	
+	$('.deleteBtn').click(function(evnt){
+		var num = $(this).val();
+		$.ajax({
+			url : "depts/"+num,
+			type : "DELETE",
+			success: function(response){
+				window.location.href="depts";
+			},	
+		});
+	});
 });

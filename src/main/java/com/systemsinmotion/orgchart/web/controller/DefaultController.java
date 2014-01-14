@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,13 +58,40 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
     public String doDepartments_POST(Department dept, Model model) {
-            Department parent = dept.getParentDepartment();
-            dept.setParentDepartment(parent.getId() == null ? null : parent);
-            departmentService.storeDepartment(dept);
-            List<Department> departments = departmentService.findAllDepartments();
-            model.addAttribute("dept", dept);
-            model.addAttribute("depts", departments);
-            return View.DEPARTMENTS;
+//		Department parent = dept.getParentDepartment();
+//		dept.setParentDepartment(parent.getId() == null ? null : parent);
+		departmentService.storeDepartment(dept);
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("dept", dept);
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
     }
+	
+	@RequestMapping(value = "depts", method = RequestMethod.PUT)
+    public String doDepartments_PUT(Integer id, String name, Integer parentID, Model model) {
+		Department updateDept = departmentService.findDepartmentByID(id);
+		updateDept.setName(name);
+		updateDept.setParentDepartment(departmentService.findDepartmentByID(parentID));
+		departmentService.storeDepartment(updateDept);
+			
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("dept", new Department());
+		model.addAttribute("depts", departments);
+        return View.DEPARTMENTS;
+    }
+	
+	@RequestMapping(value = "depts/{id}", method = RequestMethod.DELETE)
+	public String doDepartments_DELETE(@PathVariable(value = "id") Integer id, Model model){
+		Department deleteDept = departmentService.findDepartmentByID(id);
+		departmentService.removeDepartment(deleteDept);
+		updateAttributes(model);
+		return View.DEPARTMENTS;
+	}
+	
+	private void updateAttributes(Model model){
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("dept", new Department());
+		model.addAttribute("depts", departments);
+	}
 
 }
