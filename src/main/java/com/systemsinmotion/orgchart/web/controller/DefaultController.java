@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
@@ -34,8 +36,8 @@ public class DefaultController {
 	@Autowired
 	DepartmentService departmentService;
 
-//	@Autowired
-//	JobTitleService jobTitleService;
+	@Autowired
+	JobTitleService jobTitleService;
 	
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
@@ -92,6 +94,13 @@ public class DefaultController {
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("dept", new Department());
 		model.addAttribute("depts", departments);
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	public String doJobTitles_GET(Model model){
+		List<JobTitle> jobTitles = this.jobTitleService.findAllJobTitles();
+        model.addAttribute("jobs", jobTitles);
+		return View.JOB_TITLES;
 	}
 
 }
