@@ -19,7 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories({"com.systemsinmotion.orgchart.data"})
 @EnableTransactionManagement
-@PropertySource("/db.properties")
+
+@PropertySource("classpath:db.properties")
 public class JPAConfig {
 
     @Autowired

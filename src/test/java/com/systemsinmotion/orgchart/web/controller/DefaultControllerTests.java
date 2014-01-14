@@ -58,6 +58,7 @@ public class DefaultControllerTests {
 		this.findAllDepartmentsList.add(this.mockDepartment2);
 
 		// set up mock DepartmentService
+
 		when(this.mockDepartmentService.findAllDepartments()).thenReturn(this.findAllDepartmentsList);
 		when(this.mockDepartmentService.findDepartmentByID(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 
