@@ -20,14 +20,16 @@ public class Employee extends BaseEntity {
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String firstName;
+
+	@NotNull
+	@NotEmpty
+	@Size(min = 1, max = 45)
 	private String lastName;
 	private String email;
 	private String skypeName;
 	private Boolean isManager;
 	private JobTitle jobTitleId;
-	private Department departmentId;
 	private Employee manager;
-
 	private Department department;
 
 	@ManyToOne

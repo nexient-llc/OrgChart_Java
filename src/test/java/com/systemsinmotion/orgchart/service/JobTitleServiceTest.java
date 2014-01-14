@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
@@ -26,7 +26,7 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 @ContextConfiguration("/test-context.xml")
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-@Ignore
+@WebAppConfiguration
 public class JobTitleServiceTest {
 
 	@Autowired
@@ -66,9 +66,10 @@ public class JobTitleServiceTest {
 
 	@Test
 	public void storeJobTitle() {
-		JobTitle deptId = this.jobTitleService.storeJobTitle(this.mockJobTitle);
-		assertNotNull(deptId);
-		assertEquals(Entities.DEPT_ID, deptId);
+		JobTitle jobTitle = this.jobTitleService
+				.storeJobTitle(this.mockJobTitle);
+		assertNotNull(jobTitle);
+		assertEquals(mockJobTitle.getId(), jobTitle.getId());
 	}
 
 }

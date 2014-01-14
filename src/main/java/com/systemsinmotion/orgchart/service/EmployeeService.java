@@ -8,15 +8,11 @@ import org.springframework.stereotype.Service;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.entity.Employee;
 
-@Service
+@Service("employeeService")
 public class EmployeeService {
 
 	@Autowired
-	EmployeeRepository employeeRepo;
-
-	public void setEmployeeService(EmployeeRepository mockEmployeeRepo) {
-		this.employeeRepo = mockEmployeeRepo;
-	}
+	private EmployeeRepository employeeRepo;
 
 	public List<Employee> findAllEmployees() {
 		return this.employeeRepo.findAll();
@@ -28,6 +24,10 @@ public class EmployeeService {
 
 	public Employee storeEmployee(Employee mockEmployee) {
 		return this.employeeRepo.save(mockEmployee);
+	}
+
+	public Employee findEmployeeByFirstName(String firstName) {
+		return this.employeeRepo.findByFirstName(firstName);
 	}
 
 }

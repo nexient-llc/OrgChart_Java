@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
@@ -26,7 +26,7 @@ import com.systemsinmotion.orgchart.entity.Department;
 @ContextConfiguration("/test-context.xml")
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-@Ignore
+@WebAppConfiguration("/src/main/webapp")
 public class DepartmentServiceTest {
 
 	@Autowired
@@ -43,7 +43,7 @@ public class DepartmentServiceTest {
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.mockDepartmentRepo.findAll()).thenReturn(
 				this.listOfFoundDepts);
-		when(this.mockDepartmentRepo.findById(Entities.DEPT_ID)).thenReturn(
+		when(this.mockDepartmentRepo.findOne(Entities.DEPT_ID)).thenReturn(
 				this.mockDepartment);
 		when(this.mockDepartmentRepo.save(this.mockDepartment)).thenReturn(
 				mockDepartment);
@@ -70,7 +70,7 @@ public class DepartmentServiceTest {
 		Department deptId = this.departmentService
 				.storeDepartment(this.mockDepartment);
 		assertNotNull(deptId);
-		assertEquals(Entities.DEPT_ID, deptId);
+		assertEquals(Entities.DEPT_ID, deptId.getId());
 	}
 
 }
