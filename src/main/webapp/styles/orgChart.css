@@ -77,11 +77,3 @@ SELECT {
 	cursor: pointer;
 	text-decoration: underline;
 }
-
-.dontDisplay{
-	display: none;
-}
-
-#t1 tr{
-	transition: width 1s;
-}

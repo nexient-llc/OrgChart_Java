@@ -44,7 +44,7 @@
 			<td><button class="removeDeptBtn" value="${dept.id}">Remove</button></td>			
 		</tr>
 		
-		<tr id="editDeptRow${dept.id}" class="dontDisplay">
+		<tr id="editDeptRow${dept.id}" style="display:none">
 			<td><input name="name" class="editDeptName"/></td>
 			<td><select name="parentDepartment.id" class="editDeptParent">
 					<option value="" />

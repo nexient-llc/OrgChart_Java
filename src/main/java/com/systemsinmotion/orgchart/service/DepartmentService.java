@@ -49,6 +49,7 @@ public class DepartmentService {
 	}
 
 	public Department storeDepartment(Department department) {
+		//Inserting new Department with existing name
 		if(findDepartmentByName(department.getName()) != null && department.getId() == null)
 			return null;
 		Department parent = department.getParentDepartment();
