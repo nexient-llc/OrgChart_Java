@@ -5,7 +5,7 @@ $(document).ready(function() {
 	});
 	
 	$('#navBarDepts').click(function() {
-		window.location = path + "depts";	
+		window.location = path + "depts";
 	});
 	
 	$('#navBarEmps').click(function() {

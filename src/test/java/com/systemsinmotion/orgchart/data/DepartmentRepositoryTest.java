@@ -110,15 +110,16 @@ public class DepartmentRepositoryTest {
 	}
 
 	@Test
-	public void findByParentDeptId() throws Exception {
-		List<Department> depts = this.repository
-				.findByParentDepartmentId(this.department.getParentDepartment()
-						.getId());
+	public void findByParentDept() throws Exception {
+		//List<Department> depts = this.repository.findByParentDepartmentId(this.department.getParentDepartmentId());
+		List<Department> depts = this.repository.findByParentDepartment(parent);
+		
 		assertNotNull(depts);
 		assertEquals(1, depts.size());
 		Department dept = depts.get(0);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
+		assertEquals(parent.getId(), dept.getParentDepartment().getId());
 	}
 
 	@Test

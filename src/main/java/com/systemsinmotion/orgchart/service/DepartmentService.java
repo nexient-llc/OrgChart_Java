@@ -12,7 +12,7 @@ import com.systemsinmotion.orgchart.entity.Department;
 public class DepartmentService {
 
 	@Autowired
-	DepartmentRepository repository;
+	private DepartmentRepository repository;
 
 	public List<Department> findAllDepartments() {
 		return this.repository.findAll();
@@ -29,7 +29,7 @@ public class DepartmentService {
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;
 	}
-
+	
 	public Department storeDepartment(Department department) {
 		return this.repository.save(department);
 	}

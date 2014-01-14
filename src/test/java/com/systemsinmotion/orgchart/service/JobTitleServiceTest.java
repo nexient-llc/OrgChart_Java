@@ -39,10 +39,10 @@ public class JobTitleServiceTest {
 
 	@Before
 	public void before() throws Exception {
-		when(this.mockJobTitle.getId()).thenReturn(Entities.DEPT_ID);
+		when(this.mockJobTitle.getId()).thenReturn(Entities.JOB_TITLE_ID);
 		this.listOfFoundJobTitles.add(this.mockJobTitle);
 		when(this.jobTitleRepo.findAll()).thenReturn(this.listOfFoundJobTitles);
-		when(this.jobTitleRepo.findOne(Entities.DEPT_ID)).thenReturn(this.mockJobTitle);;
+		when(this.jobTitleRepo.findOne(Entities.JOB_TITLE_ID)).thenReturn(this.mockJobTitle);;
 		when(this.jobTitleRepo.save(this.mockJobTitle)).thenReturn(this.mockJobTitle);
 		this.jobTitleService.setRepository(this.jobTitleRepo);
 	}
@@ -56,17 +56,17 @@ public class JobTitleServiceTest {
 
 	@Test
 	public void findJobTitleByID() {
-		JobTitle jobs = this.jobTitleService.findJobTitleByID(Entities.DEPT_ID);
+		JobTitle jobs = this.jobTitleService.findJobTitleByID(Entities.JOB_TITLE_ID);
 		assertNotNull(jobs);
-		assertEquals(Entities.DEPT_ID, jobs.getId());
+		assertEquals(Entities.JOB_TITLE_ID, jobs.getId());
 	}
 
 	@Test
 	public void storeJobTitle() {
 		//Added .getId()
-		Integer deptId = this.jobTitleService.storeJobTitle(this.mockJobTitle).getId();
-		assertNotNull(deptId);
-		assertEquals(Entities.DEPT_ID, deptId);
+		Integer jobId = this.jobTitleService.storeJobTitle(this.mockJobTitle).getId();
+		assertNotNull(jobId);
+		assertEquals(Entities.JOB_TITLE_ID, jobId);
 	}
 
 }

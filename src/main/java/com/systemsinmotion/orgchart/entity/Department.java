@@ -1,15 +1,9 @@
 package com.systemsinmotion.orgchart.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,7 +23,11 @@ public class Department extends BaseEntity {
 
 	private Department parentDepartment;
 
-	@Column(name = "NAME", nullable = false, length = 50)
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Column(name = "NAME", nullable = false, unique = true, length = 50)
 	public String getName() {
 		return this.name;
 	}
@@ -37,15 +35,10 @@ public class Department extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
-		return this.parentDepartment;
+		return parentDepartment;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setParentDepartment(Department parentDepartment) {
+		this.parentDepartment = parentDepartment;
 	}
-
-	public void setParentDepartment(Department department) {
-		this.parentDepartment = department;
-	}
-
 }
