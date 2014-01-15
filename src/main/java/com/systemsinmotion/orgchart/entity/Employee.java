@@ -15,9 +15,6 @@ public class Employee extends BaseEntity {
 
 	private static final long serialVersionUID = 2786300800604338231L;
 	
-//	@NotNull
-//	@NotEmpty
-//	@Size(min = 1, max = 45)
 	private Department department;
 	@NotNull
 	@NotEmpty
@@ -29,8 +26,15 @@ public class Employee extends BaseEntity {
 	private String skypeName;
 	private Boolean isManager;
 	private Employee manager;
+	private JobTitle jobTitle;
 	
 	
+	public JobTitle getJobTitle() {
+		return jobTitle;
+	}
+	public void setJobTitle(JobTitle jobTitle) {
+		this.jobTitle = jobTitle;
+	}
 	@Column(name = "is_manager")
 	public Boolean getIsManager() {
 		return this.isManager;

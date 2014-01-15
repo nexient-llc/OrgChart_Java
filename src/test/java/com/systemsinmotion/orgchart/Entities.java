@@ -6,7 +6,6 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-@SuppressWarnings("unused")
 public class Entities {
 
 	public static final String DEPARTMENT_NAME = "Department";

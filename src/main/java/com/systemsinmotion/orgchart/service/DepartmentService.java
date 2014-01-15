@@ -3,6 +3,8 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
@@ -15,7 +17,8 @@ public class DepartmentService {
 	DepartmentRepository repository;
 
 	public List<Department> findAllDepartments() {
-		return this.repository.findAll();
+		Sort sort = new Sort(Direction.ASC, "name");
+		return this.repository.findAll(sort);
 	}
 
 	public Department findDepartmentByID(Integer departmentId) {
