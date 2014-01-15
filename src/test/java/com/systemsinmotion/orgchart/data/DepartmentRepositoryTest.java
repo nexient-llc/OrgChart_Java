@@ -41,15 +41,15 @@ public class DepartmentRepositoryTest {
 	private Department parent;
 
 	@Autowired
-	DepartmentRepository repository;
+	DepartmentRepository departmentRepo;
 
 	@Before
 	public void before() throws Exception {
 		this.parent = Entities.department();
-		this.parent = this.repository.saveAndFlush(parent);
+		this.parent = this.departmentRepo.saveAndFlush(parent);
 
 		this.department = Entities.department(this.parent);
-		this.department = this.repository.saveAndFlush(department);
+		this.department = this.departmentRepo.saveAndFlush(department);
 	}
 
 	@Test
@@ -64,20 +64,20 @@ public class DepartmentRepositoryTest {
 	public void duplicateName() throws Exception {
 		Department dept = Entities.department();
 		dept.setName(this.department.getName());
-		this.repository.save(dept);
+		this.departmentRepo.save(dept);
 	}
 
 	@Test
 	public void findAll_notNull() throws Exception {
-		System.out.println(this.repository.toString());
-		List<Department> depts = this.repository.findAll();
+		System.out.println(this.departmentRepo.toString());
+		List<Department> depts = this.departmentRepo.findAll();
 		assertNotNull(depts);
 		assertTrue(0 < depts.size());
 	}
 
 	@Test
 	public void findByDeptId() throws Exception {
-		Department dept = this.repository.findOne(this.department.getId());
+		Department dept = this.departmentRepo.findOne(this.department.getId());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
@@ -85,19 +85,19 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findById_notPresent() throws Exception {
-		Department dept = this.repository.findOne(NOT_PRESENT_ID);
+		Department dept = this.departmentRepo.findOne(NOT_PRESENT_ID);
 		assertNull(dept);
 	}
 
 	@Test(expected = InvalidDataAccessApiUsageException.class)
 	public void findById_null() throws Exception {
-		Department dept = this.repository.findOne(null);
+		Department dept = this.departmentRepo.findOne(null);
 		assertNull(dept);
 	}
 
 	@Test
 	public void findByName() throws Exception {
-		Department dept = this.repository.findByName(this.department.getName());
+		Department dept = this.departmentRepo.findByName(this.department.getName());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
@@ -105,13 +105,13 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findByName_null() throws Exception {
-		Department dept = this.repository.findByName(NOT_PRESENT_VALUE);
+		Department dept = this.departmentRepo.findByName(NOT_PRESENT_VALUE);
 		assertNull(dept);
 	}
 
 	@Test
 	public void findByParentDeptId() throws Exception {
-		List<Department> depts = this.repository
+		List<Department> depts = this.departmentRepo
 				.findByParentDepartmentId(this.department.getParentDepartment()
 						.getId());
 		assertNotNull(depts);
@@ -123,7 +123,7 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findByParentDeptId_unknowId() throws Exception {
-		List<Department> depts = this.repository
+		List<Department> depts = this.departmentRepo
 				.findByParentDepartmentId(random.nextInt());
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
@@ -131,12 +131,12 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void update() throws Exception {
-		Department dept = this.repository.findByName(this.department.getName());
+		Department dept = this.departmentRepo.findByName(this.department.getName());
 		dept.setName(SOME_NEW_NAME);
-		this.repository.saveAndFlush(dept);
+		this.departmentRepo.saveAndFlush(dept);
 
 		dept = null;
-		dept = this.repository.findByName(SOME_NEW_NAME);
+		dept = this.departmentRepo.findByName(SOME_NEW_NAME);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
