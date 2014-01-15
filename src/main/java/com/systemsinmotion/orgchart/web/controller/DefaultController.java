@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
@@ -21,8 +22,7 @@ import com.systemsinmotion.orgchart.web.View;
 public class DefaultController {
 
     @SuppressWarnings("unused")
-    private static final Logger log = LoggerFactory
-	    .getLogger(DefaultController.class);
+    private static final Logger log = LoggerFactory.getLogger(DefaultController.class);
 
     @Autowired
     EmployeeService employeeService;
@@ -50,6 +50,10 @@ public class DefaultController {
 
     public void setDepartmentService(DepartmentService departmentService) {
 	this.departmentService = departmentService;
+    }
+    
+    public void setJobTitleService(JobTitleService jobTitleService) {
+	this.jobTitleService = jobTitleService;
     }
 
     /**
@@ -114,6 +118,37 @@ public class DefaultController {
 //	model.addAttribute("dept", new Department());
 	model.addAttribute("emps", employees);
 	return View.EMPLOYEES;
+    }
+    
+    @RequestMapping(value = "jobs", method = RequestMethod.POST)
+    public String doJobTitles_POST(Integer id, String name, Integer parentDepartmentId, Model model) {
+	
+	Department dept = departmentService.findDepartmentByID(id);
+        dept.setName(name);
+	
+        if(parentDepartmentId != null) {
+            Department parentDepartment = this.departmentService.findDepartmentByID(parentDepartmentId);
+            dept.setParentDepartment(parentDepartment);
+        } else {
+            dept.setParentDepartment(null);
+        }
+        
+        departmentService.storeDepartment(dept);
+        List<Department> departments = departmentService.findAllDepartments();
+        
+        /*
+         * This is the same depts var that is in the departments.jsp file
+         */
+        model.addAttribute("depts", departments);
+        return View.DEPARTMENTS;
+	return View.JOB_TITLES;
+    }
+    
+    @RequestMapping(value = "jobs", method = RequestMethod.GET)
+    public String doJobTitles_GET(Model model) {
+	List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+	model.addAttribute("jobs", jobTitles);
+	return View.JOB_TITLES;
     }
 
 }

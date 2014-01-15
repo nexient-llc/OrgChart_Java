@@ -4,7 +4,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<h3>Departments Page</h3> 
+<h3>Departments Page</h3>
 
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
@@ -41,8 +41,9 @@
 		<!-- <th>Task</th></sec:authorize> --> 
 	</tr> 
 	<c:forEach items="${depts}" var="dept">
-		<tr> 
-			
+		
+		<!-- <tr style="background-color:#52bcec;"> -->
+			<tr>
 			<td> ${dept.name} </td> 
 			<td> ${dept.parentDepartment.name} </td>
 			<td>
