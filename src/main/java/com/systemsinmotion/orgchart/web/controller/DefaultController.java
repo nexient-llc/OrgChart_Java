@@ -99,7 +99,17 @@ public class DefaultController {
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitles_GET(Model model){
 		List<JobTitle> jobTitles = this.jobTitleService.findAllJobTitles();
+		model.addAttribute("job", new JobTitle());
         model.addAttribute("jobs", jobTitles);
+		return View.JOB_TITLES;
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.POST)
+	public String doJobTitles_POST(JobTitle jobTitle, Model model){
+		jobTitleService.storeJobTitle(jobTitle);
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("job", jobTitle);
+		model.addAttribute("jobs", jobTitles);
 		return View.JOB_TITLES;
 	}
 

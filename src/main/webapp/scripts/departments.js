@@ -37,12 +37,12 @@ $(document).ready(function() {
 			
 			success: function(response){
 				window.location.href="depts";
-			},			
+			},	
 		});
 		
-		$('#EditDepts'+num).fadeToggle("fast", "linear", function(){
-			$('#ViewDepts'+num).fadeToggle("fast", "linear");
-		});
+//		$('#EditDepts'+num).fadeToggle("fast", "linear", function(){
+//			$('#ViewDepts'+num).fadeToggle("fast", "linear");
+//		});
 	});
 	
 	$('.cancelEditBtn').click(function(evnt){

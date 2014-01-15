@@ -22,6 +22,7 @@ public class Entities {
 	public static final String LAST_NAME = "last name";
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
+	public static final String DESCRIPTION = "description";
 
 	private static Random random = new Random();
 
@@ -45,6 +46,7 @@ public class Entities {
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
 		jobTitle.setName(jobName());
+		jobTitle.setDescription(DESCRIPTION + random.nextInt());
 		return jobTitle;
 	}
 	

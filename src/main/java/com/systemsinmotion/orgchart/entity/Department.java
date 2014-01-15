@@ -23,8 +23,8 @@ public class Department extends BaseEntity {
 	private static final long serialVersionUID = -5379179412533671591L;
 
 	private Set<Department> childDepartments = new HashSet<Department>(0);
-
 	private Set<Employee> employees = new HashSet<Employee>();
+	private boolean isActive;
 
 	@NotNull
 	@NotEmpty
@@ -46,6 +46,15 @@ public class Department extends BaseEntity {
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
+	}
+	
+	@Column(name = "IS_ACTIVE")
+	public boolean getIsActive() {
+		return this.isActive;
+	}
+	
+	public void setIsActive(boolean isItActive) {
+		this.isActive = isItActive;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)

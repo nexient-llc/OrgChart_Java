@@ -50,7 +50,7 @@
 		</tr>
 		
 		<tr id="EditDepts${dept.id}" style="display:none">
-			<td><input path="name" id="deptName${dept.id}" value=${dept.name}></td>
+			<td><input path="name" id="deptName${dept.id}" value="${dept.name}"></td>
 			<td><select path="parentDepartment.id" id="deptParentId${dept.id}">
 				<option value="" label=""/>
 				<c:forEach items="${depts}" var="dept2">

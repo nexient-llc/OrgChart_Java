@@ -48,12 +48,7 @@
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
 			<version>2.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.glassfish.web</groupId>
-			<artifactId>el-impl</artifactId>
-			<version>2.2</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -117,7 +112,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
+ 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
 			<version>2.3.1</version>
@@ -128,12 +123,13 @@
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>jstl-api</artifactId>
 			<version>1.2-rev-1</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
 		</dependency>
 
 		<dependency>
@@ -190,7 +186,6 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 
