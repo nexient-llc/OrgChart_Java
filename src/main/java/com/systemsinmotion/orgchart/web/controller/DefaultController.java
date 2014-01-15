@@ -97,13 +97,20 @@ public class DefaultController {
 //		return View.LOGIN;
 //	}
 //	
-//	@RequestMapping(value = "jobtitles", method = RequestMethod.GET)
-//	public String doJobTitles_GET(Model model){
-//		List<JobTitle> jobtitles = jobTitleService.findAllJobTitles();
-//		model.addAttribute("jobtitles", jobtitles);
-//		return View.JOB_TITLES;
-//	}
-//	
+	@RequestMapping(value = "jobTitles", method = RequestMethod.GET)
+	public String doJobTitles_GET(Model model){
+		List<JobTitle> jobtitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobtitles", jobtitles);
+		return View.JOB_TITLES;
+	}
+	
+	@RequestMapping(value = "jobTitles", method = RequestMethod.POST)
+	public String doJobTitles_POST(Model model){
+		List<JobTitle> jobtitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobTitles", jobtitles);
+		return View.JOB_TITLES;
+	}
+	
 //	@RequestMapping(value = "edit", method = RequestMethod.GET)
 //	public String doEdit_GET(/*Model model*/){
 //		return View.EDIT;

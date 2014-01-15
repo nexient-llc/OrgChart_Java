@@ -72,17 +72,6 @@
 	</fieldset>
 </div>
 
-  
-  <!--  
-<script>
-function editEntity(id)
-{
-alert("${id}");
-}
-</script>
-
--->
-
 
 
 
