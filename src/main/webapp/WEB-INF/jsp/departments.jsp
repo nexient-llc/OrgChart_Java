@@ -7,7 +7,7 @@
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Dept Name</th> <th>Parent Dept</th>
+		<th>Dept Name  </th> <th>Parent Dept</th>
 	</tr> 
 	<c:forEach items="${depts}" var="dept">
 		<tr> 

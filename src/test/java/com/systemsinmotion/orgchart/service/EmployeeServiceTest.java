@@ -55,44 +55,44 @@ public class EmployeeServiceTest {
 
 	@Test
 	public void findAllEmployees() {
-		List<Employee> empo = this.EmpoService.findAllEmployees();
-		assertNotNull(empo);
-		assertEquals(1, empo.size());
+		List<Employee> emps = this.EmpoService.findAllEmployees();
+		assertNotNull(emps);
+		assertEquals(1, emps.size());
 	}
 
 	@Test
 	public void findEmployeeByID() {
-		Employee empo = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
-		assertNotNull(empo);
-		assertEquals(mockEmployee.getId(), empo.getId());
+		Employee emps = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		assertNotNull(emps);
+		assertEquals(mockEmployee.getId(), emps.getId());
 	}
 
 	@Test
 	public void findEmployeeByEmail() {
-		Employee empo = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
-		assertNotNull(empo);
-		assertEquals(mockEmployee.getEmail(), empo.getEmail());
+		Employee emps = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		assertNotNull(emps);
+		assertEquals(mockEmployee.getEmail(), emps.getEmail());
 	}
 
 	@Test
 	public void findEmployeeByFirstName() {
-		Employee empo = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
-		assertNotNull(empo);
-		assertEquals(mockEmployee.getFirstName(), empo.getFirstName());
+		Employee emps = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		assertNotNull(emps);
+		assertEquals(mockEmployee.getFirstName(), emps.getFirstName());
 	}
 
 	@Test
 	public void findEmployeeBySkypeName() {
-		Employee empo = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
-		assertNotNull(empo);
-		assertEquals(mockEmployee.getSkypeName(), empo.getSkypeName());
+		Employee emps = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		assertNotNull(emps);
+		assertEquals(mockEmployee.getSkypeName(), emps.getSkypeName());
 	}
 
 	@Test
 	public void findEmployeeByLastName() {
-		Employee empo = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
-		assertNotNull(empo);
-		assertEquals(mockEmployee.getLastName(), empo.getLastName());
+		Employee emps = this.EmpoService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		assertNotNull(emps);
+		assertEquals(mockEmployee.getLastName(), emps.getLastName());
 	}
 
 	@Test

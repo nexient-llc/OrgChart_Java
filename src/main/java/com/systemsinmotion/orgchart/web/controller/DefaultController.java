@@ -2,6 +2,8 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +21,9 @@ import com.systemsinmotion.orgchart.web.View;
 @Controller
 public class DefaultController {
 
-	// @SuppressWarnings("unused")
-	// private static final Logger log = LoggerFactory
-	// .getLogger(DefaultController.class);
+	@SuppressWarnings("unused")
+	private static final Logger log = LoggerFactory
+			.getLogger(DefaultController.class);
 
 	@Autowired
 	private EmployeeService employeeService;
@@ -57,18 +59,20 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 
-	@RequestMapping(value = "jobTitle", method = RequestMethod.GET)
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitle_GET(Model model) {
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("job", new JobTitle());
+		model.addAttribute("jobs", jobTitles);
+		return View.JOB_TITLES;
 	}
 
-	@RequestMapping(value = "empo", method = RequestMethod.GET)
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployee_GET(Model model) {
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
+		List<Employee> employee = employeeService.findAllEmployees();
+		model.addAttribute("emp", new Employee());
+		model.addAttribute("emps", employee);
+		return View.EMPLOYEES;
 	}
 
 	@SuppressWarnings("null")
@@ -85,21 +89,21 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 
-	@RequestMapping(value = "jobTitle", method = RequestMethod.POST)
+	@RequestMapping(value = "jobs", method = RequestMethod.POST)
 	public String doJobTitle_POST(JobTitle jobTitle, Model model) {
 		jobTitleService.storeJobTitle(jobTitle);
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
-		model.addAttribute("jobTitle", jobTitle);
-		model.addAttribute("jobTitles", jobTitles);
+		model.addAttribute("job", jobTitle);
+		model.addAttribute("jobs", jobTitles);
 		return View.JOB_TITLES;
 	}
 
-	@RequestMapping(value = "empo", method = RequestMethod.POST)
-	public String doEmployee_POST(Employee empo, Model model) {
-		employeeService.storeEmployee(empo);
-		List<Employee> empos = employeeService.findAllEmployees();
-		model.addAttribute("empo", empo);
-		model.addAttribute("empos", empos);
+	@RequestMapping(value = "emps", method = RequestMethod.POST)
+	public String doEmployee_POST(Employee employee, Model model) {
+		employeeService.storeEmployee(employee);
+		List<Employee> emps = employeeService.findAllEmployees();
+		model.addAttribute("emp", employee);
+		model.addAttribute("emps", emps);
 		return View.EMPLOYEES;
 	}
 
