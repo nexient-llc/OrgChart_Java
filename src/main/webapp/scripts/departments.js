@@ -28,8 +28,9 @@ $(document).ready(function() {
 		var num = $(this).val();
 		$.ajax({
 			url : "depts",
-			type: "PUT",
+			type: "POST",
 			data : {
+				_method : "put",
 				id : num ,
 				name : $('#deptName'+num).val() ,
 				parentID : $('#deptParentId'+num).val()

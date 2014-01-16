@@ -20,6 +20,8 @@ public class Employee extends BaseEntity {
 	private Department department;
 	private Employee manager;
 	private JobTitle jobTitle;
+	private boolean isActive;
+	private String skypeName;
 	
 	@NotNull
 	@NotEmpty
@@ -30,6 +32,8 @@ public class Employee extends BaseEntity {
 	@NotEmpty
 	@Size(min = 1, max = 50)
 	private String lastName;
+	
+	private Character middleInitial;
 	
 	private String email;
 	private boolean isManager = false;
@@ -98,6 +102,33 @@ public class Employee extends BaseEntity {
 	
 	public void setJobTitle(JobTitle jobTitle) {
 		this.jobTitle = jobTitle;
+	}
+	
+	@Column(name = "IS_ACTIVE")
+	public boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@Column(name = "MIDDLE_INITIAL")
+	public Character getMiddleInitial() {
+		return middleInitial;
+	}
+
+	public void setMiddleInitial(Character middleInitial) {
+		this.middleInitial = middleInitial;
+	}
+
+	@Column(name = "SKYPE_NAME")
+	public String getSkypeName() {
+		return skypeName;
+	}
+
+	public void setSkypeName(String skypeName) {
+		this.skypeName = skypeName;
 	}
 	
 	

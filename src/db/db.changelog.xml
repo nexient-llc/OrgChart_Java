@@ -161,4 +161,20 @@
 			<column name="description" type="varchar(120)"/>
 		</addColumn>
 	</changeSet>
+	
+	<changeSet id="20" author="kskronek">
+         <addColumn tableName="job_title" >
+             <column name="is_active" type="boolean" defaultValue="true" />
+         </addColumn>
+    </changeSet>
+        
+    <changeSet id="21" author="kskronek">
+		<addColumn tableName="employee">
+			<column name="middle_initial" type="char(1)" />
+		</addColumn>
+		<addColumn tableName="employee">
+			<column name="is_active" type="boolean" defaultValue="true" />
+		</addColumn>
+	</changeSet>
+	
 </databaseChangeLog>

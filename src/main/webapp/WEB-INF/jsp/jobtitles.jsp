@@ -12,7 +12,7 @@
 
 <div id="addEntity" style="display:none">
 	<fieldset>
-		<legend>Add Department</legend>
+		<legend>Add Job Title</legend>
 		<form:form modelAttribute="job" action="jobs" method="post">
 			<table>
 				<tr>
@@ -25,6 +25,7 @@
 				</tr>
 			</table>
 			<input type=submit />
+			<button id="cancelBtn">Cancel</button>
 		</form:form>
 	</fieldset>
 </div>
@@ -35,12 +36,20 @@
 		<th>Job Title</th> <th>Description</th>
 	</tr> 
 	<c:forEach items="${jobs}" var="job">
-		<tr id="ViewDepts${job.id}"> 
+		<tr id="ViewJobs${job.id}"> 
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
 			<td>${job.name}</td> 
 			<td>${job.description}</td>
+			<td><button class="editBtn" value="${job.id}">Edit</button></td>
+		</tr>
+		
+		<tr id="EditJobs${job.id}" style="display:none">
+			<td><input path="name" id="jobName${job.id}" value="${job.name}"></td>
+			<td><input path="description" id="jobDescript${job.id}" value="${job.description}"></td>
+			<td><button class='saveBtn' value="${job.id}">Save</button></td>
+			<td><button class='cancelEditBtn' value="${job.id}">Cancel</button></td>
 		</tr>
 	</c:forEach>
 </table>

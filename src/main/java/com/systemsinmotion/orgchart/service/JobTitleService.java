@@ -32,7 +32,7 @@ public class JobTitleService {
 	}
 
 	public JobTitle storeJobTitle(JobTitle jobTitle) {
-		return this.jobTitleRepository.save(jobTitle);
+		return this.jobTitleRepository.saveAndFlush(jobTitle);
 	}
 
 	public JobTitle findJobTitleByName(String name) {

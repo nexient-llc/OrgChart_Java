@@ -34,7 +34,7 @@ public class EmployeeService {
 	}
 
 	public Employee storeEmployee(Employee employee) {
-		return this.employeeRepository.save(employee);
+		return this.employeeRepository.saveAndFlush(employee);
 	}
 
 	public Employee findEmployeeByName(String firstName, String lastName) {
