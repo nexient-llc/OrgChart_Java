@@ -19,7 +19,12 @@
 			<td>${dept.name}</td>
 			<td>${dept.parentDepartment.name}</td>
 			<td><div id="editBtn-container${dept.id}">
-					<button type="button" class="editBtn" value = "${dept.id}" onclick="editDepartment("${dept.id}")" style="width: 55px;">Edit</button>
+					<button type="button" class="editBtn" value="${dept.id}"
+						onclick="editDepartment(" ${dept.id}")" style="width: 55px;">Edit</button>
+				</div></td>
+			<td><div id="deleteBtn-container${dept.id}">
+					<button type="button" class="deleteBtn" value="${dept.id}"
+						onclick="editDepartment(" ${dept.id}")" style="width: 70px;">Remove</button>
 				</div></td>
 		</tr>
 	</c:forEach>
@@ -48,14 +53,14 @@
 		</form>
 	</fieldset>
 </div>
-<div id="editEntity" style="display: none" >
+<div id="editEntity" style="display: none">
 	<fieldset>
 		<legend>Edit Department</legend>
 		<form name="editDept" action="depts/put" method="post">
 			<div>
-				<input id="editEntityId" type="hidden" name="deptEditId" />
-				<labeL>Dept Name:</labeL><input type="text" name="name" />
-				<labeL>Parent Dept:</label> <select name="parentDepartmentId">
+				<input id="editEntityId" type="hidden" name="deptEditId" /> <labeL>Dept
+					Name:</labeL><input type="text" name="name" /> <labeL>Parent Dept:</label>
+				<select name="parentDepartmentId">
 					<option></option>
 					<c:forEach items="${depts}" var="dept">
 						<option value="${dept.id}">${dept.name}</option>
@@ -67,3 +72,16 @@
 		</form>
 	</fieldset>
 </div>
+<div id="deleteEntity" style="display: none">
+	<fieldset>
+		<legend>Delete Department</legend>
+		<form name="deleteDept" action="depts/delete" method="post">
+			<div>
+				<input id="editEntityId" type="hidden" name="deptDeleteId" /> <labeL>Department
+					named ${dept.name} deleted.</labeL>
+			</div>
+			<button type="submit">SURE</button>
+		</form>
+	</fieldset>
+</div>
+

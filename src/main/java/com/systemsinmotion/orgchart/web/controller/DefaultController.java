@@ -46,7 +46,7 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-		 List<Department> departments = departmentService.findAllDepartments();
+		 List<Department> departments = departmentService.findAll();
 		 model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
@@ -60,7 +60,7 @@ public class DefaultController {
 		Department parentDepartment = this.departmentService.findDepartmentByID(parentDepartmentId);
 		dept.setParentDepartment(parentDepartment);
 		this.departmentService.storeDepartment(dept);
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Department> departments = departmentService.findAll();
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
@@ -79,7 +79,15 @@ public class DefaultController {
 		}
 		dept.setName(name);
 		departmentService.storeDepartment(dept);
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Department> departments = departmentService.findAll();
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
+	}
+	@RequestMapping(value = "depts/delete", method = RequestMethod.POST)
+	public String doDepartments_DELETE(Integer deptDeleteId, Model model) {
+		Department dept = this.departmentService.findDepartmentByID(deptDeleteId);
+		departmentService.removeDepartment(dept);
+		List<Department> departments = departmentService.findAll();
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}

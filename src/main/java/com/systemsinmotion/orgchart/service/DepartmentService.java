@@ -16,7 +16,7 @@ public class DepartmentService {
 	@Autowired
 	DepartmentRepository repository;
 
-	public List<Department> findAllDepartments() {
+	public List<Department> findAll() {
 		Sort sort = new Sort(Direction.ASC, "name");
 		return this.repository.findAll(sort);
 	}
