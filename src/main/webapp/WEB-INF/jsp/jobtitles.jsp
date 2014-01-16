@@ -10,7 +10,7 @@
 </div>
 <div id="addEntity" style="display:none">
 	<fieldset>
-		<legend>Add Department</legend>
+		<legend>Add Job Title</legend>
 		<form:form modelAttribute="newJob" action="jobs" method="post">		
 			<div>
 				<label>Job Title:</label>
@@ -20,7 +20,6 @@
 				<input type="submit" value="Save" />
 				<button id="cancelAddBtn">Cancel</button>
 			</div>
-		<div></div>
 		</form:form>
 	</fieldset>
 </div>

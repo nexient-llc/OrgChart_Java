@@ -17,23 +17,28 @@ public class Employee extends BaseEntity {
 
 	private static final long serialVersionUID = 2786300800604338231L;
 	
-	
 	@NotNull
 	@NotEmpty
 	@Size(min = 1,max = 20)
 	private String firstName;
-	
 	
 	@NotNull
 	@NotEmpty
 	@Size(min = 1,max = 50)
 	private String lastName;
 	
-	private Department department;
-	
+	@Size(max=100)
 	private String email;
 	
+	@Size(max=100)
+	private String skypeName;
+	
+	private Department department;
+	
 	private Employee manager;
+	
+	private JobTitle jobTitle;
+	
 	
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)
 	public String getFirstName(){
@@ -51,15 +56,30 @@ public class Employee extends BaseEntity {
 		return department;
 	}
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.REFRESH)
+	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
+	public JobTitle getJobTitle() {
+		return jobTitle;
+	}
+	
 	@Column(name = "EMAIL", unique = true)
 	public String getEmail() {
 		return this.email;
+	}
+	
+	@Column(name = "SKYPE_NAME", unique = true)
+	public String getSkypeName() {
+		return this.skypeName;
 	}
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
 	public Employee getManager(){
 		return this.manager;
+	}
+	
+	public void setSkypeName(String skypeName){
+		this.skypeName = skypeName;
 	}
 	
 	public void setEmail(String email){
@@ -80,6 +100,10 @@ public class Employee extends BaseEntity {
 
 	public void setManager(Employee manager) {
 		this.manager = manager;
+	}
+	
+	public void setJobTitle(JobTitle jobTitle){
+		this.jobTitle = jobTitle;
 	}
 }
 

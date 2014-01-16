@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	$('#addBtn-container').css('width', $('#t1').width());
-
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#addEntity').fadeToggle("fast", "linear");
@@ -12,15 +10,13 @@ $(document).ready(function() {
 		$('#addEntity').fadeToggle("fast", "linear", function() {
 			$('#addBtn-container').fadeToggle("fast", "linear");
 		});
+		
+		$('#addEntity input[type=text]').val("");
 	});
 	
 	$('.editJobBtn').click(function() {
-//		$('#t1 .activeEditJob').fadeOut("fast","linear",function(){
-//			$('#t1 .activeEditJob .cancelJobEditBtn').click();
-//		});
 		var jobNum = $(this).val();
 		$('#jobRow'+jobNum).fadeToggle("fast","linear",function(){
-//			$(this).addClass("activeEditJob");
 			$('#editJobRow'+jobNum).fadeToggle("fast","linear");
 		});
 		
@@ -42,9 +38,10 @@ $(document).ready(function() {
 	$('.saveJobBtn').click(function(){
 		var jobNum = $(this).val();
 		$.ajax({
-			type: "PUT",
+			type: "POST",
 			url: "jobs",
 			data: {
+					_method: "put",
 					id: $(this).val(),
 					name: $('#editJobRow'+jobNum+' .editJobName').val(), 
 					description: $('#editJobRow'+jobNum+' .editJobDesc').val()

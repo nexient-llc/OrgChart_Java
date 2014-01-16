@@ -27,7 +27,6 @@
 				<input type="submit" value="Save" />
 				<button id="cancelAddBtn">Cancel</button>
 			</div>
-		<div></div>
 		</form:form>
 	</fieldset>
 </div>

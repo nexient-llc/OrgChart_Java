@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	$('#addBtn-container').css('width', $('#t1').width());
-
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#addEntity').fadeToggle("fast", "linear");
@@ -12,6 +10,8 @@ $(document).ready(function() {
 		$('#addEntity').fadeToggle("fast", "linear", function() {
 			$('#addBtn-container').fadeToggle("fast", "linear");
 		});
+		
+		$('#addEntity input[type=text], #addEntity select').val("");
 	});
 	
 	$('.editDeptBtn').click(function() {

@@ -2,6 +2,8 @@ package com.systemsinmotion.orgchart.service;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,12 @@ public class EmployeeService {
 	EmployeeRepository repository;
 	
 	public Employee storeEmployee(Employee employee){
-		return this.repository.save(employee);
+		try{
+			return this.repository.save(employee);
+		}
+		catch(ConstraintViolationException e){
+			return null;
+		}
 	}
 	
 	public Employee findEmployeeById(Integer id){

@@ -69,7 +69,21 @@ SELECT {
 }
 
 #addEntity {
-	margin-top: 1em;
+	margin: 1em 0;
+	width: 100%;
+	overflow: hidden;
+}
+
+#addEntity fieldset{
+	float: left;
+}
+
+#addEntity form{
+	display: inline;
+}
+
+#addEntity .saveCancel{
+	float: right;
 }
 
 #login {

@@ -49,12 +49,28 @@ public class DepartmentService {
 	}
 
 	public Department storeDepartment(Department department) {
-		//Inserting new Department with existing name
-		if(findDepartmentByName(department.getName()) != null && department.getId() == null)
-			return null;
 		Department parent = department.getParentDepartment();
 		if(parent != null)
 			department.setParentDepartment(parent.getId() == null ? null : parent);
+		
+		//catch dataIntegrityViolationException
 		return this.repository.save(department);
+	}
+
+	public void setDepartmentInactive(Department department) {
+		if(department != null){
+			List<Department> depts = findAllDepartments();
+			for(Department child : depts){
+				Department parent = child.getParentDepartment();
+				if(parent != null)
+					if(parent.getId().equals(department.getId())){
+						child.setParentDepartment(department.getParentDepartment());
+						storeDepartment(child);
+					}
+			}
+			department.setIsActive(false);
+			storeDepartment(department);
+		}
+		
 	}
 }

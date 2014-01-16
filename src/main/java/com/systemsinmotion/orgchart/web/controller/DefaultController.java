@@ -41,16 +41,14 @@ public class DefaultController {
 	// DEPARTMENT
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		setUpDepartmentView(model);
-		return View.DEPARTMENTS;
+		return setUpDepartmentView(model);
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
 	public String doDepartments_POST(Department department, Model model){
         departmentService.storeDepartment(department);
         
-        setUpDepartmentView(model);
-		return View.DEPARTMENTS;
+        return setUpDepartmentView(model);
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.PUT)
@@ -60,23 +58,20 @@ public class DefaultController {
 		dept.setParentDepartment(departmentService.findDepartmentByID(parentId));
 		departmentService.storeDepartment(dept);
 		
-		setUpDepartmentView(model);
-		return View.DEPARTMENTS;
+		return setUpDepartmentView(model);
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
 	public String doDepartments_DELETE(Integer id, Model model){
-		Department dept = departmentService.findDepartmentByID(id);
-		dept.setIsActive(false);
-		departmentService.storeDepartment(dept);
+		departmentService.setDepartmentInactive(departmentService.findDepartmentByID(id));
 		
-		setUpDepartmentView(model);
-		return View.DEPARTMENTS;
+		return setUpDepartmentView(model);
 	}
 	
-	private void setUpDepartmentView(Model model){
+	private String setUpDepartmentView(Model model){
 		model.addAttribute("newDept", new Department());
         model.addAttribute("depts", departmentService.findAllDepartments());
+        return View.DEPARTMENTS;
 	}
 	
 	public void setDepartmentService(DepartmentService departmentService) {
@@ -87,16 +82,14 @@ public class DefaultController {
 	//JOBTITLE
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitle_GET(Model model) {
-		setUpJobTitlesView(model);
-		return View.JOB_TITLES;
+		return setUpJobTitlesView(model);
 	}
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.POST)
 	public String doJobTitle_POST(JobTitle jobTitle, Model model){
 		jobTitleService.storeJobTitle(jobTitle);
 		
-		setUpJobTitlesView(model);
-		return View.JOB_TITLES;
+		return setUpJobTitlesView(model);
 	}
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.PUT)
@@ -106,13 +99,13 @@ public class DefaultController {
 		job.setDescription(description);
 		jobTitleService.storeJobTitle(job);
 		
-		setUpJobTitlesView(model);
-		return View.JOB_TITLES;
+		return setUpJobTitlesView(model);
 	}
 	
-	private void setUpJobTitlesView(Model model){
+	private String setUpJobTitlesView(Model model){
 		model.addAttribute("newJob", new JobTitle());
 		model.addAttribute("jobs",jobTitleService.findAllJobTitles());
+		return View.JOB_TITLES;
 	}
 	
 	public void setJobTitleService(JobTitleService jobTitleService){
@@ -123,14 +116,34 @@ public class DefaultController {
 	//EMPLOYEE
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployee_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
-		
-		setUpEmployeeView(model);
-		return View.EMPLOYEES;
+		return setUpEmployeeView(model);
 	}
 	
-	private void setUpEmployeeView(Model model){
+	@RequestMapping(value = "emps", method = RequestMethod.POST)
+	public String doEmployee_POST(Employee employee, Model model){
+		employeeService.storeEmployee(employee);
+		
+		return setUpEmployeeView(model);
+	}
+	
+	@RequestMapping(value = "emps", method = RequestMethod.PUT)
+	public String doEmployee_PUT(Employee employee, Model model){
+		Employee emp = employeeService.findEmployeeById(employee.getId());
+		emp.setFirstName(employee.getFirstName());
+		emp.setLastName(employee.getLastName());
+		emp.setEmail(employee.getEmail());
+		emp.setSkypeName(employee.getSkypeName());
+		emp.setDepartment(departmentService.findDepartmentByID(employee.getDepartment().getId()));
+		emp.setJobTitle(jobTitleService.findJobTitleById(employee.getJobTitle().getId()));
+		employeeService.storeEmployee(employee);
+		return setUpEmployeeView(model);
+	}
+	
+	private String setUpEmployeeView(Model model){
 		model.addAttribute("newEmp", new Employee());
-		model.addAttribute("emps",employeeService.findAllEmployees());
+		model.addAttribute("emps", employeeService.findAllEmployees());
+		model.addAttribute("depts", departmentService.findAllDepartments());
+		model.addAttribute("jobs", jobTitleService.findAllJobTitles());
+		return View.EMPLOYEES;
 	}
 }
