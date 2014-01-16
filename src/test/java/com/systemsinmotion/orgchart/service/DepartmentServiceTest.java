@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
+import com.bestbuy.supportspace.videolibrary.config.TestConfig;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,6 +27,8 @@ import com.systemsinmotion.orgchart.entity.Department;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
 @WebAppConfiguration("/src/main/webapp")
+//@ContextConfiguration(classes = TestConfig.class)
+
 public class DepartmentServiceTest {
 
 	@Autowired
@@ -39,6 +42,7 @@ public class DepartmentServiceTest {
 	@Before
 	public void before() throws Exception {
       when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
+      when(this.mockDepartment.getName()).thenReturn(Entities.DEPARTMENT_NAME);
       this.listOfFoundDepts.add(this.mockDepartment);
       when(this.mockDepartmentRepo.findAll()).thenReturn(this.listOfFoundDepts);
       when(this.mockDepartmentRepo.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
@@ -73,5 +77,4 @@ public class DepartmentServiceTest {
 //		dept.setParentDepartment(dept);
 //		departmentService.storeDepartment(dept);
 //	}
-
 }

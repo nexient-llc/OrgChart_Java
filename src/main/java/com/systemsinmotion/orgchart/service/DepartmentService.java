@@ -55,6 +55,6 @@ public class DepartmentService {
 		Department parent = department.getParentDepartment();
 		if(parent != null)
 			department.setParentDepartment(parent.getId() == null ? null : parent);
-		return this.repository.saveAndFlush(department);
+		return this.repository.save(department);
 	}
 }
