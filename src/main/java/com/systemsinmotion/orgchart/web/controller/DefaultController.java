@@ -1,25 +1,15 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.validation.Valid;
-
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
@@ -51,8 +41,7 @@ public class DefaultController {
 	// DEPARTMENT
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
-		setUpDepartmentView(model, new Department());
+		setUpDepartmentView(model);
 		return View.DEPARTMENTS;
 	}
 	
@@ -60,7 +49,7 @@ public class DefaultController {
 	public String doDepartments_POST(Department department, Model model){
         departmentService.storeDepartment(department);
         
-        setUpDepartmentView(model, new Department());
+        setUpDepartmentView(model);
 		return View.DEPARTMENTS;
 	}
 	
@@ -71,21 +60,22 @@ public class DefaultController {
 		dept.setParentDepartment(departmentService.findDepartmentByID(parentId));
 		departmentService.storeDepartment(dept);
 		
-		setUpDepartmentView(model, new Department());
+		setUpDepartmentView(model);
 		return View.DEPARTMENTS;
 	}
 	
-	@RequestMapping(value = "depts/{id}", method = RequestMethod.DELETE)
-	public String doDepartments_DELETE(@PathVariable(value = "id") Integer id, Model model){
+	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
+	public String doDepartments_DELETE(Integer id, Model model){
 		Department dept = departmentService.findDepartmentByID(id);
-		this.departmentService.removeDepartment(dept);
+		dept.setIsActive(false);
+		departmentService.storeDepartment(dept);
 		
-		setUpDepartmentView(model, new Department());
+		setUpDepartmentView(model);
 		return View.DEPARTMENTS;
 	}
 	
-	private void setUpDepartmentView(Model model, Department newDept){
-		model.addAttribute("newDept", newDept);
+	private void setUpDepartmentView(Model model){
+		model.addAttribute("newDept", new Department());
         model.addAttribute("depts", departmentService.findAllDepartments());
 	}
 	
@@ -97,19 +87,50 @@ public class DefaultController {
 	//JOBTITLE
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitle_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
-		
-		
-		setUpJobTitlesView(model, new JobTitle());
+		setUpJobTitlesView(model);
 		return View.JOB_TITLES;
 	}
 	
-	private void setUpJobTitlesView(Model model, JobTitle jobTitle){
-		model.addAttribute("newJob", jobTitle);
+	@RequestMapping(value = "jobs", method = RequestMethod.POST)
+	public String doJobTitle_POST(JobTitle jobTitle, Model model){
+		jobTitleService.storeJobTitle(jobTitle);
+		
+		setUpJobTitlesView(model);
+		return View.JOB_TITLES;
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.PUT)
+	public String doJobTitle_PUT(Integer id, String name, String description, Model model){
+		JobTitle job = jobTitleService.findJobTitleById(id);
+		job.setName(name);
+		job.setDescription(description);
+		jobTitleService.storeJobTitle(job);
+		
+		setUpJobTitlesView(model);
+		return View.JOB_TITLES;
+	}
+	
+	private void setUpJobTitlesView(Model model){
+		model.addAttribute("newJob", new JobTitle());
 		model.addAttribute("jobs",jobTitleService.findAllJobTitles());
 	}
 	
 	public void setJobTitleService(JobTitleService jobTitleService){
 		this.jobTitleService = jobTitleService;
+	}
+	
+	
+	//EMPLOYEE
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	public String doEmployee_GET(Model model) {
+		//uncomment when database connection is set up. will throw error when run
+		
+		setUpEmployeeView(model);
+		return View.EMPLOYEES;
+	}
+	
+	private void setUpEmployeeView(Model model){
+		model.addAttribute("newEmp", new Employee());
+		model.addAttribute("emps",employeeService.findAllEmployees());
 	}
 }

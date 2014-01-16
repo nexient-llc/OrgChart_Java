@@ -19,12 +19,23 @@ public class JobTitle extends BaseEntity {
 	@Size(min = 1, max = 45)
 	private String name;
 	
+	private String description;
+	
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName(){
 		return this.name;
 	}
 	
+	@Column(name = "DESCRIPTION", length = 100)
+	public String getDescription(){
+		return this.description;
+	}
+	
 	public void setName(String name){
 		this.name = name;
+	}
+	
+	public void setDescription(String description){
+		this.description = description;
 	}
 }

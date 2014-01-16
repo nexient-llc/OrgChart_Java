@@ -28,8 +28,6 @@ $(document).ready(function() {
 		$('#editDeptRow'+deptNum+' .editDeptParent').val($('#deptRow'+deptNum+' .deptParent').data('value'));
 	});
 	
-	
-	
 	$('.cancelDeptEditBtn').click(function(e){
 		e.preventDefault();
 		var deptNum = $(this).val();
@@ -43,8 +41,12 @@ $(document).ready(function() {
 	
 	$('.removeDeptBtn').click(function(){	
 		$.ajax({
-			type: "DELETE",
-			url: "depts/" + $(this).val(),
+			type: "POST",
+			url: "depts",
+			data: {
+				_method: "delete",
+				id: $(this).val()
+			},
 			success: function(){
 				window.location.href="depts";
 			}
@@ -53,13 +55,17 @@ $(document).ready(function() {
 	
 	$('.saveDeptBtn').click(function(){
 		var deptNum = $(this).val();
+		var deptName = $('#editDeptRow'+deptNum+' .editDeptName').val();
+		var parentId = $('#editDeptRow'+deptNum+' .editDeptParent').val();
+		
 		$.ajax({
-			type: "PUT",
+			type: "POST",
 			url: "depts",
 			data: {
-					id: $(this).val(),
-					name: $('#editDeptRow'+deptNum+' .editDeptName').val(), 
-					parentId: $('#editDeptRow'+deptNum+' .editDeptParent').val()
+					_method: "put",
+					id: deptNum,
+					name: deptName, 
+					parentId: parentId
 				  },
 			success: function(){
 				window.location.href="depts";

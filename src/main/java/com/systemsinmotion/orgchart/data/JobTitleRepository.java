@@ -9,4 +9,5 @@ public interface JobTitleRepository extends JpaRepository<JobTitle, Integer>{
 	JobTitle findByName(String name);
 
 	JobTitle findById(Integer id);
+	
 }

@@ -77,3 +77,7 @@ SELECT {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+#navTable *{
+	cursor: pointer;
+}

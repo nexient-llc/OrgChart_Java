@@ -21,7 +21,7 @@ var path = "${pageContext.request.contextPath}/app/";
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />
-	<table>
+	<table id="navTable">
 		<tr>
 			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
 			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
