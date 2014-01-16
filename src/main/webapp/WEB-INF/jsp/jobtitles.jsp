@@ -3,6 +3,10 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<title>"Systems in Motion Organization Chart"</title>
+
+<h1>"Systems in Motion Organization Chart"</h1>
+<a href='<c:url value=""/>'>Login</a> <br/>
 <h3>Job Titles</h3> 
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->

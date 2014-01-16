@@ -25,6 +25,11 @@ public class Employee extends BaseEntity {
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String lastName;
+
+	@NotNull
+	@NotEmpty
+	@Size(min = 1, max = 1)
+	private String middleInitial;
 	private String email;
 	private String skypeName;
 	private Boolean isManager;
@@ -105,6 +110,15 @@ public class Employee extends BaseEntity {
 
 	public void setManager(Employee manager) {
 		this.manager = manager;
+	}
+
+	@Column(name = "MIDDLE_INITIAL", nullable = false, length = 50)
+	public String getMiddleInitial() {
+		return middleInitial;
+	}
+
+	public void setMiddleInitial(String middleInitial) {
+		this.middleInitial = middleInitial;
 	}
 
 }
