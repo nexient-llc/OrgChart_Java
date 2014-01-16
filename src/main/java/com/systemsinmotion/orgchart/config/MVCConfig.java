@@ -11,18 +11,25 @@ import org.springframework.web.servlet.view.tiles2.TilesViewResolver;
 @EnableWebMvc
 @ComponentScan("com.systemsinmotion.orgchart")
 public class MVCConfig {
-    @Bean
-    public TilesViewResolver viewResolver() {
-        TilesViewResolver viewResolver = new org.springframework.web.servlet.view.tiles2.TilesViewResolver();
-        viewResolver.setViewClass(org.springframework.web.servlet.view.tiles2.TilesView.class);
-        return viewResolver;
-    }
-
+    /**
+     * Tiles configurer.
+     *
+     * @return the tiles configurer
+     */
     @Bean
     public TilesConfigurer tilesConfigurer() {
-        String[] definitions = {"/WEB-INF/tiles.xml"};
-        TilesConfigurer tilesConfigurer = new TilesConfigurer();
-        tilesConfigurer.setDefinitions(definitions);
-        return tilesConfigurer;
+        TilesConfigurer configurer = new TilesConfigurer();
+        configurer.setDefinitions(new String[] { "/WEB-INF/tiles.xml" });
+        return configurer;
+    }
+
+    /**
+     * View resolver.
+     *
+     * @return the tiles view resolver
+     */
+    @Bean
+    public TilesViewResolver viewResolver() {
+        return new TilesViewResolver();
     }
 }
