@@ -97,7 +97,7 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findByName() throws Exception {
-		Department dept = this.departmentRepo.findByName(this.department.getName());
+		Department dept = this.departmentRepo.findDepartmentByName(this.department.getName());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
@@ -105,7 +105,7 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findByName_null() throws Exception {
-		Department dept = this.departmentRepo.findByName(NOT_PRESENT_VALUE);
+		Department dept = this.departmentRepo.findDepartmentByName(NOT_PRESENT_VALUE);
 		assertNull(dept);
 	}
 
@@ -131,12 +131,12 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void update() throws Exception {
-		Department dept = this.departmentRepo.findByName(this.department.getName());
+		Department dept = this.departmentRepo.findDepartmentByName(this.department.getName());
 		dept.setName(SOME_NEW_NAME);
 		this.departmentRepo.saveAndFlush(dept);
 
 		dept = null;
-		dept = this.departmentRepo.findByName(SOME_NEW_NAME);
+		dept = this.departmentRepo.findDepartmentByName(SOME_NEW_NAME);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}

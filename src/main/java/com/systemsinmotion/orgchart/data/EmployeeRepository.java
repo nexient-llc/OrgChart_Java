@@ -9,13 +9,13 @@ import com.systemsinmotion.orgchart.entity.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	
-	Employee findByFirstName(String firstName);
-	Employee findByLastName(String lastName);
-	Employee findByEmail(String email);
-	Employee findBySkypeName(String skypeName);
-	Employee findById(Integer Id);
+	Employee findEmployeeByFirstName(String firstName);
+	Employee findEmployeeByLastName(String lastName);
+	Employee findEmployeeByEmail(String email);
+	Employee findEmployeeBySkypeName(String skypeName);
+	Employee findEmployeeById(Integer Id);
 	
-	List<Employee> findByDepartment(Department department);
-	List<Employee> findByManagerId(Integer manager);
+	List<Employee> findEmployeesByDepartment(Department department);
+	List<Employee> findEmployeesByManagerId(Integer manager);
 	
 }

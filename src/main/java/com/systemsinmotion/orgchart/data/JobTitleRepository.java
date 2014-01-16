@@ -6,6 +6,6 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface JobTitleRepository extends JpaRepository<JobTitle, Integer> {
 	
-	JobTitle findByName(String jobTitleName);
+	JobTitle findJobTitleByName(String jobTitleName);
 	
 }

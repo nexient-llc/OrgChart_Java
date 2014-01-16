@@ -1,12 +1,13 @@
 package com.systemsinmotion.orgchart.data;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class JobTitleRepositoryTest {
 	@Autowired
 	JobTitleRepository jobTitleRepo;
 	
+	@Before
 	public void before() throws Exception {
 		this.jobTitle = Entities.jobTitle();
 		this.jobTitle = this.jobTitleRepo.saveAndFlush(jobTitle);
@@ -74,25 +76,25 @@ public class JobTitleRepositoryTest {
     
     @Test
     public void findByName() throws Exception {
-    	JobTitle jobTitle = this.jobTitleRepo.findByName(this.jobTitle.getName());
+    	JobTitle jobTitle = this.jobTitleRepo.findJobTitleByName(this.jobTitle.getName());
     	assertNotNull(jobTitle);
     	assertEquals(this.jobTitle.getName(), jobTitle.getName());
     }
     
     @Test
     public void findByName_null() throws Exception {
-    	JobTitle jobTitle = this.jobTitleRepo.findByName(NOT_PRESENT_VALUE);
+    	JobTitle jobTitle = this.jobTitleRepo.findJobTitleByName(NOT_PRESENT_VALUE);
     	assertNull(jobTitle);
     }
     
     @Test
     public void update() throws Exception {
-    	JobTitle jobTitle = this.jobTitleRepo.findByName(this.jobTitle.getName());
+    	JobTitle jobTitle = this.jobTitleRepo.findJobTitleByName(this.jobTitle.getName());
     	jobTitle.setName(SOME_NEW_NAME);
     	this.jobTitleRepo.save(jobTitle);
     	
     	jobTitle = null;
-    	jobTitle = this.jobTitleRepo.findByName(SOME_NEW_NAME);
+    	jobTitle = this.jobTitleRepo.findJobTitleByName(SOME_NEW_NAME);
     	assertNotNull(jobTitle);
     	assertEquals(SOME_NEW_NAME, jobTitle.getName());
     }

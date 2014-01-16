@@ -13,30 +13,30 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 public class JobTitleService {
 
 	@Autowired
-	JobTitleRepository jobTitleRepository;
+	JobTitleRepository jobTitleRepo;
         
 	public List<JobTitle> findAllJobTitles() {
-		return this.jobTitleRepository.findAll();
+		return this.jobTitleRepo.findAll();
 	}
 	
-	public JobTitle findJobTitleByID(Integer jobTitleID) {
-		return this.jobTitleRepository.findOne(jobTitleID);
+	public JobTitle findJobTitleById(Integer jobTitleId) {
+		return this.jobTitleRepo.findOne(jobTitleId);
 	}
 	
-	public JobTitle findByJobTitleName(String jobTitleName) {
-		return this.jobTitleRepository.findByName(jobTitleName);
+	public JobTitle findJobTitleByName(String jobTitleName) {
+		return this.jobTitleRepo.findJobTitleByName(jobTitleName);
 	}
 	
 	public void setRepository(JobTitleRepository jobTitleRepository) {
-		this.jobTitleRepository = jobTitleRepository;
+		this.jobTitleRepo = jobTitleRepository;
 	}
 	
 	public void removeJobTitle(JobTitle jobTitle) {
-		this.jobTitleRepository.delete(jobTitle);
+		this.jobTitleRepo.delete(jobTitle);
 	}
 	
 	public JobTitle storeJobTitle(JobTitle jobTitle) {
-		return this.jobTitleRepository.save(jobTitle);
+		return this.jobTitleRepo.save(jobTitle);
 	}
 	
 }

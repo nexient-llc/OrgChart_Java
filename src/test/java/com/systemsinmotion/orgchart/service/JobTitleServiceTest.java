@@ -1,6 +1,7 @@
 package com.systemsinmotion.orgchart.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,6 +35,7 @@ public class JobTitleServiceTest {
 	
 	JobTitleRepository mockJobTitleRepo = mock(JobTitleRepository.class);
 	JobTitle mockJobTitle = mock(JobTitle.class);
+	JobTitleService mockJobTitleService = mock(JobTitleService.class);
 	
 	private ArrayList<JobTitle> listOfFoundJobTitles = new ArrayList<JobTitle>();
 	
@@ -42,7 +44,7 @@ public class JobTitleServiceTest {
 		when(this.mockJobTitle.getId()).thenReturn(Entities.JOB_TITLE_ID);
 		this.listOfFoundJobTitles.add(this.mockJobTitle);
 		when(this.mockJobTitleRepo.findAll()).thenReturn(this.listOfFoundJobTitles);
-		when(this.mockJobTitleRepo.findByName(Entities.JOB_TITLE_NAME)).thenReturn(this.mockJobTitle);
+		when(this.mockJobTitleRepo.findJobTitleByName(Entities.JOB_TITLE_NAME)).thenReturn(this.mockJobTitle);
 		when(this.mockJobTitleRepo.findOne(Entities.JOB_TITLE_ID)).thenReturn(this.mockJobTitle);
 		when(this.mockJobTitleRepo.save(this.mockJobTitle)).thenReturn(this.mockJobTitle);
 		this.jobTitleService.setRepository(this.mockJobTitleRepo);
@@ -57,7 +59,14 @@ public class JobTitleServiceTest {
 	
 	@Test
 	public void findJobTitleByID() {
-		JobTitle jobTitle = this.jobTitleService.findJobTitleByID(Entities.JOB_TITLE_ID);
+		JobTitle jobTitle = this.jobTitleService.findJobTitleById(Entities.JOB_TITLE_ID);
+		assertNotNull(jobTitle);
+		assertEquals(Entities.JOB_TITLE_ID, jobTitle.getId());
+	}
+	
+	@Test
+	public void findJobTitleByName() {
+		JobTitle jobTitle = this.jobTitleService.findJobTitleByName(Entities.JOB_TITLE_NAME);
 		assertNotNull(jobTitle);
 		assertEquals(Entities.JOB_TITLE_ID, jobTitle.getId());
 	}

@@ -18,7 +18,7 @@ public class DepartmentService {
 		return this.repository.findAll();
 	}
 
-	public Department findDepartmentByID(Integer departmentId) {
+	public Department findDepartmentById(Integer departmentId) {
 		return this.repository.findOne(departmentId);
 	}
 
