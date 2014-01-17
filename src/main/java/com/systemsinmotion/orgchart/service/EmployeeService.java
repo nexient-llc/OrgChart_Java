@@ -61,4 +61,8 @@ public class EmployeeService {
 		return this.employeeRepository.findByJobTitle(jobTitle);
 	}
 
+	public List<Employee> findAllActiveEmployees() {
+		return this.employeeRepository.findByIsActiveTrue();
+	}
+
 }

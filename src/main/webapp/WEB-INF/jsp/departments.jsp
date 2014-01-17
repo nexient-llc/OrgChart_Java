@@ -33,40 +33,47 @@
 	</fieldset>
 </div>
 
-<table id="t1"> 
-	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Dept Name</th> <th>Parent Dept</th>
-	</tr> 
+<div class="divTable">
+	<div class="headRow">
+		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
+		<!-- <th>Task</th></sec:authorize> -->
+		<div class="divCol">Dept Name</div>
+		<div class="divCol">Parent Dept</div>
+	</div>
 	<c:forEach items="${depts}" var="dept">
-		<tr id="ViewDepts${dept.id}"> 
+		<div class="divRow" id="ViewDepts${dept.id}">
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
-			<td>${dept.name}</td> 
-			<td>${dept.parentDepartment.name}</td>
-			<td><button class="editBtn" value="${dept.id}">Edit</button></td>
-			<td><button class="deleteBtn" value="${dept.id}">Delete</button></td>
-		</tr>
-		
-		<tr id="EditDepts${dept.id}" style="display:none">
-			<td><input path="name" id="deptName${dept.id}" value="${dept.name}"></td>
-			<td><select path="parentDepartment.id" id="deptParentId${dept.id}">
-				<option value="" label=""/>
-				<c:forEach items="${depts}" var="dept2">
-				<c:choose>
-					<c:when test="${dept.parentDepartment.id == dept2.id}">
-						<option selected value="${dept2.id}" label="${dept2.name}"/>
-					</c:when>
-					<c:otherwise>
-						<option value="${dept2.id}" label="${dept2.name}"/>
-					</c:otherwise>
-				</c:choose>
-				</c:forEach>
-			</select></td>
-			<td><button class='saveBtn' value="${dept.id}">Save</button></td>
-			<td><button class='cancelEditBtn' value="${dept.id}">Cancel</button></td>
-		</tr>
-	</c:forEach>
-</table>
+			<div class="content">${dept.name}</div>
+			<div class="content">${dept.parentDepartment.name}</div>
+			<div class="content">
+				<button class="editBtn" value="${dept.id}">Edit</button><button class="deleteBtn" value="${dept.id}">Remove</button>
+			</div>
+		</div>
 
+		<div class="divRow" id="EditDepts${dept.id}" style="display: none;">
+			<div class="content">
+				<input path="name" id="deptName${dept.id}" value="${dept.name}" class="textBoxClass">
+			</div>
+			<div class="content">
+				<select path="parentDepartment.id" id="deptParentId${dept.id}">
+					<option value="" label="" />
+					<c:forEach items="${depts}" var="dept2">
+						<c:choose>
+							<c:when test="${dept.parentDepartment.id == dept2.id}">
+								<option selected value="${dept2.id}" label="${dept2.name}" />
+							</c:when>
+							<c:otherwise>
+								<option value="${dept2.id}" label="${dept2.name}" />
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="content">
+				<button class='saveBtn' value="${dept.id}">Save</button><button class='cancelEditBtn' value="${dept.id}">Cancel</button>
+			</div>
+		</div>
+	</c:forEach>
+</div>

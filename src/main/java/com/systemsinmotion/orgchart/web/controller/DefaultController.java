@@ -50,9 +50,7 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-		 List<Department> departments = departmentService.findAllDepartments();
-		 model.addAttribute("dept", new Department());
-		 model.addAttribute("depts", departments);
+		 updateDeptAttributes(new Department(), model);
 		 return View.DEPARTMENTS;
 	}
 	
@@ -62,12 +60,9 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
     public String doDepartments_POST(Department dept, Model model) {
-//		Department parent = dept.getParentDepartment();
-//		dept.setParentDepartment(parent.getId() == null ? null : parent);
 		departmentService.storeDepartment(dept);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("dept", dept);
-		model.addAttribute("depts", departments);
+		
+		updateDeptAttributes(dept, model);
 		return View.DEPARTMENTS;
     }
 	
@@ -77,24 +72,22 @@ public class DefaultController {
 		updateDept.setName(name);
 		updateDept.setParentDepartment(departmentService.findDepartmentByID(parentID));
 		departmentService.storeDepartment(updateDept);
-			
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("dept", new Department());
-		model.addAttribute("depts", departments);
+		
+		updateDeptAttributes(new Department(), model);
         return View.DEPARTMENTS;
     }
 	
 	@RequestMapping(value = "depts/{id}", method = RequestMethod.DELETE)
 	public String doDepartments_DELETE(@PathVariable(value = "id") Integer id, Model model){
-		Department deleteDept = departmentService.findDepartmentByID(id);
-		departmentService.removeDepartment(deleteDept);
-		updateDeptAttributes(model);
+		Department removeDept = departmentService.findDepartmentByID(id);
+		departmentService.makeDepartmentInactive(removeDept);
+		updateDeptAttributes(new Department(), model);
 		return View.DEPARTMENTS;
 	}
 	
-	private void updateDeptAttributes(Model model){
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("dept", new Department());
+	private void updateDeptAttributes(Department department, Model model){
+		List<Department> departments = departmentService.findAllActiveDepartments();
+		model.addAttribute("dept", department);
 		model.addAttribute("depts", departments);
 	}
 	
@@ -128,7 +121,7 @@ public class DefaultController {
 	}
 	
 	private void updateJobTitleAttributes(Model model){
-		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		List<JobTitle> jobTitles = jobTitleService.findAllActiveJobTitles();
 		model.addAttribute("job", new JobTitle());
 		model.addAttribute("jobs", jobTitles);
 	}
@@ -140,19 +133,49 @@ public class DefaultController {
 	}
 	
 	private void updateEmployeeAttributes(Employee emp, Model model){
-		List<Employee> employees = employeeService.findAllEmployees();
+		List<Employee> employees = employeeService.findAllActiveEmployees();
 		model.addAttribute("emp", emp);
 		model.addAttribute("emps", employees);
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		model.addAttribute("depts", departments);
-		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		List<JobTitle> jobTitles = jobTitleService.findAllActiveJobTitles();
 		model.addAttribute("jobs", jobTitles);
 	}
 	
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
 	public String doEmployees_POST(Employee employee, Model model) {
+		employee.setIsActive(true);
 		employeeService.storeEmployee(employee);
 		updateEmployeeAttributes(employee, model);
+		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = "emps", method = RequestMethod.PUT)
+	public String doEmployees_PUT(Integer id, String firstName, String lastName, Character middleInitial, String email, 
+							String skypeName, Integer departmentID, Integer jobTitleID, Model model){
+		Employee updateEmployee = employeeService.findEmployeeByID(id);
+		Department employeeDepartment = departmentService.findDepartmentByID(departmentID);
+		JobTitle employeeJobTitle = jobTitleService.findJobTitleByID(jobTitleID);
+		updateEmployee.setFirstName(firstName);
+		updateEmployee.setLastName(lastName);
+		updateEmployee.setMiddleInitial(middleInitial);
+		updateEmployee.setEmail(email);
+		updateEmployee.setSkypeName(skypeName);
+		updateEmployee.setDepartment(employeeDepartment);
+		updateEmployee.setJobTitle(employeeJobTitle);
+		
+		employeeService.storeEmployee(updateEmployee);
+		
+		updateEmployeeAttributes(updateEmployee, model);
+		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = "emps", method = RequestMethod.DELETE)
+	public String doEmployees_DELETE(Integer id, Model model){
+		Employee removeEmployee = employeeService.findEmployeeByID(id);
+		removeEmployee.setIsActive(false);
+		employeeService.storeEmployee(removeEmployee);
+		
 		return View.EMPLOYEES;
 	}
 

@@ -38,4 +38,8 @@ public class JobTitleService {
 	public JobTitle findJobTitleByName(String name) {
 		return this.jobTitleRepository.findByName(name);
 	}
+
+	public List<JobTitle> findAllActiveJobTitles() {
+		return this.jobTitleRepository.findByIsActiveTrue();
+	}
 }

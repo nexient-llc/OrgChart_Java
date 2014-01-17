@@ -77,3 +77,34 @@ SELECT {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+.divTable
+{
+    display:table;
+}
+.divRow
+{
+    display:table-row;
+}
+.divCol
+{
+    display:table-cell;
+    width:120px;
+    color:white;
+    font-size:larger;
+}
+.headRow
+{
+    display:table-caption;
+    background-color:#0177C0;
+}
+.content
+{
+    display:table-cell;
+    width:120px;
+    font-size:larger;
+}
+.textBoxClass
+{
+	width:110px;	
+}

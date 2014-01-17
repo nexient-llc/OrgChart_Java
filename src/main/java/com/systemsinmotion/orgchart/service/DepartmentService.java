@@ -27,21 +27,7 @@ public class DepartmentService {
 	}
 
 	public void removeDepartment(Department department) {
-		List<Department> allDepts = this.repository.findAll();
-		for(Department possibleChild : allDepts){
-			if(possibleChild.getParentDepartment() == null){
-				//DO NOTHING
-			}
-			else if(possibleChild.getParentDepartment().getId().equals(department.getId())) {
-				if(department.getParentDepartment() == null){
-					possibleChild.setParentDepartment(null);
-				}
-				else {
-					possibleChild.setParentDepartment(department.getParentDepartment());
-				}
-				storeDepartment(possibleChild);
-			}
-		}
+		changeChildDepartmentsParent(department);
 		department.setParentDepartment(null);
 		storeDepartment(department);
 		this.repository.delete(department);
@@ -49,6 +35,10 @@ public class DepartmentService {
 
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;
+	}
+	
+	public List<Department> findAllActiveDepartments(){
+		return this.repository.findByIsActiveTrue();
 	}
 
 	public Department storeDepartment(Department department) {
@@ -60,6 +50,30 @@ public class DepartmentService {
 			department.setParentDepartment(parent.getId() == null ? null : parent);
 		}
 		return this.repository.saveAndFlush(department);
+	}
+
+	public void makeDepartmentInactive(Department department) {
+		changeChildDepartmentsParent(department);
+		department.setIsActive(false);
+		storeDepartment(department);
+	}
+	
+	private void changeChildDepartmentsParent( Department changingParent) {
+		List<Department> allDepts = this.repository.findAll();
+		for(Department possibleChild : allDepts){
+			if(possibleChild.getParentDepartment() == null){
+				//DO NOTHING
+			}
+			else if(possibleChild.getParentDepartment().getId().equals(changingParent.getId())) {
+				if(changingParent.getParentDepartment() == null){
+					possibleChild.setParentDepartment(null);
+				}
+				else {
+					possibleChild.setParentDepartment(changingParent.getParentDepartment());
+				}
+				storeDepartment(possibleChild);
+			}
+		}
 	}
 
 }
