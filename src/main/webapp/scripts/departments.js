@@ -14,32 +14,36 @@ $(document).ready(function() {
 		$('#addEntity input[type=text], #addEntity select').val("");
 	});
 	
-	$('.editDeptBtn').click(function() {
-//		$('#t1 .activeEditDept').fadeOut("fast","linear",function(){
-//			$('#t1 .activeEditDept .cancelDeptEditBtn').click();
-//		});
+	$('.editBtn').click(function() {
+		cancelEdit($('.activeEdit .cancelDeptEditBtn').val(), false);
+		
 		var deptNum = $(this).val();
 		$('#deptRow'+deptNum).fadeToggle("fast","linear",function(){
-//			$(this).addClass("activeEditDept");
-			$('#editDeptRow'+deptNum).fadeToggle("fast","linear");
+			$('#editDeptRow'+deptNum).fadeToggle("fast","linear",function(){
+				$(this).addClass('activeEdit');
+			});
 		});
 		
 		$('#editDeptRow'+deptNum+' .editDeptName').val($('#deptRow'+deptNum+' .deptName').data('value'));
 		$('#editDeptRow'+deptNum+' .editDeptParent').val($('#deptRow'+deptNum+' .deptParent').data('value'));
-	});
-	
-	$('.cancelDeptEditBtn').click(function(e){
-		e.preventDefault();
-		var deptNum = $(this).val();
-		$('#editDeptRow'+deptNum).fadeToggle("fast","linear",function(){
-			$('#deptRow'+deptNum).fadeToggle("fast","linear");
-		});
 		
-		$('#editDeptRow'+deptNum+' .editDeptName').val("");
-		$('#editDeptRow'+deptNum+' .editDeptParent').val("");
+		if($('#t1 #th').hasClass('activeTH')){
+			$('#t1 #th').fadeToggle("fast","linear", function(){
+				$(this).removeClass('activeTH');
+				$('#t1 #thEdit').fadeToggle("fast","linear", function(){
+					$(this).addClass('activeTH');
+				});
+			});
+		}
 	});
 	
-	$('.removeDeptBtn').click(function(){	
+	$('.cancelEditBtn').click(function(e){
+		e.preventDefault();
+		var ID = $(this).val();
+		cancelEdit(ID, true);
+	});
+	
+	$('.removeBtn').click(function(){	
 		$.ajax({
 			type: "POST",
 			url: "depts",
@@ -53,7 +57,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('.saveDeptBtn').click(function(){
+	$('.saveBtn').click(function(){
 		var deptNum = $(this).val();
 		var deptName = $('#editDeptRow'+deptNum+' .editDeptName').val();
 		var parentId = $('#editDeptRow'+deptNum+' .editDeptParent').val();
@@ -73,3 +77,22 @@ $(document).ready(function() {
 		});
 	});
 });
+
+function cancelEdit(ID, editing){
+	$('#editDeptRow'+ID).fadeToggle("fast","linear",function(){
+		$(this).removeClass('activeEdit');
+		$('#deptRow'+ID).fadeToggle("fast","linear");
+	});
+	
+	$('#editDeptRow'+ID+' .editDeptName').val("");
+	$('#editDeptRow'+ID+' .editDeptParent').val("");
+	
+	if(editing){
+		$('#t1 #thEdit').fadeToggle("fast","linear", function(){
+			$(this).removeClass('activeTH');
+			$('#t1 #th').fadeToggle("fast","linear", function(){
+				$(this).addClass('activeTH');
+			});
+		});
+	}
+}

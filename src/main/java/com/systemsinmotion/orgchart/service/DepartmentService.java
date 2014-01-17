@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
@@ -53,8 +54,11 @@ public class DepartmentService {
 		if(parent != null)
 			department.setParentDepartment(parent.getId() == null ? null : parent);
 		
-		//catch dataIntegrityViolationException
-		return this.repository.save(department);
+		try{
+			return this.repository.save(department);
+		}catch(DataIntegrityViolationException e){
+			return null;
+		}
 	}
 
 	public void setDepartmentInactive(Department department) {
@@ -72,5 +76,9 @@ public class DepartmentService {
 			storeDepartment(department);
 		}
 		
+	}
+
+	public List<Department> findActiveDepartments() {
+		return this.repository.findByIsActiveTrue();
 	}
 }

@@ -15,4 +15,6 @@ public interface DepartmentRepository extends JpaRepository<Department,Integer> 
 	List<Department> findByParentDepartmentId(Integer id);
 
 	Department findById(Integer id);
+
+	List<Department> findByIsActiveTrue();
 }

@@ -14,7 +14,7 @@
 		<form:form modelAttribute="newJob" action="jobs" method="post">		
 			<div>
 				<label>Job Title:</label>
-				<form:input path="name"/>
+				<form:input path="name"  required="true"/>
 				<label>Description:</label>
 				<form:input path="description"/>
 				<input type="submit" value="Save" />
@@ -25,10 +25,11 @@
 </div>
 
 <table id="t1"> 
-	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
+	<tr id="th" class="activeTH"><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
 		<th>Job Title</th> <th>Description</th> <th></th> <th></th>
 	</tr> 
+	<tr id="thEdit" style="display:none"><th>Job Title*</th> <th>Description</th> <th>*=required</th> <th></th></tr>
 	<c:forEach items="${jobs}" var="job">
 		<tr id="jobRow${job.id}"> 
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -36,14 +37,15 @@
 			</sec:authorize> -->
 			<td class="jobName" data-value="${job.name}">${job.name}</td>
 			<td class="jobDesc" data-value="${job.description}">${job.description}</td> 
-			<td><button class="editJobBtn" value="${job.id}">Edit</button></td>		
+			<td><button class="editBtn" value="${job.id}">Edit</button></td>		
+			<td><button class="removeBtn" value="${job.id}">Remove</button>
 		</tr>
 		
 		<tr id="editJobRow${job.id}" style="display:none">
 			<td><input name="name" class="editJobName"/></td>
 			<td><input name="description" class="editJobDesc"/></td>
-			<td><button class="saveJobBtn" value="${job.id}">Save</button></td>
-			<td><button class="cancelJobEditBtn" value="${job.id}">Cancel</button></td>
+			<td><button class="saveBtn" value="${job.id}">Save</button></td>
+			<td><button class="cancelEditBtn" value="${job.id}">Cancel</button></td>
 		</tr>
 	</c:forEach> 
 </table>

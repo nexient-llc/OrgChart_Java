@@ -27,11 +27,17 @@ public class Employee extends BaseEntity {
 	@Size(min = 1,max = 50)
 	private String lastName;
 	
+	private Character middleInitial;
+	
 	@Size(max=100)
 	private String email;
 	
 	@Size(max=100)
 	private String skypeName;
+	
+	private boolean isManager = false;
+	
+	private boolean isActive = true;
 	
 	private Department department;
 	
@@ -48,6 +54,11 @@ public class Employee extends BaseEntity {
 	@Column(name = "LAST_NAME", nullable = false, length = 50)
 	public String getLastName(){
 		return this.lastName;
+	}
+	
+	@Column(name = "MIDDLE_INITAL")
+	public Character getMiddleInitial(){
+		return this.middleInitial;
 	}
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.REFRESH)
@@ -78,6 +89,16 @@ public class Employee extends BaseEntity {
 		return this.manager;
 	}
 	
+	@Column(name = "IS_MANAGER")
+	public boolean getIsManager() {
+		return this.isManager;
+	}
+	
+	@Column(name = "IS_ACTIVE")
+	public boolean getIsActive(){
+		return this.isActive;
+	}
+	
 	public void setSkypeName(String skypeName){
 		this.skypeName = skypeName;
 	}
@@ -97,6 +118,10 @@ public class Employee extends BaseEntity {
 	public void setLastName(String lastName){
 		this.lastName = lastName;
 	}
+	
+	public void setMiddleInitial(Character middleInitial){
+		this.middleInitial = middleInitial;
+	}
 
 	public void setManager(Employee manager) {
 		this.manager = manager;
@@ -104,6 +129,14 @@ public class Employee extends BaseEntity {
 	
 	public void setJobTitle(JobTitle jobTitle){
 		this.jobTitle = jobTitle;
+	}
+
+	public void setIsManager(boolean isManager) {
+		this.isManager = isManager;
+	}
+	
+	public void setIsActive(boolean isActive){
+		this.isActive = isActive;
 	}
 }
 

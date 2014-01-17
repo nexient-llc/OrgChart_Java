@@ -1,6 +1,7 @@
 package com.systemsinmotion.orgchart.data;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -175,5 +176,11 @@ public class EmployeeRepositoryTest {
 	public void findByFistAndLastName() throws Exception {
 		Employee emp = this.employeeRepo.findByFirstNameAndLastName(this.employee.getFirstName(),this.employee.getLastName());
 		assertNotNull(emp);
+	}
+	
+	@Test
+	public void firstLastNameLike(){
+		List<Employee> emps = this.employeeRepo.findByFirstNameContainsOrLastNameContainsAllIgnoreCase("BOB", "");
+		assertFalse(emps.isEmpty());
 	}
 }

@@ -42,6 +42,7 @@ TD,TH {
 TH {
 	background-color: #0177C0;
 	color: white;
+	text-align: left;
 }
 
 SELECT {
@@ -63,22 +64,33 @@ SELECT {
 	width: 190px;
 }
 
-#addBtn-container {
-	margin-top: 0.5em;
-	/*text-align: center;*/
+#login {
+	float: right;
+	cursor: pointer;
+	text-decoration: underline;
 }
 
-#addEntity {
+
+
+#navTable *{
+	cursor: pointer;
+}
+
+#addBtn-container {
+	margin-top: 0.5em;
+}
+
+#addEntity, #filterEntity{
 	margin: 1em 0;
 	width: 100%;
 	overflow: hidden;
 }
 
-#addEntity fieldset{
+fieldset{
 	float: left;
 }
 
-#addEntity form{
+#addEntity form, #filterEntity form{
 	display: inline;
 }
 
@@ -86,12 +98,37 @@ SELECT {
 	float: right;
 }
 
-#login {
-	float: right;
-	cursor: pointer;
-	text-decoration: underline;
+.saveBtn, .editBtn{
+	width: 42px;
+}
+.cancelEditBtn, .removeBtn{
+	width: 62px;
 }
 
-#navTable *{
-	cursor: pointer;
+
+
+.ui-menu
+{
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+	border-top-color: #d9d9d9;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+	cursor: default;
+}
+.ui-menu-item a
+{
+	display: block;
+	box-sizing: border-box;
+    color: #000;
+    width: 100%;
+	padding: .1em .3em;
+}
+#ui-active-menuitem
+{
+    background: #E0E0E0;
 }

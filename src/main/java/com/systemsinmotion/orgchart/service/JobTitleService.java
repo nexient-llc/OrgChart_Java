@@ -37,4 +37,13 @@ public class JobTitleService {
 	public List<JobTitle> findAllJobTitles() {
 		return this.repository.findAll();
 	}
+
+	public void setJobTitleInactive(JobTitle jobTitle) {
+		jobTitle.setIsActive(false);
+		storeJobTitle(jobTitle);
+	}
+
+	public List<JobTitle> findActiveJobTitles() {
+		return this.repository.findByIsActiveTrue();
+	}
 }

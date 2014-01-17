@@ -152,7 +152,7 @@
 	</changeSet>
 
 	<changeSet id="18" author="kskronek">
-		<addColumn tableName="department" >
+		<addColumn tableName="department">
 			<column name="is_active" type="boolean" defaultValue="true" />
 		</addColumn>
 	</changeSet>

@@ -14,14 +14,12 @@
 		<form:form modelAttribute="newDept" action="depts" method="post">		
 			<div>
 				<label>Dept Name:</label>
-				<form:input path="name"/>
+				<form:input path="name" required="true"/>
 				<label>Parent Dept:</label>
 				<form:select path="parentDepartment.id">
 					<form:option value="" />
 					<c:forEach items="${depts}" var="tDept">
-						<c:if test="${tDept.isActive}">
-							<form:option value="${tDept.id}" label="${tDept.name}"/>
-						</c:if>
+						<form:option value="${tDept.id}" label="${tDept.name}"/>
 					</c:forEach>
 				</form:select>
 				<input type="submit" value="Save" />
@@ -32,20 +30,20 @@
 </div>
 
 <table id="t1"> 
-	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
+	<tr id="th" class="activeTH"><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Dept Name</th> <th>Parent Dept</th> <th></th> <th></th>
+		<th>Department Name</th> <th>Parent Department</th> <th></th> <th></th>
 	</tr> 
+	<tr id="thEdit" style="display:none"><th>Department Name*</th> <th>Parent Department</th> <th>*=required</th> <th></th></tr>
 	<c:forEach items="${depts}" var="dept">
-	<c:if test="${dept.isActive}">
 		<tr id="deptRow${dept.id}"> 
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
 			<td class="deptName" data-value="${dept.name}">${dept.name}</td>
 			<td class="deptParent" data-value="${dept.parentDepartment.id}">${dept.parentDepartment.name}</td> 
-			<td><button class="editDeptBtn" value="${dept.id}">Edit</button></td>
-			<td><button class="removeDeptBtn" value="${dept.id}">Remove</button></td>			
+			<td><button class="editBtn" value="${dept.id}">Edit</button></td>
+			<td><button class="removeBtn" value="${dept.id}">Remove</button></td>			
 		</tr>
 		
 		<tr id="editDeptRow${dept.id}" style="display:none">
@@ -53,23 +51,12 @@
 			<td><select name="parentDepartment.id" class="editDeptParent">
 					<option value="" />
 					<c:forEach items="${depts}" var="pDept">
-						<c:if test="${pDept.isActive}">
-							<option value="${pDept.id}">${pDept.name}</option>
-						</c:if>
+						<option value="${pDept.id}">${pDept.name}</option>
 					</c:forEach>
 				</select>
 			</td>
-			<td><button class="saveDeptBtn" value="${dept.id}">Save</button></td>
-			<td><button class="cancelDeptEditBtn" value="${dept.id}">Cancel</button></td>
+			<td><button class="saveBtn" value="${dept.id}">Save</button></td>
+			<td><button class="cancelEditBtn" value="${dept.id}">Cancel</button></td>
 		</tr>
-	</c:if>
 	</c:forEach> 
 </table>
-
-<form action="depts" method="post" hidden>
-	<input type="hidden" name="_method" value="put"/>
-	<input type="number" name="id"/>
-	<input type="text" name="name"/>
-	<input type="number" name="parentId"/>
-	<input type="submit"/>
-</form>
