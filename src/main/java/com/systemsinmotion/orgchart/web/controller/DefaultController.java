@@ -106,6 +106,16 @@ public class DefaultController {
 		model.addAttribute("jobtitles", jobtitles);
 		return View.JOB_TITLES;
 	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.PUT)
+	public String doJobTitles_PUT(Integer id, String name, Model model) {
+		JobTitle job = jobTitleService.findJobTitleById(id);
+        job.setName(name);
+        jobTitleService.storeJobTitle(job);
+		List<JobTitle> jobtitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("jobtitles", jobtitles);
+		return View.JOB_TITLES;
+	}
 
 	// @RequestMapping(value = "edit", method = RequestMethod.GET)
 	// public String doEdit_GET(/*Model model*/){

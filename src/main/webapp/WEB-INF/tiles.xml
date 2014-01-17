@@ -18,7 +18,7 @@
 		
 	<definition name="jobtitles" extends="main">
 		<put-attribute name="title" type="string" value="Jobtitles" />
-		<put-attribute name="page-js" type="string" value="../scripts/departments.js" />
+		<put-attribute name="page-js" type="string" value="../scripts/jobtitles.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/jobtitles.jsp" />
 	</definition>
 	
