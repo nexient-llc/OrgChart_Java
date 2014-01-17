@@ -6,6 +6,13 @@
 
 <h3>Employees</h3>
 
+<div id="filterBtn-container">
+	<button type="button" id="filterBtn">Filter</button>
+</div>
+
+<div id="filterEntity" style="display: none">
+</div>
+
 <div id="addBtn-container">
 	<button type="button" id="addBtn" style="width: 45px;">Add</button>
 </div>

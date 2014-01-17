@@ -143,10 +143,10 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public String doEmployees_POST(Employee employee, Model model) {
-		employee.setIsActive(true);
-		employeeService.storeEmployee(employee);
-		updateEmployeeAttributes(employee, model);
+	public String doEmployees_POST(Employee emp, Model model) {
+		emp.setIsActive(true);
+		employeeService.storeEmployee(emp);
+		updateEmployeeAttributes(emp, model);
 		return View.EMPLOYEES;
 	}
 	

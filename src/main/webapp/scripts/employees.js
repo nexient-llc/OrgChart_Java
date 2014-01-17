@@ -4,10 +4,17 @@ $(document).ready(function() {
 	
 	$('#addBtn-container').css('width', $('#t1').width());
 	$('#editBtn-container').css('width', $('#t1').width());
+	$('#filterBtn-container').css('width', $('#t1').width());
 
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#addEntity').fadeToggle("fast", "linear");
+		});
+	});
+	
+	$('#filterBtn').click(function() {
+		$('#filterBtn-container').fadeToggle("fast", "linear", function() {
+			$('#filterEntity').fadeToggle("fast", "linear");
 		});
 	});
 	

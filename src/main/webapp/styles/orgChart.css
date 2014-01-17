@@ -72,6 +72,14 @@ SELECT {
 	margin-top: 1em;
 }
 
+#filterBtn-container{
+	margin-top: 0.5em;
+}
+
+#filterEntity {
+	margin-top: 1em;
+}
+
 #login {
 	float: right;
 	cursor: pointer;
