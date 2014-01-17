@@ -9,9 +9,9 @@ $(document).ready(function() {
 
 	$('.editBtn').click(function(evnt) {
 		var num = $(this).val();
-		evnt.preventDefault();
 		$('#ViewDepts' + num).fadeToggle("fast", "linear", function() {
 			$('#EditDepts' + num).fadeToggle("fast", "linear");
+			$('#EditDepts' + num).style.display("table-row");
 		});
 	});
 

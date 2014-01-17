@@ -126,13 +126,13 @@ public class DefaultController {
 	// public String doAjax_GET(){
 	// return View.AJAX;
 	// }
-	//
-	// @RequestMapping(value = "employees", method = RequestMethod.GET)
-	// public String doEmployees_GET(Model model){
-	// List<Employee> emps = employeeService.findAllEmployees();
-	// model.addAttribute("employees", emps);
-	// return View.EMPLOYEES;
-	// }
+	
+	 @RequestMapping(value = "emps", method = RequestMethod.GET)
+	 public String doEmployees_GET(Model model){
+		 List<Employee> emps = employeeService.findAllEmployees();
+		 model.addAttribute("emps", emps);
+		 return View.EMPLOYEES;
+	 }
 
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;

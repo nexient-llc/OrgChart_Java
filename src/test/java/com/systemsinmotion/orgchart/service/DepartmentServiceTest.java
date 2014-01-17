@@ -17,22 +17,25 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bestbuy.supportspace.videolibrary.config.TestConfig;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test-context.xml")
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
-@Transactional
+
+@ContextConfiguration(classes = TestConfig.class)
+//@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+//@Transactional
 @WebAppConfiguration("/src/main/webapp")
+
 public class DepartmentServiceTest {
 
-	@Autowired
+//	@Autowired
 	DepartmentService departmentService;
-
 	DepartmentRepository mockDepartmentRepository = mock(DepartmentRepository.class);
 	Department mockDepartment = mock(Department.class);
+
 
 	private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>();
 
@@ -67,5 +70,12 @@ public class DepartmentServiceTest {
 		assertNotNull(deptId);
 		assertEquals(Entities.DEPT_ID, deptId);
 	}
+	
+	@Test
+	public void bs() {
+		assertTrue(true);
+	}
+	
+
 
 }

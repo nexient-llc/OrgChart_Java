@@ -22,7 +22,8 @@ public class EmployeeService {
 	}
 	
 	public void removeEmployee(Employee employee) {
-		this.repository.delete(employee);
+		employee.setIsActive(false);
+		this.repository.save(employee);
 	}
 	
 	public List<Employee> findEmployeesByDepartment(Department department) {
@@ -49,7 +50,6 @@ public class EmployeeService {
 		return this.repository.findByManagerId(managerId);
 	}
 
-	
 	
 	
 }

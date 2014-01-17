@@ -31,6 +31,7 @@
 	</fieldset>
 </div>
 
+<!--  
 <table id="t1">
 	<tr>
 		<th>Dept Name</th>
@@ -47,8 +48,10 @@
 		</tr>
 
 		<tr id="EditDepts${dept.id}" style="display: none">
-			<td><input path="name" id="deptName${dept.id}" value="${dept.name}"></td>
-			<td><select path="parentDepartment.id" id="deptParentId${dept.id}">
+			<td><input path="name" id="deptName${dept.id}"
+				value="${dept.name}"></td>
+			<td><select path="parentDepartment.id"
+				id="deptParentId${dept.id}">
 					<option value="" label="" />
 					<c:forEach items="${depts}" var="dept2">
 						<c:choose>
@@ -56,7 +59,7 @@
 								<option selected value="${dept2.id}">${dept2.name}</option>
 							</c:when>
 							<c:otherwise>
-								<option value="${dept2.id}">${dept2.name} </option>
+								<option value="${dept2.id}">${dept2.name}</option>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -65,33 +68,69 @@
 			<td><button class='cancelBtn' value="${dept.id}">Cancel</button></td>
 		</tr>
 	</c:forEach>
-	
+
 </table>
+ -->
+ 
+ 
+<div class="table">
+	<div class="row header">
+		<span class="cell deptName">Dept Name</span>
+		<span class="cell deptName">Parent Dept</span>
+		<span class="cell editBtn"></span>
+	</div>
+	<c:forEach items="${depts}" var="dept">
+		<div class="row" id="ViewDepts${dept.id}">
+			<span class="cell deptName">${dept.name}</span>
+			<span class="cell deptName">${dept.parentDepartment.name}</span>
+			<span class="cell editBtn">
+				<button type="button" class="editBtn" value="${dept.id}">Edit</button>
+			</span>
+			
+			
+		</div>
+	
+		<div class="row invis" id="EditDepts${dept.id}">
+			<span class="cell deptName"> 
+				<input path="name" id="deptName${dept.id}" value="${dept.name}">
+			</span>
+			<span class="cell deptName">
+			<select
+				path="parentDepartment.id" id="deptParentId${dept.id}">
+					<option value="" label="" />
+					<c:forEach items="${depts}" var="dept2">
+						<c:choose>
+							<c:when test="${dept.parentDepartment.id == dept2.id}">
+								<option selected value="${dept2.id}">${dept2.name}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${dept2.id}">${dept2.name}</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+			</select>
+			</span>
+			<span class="cell saveBtn">
+				<button class='saveBtn' value="${dept.id}">Save</button>
+			</span>
+			<span class="cell cancelBtn">
+				<button class='cancelBtn' value="${dept.id}">Cancel</button>
+			</span>
+		</div>
 
-
-
-
-
-<div id="editEntity" style="display: none">
-	<fieldset>
-		<legend>Edit</legend>
-		<form:form modelAttribute="dept" action="depts" method="post">
-			<input type="hidden" name="_method" value="put">
-			<div>
-				<labeL>Dept Name:</labeL>
-				<form:input type="hidden" path="id" id="entityid" />
-				<form:input type="text" path="name" />
-				<labeL>Parent Dept:</label>
-				<form:select path="parentDepartment.id">
-					<form:option value="" label="" />
-					<form:options items="${depts}" itemValue="id" itemLabel="name" />
-				</form:select>
-				<button type="submit">Save</button>
-				<button type="reset">Clear</button>
-			</div>
-		</form:form>
-	</fieldset>
+	</c:forEach>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

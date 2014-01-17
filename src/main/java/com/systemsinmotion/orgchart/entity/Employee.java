@@ -40,8 +40,14 @@ public class Employee extends BaseEntity {
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String skypeName;
+
+	@NotNull
+	@NotEmpty
+	@Size(min = 0, max = 1)
+	private String middleInitial;
 	
 	private Boolean isManager;
+	private Boolean isActive;
 	
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)
 	public String getFirstName(){
@@ -51,6 +57,11 @@ public class Employee extends BaseEntity {
 	@Column(name = "LAST_NAME", nullable = false, length = 50)
 	public String getLastName(){
 		return this.lastName;
+	}
+	
+	@Column(name = "MIDDLE_INITIAL", nullable = false, length = 1)
+	public String getMiddleInitial(){
+		return this.middleInitial;
 	}
 	
 	@Column(name = "EMAIL", nullable = false, length = 100)
@@ -66,6 +77,11 @@ public class Employee extends BaseEntity {
 	@Column(name = "IS_MANAGER")
 	public Boolean getIsManager(){
 		return this.isManager;
+	}
+	
+	@Column(name = "IS_ACTIVE")
+	public Boolean getIsActive(){
+		return this.isActive;
 	}
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -94,6 +110,10 @@ public class Employee extends BaseEntity {
 		this.lastName = name;
 	}
 	
+	public void setMiddleInitial(String name){
+		this.middleInitial = name;
+	}
+	
 	public void setEmail(String email){
 		this.email = email;
 	}
@@ -116,6 +136,10 @@ public class Employee extends BaseEntity {
 	
 	public void setManager(Employee manager){
 		this.manager = manager;
+	}
+	
+	public void setIsActive(Boolean bool){
+		this.isActive = bool;
 	}
 
 }
