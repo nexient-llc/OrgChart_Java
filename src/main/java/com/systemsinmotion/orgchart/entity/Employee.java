@@ -20,7 +20,18 @@ public class Employee extends BaseEntity {
 	private Department department;
 	private Employee manager;
 	private JobTitle jobTitle;
+	private String middleInitial;
 	
+	@Column(name = "MIDDLE_INITIAL")
+	public String getMiddleInitial() {
+	    return middleInitial;
+	}
+
+
+	public void setMiddleInitial(String middleInitial) {
+	    this.middleInitial = middleInitial;
+	}
+
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 45)

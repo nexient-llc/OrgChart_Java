@@ -11,6 +11,8 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -29,116 +31,132 @@ import com.systemsinmotion.orgchart.entity.Department;
 @Transactional
 public class DepartmentRepositoryTest {
 
-	private static Random random = new Random();
+    private static Random random = new Random();
 
-	private static final String SOME_NEW_NAME = "Some New Name";
+    private static final String SOME_NEW_NAME = "Some New Name";
 
-	private static final String NOT_PRESENT_VALUE = "XXX";
+    private static final String NOT_PRESENT_VALUE = "XXX";
 
-	private static final Integer NOT_PRESENT_ID = -666;
+    private static final Integer NOT_PRESENT_ID = -666;
 
-	private Department department;
-	private Department parent;
+    private Department department;
+    private Department parent;
+    
+    private static final Logger log = LoggerFactory.getLogger(DepartmentRepositoryTest.class);
 
-	@Autowired
-	DepartmentRepository repository;
+    @Autowired
+    DepartmentRepository repository;
 
-	@Before
-	public void before() throws Exception {
-		this.parent = Entities.department();
-		this.parent = this.repository.saveAndFlush(parent);
+    @Before
+    public void before() throws Exception {
+	this.parent = Entities.department();
+	this.parent = this.repository.saveAndFlush(parent);
 
-		this.department = Entities.department(this.parent);
-		this.department = this.repository.saveAndFlush(department);
+	this.department = Entities.department(this.parent);
+	this.department.setIsActive(false);
+	this.department = this.repository.saveAndFlush(department);
+    }
+
+    @Test
+    public void created() {
+	assertNotNull(this.parent);
+	assertNotNull(this.parent.getId());
+	assertNotNull(this.department);
+	assertNotNull(this.department.getId());
+	assertTrue(this.department.getIsActive() == false);
+    }
+
+    @Test(expected = DataIntegrityViolationException.class)
+    public void duplicateName() throws Exception {
+	Department dept = Entities.department();
+	dept.setName(this.department.getName());
+	this.repository.save(dept);
+    }
+
+    @Test
+    public void findAll_notNull() throws Exception {
+	System.out.println(this.repository.toString());
+	List<Department> depts = this.repository.findAll();
+	assertNotNull(depts);
+	assertTrue(0 < depts.size());
+    }
+
+    @Test
+    public void findByDeptId() throws Exception {
+	Department dept = this.repository.findOne(this.department.getId());
+	assertNotNull(dept);
+	assertEquals(this.department.getName(), dept.getName());
+	assertNotNull(this.department.getParentDepartment());
+    }
+
+    @Test
+    public void findById_notPresent() throws Exception {
+	Department dept = this.repository.findOne(NOT_PRESENT_ID);
+	assertNull(dept);
+    }
+
+    @Test(expected = InvalidDataAccessApiUsageException.class)
+    public void findById_null() throws Exception {
+	Department dept = this.repository.findOne(null);
+	assertNull(dept);
+    }
+
+    @Test
+    public void findByName() throws Exception {
+	Department dept = this.repository.findByName(this.department.getName());
+	assertNotNull(dept);
+	assertEquals(this.department.getName(), dept.getName());
+	assertNotNull(this.department.getParentDepartment());
+    }
+
+    @Test
+    public void findByName_null() throws Exception {
+	Department dept = this.repository.findByName(NOT_PRESENT_VALUE);
+	assertNull(dept);
+    }
+
+    @Test
+    public void findByParentDept() throws Exception {
+	// List<Department> depts =
+	// this.repository.findByParentDepartmentId(this.department.getParentDepartmentId());
+	List<Department> depts = this.repository.findByParentDepartment(parent);
+
+	assertNotNull(depts);
+	assertEquals(1, depts.size());
+	Department dept = depts.get(0);
+	assertEquals(this.department.getName(), dept.getName());
+	assertNotNull(this.department.getParentDepartment());
+	assertEquals(parent.getId(), dept.getParentDepartment().getId());
+    }
+
+    @Test
+    public void findByParentDeptId_unknowId() throws Exception {
+	List<Department> depts = this.repository
+		.findByParentDepartmentId(random.nextInt());
+	assertNotNull(depts);
+	assertEquals(0, depts.size());
+    }
+
+    @Test
+    public void update() throws Exception {
+	String name = this.department.getName();
+	Department dept = this.repository.findByName(name);
+	dept.setName(SOME_NEW_NAME);
+	this.repository.saveAndFlush(dept);
+
+	dept = null;
+	dept = this.repository.findByName(SOME_NEW_NAME);
+	assertNotNull(dept);
+	assertEquals(SOME_NEW_NAME, dept.getName());
+    }
+
+    @Test
+    public void findDepartmentsByIsActiveIsTrue() {
+	List<Department> depts = this.repository
+		.findDepartmentsByIsActiveIsTrueOrderByNameAsc();
+	for (Department dept : depts) {
+	    log.debug("isActive : " + dept.getIsActive());
+	    assertTrue(dept.getIsActive());
 	}
-
-	@Test
-	public void created() {
-		assertNotNull(this.parent);
-		assertNotNull(this.parent.getId());
-		assertNotNull(this.department);
-		assertNotNull(this.department.getId());
-	}
-
-	@Test(expected = DataIntegrityViolationException.class)
-	public void duplicateName() throws Exception {
-		Department dept = Entities.department();
-		dept.setName(this.department.getName());
-		this.repository.save(dept);
-	}
-
-	@Test
-	public void findAll_notNull() throws Exception {
-		System.out.println(this.repository.toString());
-		List<Department> depts = this.repository.findAll();
-		assertNotNull(depts);
-		assertTrue(0 < depts.size());
-	}
-
-	@Test
-	public void findByDeptId() throws Exception {
-		Department dept = this.repository.findOne(this.department.getId());
-		assertNotNull(dept);
-		assertEquals(this.department.getName(), dept.getName());
-		assertNotNull(this.department.getParentDepartment());
-	}
-
-	@Test
-	public void findById_notPresent() throws Exception {
-		Department dept = this.repository.findOne(NOT_PRESENT_ID);
-		assertNull(dept);
-	}
-
-	@Test(expected = InvalidDataAccessApiUsageException.class)
-	public void findById_null() throws Exception {
-		Department dept = this.repository.findOne(null);
-		assertNull(dept);
-	}
-
-	@Test
-	public void findByName() throws Exception {
-		Department dept = this.repository.findByName(this.department.getName());
-		assertNotNull(dept);
-		assertEquals(this.department.getName(), dept.getName());
-		assertNotNull(this.department.getParentDepartment());
-	}
-
-	@Test
-	public void findByName_null() throws Exception {
-		Department dept = this.repository.findByName(NOT_PRESENT_VALUE);
-		assertNull(dept);
-	}
-
-	@Test
-	public void findByParentDept() throws Exception {
-		//List<Department> depts = this.repository.findByParentDepartmentId(this.department.getParentDepartmentId());
-		List<Department> depts = this.repository.findByParentDepartment(parent);
-		
-		assertNotNull(depts);
-		assertEquals(1, depts.size());
-		Department dept = depts.get(0);
-		assertEquals(this.department.getName(), dept.getName());
-		assertNotNull(this.department.getParentDepartment());
-		assertEquals(parent.getId(), dept.getParentDepartment().getId());
-	}
-
-	@Test
-	public void findByParentDeptId_unknowId() throws Exception {
-		List<Department> depts = this.repository
-				.findByParentDepartmentId(random.nextInt());
-		assertNotNull(depts);
-		assertEquals(0, depts.size());
-	}
-
-	@Test
-	public void update() throws Exception {
-		Department dept = this.repository.findByName(this.department.getName());
-		dept.setName(SOME_NEW_NAME);
-		this.repository.saveAndFlush(dept);
-
-		dept = null;
-		dept = this.repository.findByName(SOME_NEW_NAME);
-		assertNotNull(dept);
-		assertEquals(SOME_NEW_NAME, dept.getName());
-	}
+    }
 }

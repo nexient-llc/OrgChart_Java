@@ -27,6 +27,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
         servlet.setLoadOnStartup(1);
 
         servletContext.addListener(new ContextLoaderListener(ctx));
+        
     }
 
     private void addHttpMethodFilter(ServletContext servletContext) {

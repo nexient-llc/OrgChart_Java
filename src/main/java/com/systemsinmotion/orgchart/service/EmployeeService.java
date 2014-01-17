@@ -48,4 +48,8 @@ public class EmployeeService {
 	public BaseEntity storeEmployee(Employee employee) {
 		return this.repository.save(employee);
 	}
+	
+	public List<Employee> findLikeFirstNameOrLikeLastName(String name) {
+	    return this.repository.findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCaseOrderByFirstNameDesc(name, name);
+	}
 }

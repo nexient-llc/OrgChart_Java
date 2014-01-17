@@ -3,8 +3,6 @@ package com.systemsinmotion.orgchart.data;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -28,5 +26,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 	Employee findByFirstNameAndLastName(String firstName, String lastName);
 
 	List<Employee> findByJobTitle(JobTitle jobTitle);
+	
 	List<Employee> findByJobTitleId(Integer jobTitleId);
+	
+	List<Employee> findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCaseOrderByFirstNameDesc(String firstName, String lastName);
 }

@@ -14,31 +14,43 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "DEPARTMENT")
 public class Department extends BaseEntity {
 
-	private static final long serialVersionUID = -5379179412533671591L;
+    private static final long serialVersionUID = -5379179412533671591L;
 
-	@NotNull
-	@NotEmpty
-	@Size(min = 1, max = 45)
-	private String name;
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 45)
+    private String name;
 
-	private Department parentDepartment;
+    private boolean isActive;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private Department parentDepartment;
 
-	@Column(name = "NAME", nullable = false, unique = true, length = 50)
-	public String getName() {
-		return this.name;
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	@ManyToOne
-	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
-	public Department getParentDepartment() {
-		return parentDepartment;
-	}
+    @Column(name = "NAME", nullable = false, unique = true, length = 50)
+    public String getName() {
+	return this.name;
+    }
 
-	public void setParentDepartment(Department parentDepartment) {
-		this.parentDepartment = parentDepartment;
-	}
+    @ManyToOne
+    @JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
+    public Department getParentDepartment() {
+	return parentDepartment;
+    }
+
+    public void setParentDepartment(Department parentDepartment) {
+	this.parentDepartment = parentDepartment;
+    }
+
+    @Column(name = "IS_ACTIVE")
+    public boolean getIsActive() {
+	return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+	this.isActive = isActive;
+    }
+
 }

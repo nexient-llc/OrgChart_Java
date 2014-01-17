@@ -11,32 +11,36 @@ import com.systemsinmotion.orgchart.entity.Department;
 @Service("departmentService")
 public class DepartmentService {
 
-	@Autowired
-	private DepartmentRepository repository;
+    @Autowired
+    private DepartmentRepository repository;
 
-	public List<Department> findAllDepartments() {
-		return this.repository.findAll();
-	}
+    public List<Department> findAllDepartments() {
+	return this.repository.findDepartmentsByIsActiveIsTrueOrderByNameAsc();
+//	return this.repository.findAll();
+    }
 
-	public Department findDepartmentByID(Integer departmentId) {
-		return this.repository.findOne(departmentId);
-	}
+    public Department findDepartmentByID(Integer departmentId) {
+	return this.repository.findOne(departmentId);
+    }
 
-	public void removeDepartment(Department department) {
-		this.repository.delete(department);
-	}
+    public void removeDepartment(Department department) {
+	this.repository.delete(department);
+    }
 
-	public void setRepository(DepartmentRepository repository) {
-		this.repository = repository;
-	}
-	
-	public Department storeDepartment(Department department) {
-		return this.repository.save(department);
-	}
+    public void setRepository(DepartmentRepository repository) {
+	this.repository = repository;
+    }
 
-//	public void setDepartmentDAO(DepartmentRepository departmentRepo) {
-//		this.repository = departmentRepo; 
-//		
-//	}
+    public Department storeDepartment(Department department) {
+	return this.repository.save(department);
+    }
+
+    public List<Department> findByParentDepartment(Department parentDepartment) {
+	return this.repository.findByParentDepartment(parentDepartment);
+    }
+    // public void setDepartmentDAO(DepartmentRepository departmentRepo) {
+    // this.repository = departmentRepo;
+    //
+    // }
 
 }

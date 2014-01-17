@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.JPAConfig;
@@ -192,5 +192,14 @@ public class EmployeeRepositoryTest {
 		}
 		
 		assertNotNull("findByManagerId_null>>>>>>>>>>>>>>>>>>>>>>>>>>> NULL", emps);
+	}
+	
+	@Test
+	public void findBypartialName() throws Exception {
+	    List<Employee> emps = this.employeeRepo.findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCaseOrderByFirstNameDesc("j", "s");
+	    
+	    System.out.println("\n########## " + emps.get(1).getFirstName() + " " + emps.get(1).getLastName());
+	    
+	    assertNotNull("<>>>>>>>>>>>>><>not null", emps);
 	}
 }
