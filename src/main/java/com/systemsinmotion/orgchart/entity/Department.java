@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -22,20 +23,45 @@ public class Department extends BaseEntity {
 
 	private static final long serialVersionUID = -5379179412533671591L;
 
-	private Set<Department> childDepartments = new HashSet<Department>(0);
-
-	private Set<Employee> employees = new HashSet<Employee>();
-
 	@NotNull
 	@NotEmpty
-	@Size(min = 1, max = 45)
+	@Size(min = 1, max = 50)
 	private String name;
-
+	
 	private Department parentDepartment;
+	
+	private Set<Department> childDepartments = new HashSet<Department>(0);
+	private Set<Employee> employees = new HashSet<Employee>();
 
+	@Column(name = "NAME", nullable = false, length = 50)
+	public String getName() {
+		return this.name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
+	public Department getParentDepartment() {
+		return this.parentDepartment;
+	}
+
+	public void setParentDepartment(Department department) {
+		this.parentDepartment = department;
+	}
+	
+	
+	
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
 	public Set<Department> getChildDepartments() {
 		return this.childDepartments;
+	}
+
+	public void setChildDepartments(Set<Department> departments) {
+		this.childDepartments = departments;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
@@ -43,31 +69,11 @@ public class Department extends BaseEntity {
 		return this.employees;
 	}
 
-	@Column(name = "NAME", nullable = false, length = 50)
-	public String getName() {
-		return this.name;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
-	public Department getParentDepartment() {
-		return this.parentDepartment;
-	}
-
-	public void setChildDepartments(Set<Department> departments) {
-		this.childDepartments = departments;
-	}
-
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	public void setParentDepartment(Department department) {
-		this.parentDepartment = department;
-	}
+
 
 }

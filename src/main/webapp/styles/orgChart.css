@@ -66,9 +66,29 @@ SELECT {
 #addBtn-container {
 	margin-top: 0.5em;
 	/*text-align: center;*/
+	display: inline;
 }
 
 #addEntity {
+	margin-top: 1em;
+}
+
+
+#editBtn-container {
+	margin-top: 0.5em;
+	display: inline;
+}
+
+#editEntity {
+	margin-top: 1em;
+}
+
+#deleteBtn-container {
+	margin-top: 0.5em;
+	display: inline;
+}
+
+#deleteEntity {
 	margin-top: 1em;
 }
 

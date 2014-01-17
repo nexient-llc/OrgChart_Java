@@ -10,6 +10,6 @@ public interface DepartmentRepository extends JpaRepository<Department,Integer> 
 
 	Department findDepartmentByName(String name);
 
-	List<Department> findByParentDepartmentId(Integer id);
+	List<Department> findDepartmentByParentDepartmentId(Integer id);
 
 }

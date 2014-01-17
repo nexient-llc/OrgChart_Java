@@ -112,7 +112,7 @@ public class DepartmentRepositoryTest {
 	@Test
 	public void findByParentDeptId() throws Exception {
 		List<Department> depts = this.departmentRepo
-				.findByParentDepartmentId(this.department.getParentDepartment()
+				.findDepartmentByParentDepartmentId(this.department.getParentDepartment()
 						.getId());
 		assertNotNull(depts);
 		assertEquals(1, depts.size());
@@ -124,7 +124,7 @@ public class DepartmentRepositoryTest {
 	@Test
 	public void findByParentDeptId_unknowId() throws Exception {
 		List<Department> depts = this.departmentRepo
-				.findByParentDepartmentId(random.nextInt());
+				.findDepartmentByParentDepartmentId(random.nextInt());
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
 	}
