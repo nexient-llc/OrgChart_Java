@@ -1,9 +1,7 @@
 package com.systemsinmotion.orgchart.web.controller;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,7 +11,6 @@ import com.systemsinmotion.orgchart.web.View;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
-@Ignore
 public class AdminControllerTests {
 
 	private AdminController controller;

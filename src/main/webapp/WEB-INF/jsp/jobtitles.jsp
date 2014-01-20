@@ -32,20 +32,21 @@
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Job Title</legend>
-		<form:form modelAttribute="job" action="jobs" method="post">
+		<form:form modelAttribute="job" id = "addForm" action="jobs" method="post">
                  <table>
                  <tr>
                  <td>Job Title :</td>
                  <td><form:input path="name" /></td>
                  </tr>
                  </table>
-                 <input type=submit />
+                 <button type = "submit" onclick ="save">Save</button>
+                 <div id="cancelAddBtn-container">
+				<button type="button" id="cancelAddBtn" style="width: 60px;">Cancel</button>
+			</div>
                 </form:form>
 	</fieldset>
 </div>
-<div id="deleteBtn-container">
-		<button type="button" id="deleteBtn" style="width: 55px;">Delete</button>	
-</div>
+
 
 
 

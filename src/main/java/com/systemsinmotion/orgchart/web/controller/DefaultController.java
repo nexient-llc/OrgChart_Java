@@ -34,45 +34,12 @@ public class DefaultController {
 	@Autowired
 	private JobTitleService jobTitleService;
 
-	@RequestMapping(value = "home", method = RequestMethod.GET)
-	public String doGet() {
-		return View.HOME;
-	}
-
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
-	}
-
-	public void setJobTitleService(JobTitleService jobTitleService) {
-		this.jobTitleService = jobTitleService;
-	}
-
-	public void setEmployeeService(EmployeeService employeeService) {
-		this.employeeService = employeeService;
-	}
-
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("dept", new Department());
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
-	}
-
-	@RequestMapping(value = "jobs", method = RequestMethod.GET)
-	public String doJobTitle_GET(Model model) {
-		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
-		model.addAttribute("job", new JobTitle());
-		model.addAttribute("jobs", jobTitles);
-		return View.JOB_TITLES;
-	}
-
-	@RequestMapping(value = "emps", method = RequestMethod.GET)
-	public String doEmployee_GET(Model model) {
-		List<Employee> employee = employeeService.findAllEmployees();
-		model.addAttribute("emp", new Employee());
-		model.addAttribute("emps", employee);
-		return View.EMPLOYEES;
 	}
 
 	@SuppressWarnings("null")
@@ -89,13 +56,13 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 
-	@RequestMapping(value = "jobs", method = RequestMethod.POST)
-	public String doJobTitle_POST(JobTitle jobTitle, Model model) {
-		jobTitleService.storeJobTitle(jobTitle);
-		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
-		model.addAttribute("job", jobTitle);
-		model.addAttribute("jobs", jobTitles);
-		return View.JOB_TITLES;
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	public String doEmployee_GET(Model model) {
+		model.addAttribute("emp", new Employee());
+		model.addAttribute("emps", employeeService.findAllEmployees());
+		model.addAttribute("jobTitles", this.jobTitleService.findAllJobTitles());
+		model.addAttribute("depts", this.departmentService.findAllDepartments());
+		return View.EMPLOYEES;
 	}
 
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
@@ -105,6 +72,40 @@ public class DefaultController {
 		model.addAttribute("emp", employee);
 		model.addAttribute("emps", emps);
 		return View.EMPLOYEES;
+	}
+
+	@RequestMapping(value = "home", method = RequestMethod.GET)
+	public String doGet() {
+		return View.HOME;
+	}
+
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	public String doJobTitle_GET(Model model) {
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("job", new JobTitle());
+		model.addAttribute("jobs", jobTitles);
+		return View.JOB_TITLES;
+	}
+
+	@RequestMapping(value = "jobs", method = RequestMethod.POST)
+	public String doJobTitle_POST(JobTitle jobTitle, Model model) {
+		jobTitleService.storeJobTitle(jobTitle);
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("job", jobTitle);
+		model.addAttribute("jobs", jobTitles);
+		return View.JOB_TITLES;
+	}
+
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
+
+	public void setEmployeeService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
+
+	public void setJobTitleService(JobTitleService jobTitleService) {
+		this.jobTitleService = jobTitleService;
 	}
 
 }
