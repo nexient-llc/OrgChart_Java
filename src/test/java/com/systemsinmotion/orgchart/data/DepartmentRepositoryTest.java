@@ -122,7 +122,7 @@ public class DepartmentRepositoryTest {
 	}
 
 	@Test
-	public void findByParentDeptId_unknowId() throws Exception {
+	public void findByParentDeptId_unknownId() throws Exception {
 		List<Department> depts = this.departmentRepo
 				.findDepartmentByParentDepartmentId(random.nextInt());
 		assertNotNull(depts);
@@ -139,5 +139,12 @@ public class DepartmentRepositoryTest {
 		dept = this.departmentRepo.findDepartmentByName(SOME_NEW_NAME);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
+	}
+	
+	@Test
+	public void findByIsActive() throws Exception {
+		Department dept = this.departmentRepo.findDepartmentByName(this.department.getName());
+		dept.setIsActive(true);
+		assertTrue(dept.getIsActive());
 	}
 }

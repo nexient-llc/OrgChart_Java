@@ -1,10 +1,4 @@
 $(document).ready(function() {
-	
-	var hideButtons = function() {
-		$('#addBtn-container').fadeToggle("fast", "linear");
-		$('#editBtn-container').fadeToggle("fast", "linear");
-		$('#deleteBtn-container').fadeToggle("fast", "linear");
-	};
 
 	/* Add function */
 	$('#addBtn-container').css('width', $('#t1').width());
@@ -28,10 +22,14 @@ $(document).ready(function() {
 		$('#deleteBtn-container').fadeToggle("fast", "linear");
 	});
 	
-	$('#goBtn').click(function() {
-		$('.editSelect').fadeToggle("fast", "linear");
-		$('#goBtn').fadeToggle("fast", "linear", function() {
-			$('.editFields').fadeToggle("fast", "linear");
+	$('#selectBtn').click(function() {
+		$('.editSelect').fadeOut("fast", "linear");
+		$('#editSelectName').fadeOut("fast", "linear");
+		var text = $('#editSelectName option:selected').text(); // For setting default value of the New Name Field
+		$('#selectBtn').fadeOut("fast", "linear", function() {
+			$('.editFields').fadeIn("fast", "linear");
+			$('#editNewNameField').fadeIn("fast", "linear");
+			$('#editNewNameField').val(text); // For setting default value of the New Name Field
 		});
 	});
 	
@@ -44,5 +42,25 @@ $(document).ready(function() {
 		});
 		$('#addBtn-container').fadeToggle("fast", "linear");
 		$('#editBtn-container').fadeToggle("fast", "linear");
+	});
+	
+	/* Cancel button */
+	$('.cancelBtn').click(function() {
+		$('#addEntity').fadeOut("fast", "linear", function() {
+			$('#editNewNameField').fadeOut("fast", "linear");
+			$('.editFields').fadeOut("fast", "linear", function() {
+				$('#selectBtn').fadeIn("fast", "linear", function() {
+					$('.editSelect').fadeIn("fast", "linear");
+					$('#editSelectName').fadeIn("fast", "linear");
+				});
+			});
+			$('#editEntity').fadeOut("fast", "linear", function() {
+				$('#deleteEntity').fadeOut("fast", "linear", function() {
+					$('#addBtn-container').fadeToggle("fast", "linear");
+					$('#editBtn-container').fadeToggle("fast", "linear");
+					$('#deleteBtn-container').fadeToggle("fast", "linear");
+				});
+			});
+		});
 	});
 });

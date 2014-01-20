@@ -21,6 +21,10 @@ public class DepartmentService {
 	public Department findDepartmentById(Integer departmentId) {
 		return this.repository.findOne(departmentId);
 	}
+	
+	public List<Department> findDepartmentByParentId(Integer parentDepartmentId) {
+		return this.repository.findDepartmentByParentDepartmentId(parentDepartmentId);
+	}
 
 	public void removeDepartment(Department department) {
 		this.repository.delete(department);

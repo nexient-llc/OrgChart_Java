@@ -16,7 +16,8 @@ FIELDSET {
 }
 
 H3 {
-	margin: 2em 0.4em 0.5em;
+	margin: 0.6em 0.4em 0.5em;
+	font-size: 18px;
 }
 
 LABEL {
@@ -63,19 +64,61 @@ SELECT {
 	width: 190px;
 }
 
+.divContainer {
+	display: block;	
+}
+
+.divHeader {
+	float: left;
+	font-size: 12px;
+	padding: 3px;
+	width: 150px;
+	background-color: #0177C0;
+	color: white;
+	text-align: center;
+}
+
+.divRow {
+	display: block;
+	overflow: hidden;
+}
+
+.divColumn {
+	float: left;	
+	font-size: 12px;
+	width: 150px;
+	padding: 3px;
+	text-align:center;
+}
+
 #addBtn-container {
 	margin-top: 0.5em;
 	/*text-align: center;*/
 	display: inline;
 }
 
+#addBtn {
+	margin-top: 1em;
+}
+
 #addEntity {
 	margin-top: 1em;
 }
 
-
 #editBtn-container {
 	margin-top: 0.5em;
+	display: inline;
+}
+
+#editBtn {
+	margin-top: 1em;
+}
+
+#selectBtn {
+	display: inline;
+}
+
+.cancelBtn {
 	display: inline;
 }
 
@@ -86,6 +129,10 @@ SELECT {
 #deleteBtn-container {
 	margin-top: 0.5em;
 	display: inline;
+}
+
+#deleteBtn {
+	margin-top: 1em;
 }
 
 #deleteEntity {

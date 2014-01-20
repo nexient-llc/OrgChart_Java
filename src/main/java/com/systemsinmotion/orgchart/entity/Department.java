@@ -29,6 +29,7 @@ public class Department extends BaseEntity {
 	private String name;
 	
 	private Department parentDepartment;
+	private boolean isActive;
 	
 	private Set<Department> childDepartments = new HashSet<Department>(0);
 	private Set<Employee> employees = new HashSet<Employee>();
@@ -52,8 +53,18 @@ public class Department extends BaseEntity {
 		this.parentDepartment = department;
 	}
 	
+	@Column(name = "IS_ACTIVE")
+	public boolean getIsActive() {
+		return this.isActive;
+	}
+	
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 	
 	
+	
+	/* TEMP */
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
 	public Set<Department> getChildDepartments() {
