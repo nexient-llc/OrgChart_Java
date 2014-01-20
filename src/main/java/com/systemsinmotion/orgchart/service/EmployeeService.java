@@ -72,5 +72,9 @@ public class EmployeeService {
 	public List<Employee> findByJobTitleID(Integer id) {
 		return this.employeeRepository.findByJobTitleId(id);
 	}
+	
+//	public List<Employee> findByFirstOrLastName(String name){
+//		return this.employeeRepository.findByFirstNameContainingOrLastNameContaining(name);
+//	}
 
 }

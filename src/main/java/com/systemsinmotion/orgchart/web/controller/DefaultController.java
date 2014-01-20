@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -184,22 +185,22 @@ public class DefaultController {
 	@RequestMapping(value = "emps/filter", method = RequestMethod.PUT)
 	public String doEmployees_PUT(String name, Integer departmentID, Integer jobTitleID, Model model){
 		String[] nameComponents = name.split(" ");
-		Set<Employee> matchingName = new HashSet<Employee>();
-		List<Employee> allEmployees = employeeService.findAllActiveEmployees();
-		for(String nameComp : nameComponents) {
-			for(Employee test : allEmployees) {
-				if(test.getFirstName().toLowerCase().contains(nameComp.toLowerCase())){
-					matchingName.add(test);
-				}
-				if(test.getLastName().toLowerCase().contains(nameComp.toLowerCase())){
-					matchingName.add(test);
-				}
-			}
-		}
-		List<Employee> allFilteredEmployees = new ArrayList<Employee>();
-		allFilteredEmployees.addAll(matchingName);
+		List<Employee> filteredEmployees = new ArrayList<Employee>();
+		Set<Employee> processingEmployees = new HashSet<Employee>();
+//		for(String nameComp : nameComponents) {
+//			List<Employee> similarNames = employeeService.findByFirstOrLastName(nameComp);
+//			processingEmployees.addAll(similarNames);
+//		}
+//		
+//		for(Employee test : processingEmployees){
+//			if(test.getDepartment().getId() == departmentID || departmentID == null){
+//				if(test.getJobTitle().getId() == jobTitleID || jobTitleID == null){
+//					filteredEmployees.add(test);
+//				}
+//			}
+//		}
 		
-		updateEmployeeAttributesMinusAllEmployees(new Employee(), allFilteredEmployees, model);
+		//updateEmployeeAttributesMinusAllEmployees(new Employee(), allFilteredEmployees, model);
 		return View.EMPLOYEES;
 	}
 	

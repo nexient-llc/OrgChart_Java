@@ -110,6 +110,7 @@ $(document).ready(function() {
 			},
 			
 			success: function(response){
+				alert("Did I get here?");
 			},
 		});
 	});
