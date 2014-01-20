@@ -31,18 +31,12 @@ public class Employee extends BaseEntity {
 	@Size(min = 1, max = 45)
 	private String lastName;
 	
-	@NotNull
-	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String email;
 	
-	@NotNull
-	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String skypeName;
 
-	@NotNull
-	@NotEmpty
 	@Size(min = 0, max = 1)
 	private String middleInitial;
 	

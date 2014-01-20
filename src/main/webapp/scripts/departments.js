@@ -11,7 +11,6 @@ $(document).ready(function() {
 		var num = $(this).val();
 		$('#ViewDepts' + num).fadeToggle("fast", "linear", function() {
 			$('#EditDepts' + num).fadeToggle("fast", "linear");
-			$('#EditDepts' + num).style.display("table-row");
 		});
 	});
 

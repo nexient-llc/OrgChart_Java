@@ -129,11 +129,49 @@ public class DefaultController {
 	
 	 @RequestMapping(value = "emps", method = RequestMethod.GET)
 	 public String doEmployees_GET(Model model){
-		 List<Employee> emps = employeeService.findAllEmployees();
-		 model.addAttribute("emps", emps);
+		 addAttributesForEmpsPage(new Employee(), model);
 		 return View.EMPLOYEES;
 	 }
 
+	 @RequestMapping(value = "emps", method = RequestMethod.POST)
+	 public String doEmployees_POST(Employee emp, Model model){
+		 employeeService.storeEmployee(emp);
+		 addAttributesForEmpsPage(new Employee(), model);
+		 return View.EMPLOYEES;
+	 }
+	 
+	 @RequestMapping(value = "emps", method = RequestMethod.PUT)
+	 public String doEmployees_PUT(Integer id, String firstName, String lastName,
+			 						String middleInitial, String email, String skypeName,
+			 						Integer departmentId, Integer jobTitleId, Model model){
+
+		 Employee emp = employeeService.findEmployeeById(id);
+		 Department empdept = departmentService.findDepartmentById(departmentId);
+		 JobTitle empjob = jobTitleService.findJobTitleById(jobTitleId);
+		 emp.setFirstName(firstName);
+		 emp.setLastName(lastName);
+		 emp.setMiddleInitial(middleInitial);
+		 emp.setDepartment(empdept);
+		 emp.setEmail(email);
+		 emp.setSkypeName(skypeName);
+		 emp.setJobTitle(empjob);
+		 System.out.println("Email: " + email);
+		 employeeService.storeEmployee(emp);
+		 
+		 addAttributesForEmpsPage(emp, model);
+		 return View.EMPLOYEES;
+	 }
+	 
+	 private void addAttributesForEmpsPage(Employee emp, Model model){
+		 List<Department> depts = departmentService.findAllDepartments();
+		 List<JobTitle> jobs = jobTitleService.findAllJobTitles();
+		 List<Employee> emps = employeeService.findAllEmployees();
+		 model.addAttribute("emp", emp);
+		 model.addAttribute("emps", emps);
+		 model.addAttribute("jobs", jobs);
+		 model.addAttribute("depts", depts);
+	 }
+	 
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}

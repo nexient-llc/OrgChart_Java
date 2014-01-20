@@ -35,7 +35,7 @@ public class EmployeeService {
 	}
 	
 	public Employee storeEmployee(Employee employee) {
-		return this.repository.save(employee);
+		return this.repository.saveAndFlush(employee);
 	}
 
 	public Employee findEmployeeByEmail(String email){

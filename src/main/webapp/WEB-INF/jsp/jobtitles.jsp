@@ -32,25 +32,23 @@
 
 
 
-<table id="t1">
-	<tr>
+<div class = "table">
+	<div class = "row">
 		<th>Job Description</th>
-
-	</tr>
+	</div>
 	<c:forEach items="${jobtitles}" var="job">
-		<tr id="ViewJobs${job.id}">
-			<td>${job.name}</td>
-			<td>
+	<div class = "row" id="ViewJobs${job.id}">
+			<div class="cell jobName">${job.name}</div>
+			<div class="cell editBtn">
 				<button type="button" class="editBtn" value="${job.id}">Edit</button>
-			</td>
-		</tr>
+			</div>
+	</div>
+	<div class = "row" id="EditJobs${job.id}" style="display: none">
+			<div class="cell jobName"><input path="name" id="jobName${job.id}" value="${job.name}"></div>
 
-		<tr id="EditJobs${job.id}" style="display: none">
-			<td><input path="name" id="jobName${job.id}" value="${job.name}"></td>
-
-			<td><button class='saveBtn' value="${job.id}">Save</button></td>
-			<td><button class='cancelBtn' value="${job.id}">Cancel</button></td>
-		</tr>
+			<div class="cell saveBtn"><button class='saveBtn' value="${job.id}">Save</button></div>
+			<div class="cell cancelBtn"><button class='cancelBtn' value="${job.id}">Cancel</button></div>
+	</div>
 	</c:forEach>
-</table>
+</div>
 
