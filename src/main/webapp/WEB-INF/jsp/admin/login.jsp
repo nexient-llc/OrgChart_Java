@@ -6,7 +6,6 @@
 
 <fieldset>
 	<legend>Login</legend>
-
 	<c:if
 		test="${not empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
 		<div class="errorblock">

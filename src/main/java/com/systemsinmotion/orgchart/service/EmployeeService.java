@@ -52,6 +52,10 @@ public class EmployeeService {
 	public List<Employee> findByDepartment(Department department) {
 		return this.employeeRepository.findByDepartment(department);
 	}
+	
+	public List<Employee> findByDepartmentID(Integer id) {
+		return this.employeeRepository.findByDepartmentId(id);
+	}
 
 	public Employee findByEmail(String email) {
 		return this.employeeRepository.findByEmail(email);
@@ -63,6 +67,10 @@ public class EmployeeService {
 
 	public List<Employee> findAllActiveEmployees() {
 		return this.employeeRepository.findByIsActiveTrue();
+	}
+	
+	public List<Employee> findByJobTitleID(Integer id) {
+		return this.employeeRepository.findByJobTitleId(id);
 	}
 
 }

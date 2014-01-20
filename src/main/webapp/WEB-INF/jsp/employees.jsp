@@ -11,6 +11,25 @@
 </div>
 
 <div id="filterEntity" style="display: none">
+	<div>Employee Name: <input id="filterFullName" class="textBoxClass"></div>
+	<div>Employee Department: 
+	<select id="filterDepartment">
+					<option value="" />
+					<c:forEach items="${depts}" var="depart">
+						<option label="${depart.name}" value="${depart.id}" />
+					</c:forEach>
+			</select>
+	</div>
+	<div>Employee Job Title: 
+	<select id="filterJobTitle">
+					<option value="" />
+					<c:forEach items="${jobs}" var="userJob">
+						<option label="${userJob.name}" value="${userJob.id}" />
+					</c:forEach>
+			</select>
+	</div>
+	<div><button class='sendFilterBtn' value="filterFullName">Save</button><button id="cancelFilterBtn">Cancel</button></div>
+	
 </div>
 
 <div id="addBtn-container">

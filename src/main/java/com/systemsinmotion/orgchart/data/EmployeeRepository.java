@@ -11,6 +11,8 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	List<Employee> findByDepartment(Department department);
+	
+	List<Employee> findByDepartmentId(Integer id);
 
 	Employee findByEmail(String email);
 
@@ -25,6 +27,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	Employee findByFirstNameAndLastName(String firstName, String lastName);
 	
 	List<Employee> findByJobTitle(JobTitle jobTitle);
+	
+	List<Employee> findByJobTitleId(Integer id);
 
 	List<Employee> findByIsActiveTrue();
 	

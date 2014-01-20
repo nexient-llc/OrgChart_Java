@@ -98,6 +98,29 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('.sendFilterBtn').click(function(evnt){
+		$.ajax({
+			url : "emps/filter",
+			type : "POST",
+			data : {
+				_method : "put",
+				name : $('#filterFullName').val(),
+				departmentID: $('#filterDepartment').val(),
+				jobTitleID: $('#filterJobTitle').val(),
+			},
+			
+			success: function(response){
+			},
+		});
+	});
+	
+	$('#cancelFilterBtn').click(function(evnt) {
+		evnt.preventDefault();
+		$('#filterEntity').fadeToggle("fast", "linear", function() {
+			$('#filterBtn-container').fadeToggle("fast", "linear");
+		});
+	});
+	
 	function removeEditViewBar(){
 		$('#postEditViewBar').fadeToggle("fast", "linear", function() {
 			$('#preEditViewBar').fadeToggle("fast", "linear");

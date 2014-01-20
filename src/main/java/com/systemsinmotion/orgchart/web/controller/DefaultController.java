@@ -1,6 +1,8 @@
 package com.systemsinmotion.orgchart.web.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -177,6 +179,42 @@ public class DefaultController {
 		employeeService.storeEmployee(removeEmployee);
 		
 		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = "emps/filter", method = RequestMethod.PUT)
+	public String doEmployees_PUT(String name, Integer departmentID, Integer jobTitleID, Model model){
+		String[] nameComponents = name.split(" ");
+		Set<Employee> matchingName = new HashSet<Employee>();
+		List<Employee> allEmployees = employeeService.findAllActiveEmployees();
+		for(String nameComp : nameComponents) {
+			for(Employee test : allEmployees) {
+				if(test.getFirstName().toLowerCase().contains(nameComp.toLowerCase())){
+					matchingName.add(test);
+				}
+				if(test.getLastName().toLowerCase().contains(nameComp.toLowerCase())){
+					matchingName.add(test);
+				}
+			}
+		}
+		List<Employee> allFilteredEmployees = new ArrayList<Employee>();
+		allFilteredEmployees.addAll(matchingName);
+		
+		updateEmployeeAttributesMinusAllEmployees(new Employee(), allFilteredEmployees, model);
+		return View.EMPLOYEES;
+	}
+	
+	private void updateEmployeeAttributesMinusAllEmployees(Employee emp, List<Employee> employees, Model model){
+		model.addAttribute("emp", emp);
+		model.addAttribute("emps", employees);
+		List<Department> departments = departmentService.findAllActiveDepartments();
+		model.addAttribute("depts", departments);
+		List<JobTitle> jobTitles = jobTitleService.findAllActiveJobTitles();
+		model.addAttribute("jobs", jobTitles);
+	}
+	
+	@RequestMapping(value = "emps/filter", method = RequestMethod.GET)
+	public String doFilteredEmployees_GET(Model model) {
+		 return View.EMPLOYEES;
 	}
 
 }
