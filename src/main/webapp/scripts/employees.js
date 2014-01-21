@@ -1,13 +1,13 @@
 $(document).ready(function() {
 	$('#addBtn').click(function() {
-		$('#addBtn-container').toggle();
+		$(this).toggle();
 		$('#addEntity').slideToggle();
 	});
 	
 	$('#cancelAddBtn').click(function(e){
 		e.preventDefault();
 		$('#addEntity').slideToggle();
-		$('#addBtn-container').fadeToggle("fast");
+		$('#addBtn').fadeToggle("fast");
 		
 		$('#addEntity input[type=text], #addEntity select').val("");
 	});
@@ -109,25 +109,26 @@ $(document).ready(function() {
 			success: function(data){
 				data = jQuery.parseJSON(data);
 				cancelEdit($('.activeEdit .cancelEditBtn').val(), false);
-				$('#t1 .row').fadeOut('fast');
-				data.forEach(function(emp){
-					$('#t1 #row'+emp).fadeToggle("fast");
+				
+				$('#t1 .row:not(.headers)').fadeOut('fast');
+				data.forEach(function(empId){
+					$('#t1 #row'+empId).fadeIn('fast');
 				});
 			}
 		});
 	});
 	
-	$('#resetBtn').click(function(e){
-		e.preventDefault();
+	$('#resetBtn').click(function(){
 		$('#filterEntity input, #filterEntity select').val('');
-		$('#t1 .row').fadeIn('fast');
+		$('#t1 .row:not(.editRow)').fadeIn('fast');
 	});
 	
 	$('#fullName, #deptId, #jobId').keypress(function(e){
-		e.preventDefault();
 		var code = e.keyCode || e.which;
-		if(code == 13)
+		if(code == 13){
+			e.preventDefault();
 			$('#searchBtn').click();
+		}
 	});
 });
 

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class DefaultControllerTests {
 	// Map model = new HashMap<String, Object>();
 	Model model = new ExtendedModelMap();
 
-	private ArrayList<Department> findAllDepartmentsList;
+	private List<Department> findAllDepartmentsList;
 
 	@SuppressWarnings("unused")
 	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
@@ -84,7 +85,7 @@ public class DefaultControllerTests {
 		 //Given
 		 controller.doDepartments_POST(mockDepartment2, model);
 		 //When
-		 findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+		 findAllDepartmentsList = (List<Department>)model.asMap().get("depts");
 		 //Then
 		 assertNotNull(findAllDepartmentsList);
 		 assertTrue(findAllDepartmentsList.size() > 0);

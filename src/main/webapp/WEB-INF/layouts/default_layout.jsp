@@ -20,7 +20,7 @@ var path = "${pageContext.request.contextPath}/app/";
 <title>Systems In Motion - <tiles:getAsString name="title" /></title>
 </head>
 <body>
-	<tiles:insertAttribute name="page-heading" />
+	<tiles:insertAttribute name="page-heading" /> 
 	<table id="navTable">
 		<tr>
 			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>

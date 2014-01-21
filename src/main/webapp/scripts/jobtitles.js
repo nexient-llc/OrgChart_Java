@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('#addBtn').click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
+		$(this).fadeToggle("fast", "linear", function() {
 			$('#addEntity').fadeToggle("fast", "linear");
 		});
 	});
@@ -8,14 +8,14 @@ $(document).ready(function() {
 	$('#cancelAddBtn').click(function(e){
 		e.preventDefault();
 		$('#addEntity').fadeToggle("fast", "linear", function() {
-			$('#addBtn-container').fadeToggle("fast", "linear");
+			$('#addBtn').fadeToggle("fast", "linear");
 		});
 		
 		$('#addEntity input[type=text]').val("");
 	});
 	
 	$('.editBtn').click(function() {
-		cancelEdit($('.activeEdit .cancelJobEditBtn').val(), false);
+		cancelEdit($('.activeEdit .cancelEditBtn').val(), false);
 		
 		var jobNum = $(this).val();
 		$('#jobRow'+jobNum).fadeToggle("fast","linear",function(){
@@ -27,12 +27,12 @@ $(document).ready(function() {
 		$('#editJobRow'+jobNum+' .editJobName').val($('#jobRow'+jobNum+' .jobName').data('value'));
 		$('#editJobRow'+jobNum+' .editJobDesc').val($('#jobRow'+jobNum+' .jobDesc').data('value'));
 		
-		if($('#t1 #th').hasClass('activeTH')){
-			$('#t1 #th').fadeToggle("fast","linear", function(){
-				$(this).removeClass('activeTH');
-				$('#t1 #thEdit').fadeToggle("fast","linear", function(){
+		if($('#th').hasClass('activeTH')){
+			$('.activeTH').fadeToggle("fast","linear", function(){
+				$('.headers:not(.activeTH)').fadeToggle("fast","linear", function(){
 					$(this).addClass('activeTH');
 				});
+				$(this).removeClass('activeTH');
 			});
 		}
 	});
@@ -86,9 +86,9 @@ function cancelEdit(ID, editing){
 	$('#editJobRow'+ID+' .editJobDesc').val("");
 	
 	if(editing){
-		$('#t1 #thEdit').fadeToggle("fast","linear", function(){
+		$('#thEdit').fadeToggle("fast","linear", function(){
 			$(this).removeClass('activeTH');
-			$('#t1 #th').fadeToggle("fast","linear", function(){
+			$('#th').fadeToggle("fast","linear", function(){
 				$(this).addClass('activeTH');
 			});
 		});

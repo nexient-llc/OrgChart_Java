@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <h3>Employees</h3>
 
+<button id="addBtn">Add</button>
 <button id="filterBtn">Filter</button>
-<div id="filterEntity" style="display:none">
+
+<div id="addEntity" class="editRow">
+	<fieldset>
+		<legend>Add Employee</legend>
+		<form:form modelAttribute="newEmp" action="emps" method="post">
+			<label>First Name:</label>
+			<form:input path="firstName" required="true"/>
+
+			<label>Middle Init.:</label>
+			<form:input path="middleInitial" maxlength="1" size="1"/>
+
+			<label>Last Name:</label>
+			<form:input path="lastName" required="true"/>
+
+			<label>Email:</label>
+			<form:input path="email" required="true"/>
+
+			<label>Skype:</label>
+			<form:input path="skypeName" required="true"/>
+
+			<label>Department:</label>
+			<form:select path="department.id">
+				<option value=""/>
+				<c:forEach items="${depts}" var="dept">
+					<option label="${dept.name}" value="${dept.id}"/>
+				</c:forEach>
+			</form:select>
+
+			<label>Job Title:</label>
+			<form:select path="jobTitle.id">
+				<option value=""/>
+				<c:forEach items="${jobs}" var="job">
+					<option label="${job.name}" value="${job.id}"/>
+				</c:forEach>
+			</form:select>
+
+			<input type="submit" value="Save" />
+			<button id="cancelAddBtn">Cancel</button>
+		</form:form>
+	</fieldset>
+</div>
+
+<div id="filterEntity" class="editRow">
 	<fieldset>
 		<legend>Filter Employees</legend>
 			<label>Full Name</label>
@@ -32,116 +74,46 @@
 	</fieldset>
 </div>
 
-<div id="addBtn-container">
-		<button type="button" id="addBtn">Add</button>	
-</div>
-<div id="addEntity" style="display:none">
-	<fieldset>
-		<legend>Add Employee</legend>
-		<form:form modelAttribute="newEmp" action="emps" method="post">
-			<table>
-				<tr>
-					<td>
-						<label>First Name:</label>
-						<form:input path="firstName" required="true"/>
-					</td>
-					<td>
-						<label>Middle Init.:</label>
-						<form:input path="middleInitial" maxlength="1" size="1"/>
-					</td>
-					<td>
-						<label>Last Name:</label>
-						<form:input path="lastName" required="true"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>Email:</label>
-						<form:input path="email" required="true"/>
-					</td>
-				
-				
-					<td>
-						<label>Skype:</label>
-						<form:input path="skypeName" required="true"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>Department:</label>
-						<form:select path="department.id">
-							<option value=""/>
-							<c:forEach items="${depts}" var="dept">
-								<option label="${dept.name}" value="${dept.id}"/>
-							</c:forEach>
-						</form:select>
-					</td>
-					<td>
-						<label>Job Title:</label>
-						<form:select path="jobTitle.id">
-							<option value=""/>
-							<c:forEach items="${jobs}" var="job">
-								<option label="${job.name}" value="${job.id}"/>
-							</c:forEach>
-						</form:select>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="saveCancel">
-						<input type="submit" value="Save" />
-						<button id="cancelAddBtn">Cancel</button>
-					</td>
-				</tr>
-			</table>
-		</form:form>
-	</fieldset>
-</div>
-
-<table id="t1"> 
-	<tr id="th" class="activeTH"><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Employee</th> <th></th> <th></th> <th>Email</th> <th>Skype</th> <th>Department</th> <th>Job Title</th> <th></th> <th></th>
-	</tr> 
-	<tr id="thEdit" style="display:none"><th>First Name*</th> <th>MI</th> <th>Last Name*</th> <th>Email*</th> <th>Skype*</th> <th>Department</th> <th>Job Title</th> <th>*=required</th> <th></th></tr>
+<div id="t1"> 
+	<div id="th" class="row headers activeTH">
+		<div class="inputCol">Employee</div> <div class="miCol">&nbsp;</div> <div class="inputCol">&nbsp;</div> <div class="emailCol">Email</div> <div class="inputCol">Skype</div> <div class="selectCol">Department</div> <div class="selectCol">Job Title</div> <div class="buttonCol">&nbsp;</div> <div class="buttonCol">&nbsp;</div>
+	</div> 
+	<div id="thEdit" class="row headers editRow"><div class="inputCol">First Name*</div> <div class="miCol">MI</div> <div class="inputCol">Last Name*</div> <div class="emailCol">Email*</div> <div class="inputCol">Skype*</div> <div class="selectCol">Department</div> <div class="selectCol">Job Title</div> <div class="buttonCol">*=required</div> <div class="buttonCol">&nbsp;</div></div>
 	<c:forEach items="${emps}" var="emp">
-		<tr id="row${emp.id}" class="row"> 
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<td>delete</td>
-			</sec:authorize> -->
-			<td class="firstName" data-value="${emp.firstName}">${emp.firstName}</td>
-			<td class="middle" data-value="${emp.middleInitial}">${emp.middleInitial}</td>
-			<td class="lastName" data-value="${emp.lastName}">${emp.lastName}</td>
-			<td class="email" data-value="${emp.email}">${emp.email}</td>
-			<td class="skype" data-value="${emp.skypeName}">${emp.skypeName}</td> 
-			<td class="dept" data-value="${emp.department.id}">${emp.department.name}</td> 
-			<td class="job" data-value="${emp.jobTitle.id}">${emp.jobTitle.name}</td> 
-			<td><button class="editBtn" value="${emp.id}">Edit</button></td>		
-			<td><button class="removeBtn" value="${emp.id}">Remove</button>
-		</tr>
+		<div id="row${emp.id}" class="row">
+			<div class="firstName inputCol" data-value="${emp.firstName}">${emp.firstName}</div>
+			<div class="middle miCol" data-value="${emp.middleInitial}">${emp.middleInitial}<c:if test="${empty emp.middleInitial}">&nbsp;</c:if></div>
+			<div class="lastName inputCol" data-value="${emp.lastName}">${emp.lastName}</div>
+			<div class="email emailCol" data-value="${emp.email}">${emp.email}</div>
+			<div class="skype inputCol" data-value="${emp.skypeName}">${emp.skypeName}</div> 
+			<div class="dept selectCol" data-value="${emp.department.id}">${emp.department.name}<c:if test="${empty emp.department.name}">&nbsp;</c:if></div> 
+			<div class="job selectCol" data-value="${emp.jobTitle.id}">${emp.jobTitle.name}<c:if test="${empty emp.jobTitle.name}">&nbsp;</c:if></div> 
+			<div class="buttonCol"><button class="editBtn" value="${emp.id}">Edit</button></div>		
+			<div class="buttonCol"><button class="removeBtn" value="${emp.id}">Remove</button></div>
+		</div>
 		
-		<tr id="editRow${emp.id}" class="editRow" style="display:none">
-			<td><input name="firstName" class="firstName editInput"/></td>
-			<td><input name="middleInitial" class="middle editInput" maxlength="1" size="1"/></td>
-			<td><input name="lastName" class="lastName editInput"/></td>
-			<td><input name="email" class="email editInput"/></td>
-			<td><input name="skypeName" class="skype editInput"/></td>
-			<td><select name="department.id" class="dept editInput">
+		<div id="editRow${emp.id}" class="row editRow">
+			<div class="inputCol"><input name="firstName" class="firstName editInput"/></div>
+			<div class="miCol"><input name="middleInitial" class="middle editInput" maxlength="1" size="1"/></div>
+			<div class="inputCol"><input name="lastName" class="lastName editInput"/></div>
+			<div class="emailCol"><input name="email" class="email editInput"/></div>
+			<div class="inputCol"><input name="skypeName" class="skype editInput"/></div>
+			<div class="selectCol"><select name="department.id" class="dept editInput">
 					<option value="" />
 					<c:forEach items="${depts}" var="tDept">
 						<option value="${tDept.id}">${tDept.name}</option>
 					</c:forEach>
 				</select>
-			</td>
-			<td><select name="jobTitle.id" class="job editInput">
+			</div>
+			<div class="selectCol"><select name="jobTitle.id" class="job editInput">
 					<option value="" />
 					<c:forEach items="${jobs}" var="tJob">
 						<option value="${tJob.id}">${tJob.name}</option>
 					</c:forEach>
 				</select>
-			</td>
-			<td><button class="saveBtn" value="${emp.id}">Save</button></td>
-			<td><button class="cancelEditBtn" value="${emp.id}">Cancel</button></td>
-		</tr>
+			</div>
+			<div class="buttonCol"><button class="saveBtn" value="${emp.id}">Save</button></div>
+			<div class="buttonCol"><button class="cancelEditBtn" value="${emp.id}">Cancel</button></div>
+		</div>
 	</c:forEach> 
-</table>
+</div>

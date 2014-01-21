@@ -5,9 +5,7 @@
 
 <h3>Departments</h3> 
 
-<div id="addBtn-container">
-		<button type="button" id="addBtn">Add</button>	
-</div>
+<button id="addBtn">Add</button>
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Department</legend>
@@ -29,34 +27,31 @@
 	</fieldset>
 </div>
 
-<table id="t1"> 
-	<tr id="th" class="activeTH"><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Department Name</th> <th>Parent Department</th> <th></th> <th></th>
-	</tr> 
-	<tr id="thEdit" style="display:none"><th>Department Name*</th> <th>Parent Department</th> <th>*=required</th> <th></th></tr>
+<div id="t1"> 
+	<div id="th" class="activeTH row headers">
+		<div class="inputCol">Department Name</div> <div class="selectCol">Parent Department</div> <div class="buttonCol">&nbsp;</div> <div class="buttonCol">&nbsp;</div>
+	</div> 
+	<div id="thEdit" class="row headers editRow"><div class="inputCol">Department Name*</div> <div class="selectCol">Parent Department</div> <div class="buttonCol">*=required</div> <div class="buttonCol">&nbsp;</div></div>
 	<c:forEach items="${depts}" var="dept">
-		<tr id="deptRow${dept.id}"> 
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<td>delete</td>
-			</sec:authorize> -->
-			<td class="deptName" data-value="${dept.name}">${dept.name}</td>
-			<td class="deptParent" data-value="${dept.parentDepartment.id}">${dept.parentDepartment.name}</td> 
-			<td><button class="editBtn" value="${dept.id}">Edit</button></td>
-			<td><button class="removeBtn" value="${dept.id}">Remove</button></td>			
-		</tr>
+		<div id="deptRow${dept.id}" class="row">
+			<div class="deptName inputCol" data-value="${dept.name}">${dept.name}</div>
+			<div class="deptParent selectCol" data-value="${dept.parentDepartment.id}">${dept.parentDepartment.name}<c:if test="${empty dept.parentDepartment.name}">&nbsp;</c:if></div> 
+			<div class="col buttonCol"><button class="editBtn" value="${dept.id}">Edit</button></div>
+			<div class="col buttonCol"><button class="removeBtn" value="${dept.id}">Remove</button></div>
+		</div>
 		
-		<tr id="editDeptRow${dept.id}" style="display:none">
-			<td><input name="name" class="editDeptName"/></td>
-			<td><select name="parentDepartment.id" class="editDeptParent">
+		<div id="editDeptRow${dept.id}" class="row editRow">
+			<div class="inputCol"><input name="name" class="editDeptName"/></div>
+			<div class="selectCol"><select name="parentDepartment.id" class="editDeptParent">
 					<option value="" />
 					<c:forEach items="${depts}" var="pDept">
 						<option value="${pDept.id}">${pDept.name}</option>
 					</c:forEach>
+					<option value="last" />
 				</select>
-			</td>
-			<td><button class="saveBtn" value="${dept.id}">Save</button></td>
-			<td><button class="cancelEditBtn" value="${dept.id}">Cancel</button></td>
-		</tr>
+			</div>
+			<div class="col buttonCol"><button class="saveBtn" value="${dept.id}">Save</button></div>
+			<div class="col buttonCol"><button class="cancelEditBtn" value="${dept.id}">Cancel</button></div>
+		</div>
 	</c:forEach> 
-</table>
+</div>

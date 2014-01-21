@@ -27,8 +27,6 @@ import com.systemsinmotion.orgchart.entity.Department;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
 @WebAppConfiguration("/src/main/webapp")
-//@ContextConfiguration(classes = TestConfig.class)
-
 public class DepartmentServiceTest {
 
 	@Autowired
