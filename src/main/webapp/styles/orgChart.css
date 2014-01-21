@@ -88,31 +88,52 @@ SELECT {
 
 .divTable
 {
-    display:table;
+    font-weight: bold;
+    font-size: 1em;
 }
 .divRow
 {
-    display:table-row;
+    margin: .4em 0;
+    width: 100%;
+    overflow: hidden;
+    line-height:100%;
+}
+.divRow div{
+        padding: 0 .5em;
+        float: left;
+}
+.editRow
+{
+	display:none
 }
 .divCol
 {
-    display:table-cell;
-    width:120px;
+    width:10em;
     color:white;
-    font-size:larger;
 }
 .headRow
 {
-    display:table-caption;
-    background-color:#0177C0;
+	margin: .4em 0;
+    width: 100%;
+    overflow: hidden;
+}
+.headRow div{
+	padding: 0 .5em;
+	float:left;
+	background-color:#0177C0;
 }
 .content
 {
-    display:table-cell;
-    width:120px;
-    font-size:larger;
+	line-height:100%;
+	min-width:10em;
+    width:10em;
+    vertical-align:middle;
+}
+.rightAlign
+{
+	float:right;
 }
 .textBoxClass
 {
-	width:110px;	
+	width:9em;	
 }

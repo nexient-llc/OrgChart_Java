@@ -39,6 +39,7 @@
 		<!-- <th>Task</th></sec:authorize> -->
 		<div class="divCol">Dept Name</div>
 		<div class="divCol">Parent Dept</div>
+		<div class="divCol">&nbsp;</div>
 	</div>
 	<c:forEach items="${depts}" var="dept">
 		<div class="divRow" id="ViewDepts${dept.id}">
@@ -46,7 +47,7 @@
 				<td>delete</td>
 			</sec:authorize> -->
 			<div class="content">${dept.name}</div>
-			<div class="content">${dept.parentDepartment.name}</div>
+			<div class="content">${dept.parentDepartment.name}&nbsp;</div>
 			<div class="content">
 				<button class="editBtn" value="${dept.id}">Edit</button><button class="deleteBtn" value="${dept.id}">Remove</button>
 			</div>
@@ -71,7 +72,7 @@
 					</c:forEach>
 				</select>
 			</div>
-			<div class="content">
+			<div class="content rightAlign">
 				<button class='saveBtn' value="${dept.id}">Save</button><button class='cancelEditBtn' value="${dept.id}">Cancel</button>
 			</div>
 		</div>

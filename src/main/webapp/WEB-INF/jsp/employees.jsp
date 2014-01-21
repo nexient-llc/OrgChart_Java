@@ -28,7 +28,8 @@
 					</c:forEach>
 			</select>
 	</div>
-	<div><button class='sendFilterBtn' value="filterFullName">Save</button><button id="cancelFilterBtn">Cancel</button></div>
+	<div><button class='sendFilterBtn' value="filterFullName">Save</button><button id="cancelFilterBtn">Cancel</button>
+	<button id="resetFilterBtn" style="display:none">Reset</button></div>
 	
 </div>
 
@@ -81,15 +82,16 @@
 	</fieldset>
 </div>
 
-<div class="divTable">
+<div class="divTable" id="t1">
 	<div class="headRow" id="preEditViewBar">
 		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> -->
 		<div class="divCol">Employee Name</div>
 		<div class="divCol">Department</div>
 		<div class="divCol">Job Title</div>
+		<div class="divCol">&nbsp;</div>
 	</div>
-	<div class="headRow" id="postEditViewBar" style="display: none">
+	<div class="headRow editRow" id="postEditViewBar">
 		<div class="divCol">First Name</div>
 		<div class="divCol">Middle Initial</div>
 		<div class="divCol">Last Name</div>
@@ -97,6 +99,7 @@
 		<div class="divCol">Skype Name</div>
 		<div class="divCol">Department</div>
 		<div class="divCol">Job Title</div>
+		<div class="divCol">&nbsp;</div>
 	</div>
 	<c:forEach items="${emps}" var="employee">
 		<div class="divRow" id="ViewEmps${employee.id}">
@@ -110,7 +113,7 @@
 									value="${employee.id}">Remove</button></div>
 		</div>
 
-		<div class="divRow" id="EditEmps${employee.id}" style="display: none">
+		<div class="divRow editRow" id="EditEmps${employee.id}">
 			<div class="content"><input path="firstName" id="empFirstName${employee.id}"
 				maxlength="20" value="${employee.firstName}" class="textBoxClass"></div>
 			<div class="content"><input path="middleInitial" id="empMidInitial${employee.id}"

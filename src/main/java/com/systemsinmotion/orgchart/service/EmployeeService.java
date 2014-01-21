@@ -1,6 +1,9 @@
 package com.systemsinmotion.orgchart.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,8 +76,40 @@ public class EmployeeService {
 		return this.employeeRepository.findByJobTitleId(id);
 	}
 	
-//	public List<Employee> findByFirstOrLastName(String name){
-//		return this.employeeRepository.findByFirstNameContainingOrLastNameContaining(name);
-//	}
+	public List<Employee> findByFirstNameContains(String name){
+		return this.employeeRepository.findByFirstNameContaining(name);
+	}
+	
+	public List<Employee> findByLastNameContains(String name){
+		return this.employeeRepository.findByLastNameContaining(name);
+	}
+	
+	public List<Employee> filterEmployee(String name, Integer departmentID, Integer jobTitleID){
+		String[] nameComponents = name.split(" ");
+		Set<Employee> processingEmployees = new HashSet<Employee>();
+		List<Employee> filteredEmployees = new ArrayList<Employee>();
+		if(name != null){
+			for(String nameComp : nameComponents) {
+				processingEmployees.addAll(findByFirstNameContains(nameComp));
+				processingEmployees.addAll(findByLastNameContains(nameComp));
+			}
+		}
+		else if(departmentID != null) {
+			processingEmployees.addAll(findByDepartmentID(departmentID));
+		}
+		else if(jobTitleID != null) {
+			processingEmployees.addAll(findByJobTitleID(jobTitleID));
+		}
+		
+		for(Employee test : processingEmployees){
+			if(test.getDepartment().getId() == departmentID || departmentID == null){
+				if(test.getJobTitle().getId() == jobTitleID || jobTitleID == null){
+					filteredEmployees.add(test);
+				}
+			}
+		}
+		
+		return filteredEmployees;
+	}
 
 }

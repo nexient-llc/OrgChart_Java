@@ -32,6 +32,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	List<Employee> findByIsActiveTrue();
 
-//	List<Employee> findByFirstNameContainingOrLastNameContaining(String name);
+	List<Employee> findByFirstNameContaining(String firstName);
+	
+	List<Employee> findByLastNameContaining(String lastName);
 	
 }

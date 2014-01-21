@@ -36,6 +36,7 @@
 		<!-- <th>Task</th></sec:authorize> -->
 		<div class="divCol">Job Title</div>
 		<div class="divCol">Description</div>
+		<div class="divCol">&nbsp;</div>
 	</div>
 	<c:forEach items="${jobs}" var="job">
 		<div class="divRow" id="ViewJobs${job.id}">

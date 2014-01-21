@@ -8,6 +8,8 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.JsonNodeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -43,6 +47,8 @@ public class DefaultController {
 
 	@Autowired
 	JobTitleService jobTitleService;
+	
+	Gson sendJSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 	
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
@@ -182,40 +188,14 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
-	@RequestMapping(value = "emps/filter", method = RequestMethod.PUT)
-	public String doEmployees_PUT(String name, Integer departmentID, Integer jobTitleID, Model model){
-		String[] nameComponents = name.split(" ");
-		List<Employee> filteredEmployees = new ArrayList<Employee>();
-		Set<Employee> processingEmployees = new HashSet<Employee>();
-//		for(String nameComp : nameComponents) {
-//			List<Employee> similarNames = employeeService.findByFirstOrLastName(nameComp);
-//			processingEmployees.addAll(similarNames);
-//		}
-//		
-//		for(Employee test : processingEmployees){
-//			if(test.getDepartment().getId() == departmentID || departmentID == null){
-//				if(test.getJobTitle().getId() == jobTitleID || jobTitleID == null){
-//					filteredEmployees.add(test);
-//				}
-//			}
-//		}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "emps", method = RequestMethod.GET, params = {"name", "departmentID", "jobTitleID"})
+	public @ResponseBody String doEmployees_GET(String name, Integer departmentID, Integer jobTitleID){
 		
-		//updateEmployeeAttributesMinusAllEmployees(new Employee(), allFilteredEmployees, model);
-		return View.EMPLOYEES;
-	}
-	
-	private void updateEmployeeAttributesMinusAllEmployees(Employee emp, List<Employee> employees, Model model){
-		model.addAttribute("emp", emp);
-		model.addAttribute("emps", employees);
-		List<Department> departments = departmentService.findAllActiveDepartments();
-		model.addAttribute("depts", departments);
-		List<JobTitle> jobTitles = jobTitleService.findAllActiveJobTitles();
-		model.addAttribute("jobs", jobTitles);
-	}
-	
-	@RequestMapping(value = "emps/filter", method = RequestMethod.GET)
-	public String doFilteredEmployees_GET(Model model) {
-		 return View.EMPLOYEES;
+		List<Employee> filterEmployees = employeeService.filterEmployee(name, departmentID, jobTitleID);
+		
+		return sendJSON.toJson(filterEmployees);
 	}
 
 }

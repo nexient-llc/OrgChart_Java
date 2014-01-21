@@ -1,4 +1,5 @@
 var editStack = 0;
+var cancelButtonSwitch = true;
 
 $(document).ready(function() {
 	
@@ -70,7 +71,7 @@ $(document).ready(function() {
 				email : $('#empEmail'+num).val() ,
 				skypeName : $('#empSkypeName'+num).val() ,
 				departmentID : $('#deptId'+num).val() ,
-				jobTitleID : $('#jobId'+num).val(),
+				jobTitleID : $('#jobId'+num).val()
 			},
 			
 			success: function(response){
@@ -100,23 +101,49 @@ $(document).ready(function() {
 	
 	$('.sendFilterBtn').click(function(evnt){
 		$.ajax({
-			url : "emps/filter",
-			type : "POST",
+			url : "emps",
+			type : "GET",
 			data : {
-				_method : "put",
 				name : $('#filterFullName').val(),
 				departmentID: $('#filterDepartment').val(),
 				jobTitleID: $('#filterJobTitle').val(),
 			},
 			
-			success: function(response){
-				alert("Did I get here?");
+			success: function(data){
+				data = jQuery.parseJSON(data);
+				$('#t1 .divRow').fadeOut('fast');
+				
+				data.forEach(function(employeeId){
+					$('#t1 #ViewEmps'+employeeId.id).fadeIn("fast");
+				});
+				
+				if(cancelButtonSwitch == true){
+					$('#cancelFilterBtn').fadeToggle("fast", "linear", function() {
+						$('#resetFilterBtn').fadeToggle("fast", "linear");
+					});
+					cancelButtonSwitch = false;
+				}
+				
 			},
 		});
 	});
 	
 	$('#cancelFilterBtn').click(function(evnt) {
 		evnt.preventDefault();
+		$('#filterEntity').fadeToggle("fast", "linear", function() {
+			$('#filterBtn-container').fadeToggle("fast", "linear");
+		});
+	});
+	
+	$('#resetFilterBtn').click(function(evnt) {
+		evnt.preventDefault();
+		$('#t1 .divRow:not(.editRow)').fadeIn("fast");
+		if(cancelButtonSwitch = false){
+			$('#resetFilterBtn').fadeToggle("fast", "linear", function() {
+				$('#cancelFilterBtn').fadeToggle("fast", "linear");
+			});
+			cancelButtonSwitch = true;
+		}
 		$('#filterEntity').fadeToggle("fast", "linear", function() {
 			$('#filterBtn-container').fadeToggle("fast", "linear");
 		});
