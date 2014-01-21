@@ -19,6 +19,8 @@ public class JobTitle extends BaseEntity {
     @Size(min = 1, max = 45)
     private String name;
     
+    private boolean isActive;
+    
     @Column(name = "NAME", nullable = false, length = 50)
     public String getName() {
             return this.name;
@@ -27,4 +29,13 @@ public class JobTitle extends BaseEntity {
     public void setName(String name) {
             this.name = name;
     }
+    
+	@Column(name = "IS_ACTIVE")
+	public boolean getIsActive() {
+		return this.isActive;
+	}
+	
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 }

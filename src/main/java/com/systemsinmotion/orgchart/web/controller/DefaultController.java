@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
+import com.systemsinmotion.orgchart.service.EmployeeService;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
@@ -21,14 +25,14 @@ public class DefaultController {
 	@SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory.getLogger(DefaultController.class);
 
-	//@Autowired
-	//EmployeeService employeeService;
+	@Autowired
+	EmployeeService employeeService;
 	
 	@Autowired
 	DepartmentService departmentService;
 	
-	//@Autowired
-	//JobTitleService jobTitleService;
+	@Autowired
+	JobTitleService jobTitleService;
 	
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
@@ -63,7 +67,7 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
 	public String doDepartments_DELETE(Model model, Integer departmentId) {
 		Department parentDepartment = departmentService.findDepartmentById(departmentId).getParentDepartment();
-		List<Department> departments = departmentService.findDepartmentByParentId(departmentId);
+		List<Department> departments = departmentService.findDepartmentByParentDepartmentId(departmentId);
 		
 		if(parentDepartment != null) {
 			for(Department department : departments) {
@@ -102,4 +106,69 @@ public class DefaultController {
 		this.departmentService = departmentService;
 	}
 	
+	/* Employees */
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	public String doEmployees_GET(Model model) {
+		List<Employee> allEmployees = employeeService.findAllEmployees();
+		List<Employee> activeEmployees = new ArrayList<Employee>();
+		for(Employee employee : allEmployees) {
+			if(employee.getIsActive() == true) {
+				activeEmployees.add(employee);
+			}
+		}
+		
+		List<Department> allDepartments = departmentService.findAllDepartments();
+		List<Department> activeDepartments = new ArrayList<Department>();
+		for(Department department : allDepartments) {
+			if(department.getIsActive() == true) {
+				activeDepartments.add(department);
+			}
+		}
+		
+		List<JobTitle> allJobTitles = jobTitleService.findAllJobTitles();
+		List<JobTitle> activeJobTitles = new ArrayList<JobTitle>();
+		for(JobTitle jobTitle : allJobTitles) {
+			if(jobTitle.getIsActive() == true) {
+				activeJobTitles.add(jobTitle);
+			}
+		}
+		
+		model.addAttribute("emps", activeEmployees);
+		model.addAttribute("depts", activeDepartments);
+		model.addAttribute("jobs", activeJobTitles);
+		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = "emps", method = RequestMethod.POST)
+	public String doEmployees_POST(Model model, String firstName, String lastName, String middleInitial,
+			Integer departmentId, String email, String skypeName, Integer jobTitleId) {
+		Employee employee = new Employee();
+		employee.setFirstName(firstName);
+		employee.setLastName(lastName);
+		if(middleInitial != null) {
+			employee.setMiddleInitial(middleInitial);
+		}
+		employee.setDepartment(departmentService.findDepartmentById(departmentId));
+		employee.setEmail(email);
+		employee.setSkypeName(skypeName);
+		employee.setJobTitle(jobTitleService.findJobTitleById(jobTitleId));
+		employee.setIsActive(true);
+		employeeService.storeEmployee(employee);
+		
+		return doEmployees_GET(model);
+	}
+	
+	/* Job Titles */
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	public String doJobTitles_GET(Model model) {
+		List<JobTitle> allJobTitles = jobTitleService.findAllJobTitles();
+		List<JobTitle> activeJobTitles = new ArrayList<JobTitle>();
+		for(JobTitle jobTitle : allJobTitles) {
+			if(jobTitle.getIsActive() == true) {
+				activeJobTitles.add(jobTitle);
+			}
+		}
+		model.addAttribute("jobs", activeJobTitles);
+		return View.JOB_TITLES;
+	}
 }

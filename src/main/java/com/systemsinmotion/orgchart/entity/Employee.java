@@ -27,14 +27,19 @@ public class Employee extends BaseEntity {
 	@Size(min = 1, max = 45)
 	private String lastName;
 	
+	private String middleInitial;
+	
 	private String email;
 	private String skypeName;
 
 	private boolean isManager;
+	private boolean isActive;
 	
 	private Department department;
 	private JobTitle jobTitle;
+	
 	private Employee manager;
+	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
@@ -101,13 +106,31 @@ public class Employee extends BaseEntity {
 		this.manager = manager;
 	}
 	
+	@Column(name = "MIDDLE_INITIAL", nullable = false, length = 45)
+	public String getMiddleInitial() {
+		return this.middleInitial;
+	}
+	
+	public void setMiddleInitial(String middleInitial) {
+		this.middleInitial = middleInitial;
+	}
+	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "JOB_TITLE", referencedColumnName = "ID")
+	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
 	public JobTitle getJobTitle() {
 		return this.jobTitle;
 	}
 	
 	public void setJobTitle(JobTitle jobTitle) {
 		this.jobTitle = jobTitle;
+	}
+	
+	@Column(name = "IS_ACTIVE")
+	public boolean getIsActive() {
+		return this.isActive;
+	}
+	
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 }

@@ -3,18 +3,15 @@ package com.systemsinmotion.orgchart.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -30,9 +27,6 @@ public class Department extends BaseEntity {
 	
 	private Department parentDepartment;
 	private boolean isActive;
-	
-	private Set<Department> childDepartments = new HashSet<Department>(0);
-	private Set<Employee> employees = new HashSet<Employee>();
 
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
@@ -63,9 +57,14 @@ public class Department extends BaseEntity {
 	}
 	
 	
+	/*		  */
+	/* UNUSED */
+	/*		  */
 	
-	/* TEMP */
-	
+	/*
+	private Set<Department> childDepartments = new HashSet<Department>(0);
+	private Set<Employee> employees = new HashSet<Employee>();
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
 	public Set<Department> getChildDepartments() {
 		return this.childDepartments;
@@ -83,8 +82,5 @@ public class Department extends BaseEntity {
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
-
-
-
-
+	*/
 }

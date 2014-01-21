@@ -3,30 +3,18 @@
 <%@ taglib prefix="sec"
         uri="http://www.springframework.org/security/tags"%>
 
-<h3>Departments</h3> 
-<div class="divContainer"> 
-	<div style="overflow:hidden;">
-		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th>
-		</sec:authorize> --> 
-		<div class="divHeader">Dept Name</div><!--
-		--><div class="divHeader">Parent Dept</div>
-	</div>
-	<div style="overflow:hidden;">
-		<c:forEach items="${depts}" var="dept">
-			<div class="divRow"> 
-				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<td>delete</td>
-				</sec:authorize> -->
-				<div class="divColumn">${dept.name}</div> 
-				<div class="divColumn">${dept.parentDepartment.name}</div>
-			</div>
-		</c:forEach> 
-	</div>
-</div>
+<h3>Department Page</h3>
 
 <div id="addBtn-container">
-	<button type="button" id="addBtn" style="width: 55px;">Add</button>        
+	<button type="button" id="addBtn">Add</button>        
+</div>
+
+<div id="editBtn-container">
+	<button type="button" id="editBtn">Edit</button>
+</div>
+
+<div id="deleteBtn-container">
+	<button type="button" id="deleteBtn">Delete</button>
 </div>
 
 <div id="addEntity" style="display:none;">
@@ -48,10 +36,6 @@
 			<div></div>
 		</form>
 	</fieldset>
-</div>
-
-<div id="editBtn-container">
-	<button type="button" id="editBtn" style="width:55px;">Edit</button>
 </div>
 
 <div id="editEntity" style="display:none">
@@ -84,10 +68,6 @@
 	</fieldset>
 </div>
 
-<div id="deleteBtn-container">
-	<button type="button" id="deleteBtn" style="width:55px;">Delete</button>
-</div>
-
 <div id="deleteEntity" style="display:none">
 	<fieldset>
 		<legend>Remove Department</legend>
@@ -105,4 +85,25 @@
 			</div>
 		</form>
 	</fieldset>
+</div>
+
+<div class="divContainer"> 
+	<div style="overflow:hidden;">
+		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
+		<!-- <th>Task</th>
+		</sec:authorize> --> 
+		<div class="divHeader">Dept Name</div><!--
+		--><div class="divHeader">Parent Dept</div>
+	</div>
+	<div style="overflow:hidden;">
+		<c:forEach items="${depts}" var="dept">
+			<div class="divRow"> 
+				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
+					<td>delete</td>
+				</sec:authorize> -->
+				<div class="divColumn">${dept.name}</div> 
+				<div class="divColumn">${dept.parentDepartment.name}</div>
+			</div>
+		</c:forEach> 
+	</div>
 </div>

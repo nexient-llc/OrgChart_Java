@@ -16,8 +16,9 @@ FIELDSET {
 }
 
 H3 {
-	margin: 0.6em 0.4em 0.5em;
+	margin: 1em 0.4em 1em;
 	font-size: 18px;
+	display: inline-block;
 }
 
 LABEL {
@@ -65,44 +66,98 @@ SELECT {
 }
 
 .divContainer {
-	display: block;	
+	display: block;
 }
 
 .divHeader {
 	float: left;
 	font-size: 12px;
 	padding: 3px;
-	width: 150px;
+	width: 200px;
 	background-color: #0177C0;
 	color: white;
 	text-align: center;
 }
 
-.divRow {
+.divHeaderHidden {
+	float: left;
+	font-size: 12px;
+	padding: 3px;
+	width: 200px;
+	background-color: #0177C0;
+	color: white;
+	text-align: center;
+}
+
+div[class*='divRow'] {
 	display: block;
 	overflow: hidden;
+	height: 2.5em;
+}
+
+div[class*='divEditRow'] {
+	display: block;
+	overflow: hidden;
+	height: 2.5em;
 }
 
 .divColumn {
 	float: left;	
 	font-size: 12px;
-	width: 150px;
-	padding: 3px;
+	width: 200px;
+	height: 2.5em;
+	padding: 0.5em 3px 0 3px;
 	text-align:center;
+}
+
+.divColumnHidden {
+	float: left;	
+	font-size: 12px;
+	width: 200px;
+	height: 2.5em;
+	padding: 0.5em 3px 0 3px;
+	text-align:center;
+}
+
+.editColumn {
+	float: left;
+	width: 200px;
+	height: 2.5em;
+	padding: 0.5em 0 0 3px;
+	text-align:center;
+}
+
+.editColumnBtn {
+	margin: 0;
+	padding: 0;
+	font-size: 10px;
+}
+
+.editInputBox {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	text-align: center;
+}
+
+.editSelectBox {
+	margin: 0;
+	padding: 0;
 }
 
 #addBtn-container {
 	margin-top: 0.5em;
-	/*text-align: center;*/
 	display: inline;
 }
 
 #addBtn {
-	margin-top: 1em;
+	width: 55px;
+	padding: 0;
+	margin: 0;
 }
 
 #addEntity {
-	margin-top: 1em;
+	margin-bottom: 1.5em;
 }
 
 #editBtn-container {
@@ -111,19 +166,17 @@ SELECT {
 }
 
 #editBtn {
-	margin-top: 1em;
+	width: 55px;
+	padding: 0;
+	margin: 0;
+}
+
+#editEntity {
+	margin-bottom: 1.5em;
 }
 
 #selectBtn {
 	display: inline;
-}
-
-.cancelBtn {
-	display: inline;
-}
-
-#editEntity {
-	margin-top: 1em;
 }
 
 #deleteBtn-container {
@@ -132,11 +185,17 @@ SELECT {
 }
 
 #deleteBtn {
-	margin-top: 1em;
+	width: 55px;
+	padding: 0;
+	margin: 0;
 }
 
 #deleteEntity {
-	margin-top: 1em;
+	margin-bottom: 1.5em;
+}
+
+.cancelBtn {
+	display: inline;
 }
 
 #login {

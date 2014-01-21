@@ -22,7 +22,7 @@ public class DepartmentService {
 		return this.repository.findOne(departmentId);
 	}
 	
-	public List<Department> findDepartmentByParentId(Integer parentDepartmentId) {
+	public List<Department> findDepartmentByParentDepartmentId(Integer parentDepartmentId) {
 		return this.repository.findDepartmentByParentDepartmentId(parentDepartmentId);
 	}
 
