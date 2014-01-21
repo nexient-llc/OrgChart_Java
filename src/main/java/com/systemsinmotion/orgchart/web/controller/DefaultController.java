@@ -181,20 +181,16 @@ public class DefaultController {
 	
 	@RequestMapping(value = "emps", method = RequestMethod.DELETE)
 	public String doEmployees_DELETE(Integer id, Model model){
-		Employee removeEmployee = employeeService.findEmployeeByID(id);
-		removeEmployee.setIsActive(false);
-		employeeService.storeEmployee(removeEmployee);
+		employeeService.setEmployeeInactive(id);
+		updateEmployeeAttributes(new Employee(), model);
 		
 		return View.EMPLOYEES;
 	}
 	
 
-	@SuppressWarnings("unused")
 	@RequestMapping(value = "emps", method = RequestMethod.GET, params = {"name", "departmentID", "jobTitleID"})
 	public @ResponseBody String doEmployees_GET(String name, Integer departmentID, Integer jobTitleID){
-		
 		List<Employee> filterEmployees = employeeService.filterEmployee(name, departmentID, jobTitleID);
-		
 		return sendJSON.toJson(filterEmployees);
 	}
 

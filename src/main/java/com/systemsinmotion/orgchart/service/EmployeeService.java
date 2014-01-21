@@ -88,7 +88,7 @@ public class EmployeeService {
 		String[] nameComponents = name.split(" ");
 		Set<Employee> processingEmployees = new HashSet<Employee>();
 		List<Employee> filteredEmployees = new ArrayList<Employee>();
-		if(name != null){
+		if(!name.equals(null)){
 			for(String nameComp : nameComponents) {
 				processingEmployees.addAll(findByFirstNameContains(nameComp));
 				processingEmployees.addAll(findByLastNameContains(nameComp));
@@ -102,14 +102,20 @@ public class EmployeeService {
 		}
 		
 		for(Employee test : processingEmployees){
-			if(test.getDepartment().getId() == departmentID || departmentID == null){
-				if(test.getJobTitle().getId() == jobTitleID || jobTitleID == null){
+			if(test.getDepartment().getId().equals(departmentID) || departmentID == null){
+				if(test.getJobTitle().getId().equals(jobTitleID) || jobTitleID == null){
 					filteredEmployees.add(test);
 				}
 			}
 		}
 		
 		return filteredEmployees;
+	}
+
+	public void setEmployeeInactive(Integer id) {
+		Employee removeEmployee = findEmployeeByID(id);
+		removeEmployee.setIsActive(false);
+		storeEmployee(removeEmployee);
 	}
 
 }
