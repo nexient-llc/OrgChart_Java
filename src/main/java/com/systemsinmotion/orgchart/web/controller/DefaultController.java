@@ -14,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -38,6 +40,8 @@ public class DefaultController {
 
 	@Autowired
 	JobTitleService jobTitleService;
+	
+	Gson gson = new Gson();
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
@@ -76,11 +80,12 @@ public class DefaultController {
 	}
 
 	@RequestMapping(value = "depts", method = RequestMethod.PUT)
-	public String doDepartments_PUT(Integer id, String name, Integer parentID, Model model) {
-        Department dept = departmentService.findDepartmentById(id);
-        dept.setName(name);
-        dept.setParentDepartment(departmentService.findDepartmentById(parentID));
-        departmentService.storeDepartment(dept);
+	public String doDepartments_PUT(Integer id, String name, Integer parentID,
+			Model model) {
+		Department dept = departmentService.findDepartmentById(id);
+		dept.setName(name);
+		dept.setParentDepartment(departmentService.findDepartmentById(parentID));
+		departmentService.storeDepartment(dept);
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("dept", dept);
 		model.addAttribute("depts", departments);
@@ -106,12 +111,12 @@ public class DefaultController {
 		model.addAttribute("jobtitles", jobtitles);
 		return View.JOB_TITLES;
 	}
-	
+
 	@RequestMapping(value = "jobs", method = RequestMethod.PUT)
 	public String doJobTitles_PUT(Integer id, String name, Model model) {
 		JobTitle job = jobTitleService.findJobTitleById(id);
-        job.setName(name);
-        jobTitleService.storeJobTitle(job);
+		job.setName(name);
+		jobTitleService.storeJobTitle(job);
 		List<JobTitle> jobtitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("jobtitles", jobtitles);
 		return View.JOB_TITLES;
@@ -126,52 +131,84 @@ public class DefaultController {
 	// public String doAjax_GET(){
 	// return View.AJAX;
 	// }
-	
-	 @RequestMapping(value = "emps", method = RequestMethod.GET)
-	 public String doEmployees_GET(Model model){
-		 addAttributesForEmpsPage(new Employee(), model);
-		 return View.EMPLOYEES;
-	 }
 
-	 @RequestMapping(value = "emps", method = RequestMethod.POST)
-	 public String doEmployees_POST(Employee emp, Model model){
-		 employeeService.storeEmployee(emp);
-		 addAttributesForEmpsPage(new Employee(), model);
-		 return View.EMPLOYEES;
-	 }
-	 
-	 @RequestMapping(value = "emps", method = RequestMethod.PUT)
-	 public String doEmployees_PUT(Integer id, String firstName, String lastName,
-			 						String middleInitial, String email, String skypeName,
-			 						Integer departmentId, Integer jobTitleId, Model model){
+	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	public String doEmployees_GET(Model model) {
+		addAttributesForEmpsPage(new Employee(), model);
+		return View.EMPLOYEES;
+	}
 
-		 Employee emp = employeeService.findEmployeeById(id);
-		 Department empdept = departmentService.findDepartmentById(departmentId);
-		 JobTitle empjob = jobTitleService.findJobTitleById(jobTitleId);
-		 emp.setFirstName(firstName);
-		 emp.setLastName(lastName);
-		 emp.setMiddleInitial(middleInitial);
-		 emp.setDepartment(empdept);
-		 emp.setEmail(email);
-		 emp.setSkypeName(skypeName);
-		 emp.setJobTitle(empjob);
-		 System.out.println("Email: " + email);
-		 employeeService.storeEmployee(emp);
-		 
-		 addAttributesForEmpsPage(emp, model);
-		 return View.EMPLOYEES;
-	 }
-	 
-	 private void addAttributesForEmpsPage(Employee emp, Model model){
-		 List<Department> depts = departmentService.findAllDepartments();
-		 List<JobTitle> jobs = jobTitleService.findAllJobTitles();
-		 List<Employee> emps = employeeService.findAllEmployees();
-		 model.addAttribute("emp", emp);
-		 model.addAttribute("emps", emps);
-		 model.addAttribute("jobs", jobs);
-		 model.addAttribute("depts", depts);
-	 }
-	 
+	@RequestMapping(value = "emps", method = RequestMethod.POST)
+	public String doEmployees_POST(Employee emp, Model model) {
+		employeeService.storeEmployee(emp);
+		addAttributesForEmpsPage(new Employee(), model);
+		return View.EMPLOYEES;
+	}
+
+	@RequestMapping(value = "emps", method = RequestMethod.PUT)
+	public String doEmployees_PUT(Integer id, String firstName,
+			String lastName, String middleInitial, String email,
+			String skypeName, Integer departmentId, Integer jobTitleId,
+			Model model) {
+		Employee emp = employeeService.findEmployeeById(id);
+		Department empdept = departmentService.findDepartmentById(departmentId);
+		JobTitle empjob = jobTitleService.findJobTitleById(jobTitleId);
+		emp.setFirstName(firstName);
+		emp.setLastName(lastName);
+		emp.setMiddleInitial(middleInitial);
+		emp.setDepartment(empdept);
+		emp.setEmail(email);
+		emp.setSkypeName(skypeName);
+		emp.setJobTitle(empjob);
+		employeeService.storeEmployee(emp);
+		addAttributesForEmpsPage(emp, model);
+
+		return View.EMPLOYEES;
+	}
+
+	@RequestMapping(value = "emps", method = RequestMethod.GET, params = {
+			"fullName", "deptId", "jobId" })
+	public @ResponseBody
+	String doEmployeeFilter_GET(String fullName, Integer deptId, Integer jobId) {
+		String firstName = null;
+		String lastName = null;
+		String[] tokens = null;
+		if (fullName != null) {
+			tokens = fullName.split(" ", 2);
+
+			if (tokens.length == 1) {
+				firstName = lastName = tokens[0];
+			} else if (tokens.length == 2) {
+				firstName = tokens[0];
+				lastName = tokens[1];
+			}
+		}
+		Department dept = null;
+		JobTitle job = null;
+		if (deptId != null)
+			dept = departmentService.findDepartmentById(deptId);
+		if (jobId != null)
+			job = jobTitleService.findJobTitleById(jobId);
+
+		List<Employee> emps = this.employeeService.findEmployeesByFiltering(
+				firstName, lastName, dept, job);
+
+		Integer[] empIds = new Integer[emps.size()];
+		for (int i = 0; i < emps.size(); i++)
+			empIds[i] = emps.get(i).getId();
+		return gson.toJson(empIds);
+	}
+
+	private void addAttributesForEmpsPage(Employee emp, Model model) {
+		List<Department> depts = departmentService.findAllDepartments();
+		List<JobTitle> jobs = jobTitleService.findAllJobTitles();
+		List<Employee> emps = employeeService.findAllEmployees();
+		model.addAttribute("emp", emp);
+		model.addAttribute("emps", emps);
+		model.addAttribute("jobs", jobs);
+		model.addAttribute("depts", depts);
+	}
+
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}

@@ -21,6 +21,7 @@ import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.JPAConfig;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JPAConfig.class)
@@ -33,29 +34,37 @@ public class EmployeeRepositoryTest {
 	private Department department;
 	private Employee employee;
 	private Employee manager;
+	private JobTitle jobTitle;
 
 	@Autowired
 	EmployeeRepository employeeRepository;
 
 	@Autowired
 	DepartmentRepository departmentRepository;
+	
+	@Autowired
+	JobTitleRepository jobTitleRepository;
 
-//	@After
-//	public void after() {
-//		this.employeeDao.delete(this.employee);
-//		this.departmentDao.delete(this.department);
-//
-//		if (null != this.manager) {
-//			this.employeeDao.delete(this.manager);
-//		}
-//	}
+	// @After
+	// public void after() {
+	// this.employeeDao.delete(this.employee);
+	// this.departmentDao.delete(this.department);
+	//
+	// if (null != this.manager) {
+	// this.employeeDao.delete(this.manager);
+	// }
+	// }
 
 	@Before
 	public void before() throws Exception {
 		this.department = Entities.department();
-		this.departmentRepository.save(this.department);
+		this.departmentRepository.saveAndFlush(this.department);
+		this.jobTitle = Entities.jobTitle();
+		this.jobTitleRepository.saveAndFlush(this.jobTitle);
+		
 
 		this.employee = Entities.employee();
+		this.employee.setJobTitle(this.jobTitle);
 		this.employee.setDepartment(this.department);
 		this.employee = this.employeeRepository.saveAndFlush(employee);
 	}
@@ -64,7 +73,7 @@ public class EmployeeRepositoryTest {
 	public void testInstantiation() {
 		assertNotNull(departmentRepository);
 	}
-	
+
 	private void createManager() {
 		this.manager = Entities.manager();
 		this.employeeRepository.save(this.manager);
@@ -79,8 +88,22 @@ public class EmployeeRepositoryTest {
 
 	@Test
 	public void findByDepartment() throws Exception {
-		List<Employee> emps = this.employeeRepository.findByDepartmentId(this.employee.getDepartment().getId());
-		assertNotNull("Expecting a non-null list of Employees but was null", emps);
+		List<Employee> emps = this.employeeRepository
+				.findByDepartment(this.employee.getDepartment());
+		assertNotNull("Expecting a non-null list of Employees but was null",
+				emps);
+		Employee emp = emps.get(0);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
+
+	@Test
+	public void findByDepartmentId() throws Exception {
+		List<Employee> emps = this.employeeRepository
+				.findByDepartmentId(this.employee.getDepartment().getId());
+		assertNotNull("Expecting a non-null list of Employees but was null",
+				emps);
 		Employee emp = emps.get(0);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
@@ -90,12 +113,13 @@ public class EmployeeRepositoryTest {
 	@Test
 	public void findByDepartment_null() throws Exception {
 		List<Employee> emps = this.employeeRepository.findByDepartmentId(null);
-		assert(emps.isEmpty());
+		assert (emps.isEmpty());
 	}
 
 	@Test
 	public void findByEmail() throws Exception {
-		Employee emp = this.employeeRepository.findByEmail(this.employee.getEmail());
+		Employee emp = this.employeeRepository.findByEmail(this.employee
+				.getEmail());
 		assertNotNull("Expecting a non-null Employee but was null", emp);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
@@ -142,9 +166,12 @@ public class EmployeeRepositoryTest {
 		this.employee.setManager(this.manager);
 		this.employeeRepository.saveAndFlush(employee);
 
-		List<Employee> emps = this.employeeRepository.findByManagerId(this.employee.getManager().getId());
+		List<Employee> emps = this.employeeRepository
+				.findByManagerId(this.employee.getManager().getId());
 		assertNotNull("Expecting a non-null Employee but was null", emps);
-		assertTrue("Expecting at least one employee found for manager but none was found", emps.size() > 0);
+		assertTrue(
+				"Expecting at least one employee found for manager but none was found",
+				emps.size() > 0);
 		Employee emp = emps.get(0);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
 		assertEquals(this.employee.getLastName(), emp.getLastName());
@@ -153,13 +180,40 @@ public class EmployeeRepositoryTest {
 
 	@Test
 	public void findByManagerId_empty() throws Exception {
-		List<Employee> emps = this.employeeRepository.findByManagerId(Entities.employee().getId());
-		assert(emps.isEmpty());
+		List<Employee> emps = this.employeeRepository.findByManagerId(Entities
+				.employee().getId());
+		assert (emps.isEmpty());
 	}
 
 	@Test
 	public void findByManagerId_null() throws Exception {
 		List<Employee> emps = this.employeeRepository.findByManagerId(null);
-		assert(emps.isEmpty());
+		assert (emps.isEmpty());
 	}
+
+	@Test
+	public void findByDeptandJob() throws Exception {
+		List<Employee> emps = this.employeeRepository
+				.findByJobTitleAndDepartment(this.jobTitle,
+						this.department);
+		assert (!emps.isEmpty());
+	}
+
+	@Test
+	public void findByDeptAndName() throws Exception {
+
+		Department nullDept = new Department();
+		nullDept.setId(64398732);
+		List<Employee> emps = this.employeeRepository.findByDepartmentAndFirstNameOrLastName(nullDept, Entities.FIRST_NAME, Entities.LAST_NAME);
+		assertTrue("1", emps.isEmpty());
+		emps = this.employeeRepository.findByDepartmentAndFirstNameOrLastName(nullDept, "blah", "blah");
+		assertTrue("2", emps.isEmpty());
+		emps = this.employeeRepository.findByDepartmentAndFirstNameOrLastName(nullDept, "blah", Entities.LAST_NAME);
+		assertTrue("3", emps.isEmpty());
+		emps = this.employeeRepository.findByDepartmentAndFirstNameOrLastName(this.department, "blah", Entities.LAST_NAME);
+		assertTrue("4", !emps.isEmpty());
+		emps = this.employeeRepository.findByDepartmentAndFirstNameOrLastName(this.department, "blah", "LAST NAME");
+		assertTrue("5", !emps.isEmpty());
+	}
+
 }

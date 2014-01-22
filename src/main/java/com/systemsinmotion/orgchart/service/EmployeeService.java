@@ -50,6 +50,41 @@ public class EmployeeService {
 		return this.repository.findByManagerId(managerId);
 	}
 
+	public List<Employee> findEmployeesByName(String firstName, String lastName){
+		return this.repository.findByFirstNameOrLastNameAllIgnoreCase(firstName, lastName);
+	}
 	
+	public List<Employee> findEmployeesByJobTitleId(Integer jobTitleId) {
+		return this.repository.findByJobTitleId(jobTitleId);
+	}
+	
+	public List<Employee> findEmployeesByFiltering(String firstName, String lastName, Department dept, JobTitle job){
+		int switchNum = 0;
+		if (firstName.length() != 0 || lastName.length()!= 0)  switchNum +=4;
+		if (job != null) switchNum +=2;
+		if (dept != null) switchNum +=1;
+		switch (switchNum){
+		case 0:
+			return this.repository.findAll();
+		case 1:
+			return this.repository.findByDepartment(dept);
+		case 2:
+			return this.repository.findByJobTitle(job);
+		case 3:
+			return this.repository.findByJobTitleAndDepartment(job, dept);
+		case 4:
+			return this.repository.findByFirstNameOrLastNameAllIgnoreCase(firstName, lastName);
+		case 5:
+			return this.repository.findByDepartmentAndFirstNameOrLastName(dept, firstName, lastName);
+		case 6:
+			return this.repository.findByJobTitleAndFirstNameOrLastName(job, firstName, lastName);
+		case 7:
+			return this.repository.findByDepartmentAndJobTitleAndFirstNameOrLastName(dept, job, firstName, lastName);
+		}
+		
+		
+		
+		return null;
+	}
 	
 }

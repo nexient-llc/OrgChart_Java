@@ -41,7 +41,7 @@ public class Employee extends BaseEntity {
 	private String middleInitial;
 	
 	private Boolean isManager;
-	private Boolean isActive;
+	private Boolean isActive = true;
 	
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)
 	public String getFirstName(){

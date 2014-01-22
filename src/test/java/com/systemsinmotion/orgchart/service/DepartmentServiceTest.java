@@ -31,7 +31,7 @@ import com.systemsinmotion.orgchart.entity.Department;
 
 public class DepartmentServiceTest {
 
-//	@Autowired
+	//@Autowired
 	DepartmentService departmentService;
 	DepartmentRepository mockDepartmentRepository = mock(DepartmentRepository.class);
 	Department mockDepartment = mock(Department.class);
