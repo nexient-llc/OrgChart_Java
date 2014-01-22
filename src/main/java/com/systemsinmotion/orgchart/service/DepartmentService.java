@@ -42,6 +42,19 @@ public class DepartmentService {
 	}
 
 	public Department storeDepartment(Department department) {
+		department.setIsActive(true);
+		if(findDepartmentByName(department.getName()) != null && department.getId() == null) {
+			return null;
+		}
+		Department parent = department.getParentDepartment();
+		if( parent != null){
+			department.setParentDepartment(parent.getId() == null ? null : parent);
+		}
+		return this.repository.saveAndFlush(department);
+	}
+	
+	public Department storeInactiveDepartment(Department department) {
+		department.setIsActive(false);
 		if(findDepartmentByName(department.getName()) != null && department.getId() == null) {
 			return null;
 		}
@@ -54,8 +67,7 @@ public class DepartmentService {
 
 	public void makeDepartmentInactive(Department department) {
 		changeChildDepartmentsParent(department);
-		department.setIsActive(false);
-		storeDepartment(department);
+		storeInactiveDepartment(department);
 	}
 	
 	private void changeChildDepartmentsParent( Department changingParent) {

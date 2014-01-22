@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -34,11 +35,13 @@ public class Department extends BaseEntity {
 	private Department parentDepartment;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
+	@JsonIgnore
 	public Set<Department> getChildDepartments() {
 		return this.childDepartments;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+	@JsonIgnore
 	public Set<Employee> getEmployees() {
 		return this.employees;
 	}

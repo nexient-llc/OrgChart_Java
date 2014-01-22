@@ -4,7 +4,6 @@ var cancelButtonSwitch = true;
 $(document).ready(function() {
 	
 	$('#addBtn-container').css('width', $('#t1').width());
-	$('#editBtn-container').css('width', $('#t1').width());
 	$('#filterBtn-container').css('width', $('#t1').width());
 
 	$('#addBtn').click(function() {
@@ -14,9 +13,16 @@ $(document).ready(function() {
 	});
 	
 	$('#filterBtn').click(function() {
-		$('#filterBtn-container').fadeToggle("fast", "linear", function() {
-			$('#filterEntity').fadeToggle("fast", "linear");
+		$(this).toggle();
+		$('#filterEntity').fadeToggle("fast", "linear");
+		$.ajax({
+			type: "GET",
+			url: "emps/autocomplete",
+			success: function(data){
+				$('#filterFullName').autocomplete({ source: $.parseJSON(data) });
+			}
 		});
+		
 	});
 	
 	$('#cancelBtn').click(function(evnt) {
@@ -131,7 +137,7 @@ $(document).ready(function() {
 	$('#cancelFilterBtn').click(function(evnt) {
 		evnt.preventDefault();
 		$('#filterEntity').fadeToggle("fast", "linear", function() {
-			$('#filterBtn-container').fadeToggle("fast", "linear");
+			$('#filterBtn').toggle();
 		});
 	});
 	
@@ -144,9 +150,8 @@ $(document).ready(function() {
 			});
 			cancelButtonSwitch = true;
 		}
-		$('#filterEntity').fadeToggle("fast", "linear", function() {
-			$('#filterBtn-container').fadeToggle("fast", "linear");
-		});
+		$('#filterEntity').fadeToggle("fast", "linear");
+		$('#filterBtn').toggle();
 	});
 	
 	function removeEditViewBar(){

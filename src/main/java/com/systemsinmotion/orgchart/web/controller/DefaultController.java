@@ -165,6 +165,7 @@ public class DefaultController {
 		Employee updateEmployee = employeeService.findEmployeeByID(id);
 		Department employeeDepartment = departmentService.findDepartmentByID(departmentID);
 		JobTitle employeeJobTitle = jobTitleService.findJobTitleByID(jobTitleID);
+		
 		updateEmployee.setFirstName(firstName);
 		updateEmployee.setLastName(lastName);
 		updateEmployee.setMiddleInitial(middleInitial);
@@ -192,6 +193,18 @@ public class DefaultController {
 	public @ResponseBody String doEmployees_GET(String name, Integer departmentID, Integer jobTitleID){
 		List<Employee> filterEmployees = employeeService.filterEmployee(name, departmentID, jobTitleID);
 		return sendJSON.toJson(filterEmployees);
+	}
+	
+	@RequestMapping(value = "emps/autocomplete", method = RequestMethod.GET)
+	public @ResponseBody String doEmployees_GET(){
+		List<Employee> filterEmployees = employeeService.findAllActiveEmployees();
+		String[] employeeNames = new String[filterEmployees.size()];
+		int i = 0;
+		for(Employee filtered : filterEmployees){
+			employeeNames[i] = filtered.getFirstName() + " " + filtered.getLastName();
+			i++;
+		}
+		return sendJSON.toJson(employeeNames);
 	}
 
 }

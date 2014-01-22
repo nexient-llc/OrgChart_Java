@@ -6,9 +6,7 @@
 
 <h3>Employees</h3>
 
-<div id="filterBtn-container">
-	<button type="button" id="filterBtn">Filter</button>
-</div>
+<button type="button" id="filterBtn">Filter</button>
 
 <div id="filterEntity" style="display: none">
 	<div>Employee Name: <input id="filterFullName" class="textBoxClass"></div>
@@ -28,7 +26,7 @@
 					</c:forEach>
 			</select>
 	</div>
-	<div><button class='sendFilterBtn' value="filterFullName">Save</button><button id="cancelFilterBtn">Cancel</button>
+	<div><button class='sendFilterBtn' value="filterFullName">Search</button><button id="cancelFilterBtn">Cancel</button>
 	<button id="resetFilterBtn" style="display:none">Reset</button></div>
 	
 </div>
