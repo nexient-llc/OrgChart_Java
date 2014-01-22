@@ -140,4 +140,10 @@ public class DepartmentRepositoryTest {
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
+
+	@Test
+	public void isActive() throws Exception {
+		Department dept = this.repository.findOne(this.department.getId());
+		assertNotNull(dept);
+	}
 }

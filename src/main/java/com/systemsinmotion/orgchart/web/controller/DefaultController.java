@@ -56,6 +56,23 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 
+	@RequestMapping(value = "dept", method = RequestMethod.POST)
+	public String updateDept(Department department, Model model) {
+		if (department != null) {
+			departmentService.storeDepartment(department);
+		}
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		model.addAttribute("dept", new Department());
+		return View.DEPARTMENTS;
+	}
+
+	@RequestMapping(value = "depts", method = RequestMethod.PUT)
+	public String doDepartments_PUT(Integer Id, Model model) {
+		departmentService.findDepartmentByID(Id);
+		return View.DEPARTMENTS;
+	}
+
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployee_GET(Model model) {
 		model.addAttribute("emp", new Employee());

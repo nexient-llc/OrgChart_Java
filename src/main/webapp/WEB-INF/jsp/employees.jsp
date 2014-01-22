@@ -66,11 +66,11 @@
 </div>
 
 
-<div id="editDeptRow" style="display: none;">
+<div id="editEmpRow" style="display: none;">
 	<fieldset>
-		<legend>Add New Employee</legend>
+		<legend>Edit Employee</legend>
 		<legend>* = Required</legend>
-		<form:form modelAttribute="emp" id="addForm" action="emps" method="post">
+		<form:form modelAttribute="emp" id="editForm" action="emps" method="post">
 			<table>
 				<tr>
 					<td>*First Name :</td>
@@ -112,10 +112,10 @@
 				</tr>
 			</table>
 			<button type = "submit" onclick ="save">Save</button>
-			<div id="cancelAddBtn-container">
-				<button type="button" id="cancelAddBtn" style="width: 60px;">Cancel</button>
+			<div id="cancelEditBtn-container">
+				<button type="button" id="cancelEditBtn" style="width: 60px;">Cancel</button>
 			</div>
-		</form:form>
+			</form:form>
 	</fieldset>
 </div>
 
