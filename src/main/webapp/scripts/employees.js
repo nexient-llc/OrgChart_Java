@@ -39,9 +39,24 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.saveBtn').click(function(evnt) {
+	$('.deleteBtn').click(function(evnt) {
 		var num = $(this).val();
 		alert(num);
+		$.ajax({
+			url : "emps",
+			type : "POST",
+			data : {
+				_method : "delete",
+				id : num
+			},
+			success : function(response) {
+				window.location.href = "emps";
+			},
+		});
+	});
+	
+	$('.saveBtn').click(function(evnt) {
+		var num = $(this).val();
 		$.ajax({
 			url : "emps",
 			type : "POST",

@@ -13,12 +13,12 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
+	List<Employee> findByIsActiveTrue();
 	List<Employee> findByDepartment(Department department);
 	List<Employee> findByDepartmentId(Integer id);
 	Employee findByEmail(String email);
 	Employee findById(Integer id);
 	List<Employee> findByManagerId(Integer id);
-	List<Employee> findByIsActiveTrue();
 	List<Employee> findByFirstNameOrLastNameAllIgnoreCase(String firstName, String lastName);
 	
 	List<Employee> findByJobTitle(JobTitle jobTitle);

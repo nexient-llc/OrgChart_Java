@@ -9,7 +9,7 @@ import com.systemsinmotion.orgchart.entity.Department;
 public interface DepartmentRepository extends JpaRepository<Department,Integer> {
 
 	Department findByName(String name);
-
+	List<Department> findByIsActiveTrue();
 	List<Department> findByParentDepartment(Department parentDepartment);
 
 }

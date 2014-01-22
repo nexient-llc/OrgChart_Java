@@ -40,7 +40,7 @@ public class Employee extends BaseEntity {
 	@Size(min = 0, max = 1)
 	private String middleInitial;
 	
-	private Boolean isManager;
+	private Boolean isManager = false;
 	private Boolean isActive = true;
 	
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)

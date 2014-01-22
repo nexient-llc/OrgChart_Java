@@ -31,6 +31,23 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('.deleteBtn').click(function(evnt) {
+		var num = $(this).val();
+		alert(num);
+		$.ajax({
+			url : "depts",
+			type : "POST",
+			data : {
+				_method : "delete",
+				id : num
+			},
+			success : function(response) {
+				window.location.href = "depts";
+			},
+		});
+	});
+	
+	
 	$('.cancelBtn').click(function(evnt){
 		var num = $(this).val();
 		evnt.preventDefault();

@@ -25,6 +25,8 @@ public class Department extends BaseEntity {
 	private Set<Department> childDepartments = new HashSet<Department>(0);
 
 	private Set<Employee> employees = new HashSet<Employee>();
+	
+	private boolean isActive = true;
 
 	@NotNull
 	@NotEmpty
@@ -46,6 +48,11 @@ public class Department extends BaseEntity {
 	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
+	}
+	
+	@Column(name = "IS_ACTIVE")
+	public boolean getIsActive(){
+		return this.isActive;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -70,4 +77,8 @@ public class Department extends BaseEntity {
 		this.parentDepartment = department;
 	}
 
+	public void setIsActive(Boolean bool){
+		this.isActive = bool;
+	}
+	
 }

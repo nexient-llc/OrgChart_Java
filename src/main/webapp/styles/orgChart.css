@@ -79,7 +79,6 @@ SELECT {
 
 .table {
 	display: table;
-	width: 100%;
 	border: 1px solid black;
 }
 
@@ -110,6 +109,14 @@ SELECT {
 .saveBtn {
 	width: 80px;
 	margin: 10px;
+}
+
+.editBtn {
+	width: 50px;
+}
+
+.deleteBtn {
+	width: 80px;
 }
 
 .filter-container {

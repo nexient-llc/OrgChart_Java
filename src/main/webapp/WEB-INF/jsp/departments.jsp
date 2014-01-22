@@ -32,18 +32,20 @@
 </div>
  
 <div class="table">
-	<th>
+	<div class = "row header">
 		<span class="cell deptName">Dept Name</span>
 		<span class="cell deptName">Parent Dept</span>
 		<span class="cell editBtn"></span>
-		<br>
-	</th>
+	</div>
 	<c:forEach items="${depts}" var="dept">
 		<div class="row" id="ViewDepts${dept.id}">
 			<span class="cell deptName">${dept.name}</span>
 			<span class="cell deptName">${dept.parentDepartment.name}</span>
 			<span class="cell editBtn">
 				<button type="button" class="editBtn" value="${dept.id}">Edit</button>
+			</span>
+			<span class="cell deleteBtn">
+				<button type="button" class="deleteBtn" value="${dept.id}">Delete</button>
 			</span>
 			
 			

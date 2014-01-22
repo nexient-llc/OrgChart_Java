@@ -21,6 +21,10 @@ public class EmployeeService {
 		return this.repository.findAll();
 	}
 	
+	public List<Employee> findAllActiveEmployees() {
+		return this.repository.findByIsActiveTrue();
+	}
+	
 	public void removeEmployee(Employee employee) {
 		employee.setIsActive(false);
 		this.repository.save(employee);
@@ -58,7 +62,21 @@ public class EmployeeService {
 		return this.repository.findByJobTitleId(jobTitleId);
 	}
 	
-	public List<Employee> findEmployeesByFiltering(String firstName, String lastName, Department dept, JobTitle job){
+	public List<Employee> findEmployeesByFiltering(String fullName, Department dept, JobTitle job){
+		String firstName = null;
+		String lastName = null;
+		String[] tokens = null;
+		if (fullName != null) {
+			tokens = fullName.split(" ", 2);
+
+			if (tokens.length == 1) {
+				firstName = lastName = tokens[0];
+			} else if (tokens.length == 2) {
+				firstName = tokens[0];
+				lastName = tokens[1];
+			}
+		}
+		
 		int switchNum = 0;
 		if (firstName.length() != 0 || lastName.length()!= 0)  switchNum +=4;
 		if (job != null) switchNum +=2;

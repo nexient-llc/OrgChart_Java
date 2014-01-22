@@ -95,9 +95,12 @@
 		<div class="row" id="ViewEmps${emp.id}">
 			<span class="cell name">${emp.lastName}, ${emp.firstName}
 				${emp.middleInitial}. </span> <span class="cell deptName">${emp.department.name}</span>
-			<span class="cell jobName">${emp.jobTitle.name}</span> <span
-				class="editBtn">
+			<span class="cell jobName">${emp.jobTitle.name}</span>
+			<span class="editBtn">
 				<button type="button" class="editBtn" value="${emp.id}">Edit</button>
+			</span>
+			<span class="deleteBtn">
+				<button type="button" class="deleteBtn" value="${emp.id}">Delete</button>
 			</span>
 		</div>
 
@@ -113,6 +116,7 @@
 				<input path="middleInitial" maxlength="1" size="1" value="${emp.middleInitial}" id="empMidInitial${emp.id}">
 				<label>Department:*</labeL>
 				<select path="department.id" id="empdeptId${emp.id}">
+					<option value="" />
 					<c:forEach items="${depts}" var="dept">
 						<c:choose>
 							<c:when test="${emp.department.id == dept.id}">
@@ -128,6 +132,7 @@
 				<label>Skype:*</label><input path="skypeName" maxlength="100" value="${emp.skypeName}" id="empSkypeName${emp.id}">
 				<label>Job Title:*</label>
 				<select path="jobTitle.id" id="empjobId${emp.id}">
+					<option value="" />
 					<c:forEach items="${jobs}" var="job">
 						<c:choose>
 							<c:when test="${emp.jobTitle.id == job.id}">

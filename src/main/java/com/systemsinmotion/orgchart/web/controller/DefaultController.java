@@ -52,7 +52,7 @@ public class DefaultController {
 	public String doDepartments_GET(Model model) {
 		// uncomment when database connection is set up. will throw error when
 		// run
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		model.addAttribute("dept", new Department());
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
@@ -66,12 +66,14 @@ public class DefaultController {
 		if (testDepartment != null) {
 			dept = testDepartment;
 		}
-
+		
+		Department parent = null;
 		if (parentDepartmentId != null) {
-			Department parent = departmentService
+			parent = departmentService
 					.findDepartmentById(parentDepartmentId);// dept.getParentDepartment();
-			dept.setParentDepartment(parentDepartmentId == null ? null : parent);
 		}
+		dept.setParentDepartment((parentDepartmentId == null) ? null : parent);
+		
 		departmentService.storeDepartment(dept);
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("dept", dept);
@@ -86,12 +88,27 @@ public class DefaultController {
 		dept.setName(name);
 		dept.setParentDepartment(departmentService.findDepartmentById(parentID));
 		departmentService.storeDepartment(dept);
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		model.addAttribute("dept", dept);
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 
+	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
+	public String doDepartments_DELETE(Integer id, Model model) {
+		Department dept = departmentService.findDepartmentById(id);
+		departmentService.removeDepartment(dept);
+		
+		List<Department> departments = departmentService.findAllActiveDepartments();
+		model.addAttribute("dept", dept);
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
+	}
+	
+	
+	
+	
+	
 	// @RequestMapping(value = "login", method = RequestMethod.GET)
 	// public String doLogin_GET(){
 	// return View.LOGIN;
@@ -166,23 +183,21 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 
+	@RequestMapping(value = "emps", method = RequestMethod.DELETE)
+	public String doEmployees_DELETE(Integer id, Model model) {
+		Employee emp = employeeService.findEmployeeById(id);
+		employeeService.removeEmployee(emp);
+		addAttributesForEmpsPage(emp, model);
+
+		return View.EMPLOYEES;
+	}
+	
+	
 	@RequestMapping(value = "emps", method = RequestMethod.GET, params = {
 			"fullName", "deptId", "jobId" })
 	public @ResponseBody
 	String doEmployeeFilter_GET(String fullName, Integer deptId, Integer jobId) {
-		String firstName = null;
-		String lastName = null;
-		String[] tokens = null;
-		if (fullName != null) {
-			tokens = fullName.split(" ", 2);
 
-			if (tokens.length == 1) {
-				firstName = lastName = tokens[0];
-			} else if (tokens.length == 2) {
-				firstName = tokens[0];
-				lastName = tokens[1];
-			}
-		}
 		Department dept = null;
 		JobTitle job = null;
 		if (deptId != null)
@@ -191,7 +206,7 @@ public class DefaultController {
 			job = jobTitleService.findJobTitleById(jobId);
 
 		List<Employee> emps = this.employeeService.findEmployeesByFiltering(
-				firstName, lastName, dept, job);
+				fullName, dept, job);
 
 		Integer[] empIds = new Integer[emps.size()];
 		for (int i = 0; i < emps.size(); i++)
@@ -200,9 +215,9 @@ public class DefaultController {
 	}
 
 	private void addAttributesForEmpsPage(Employee emp, Model model) {
-		List<Department> depts = departmentService.findAllDepartments();
+		List<Department> depts = departmentService.findAllActiveDepartments();
 		List<JobTitle> jobs = jobTitleService.findAllJobTitles();
-		List<Employee> emps = employeeService.findAllEmployees();
+		List<Employee> emps = employeeService.findAllActiveEmployees();
 		model.addAttribute("emp", emp);
 		model.addAttribute("emps", emps);
 		model.addAttribute("jobs", jobs);
