@@ -1,6 +1,6 @@
-		
-<script type="text/javascript" src="../scripts/jquery.min.js"></script>
-<script type="text/javascript" src="../scripts/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../scripts/jquery.uniform.min.js"></script>
-<script type="text/javascript" src="../scripts/orgChart.js"></script>
-<script type="text/javascript" src="../scripts/default_layout.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>		
+<script type="text/javascript" src="<c:url value='/scripts/jquery.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/jquery-ui.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/jquery.uniform.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/orgChart.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/default_layout.js'/>"></script>

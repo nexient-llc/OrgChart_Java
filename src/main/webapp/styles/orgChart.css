@@ -113,6 +113,7 @@ fieldset{
 .row{
 	margin: .4em 0;
 	width: 100%;
+	line-height: 1.5em;
 	overflow: hidden; /*clearfix*/
 }
 .row div{

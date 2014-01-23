@@ -17,7 +17,7 @@
 	
 	
 
-	<form action="<c:url value='/master/j_spring_security_check'/>" method='POST'>
+	<form action="<c:url value='/app/j_spring_security_check'/>" method='POST'>
 		<input type="hidden" name="page" value="${param.page}" />
 		<div>
 			<label for="j_username">User:</label><input type='text'

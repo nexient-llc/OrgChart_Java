@@ -87,4 +87,53 @@ public class EmployeeService {
 	public List<Employee> findActiveEmployees() {
 		return this.repository.findByIsActiveTrue();
 	}
+	
+	public String[] findActiveEmployeesNamesOnly(){
+		List<Employee> emps = findActiveEmployees();
+		String[] empNames = new String[emps.size()];
+		for(int i=0;i<emps.size();i++)
+			empNames[i] = emps.get(i).getFirstName()+" "+emps.get(i).getLastName();
+		return empNames;
+	}
+	
+	public List<Employee> findByNameAndOrDepartmentAndOrJob(String fullName, Integer deptId, Integer jobId){
+		List<Employee> emps = null;
+		if(!fullName.equals("")){
+			String[] split = fullName.split(" ");
+			String first = split[0];
+			String last = null;
+			if(split.length == 2)
+				last = split[1];
+			else if(split.length == 3)
+				last = split[2];
+			
+			emps =  findEmployeesLikeFirstOrLastName(first, last == null ? first : last);
+		}
+		if(deptId != null){
+			if(emps == null)
+				emps =  findEmployeesByDepartmentId(deptId);
+			else
+				for(int i=0;i<emps.size();i++){
+					if(emps.get(i).getDepartment() != null){
+						if(!emps.get(i).getDepartment().getId().equals(deptId))
+							emps.remove(i--);
+					}else
+						emps.remove(i--);
+				}
+		}
+		if(jobId != null){
+			if(emps == null)
+				emps = findEmployeesByJobTitleId(jobId);
+			else
+				for(int i=0;i<emps.size();i++){
+					if(emps.get(i).getJobTitle() != null){
+						if(!emps.get(i).getJobTitle().getId().equals(jobId))
+							emps.remove(i--);
+					}else
+						emps.remove(i--);
+				}
+		}
+		
+		return emps;
+	}
 }

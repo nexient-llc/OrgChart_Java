@@ -1,20 +1,16 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -38,7 +34,7 @@ public class DefaultController {
 	@Autowired
 	JobTitleService jobTitleService;
 	
-	Gson gson = new Gson();
+	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
@@ -171,57 +167,13 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
-	@RequestMapping(value = "emps/names", method = RequestMethod.GET)
+	@RequestMapping(value = "emps/names", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody String doEmployeeNames_GET(){
-		List<Employee> emps = employeeService.findActiveEmployees();
-		String[] empNames = new String[emps.size()];
-		for(int i=0;i<emps.size();i++)
-			empNames[i] = emps.get(i).getFirstName()+" "+emps.get(i).getLastName();
-		return gson.toJson(empNames);
+		return gson.toJson(employeeService.findActiveEmployeesNamesOnly());
 	}
 	
-	@RequestMapping(value = "emps", method = RequestMethod.GET, params = {"fullName", "deptId", "jobId"})
+	@RequestMapping(value = "emps", method = RequestMethod.GET, params = {"fullName", "deptId", "jobId"}, produces="application/json")
 	public @ResponseBody String doEmployeeFilter_GET(String fullName, Integer deptId, Integer jobId){
-		List<Employee> emps = null;
-		if(!fullName.equals("")){
-			String[] split = fullName.split(" ");
-			String first = split[0];
-			String last = null;
-			if(split.length == 2)
-				last = split[1];
-			else if(split.length == 3)
-				last = split[2];
-			
-			emps = employeeService.findEmployeesLikeFirstOrLastName(first, last == null ? first : last);
-		}
-		if(deptId != null){
-			if(emps == null)
-				emps = employeeService.findEmployeesByDepartmentId(deptId);
-			else
-				for(int i=0;i<emps.size();i++){
-					if(emps.get(i).getDepartment() != null){
-						if(!emps.get(i).getDepartment().getId().equals(deptId))
-							emps.remove(i--);
-					}else
-						emps.remove(i--);
-				}
-		}
-		if(jobId != null){
-			if(emps == null)
-				emps = employeeService.findEmployeesByJobTitleId(jobId);
-			else
-				for(int i=0;i<emps.size();i++){
-					if(emps.get(i).getJobTitle() != null){
-						if(!emps.get(i).getJobTitle().getId().equals(jobId))
-							emps.remove(i--);
-					}else
-						emps.remove(i--);
-				}
-		}
-		Integer[] empIds = new Integer[emps.size()];
-		for(int i=0;i<emps.size();i++)
-			empIds[i] = emps.get(i).getId();
-			
-		return gson.toJson(empIds);
+		return gson.toJson(employeeService.findByNameAndOrDepartmentAndOrJob(fullName, deptId, jobId));
 	}
 }

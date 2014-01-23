@@ -82,12 +82,12 @@
 	<c:forEach items="${emps}" var="emp">
 		<div id="row${emp.id}" class="row">
 			<div class="firstName inputCol" data-value="${emp.firstName}">${emp.firstName}</div>
-			<div class="middle miCol" data-value="${emp.middleInitial}">${emp.middleInitial}<c:if test="${empty emp.middleInitial}">&nbsp;</c:if></div>
+			<div class="middle miCol" data-value="${emp.middleInitial}">${emp.middleInitial}&nbsp;</div>
 			<div class="lastName inputCol" data-value="${emp.lastName}">${emp.lastName}</div>
 			<div class="email emailCol" data-value="${emp.email}">${emp.email}</div>
 			<div class="skype inputCol" data-value="${emp.skypeName}">${emp.skypeName}</div> 
-			<div class="dept selectCol" data-value="${emp.department.id}">${emp.department.name}<c:if test="${empty emp.department.name}">&nbsp;</c:if></div> 
-			<div class="job selectCol" data-value="${emp.jobTitle.id}">${emp.jobTitle.name}<c:if test="${empty emp.jobTitle.name}">&nbsp;</c:if></div> 
+			<div class="dept selectCol" data-value="${emp.department.id}">${emp.department.name}&nbsp;</div> 
+			<div class="job selectCol" data-value="${emp.jobTitle.id}">${emp.jobTitle.name}&nbsp;</div> 
 			<div class="buttonCol"><button class="editBtn" value="${emp.id}">Edit</button></div>		
 			<div class="buttonCol"><button class="removeBtn" value="${emp.id}">Remove</button></div>
 		</div>

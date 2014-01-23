@@ -47,7 +47,7 @@
 
 	<definition name="admin/login" extends="main">
 		<put-attribute name="title" type="string" value="Login" />
-		<put-attribute name="page-js" type="string" value="../scripts/login.js" />
+		<put-attribute name="page-js" type="string" value="../../scripts/login.js" />
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-no-login.jsp" />
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/login.jsp" />

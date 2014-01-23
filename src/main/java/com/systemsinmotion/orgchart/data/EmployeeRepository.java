@@ -27,7 +27,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
 
 	List<Employee> findByJobTitleId(Integer jobTitleId);
 
-	List<Employee> findByFirstNameContainsOrLastNameContainsAllIgnoreCase(String firstName, String lastName);
-
 	List<Employee> findByIsActiveTrue();
+	
+	List<Employee> findByFirstNameContainsOrLastNameContainsAllIgnoreCase(String firstName, String lastName);
+	
 }

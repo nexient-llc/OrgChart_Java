@@ -45,7 +45,7 @@ public class DepartmentServiceTest {
       when(this.mockDepartmentRepo.findAll()).thenReturn(this.listOfFoundDepts);
       when(this.mockDepartmentRepo.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
       when(this.mockDepartmentRepo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
-      departmentService.setRepository(mockDepartmentRepo);
+      //departmentService.setRepository(mockDepartmentRepo);
 	}
 
 	@Test

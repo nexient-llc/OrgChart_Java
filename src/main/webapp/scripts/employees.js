@@ -86,14 +86,10 @@ $(document).ready(function() {
 	$('#filterBtn').click(function(){
 		$(this).toggle();
 		$('#filterEntity').slideToggle();
-		$.ajax({
-			type: "GET",
-			url: "emps/names",
-			success: function(data){
-				$('#fullName').autocomplete({
-					source: jQuery.parseJSON(data)
-				});
-			}
+		$.get("emps/names", function(data){
+			$('#fullName').autocomplete({
+				source: data
+			});
 		});
 	});
 	
@@ -106,13 +102,12 @@ $(document).ready(function() {
 				deptId: $('#filterEntity #deptId').val(),
 				jobId: $('#filterEntity #jobId').val()
 			},
-			success: function(data){
-				data = jQuery.parseJSON(data);
+			success: function(emps){
 				cancelEdit($('.activeEdit .cancelEditBtn').val(), false);
 				
 				$('#t1 .row:not(.headers)').fadeOut('fast');
-				data.forEach(function(empId){
-					$('#t1 #row'+empId).fadeIn('fast');
+				emps.forEach(function(emp){
+					$('#t1 #row'+emp.id).fadeIn('fast');
 				});
 			}
 		});

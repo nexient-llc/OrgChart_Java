@@ -29,7 +29,7 @@
 	<c:forEach items="${jobs}" var="job">
 		<div id="jobRow${job.id}" class="row">
 			<div class="jobName inputCol" data-value="${job.name}">${job.name}</div>
-			<div class="jobDesc inputCol" data-value="${job.description}">${job.description}<c:if test="${empty job.description}">&nbsp;</c:if></div> 
+			<div class="jobDesc inputCol" data-value="${job.description}">${job.description}&nbsp;</div> 
 			<div class="buttonCol"><button class="editBtn" value="${job.id}">Edit</button></div>		
 			<div class="buttonCol"><button class="removeBtn" value="${job.id}">Remove</button></div>
 		</div>

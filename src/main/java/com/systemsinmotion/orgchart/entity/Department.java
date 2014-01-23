@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "DEPARTMENT")
 public class Department extends BaseEntity {
@@ -29,10 +31,13 @@ public class Department extends BaseEntity {
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 45)
+	@Expose
 	private String name;
 
+	@Expose
 	private Department parentDepartment;
 
+	@Expose
 	private boolean isActive = true;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")

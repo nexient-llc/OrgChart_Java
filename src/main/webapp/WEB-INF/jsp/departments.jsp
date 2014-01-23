@@ -35,7 +35,7 @@
 	<c:forEach items="${depts}" var="dept">
 		<div id="deptRow${dept.id}" class="row">
 			<div class="deptName inputCol" data-value="${dept.name}">${dept.name}</div>
-			<div class="deptParent selectCol" data-value="${dept.parentDepartment.id}">${dept.parentDepartment.name}<c:if test="${empty dept.parentDepartment.name}">&nbsp;</c:if></div> 
+			<div class="deptParent selectCol" data-value="${dept.parentDepartment.id}">${dept.parentDepartment.name}&nbsp;</div> 
 			<div class="col buttonCol"><button class="editBtn" value="${dept.id}">Edit</button></div>
 			<div class="col buttonCol"><button class="removeBtn" value="${dept.id}">Remove</button></div>
 		</div>

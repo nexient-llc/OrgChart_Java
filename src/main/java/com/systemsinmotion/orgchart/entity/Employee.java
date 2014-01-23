@@ -9,7 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name = "EMPLOYEE")
@@ -20,27 +23,36 @@ public class Employee extends BaseEntity {
 	@NotNull
 	@NotEmpty
 	@Size(min = 1,max = 20)
+	@Expose
 	private String firstName;
 	
 	@NotNull
 	@NotEmpty
 	@Size(min = 1,max = 50)
+	@Expose
 	private String lastName;
 	
+	@Expose
 	private Character middleInitial;
 	
 	@Size(max=100)
+	@Expose
 	private String email;
 	
 	@Size(max=100)
+	@Expose
 	private String skypeName;
 	
+	@Expose
 	private boolean isManager = false;
 	
+	@Expose
 	private boolean isActive = true;
 	
+	@Expose
 	private Department department;
 	
+	@Expose
 	private Employee manager;
 	
 	private JobTitle jobTitle;
