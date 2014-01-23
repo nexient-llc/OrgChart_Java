@@ -6,8 +6,7 @@
 
 <fieldset>
 	<legend>Login</legend>
-	<c:if
-		test="${not empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
+	<c:if test="${not empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
 		<div class="errorblock">
 			Your login attempt was not successful, try again.<br /> Caused :
 			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
