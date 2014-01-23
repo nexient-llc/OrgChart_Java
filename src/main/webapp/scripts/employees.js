@@ -62,7 +62,7 @@ $(document).ready(function() {
 								ul, item) {
 							var re = new RegExp("^" + name);
 							var t = item.label.replace(re,
-									"<style='font-weight:bold;color:Blue;'>" + this.term
+									"<style='font-weight:bold;color:Blue;'>" + name
 											+ "</span>");
 							return $("<li></li>").data("item.autocomplete", item).append(
 									"<a>" + t + "</a>").appendTo(ul);

@@ -23,16 +23,16 @@ import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-
-@ContextConfiguration(classes = TestConfig.class)
-//@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
-//@Transactional
+@ContextConfiguration("/test-context.xml")
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@Transactional
 @WebAppConfiguration("/src/main/webapp")
 
 public class DepartmentServiceTest {
 
-	//@Autowired
+	@Autowired
 	DepartmentService departmentService;
+	
 	DepartmentRepository mockDepartmentRepository = mock(DepartmentRepository.class);
 	Department mockDepartment = mock(Department.class);
 
