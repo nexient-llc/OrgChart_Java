@@ -53,18 +53,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-            .authorizeRequests().antMatchers("/", "/403").permitAll()
+            .authorizeUrls().antMatchers("/", "/403","/j_spring_security_check").permitAll()
                 .and()
             .requiresChannel().anyRequest().requiresSecure();
 
         http
             .formLogin()
-                .loginPage("/login/authenticate")
-                .failureUrl("/login/failed")
+                .loginPage("/admin/login")
+                .failureUrl("/admin/login")
                 .loginProcessingUrl("/j_spring_security_check")
                 .usernameParameter("j_username")
-                .passwordParameter("j_password");
-                //.successHandler(AuthenticationSuccessHandler());
+                .passwordParameter("j_password")
+                .successHandler(authenticationSuccessHandler());
 
         http
             .logout()
@@ -110,25 +110,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthenticatedVoter();
     }
 
-//    @Bean
-//    public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
-//        return new CustomAuthenticationSuccessHandler();
-//    }
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new AuthenticationSuccessHandler();
+    }
 
     @Bean
     public StandardPasswordEncoder passwordEncoder() {
         return new StandardPasswordEncoder();
     }
 
- //   @Override
+    @Override
     public void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         // @formatter:off
-        auth
-            .jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery(environment.getProperty(USERNAME_QUERY))
-                .authoritiesByUsernameQuery(environment.getProperty(AUTHORITIES_QUERY));
+        auth.inMemoryAuthentication().withUser("testAdmin").password("12345").roles("ADMIN");
+        
+/* The following code is a sample for database authorization.
+**         
+*/
+//            .jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .passwordEncoder(passwordEncoder())
+//                .usersByUsernameQuery(environment.getProperty(USERNAME_QUERY))
+//                .authoritiesByUsernameQuery(environment.getProperty(AUTHORITIES_QUERY));
         // @formatter: on
     }
 

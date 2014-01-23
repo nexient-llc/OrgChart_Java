@@ -18,12 +18,10 @@
 		method='POST'>
 		<input type="hidden" name="page" value="${param.page}" />
 		<div>
-			<label for="j_username">User:</label><input type='text'
-				name='j_username'>
+			<label for="j_username">User:</label><input type='text' name='j_username'>
 		</div>
 		<div>
-			<label for="j_password">Password:</label><input type='password'
-				name='j_password' />
+			<label for="j_password">Password:</label><input type='password' name='j_password' />
 		</div>
 		<div>
 			<button type="submit">Submit</button>
