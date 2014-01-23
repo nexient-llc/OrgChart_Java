@@ -19,12 +19,14 @@ public class Entities {
 	public static final String LAST_NAME = "last name";
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
+	public static final boolean IS_ACTIVE = true;
 
 	private static Random random = new Random();
 
 	public static Department department() {
 		Department department = new Department();
 		department.setName(departmentName());
+		department.setIsActive(IS_ACTIVE);
 		return department;
 	}
 
@@ -32,6 +34,7 @@ public class Entities {
 		Department department = new Department();
 		department.setName(departmentName());
 		department.setParentDepartment(parent);
+		department.setIsActive(IS_ACTIVE);
 		return department;
 	}
 
@@ -47,12 +50,14 @@ public class Entities {
 		emp.setEmail(EMAIL + random.nextInt());
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
 		emp.setIsManager(false);
+		emp.setIsActive(IS_ACTIVE);
 		return emp;
 	}
 
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
 		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
+		jobTitle.setIsActive(IS_ACTIVE);
 		return jobTitle;
 	}
 
@@ -63,6 +68,7 @@ public class Entities {
 		mgr.setEmail(EMAIL + random.nextInt());
 		mgr.setSkypeName(SKYPE_NAME + random.nextInt());
 		mgr.setIsManager(true);
+		mgr.setIsActive(IS_ACTIVE);
 		return mgr;
 	}
 }

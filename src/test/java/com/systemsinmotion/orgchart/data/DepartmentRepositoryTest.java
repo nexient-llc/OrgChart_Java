@@ -132,10 +132,10 @@ public class DepartmentRepositoryTest {
 	}
 
 	@Test
-	public void findByIsActive() throws Exception {
+	public void findByIsActiveTrue() throws Exception {
 		List<Department> depts = this.departmentRepo.findDepartmentsByIsActiveTrue();
 		assertNotNull(depts);
-		assertEquals(1, depts.size());
+		assertTrue(0 < depts.size());
 	}
 	
 	/*
