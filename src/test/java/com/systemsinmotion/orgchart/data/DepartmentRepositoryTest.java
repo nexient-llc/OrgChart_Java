@@ -95,6 +95,7 @@ public class DepartmentRepositoryTest {
 		assertNull(dept);
 	}
 
+	/*
 	@Test
 	public void findByName() throws Exception {
 		Department dept = this.departmentRepo.findDepartmentByName(this.department.getName());
@@ -108,11 +109,12 @@ public class DepartmentRepositoryTest {
 		Department dept = this.departmentRepo.findDepartmentByName(NOT_PRESENT_VALUE);
 		assertNull(dept);
 	}
+	*/
 
 	@Test
 	public void findByParentDeptId() throws Exception {
 		List<Department> depts = this.departmentRepo
-				.findDepartmentByParentDepartmentId(this.department.getParentDepartment()
+				.findDepartmentsByParentDepartmentId(this.department.getParentDepartment()
 						.getId());
 		assertNotNull(depts);
 		assertEquals(1, depts.size());
@@ -124,11 +126,19 @@ public class DepartmentRepositoryTest {
 	@Test
 	public void findByParentDeptId_unknownId() throws Exception {
 		List<Department> depts = this.departmentRepo
-				.findDepartmentByParentDepartmentId(random.nextInt());
+				.findDepartmentsByParentDepartmentId(random.nextInt());
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
 	}
 
+	@Test
+	public void findByIsActive() throws Exception {
+		List<Department> depts = this.departmentRepo.findDepartmentsByIsActiveTrue();
+		assertNotNull(depts);
+		assertEquals(1, depts.size());
+	}
+	
+	/*
 	@Test
 	public void update() throws Exception {
 		Department dept = this.departmentRepo.findDepartmentByName(this.department.getName());
@@ -139,12 +149,7 @@ public class DepartmentRepositoryTest {
 		dept = this.departmentRepo.findDepartmentByName(SOME_NEW_NAME);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
-	}
+	}*/
 	
-	@Test
-	public void findByIsActive() throws Exception {
-		Department dept = this.departmentRepo.findDepartmentByName(this.department.getName());
-		dept.setIsActive(true);
-		assertTrue(dept.getIsActive());
-	}
+
 }

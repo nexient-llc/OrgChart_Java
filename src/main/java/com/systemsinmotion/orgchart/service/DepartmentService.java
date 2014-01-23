@@ -19,15 +19,36 @@ public class DepartmentService {
 	}
 
 	public Department findDepartmentById(Integer departmentId) {
-		return this.repository.findOne(departmentId);
+		if(departmentId != null)
+			return this.repository.findOne(departmentId);
+		else
+			return null;
 	}
 	
-	public List<Department> findDepartmentByParentDepartmentId(Integer parentDepartmentId) {
-		return this.repository.findDepartmentByParentDepartmentId(parentDepartmentId);
+	public List<Department> findDepartmentsByParentDepartmentId(Integer parentDepartmentId) {
+		if(parentDepartmentId != null)
+			return this.repository.findDepartmentsByParentDepartmentId(parentDepartmentId);
+		else
+			return null;
+	}
+	
+	public List<Department> findDepartmentsByIsActiveTrue() {
+		return this.repository.findDepartmentsByIsActiveTrue();
 	}
 
-	public void removeDepartment(Department department) {
-		this.repository.delete(department);
+	public Department setInactiveDepartment(Department department) {
+		Department parentDepartment = findDepartmentById(department.getId()).getParentDepartment();
+		List<Department> departments = findDepartmentsByParentDepartmentId(department.getId());
+		
+		for(Department myDepartment : departments) {
+			myDepartment.setParentDepartment(parentDepartment);
+			storeDepartment(myDepartment);
+		}
+		
+		Department saveDepartment = findDepartmentById(department.getId());
+		saveDepartment.setParentDepartment(null);
+		saveDepartment.setIsActive(false);
+		return storeDepartment(saveDepartment);
 	}
 
 	public void setRepository(DepartmentRepository repository) {
@@ -37,5 +58,4 @@ public class DepartmentService {
 	public Department storeDepartment(Department department) {
 		return this.repository.save(department);
 	}
-
 }

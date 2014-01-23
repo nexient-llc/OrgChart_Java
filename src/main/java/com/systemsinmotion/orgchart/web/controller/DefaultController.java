@@ -40,16 +40,13 @@ public class DefaultController {
 		return View.HOME;
 	}
 	
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
+	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		List<Department> allDepartments = departmentService.findAllDepartments();
-		List<Department> activeDepartments = new ArrayList<Department>();
-		for(Department department : allDepartments) {
-			if(department.getIsActive() == true) {
-				activeDepartments.add(department);
-			}
-		}
-		model.addAttribute("depts", activeDepartments);
+		model.addAttribute("depts", departmentService.findDepartmentsByIsActiveTrue());
 		return View.DEPARTMENTS;
 	}
 	
@@ -57,36 +54,9 @@ public class DefaultController {
 	public String doDepartments_POST(Model model, String name, Integer parentDepartmentId) {
 		Department department = new Department();
 		department.setName(name);
-		if(parentDepartmentId != null)
-			department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
+		department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
 		department.setIsActive(true);
 		departmentService.storeDepartment(department);
-		return doDepartments_GET(model);
-	}
-	
-	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
-	public String doDepartments_DELETE(Model model, Integer departmentId) {
-		Department parentDepartment = departmentService.findDepartmentById(departmentId).getParentDepartment();
-		List<Department> departments = departmentService.findDepartmentByParentDepartmentId(departmentId);
-		
-		if(parentDepartment != null) {
-			for(Department department : departments) {
-				System.out.println("Setting Parent Department of " + department.getId() + " to " + parentDepartment.getId());
-				department.setParentDepartment(parentDepartment);
-				departmentService.storeDepartment(department);
-			}
-		}
-		else {
-			for(Department department : departments) {
-				department.setParentDepartment(null);
-				departmentService.storeDepartment(department);
-			}
-		}
-		
-		Department saveDepartment = departmentService.findDepartmentById(departmentId);
-		saveDepartment.setParentDepartment(null);
-		saveDepartment.setIsActive(false);
-		departmentService.storeDepartment(saveDepartment);
 		return doDepartments_GET(model);
 	}
 	
@@ -94,48 +64,23 @@ public class DefaultController {
 	public String doDepartments_PUT(Model model, Integer departmentId, String name, Integer parentDepartmentId) {
 		Department department = departmentService.findDepartmentById(departmentId);
 		department.setName(name);
-		if(parentDepartmentId == null)
-			department.setParentDepartment(null);
-		else
-			department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
+		department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
 		departmentService.storeDepartment(department);
 		return doDepartments_GET(model);
 	}
 	
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
+	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
+	public String doDepartments_DELETE(Model model, Integer departmentId) {
+		departmentService.setInactiveDepartment(departmentService.findDepartmentById(departmentId));
+		return doDepartments_GET(model);
 	}
 	
 	/* Employees */
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
-		List<Employee> allEmployees = employeeService.findAllEmployees();
-		List<Employee> activeEmployees = new ArrayList<Employee>();
-		for(Employee employee : allEmployees) {
-			if(employee.getIsActive() == true) {
-				activeEmployees.add(employee);
-			}
-		}
-		
-		List<Department> allDepartments = departmentService.findAllDepartments();
-		List<Department> activeDepartments = new ArrayList<Department>();
-		for(Department department : allDepartments) {
-			if(department.getIsActive() == true) {
-				activeDepartments.add(department);
-			}
-		}
-		
-		List<JobTitle> allJobTitles = jobTitleService.findAllJobTitles();
-		List<JobTitle> activeJobTitles = new ArrayList<JobTitle>();
-		for(JobTitle jobTitle : allJobTitles) {
-			if(jobTitle.getIsActive() == true) {
-				activeJobTitles.add(jobTitle);
-			}
-		}
-		
-		model.addAttribute("emps", activeEmployees);
-		model.addAttribute("depts", activeDepartments);
-		model.addAttribute("jobs", activeJobTitles);
+		model.addAttribute("emps", employeeService.findEmployeesByIsActiveTrue());
+		model.addAttribute("depts", departmentService.findDepartmentsByIsActiveTrue());
+		model.addAttribute("jobs", jobTitleService.findJobTitleByIsActiveTrue());
 		return View.EMPLOYEES;
 	}
 	
@@ -145,30 +90,71 @@ public class DefaultController {
 		Employee employee = new Employee();
 		employee.setFirstName(firstName);
 		employee.setLastName(lastName);
-		if(middleInitial != null) {
-			employee.setMiddleInitial(middleInitial);
-		}
+		employee.setMiddleInitial(middleInitial);
 		employee.setDepartment(departmentService.findDepartmentById(departmentId));
 		employee.setEmail(email);
 		employee.setSkypeName(skypeName);
 		employee.setJobTitle(jobTitleService.findJobTitleById(jobTitleId));
 		employee.setIsActive(true);
 		employeeService.storeEmployee(employee);
-		
+		return doEmployees_GET(model);
+	}
+	
+	@RequestMapping(value = "emps", method = RequestMethod.PUT)
+	public String doEmployees_PUT(Model model, Integer employeeId, String firstName, String lastName, String middleInitial,
+			Integer departmentId, String email, String skypeName, Integer jobTitleId) {
+		Employee employee = employeeService.findEmployeeById(employeeId);
+		employee.setFirstName(firstName);
+		employee.setLastName(lastName);
+		employee.setMiddleInitial(middleInitial);
+		employee.setDepartment(departmentService.findDepartmentById(departmentId));
+		employee.setEmail(email);
+		employee.setSkypeName(skypeName);
+		employee.setJobTitle(jobTitleService.findJobTitleById(jobTitleId));
+		employee.setIsActive(true);
+		employeeService.storeEmployee(employee);
+		return doEmployees_GET(model);
+	}
+	
+	@RequestMapping(value = "emps", method = RequestMethod.DELETE)
+	public String doEmployees_DELETE(Model model, Integer employeeId) {
+		Employee employee = employeeService.findEmployeeById(employeeId);
+		employee.setDepartment(null);
+		employee.setJobTitle(null);
+		employee.setIsActive(false);
+		employeeService.storeEmployee(employee);
 		return doEmployees_GET(model);
 	}
 	
 	/* Job Titles */
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
 	public String doJobTitles_GET(Model model) {
-		List<JobTitle> allJobTitles = jobTitleService.findAllJobTitles();
-		List<JobTitle> activeJobTitles = new ArrayList<JobTitle>();
-		for(JobTitle jobTitle : allJobTitles) {
-			if(jobTitle.getIsActive() == true) {
-				activeJobTitles.add(jobTitle);
-			}
-		}
-		model.addAttribute("jobs", activeJobTitles);
+		model.addAttribute("jobs", jobTitleService.findJobTitleByIsActiveTrue());
 		return View.JOB_TITLES;
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.POST)
+	public String doJobTitles_POST(Model model, String name) {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(name);
+		jobTitle.setIsActive(true);
+		jobTitleService.storeJobTitle(jobTitle);
+		return doJobTitles_GET(model);
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.PUT)
+	public String doJobTitles_PUT(Model model, Integer jobTitleId, String name) {
+		JobTitle jobTitle = jobTitleService.findJobTitleById(jobTitleId);
+		jobTitle.setName(name);
+		jobTitleService.storeJobTitle(jobTitle);
+		return doJobTitles_GET(model);
+	}
+	
+	@RequestMapping(value = "jobs", method = RequestMethod.DELETE)
+	public String doJobTitles_DELETE(Model model, Integer jobTitleId) {
+		JobTitle jobTitle = jobTitleService.findJobTitleById(jobTitleId);
+		jobTitle.setIsActive(false);
+		jobTitleService.storeJobTitle(jobTitle);
+		return doJobTitles_GET(model);
 	}
 }

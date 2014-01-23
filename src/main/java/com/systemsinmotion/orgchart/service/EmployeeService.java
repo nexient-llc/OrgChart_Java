@@ -22,6 +22,7 @@ public class EmployeeService {
 		return this.employeeRepo.findOne(employeeId);
 	}
 	
+	/*
 	public Employee findEmployeeByFirstName(String firstName) {
 		return this.employeeRepo.findEmployeeByFirstName(firstName);
 	}
@@ -36,14 +37,14 @@ public class EmployeeService {
 	
 	public Employee findEmployeeBySkypeName(String skypeName) {
 		return this.employeeRepo.findEmployeeBySkypeName(skypeName);
+	}*/
+	
+	public List<Employee> findEmployeesByIsActiveTrue() {
+		return this.employeeRepo.findEmployeesByIsActiveTrue();
 	}
 	
 	public void setRepository(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
-	}
-	
-	public void removeEmployee(Employee employee) {
-		this.employeeRepo.delete(employee);
 	}
 	
 	public Employee storeEmployee(Employee employee) {

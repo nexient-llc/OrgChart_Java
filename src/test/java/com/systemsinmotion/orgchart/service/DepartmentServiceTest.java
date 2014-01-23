@@ -41,8 +41,10 @@ public class DepartmentServiceTest {
 		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.mockDepartmentRepo.findAll()).thenReturn(this.listOfFoundDepts);
-		when(this.mockDepartmentRepo.findDepartmentByName(Entities.DEPARTMENT_NAME)).thenReturn(this.mockDepartment);
 		when(this.mockDepartmentRepo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		//when(this.mockDepartmentRepo.findDepartmentByName(Entities.DEPARTMENT_NAME)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentRepo.findDepartmentsByParentDepartmentId(Entities.DEPT_ID)).thenReturn(this.listOfFoundDepts);
+		when(this.mockDepartmentRepo.findDepartmentsByIsActiveTrue()).thenReturn(this.listOfFoundDepts);
 		when(this.mockDepartmentRepo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
 		this.departmentService.setRepository(this.mockDepartmentRepo);
 	}
@@ -62,11 +64,45 @@ public class DepartmentServiceTest {
 	}
 	
 	@Test
+	public void findDepartmentById_null() {
+		Department dept = this.departmentService.findDepartmentById(null);
+		assertNull(dept);
+	}
+	
+	@Test
+	public void findDepartmentsByParentDepartmentId() {
+		List<Department> depts = this.departmentService.findDepartmentsByParentDepartmentId(Entities.DEPT_ID);
+		assertNotNull(depts);
+		assertEquals(1, depts.size());
+	}
+	
+	@Test
+	public void findDepartmentsByParentDepartmentId_null() {
+		List<Department> depts = this.departmentService.findDepartmentsByParentDepartmentId(null);
+		assertNull(depts);
+	}
+	
+	@Test
+	public void findDepartmentsByIsActiveTrue() {
+		List<Department> depts = this.departmentService.findDepartmentsByIsActiveTrue();
+		assertNotNull(depts);
+		assertEquals(1, depts.size());
+	}
+	
+	@Test
+	public void setInactiveDepartment() {
+		Integer deptId = this.departmentService.setInactiveDepartment(this.mockDepartment).getId();
+		assertNotNull(deptId);
+		assertEquals(Entities.DEPT_ID, deptId);
+	}
+	
+	@Test
 	public void storeDepartment() {
 		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment).getId();
 		assertNotNull(deptId);
 		assertEquals(Entities.DEPT_ID, deptId);
 	}
+	
 	
 /*	@Test
 	public void removeDepartment() {

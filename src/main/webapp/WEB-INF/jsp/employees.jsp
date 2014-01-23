@@ -13,6 +13,10 @@
 	<button type="button" id="editBtn">Edit</button>
 </div>
 
+<div id="cancelBtn-container" style="display:none">
+	<button type="button" id="cancelBtn">Cancel</button>
+</div>
+
 <div id="addEntity" style="display:none;">
 	<fieldset>
 	    <legend>Add Employee</legend>
@@ -37,8 +41,8 @@
 						<option value="${job.id}">${job.name}</option>
 					</c:forEach>
 				</select><br/>
-				<button type="submit">Save</button>
-				<button type="button" class="cancelBtn">Cancel</button>
+				<button type="submit" id="saveEntity">Save</button>
+				<button type="button" id="cancelEntity">Cancel</button>
 			</div>
 			<div></div>
 		</form>
@@ -61,7 +65,7 @@
 	</div>
 	<div style="overflow:hidden;">
 		<c:forEach items="${emps}" var="emp">
-			<div class="divRow${emp.id}"> 
+			<div id="divRow${emp.id}"> 
 				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<td>delete</td>
 				</sec:authorize> -->
@@ -72,48 +76,54 @@
 				<div class="divColumnHidden" style="display:none">${emp.email}</div>
 				<div class="divColumnHidden" style="display:none">${emp.skypeName}</div>
 				<div class="divColumn">${emp.jobTitle.name}</div>
-				<div class="editColumn" style="display:none">
-					<button class="editColumnBtn" type="button" value="${emp.id}">Edit</button>
+				<div class="divColumnHidden" style="display:none">
+					<button type="button" class="editColumnBtn" value="${emp.id}">Edit</button>
 				</div>
 			</div>
-			
-			<div class="divEditRow${emp.id}" style="display:none"> 
+			<div id="divEditRow${emp.id}" style="display:none"> 
 				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<td>delete</td>
 				</sec:authorize> -->
-				<div class="divColumn"><input class="editInputBox" type="text" name="firstName" value="${emp.firstName}"/></div> 
-				<div class="divColumn"><input class="editInputBox" type="text" name="lastName" value="${emp.lastName}"/></div>
-				<div class="divColumn"><input class="editInputBox" type="text" name="middleInitial" value="${emp.middleInitial}"/></div>
+				<div class="divColumn"><input id="editInputBox${emp.id}firstName" type="text" value="${emp.firstName}"/></div> 
+				<div class="divColumn"><input id="editInputBox${emp.id}lastName" type="text" value="${emp.lastName}"/></div>
+				<div class="divColumn"><input id="editInputBox${emp.id}middleInitial" type="text" value="${emp.middleInitial}"/></div>
 				<div class="divColumn">
-				<select class="editSelectBox" name="departmentId">
-					<option value="">None</option>
-					<c:forEach items="${depts}" var="dept">
-						<c:choose>
-							<c:when test="${dept.id == emp.department.id}">
-								<option selected value="${dept.id}">${dept.name}</option>
-							</c:when>
-							<c:otherwise>
-								<option value="${dept.id}">${dept.name}</option>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</select></div>
-				<div class="divColumn"><input class="editInputBox" type="text" name="email" value="${emp.email}"/></div>
-				<div class="divColumn"><input class="editInputBox" type="text" name="skypeName" value="${emp.skypeName}"/></div>			
+					<select id="editSelectBox${emp.id}departmentId">
+						<option value="">None</option>
+						<c:forEach items="${depts}" var="dept">
+							<c:choose>
+								<c:when test="${dept.id == emp.department.id}">
+									<option selected value="${dept.id}">${dept.name}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${dept.id}">${dept.name}</option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="divColumn"><input id="editInputBox${emp.id}email" type="text" value="${emp.email}"/></div>
+				<div class="divColumn"><input id="editInputBox${emp.id}skypeName" type="text" value="${emp.skypeName}"/></div>			
 				<div class="divColumn">
-				<select class="editSelectBox" name="jobTitleId">
-					<option value="">None</option>
-					<c:forEach items="${jobs}" var="job">
-						<c:choose>
-							<c:when test="${job.id == emp.jobTitle.id}">
-								<option selected value="${job.id}">${job.name}</option>
-							</c:when>
-							<c:otherwise>
-								<option value="${job.id}">${job.name}</option>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</select></div>
+					<select id="editSelectBox${emp.id}jobTitleId" name="jobTitleId">
+						<option value="">None</option>
+						<c:forEach items="${jobs}" var="job">
+							<c:choose>
+								<c:when test="${job.id == emp.jobTitle.id}">
+									<option selected value="${job.id}">${job.name}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${job.id}">${job.name}</option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="divColumn">
+					<button type="button" class="submitColumnBtn" value="${emp.id}">Submit</button>
+					<button type="button" class="removeColumnBtn" value="${emp.id}">Remove</button>
+					<button type="button" class="cancelColumnBtn" value="${emp.id}">Cancel</button>
+				</div>
 			</div>
 		</c:forEach> 
 	</div>

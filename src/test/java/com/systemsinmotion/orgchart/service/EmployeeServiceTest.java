@@ -41,11 +41,12 @@ public class EmployeeServiceTest {
 		when(this.mockEmployee.getId()).thenReturn(Entities.EMPLOYEE_ID);
 		this.listOfFoundEmps.add(this.mockEmployee);
 		when(this.mockEmployeeRepo.findAll()).thenReturn(this.listOfFoundEmps);
-		when(this.mockEmployeeRepo.findEmployeeByFirstName(Entities.FIRST_NAME)).thenReturn(this.mockEmployee);
+		when(this.mockEmployeeRepo.findOne(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
+		/*when(this.mockEmployeeRepo.findEmployeeByFirstName(Entities.FIRST_NAME)).thenReturn(this.mockEmployee);
 		when(this.mockEmployeeRepo.findEmployeeByLastName(Entities.LAST_NAME)).thenReturn(this.mockEmployee);
 		when(this.mockEmployeeRepo.findEmployeeByEmail(Entities.EMAIL)).thenReturn(this.mockEmployee);
-		when(this.mockEmployeeRepo.findEmployeeBySkypeName(Entities.SKYPE_NAME)).thenReturn(this.mockEmployee);
-		when(this.mockEmployeeRepo.findOne(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
+		when(this.mockEmployeeRepo.findEmployeeBySkypeName(Entities.SKYPE_NAME)).thenReturn(this.mockEmployee);*/
+		when(this.mockEmployeeRepo.findEmployeesByIsActiveTrue()).thenReturn(this.listOfFoundEmps);
 		when(this.mockEmployeeRepo.save(this.mockEmployee)).thenReturn(this.mockEmployee);
 		this.employeeService.setRepository(this.mockEmployeeRepo);
 	}
@@ -59,37 +60,45 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void findEmployeeById() {
-		Employee emps = this.employeeService.findEmployeeById(Entities.EMPLOYEE_ID);
-		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.getId());
+		Employee emp = this.employeeService.findEmployeeById(Entities.EMPLOYEE_ID);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
 	}
 	
+	/*
 	@Test
 	public void findEmployeeByFirstName() {
-		Employee emps = this.employeeService.findEmployeeByFirstName(Entities.FIRST_NAME);
-		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.getId());
+		Employee emp = this.employeeService.findEmployeeByFirstName(Entities.FIRST_NAME);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
 	}
 	
 	@Test
 	public void findEmployeeByLastName() {
-		Employee emps = this.employeeService.findEmployeeByLastName(Entities.LAST_NAME);
-		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.getId());
+		Employee emp = this.employeeService.findEmployeeByLastName(Entities.LAST_NAME);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
 	}
 	
 	@Test
 	public void findEmployeeByEmail() {
-		Employee emps = this.employeeService.findEmployeeByEmail(Entities.EMAIL);
-		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.getId());
+		Employee emp = this.employeeService.findEmployeeByEmail(Entities.EMAIL);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
 	}
 	
 	@Test
 	public void findEmployeeBySkypeName() {
-		Employee emps = this.employeeService.findEmployeeBySkypeName(Entities.SKYPE_NAME);
-		assertNotNull(emps);
+		Employee emp = this.employeeService.findEmployeeBySkypeName(Entities.SKYPE_NAME);
+		assertNotNull(emp);
 		assertEquals(Entities.EMPLOYEE_ID, emps.getId());
+	}*/
+	
+	@Test
+	public void findEmployeesByIsActiveTrue() {
+		List<Employee> emps = this.employeeService.findEmployeesByIsActiveTrue();
+		assertNotNull(emps);
+		assertEquals(1, emps.size());
 	}
 	
 	@Test

@@ -89,13 +89,13 @@ SELECT {
 	text-align: center;
 }
 
-div[class*='divRow'] {
+div[id*='divRow'] {
 	display: block;
 	overflow: hidden;
 	height: 2.5em;
 }
 
-div[class*='divEditRow'] {
+div[id*='divEditRow'] {
 	display: block;
 	overflow: hidden;
 	height: 2.5em;
@@ -119,28 +119,38 @@ div[class*='divEditRow'] {
 	text-align:center;
 }
 
-.editColumn {
-	float: left;
-	width: 200px;
-	height: 2.5em;
-	padding: 0.5em 0 0 3px;
-	text-align:center;
-}
-
 .editColumnBtn {
 	margin: 0;
 	padding: 0;
 	font-size: 10px;
 }
 
-.editInputBox {
+.submitColumnBtn {
+	margin: 0;
+	padding: 0;
+	font-size: 10px;
+}
+
+.removeColumnBtn {
+	margin: 0;
+	padding: 0;
+	font-size: 10px;
+}
+
+.cancelColumnBtn {
+	margin: 0;
+	padding: 0;
+	font-size: 10px;
+}
+
+input[id*='editInputBox'] {
 	margin: 0;
 	padding: 0;
 	font-size: 12px;
 	text-align: center;
 }
 
-.editSelectBox {
+select[id*='editSelectBox'] {
 	margin: 0;
 	padding: 0;
 }
@@ -171,30 +181,22 @@ div[class*='divEditRow'] {
 	margin: 0;
 }
 
-#editEntity {
-	margin-bottom: 1.5em;
-}
-
-#selectBtn {
-	display: inline;
-}
-
-#deleteBtn-container {
+#cancelBtn-container {
 	margin-top: 0.5em;
 	display: inline;
 }
 
-#deleteBtn {
+#cancelBtn {
 	width: 55px;
 	padding: 0;
 	margin: 0;
 }
 
-#deleteEntity {
-	margin-bottom: 1.5em;
+#saveEntity {
+	display: inline;
 }
 
-.cancelBtn {
+#cancelEntity {
 	display: inline;
 }
 

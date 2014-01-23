@@ -106,7 +106,7 @@ public class Employee extends BaseEntity {
 		this.manager = manager;
 	}
 	
-	@Column(name = "MIDDLE_INITIAL", nullable = false, length = 45)
+	@Column(name = "MIDDLE_INITIAL", length = 45)
 	public String getMiddleInitial() {
 		return this.middleInitial;
 	}

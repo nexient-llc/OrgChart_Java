@@ -13,8 +13,8 @@
 	<button type="button" id="editBtn">Edit</button>
 </div>
 
-<div id="deleteBtn-container">
-	<button type="button" id="deleteBtn">Delete</button>
+<div id="cancelBtn-container" style="display:none">
+	<button type="button" id="cancelBtn">Cancel</button>
 </div>
 
 <div id="addEntity" style="display:none;">
@@ -30,59 +30,10 @@
 						<option value="${dept.id}">${dept.name}</option>
 					</c:forEach>
 				</select>
-				<button type="submit">Save</button>
-				<button type="button" class="cancelBtn">Cancel</button>
+				<button type="submit" id="saveEntity">Save</button>
+				<button type="button" id="cancelEntity">Cancel</button>
 			</div>
 			<div></div>
-		</form>
-	</fieldset>
-</div>
-
-<div id="editEntity" style="display:none">
-	<fieldset>
-		<legend>Edit Department</legend>
-		<form name="editDept" action="depts" method="post">
-			<input type="hidden" name="_method" value="put"/>
-			<div>
-				<label class="editSelect">Dept Name:</label>
-				<select id="editSelectName" name="departmentId">
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
-				
-				<label class="editFields" style="width:79px; display:none;">New Name:</label>
-				<input id="editNewNameField" type="text" name="name" style="display:none"/><br/>
-				<label class="editFields" style="width:82px; display:none;">Parent Dept:</label>
-				<select class="editFields" name="parentDepartmentId" style="display:none">
-					<option value="">None</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select><br/>
-				<button type="submit" class="editFields" style="display:none; margin-top:8px">Save</button>
-				<button type="button" id="selectBtn">Select</button>
-				<button type="button" class="cancelBtn">Cancel</button>
-			</div>
-		</form>
-	</fieldset>
-</div>
-
-<div id="deleteEntity" style="display:none">
-	<fieldset>
-		<legend>Remove Department</legend>
-		<form name="deleteDept" action="depts" method="post">
-			<input type="hidden" name="_method" value="delete"/>
-			<div>
-				<label>Dept Name:</label>
-				<select name="departmentId">
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
-				<button type="submit">Remove</button>
-				<button type="button" class="cancelBtn">Cancel</button>
-			</div>
 		</form>
 	</fieldset>
 </div>
@@ -93,16 +44,45 @@
 		<!-- <th>Task</th>
 		</sec:authorize> --> 
 		<div class="divHeader">Dept Name</div><!--
-		--><div class="divHeader">Parent Dept</div>
+		--><div class="divHeader">Parent Dept</div><!-- 
+		--><div class="divHeaderHidden" style="display:none">Edit</div>
 	</div>
 	<div style="overflow:hidden;">
 		<c:forEach items="${depts}" var="dept">
-			<div class="divRow"> 
+			<div id="divRow${dept.id}"> 
 				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<td>delete</td>
 				</sec:authorize> -->
 				<div class="divColumn">${dept.name}</div> 
 				<div class="divColumn">${dept.parentDepartment.name}</div>
+				<div class="divColumnHidden" style="display:none">
+					<button type="button" class="editColumnBtn" value="${dept.id}">Edit</button>
+				</div>
+			</div>
+			<div id="divEditRow${dept.id}" style="display:none">
+				<div class="divColumn"><input id="editInputBox${dept.id}" value="${dept.name}"/></div>
+				<div class="divColumn">
+					<select id="editSelectBox${dept.id}">
+						<option value="">None</option>
+						<c:forEach items="${depts}" var="pdept">	
+							<c:if test="${dept.id != pdept.id}">
+								<c:choose>
+									<c:when test="${dept.parentDepartment.id == pdept.id}">
+										<option selected value="${pdept.id}">${pdept.name}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${pdept.id}">${pdept.name}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:if>		
+						</c:forEach>
+					</select>
+				</div>
+				<div class="divColumn">
+					<button type="button" class="submitColumnBtn" value="${dept.id}">Submit</button>
+					<button type="button" class="removeColumnBtn" value="${dept.id}">Remove</button>
+					<button type="button" class="cancelColumnBtn" value="${dept.id}">Cancel</button>
+				</div>
 			</div>
 		</c:forEach> 
 	</div>

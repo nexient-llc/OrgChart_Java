@@ -23,16 +23,12 @@ public class JobTitleService {
 		return this.jobTitleRepo.findOne(jobTitleId);
 	}
 	
-	public JobTitle findJobTitleByName(String jobTitleName) {
-		return this.jobTitleRepo.findJobTitleByName(jobTitleName);
+	public List<JobTitle> findJobTitleByIsActiveTrue() {
+		return this.jobTitleRepo.findJobTitleByIsActiveTrue();
 	}
 	
 	public void setRepository(JobTitleRepository jobTitleRepository) {
 		this.jobTitleRepo = jobTitleRepository;
-	}
-	
-	public void removeJobTitle(JobTitle jobTitle) {
-		this.jobTitleRepo.delete(jobTitle);
 	}
 	
 	public JobTitle storeJobTitle(JobTitle jobTitle) {

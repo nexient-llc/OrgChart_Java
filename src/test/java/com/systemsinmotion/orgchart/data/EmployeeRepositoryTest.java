@@ -54,10 +54,11 @@ public class EmployeeRepositoryTest {
     	assertNotNull(departmentRepo);
     }
     
+    /*
     private void createManager() {
         this.manager = Entities.manager();
         this.employeeRepo.saveAndFlush(this.manager);
-    }
+    }*/
 	
 	@Test
 	public void findAll() throws Exception {
@@ -66,6 +67,29 @@ public class EmployeeRepositoryTest {
 		assertTrue(0 < emps.size());
 	}
 	
+	@Test
+	public void findEmployeeById() throws Exception {
+		Employee emp = this.employeeRepo.findOne(this.employee.getId());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+		assertEquals(this.employee.getSkypeName(), emp.getSkypeName());
+	}
+
+	@Test
+	public void findEmployeeById_null() throws Exception {
+		Employee emp = this.employeeRepo.findEmployeeById(null);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
+
+	@Test
+	public void findEmployeeById_XXX() throws Exception {
+		Employee emp = this.employeeRepo.findOne(NOT_PRESENT_ID);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
+	
+	/*
 	@Test
 	public void findEmployeesByDepartment() throws Exception {
 		List<Employee> emps = this.employeeRepo.findEmployeesByDepartment(this.employee.getDepartment());
@@ -124,28 +148,6 @@ public class EmployeeRepositoryTest {
 	}
 
 	@Test
-	public void findEmployeeById() throws Exception {
-		Employee emp = this.employeeRepo.findOne(this.employee.getId());
-		assertNotNull("Expecting a non-null Employee but was null", emp);
-		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-		assertEquals(this.employee.getLastName(), emp.getLastName());
-		assertEquals(this.employee.getEmail(), emp.getEmail());
-		assertEquals(this.employee.getSkypeName(), emp.getSkypeName());
-	}
-
-	@Test
-	public void findEmployeeById_null() throws Exception {
-		Employee emp = this.employeeRepo.findEmployeeById(null);
-		assertNull("Expecting a null Employee but was non-null", emp);
-	}
-
-	@Test
-	public void findEmployeeById_XXX() throws Exception {
-		Employee emp = this.employeeRepo.findOne(NOT_PRESENT_ID);
-		assertNull("Expecting a null Employee but was non-null", emp);
-	}
-	
-	@Test
 	public void findEmployeeByManagerId() throws Exception {
 		createManager();
 		
@@ -169,4 +171,5 @@ public class EmployeeRepositoryTest {
 		// Assuming at least one person does not have a manager
 		assertTrue(emps.size() > 0); 
 	}
+	*/
 }
