@@ -1,0 +1,750 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
+	{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline
+}
+
+*:focus {
+	outline: 0
+}
+
+body {
+	line-height: 1;
+	color: #000;
+	background: #fff
+}
+
+ol,ul {
+	list-style: none
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+	vertical-align: middle
+}
+
+caption,th,td {
+	text-align: left;
+	font-weight: normal;
+	vertical-align: middle
+}
+
+q,blockquote {
+	quotes: "" ""
+}
+
+q:before,q:after,blockquote:before,blockquote:after {
+	content: ""
+}
+
+a img {
+	border: none
+}
+
+body {
+	line-height: 1.5;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #666666;
+	font-size: 87.5%
+}
+
+h1 {
+	font-weight: normal;
+	color: #222222;
+	font-size: 3em;
+	line-height: 1;
+	margin-bottom: 0.5em
+}
+
+h1 img {
+	margin: 0
+}
+
+h2 {
+	font-weight: normal;
+	color: #222222;
+	font-size: 2em;
+	margin-bottom: 0.75em
+}
+
+h3 {
+	font-weight: normal;
+	color: #222222;
+	font-size: 1.5em;
+	line-height: 1;
+	margin-bottom: 1em
+}
+
+h4 {
+	font-weight: normal;
+	color: #222222;
+	font-size: 1.2em;
+	line-height: 1.25;
+	margin-bottom: 1.25em
+}
+
+h5 {
+	font-weight: normal;
+	color: #222222;
+	font-size: 1em;
+	font-weight: bold;
+	margin-bottom: 1.5em
+}
+
+h6 {
+	font-weight: normal;
+	color: #222222;
+	font-size: 1em;
+	font-weight: bold
+}
+
+h2 img,h3 img,h4 img,h5 img,h6 img {
+	margin: 0
+}
+
+p {
+	margin: 0 0 1.5em
+}
+
+p img.left {
+	display: inline;
+	float: left;
+	margin: 1.5em 1.5em 1.5em 0;
+	padding: 0
+}
+
+p img.right {
+	display: inline;
+	float: right;
+	margin: 1.5em 0 1.5em 1.5em;
+	padding: 0
+}
+
+a {
+	text-decoration: underline;
+	color: #3e6b99
+}
+
+a:visited {
+	color: #3e6b99
+}
+
+a:focus {
+	color: #3e6b99
+}
+
+a:hover {
+	color: #5184b9
+}
+
+a:active {
+	color: #3e6b99
+}
+
+blockquote {
+	margin: 1.5em;
+	color: #666;
+	font-style: italic
+}
+
+strong {
+	font-weight: bold
+}
+
+em {
+	font-style: italic
+}
+
+dfn {
+	font-style: italic;
+	font-weight: bold
+}
+
+sup,sub {
+	line-height: 0
+}
+
+abbr,acronym {
+	border-bottom: 1px dotted #666
+}
+
+address {
+	margin: 0 0 1.5em;
+	font-style: italic
+}
+
+del {
+	color: #666
+}
+
+pre {
+	margin: 1.5em 0;
+	white-space: pre
+}
+
+pre,code,tt {
+	font: 1em 'andale mono', 'lucida console', monospace;
+	line-height: 1.5
+}
+
+li ul,li ol {
+	margin: 0
+}
+
+ul,ol {
+	margin: 0 1.5em 1.5em 0;
+	padding-left: 3.333em
+}
+
+ul {
+	list-style-type: disc
+}
+
+ol {
+	list-style-type: decimal
+}
+
+dl {
+	margin: 0 0 1.5em 0
+}
+
+dl dt {
+	font-weight: bold
+}
+
+dd {
+	margin-left: 1.5em
+}
+
+table {
+	margin-bottom: 1.4em;
+	width: 100%
+}
+
+th {
+	font-weight: bold
+}
+
+thead th {
+	background: #c3d9ff
+}
+
+th,td,caption {
+	padding: 4px 10px 4px 5px
+}
+
+tr.even td {
+	background: #e5ecf9
+}
+
+tfoot {
+	font-style: italic
+}
+
+caption {
+	background: #eee
+}
+
+.quiet {
+	color: #666666
+}
+
+.loud {
+	color: #111111
+}
+
+a {
+	color: #3e6b99;
+	font-weight: bold;
+	text-decoration: none
+}
+
+a:visited {
+	color: #3e6b99
+}
+
+a:focus {
+	color: #3e6b99
+}
+
+a:hover {
+	color: #5184b9
+}
+
+a:active {
+	color: #3e6b99
+}
+
+a:hover {
+	text-decoration: underline
+}
+
+#frame {
+	text-align: left;
+	width: 950px;
+	margin: 0 auto;
+	overflow: hidden;
+	display: inline-block
+}
+
+#frame {
+	display: block
+}
+
+h1 {
+	font-weight: bold;
+	color: #444;
+	font-size: 3em;
+	margin-bottom: 0
+}
+
+h2 {
+	font-weight: bold;
+	color: #666;
+	font-size: 1.3em;
+	display: inline;
+	float: left;
+	margin-bottom: 0
+}
+
+h3 {
+	font-weight: 200;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+		"Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #444
+}
+
+h4 {
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #444
+}
+
+h5 {
+	font-weight: bold;
+	font-size: 1em;
+	margin-bottom: 5px
+}
+
+ul {
+	padding-left: 20px
+}
+
+code {
+	display: block;
+	position: relative;
+	margin-bottom: 1.5em;
+	background: #e5e8eb url('../images/bg-code.png') no-repeat 0px 0px;
+	padding: 10px;
+	text-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
+	color: #46596c;
+	left: -120px;
+	width: 710px;
+	padding-right: 120px;
+	padding-left: 120px
+}
+
+pre {
+	padding: 0;
+	margin: 0
+}
+
+.parameter {
+	position: relative;
+	width: 710px;
+	left: -120px;
+	padding-right: 120px;
+	padding-left: 120px
+}
+
+.parameter p {
+	font-size: 0.9em;
+	margin-bottom: 5px
+}
+
+.parameter code {
+	margin-top: 10px
+}
+
+table {
+	margin-bottom: 10px
+}
+
+table tr {
+	background-color: #e5e8eb
+}
+
+table tr:hover {
+	background-color: #dfe3e7
+}
+
+table td {
+	border-bottom: solid 3px #fff;
+	padding: 10px;
+	font-size: 0.8em
+}
+
+table td.name {
+	font-size: 1em
+}
+
+table td.download {
+	text-align: right;
+	padding-right: 15px
+}
+
+table td.preview {
+	padding-left: 0;
+	width: 90px
+}
+
+.btn-lg {
+	font-size: 1.1em;
+	height: 39px;
+	display: block;
+	overflow: hidden;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+	border: solid 1px #6e93b0;
+	background: url('../images/btn-lg-bg.png') repeat-x 0px 0px;
+	text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+	color: #234e70 !important;
+	margin-bottom: 5px;
+	padding: 5px 10px;
+	line-height: 1.4
+}
+
+.btn-lg img {
+	vertical-align: text-top;
+	display: inline;
+	float: left;
+	margin-right: 10px;
+	margin-top: 2px
+}
+
+.btn-lg span {
+	font-size: 0.8em;
+	font-weight: normal;
+	display: block;
+	color: #3f6890 !important
+}
+
+.btn-lg:hover {
+	text-decoration: none
+}
+
+.btn-lg:active {
+	background-position: 0px bottom
+}
+
+.btn {
+	font-size: 1em;
+	color: #234e70;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+	border: solid 1px #6e93b0;
+	background: url('../images/btn-sm-bg.png') repeat-x 0px 0px;
+	height: 27px;
+	line-height: 26px;
+	text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+	display: inline;
+	float: left;
+	margin-right: 5px;
+	padding: 0 10px
+}
+
+.btn:hover {
+	text-decoration: none;
+	color: #234e70
+}
+
+.btn:active {
+	background-position: 0px bottom
+}
+
+#header {
+	margin-top: 60px;
+	display: inline;
+	float: left;
+	margin-right: 0;
+	width: 710px;
+	padding-left: 120px;
+	padding-right: 120px;
+	margin-bottom: 40px
+}
+
+* html #header {
+	overflow-x: hidden
+}
+
+#header ul.nav {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	overflow: hidden;
+	display: inline-block;
+	display: inline;
+	float: right;
+	font-size: 1.2em
+}
+
+#header ul.nav {
+	display: block
+}
+
+#header ul.nav li {
+	list-style-type: none;
+	margin-left: 0px;
+	white-space: nowrap;
+	display: inline;
+	float: left;
+	padding-left: 4px;
+	padding-right: 4px
+}
+
+#header ul.nav li.first {
+	padding-left: 0px
+}
+
+#header ul.nav li.last {
+	padding-right: 0px
+}
+
+#header ul.nav li {
+	padding: 0 15px
+}
+
+#intro {
+	padding-right: 40px;
+	display: inline;
+	float: left;
+	margin-right: 10px;
+	width: 430px;
+	padding-left: 120px
+}
+
+* html #intro {
+	overflow-x: hidden
+}
+
+#download {
+	padding-right: 120px;
+	display: inline;
+	float: left;
+	margin-right: 0;
+	width: 230px;
+	display: inline;
+	float: right
+}
+
+* html #download {
+	overflow-x: hidden
+}
+
+#download .github {
+	font-size: 0.9em;
+	margin-bottom: 0px
+}
+
+#download .version {
+	font-size: 0.8em
+}
+
+#example {
+	padding-right: 40px;
+	display: inline;
+	float: left;
+	margin-right: 10px;
+	width: 430px;
+	padding-left: 120px
+}
+
+* html #example {
+	overflow-x: hidden
+}
+
+#example form {
+	overflow: hidden;
+	display: inline-block;
+	margin-bottom: 20px
+}
+
+#example form {
+	display: block
+}
+
+#example .select-radio {
+	display: inline;
+	float: left;
+	margin-right: 10px;
+	width: 190px;
+	padding-right: 40px
+}
+
+* html #example .select-radio {
+	overflow-x: hidden
+}
+
+#example .file-checkbox {
+	display: inline;
+	float: left;
+	margin-right: 0;
+	width: 190px
+}
+
+* html #example .file-checkbox {
+	overflow-x: hidden
+}
+
+#example label {
+	font-weight: bold;
+	color: #555;
+	display: block;
+	margin-bottom: 10px
+}
+
+#example .controls {
+	clear: both;
+	overflow: hidden;
+	display: inline-block;
+	margin-bottom: 40px
+}
+
+#example .controls {
+	display: block
+}
+
+#docs {
+	clear: both;
+	display: inline;
+	float: left;
+	margin-right: 0;
+	width: 710px;
+	padding-right: 120px;
+	padding-left: 120px;
+	margin-bottom: 20px
+}
+
+* html #docs {
+	overflow-x: hidden
+}
+
+#themes {
+	display: inline;
+	float: left;
+	margin-right: 0;
+	width: 710px;
+	padding-right: 120px;
+	padding-left: 120px;
+	margin-bottom: 20px
+}
+
+* html #themes {
+	overflow-x: hidden
+}
+
+#contribute {
+	display: inline;
+	float: left;
+	margin-right: 0;
+	width: 710px;
+	padding-right: 120px;
+	padding-left: 120px;
+	margin-bottom: 10px
+}
+
+* html #contribute {
+	overflow-x: hidden
+}
+
+#footer {
+	padding-right: 120px;
+	padding-left: 120px;
+	display: inline;
+	float: left;
+	margin-right: 0;
+	width: 710px;
+	font-size: 0.8em;
+	margin-bottom: 20px;
+	padding-top: 20px;
+	border-top: solid 1px #eee
+}
+
+* html #footer {
+	overflow-x: hidden
+}
+
+#footer p {
+	margin-bottom: 5px;
+	color: #999
+}
+
+#footer #pixelmatrix {
+	display: inline;
+	float: right
+}
+
+.generator label {
+	display: block;
+	font-weight: bold;
+	color: #444;
+	margin-bottom: 10px;
+	margin-top: 10px
+}
+
+.generator h3 {
+	clear: both
+}
+
+.generator h4 {
+	margin-top: 20px
+}
+
+.generator input[type='text'] {
+	display: block
+}
+
+.generator .btn {
+	margin-top: 10px;
+	margin-bottom: 20px
+}
+
+.generator #download-btn {
+	margin-top: 12px
+}
+
+.generator #code-col {
+	display: inline;
+	float: right;
+	width: 400px
+}
+
+.generator #code-col textarea {
+	margin-bottom: 10px;
+	font-family: "Monaco", "Andale Mono", Courier, monospace;
+	background-color: #e5e8eb;
+	color: #46596c;
+	font-size: 11px;
+	text-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px
+}
+
+.generator #code-col p {
+	font-size: 0.85em
+}
