@@ -13,6 +13,10 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
+	@Query("from Employee where firstName in ?1")
+	List<Employee> findByFirstNameIn(String... firstName);
+	
+	
 	List<Employee> findByIsActiveTrue();
 	List<Employee> findByDepartment(Department department);
 	List<Employee> findByDepartmentId(Integer id);
@@ -20,6 +24,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 	Employee findById(Integer id);
 	List<Employee> findByManagerId(Integer id);
 	List<Employee> findByFirstNameOrLastNameAllIgnoreCase(String firstName, String lastName);
+	
+	List<Employee> findByFirstNameStartingWithOrLastNameStartingWithAllIgnoreCaseOrderByFirstNameAsc(String firstName, String lastName);
 	
 	List<Employee> findByJobTitle(JobTitle jobTitle);
 	List<Employee> findByJobTitleId(Integer id);
@@ -36,5 +42,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 	
 	@Query("from Employee e where e.department = :department and e.jobTitle = :jobTitle and (upper(e.firstName) = upper(:firstname) or upper(e.lastName) = upper(:lastname)) order by e.firstName asc")
 	List<Employee> findByDepartmentAndJobTitleAndFirstNameOrLastName(@Param("department") Department department, @Param("jobTitle") JobTitle jobTitle, @Param("firstname") String firstName,
-			@Param("lastname") String lastName);
+			@Param("lastname") String lastName);	
 }

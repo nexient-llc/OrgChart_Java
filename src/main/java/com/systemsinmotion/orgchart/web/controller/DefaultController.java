@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -41,7 +42,7 @@ public class DefaultController {
 	@Autowired
 	JobTitleService jobTitleService;
 	
-	Gson gson = new Gson();
+	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
@@ -69,8 +70,7 @@ public class DefaultController {
 		
 		Department parent = null;
 		if (parentDepartmentId != null) {
-			parent = departmentService
-					.findDepartmentById(parentDepartmentId);// dept.getParentDepartment();
+			parent = departmentService.findDepartmentById(parentDepartmentId);
 		}
 		dept.setParentDepartment((parentDepartmentId == null) ? null : parent);
 		
@@ -214,6 +214,20 @@ public class DefaultController {
 		return gson.toJson(empIds);
 	}
 
+	@RequestMapping(value = "emps", method = RequestMethod.GET, params = {
+			"name"})
+	public @ResponseBody String doEmployeeAutocomplete_GET(String name) {
+		List<Employee> emps = this.employeeService.findEmployeesByLikeName(name);
+		List<String> names = new ArrayList<String>();
+		for(Employee emp:emps){
+			names.add(emp.getFirstName() + " " + emp.getLastName());
+		}
+		
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		String json = gson.toJson(names);
+		return json;
+	}
+	
 	private void addAttributesForEmpsPage(Employee emp, Model model) {
 		List<Department> depts = departmentService.findAllActiveDepartments();
 		List<JobTitle> jobs = jobTitleService.findAllJobTitles();

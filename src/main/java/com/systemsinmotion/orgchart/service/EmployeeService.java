@@ -62,6 +62,25 @@ public class EmployeeService {
 		return this.repository.findByJobTitleId(jobTitleId);
 	}
 	
+
+	public List<Employee> findEmployeesByLikeName(String fullName) {
+		String firstName = null;
+		String lastName = null;
+		String[] tokens = null;
+		if (fullName != null) {
+			tokens = fullName.split(" ", 2);
+
+			if (tokens.length == 1) {
+				firstName = lastName = tokens[0];
+			} else if (tokens.length == 2) {
+				firstName = tokens[0];
+				lastName = tokens[1];
+			}
+		}
+		return this.repository.findByFirstNameStartingWithOrLastNameStartingWithAllIgnoreCaseOrderByFirstNameAsc(firstName, lastName);
+	}
+	
+	
 	public List<Employee> findEmployeesByFiltering(String fullName, Department dept, JobTitle job){
 		String firstName = null;
 		String lastName = null;
@@ -99,9 +118,6 @@ public class EmployeeService {
 		case 7:
 			return this.repository.findByDepartmentAndJobTitleAndFirstNameOrLastName(dept, job, firstName, lastName);
 		}
-		
-		
-		
 		return null;
 	}
 	

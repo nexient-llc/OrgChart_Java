@@ -215,5 +215,10 @@ public class EmployeeRepositoryTest {
 		emps = this.employeeRepository.findByDepartmentAndFirstNameOrLastName(this.department, "blah", "LAST NAME");
 		assertTrue("5", !emps.isEmpty());
 	}
+	
+	@Test
+	public void findByFirstNameIn() throws Exception {
+		this.employeeRepository.findByFirstNameIn("John");
+	}
 
 }

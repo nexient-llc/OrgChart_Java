@@ -18,7 +18,7 @@
 		<legend>Filter Employee</legend>
 			<div>
 				<label>Full name: (First Last)</label>
-				<input type="text" maxlength="70" id="empFullName">
+				<input type="text" class="autocomplete" maxlength="70" id="empFullName">
 				<label>Department:</label>
 				<select name="empDeptId" id="empDeptId">
 					<option value = ""/>
@@ -87,19 +87,21 @@
 
 <div class="table" id="t1">
 	<div class="row header">
-		<span class="cell name">Name(Last, First MI.)</span> <span
-			class="cell deptName">Department</span> <span class="cell jobName">Job
-			Title</span>
+		<span class="cell name">Name(Last, First MI.)</span> 
+		<span class="cell deptName">Department</span>
+		<span class="cell jobName">Job Title</span>
+		<span class="cell editBtn"></span>
+		<span class="cell deleteBtn"></span>
 	</div>
 	<c:forEach items="${emps}" var="emp">
 		<div class="row" id="ViewEmps${emp.id}">
 			<span class="cell name">${emp.lastName}, ${emp.firstName}
 				${emp.middleInitial}. </span> <span class="cell deptName">${emp.department.name}</span>
 			<span class="cell jobName">${emp.jobTitle.name}</span>
-			<span class="editBtn">
+			<span class="cell editBtn">
 				<button type="button" class="editBtn" value="${emp.id}">Edit</button>
 			</span>
-			<span class="deleteBtn">
+			<span class="cell deleteBtn">
 				<button type="button" class="deleteBtn" value="${emp.id}">Delete</button>
 			</span>
 		</div>

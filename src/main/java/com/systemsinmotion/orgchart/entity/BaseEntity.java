@@ -13,10 +13,14 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.google.gson.annotations.Expose;
+
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 	private static final long serialVersionUID = -7662658803273025261L;
 
+
+	@Expose
 	private Integer id;
 
 	@Id

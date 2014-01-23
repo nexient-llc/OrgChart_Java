@@ -33,7 +33,7 @@ $(document).ready(function() {
 	
 	$('.deleteBtn').click(function(evnt) {
 		var num = $(this).val();
-		alert(num);
+		//alert(num);
 		$.ajax({
 			url : "depts",
 			type : "POST",

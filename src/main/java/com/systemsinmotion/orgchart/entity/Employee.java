@@ -11,21 +11,27 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee extends BaseEntity {
 
 	private static final long serialVersionUID = 2786300800604338231L;
-	
+	@Expose
 	private Department department;
+	
+	
 	private JobTitle jobTitle;
 	private Employee manager;
 	
+	@Expose
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String firstName;
-	
+
+	@Expose
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 45)
@@ -37,6 +43,7 @@ public class Employee extends BaseEntity {
 	@Size(min = 1, max = 45)
 	private String skypeName;
 
+	@Expose
 	@Size(min = 0, max = 1)
 	private String middleInitial;
 	
