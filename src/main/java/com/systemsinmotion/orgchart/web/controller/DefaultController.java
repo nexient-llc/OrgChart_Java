@@ -47,24 +47,24 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+        //List<Department> departments = departmentService.findAllDepartments();
+        //model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 
     @RequestMapping(value = "emps", method = RequestMethod.GET)
     public String doEmployee_GET(Model model) {
         //uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+//		 List<Employee> employee = EmployeeService.findAllEmployees();
+//		 model.addAttribute("emps", employee);
         return View.EMPLOYEES;
     }
 
     @RequestMapping(value = "jobs", method = RequestMethod.GET)
     public String doJob_GET(Model model) {
         //uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
+//		 List<JobTitle> jobTitle = JobTitleService.findAllJobTitles();
+//		 model.addAttribute("jobs", jobTitle);
         return View.JOB_TITLES;
     }
 	

@@ -54,7 +54,7 @@ public class DepartmentServiceTest {
 		when(this.mockDepartment.getId()).thenReturn(Entities.DEPT_ID);
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.mockDepartmentRepo.findAll()).thenReturn(this.listOfFoundDepts);
-		when(this.mockDepartmentRepo.findByParentDepartmentId(Entities.DEPT_ID)).thenReturn(this.listOfFoundDepts);
+		when(this.mockDepartmentRepo.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(this.mockDepartmentRepo.save(this.mockDepartment)).thenReturn(Entities.department());
 		this.departmentService.setRepository(this.mockDepartmentRepo);
 	}
@@ -77,7 +77,8 @@ public class DepartmentServiceTest {
     public void storeDepartment() {
         Department department = this.departmentService.storeDepartment(this.mockDepartment);
         assertNotNull(department);
-        assertEquals(Entities.department(), department);
+        assertEquals(Entities.department().getId(), department.getId());
+
     }
 
 }

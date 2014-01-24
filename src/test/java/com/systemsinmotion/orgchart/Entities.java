@@ -26,12 +26,14 @@ public class Entities {
 	public static Department department() {
 		Department department = new Department();
 		department.setName(departmentName());
+        department.setId(DEPT_ID);
 		return department;
 	}
 
 	public static Department department(Department parent) {
 		Department department = new Department();
 		department.setName(departmentName());
+        department.setId(DEPT_ID);
 		department.setParentDepartment(parent);
 		return department;
 	}
