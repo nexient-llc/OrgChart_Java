@@ -22,9 +22,9 @@ public class DepartmentService {
 		return this.repository.findById(departmentId);
 	}
 
-	public void removeDepartment(Department department) {
-		this.repository.delete(department);
-	}
+    public void removeDepartment(Department department) {
+        this.repository.delete(department);
+    }
 
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;

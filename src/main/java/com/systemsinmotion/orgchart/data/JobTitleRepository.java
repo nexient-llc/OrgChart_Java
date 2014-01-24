@@ -10,8 +10,10 @@ import java.util.List;
 public interface JobTitleRepository extends JpaRepository<JobTitle,Integer> {
 
 	JobTitle findByName(String name);
+//
+//    List<JobTitle> findAllJobTitles();
 
-    List<JobTitle> findById(Integer Id);
+    JobTitle findById(Integer Id);
 
 
 

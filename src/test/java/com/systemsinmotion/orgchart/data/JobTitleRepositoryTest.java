@@ -79,7 +79,6 @@ public class JobTitleRepositoryTest {
 		JobTitle jobTitle1 = this.repository.findOne(this.jobTitle.getId());
 		assertNotNull(jobTitle1);
 		assertEquals(this.jobTitle.getName(), jobTitle1.getName());
-		//assertNotNull(this.jobTitle.getParentDepartment());
 	}
 
 	@Test
@@ -99,7 +98,6 @@ public class JobTitleRepositoryTest {
 		JobTitle jobTitle1 = this.repository.findByName(this.jobTitle.getName());
 		assertNotNull(jobTitle1);
 		assertEquals(this.jobTitle.getName(), jobTitle1.getName());
-		//assertNotNull(this.jobTitle.getParentDepartment());
 	}
 
 	@Test
@@ -108,26 +106,6 @@ public class JobTitleRepositoryTest {
 		assertNull(jobTitle1);
 	}
 
-//	@Test
-//	public void findByParentDeptId() throws Exception {
-//		List<Department> depts = this.repository
-//				.findByParentDepartmentId(this.jobTitle.getParentDepartment()
-//                        .getId());
-//		assertNotNull(depts);
-//		assertEquals(1, depts.size());
-//		Department dept = depts.get(0);
-//		assertEquals(this.jobTitle.getName(), dept.getName());
-//		assertNotNull(this.jobTitle.getParentDepartment());
-//	}
-//
-//	@Test
-//	public void findByParentDeptId_unknowId() throws Exception {
-//		List<Department> depts = this.repository
-//				.findByParentDepartmentId(random.nextInt());
-//		assertNotNull(depts);
-//		assertEquals(0, depts.size());
-//	}
-//
 	@Test
 	public void update() throws Exception {
 		JobTitle jobTitle1 = this.repository.findByName(this.jobTitle.getName());
