@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.service.EmployeeService;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +29,14 @@ public class DefaultController {
 	private static final Logger log = LoggerFactory
 			.getLogger(DefaultController.class);
 
-//	@Autowired
-//	EmployeeService employeeService;
+	@Autowired
+    EmployeeService employeeService;
 
 	@Autowired
 	DepartmentService departmentService;
 
-//	@Autowired
-//	JobTitleService jobTitleService;
+	@Autowired
+    JobTitleService jobTitleService;
 	
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
@@ -48,11 +51,32 @@ public class DefaultController {
 //		 model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
+
+    @RequestMapping(value = "emps", method = RequestMethod.GET)
+    public String doEmployee_GET(Model model) {
+        //uncomment when database connection is set up. will throw error when run
+//		 List<Department> departments = departmentService.findAllDepartments();
+//		 model.addAttribute("depts", departments);
+        return View.EMPLOYEES;
+    }
+
+    @RequestMapping(value = "jobs", method = RequestMethod.GET)
+    public String doJob_GET(Model model) {
+        //uncomment when database connection is set up. will throw error when run
+//		 List<Department> departments = departmentService.findAllDepartments();
+//		 model.addAttribute("depts", departments);
+        return View.JOB_TITLES;
+    }
 	
 	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
-	}
-
+        this.departmentService = departmentService;
+    }
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+    public void setJobTitleService(JobTitleService jobTitleService) {
+        this.jobTitleService = jobTitleService;
+    }
 
 
 }
