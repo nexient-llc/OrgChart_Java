@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -20,12 +21,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories({"com.systemsinmotion.orgchart.data"})
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
+@ComponentScan("com.systemsinmotion.orgchart")
 public class JPAConfig {
 
     @Autowired
     private Environment env;
 
     public static final String ENTITIES_PACKAGE = "com.systemsinmotion.orgchart.entity";
+
+
 
     @Bean
     public DataSource dataSource() {

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="70021801-173a-49a0-8889-7ca047061260" name="Default" comment="" />
+    <list default="true" id="70021801-173a-49a0-8889-7ca047061260" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/config/JPAConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/config/JPAConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/service/DepartmentServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/service/DepartmentServiceTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java" />
+    </list>
     <ignored path="orgchart.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,101 +70,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EmployeeService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/EmployeeService.java">
+      <file leaf-file-name="DepartmentService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/DepartmentService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="0" selection-start="995" selection-end="995" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+            <state line="10" column="13" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0" vertical-offset="92" max-vertical-offset="595">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DepartmentRepositoryTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java">
+      <file leaf-file-name="DepartmentServiceTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/service/DepartmentServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="19" selection-start="4113" selection-end="4113" vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="2176">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EmployeeRepositoryTest.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/EmployeeRepositoryTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="124" column="61" selection-start="4133" selection-end="4133" vertical-scroll-proportion="0.16582064" vertical-offset="1704" max-vertical-offset="2295">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Entities.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/Entities.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="47" selection-start="1546" selection-end="1546" vertical-scroll-proportion="0.0" vertical-offset="463" max-vertical-offset="1258">
+            <state line="64" column="38" selection-start="2540" selection-end="2540" vertical-scroll-proportion="0.9156327" vertical-offset="719" max-vertical-offset="1496">
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#227#254#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EmployeeRepository.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/EmployeeRepository.java">
+      <file leaf-file-name="DepartmentRepository.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/DepartmentRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+            <state line="16" column="1" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Employee.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/entity/Employee.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="13" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0" vertical-offset="4" max-vertical-offset="1411">
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#778#779#0" expanded="false" />
-                <element signature="e#810#811#0" expanded="false" />
-                <element signature="e#860#861#0" expanded="false" />
-                <element signature="e#902#903#0" expanded="false" />
-                <element signature="e#999#1000#0" expanded="false" />
-                <element signature="e#1030#1031#0" expanded="false" />
-                <element signature="e#1078#1079#0" expanded="false" />
-                <element signature="e#1118#1119#0" expanded="false" />
-                <element signature="e#1197#1198#0" expanded="false" />
-                <element signature="e#1233#1234#0" expanded="false" />
-                <element signature="e#1294#1295#0" expanded="false" />
-                <element signature="e#1344#1345#0" expanded="false" />
-                <element signature="e#1418#1419#0" expanded="false" />
-                <element signature="e#1446#1447#0" expanded="false" />
-                <element signature="e#1488#1489#0" expanded="false" />
-                <element signature="e#1522#1523#0" expanded="false" />
-                <element signature="e#1605#1606#0" expanded="false" />
-                <element signature="e#1637#1638#0" expanded="false" />
-                <element signature="e#1687#1688#0" expanded="false" />
-                <element signature="e#1729#1730#0" expanded="false" />
-                <element signature="e#1798#1799#0" expanded="false" />
-                <element signature="e#1830#1831#0" expanded="false" />
-                <element signature="e#1881#1882#0" expanded="false" />
-                <element signature="e#1923#1924#0" expanded="false" />
-                <element signature="e#1990#1991#0" expanded="false" />
-                <element signature="e#2021#2022#0" expanded="false" />
-                <element signature="e#2070#2071#0" expanded="false" />
-                <element signature="e#2110#2111#0" expanded="false" />
-                <element signature="e#2251#2252#0" expanded="false" />
-                <element signature="e#2286#2287#0" expanded="false" />
-                <element signature="e#2334#2335#0" expanded="false" />
-                <element signature="e#2372#2373#0" expanded="false" />
-                <element signature="e#2547#2548#0" expanded="false" />
-                <element signature="e#2583#2584#0" expanded="false" />
-                <element signature="e#2633#2634#0" expanded="false" />
-                <element signature="e#2673#2674#0" expanded="false" />
-                <element signature="e#2854#2855#0" expanded="false" />
-                <element signature="e#2878#2879#0" expanded="false" />
-                <element signature="e#2931#2932#0" expanded="false" />
-                <element signature="e#2966#2967#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -170,21 +106,28 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/main/resources/db.properties" />
-        <option value="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/DepartmentRepository.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/Entities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/entity/JobTitle.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/JobTitleRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/JobTitleService.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/JobTitleRepositoryTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/entity/Employee.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/EmployeeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/EmployeeRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/config/JPAConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/DepartmentRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/DepartmentService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/EmployeeRepositoryTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/JobTitleRepositoryTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/service/DepartmentServiceTest.java" />
       </list>
     </option>
   </component>
@@ -226,10 +169,10 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -257,6 +200,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -292,6 +237,10 @@
               <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -320,6 +269,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="orgchart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="orgchart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OrgChart_Java-Barebones" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="orgchart" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -424,66 +407,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="orgchart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="orgchart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OrgChart_Java-Barebones" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="orgchart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="orgchart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OrgChart_Java-Barebones" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="orgchart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -533,8 +456,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -548,7 +469,7 @@
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="options.lastSelected" value="project.propCompiler" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -563,20 +484,48 @@
       <recent name="com.systemsinmotion.orgchart.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.EmployeeRepositoryTest.update">
-    <configuration default="false" name="EmployeeRepositoryTest.findById_notPresent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.DepartmentServiceTest.findDepartmentByID">
+    <configuration default="false" name="DepartmentServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.systemsinmotion.orgchart.data.*" />
+          <option name="PATTERN" value="com.systemsinmotion.orgchart.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="orgchart" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.data" />
-      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.data.EmployeeRepositoryTest" />
-      <option name="METHOD_NAME" value="findById_notPresent" />
+      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.service" />
+      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.service.DepartmentServiceTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DepartmentServiceTest.bs" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.systemsinmotion.orgchart.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="orgchart" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.service" />
+      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.service.DepartmentServiceTest" />
+      <option name="METHOD_NAME" value="bs" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -592,19 +541,19 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="EmployeeRepositoryTest.findById_null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="DepartmentServiceTest.before" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.systemsinmotion.orgchart.data.*" />
+          <option name="PATTERN" value="com.systemsinmotion.orgchart.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="orgchart" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.data" />
-      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.data.EmployeeRepositoryTest" />
-      <option name="METHOD_NAME" value="findById_null" />
+      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.service" />
+      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.service.DepartmentServiceTest" />
+      <option name="METHOD_NAME" value="before" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -620,19 +569,19 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="EmployeeRepositoryTest.findByName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="DepartmentServiceTest.findAllDepartments" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.systemsinmotion.orgchart.data.*" />
+          <option name="PATTERN" value="com.systemsinmotion.orgchart.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="orgchart" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.data" />
-      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.data.EmployeeRepositoryTest" />
-      <option name="METHOD_NAME" value="findByName" />
+      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.service" />
+      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.service.DepartmentServiceTest" />
+      <option name="METHOD_NAME" value="findAllDepartments" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -648,47 +597,19 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="EmployeeRepositoryTest.findByName_null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="DepartmentServiceTest.findDepartmentByID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.systemsinmotion.orgchart.data.*" />
+          <option name="PATTERN" value="com.systemsinmotion.orgchart.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="orgchart" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.data" />
-      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.data.EmployeeRepositoryTest" />
-      <option name="METHOD_NAME" value="findByName_null" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="EmployeeRepositoryTest.update" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.systemsinmotion.orgchart.data.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="orgchart" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.data" />
-      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.data.EmployeeRepositoryTest" />
-      <option name="METHOD_NAME" value="update" />
+      <option name="PACKAGE_NAME" value="com.systemsinmotion.orgchart.service" />
+      <option name="MAIN_CLASS_NAME" value="com.systemsinmotion.orgchart.service.DepartmentServiceTest" />
+      <option name="METHOD_NAME" value="findDepartmentByID" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -1027,19 +948,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.OrgChart" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.findById_notPresent" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.findById_null" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.findByName" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.findByName_null" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.update" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest.bs" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest.before" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest.findAllDepartments" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest.findDepartmentByID" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.update" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.findByName_null" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.findByName" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.findById_null" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.EmployeeRepositoryTest.findById_notPresent" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest.findDepartmentByID" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest.findAllDepartments" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest.before" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest.bs" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.DepartmentServiceTest" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -1071,15 +992,16 @@
       <created>1390443176605</created>
       <updated>1390443176605</updated>
       <workItem from="1390443178019" duration="10898000" />
-      <workItem from="1390495707212" duration="8894000" />
+      <workItem from="1390495707212" duration="18209000" />
+      <workItem from="1390525661062" duration="1282000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19792000" />
+    <option name="totallyTimeSpent" value="30389000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1098,15 +1020,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756758" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31275168" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4600887" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2195122" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33513513" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14536741" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33297297" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14313222" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42416108" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1135,6 +1057,22 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/DepartmentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="13" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="20" selection-start="1673" selection-end="1673" vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="2567">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/DepartmentRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="17" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
@@ -1145,7 +1083,9 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="132" column="19" selection-start="4113" selection-end="4113" vertical-scroll-proportion="0.0" vertical-offset="2244" max-vertical-offset="2533">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1160,9 +1100,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/JobTitleRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="36" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="425">
-          <folding />
-        </state>
+        <state line="14" column="36" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="425" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/entity/JobTitle.java">
@@ -1174,9 +1112,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/db/db.changelog.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3043">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3043" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/bestbuy/supportspace/videolibrary/config/TestConfig.java">
@@ -1184,30 +1120,9 @@
         <state line="7" column="13" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/db.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="40" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="153" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/config/JPAConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="41" selection-start="1820" selection-end="1836" vertical-scroll-proportion="0.33228347" vertical-offset="316" max-vertical-offset="952">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/service/DepartmentServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="13" selection-start="749" selection-end="749" vertical-scroll-proportion="0.23859648" vertical-offset="0" max-vertical-offset="1037">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/glassfish4/jdk7/jre/lib/rt.jar!/java/util/ArrayList.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="0" selection-start="5913" selection-end="5913" vertical-scroll-proportion="0.8071834" vertical-offset="2412" max-vertical-offset="2941">
-          <folding />
-        </state>
+        <state line="168" column="0" selection-start="5913" selection-end="5913" vertical-scroll-proportion="0.8071834" vertical-offset="2412" max-vertical-offset="2941" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/entity/Department.java">
@@ -1237,15 +1152,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/entity/DepartmentTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/entity/JobTitle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="5" selection-start="606" selection-end="606" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
@@ -1253,39 +1159,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/JobTitleRepositoryTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="5" selection-start="4371" selection-end="4371" vertical-scroll-proportion="0.0" vertical-offset="1707" max-vertical-offset="2482">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/DepartmentRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="17" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/JobTitleRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="17" selection-start="317" selection-end="317" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-          <folding />
-        </state>
+        <state line="9" column="17" selection-start="317" selection-end="317" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/JobTitleService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="0" selection-start="1201" selection-end="1201" vertical-scroll-proportion="0.0" vertical-offset="58" max-vertical-offset="731">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/DepartmentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0" vertical-offset="10" max-vertical-offset="595">
           <folding />
         </state>
       </provider>
@@ -1346,16 +1227,79 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/entity/DepartmentTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="19" selection-start="4113" selection-end="4113" vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="2176">
+        <state line="6" column="13" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="50" selection-start="393" selection-end="393" vertical-scroll-proportion="0.18853974" vertical-offset="0" max-vertical-offset="541">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.44547135" vertical-offset="241" max-vertical-offset="782" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/.faces-config.mex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="554" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="40" selection-start="81" selection-end="81" vertical-scroll-proportion="0.03068592" vertical-offset="0" max-vertical-offset="554" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/EmployeeRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+        <state line="11" column="0" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/TestException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="13" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/web/controller/DefaultControllerTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="13" selection-start="884" selection-end="884" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1462" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/web/controller/AdminControllerTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="473" selection-end="473" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/spring/application-context.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="4" selection-start="1206" selection-end="1206" vertical-scroll-proportion="0.33333334" vertical-offset="228" max-vertical-offset="901">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/test-context.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="14" selection-start="771" selection-end="776" vertical-scroll-proportion="0.29015544" vertical-offset="228" max-vertical-offset="4301">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/config/JPAConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="23" selection-start="1260" selection-end="1326" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1003">
           <folding />
         </state>
       </provider>
@@ -1363,17 +1307,55 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/Entities.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="48" column="47" selection-start="1546" selection-end="1546" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1258">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/JobTitleRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="40" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.0" vertical-offset="215" max-vertical-offset="2516">
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#227#254#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/EmployeeRepositoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="61" selection-start="4133" selection-end="4133" vertical-scroll-proportion="0.16582064" vertical-offset="1704" max-vertical-offset="2295">
+        <state line="25" column="40" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.0" vertical-offset="507" max-vertical-offset="2312">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/data/DepartmentRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="44" selection-end="220" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2567">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/service/DepartmentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="13" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0" vertical-offset="92" max-vertical-offset="595">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/systemsinmotion/orgchart/data/DepartmentRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="1" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/systemsinmotion/orgchart/service/DepartmentServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="38" selection-start="2540" selection-end="2540" vertical-scroll-proportion="0.9156327" vertical-offset="719" max-vertical-offset="1496">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
