@@ -29,7 +29,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test-context.xml")
+//@ContextConfiguration("/test-context.xml")
+@ContextConfiguration(classes = JPAConfig.class)
 @WebAppConfiguration("/src/main/webapp")
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
@@ -72,11 +73,11 @@ public class DepartmentServiceTest {
 		assertEquals(Entities.DEPT_ID, dept.getId());
 	}
 
-//	@Test
-//	public void storeDepartment() {
-//		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment);
-//		assertNotNull(deptId);
-//		assertEquals(Entities.DEPT_ID, deptId);
-//	}
+    @Test
+    public void storeDepartment() {
+        Department department = this.departmentService.storeDepartment(this.mockDepartment);
+        assertNotNull(department);
+        assertEquals(Entities.department(), department);
+    }
 
 }

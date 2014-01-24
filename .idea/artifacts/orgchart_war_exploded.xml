@@ -24,6 +24,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.0.0.RELEASE" />
           <element id="library" level="project" name="Maven: asm:asm-util:3.3.1" />
           <element id="library" level="project" name="Maven: asm:asm-tree:3.3.1" />
           <element id="library" level="project" name="Maven: asm:asm:3.3.1" />
