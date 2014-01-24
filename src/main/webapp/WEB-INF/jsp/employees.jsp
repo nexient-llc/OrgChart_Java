@@ -9,6 +9,8 @@
 <button type="button" id="filterBtn">Filter</button>
 
 <div id="filterEntity" style="display: none">
+	<fieldset>
+	<legend>Search</legend>
 	<div>Employee Name: <input id="filterFullName" class="textBoxClass"></div>
 	<div>Employee Department: 
 	<select id="filterDepartment">
@@ -28,7 +30,7 @@
 	</div>
 	<div><button class='sendFilterBtn' value="filterFullName">Search</button><button id="cancelFilterBtn">Cancel</button>
 	<button id="resetFilterBtn" style="display:none">Reset</button></div>
-	
+	</fieldset>
 </div>
 
 <div id="addBtn-container">
@@ -39,41 +41,39 @@
 	<fieldset>
 		<legend>Add Employee</legend>
 		<form:form modelAttribute="emp" action="emps" method="post">
-			<table>
-				<tr>
-					<td>First Name*:</td>
-					<td><form:input path="firstName" maxlength="20" /></td>
-					<td>Middle Initial:</td>
-					<td><form:input path="middleInitial" maxlength="1" size="1" /></td>
-					<td>Last Name*:</td>
-					<td><form:input path="lastName" maxlength="50" /></td>
-				</tr>
-				<tr>
-					<td>Department*:</td>
-					<td><form:select path="department.id">
+				<div>
+					<label>First Name*:</label>
+					<form:input class="textBoxClass" path="firstName" maxlength="20" />
+					<label>Middle Initial:</label>
+					<form:input class="textBoxClass" path="middleInitial" maxlength="1" size="1" />
+					<label>Last Name*:</label>
+					<form:input class="textBoxClass" path="lastName" maxlength="50" />
+				</div>
+				<div>
+					<label>Department*:</label>
+					<form:select path="department.id">
 							<option value="" />
 							<c:forEach items="${depts}" var="depart">
 								<option label="${depart.name}" value="${depart.id}" />
 							</c:forEach>
-						</form:select></td>
-					<td>Job Title*:</td>
-					<td><form:select path="jobTitle.id">
+						</form:select>
+					<label>Job Title*:</label>
+					<form:select path="jobTitle.id">
 							<option value="" />
 							<c:forEach items="${jobs}" var="userJob">
 								<option label="${userJob.name}" value="${userJob.id}" />
 							</c:forEach>
-						</form:select></td>
-				</tr>
-				<tr>
-					<td>Email*:</td>
-					<td><form:input path="email" maxlength="100" /></td>
-					<td>Skype Name*:</td>
-					<td><form:input path="skypeName" maxlength="100" /></td>
-				</tr>
-				<tr>
+						</form:select>
+				</div>
+				<div>
+					<label>Email*:</label>
+					<form:input class="textBoxClass" path="email" maxlength="100" />
+					<label>Skype Name*:</label>
+					<form:input class="textBoxClass" path="skypeName" maxlength="100" />
+				</div>
+				<div>
 					<i>*Required Field</i>
-				</tr>
-			</table>
+				</div>
 			<input type=submit />
 			<button id="cancelBtn">Cancel</button>
 		</form:form>

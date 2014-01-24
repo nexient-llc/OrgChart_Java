@@ -14,16 +14,14 @@
 	<fieldset>
 		<legend>Add Job Title</legend>
 		<form:form modelAttribute="job" action="jobs" method="post">
-			<table>
-				<tr>
-					<td>Job Title Name:</td>
-					<td><form:input path="name" /></td>
-				</tr>
-				<tr>
-					<td>Description:</td>
-					<td><form:input path="description"></form:input></td>
-				</tr>
-			</table>
+				<div>
+					<label>Name:</label>
+					<form:input class="textBoxClass" path="name" />
+				</div>
+				<div>
+					<label>Description:</label>
+					<form:input class="textBoxClass" path="description"></form:input>
+				</div>
 			<input type=submit />
 			<button id="cancelBtn">Cancel</button>
 		</form:form>

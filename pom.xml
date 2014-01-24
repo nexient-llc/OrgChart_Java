@@ -136,6 +136,12 @@
 			<artifactId>jstl-api</artifactId>
 			<version>1.2-rev-1</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

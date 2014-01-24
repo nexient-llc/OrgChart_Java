@@ -53,29 +53,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-            .authorizeUrls().antMatchers("/", "/403","/j_spring_security_check").permitAll()
-                .and()
-            .requiresChannel().anyRequest().requiresSecure();
-
-        http
+            .authorizeUrls()
+            	.anyRequest().authenticated()
+//            	.antMatchers("/", "/403","/j_spring_security_check").permitAll()
+//                .and()
+//            .requiresChannel().anyRequest().requiresSecure()
+        		.and()
             .formLogin()
                 .loginPage("/admin/login")
-                .failureUrl("/admin/login")
-                .loginProcessingUrl("/j_spring_security_check")
-                .usernameParameter("j_username")
-                .passwordParameter("j_password")
-                .successHandler(authenticationSuccessHandler());
+//                .failureUrl("/admin/login")
+//                .loginProcessingUrl("/j_spring_security_check")
+//                .usernameParameter("j_username")
+//                .passwordParameter("j_password")
+//                .successHandler(authenticationSuccessHandler())
+                .permitAll();
 
-        http
-            .logout()
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/logout")
-                .invalidateHttpSession(true)
-                .logoutUrl("/j_spring_security_logout");
-
-        http
-            .exceptionHandling()
-                .accessDeniedPage("/403");
+//        http
+//            .logout()
+//                .deleteCookies("JSESSIONID")
+//                .logoutSuccessUrl("/logout")
+//                .invalidateHttpSession(true)
+//                .logoutUrl("/j_spring_security_logout");
+//
+//        http
+//            .exceptionHandling()
+//                .accessDeniedPage("/403");
         // @formatter:on
 
     }

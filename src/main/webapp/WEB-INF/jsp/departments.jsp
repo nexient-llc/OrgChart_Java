@@ -15,17 +15,17 @@
 		<legend>Add Department</legend>
 		<form:form modelAttribute="dept" action="depts" method="post">
 			<table>
-				<tr>
-					<td>Dept Name:</td>
-					<td><form:input path="name" /></td>
-				</tr>
-				<tr>
-					<td>Parent Dept:</td>
-					<td><form:select path="parentDepartment.id">
+				<div>
+					<label>Dept Name:</label>
+					<form:input class="textBoxClass" path="name" />
+				</div>
+				<div>
+					<label>Parent Dept: </label>
+					<form:select path="parentDepartment.id">
 							<form:option value="" label="" />
 							<form:options items="${depts}" itemValue="id" itemLabel="name" />
-					</form:select></td>
-				</tr>
+					</form:select>
+				</div>
 			</table>
 			<input type=submit />
 			<button id="cancelBtn">Cancel</button>
