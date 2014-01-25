@@ -41,8 +41,13 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-
-	</repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
 	<dependencies>
 		
@@ -77,8 +82,12 @@
             <version>${spring.version}</version>
         </dependency>
 
-
-
+        <!-- PRIMEFACES -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>4.0</version>
+        </dependency>
 
 
         <!-- HELPERS -->
