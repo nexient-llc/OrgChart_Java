@@ -32,7 +32,7 @@
 			<select name="parent_id">
 				<option>...</option>
 				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.departmentId}">${dept.name}</option>
+					<option value="${dept.name}">${dept.name}</option>
 				</c:forEach>
 			</select>
 			<button type="submit">Save</button>

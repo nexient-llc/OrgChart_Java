@@ -61,14 +61,14 @@ public class JobTitleServiceTest {
     }
 
 	@Test
-	public void findDepartmentByID() {
+	public void findJobTitleByID() {
 		JobTitle title = this.jobTitleService.findJobTitleById(Entities.JOB_TITLE_ID);
 		assertNotNull(title);
 		assertEquals(Entities.JOB_TITLE_ID, title.getId());
 	}
 
     @Test
-    public void storeDepartment() {
+    public void storeJobTitle() {
         JobTitle title = this.jobTitleService.storeJobTitle(this.mockJobTitle);
         assertNotNull(title);
         assertEquals(Entities.jobTitle().getId(), title.getId());

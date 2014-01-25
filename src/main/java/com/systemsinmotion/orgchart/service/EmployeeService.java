@@ -31,7 +31,7 @@ public class EmployeeService {
 		this.repository = repository;
 	}
 
-	public Employee storeDepartment(Employee employee) {
+	public Employee storeEmployee(Employee employee) {
 		return this.repository.save(employee);
 	}
 

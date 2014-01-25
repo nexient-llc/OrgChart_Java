@@ -3,14 +3,7 @@ package com.systemsinmotion.orgchart.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -31,9 +24,22 @@ public class Department extends BaseEntity {
 	@Size(min = 1, max = 45)
 	private String name;
 
+    //private Integer Id;
+
 	private Department parentDepartment;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
+//    @Id
+//    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    @Column(name = "ID")
+//    public Integer getId() {
+//        return Id;
+//    }
+//
+//    public void setId(Integer id) {
+//        Id = id;
+//    }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
 	public Set<Department> getChildDepartments() {
 		return this.childDepartments;
 	}

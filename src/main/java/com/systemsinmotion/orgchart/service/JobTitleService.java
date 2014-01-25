@@ -24,7 +24,7 @@ public class JobTitleService {
     }
 
 	public JobTitle findJobTitleById(Integer Id) {
-		return this.repository.findOne(Id);
+		return this.repository.findById(Id);
 	}
 
 	public void removeJobTitle(JobTitle jobTitle) {

@@ -34,4 +34,7 @@ public class DepartmentService {
 		return this.repository.save(department);
 	}
 
+    public Department findDepartmentByName(String name) {
+        return this.repository.findByName(name);
+    }
 }
