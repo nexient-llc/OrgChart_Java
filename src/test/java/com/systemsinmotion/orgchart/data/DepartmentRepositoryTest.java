@@ -51,7 +51,7 @@ public class DepartmentRepositoryTest {
 		this.parent = this.repository.saveAndFlush(parent);
 
 		this.department = Entities.department(this.parent);
-		this.department = this.repository.saveAndFlush(department);
+		this.department = this.repository.save(department);
 	}
 
 	@Test
@@ -135,7 +135,7 @@ public class DepartmentRepositoryTest {
 	public void update() throws Exception {
 		Department dept = this.repository.findByName(this.department.getName());
 		dept.setName(SOME_NEW_NAME);
-		this.repository.saveAndFlush(dept);
+		this.repository.save(dept);
 
 		dept = null;
 		dept = this.repository.findByName(SOME_NEW_NAME);

@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="h" uri="http://www.springframework.org/tags/form" %>
+<%--<%@ taglib prefix="p" uri="http://primefaces.org/ui"  %>--%>
 
 <h3>Departments</h3> 
 <table id="t1"> 
@@ -18,7 +20,6 @@
 			<td>${dept.parentDepartment.name}</td> </tr>
 	</c:forEach> 
 </table>
-
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div>

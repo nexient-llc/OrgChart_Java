@@ -22,7 +22,7 @@ import java.util.Random;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test-context.xml")
+@ContextConfiguration(classes = JPAConfig.class)
 @WebAppConfiguration("/src/main/webapp")
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
