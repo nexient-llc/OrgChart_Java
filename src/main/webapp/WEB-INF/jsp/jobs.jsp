@@ -7,15 +7,16 @@
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Dept Name</th> <th>Parent Dept</th>
+		<th>Job Name</th>
+        <th>Job Dept</th>
 	</tr> 
-	<c:forEach items="${depts}" var="dept">
+	<c:forEach items="${jobs}" var="job">
 		<tr> 
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
-			<td>${dept.name}</td> 
-			<td>${dept.parentDepartment.name}</td> </tr>
+			<td>${job.name}</td>
+			<td>${job..name}</td> </tr>
 	</c:forEach> 
 </table>
 

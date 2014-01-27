@@ -8,9 +8,15 @@ $(document).ready(function () {
     });
 
     $('#cancelBtn').click(function () {
-        $('#addBtn-container').fadeToggle("fast", "linear", function () {
-            $('#addEntity').fadeToggle("fast", "linear");
+        $('#addEntity').fadeToggle("fast", "linear", function () {
         });
+        $('#addBtn-container').fadeToggle("fast", "linear");
+    });
+
+    $('#loader').click(function() {
+        $("#resultreturn").load("edit.jsp");
+
+        $("resultreturn").dialog({modal: true});
     });
 
 });

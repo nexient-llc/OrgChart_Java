@@ -10,9 +10,6 @@ import javax.validation.constraints.Size;
 @Table(name = "JOB_TITLE")
 public class JobTitle {
 
-    //@NotNull
-    //@NotEmpty
-    //@Size(min = 1, max = 45)
     private String name;
 
     private Integer Id;
