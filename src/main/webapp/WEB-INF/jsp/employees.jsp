@@ -13,11 +13,15 @@
 	<button type="button" id="editBtn">Edit</button>
 </div>
 
+<div id="filterBtn-container">
+	<button type="button" id="filterBtn">Filter</button>
+</div>
+
 <div id="cancelBtn-container" style="display:none">
 	<button type="button" id="cancelBtn">Cancel</button>
 </div>
 
-<div id="addEntity" style="display:none;">
+<div id="addEntity" style="display:none">
 	<fieldset>
 	    <legend>Add Employee</legend>
 		<label>First Name (*)</label><input type="text" id="addInputBoxFirstName"/><br/>
@@ -37,12 +41,35 @@
 				<option value="${job.id}">${job.name}</option>
 			</c:forEach>
 		</select><br/>
-		<div style="margin-top:0.5em; margin-bottom:0.5em">
+		<div style="margin-top:0.5em; margin-bottom:0.5em; font-size:10px;">
 			Required Fields indicated with a (*)
 		</div>
 		<div>
-			<button type="button" id="saveEntity" disabled>Save</button>
-			<button type="button" id="cancelEntity">Cancel</button>
+			<button type="button" id="saveAddEntity" disabled>Save</button>
+			<button type="button" id="cancelAddEntity">Cancel</button>
+		</div>
+	</fieldset>
+</div>
+
+<div id="filterEntity" style="display:none">
+	<fieldset>
+		<legend>Filter Employees</legend>
+		<label>Full Name</label><input type="text" id="filterFullNameInputBox"/><br/>
+		<label>Department</label>
+		<select id="filterSelectBoxDepartmentId">
+			<c:forEach items="${depts}" var="dept">
+				<option value="${dept.id}">${dept.name}</option>
+			</c:forEach>
+		</select><br/>
+		<label>Job Title</label>
+		<select id="filterSelectBoxJobTitleId">
+			<c:forEach items="${jobs}" var="job">
+				<option value="${job.id}">${job.name}</option>
+			</c:forEach>
+		</select><br/>
+		<div style="margin-top:0.8em">
+			<button type="button" id="applyFilterEntity">Apply</button>
+			<button type="button" id="cancelFilterEntity">Cancel</button>
 		</div>
 	</fieldset>
 </div>

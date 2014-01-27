@@ -79,7 +79,7 @@ public class DefaultController {
 	/* Employees */
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
-		model.addAttribute("emps", employeeService.findEmployeesByIsActiveTrue());
+		model.addAttribute("emps", employeeService.findEmployeesByIsActiveTrueOrderByFirstNameAsc());
 		model.addAttribute("depts", departmentService.findDepartmentsByIsActiveTrue());
 		model.addAttribute("jobs", jobTitleService.findJobTitleByIsActiveTrue());
 		return View.EMPLOYEES;

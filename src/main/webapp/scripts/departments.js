@@ -6,7 +6,6 @@ $(document).ready(function() {
 			$('#addEntity').fadeToggle("fast", "linear");
 		});
 		$('#editBtn-container').fadeToggle("fast", "linear");
-		$('#deleteBtn-container').fadeToggle("fast", "linear");
 	});
 	
 	$('#addInputBox').on('keyup', function() {
@@ -21,22 +20,22 @@ $(document).ready(function() {
 				if(response == false) {
 					if(myLen != 0) {
 						$('#funAddInputBox').attr('src', '/orgchart/images/ok.gif');
-						$('#saveEntity').removeAttr('disabled');
+						$('#saveAddEntity').removeAttr('disabled');
 					}
 					else {
 						$('#funAddInputBox').removeAttr('src');
-						$('#saveEntity').attr('disabled', true);
+						$('#saveAddEntity').attr('disabled', true);
 					}
 				}
 				else {
 					$('#funAddInputBox').attr('src', '/orgchart/images/delete.gif');
-					$('#saveEntity').attr('disabled', true);
+					$('#saveAddEntity').attr('disabled', true);
 				}
 			},
         });
 	});
 	
-	$('#saveEntity').click(function() {
+	$('#saveAddEntity').click(function() {
 		$.ajax({
 			type: "POST",
 			url: "depts",
@@ -173,7 +172,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('#cancelEntity').click(function() {
+	$('#cancelAddEntity').click(function() {
 		$('#addEntity').fadeToggle("fast", "linear");
 		$('#addBtn-container').fadeToggle("fast", "linear");
 		$('#editBtn-container').fadeToggle("fast", "linear");

@@ -20,5 +20,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	Employee findEmployeeByEmail(String email);
 	Employee findEmployeeBySkypeName(String skypeName);
 	
-	List<Employee> findEmployeesByIsActiveTrue();
+	List<Employee> findEmployeesByIsActiveTrueOrderByFirstNameAsc();
 }

@@ -69,17 +69,7 @@ SELECT {
 	display: block;
 }
 
-.divHeader {
-	float: left;
-	font-size: 12px;
-	padding: 3px;
-	width: 200px;
-	background-color: #0177C0;
-	color: white;
-	text-align: center;
-}
-
-.divHeaderHidden {
+.divHeader, .divHeaderHidden {
 	float: left;
 	font-size: 12px;
 	padding: 3px;
@@ -101,7 +91,7 @@ div[id*='divEditRow'] {
 	height: 2.5em;
 }
 
-.divColumn {
+.divColumn, .divColumnHidden {
 	float: left;	
 	font-size: 12px;
 	width: 200px;
@@ -110,34 +100,7 @@ div[id*='divEditRow'] {
 	text-align:center;
 }
 
-.divColumnHidden {
-	float: left;	
-	font-size: 12px;
-	width: 200px;
-	height: 2.5em;
-	padding: 0.5em 3px 0 3px;
-	text-align:center;
-}
-
-.editColumnBtn {
-	margin: 0;
-	padding: 0;
-	font-size: 10px;
-}
-
-.submitColumnBtn {
-	margin: 0;
-	padding: 0;
-	font-size: 10px;
-}
-
-.removeColumnBtn {
-	margin: 0;
-	padding: 0;
-	font-size: 10px;
-}
-
-.cancelColumnBtn {
+.editColumnBtn, .submitColumnBtn, .removeColumnBtn, .cancelColumnBtn  {
 	margin: 0;
 	padding: 0;
 	font-size: 10px;
@@ -155,60 +118,26 @@ select[id*='editSelectBox'] {
 	padding: 0;
 }
 
-#addBtn-container {
+#addBtn-container, #editBtn-container, #cancelBtn-container, #filterBtn-container {
 	margin-top: 0.5em;
 	display: inline;
 }
 
-#addBtn {
+#addBtn, #editBtn, #filterBtn, #cancelBtn {
 	width: 55px;
 	padding: 0;
 	margin: 0;
 }
 
-#addEntity {
+#addEntity, #filterEntity {
 	margin-bottom: 1.5em;
 }
 
-#editBtn-container {
-	margin-top: 0.5em;
+#saveAddEntity, #cancelAddEntity, #applyFilterEntity, #cancelFilterEntity {
 	display: inline;
 }
 
-#editBtn {
-	width: 55px;
-	padding: 0;
-	margin: 0;
-}
-
-#cancelBtn-container {
-	margin-top: 0.5em;
-	display: inline;
-}
-
-#cancelBtn {
-	width: 55px;
-	padding: 0;
-	margin: 0;
-}
-
-#saveEntity {
-	display: inline;
-}
-
-#cancelEntity {
-	display: inline;
-}
-
-#funAddInputBox {
-	margin-left: 0.8em;
-}
-
-#funAddInputBoxEmail {
-	margin-left: 0.8em;
-}
-
-#funAddInputBoxSkypeName {
+#funAddInputBox, #funAddInputBoxEmail, #funAddInputBoxSkypeName {
 	margin-left: 0.8em;
 }
 

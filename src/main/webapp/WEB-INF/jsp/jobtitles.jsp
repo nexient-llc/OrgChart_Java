@@ -21,12 +21,12 @@
 	<fieldset>
 	    <legend>Add Job Title</legend>
 		<label>Job Title (*)</label><input id="addInputBox"/><img id=funAddInputBox><br/>
-		<div style="margin-top:0.5em; margin-bottom:0.5em">
+		<div style="margin-top:0.5em; margin-bottom:0.5em; font-size:10px;">
 			Required Fields indicated with a (*)
 		</div>
 		<div>
-			<button type="button" id="saveEntity" disabled>Save</button>
-			<button type="button" id="cancelEntity">Cancel</button>
+			<button type="button" id="saveAddEntity" disabled>Save</button>
+			<button type="button" id="cancelAddEntity">Cancel</button>
 		</div>
 	</fieldset>
 </div>

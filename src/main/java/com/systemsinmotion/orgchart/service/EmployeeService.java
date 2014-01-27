@@ -40,8 +40,8 @@ public class EmployeeService {
 		return this.employeeRepo.findEmployeeBySkypeName(skypeName);
 	}
 	
-	public List<Employee> findEmployeesByIsActiveTrue() {
-		return this.employeeRepo.findEmployeesByIsActiveTrue();
+	public List<Employee> findEmployeesByIsActiveTrueOrderByFirstNameAsc() {
+		return this.employeeRepo.findEmployeesByIsActiveTrueOrderByFirstNameAsc();
 	}
 	
 	public void setRepository(EmployeeRepository employeeRepo) {

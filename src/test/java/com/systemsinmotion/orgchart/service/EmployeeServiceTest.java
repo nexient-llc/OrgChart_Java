@@ -46,7 +46,7 @@ public class EmployeeServiceTest {
 		when(this.mockEmployeeRepo.findEmployeeByLastName(Entities.LAST_NAME)).thenReturn(this.mockEmployee);*/
 		when(this.mockEmployeeRepo.findEmployeeByEmail(Entities.EMAIL)).thenReturn(this.mockEmployee);
 		when(this.mockEmployeeRepo.findEmployeeBySkypeName(Entities.SKYPE_NAME)).thenReturn(this.mockEmployee);
-		when(this.mockEmployeeRepo.findEmployeesByIsActiveTrue()).thenReturn(this.listOfFoundEmps);
+		when(this.mockEmployeeRepo.findEmployeesByIsActiveTrueOrderByFirstNameAsc()).thenReturn(this.listOfFoundEmps);
 		when(this.mockEmployeeRepo.save(this.mockEmployee)).thenReturn(this.mockEmployee);
 		this.employeeService.setRepository(this.mockEmployeeRepo);
 	}
@@ -95,8 +95,8 @@ public class EmployeeServiceTest {
 	}
 	
 	@Test
-	public void findEmployeesByIsActiveTrue() {
-		List<Employee> emps = this.employeeService.findEmployeesByIsActiveTrue();
+	public void findEmployeesByIsActiveTrueOrderByNameAsc() {
+		List<Employee> emps = this.employeeService.findEmployeesByIsActiveTrueOrderByFirstNameAsc();
 		assertNotNull(emps);
 		assertEquals(1, emps.size());
 	}
