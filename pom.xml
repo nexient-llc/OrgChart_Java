@@ -23,8 +23,9 @@
 		<reportsDirectory>${project.build.directory}/surefire</reportsDirectory>
 		<servlet.version>2.5</servlet.version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<spring.security.version>3.2.0.RELEASE</spring.security.version>
+		<spring.security.version>3.1.4.RELEASE</spring.security.version>
 		<spring.version>4.0.0.RELEASE</spring.version>
+		<querydsl.version>3.3.0</querydsl.version>
 	</properties>
 
 	<repositories>
@@ -73,7 +74,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>3.1.4.RELEASE</version>
+			<version>${spring.security.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-aop</artifactId>
@@ -85,7 +86,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>3.1.4.RELEASE</version>
+			<version>${spring.security.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-tx</artifactId>
@@ -105,7 +106,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>3.1.4.RELEASE</version>
+			<version>${spring.security.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-aop</artifactId>
@@ -117,7 +118,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>3.1.4.RELEASE</version>
+			<version>${spring.security.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-tx</artifactId>
@@ -226,6 +227,30 @@
 			<version>5.0.1.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>hibernate-jpa-2.0-api</artifactId>
+					<groupId>org.hibernate.javax.persistence</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-log4j12</artifactId> -->
+<!-- 			<version>1.6.1</version> -->
+<!-- 		</dependency> -->
 
 		<!-- TESTING -->
 		<dependency>
@@ -287,6 +312,22 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.0.9</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -321,6 +362,7 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 	</build>

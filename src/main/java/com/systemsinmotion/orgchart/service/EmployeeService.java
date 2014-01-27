@@ -3,22 +3,32 @@ package com.systemsinmotion.orgchart.service;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.mysema.query.types.expr.BooleanExpression;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.entity.QEmployee;
 
 @Service("employeeService")
 public class EmployeeService {
 
 	@Autowired
 	EmployeeRepository repository;
+	
+	@Autowired
+	EntityManagerFactory factory;
 	
 	public Employee storeEmployee(Employee employee){
 		Department dept = employee.getDepartment();
@@ -96,9 +106,10 @@ public class EmployeeService {
 		return empNames;
 	}
 	
-	public List<Employee> findByNameAndOrDepartmentAndOrJob(String fullName, Integer deptId, Integer jobId){
-		List<Employee> emps = null;
-		if(!fullName.equals("")){
+	public List<Employee> findByNameAndOrDepartmentAndOrJob(String fullName, Integer deptId, Integer jobId){	
+		QEmployee emp = QEmployee.employee;
+		BooleanExpression be = null;
+		if(!"".equals(fullName)){
 			String[] split = fullName.split(" ");
 			String first = split[0];
 			String last = null;
@@ -107,33 +118,28 @@ public class EmployeeService {
 			else if(split.length == 3)
 				last = split[2];
 			
-			emps =  findEmployeesLikeFirstOrLastName(first, last == null ? first : last);
+			be = emp.firstName.containsIgnoreCase(first);
+			if(last != null)
+				be = be.and(emp.lastName.containsIgnoreCase(last));
 		}
 		if(deptId != null){
-			if(emps == null)
-				emps =  findEmployeesByDepartmentId(deptId);
+			if(be != null)
+				be = be.and(emp.department.id.eq(deptId));
 			else
-				for(int i=0;i<emps.size();i++){
-					if(emps.get(i).getDepartment() != null){
-						if(!emps.get(i).getDepartment().getId().equals(deptId))
-							emps.remove(i--);
-					}else
-						emps.remove(i--);
-				}
+				be = emp.department.id.eq(deptId);
 		}
 		if(jobId != null){
-			if(emps == null)
-				emps = findEmployeesByJobTitleId(jobId);
+			if(be != null)
+				be = be.and(emp.jobTitle.id.eq(jobId));
 			else
-				for(int i=0;i<emps.size();i++){
-					if(emps.get(i).getJobTitle() != null){
-						if(!emps.get(i).getJobTitle().getId().equals(jobId))
-							emps.remove(i--);
-					}else
-						emps.remove(i--);
-				}
+				be = emp.jobTitle.id.eq(jobId);
 		}
 		
-		return emps;
+		return (List<Employee>) repository.findAll(be);
+	}
+	
+	public List<Employee> filter(String fullName, Integer deptId, Integer jobId){
+		
+		return null;
 	}
 }

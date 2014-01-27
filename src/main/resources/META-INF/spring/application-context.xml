@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<import resource="dao-context.xml" />
-	<import resource="security-context.xml" />
+<!-- 	<import resource="security-context.xml" /> -->
 
 	<!-- Activates various annotations to be detected in bean classes -->
 	<context:annotation-config />

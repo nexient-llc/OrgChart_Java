@@ -28,23 +28,6 @@ public class DepartmentService {
 		return this.repository.findByName(departmentName);
 	}
 
-	public void removeDepartment(Department department) {
-		if(department != null){
-			List<Department> depts = findAllDepartments();
-			for(Department child : depts){
-				Department parent = child.getParentDepartment();
-				if(parent != null)
-					if(parent.getId().equals(department.getId())){
-						child.setParentDepartment(department.getParentDepartment());
-						storeDepartment(child);
-					}
-			}
-			department.setParentDepartment(null);
-			storeDepartment(department);
-			this.repository.delete(department);
-		}
-	}
-
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;
 	}
@@ -75,7 +58,6 @@ public class DepartmentService {
 			department.setIsActive(false);
 			storeDepartment(department);
 		}
-		
 	}
 
 	public List<Department> findActiveDepartments() {

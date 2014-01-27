@@ -40,7 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private Environment         environment;
-
     
     @Override
     public void configure(WebSecurity security) throws Exception {
@@ -51,18 +50,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-//        http
-//            .authorizeUrls().antMatchers("/").permitAll()
-//                .and()
-//            .requiresChannel().anyRequest().requiresSecure();
+        http
+            .authorizeUrls().antMatchers("/").permitAll()
+                .and()
+            .requiresChannel().anyRequest().requiresSecure();
 
         http
             .formLogin()
                 .loginPage("/admin/login")
                 .failureUrl("/login")
-//                .loginProcessingUrl("/j_spring_security_check")
-//                .usernameParameter("j_username")
-//                .passwordParameter("j_password")
+                .loginProcessingUrl("/j_spring_security_check")
+                .usernameParameter("j_username")
+                .passwordParameter("j_password")
                 .successHandler(authenticationSuccessHandler());
 
         http
