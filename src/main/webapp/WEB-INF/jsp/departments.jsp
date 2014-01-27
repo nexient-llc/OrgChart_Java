@@ -24,7 +24,7 @@
 					</c:forEach>
 				</select>
 				<button type="submit">Save</button>
-				<button type="reset">Clear</button>
+				<button class="addcancelBtn">Cancel</button>
 			</div>
 			<div></div>
 		</form>
@@ -36,6 +36,7 @@
 		<span class="cell deptName">Dept Name</span>
 		<span class="cell deptName">Parent Dept</span>
 		<span class="cell editBtn"></span>
+		<span class="cell deleteBtn"></span>
 	</div>
 	<c:forEach items="${depts}" var="dept">
 		<div class="row" id="ViewDepts${dept.id}">

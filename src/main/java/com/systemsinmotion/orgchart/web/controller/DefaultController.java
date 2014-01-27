@@ -62,20 +62,22 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
 	public String doDepartments_POST(Department dept,
 			Integer parentDepartmentId, Model model) {
-		Department testDepartment = departmentService.findDepartmentByName(dept
-				.getName());
-		if (testDepartment != null) {
-			dept = testDepartment;
-		}
-		
-		Department parent = null;
-		if (parentDepartmentId != null) {
-			parent = departmentService.findDepartmentById(parentDepartmentId);
-		}
-		dept.setParentDepartment((parentDepartmentId == null) ? null : parent);
-		
+		if(dept != null)
+		{
+			Department testDepartment = departmentService.findDepartmentByName(dept
+					.getName());
+			if (testDepartment != null) {
+				dept = testDepartment;
+			}
+			
+			Department parent = null;
+			if (parentDepartmentId != null) {
+				parent = departmentService.findDepartmentById(parentDepartmentId);
+			}
+			dept.setParentDepartment((parentDepartmentId == null) ? null : parent);
 		departmentService.storeDepartment(dept);
-		List<Department> departments = departmentService.findAllDepartments();
+		}
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		model.addAttribute("dept", dept);
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;

@@ -47,6 +47,12 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('.addcancelBtn').click(function(evnt){
+		evnt.preventDefault();
+		$('#addEntity').fadeToggle("fast", "linear", function() {
+			$('#addBtn-container').fadeToggle("fast", "linear");
+		});
+	});
 	
 	$('.cancelBtn').click(function(evnt){
 		var num = $(this).val();

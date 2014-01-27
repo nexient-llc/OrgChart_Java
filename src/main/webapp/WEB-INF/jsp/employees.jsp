@@ -20,14 +20,14 @@
 				<label>Full name: (First Last)</label>
 				<input type="text" class="autocomplete" maxlength="70" id="empFullName">
 				<label>Department:</label>
-				<select name="empDeptId" id="empDeptId">
+				<select class="filterBtn" name="empDeptId" id="empDeptId">
 					<option value = ""/>
 					<c:forEach items="${depts}" var="dept">
 						<option value="${dept.id}">${dept.name}</option>
 					</c:forEach>
 				</select>
 				<label>Job Title:</label>
-				<select name="empJobId" id="empJobId">
+				<select class="filterBtn" name="empJobId" id="empJobId">
 					<option value = ""/>
 					<c:forEach items="${jobs}" var="job">
 						<option value="${job.id}">${job.name}</option>
@@ -94,7 +94,7 @@
 		<span class="cell deleteBtn"></span>
 	</div>
 	<c:forEach items="${emps}" var="emp">
-		<div class="row" id="ViewEmps${emp.id}">
+		<div class="row view" id="ViewEmps${emp.id}">
 			<span class="cell name">${emp.lastName}, ${emp.firstName}
 				${emp.middleInitial}. </span> <span class="cell deptName">${emp.department.name}</span>
 			<span class="cell jobName">${emp.jobTitle.name}</span>
@@ -106,7 +106,7 @@
 			</span>
 		</div>
 
-	<div class="row" id="EditEmps${emp.id}" style="display:none">
+	<div class="row edit" id="EditEmps${emp.id}" style="display:none">
 	<fieldset>
 		<legend>Edit Employee</legend>
 			<div>

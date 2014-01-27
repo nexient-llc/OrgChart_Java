@@ -33,8 +33,11 @@
 
 
 <div class = "table">
-	<div class = "row">
-		<th>Job Description</th>
+	<div class = "row header">
+		<span class = "cell jobName">
+			<label>Job Description</label>
+		</span>
+		<span class = "cell editBtn"/>
 	</div>
 	<c:forEach items="${jobtitles}" var="job">
 	<div class = "row" id="ViewJobs${job.id}">

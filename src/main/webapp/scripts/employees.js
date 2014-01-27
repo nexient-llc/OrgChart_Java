@@ -1,44 +1,31 @@
 $(document).ready(function() {
 	$('#addBtn-container').css('width', $('#t1').width());
-	
+
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#addEntity').fadeToggle("fast", "linear");
 		});
 	});
-	
+
 	$('.editBtn').click(function(evnt) {
 		var num = $(this).val();
 		$('#ViewEmps' + num).fadeToggle("fast", "linear", function() {
 			$('#EditEmps' + num).fadeToggle("fast", "linear");
 		});
 	});
-	
+
 	$('.filter-container').click(function() {
 		$('#filter-container').fadeToggle("fast", "linear", function() {
 			$('#search').fadeToggle("fast", "linear");
 		});
 	});
-	
-	$('.filterBtn').click(function(evnt) {
-		$.ajax({
-			url : "emps",
-			type : "GET",
-			data : {
-				fullName : $('#search #empFullName').val(),
-				deptId : $('#search #empDeptId').val(),
-				jobId : $('#search #empJobId').val()
-			},
-			success : function(data) {
-				data = jQuery.parseJSON(data);
-				$('#t1 .row:not(.header)').fadeOut('fast');
-				data.forEach(function(empId) {
-					$('#t1 #ViewEmps' + empId).fadeIn('fast');
-				});
-			},
-		});
+
+	$
+
+	$('.filterBtn').change(function(evnt) {
+		filterAndFilter();
 	});
-	
+
 	$('.autocomplete').keyup(
 			function() {
 				var name = $(this).val();
@@ -62,9 +49,10 @@ $(document).ready(function() {
 								ul, item) {
 							var re = new RegExp("^" + name);
 							var t = item.label.replace(re,
-									"<style='font-weight:bold;color:Blue;'>" + name
-											+ "</span>");
-							return $("<li></li>").data("item.autocomplete", item).append(
+									"<style='font-weight:bold;color:Blue;'>"
+											+ name + "</span>");
+							return $("<li></li>").data(
+									"item.autocomplete", item).append(
 									"<a>" + t + "</a>").appendTo(ul);
 						};
 						// $('#t1 .row:not(.header)').fadeOut('fast');
@@ -74,17 +62,18 @@ $(document).ready(function() {
 					},
 				});
 			});
-	
-//	$('#empFullName').autocomplete.prototype._renderItem = function(ul,
-//			item) {
-//		var re = new RegExp("^" + this.term);
-//		var t = item.label.replace(re,
-//				"<style='font-weight:bold;color:Blue;'>" + this.term
-//						+ "</span>");
-//		return $("<li></li>").data("item.autocomplete", item).append(
-//				"<a>" + t + "</a>").appendTo(ul);
-//	};
-//	
+
+	// $('#empFullName').autocomplete.prototype._renderItem =
+	// function(ul,
+	// item) {
+	// var re = new RegExp("^" + this.term);
+	// var t = item.label.replace(re,
+	// "<style='font-weight:bold;color:Blue;'>" + this.term
+	// + "</span>");
+	// return $("<li></li>").data("item.autocomplete", item).append(
+	// "<a>" + t + "</a>").appendTo(ul);
+	// };
+	//	
 	$('.deleteBtn').click(function(evnt) {
 		var num = $(this).val();
 		alert(num);
@@ -100,7 +89,7 @@ $(document).ready(function() {
 			},
 		});
 	});
-	
+
 	$('.saveBtn').click(function(evnt) {
 		var num = $(this).val();
 		$.ajax({
@@ -119,8 +108,32 @@ $(document).ready(function() {
 			},
 			success : function(response) {
 				window.location.href = "emps";
-				},
-			});
+			},
 		});
-
+	});
 });
+
+function filterAndFilter() {
+	$.ajax({
+		url : "emps",
+		type : "GET",
+		data : {
+			fullName : $('#search #empFullName').val(),
+			deptId : $('#search #empDeptId').val(),
+			jobId : $('#search #empJobId').val()
+		},
+		success : function(data) {
+			data = jQuery.parseJSON(data);
+			$('#t1 .row:not(.header)').fadeOut('fast');
+
+			if (data.length > 0){
+				data.forEach(function(empId) {
+					$('#t1 #ViewEmps' + empId).fadeIn('fast');
+				});
+			}
+			else{
+				$('#t1 .row:not(.edit)').fadeIn('fast');
+			}
+		},
+	});
+}
