@@ -49,8 +49,11 @@ public class DefaultController {
 
 	@Autowired
     JobTitleService jobTitleService;
-	
 
+    /**
+     * get handler for home page
+     * @return HOME
+     */
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
@@ -104,12 +107,59 @@ public class DefaultController {
 
     }
 
+    @RequestMapping(value = "jobs", method = RequestMethod.POST)
+    public String doJobTitle_POST(JobTitle jobtitle,Integer Id,Model model) {
+        JobTitle result = jobTitleService.findJobTitleByName(jobtitle.getName());
+
+        if(result != null) {
+            jobtitle = result;
+        }
+        jobTitleService.storeJobTitle(jobtitle);
+        List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+        model.addAttribute("job", jobtitle);
+        model.addAttribute("jobs", jobTitles);
+
+        model.addAttribute("statusMessage", "jobTitle.form.msg.success");
+        return View.JOB_TITLES;
+    }
+
+    @RequestMapping(value = "emps", method = RequestMethod.POST)
+    public String doEmployee_POST(Employee employee,String email, Model model) {
+        Employee result = employeeService.findEmployeeByEmail(employee.getEmail());
+
+        if(result != null) {
+            employee = result;
+        }
+
+        employeeService.storeEmployee(employee);
+        List<Employee> employees = employeeService.findAllEmployees();
+        model.addAttribute("emp", employee);
+        model.addAttribute("emps", employees);
+        model.addAttribute("statusMessage", "employee.form.msg.success");
+
+        return View.EMPLOYEES;
+    }
+
     @RequestMapping(value="department", method=RequestMethod.DELETE)
     public String doDepartments_DELETE(Integer id, Model model){
         Department department = departmentService.findDepartmentByID(id);
         departmentService.removeDepartment(department);
 
         return View.DEPARTMENTS;
+    }
+    @RequestMapping(value="employee", method=RequestMethod.DELETE)
+    public String doEmployees_DELETE(Integer id, Model model){
+        Employee employee = employeeService.findEmployeeByID(id);
+        employeeService.removeEmployee(employee);
+
+        return View.EMPLOYEES;
+    }
+    @RequestMapping(value="jobTitle", method=RequestMethod.DELETE)
+    public String doJobTitle_DELETE(Integer id, Model model){
+        JobTitle jobTitle = jobTitleService.findJobTitleById(id);
+        jobTitleService.removeJobTitle(jobTitle);
+
+        return View.JOB_TITLES;
     }
 
     public void setDepartmentService(DepartmentService departmentService) {

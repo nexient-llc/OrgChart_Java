@@ -43,7 +43,7 @@
 
                 <labeL>Skype Name: </labeL><input type="text" name="skypeName"/>
                 <labeL>Employee Department :</label>
-                <select name="parent">
+                <select name="department">
                     <option>...</option>
                     <c:forEach items="${depts}" var="dept">
                         <option value="${dept.id}">${dept.name}</option>

@@ -16,7 +16,7 @@
 				<td>delete</td>
 			</sec:authorize> -->
 			<td>${job.name}</td>
-			<td>${job..name}</td> </tr>
+			<td>${job.name}</td> </tr>
 	</c:forEach> 
 </table>
 
@@ -27,7 +27,7 @@
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Department</legend>
-		<form name="newDept" action="depts" method="post">
+		<form name="newJob" action="jobs" method="post">
 		<div><labeL>Dept Name:</labeL><input type="text" name="name"/>
 			<labeL>Parent Dept:</label>
 			<select name="parent_id">

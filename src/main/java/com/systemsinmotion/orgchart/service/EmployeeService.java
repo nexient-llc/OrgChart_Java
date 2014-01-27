@@ -23,6 +23,10 @@ public class EmployeeService {
 		return this.repository.findOne(employeeId);
 	}
 
+    public Employee findEmployeeByEmail(String email) {
+        return this.repository.findByEmail(email);
+    }
+
 	public void removeEmployee(Employee employee) {
 		this.repository.delete(employee);
 	}
