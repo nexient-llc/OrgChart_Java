@@ -31,37 +31,37 @@ public class Employee extends BaseEntity {
 
     @Column(name = "FIRST_NAME", nullable = false, length = 20)
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     @Column(name = "LAST_NAME", nullable = false, length = 50)
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     @Column(name = "MIDDLE_INITIAL")
     public Character getMiddleInitial() {
-        return middleInitial;
+        return this.middleInitial;
     }
 
     @Column(name = "EMAIL", unique = true)
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     @Column(name = "SKYPE_NAME", unique = true)
     public String getSkypeName() {
-        return skypeName;
+        return this.skypeName;
     }
 
     @Column(name = "IS_MANAGER")
     public boolean getIsManager() {
-        return isManager;
+        return this.isManager;
     }
 
     @Column(name = "IS_ACTIVE")
     public boolean getIsActive() {
-        return isActive;
+        return this.isActive;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -79,7 +79,7 @@ public class Employee extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
     public Department getDepartment() {
-        return department;
+        return this.department;
     }
 
     public void setDepartment(Department department) {

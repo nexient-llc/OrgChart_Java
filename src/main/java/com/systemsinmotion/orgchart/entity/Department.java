@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.persister.walking.internal.FetchStrategyHelper;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.jdbc.support.lob.TemporaryLobCreator;
 
@@ -47,13 +48,13 @@ public class Department extends BaseEntity {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PARENT_DEPARTMENT_ID", nullable = true, referencedColumnName = "ID")
+    @JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
     public Department getParentDepartment() {
         return this.parentDepartment;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "MANAGER_ID", nullable = true, referencedColumnName = "ID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
     public Employee getManager() {
         return this.manager;
     }

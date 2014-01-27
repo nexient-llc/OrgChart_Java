@@ -11,8 +11,10 @@ public class Entities {
 
 	public static final String DEPARTMENT_NAME = "Department";
 	public static final Integer DEPT_ID = 22;
+    public static final Integer DEPT_ID2 = 23;
 	public static final String EMAIL = "email";
 	public static final Integer EMPLOYEE_ID = 5;
+    public static final Integer EMPLOYEE_ID2 = 6;
 	public static final String FIRST_NAME = "first name";
 	public static final String JOB_TITLE = "Job Title";
 	public static final Integer JOB_TITLE_ID = 5;
@@ -26,7 +28,7 @@ public class Entities {
 	public static Department department() {
 		Department department = new Department();
 		department.setName(departmentName());
-        department.setId(DEPT_ID);
+        //department.setId(DEPT_ID);
 		return department;
 	}
 
