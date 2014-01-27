@@ -30,9 +30,9 @@ import com.systemsinmotion.orgchart.web.View;
 @Controller
 public class DefaultController {
 
-	@SuppressWarnings("unused")
-	private static final Logger log = LoggerFactory
-			.getLogger(DefaultController.class);
+    @SuppressWarnings("unused")
+    private static final Logger log = LoggerFactory
+            .getLogger(DefaultController.class);
     @Autowired
     private DepartmentRepository deptRepo;
 
@@ -41,58 +41,64 @@ public class DefaultController {
     @Autowired
     private JobTitleRepository jobsRepo;
 
-	@Autowired
+    @Autowired
     EmployeeService employeeService;
 
-	@Autowired
-	DepartmentService departmentService;
+    @Autowired
+    DepartmentService departmentService;
 
-	@Autowired
+    @Autowired
     JobTitleService jobTitleService;
 
     /**
      * get handler for home page
+     *
      * @return HOME
      */
-	@RequestMapping(value = "home", method = RequestMethod.GET)
-	public String doGet() {
-		return View.HOME;
-	}
-	
-	@RequestMapping(value = "depts", method = RequestMethod.GET)
-	public String doDepartments_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
+    @RequestMapping(value = "home", method = RequestMethod.GET)
+    public String doGet() {
+        return View.HOME;
+    }
+
+    @RequestMapping(value = "depts", method = RequestMethod.GET)
+    public String doDepartments_GET(Model model) {
+
         List<Department> departments = departmentService.findAllDepartments();
         model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
-	}
+        return View.DEPARTMENTS;
+    }
 
     @RequestMapping(value = "emps", method = RequestMethod.GET)
     public String doEmployee_GET(Model model) {
-        //uncomment when database connection is set up. will throw error when run
-		 List<Employee> employee = employeeService.findAllEmployees();
-		 model.addAttribute("emps", employee);
+
+        List<Employee> employees = employeeService.findAllEmployees();
+        List<Department> departments = departmentService.findAllDepartments();
+        List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+        model.addAttribute("emps", employees);
+        model.addAttribute("jobs", jobTitles);
+        model.addAttribute("depts", departments);
+
         return View.EMPLOYEES;
     }
 
     @RequestMapping(value = "jobs", method = RequestMethod.GET)
     public String doJob_GET(Model model) {
-        //uncomment when database connection is set up. will throw error when run
-		 List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
-		 model.addAttribute("jobs", jobTitle);
+
+        List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
+        model.addAttribute("jobs", jobTitle);
         return View.JOB_TITLES;
     }
 
     @RequestMapping(value = "depts", method = RequestMethod.POST)
-    public String doDepartments_POST(Department department,Integer parentDepartmentId,Model model) {
+    public String doDepartments_POST(Department department, Integer parentDepartmentId, Model model) {
         Department result = departmentService.findDepartmentByName(department.getName());
 
-        if(result != null) {
+        if (result != null) {
             department = result;
         }
 
         Department parent = null;
-        if(parentDepartmentId != null) {
+        if (parentDepartmentId != null) {
             parent = departmentService.findDepartmentByID(parentDepartmentId);
             department.setParentDepartment(parent);
         }
@@ -108,12 +114,16 @@ public class DefaultController {
     }
 
     @RequestMapping(value = "jobs", method = RequestMethod.POST)
-    public String doJobTitle_POST(JobTitle jobtitle,Integer Id,Model model) {
+    public String doJobTitle_POST(JobTitle jobtitle, String name, Boolean isActive, Model model) {
         JobTitle result = jobTitleService.findJobTitleByName(jobtitle.getName());
 
-        if(result != null) {
+        if (result != null) {
             jobtitle = result;
         }
+
+        jobtitle.setName(name);
+        jobtitle.setIsActive(isActive);
+
         jobTitleService.storeJobTitle(jobtitle);
         List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
         model.addAttribute("job", jobtitle);
@@ -124,12 +134,21 @@ public class DefaultController {
     }
 
     @RequestMapping(value = "emps", method = RequestMethod.POST)
-    public String doEmployee_POST(Employee employee,String email, Model model) {
+    public String doEmployee_POST(Employee employee, String firstName, Character middleInitial,
+                                  String lastName, String email, Department department,
+                                  JobTitle jobTitle, Model model) {
         Employee result = employeeService.findEmployeeByEmail(employee.getEmail());
 
-        if(result != null) {
+        if (result != null) {
             employee = result;
         }
+
+        employee.setFirstName(firstName);
+        employee.setMiddleInitial(middleInitial);
+        employee.setLastName(lastName);
+        employee.setEmail(email);
+        employee.setDepartment(department);
+        employee.setJobTitle(jobTitle);
 
         employeeService.storeEmployee(employee);
         List<Employee> employees = employeeService.findAllEmployees();
@@ -140,22 +159,24 @@ public class DefaultController {
         return View.EMPLOYEES;
     }
 
-    @RequestMapping(value="department", method=RequestMethod.DELETE)
-    public String doDepartments_DELETE(Integer id, Model model){
+    @RequestMapping(value = "department", method = RequestMethod.DELETE)
+    public String doDepartments_DELETE(Integer id, Model model) {
         Department department = departmentService.findDepartmentByID(id);
         departmentService.removeDepartment(department);
 
         return View.DEPARTMENTS;
     }
-    @RequestMapping(value="employee", method=RequestMethod.DELETE)
-    public String doEmployees_DELETE(Integer id, Model model){
-        Employee employee = employeeService.findEmployeeByID(id);
+
+    @RequestMapping(value = "employee", method = RequestMethod.DELETE)
+    public String doEmployees_DELETE(Integer id, Model model) {
+        Employee employee = employeeService.findById(id);
         employeeService.removeEmployee(employee);
 
         return View.EMPLOYEES;
     }
-    @RequestMapping(value="jobTitle", method=RequestMethod.DELETE)
-    public String doJobTitle_DELETE(Integer id, Model model){
+
+    @RequestMapping(value = "jobTitle", method = RequestMethod.DELETE)
+    public String doJobTitle_DELETE(Integer id, Model model) {
         JobTitle jobTitle = jobTitleService.findJobTitleById(id);
         jobTitleService.removeJobTitle(jobTitle);
 
@@ -165,9 +186,11 @@ public class DefaultController {
     public void setDepartmentService(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
+
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
     public void setJobTitleService(JobTitleService jobTitleService) {
         this.jobTitleService = jobTitleService;
     }

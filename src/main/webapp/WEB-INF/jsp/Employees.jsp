@@ -37,19 +37,27 @@
         <legend>Add Employee</legend>
         <form name="newEmp" action="emps" method="post">
             <div>
-                <labeL>First Name: </labeL><input type="text" name="firstName"/>
-                <labeL>Middle Initial: </labeL><input type="text" name="middleInitial"/>
-                <labeL>Last Name: </labeL><input type="text" name="lastName"/>
-
-                <labeL>Skype Name: </labeL><input type="text" name="skypeName"/>
+                <labeL>*First: </labeL><input type="text" name="firstName"/>
+                <labeL>*Last Name: </labeL><input type="text" name="lastName"/>
+                <br>
+                <labeL>Middle: </labeL><input type="text" name="middleInitial"/>
+                <labeL>Email: </labeL><input type="text" name="email"/>
                 <labeL>Employee Department :</label>
-                <select name="department">
+                <select name="deptartment">
                     <option>...</option>
                     <c:forEach items="${depts}" var="dept">
                         <option value="${dept.id}">${dept.name}</option>
                     </c:forEach>
                 </select>
+                <labeL>Job Title :</label>
+                <select name="jobTitle">
+                    <option>...</option>
+                    <c:forEach items="${jobs}" var="job">
+                        <option value="${job.id}">${job.name}</option>
+                    </c:forEach>
+                </select>
                 <button type="submit">Save</button>
+                <button type="button" id="cancelBtn">Cancel</button>
             </div>
             <%--<div></div>--%>
         </form>

@@ -19,17 +19,22 @@ public class EmployeeService {
 		return this.repository.findAll();
 	}
 
-	public Employee findEmployeeByID(Integer employeeId) {
-		return this.repository.findOne(employeeId);
+	public Employee findById(Integer employeeId) {
+		return this.repository.findById(employeeId);
 	}
 
     public Employee findEmployeeByEmail(String email) {
         return this.repository.findByEmail(email);
     }
 
+    public List<Employee> findByName(String first, String last) {
+        return this.repository.findByFirstNameOrLastNameAllIgnoreCase(first, last);
+    }
+
 	public void removeEmployee(Employee employee) {
 		this.repository.delete(employee);
 	}
+
 
 	public void setRepository(EmployeeRepository repository) {
 		this.repository = repository;

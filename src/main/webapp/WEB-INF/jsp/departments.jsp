@@ -41,10 +41,6 @@
                 </select>
                 <button type="submit">Save</button>
                 <button type="button" id="cancelBtn">Cancel</button>
-                <div id="resultreturn" style="display: none"></div>
-                <form >
-                    <input type="button" value="click here to open modal window" id="loader"/>
-                </form>
             </div>
             <div></div>
         </form>

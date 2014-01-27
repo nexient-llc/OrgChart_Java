@@ -8,7 +8,7 @@
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
 		<th>Job Name</th>
-        <th>Job Dept</th>
+        <th>Active Status</th>
 	</tr> 
 	<c:forEach items="${jobs}" var="job">
 		<tr> 
@@ -16,7 +16,7 @@
 				<td>delete</td>
 			</sec:authorize> -->
 			<td>${job.name}</td>
-			<td>${job.name}</td> </tr>
+			<td>${job.isActive}</td> </tr>
 	</c:forEach> 
 </table>
 
@@ -28,15 +28,9 @@
 	<fieldset>
 		<legend>Add Department</legend>
 		<form name="newJob" action="jobs" method="post">
-		<div><labeL>Dept Name:</labeL><input type="text" name="name"/>
-			<labeL>Parent Dept:</label>
-			<select name="parent_id">
-				<option>...</option>
-				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.departmentId}">${dept.name}</option>
-				</c:forEach>
-			</select>
-			<button type="submit">Save</button>
+		<div><labeL>Job Title:</labeL><input type="text" name="name"/>
+		<label>Active :</label><input type="checkbox" name="isActive"/>
+		<button type="submit">Save</button>
 		</div>
 		<div></div>
 		</form>

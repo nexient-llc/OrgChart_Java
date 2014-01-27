@@ -62,7 +62,7 @@ public class EmployeeServiceTest {
 
 	@Test
 	public void findEmployeeByID() {
-		Employee employee = this.employeeService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		Employee employee = this.employeeService.findById(Entities.EMPLOYEE_ID);
 		assertNotNull(employee);
 		assertEquals(Entities.EMPLOYEE_ID, employee.getId());
 	}

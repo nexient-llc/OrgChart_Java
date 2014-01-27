@@ -18,4 +18,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
     Employee findByEmail(String email);
 
+    List<Employee> findByFirstNameOrLastNameAllIgnoreCase(String first, String last);
+
 }

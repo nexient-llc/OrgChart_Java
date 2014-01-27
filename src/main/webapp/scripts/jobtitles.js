@@ -6,5 +6,11 @@ $(document).ready(function() {
 			$('#addEntity').fadeToggle("fast", "linear");
 		});
 	});
-	
+
+    $('#cancelBtn').click(function () {
+        $('#addEntity').fadeToggle("fast", "linear", function () {
+        });
+        $('#addBtn-container').fadeToggle("fast", "linear");
+    });
+
 });
