@@ -1,10 +1,16 @@
-$(document).ready(function() {
-	$('#addBtn-container').css('width', $('#t1').width());
+$(document).ready(function () {
+    $('#addBtn-container').css('width', $('#t1').width());
 
-	$('#addBtn').click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
-			$('#addEntity').fadeToggle("fast", "linear");
-		});
-	});
-	
+    $('#addBtn').click(function () {
+        $('#addBtn-container').fadeToggle("fast", "linear", function () {
+            $('#addEntity').fadeToggle("fast", "linear");
+        });
+    });
+
+    $('#cancelBtn').click(function () {
+        $('#addBtn-container').fadeToggle("fast", "linear", function () {
+            $('#addEntity').fadeToggle("fast", "linear");
+        });
+    });
+
 });

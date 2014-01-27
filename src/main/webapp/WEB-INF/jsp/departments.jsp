@@ -7,15 +7,15 @@
 
 <h3>Departments</h3> 
 <table id="t1"> 
-	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
+	<tr> <sec:authorize access="hasRole('ROLE_ADMIN')">
+		 <th>Task</th></sec:authorize>
 		<th>Dept Name</th> <th>Parent Dept</th>
 	</tr> 
 	<c:forEach items="${depts}" var="dept">
 		<tr> 
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
+			 <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
-			</sec:authorize> -->
+			</sec:authorize>
 			<td>${dept.name}</td> 
 			<td>${dept.parentDepartment.name}</td> </tr>
 	</c:forEach> 
@@ -37,6 +37,7 @@
 				</c:forEach>
 			</select>
 			<button type="submit">Save</button>
+            <button type="button" id="cancelBtn">Cancel</button>
 		</div>
 		<div></div>
 		</form>
