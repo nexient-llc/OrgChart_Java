@@ -1,7 +1,6 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -156,5 +157,29 @@ public class DefaultController {
 		jobTitle.setIsActive(false);
 		jobTitleService.storeJobTitle(jobTitle);
 		return doJobTitles_GET(model);
+	}
+	
+	@RequestMapping(value = "checkDepts", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean deptNameExists(HttpServletResponse response, @RequestParam String name) {
+		return departmentService.findDepartmentByName(name) != null;
+	}
+	
+	@RequestMapping(value = "checkEmpsEmail", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean empsEmailExists(HttpServletResponse response, @RequestParam String email) {
+		return employeeService.findEmployeeByEmail(email) != null;
+	}
+	
+	@RequestMapping(value = "checkEmpsSkypeName", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean empsSkypeNameExists(HttpServletResponse response, @RequestParam String skypeName) {
+		return employeeService.findEmployeeBySkypeName(skypeName) != null;
+	}
+	
+	@RequestMapping(value = "checkJobs", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean jobNameExists(HttpServletResponse response, @RequestParam String name) {
+		return jobTitleService.findJobTitleByName(name) != null;
 	}
 }

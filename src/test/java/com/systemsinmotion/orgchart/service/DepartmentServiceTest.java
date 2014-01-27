@@ -1,6 +1,8 @@
 package com.systemsinmotion.orgchart.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -42,7 +44,7 @@ public class DepartmentServiceTest {
 		this.listOfFoundDepts.add(this.mockDepartment);
 		when(this.mockDepartmentRepo.findAll()).thenReturn(this.listOfFoundDepts);
 		when(this.mockDepartmentRepo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
-		//when(this.mockDepartmentRepo.findDepartmentByName(Entities.DEPARTMENT_NAME)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentRepo.findDepartmentByName(Entities.DEPARTMENT_NAME)).thenReturn(this.mockDepartment);
 		when(this.mockDepartmentRepo.findDepartmentsByParentDepartmentId(Entities.DEPT_ID)).thenReturn(this.listOfFoundDepts);
 		when(this.mockDepartmentRepo.findDepartmentsByIsActiveTrue()).thenReturn(this.listOfFoundDepts);
 		when(this.mockDepartmentRepo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
@@ -90,6 +92,13 @@ public class DepartmentServiceTest {
 	}
 	
 	@Test
+	public void findDepartmentByName() {
+		Department dept = this.departmentService.findDepartmentByName(Entities.DEPARTMENT_NAME);
+		assertNotNull(dept);
+		assertEquals(Entities.DEPT_ID, dept.getId());
+	}
+	
+	@Test
 	public void setInactiveDepartment() {
 		Integer deptId = this.departmentService.setInactiveDepartment(this.mockDepartment).getId();
 		assertNotNull(deptId);
@@ -102,14 +111,4 @@ public class DepartmentServiceTest {
 		assertNotNull(deptId);
 		assertEquals(Entities.DEPT_ID, deptId);
 	}
-	
-	
-/*	@Test
-	public void removeDepartment() {
-		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment).getId();
-		assertNotNull(deptId);
-		this.departmentService.removeDepartment(this.mockDepartment);
-		assertNull(this.departmentService.findDepartmentById(this.mockDepartment.getId()));
-	}*/
-	
 }

@@ -8,7 +8,7 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface JobTitleRepository extends JpaRepository<JobTitle, Integer> {
 	
-	//JobTitle findJobTitleByName(String jobTitleName);
+	JobTitle findJobTitleByName(String jobTitleName);
 	
 	List<JobTitle> findJobTitleByIsActiveTrue();
 	

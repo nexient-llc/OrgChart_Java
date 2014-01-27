@@ -31,6 +31,10 @@ public class DepartmentService {
 		else
 			return null;
 	}
+
+	public Department findDepartmentByName(String name) {
+		return this.repository.findDepartmentByName(name);
+	}
 	
 	public List<Department> findDepartmentsByIsActiveTrue() {
 		return this.repository.findDepartmentsByIsActiveTrue();

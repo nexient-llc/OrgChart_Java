@@ -89,25 +89,6 @@ public class EmployeeRepositoryTest {
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
 	
-	/*
-	@Test
-	public void findEmployeesByDepartment() throws Exception {
-		List<Employee> emps = this.employeeRepo.findEmployeesByDepartment(this.employee.getDepartment());
-		assertNotNull("Expecting a non-null list of Employees but was null", emps);
-		Employee emp = emps.get(0);
-		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-		assertEquals(this.employee.getLastName(), emp.getLastName());
-		assertEquals(this.employee.getEmail(), emp.getEmail());
-		assertEquals(this.employee.getSkypeName(), emp.getSkypeName());
-	}
-	
-	@Test
-	public void findEmployeesByDepartment_null() throws Exception {
-		List<Employee> emps = this.employeeRepo.findEmployeesByDepartment(null);
-		// System.out.println(emps)
-		assertTrue(emps.isEmpty()); // Returns an empty list which is non-null
-	}
-	
 	@Test
 	public void findEmployeeByEmail() throws Exception {
 		Employee emp = this.employeeRepo.findEmployeeByEmail(this.employee.getEmail());
@@ -145,6 +126,25 @@ public class EmployeeRepositoryTest {
 	public void findEmployeeBySkypeName_XXX() throws Exception {
 		Employee emp = this.employeeRepo.findEmployeeBySkypeName(NOT_PRESENT_VALUE);
 		assertNull("Expecting a null Employee but was non-null", emp);
+	}
+	
+	/*
+	@Test
+	public void findEmployeesByDepartment() throws Exception {
+		List<Employee> emps = this.employeeRepo.findEmployeesByDepartment(this.employee.getDepartment());
+		assertNotNull("Expecting a non-null list of Employees but was null", emps);
+		Employee emp = emps.get(0);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+		assertEquals(this.employee.getSkypeName(), emp.getSkypeName());
+	}
+	
+	@Test
+	public void findEmployeesByDepartment_null() throws Exception {
+		List<Employee> emps = this.employeeRepo.findEmployeesByDepartment(null);
+		// System.out.println(emps)
+		assertTrue(emps.isEmpty()); // Returns an empty list which is non-null
 	}
 
 	@Test

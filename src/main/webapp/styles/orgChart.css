@@ -22,7 +22,7 @@ H3 {
 }
 
 LABEL {
-	width: 7em;
+	width: 7.9em;
 	display: inline-block;
 }
 
@@ -198,6 +198,22 @@ select[id*='editSelectBox'] {
 
 #cancelEntity {
 	display: inline;
+}
+
+#funAddInputBox {
+	margin-left: 0.8em;
+}
+
+#funAddInputBoxEmail {
+	margin-left: 0.8em;
+}
+
+#funAddInputBoxSkypeName {
+	margin-left: 0.8em;
+}
+
+img[class^='funEditInputBox'] {
+	margin-left: 0.8em;
 }
 
 #login {

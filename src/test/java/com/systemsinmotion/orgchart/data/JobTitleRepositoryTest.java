@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.data;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -73,7 +74,6 @@ public class JobTitleRepositoryTest {
     	assertNull(jobTitle);
     }
     
-    /*
     @Test
     public void findByName() throws Exception {
     	JobTitle jobTitle = this.jobTitleRepo.findJobTitleByName(this.jobTitle.getName());
@@ -87,6 +87,7 @@ public class JobTitleRepositoryTest {
     	assertNull(jobTitle);
     }
     
+    /*
     @Test
     public void update() throws Exception {
     	JobTitle jobTitle = this.jobTitleRepo.findJobTitleByName(this.jobTitle.getName());

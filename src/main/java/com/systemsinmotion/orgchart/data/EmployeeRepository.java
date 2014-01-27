@@ -12,11 +12,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	/*
 	Employee findEmployeeByFirstName(String firstName);
 	Employee findEmployeeByLastName(String lastName);
-	Employee findEmployeeByEmail(String email);
-	Employee findEmployeeBySkypeName(String skypeName);
 	
 	List<Employee> findEmployeesByDepartment(Department department);
 	List<Employee> findEmployeesByManagerId(Integer manager);
 	*/
+	
+	Employee findEmployeeByEmail(String email);
+	Employee findEmployeeBySkypeName(String skypeName);
+	
 	List<Employee> findEmployeesByIsActiveTrue();
 }

@@ -30,6 +30,7 @@ public class EmployeeService {
 	public Employee findEmployeeByLastName(String lastName) {
 		return this.employeeRepo.findEmployeeByLastName(lastName);
 	}
+	*/
 	
 	public Employee findEmployeeByEmail(String email) {
 		return this.employeeRepo.findEmployeeByEmail(email);
@@ -37,7 +38,7 @@ public class EmployeeService {
 	
 	public Employee findEmployeeBySkypeName(String skypeName) {
 		return this.employeeRepo.findEmployeeBySkypeName(skypeName);
-	}*/
+	}
 	
 	public List<Employee> findEmployeesByIsActiveTrue() {
 		return this.employeeRepo.findEmployeesByIsActiveTrue();

@@ -27,6 +27,10 @@ public class JobTitleService {
 		return this.jobTitleRepo.findJobTitleByIsActiveTrue();
 	}
 	
+	public JobTitle findJobTitleByName(String name) {
+		return this.jobTitleRepo.findJobTitleByName(name);
+	}
+	
 	public void setRepository(JobTitleRepository jobTitleRepository) {
 		this.jobTitleRepo = jobTitleRepository;
 	}

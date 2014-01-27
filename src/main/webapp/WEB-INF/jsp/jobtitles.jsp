@@ -20,14 +20,14 @@
 <div id="addEntity" style="display:none;">
 	<fieldset>
 	    <legend>Add Job Title</legend>
-		<form name="addJob" action="jobs" method="post">
-			<div>
-				<label>Job Title:</label><input type="text" name="name"/>
-				<button type="submit" id="saveEntity">Save</button>
-				<button type="button" id="cancelEntity">Cancel</button>
-			</div>
-			<div></div>
-		</form>
+		<label>Job Title (*)</label><input id="addInputBox"/><img id=funAddInputBox><br/>
+		<div style="margin-top:0.5em; margin-bottom:0.5em">
+			Required Fields indicated with a (*)
+		</div>
+		<div>
+			<button type="button" id="saveEntity" disabled>Save</button>
+			<button type="button" id="cancelEntity">Cancel</button>
+		</div>
 	</fieldset>
 </div>
 
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div id="divEditRow${job.id}" style="display:none">
-				<div class="divColumn"><input id="editInputBox${job.id}" value="${job.name}"/></div>
+				<div class="divColumn"><input id="editInputBox${job.id}" value="${job.name}"/><img class="funEditInputBox"></div>
 				<div class="divColumn">
 					<button type="button" class="submitColumnBtn" value="${job.id}">Submit</button>
 					<button type="button" class="removeColumnBtn" value="${job.id}">Remove</button>

@@ -20,32 +20,30 @@
 <div id="addEntity" style="display:none;">
 	<fieldset>
 	    <legend>Add Employee</legend>
-		<form name="addEmp" action="emps" method="post">
-			<div>
-				<label>First Name:</label><input type="text" name="firstName"/><br/>
-				<label>Last Name:</label><input type="text" name="lastName"/><br/>
-				<label>Middle Initial:</label><input type="text" name="middleInitial"/><br/>
-				<label>Department:</label>
-				<select name="departmentId">
-					<option value="">None</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select><br/>
-				<label>Email:</label><input type="text" name="email"/><br/>
-				<label>Skype Name:</label><input type="text" name="skypeName"/><br/>
-				<label>Job Title:</label>
-				<select name="jobTitleId">
-					<option value="">None</option>
-					<c:forEach items="${jobs}" var="job">
-						<option value="${job.id}">${job.name}</option>
-					</c:forEach>
-				</select><br/>
-				<button type="submit" id="saveEntity">Save</button>
-				<button type="button" id="cancelEntity">Cancel</button>
-			</div>
-			<div></div>
-		</form>
+		<label>First Name (*)</label><input type="text" id="addInputBoxFirstName"/><br/>
+		<label>Last Name (*)</label><input type="text" id="addInputBoxLastName"/><br/>
+		<label>Middle Initial</label><input type="text" id="addInputBoxMiddleInitial"/><br/>
+		<label>Department (*)</label>
+		<select id="addSelectBoxDepartmentId">
+			<c:forEach items="${depts}" var="dept">
+				<option value="${dept.id}">${dept.name}</option>
+			</c:forEach>
+		</select><br/>
+		<label>Email (*)</label><input id="addInputBoxEmail"/><img id=funAddInputBoxEmail><br/>
+		<label>Skype Name (*)</label><input id="addInputBoxSkypeName"/><img id=funAddInputBoxSkypeName><br/>
+		<label>Job Title (*)</label>
+		<select id="addSelectBoxJobTitleId">
+			<c:forEach items="${jobs}" var="job">
+				<option value="${job.id}">${job.name}</option>
+			</c:forEach>
+		</select><br/>
+		<div style="margin-top:0.5em; margin-bottom:0.5em">
+			Required Fields indicated with a (*)
+		</div>
+		<div>
+			<button type="button" id="saveEntity" disabled>Save</button>
+			<button type="button" id="cancelEntity">Cancel</button>
+		</div>
 	</fieldset>
 </div>
 
@@ -84,11 +82,11 @@
 				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<td>delete</td>
 				</sec:authorize> -->
-				<div class="divColumn"><input id="editInputBox${emp.id}firstName" type="text" value="${emp.firstName}"/></div> 
-				<div class="divColumn"><input id="editInputBox${emp.id}lastName" type="text" value="${emp.lastName}"/></div>
-				<div class="divColumn"><input id="editInputBox${emp.id}middleInitial" type="text" value="${emp.middleInitial}"/></div>
+				<div class="divColumn"><input id="editInputBox${emp.id}FirstName" type="text" value="${emp.firstName}"/></div> 
+				<div class="divColumn"><input id="editInputBox${emp.id}LastName" type="text" value="${emp.lastName}"/></div>
+				<div class="divColumn"><input id="editInputBox${emp.id}MiddleInitial" type="text" value="${emp.middleInitial}"/></div>
 				<div class="divColumn">
-					<select id="editSelectBox${emp.id}departmentId">
+					<select id="editSelectBox${emp.id}DepartmentId">
 						<option value="">None</option>
 						<c:forEach items="${depts}" var="dept">
 							<c:choose>
@@ -102,10 +100,10 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="divColumn"><input id="editInputBox${emp.id}email" type="text" value="${emp.email}"/></div>
-				<div class="divColumn"><input id="editInputBox${emp.id}skypeName" type="text" value="${emp.skypeName}"/></div>			
+				<div class="divColumn"><input id="editInputBox${emp.id}Email" type="text" value="${emp.email}"/><img class=funEditInputBoxEmail></div>
+				<div class="divColumn"><input id="editInputBox${emp.id}SkypeName" type="text" value="${emp.skypeName}"/><img class=funEditInputBoxSkypeName></div>		
 				<div class="divColumn">
-					<select id="editSelectBox${emp.id}jobTitleId" name="jobTitleId">
+					<select id="editSelectBox${emp.id}JobTitleId">
 						<option value="">None</option>
 						<c:forEach items="${jobs}" var="job">
 							<c:choose>

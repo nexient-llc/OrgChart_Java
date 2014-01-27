@@ -20,21 +20,21 @@
 <div id="addEntity" style="display:none;">
 	<fieldset>
 	    <legend>Add Department</legend>
-		<form name="addDept" action="depts" method="post">
-			<div>
-				<label>Dept Name:</label><input type="text" name="name"/>
-				<label>Parent Dept:</label>
-				<select name="parentDepartmentId">
-					<option value="">None</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
-				<button type="submit" id="saveEntity">Save</button>
-				<button type="button" id="cancelEntity">Cancel</button>
-			</div>
-			<div></div>
-		</form>
+	    <label>Dept Name (*)</label><input id="addInputBox"/><img id=funAddInputBox><br/>
+		<label>Parent Dept</label>
+		<select id="addSelectBox">
+			<option value="">None</option>
+			<c:forEach items="${depts}" var="dept">
+				<option value="${dept.id}">${dept.name}</option>
+			</c:forEach>
+		</select><br/>
+		<div style="margin-top:0.5em; margin-bottom:0.5em; font-size:10px">
+			Required Fields indicated with a (*)
+		</div>
+		<div>
+			<button type="button" id="saveEntity" disabled>Save</button>
+			<button type="button" id="cancelEntity">Cancel</button>
+		</div>
 	</fieldset>
 </div>
 
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 			<div id="divEditRow${dept.id}" style="display:none">
-				<div class="divColumn"><input id="editInputBox${dept.id}" value="${dept.name}"/></div>
+				<div class="divColumn"><input id="editInputBox${dept.id}" value="${dept.name}"/><img class="funEditInputBox"></div>
 				<div class="divColumn">
 					<select id="editSelectBox${dept.id}">
 						<option value="">None</option>

@@ -45,7 +45,7 @@ public class JobTitleServiceTest {
 		this.listOfFoundJobTitles.add(this.mockJobTitle);
 		when(this.mockJobTitleRepo.findAll()).thenReturn(this.listOfFoundJobTitles);
 		when(this.mockJobTitleRepo.findOne(Entities.JOB_TITLE_ID)).thenReturn(this.mockJobTitle);
-		//when(this.mockJobTitleRepo.findJobTitleByName(Entities.JOB_TITLE_NAME)).thenReturn(this.mockJobTitle);
+		when(this.mockJobTitleRepo.findJobTitleByName(Entities.JOB_TITLE_NAME)).thenReturn(this.mockJobTitle);
 		when(this.mockJobTitleRepo.findJobTitleByIsActiveTrue()).thenReturn(this.listOfFoundJobTitles);
 		when(this.mockJobTitleRepo.save(this.mockJobTitle)).thenReturn(this.mockJobTitle);
 		this.jobTitleService.setRepository(this.mockJobTitleRepo);
@@ -72,13 +72,12 @@ public class JobTitleServiceTest {
 		assertEquals(1, jobTitles.size());
 	}
 	
-	/*
 	@Test
 	public void findJobTitleByName() {
 		JobTitle jobTitle = this.jobTitleService.findJobTitleByName(Entities.JOB_TITLE_NAME);
 		assertNotNull(jobTitle);
 		assertEquals(Entities.JOB_TITLE_ID, jobTitle.getId());
-	}*/
+	}
 	
 	@Test
 	public void storeJobTitle() {
