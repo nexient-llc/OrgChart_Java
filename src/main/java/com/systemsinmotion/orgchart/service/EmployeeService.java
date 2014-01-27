@@ -1,10 +1,17 @@
 package com.systemsinmotion.orgchart.service;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.util.TokenBuffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +26,9 @@ public class EmployeeService {
 	
 	@Autowired
 	EmployeeRepository employeeRepository;
+	
+	private TokenBuffer objBuffer = new TokenBuffer(null);
+	private ObjectMapper objMapper = new ObjectMapper();
 
 	public void setRepository(EmployeeRepository repository) {
 		this.employeeRepository = repository;
@@ -77,11 +87,11 @@ public class EmployeeService {
 	}
 	
 	public List<Employee> findByFirstNameContains(String name){
-		return this.employeeRepository.findByFirstNameContaining(name);
+		return this.employeeRepository.findByFirstNameContainingAllIgnoreCase(name);
 	}
 	
 	public List<Employee> findByLastNameContains(String name){
-		return this.employeeRepository.findByLastNameContaining(name);
+		return this.employeeRepository.findByLastNameContainingAllIgnoreCase(name);
 	}
 	
 	public List<Employee> filterEmployee(String name, Integer departmentID, Integer jobTitleID){
@@ -94,10 +104,10 @@ public class EmployeeService {
 				processingEmployees.addAll(findByLastNameContains(nameComp));
 			}
 		}
-		else if(departmentID != null) {
+		else if(null != departmentID) {
 			processingEmployees.addAll(findByDepartmentID(departmentID));
 		}
-		else if(jobTitleID != null) {
+		else if(null != jobTitleID) {
 			processingEmployees.addAll(findByJobTitleID(jobTitleID));
 		}
 		
@@ -116,6 +126,39 @@ public class EmployeeService {
 		Employee removeEmployee = findEmployeeByID(id);
 		removeEmployee.setIsActive(false);
 		storeEmployee(removeEmployee);
+	}
+
+	public String[] returnAllEmployeeNames() {
+		List<Employee> filterEmployees = findAllActiveEmployees();
+		String[] employeeNames = new String[filterEmployees.size()];
+		int i = 0;
+		for(Employee filtered : filterEmployees){
+			employeeNames[i] = filtered.getFirstName() + " " + filtered.getLastName();
+			i++;
+		}
+		return employeeNames;
+	}
+
+	public String getAllEmployeesAsJson(List<Employee> filterEmployees) {
+		String sendJSON = "";
+		for(Employee filtered : filterEmployees){
+			try {
+				objMapper.writeValue(objBuffer, filtered.toString());
+				JsonNode root = objMapper.readTree(objBuffer.asParser());
+				sendJSON = objMapper.writeValueAsString(root);
+			} catch (JsonGenerationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return sendJSON;
 	}
 
 }

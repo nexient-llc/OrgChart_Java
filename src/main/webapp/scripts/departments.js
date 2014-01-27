@@ -40,10 +40,7 @@ $(document).ready(function() {
 				window.location.href="depts";
 			},	
 		});
-		
-//		$('#EditDepts'+num).fadeToggle("fast", "linear", function(){
-//			$('#ViewDepts'+num).fadeToggle("fast", "linear");
-//		});
+
 	});
 	
 	$('.cancelEditBtn').click(function(evnt){

@@ -45,7 +45,7 @@ TH {
 }
 
 SELECT {
-	margin-left: -1px;	
+	width: 9.3em;
 }
 
 .errorblock {
@@ -163,4 +163,9 @@ SELECT {
 {
 	background:#0177C0;
 	color:#FFFFFF;
+}
+
+.pointingHand
+{
+	cursor:pointer;
 }

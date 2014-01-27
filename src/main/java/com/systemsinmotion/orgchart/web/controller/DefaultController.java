@@ -1,5 +1,8 @@
 package com.systemsinmotion.orgchart.web.controller;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,7 +11,10 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -190,21 +196,16 @@ public class DefaultController {
 	
 
 	@RequestMapping(value = "emps", method = RequestMethod.GET, params = {"name", "departmentID", "jobTitleID"})
-	public @ResponseBody String doEmployees_GET(String name, Integer departmentID, Integer jobTitleID){
+	public @ResponseBody String doEmployees_GET(String name, Integer departmentID, Integer jobTitleID) {
 		List<Employee> filterEmployees = employeeService.filterEmployee(name, departmentID, jobTitleID);
-		return sendJSON.toJson(filterEmployees);
+		return employeeService.getAllEmployeesAsJson(filterEmployees);
+//		return sendJSON.toJson(filterEmployees);
 	}
 	
 	@RequestMapping(value = "emps/autocomplete", method = RequestMethod.GET)
 	public @ResponseBody String doEmployees_GET(){
-		List<Employee> filterEmployees = employeeService.findAllActiveEmployees();
-		String[] employeeNames = new String[filterEmployees.size()];
-		int i = 0;
-		for(Employee filtered : filterEmployees){
-			employeeNames[i] = filtered.getFirstName() + " " + filtered.getLastName();
-			i++;
-		}
-		return sendJSON.toJson(employeeNames);
+		String[] empNames = employeeService.returnAllEmployeeNames();
+		return sendJSON.toJson(empNames);
 	}
 
 }

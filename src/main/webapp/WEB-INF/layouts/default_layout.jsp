@@ -23,10 +23,10 @@ var path = "${pageContext.request.contextPath}/app/";
 	<tiles:insertAttribute name="page-heading" />
 	<table>
 		<tr>
-			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
-			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
-			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
-			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>
+			<th><label id="navBarHome" color="#FFFFFF" class="pointingHand">Home</label></a></th>
+			<th><label id="navBarDepts" color="#FFFFFF" class="pointingHand">Departments</label></th>
+			<th><label id="navBarEmps" color="#FFFFFF" class="pointingHand">Employees</label></th>
+			<th><label id="navBarJobs" color="#FFFFFF" class="pointingHand">Job Titles</label></th>
 		</tr>
 	</table>
 	<tiles:insertAttribute name="body" />
