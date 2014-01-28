@@ -6,7 +6,7 @@
 <%--<%@ taglib prefix="p" uri="http://primefaces.org/ui"  %>--%>
 
 <h3>Systems in Motion Organization Chart: Department Page</h3>
-<table id="t1">
+<table id="editableTable">
     <tr><sec:authorize access="hasRole('ROLE_ADMIN')">
         <th>Task</th>
     </sec:authorize>

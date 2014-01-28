@@ -2,7 +2,7 @@
 
 A,BODY,DIV,H1,H2,H3,H4,H5,SPAN,TD,TH {
 	color: #0177C0;
-	font-family: sans-serif;
+    font-family: Consolas;
 	font-size: 0.90em;
 }
 
@@ -77,4 +77,23 @@ SELECT {
 	float: right;
 	cursor: pointer;
 	text-decoration: underline;
+}
+
+.editableTable {
+    border: solid 1px;
+    width: 100%;
+}
+
+.editableTable td {
+    border:solid 1px;
+}
+
+.editableTable .cellEditing {
+    padding: 0;
+}
+
+.editableTable .cellEditing input[type=text]{
+    width: 100%;
+    border: 0;
+    background-color:rgb(255,253,210);
 }
