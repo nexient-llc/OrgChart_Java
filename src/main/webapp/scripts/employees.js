@@ -349,7 +349,12 @@ $(document).ready(function() {
 			var origDepartmentId = $(scheme.find('.divColumn')[2]).data("value");
 			var origJobTitleId = $(scheme.find('.divColumn')[3]).data("value");
 			if($('#filterInputBoxFullName').val() == "") {
-				if(jobTitleId == "") {
+				if(jobTitleId == "" && departmentId == "") {
+					$('[id*=divRow]').promise().done(function() {
+						scheme.fadeIn("fast", "linear");
+					});
+				}
+				else if(jobTitleId == "") {
 					if(departmentId == origDepartmentId) {
 						$('[id*=divRow]').promise().done(function() {
 							scheme.fadeIn("fast", "linear");
