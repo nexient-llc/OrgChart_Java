@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	var checkCondition = function(emailBool, skypeNameBool, firstName, lastName) {
 		return emailBool && skypeNameBool && (firstName.length > 0) && (lastName.length >  0);
-	}
+	};
 	
 	/* Add function */
 	var emailAddBool = false;
@@ -329,6 +329,81 @@ $(document).ready(function() {
 	});
 	
 	/* Filter Function */
+	var greptest = function(inputWord, compareWord) {
+		var array = $.grep(inputWord, function(indexInArray) {
+				return compareWord.indexOf(indexInArray) == -1;
+		});
+		return array.length == 0;
+	};
+	
+	var updateList = function() {
+		$('[id*=divRow]').fadeOut("fast", "linear");
+		var departmentId = $('#filterSelectBoxDepartmentId').val();
+		var jobTitleId = $('#filterSelectBoxJobTitleId').val();
+		$.each($('[id*=divRow]'), function() {
+			var scheme = $(this);
+			var inputWord = $('#filterInputBoxFullName').val().toLowerCase().split("");
+			var firstName = scheme.find('.divColumn')[0].innerHTML.toLowerCase() + " ";
+			var lastName = scheme.find('.divColumn')[1].innerHTML.toLowerCase();
+			var compareWord = firstName.concat(lastName);
+			var origDepartmentId = $(scheme.find('.divColumn')[2]).data("value");
+			var origJobTitleId = $(scheme.find('.divColumn')[3]).data("value");
+			if($('#filterInputBoxFullName').val() == "") {
+				if(jobTitleId == "") {
+					if(departmentId == origDepartmentId) {
+						$('[id*=divRow]').promise().done(function() {
+							scheme.fadeIn("fast", "linear");
+						});
+					}
+				}
+				else if(departmentId == "") {
+					if((jobTitleId == origJobTitleId)) {
+						$('[id*=divRow]').promise().done(function() {
+							scheme.fadeIn("fast", "linear");
+						});
+					}
+				}
+				else {
+					if((departmentId == origDepartmentId) && (jobTitleId == origJobTitleId)) {
+						$('[id*=divRow]').promise().done(function() {
+							scheme.fadeIn("fast", "linear");
+						});
+					}
+				}
+			}
+			else {
+				if((departmentId == "") && (jobTitleId == "")) {
+					if(greptest(inputWord,compareWord)) {
+						$('[id*=divRow]').promise().done(function() {
+							scheme.fadeIn("fast", "linear");
+						});
+					}
+				}
+				else if((departmentId == "") && (jobTitleId != "")) {
+					if((jobTitleId == origJobTitleId) && greptest(inputWord,compareWord)) {
+						$('[id*=divRow]').promise().done(function() {
+							scheme.fadeIn("fast", "linear");
+						});
+					}
+				}
+				else if((departmentId != "") && (jobTitleId == "")) {
+					if((departmentId == origDepartmentId) && greptest(inputWord,compareWord)) {
+						$('[id*=divRow]').promise().done(function() {
+							scheme.fadeIn("fast", "linear");
+						});
+					}
+				}
+				else {
+					if((departmentId == origDepartmentId) && (jobTitleId == origJobTitleId) && greptest(inputWord,compareWord)) {
+						$('[id*=divRow]').promise().done(function() {
+							scheme.fadeIn("fast", "linear");
+						});
+					}
+				}
+			}
+		});
+	};
+	
 	$('#filterBtn').click(function () {
 		$('#filterBtn-container').fadeToggle("fast", "linear", function() {
 			$('#filterEntity').fadeToggle("fast", "linear");
@@ -337,8 +412,26 @@ $(document).ready(function() {
 		$('#editBtn-container').fadeToggle("fast", "linear");
 	});
 	
-	$('#applyFilterEntity').click(function() {
-		
+	$('#filterInputBoxFullName').on('keyup', function() {
+		updateList();
+	});
+	
+	$('#filterSelectBoxDepartmentId').change(function() {
+		updateList();
+	});
+	
+	$('#filterSelectBoxJobTitleId').change(function() {
+		updateList();
+	});
+	
+	$('#resetFilterEntity').click(function() {
+		$.each($('[id*=divRow]'), function() {
+			var scheme = $(this);
+			scheme.fadeIn("fast", "linear");
+		});
+		$('#filterInputBoxFullName').val("");
+		$('#filterSelectBoxDepartmentId').val("");
+		$('#filterSelectBoxJobTitleId').val("");
 	});
 	
 	$('#cancelFilterEntity').click(function() {
@@ -352,6 +445,7 @@ $(document).ready(function() {
 	$('#cancelBtn').click(function() {
 		$('.divHeaderHidden').fadeToggle("fast", "linear");
 		$('.divColumnHidden').fadeToggle("fast", "linear");
+		$('.divColumnHidden').css("display", "none");
 		$('#cancelBtn-container').fadeToggle("fast", "linear", function () {
 			$('#addBtn-container').fadeToggle("fast", "linear");
 			$('#editBtn-container').fadeToggle("fast", "linear");

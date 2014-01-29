@@ -54,22 +54,24 @@
 <div id="filterEntity" style="display:none">
 	<fieldset>
 		<legend>Filter Employees</legend>
-		<label>Full Name</label><input type="text" id="filterFullNameInputBox"/><br/>
+		<label>Full Name</label><input type="text" id="filterInputBoxFullName"/><br/>
 		<label>Department</label>
 		<select id="filterSelectBoxDepartmentId">
+			<option value="">None</option>
 			<c:forEach items="${depts}" var="dept">
 				<option value="${dept.id}">${dept.name}</option>
 			</c:forEach>
 		</select><br/>
 		<label>Job Title</label>
 		<select id="filterSelectBoxJobTitleId">
+			<option value="">None</option>
 			<c:forEach items="${jobs}" var="job">
 				<option value="${job.id}">${job.name}</option>
 			</c:forEach>
 		</select><br/>
 		<div style="margin-top:0.8em">
-			<button type="button" id="applyFilterEntity">Apply</button>
-			<button type="button" id="cancelFilterEntity">Cancel</button>
+			<button type="button" id="resetFilterEntity">Reset</button>
+			<button type="button" id="cancelFilterEntity">Close</button>
 		</div>
 	</fieldset>
 </div>
@@ -97,15 +99,15 @@
 				<div class="divColumn">${emp.firstName}</div> 
 				<div class="divColumn">${emp.lastName}</div>
 				<div class="divColumnHidden" style="display:none">${emp.middleInitial}</div>
-				<div class="divColumn">${emp.department.name}</div>
+				<div class="divColumn" data-value="${emp.department.id}">${emp.department.name}</div>
 				<div class="divColumnHidden" style="display:none">${emp.email}</div>
 				<div class="divColumnHidden" style="display:none">${emp.skypeName}</div>
-				<div class="divColumn">${emp.jobTitle.name}</div>
+				<div class="divColumn" data-value="${emp.jobTitle.id}">${emp.jobTitle.name}</div>
 				<div class="divColumnHidden" style="display:none">
 					<button type="button" class="editColumnBtn" value="${emp.id}">Edit</button>
 				</div>
 			</div>
-			<div id="divEditRow${emp.id}" style="display:none"> 
+			<div id="divEditRow${emp.id}" data-value="${emp.id}" style="display:none"> 
 				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<td>delete</td>
 				</sec:authorize> -->

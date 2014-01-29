@@ -133,7 +133,7 @@ select[id*='editSelectBox'] {
 	margin-bottom: 1.5em;
 }
 
-#saveAddEntity, #cancelAddEntity, #applyFilterEntity, #cancelFilterEntity {
+#saveAddEntity, #cancelAddEntity, #resetFilterEntity, #cancelFilterEntity {
 	display: inline;
 }
 
