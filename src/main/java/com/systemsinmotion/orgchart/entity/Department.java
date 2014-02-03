@@ -1,15 +1,10 @@
 package com.systemsinmotion.orgchart.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,44 +17,22 @@ public class Department extends BaseEntity {
 
 	private static final long serialVersionUID = -5379179412533671591L;
 
-	private Set<Department> childDepartments = new HashSet<Department>(0);
-
-	private Set<Employee> employees = new HashSet<Employee>();
-
+	@Column(name = "NAME", nullable = false, length = 50)
 	@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String name;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department parentDepartment;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parentDepartment")
-	public Set<Department> getChildDepartments() {
-		return this.childDepartments;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
-	public Set<Employee> getEmployees() {
-		return this.employees;
-	}
-
-	@Column(name = "NAME", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	public Department getParentDepartment() {
 		return this.parentDepartment;
-	}
-
-	public void setChildDepartments(Set<Department> departments) {
-		this.childDepartments = departments;
-	}
-
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
 	}
 
 	public void setName(String name) {
