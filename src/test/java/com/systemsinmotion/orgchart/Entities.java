@@ -40,6 +40,17 @@ public class Entities {
 		return DEPARTMENT_NAME + random.nextInt();
 	}
 
+	public static Employee employee(Department dept) {
+		Employee emp = new Employee();
+//		emp.setDepartment(dept);
+//		emp.setFirstName(FIRST_NAME);
+//		emp.setLastName(LAST_NAME);
+//		emp.setEmail(EMAIL + r.nextInt());
+//		emp.setSkypeName(SKYPE_NAME + r.nextInt());
+//		emp.setIsManager(false);
+		return emp;
+	}
+
 /*	
 	public static Employee employee() {
 		Employee emp = new Employee();
