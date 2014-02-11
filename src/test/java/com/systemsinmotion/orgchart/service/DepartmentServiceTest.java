@@ -99,14 +99,14 @@ public class DepartmentServiceTest {
 	}
 	
 	@Test
-	public void setInactiveDepartment() {
+	public void setInactiveDepartment() throws Exception {
 		Integer deptId = this.departmentService.setInactiveDepartment(this.mockDepartment).getId();
 		assertNotNull(deptId);
 		assertEquals(Entities.DEPT_ID, deptId);
 	}
 	
 	@Test
-	public void storeDepartment() {
+	public void storeDepartment() throws Exception {
 		Integer deptId = this.departmentService.storeDepartment(this.mockDepartment).getId();
 		assertNotNull(deptId);
 		assertEquals(Entities.DEPT_ID, deptId);

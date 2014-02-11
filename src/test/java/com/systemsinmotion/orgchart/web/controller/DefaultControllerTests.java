@@ -9,10 +9,7 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
@@ -41,7 +38,7 @@ public class DefaultControllerTests {
 	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
 	
 	@Before
-	public void before() {
+	public void before() throws Exception {
 		// instantiate lists
 		this.findAllDepartmentsList = new ArrayList<Department>();
 		

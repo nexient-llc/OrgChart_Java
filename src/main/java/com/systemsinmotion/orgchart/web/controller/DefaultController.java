@@ -1,12 +1,18 @@
 package com.systemsinmotion.orgchart.web.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +51,42 @@ public class DefaultController {
 		this.departmentService = departmentService;
 	}
 	
+	/* JSON Departments */
+	@RequestMapping(value = "json/depts", method = RequestMethod.GET)
+	public @ResponseBody String doDepartmentsJSON_GET(Model model) {
+		model.addAttribute("depts", departmentService.findDepartmentsByIsActiveTrue());
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String json = mapper.writeValueAsString(model);
+			return json;
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return "";
+	}
+
+	@RequestMapping(value = "json/dept/{departmentId}", method = RequestMethod.PUT)
+	public @ResponseBody String doDepartmentsJSON_PUT(@PathVariable Integer departmentId, 
+			String name, Integer parentDepartmentId, Model model) throws Exception {
+		Department department = departmentService.findDepartmentById(departmentId);
+		department.setName(name);
+		department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
+		try {
+			departmentService.storeDepartment(department);
+		} catch (Exception e) {
+			throw e;
+		}
+		return doDepartmentsJSON_GET(model);
+	}
+
+	/* Departments */
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		model.addAttribute("depts", departmentService.findDepartmentsByIsActiveTrue());
@@ -57,22 +99,31 @@ public class DefaultController {
 		department.setName(name);
 		department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
 		department.setIsActive(true);
-		departmentService.storeDepartment(department);
+		departmentService.storeNewDepartment(department);
 		return doDepartments_GET(model);
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.PUT)
-	public String doDepartments_PUT(Model model, Integer departmentId, String name, Integer parentDepartmentId) {
+	public String doDepartments_PUT(Model model, Integer departmentId, String name, Integer parentDepartmentId) throws Exception {
 		Department department = departmentService.findDepartmentById(departmentId);
 		department.setName(name);
 		department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
-		departmentService.storeDepartment(department);
+		try {
+			departmentService.storeDepartment(department);
+		} catch (Exception e) {
+			throw e;
+		}
 		return doDepartments_GET(model);
 	}
 	
 	@RequestMapping(value = "depts", method = RequestMethod.DELETE)
 	public String doDepartments_DELETE(Model model, Integer departmentId) {
-		departmentService.setInactiveDepartment(departmentService.findDepartmentById(departmentId));
+		try {
+			departmentService.setInactiveDepartment(departmentService.findDepartmentById(departmentId));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return doDepartments_GET(model);
 	}
 	

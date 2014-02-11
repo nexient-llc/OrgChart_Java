@@ -40,7 +40,7 @@ public class DepartmentService {
 		return this.repository.findDepartmentsByIsActiveTrue();
 	}
 
-	public Department setInactiveDepartment(Department department) {
+	public Department setInactiveDepartment(Department department) throws Exception {
 		Department parentDepartment = findDepartmentById(department.getId()).getParentDepartment();
 		List<Department> departments = findDepartmentsByParentDepartmentId(department.getId());
 		
@@ -54,12 +54,43 @@ public class DepartmentService {
 		saveDepartment.setIsActive(false);
 		return storeDepartment(saveDepartment);
 	}
+	
+	public boolean findLoop(Department department) {
+		if(department == null) {
+			return false;
+		}
+		Department departmentA = department;
+		Department departmentB = department.getParentDepartment();
+		
+		while(departmentB != null) {
+			departmentA = departmentA.getParentDepartment();
+			if(departmentB.getParentDepartment() == null)
+				return false;
+			departmentB = departmentB.getParentDepartment().getParentDepartment();
+			if(departmentA == null || departmentB == null)
+				return false;
+			if(departmentA.getId() == departmentB.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;
 	}
 
-	public Department storeDepartment(Department department) {
-		return this.repository.save(department);
+	public Department storeDepartment(Department department) throws Exception {
+		Department tempDepartment = this.repository.findOne(department.getId());
+		this.repository.save(department);
+		if(findLoop(findDepartmentById(department.getId()))) {
+			this.repository.save(tempDepartment);
+			throw new Exception("Nested loop found!");
+		}
+		return this.repository.findOne(department.getId());
+	}
+	
+	public Department storeNewDepartment(Department department) {
+		return this.repository.saveAndFlush(department);
 	}
 }
