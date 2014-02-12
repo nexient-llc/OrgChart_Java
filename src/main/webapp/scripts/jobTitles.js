@@ -3,7 +3,9 @@ $(document).ready(function() {
 
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
+			$('#editEntity').hide();
 			$('#addEntity').fadeToggle("fast", "linear");
+
 		});
 	});
 	$('.cancelBtn').click(function() {
@@ -12,22 +14,17 @@ $(document).ready(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear");
 	});
 	$('.editBtn').click(function() {
-		$('#addEntity').hide();
 		$('#editEntity').fadeToggle("fast", "linear");
 		$('#addBtn-container').hide();
-		$('#editDepartmentId').hide();
+
 		$('#t1 tr').click(function() {
-			
-			$('#editDepartmentId').val(this.id);
-			//console.log($(this).children()[0].innerHTML);
-			$('#editDepartmentName').val($(this).children()[0].innerHTML);
-			//$('#editDepartmentName').val("Hello")
-			$('#editParentDepartmentId').val($(this).children()[1].className);
-			$('#editDepartmentManagerId').val($(this).children()[2].className);
-			
+			var jobTitleId = this.id;
+			var jobTitleName = $(this).children()[0].innerHTML;
+			$('#editJobtitleName').val(jobTitleName);
+			$('#editJobTitleId').val(jobTitleId);
+			$('#editJobTitleId').hide();
 
 		});
 
 	});
-	
 });

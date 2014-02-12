@@ -170,5 +170,60 @@
 			<column name="is_active" type="boolean" defaultValue="true" />
 		</addColumn>
 	</changeSet>
+	
+	<changeSet id="21" author="afaiyaz">
+		<createTable tableName="users">
+			<column name="user_id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			
+			<column name="user_name" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="password" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="22" author="afaiyaz">
+		<createTable tableName="user_roles">
+			<column name="id" type = "int">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="user_role" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="user_id" type="int">
+				<constraints nullable="false"/>
+			</column>
+
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="23" author="afaiyaz">
+		<addForeignKeyConstraint constraintName="fk_user_user_role"
+		baseTableName="user_roles" baseColumnNames="user_id"
+		referencedTableName="users" referencedColumnNames="user_id" />
+
+	</changeSet>
+	<changeSet id="24" author="afaiyaz">
+		<insert tableName="users">
+		<column name="user_id" value="10" />
+		<column name="user_name" value="afaiyaz"/>
+		<column name="password" value="password"/>
+		</insert>
+	</changeSet>
+	<changeSet id="25" author="afaiyaz">
+		<insert tableName="user_roles">
+		<column name="id" value="20" />
+		<column name="user_role" value="ROLE_ADMIN"/>
+		<column name="user_id" value="10"/>
+		</insert>
+	</changeSet>
+	
+	
 		
 </databaseChangeLog>

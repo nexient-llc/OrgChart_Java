@@ -13,13 +13,13 @@
 		http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<import resource="dao-context.xml" />
-	<!--
+
 	<import resource="security-context.xml" />
-	 -->
+
 
 	<!-- Activates various annotations to be detected in bean classes -->
 	<context:annotation-config />
-	
+
 	<!-- Scans the classpath for annotated components that will be auto-registered 
 		as Spring beans. For example @Controller and @Service. Make sure to set the 
 		correct base-package -->
@@ -28,11 +28,12 @@
 	<!-- Configures the annotation-driven Spring MVC Controller programming 
 		model. Note that, with Spring 3.0, this tag works in Servlet MVC only! -->
 	<mvc:annotation-driven />
-	
+
 	<bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">
 			<list>
+
 				<value>/WEB-INF/tiles.xml</value>
 			</list>
 		</property>
@@ -43,5 +44,8 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 	</bean>
+
+
+
 
 </beans>

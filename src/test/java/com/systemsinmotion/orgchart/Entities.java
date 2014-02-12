@@ -12,7 +12,7 @@ public class Entities {
 	public static final String DEPARTMENT_NAME = "Department";
 	public static final Integer DEPT_ID = 22;
 	public static final String EMAIL = "email";
-	public static final Integer EMPLOYEE_ID = 5;
+	public static final Integer EMPLOYEE_ID =5;
 	public static final String FIRST_NAME = "first name";
 	public static final String JOB_TITLE = "Job Title";
 	public static final Integer JOB_TITLE_ID = 5;
@@ -42,13 +42,19 @@ public class Entities {
 
 	public static Employee employee(Department dept) {
 		Employee emp = new Employee();
-//		emp.setDepartment(dept);
-//		emp.setFirstName(FIRST_NAME);
-//		emp.setLastName(LAST_NAME);
-//		emp.setEmail(EMAIL + r.nextInt());
-//		emp.setSkypeName(SKYPE_NAME + r.nextInt());
-//		emp.setIsManager(false);
+		emp.setDepartment(dept);
+		emp.setFirstName(FIRST_NAME);
+		emp.setLastName(LAST_NAME);
+		emp.setEmail(EMAIL + random.nextInt());
+		emp.setSkypeName(SKYPE_NAME + random.nextInt());
+	 	emp.setIsManager(false);
 		return emp;
+	}
+
+	public static JobTitle jobTitle() {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
+		return jobTitle;
 	}
 
 /*	
@@ -63,20 +69,15 @@ public class Entities {
 		return emp;
 	}
 
-	public static JobTitle jobTitle() {
-		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
-		return jobTitle;
-	}
-
+*/
 	public static Employee manager() {
 		Employee mgr = new Employee();
 		mgr.setFirstName(FIRST_NAME);
 		mgr.setLastName(LAST_NAME);
-		mgr.setEmail(EMAIL + r.nextInt());
-		mgr.setSkypeName(SKYPE_NAME + r.nextInt());
+		mgr.setEmail(EMAIL + random.nextInt());
+		mgr.setSkypeName(SKYPE_NAME + random.nextInt());
 		mgr.setIsManager(true);
 		return mgr;
 	}
-*/
+
 }

@@ -61,4 +61,5 @@ public class JPAConfig {
     public PlatformTransactionManager transactionManager() {
         return new JpaTransactionManager();
     }
+    
 }

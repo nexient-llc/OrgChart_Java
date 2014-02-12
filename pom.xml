@@ -44,7 +44,7 @@
 	</repositories>
 
 	<dependencies>
-		
+
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -64,6 +64,12 @@
 			<version>${spring.security.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.2.0.RELEASE</version>
 		</dependency>
 
 
@@ -105,9 +111,9 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>jstl</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
 		</dependency>
 
 		<dependency>
@@ -135,7 +141,7 @@
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.2.8</version>
+			<version>2.3.0</version><!-- changing the version from 2.2.8 to 2.3.0 -->
 		</dependency>
 
 		<dependency>

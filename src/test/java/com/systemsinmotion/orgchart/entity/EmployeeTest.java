@@ -12,6 +12,9 @@ public class EmployeeTest {
 	private static final Character MIDDLE_INITIAL = 'M';
 	private static final String LAST_NAME = "last name";
 	private static final String FIRST_NAME = "first name";
+	private static final String EMAIL_ADDRESS = "Email@Address";
+	private static final String Skype_Name = "fistname.last.aa.sim";
+	
 	Employee emp;
 	Employee mgr;
 	Department dept;
@@ -69,5 +72,17 @@ public class EmployeeTest {
 		emp.setDepartment(dept);
 		assertNotNull(emp.getDepartment());
 		assertEquals(dept.getId(),emp.getDepartment().getId());
+	}
+	@Test 
+	public void setAndGetSkypeName(){
+		emp.setSkypeName(Skype_Name);
+		assertNotNull(emp.getSkypeName());
+		assertEquals(Skype_Name,emp.getSkypeName());
+	}
+	@Test
+	public void setAndGetEmailAddress(){
+		emp.setEmail(EMAIL_ADDRESS);
+		assertNotNull(emp.getEmail());
+		assertEquals(EMAIL_ADDRESS, emp.getEmail());
 	}
 }

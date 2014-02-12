@@ -33,5 +33,11 @@ public class DepartmentService {
 	public Department storeDepartment(Department department) {
 		return this.repository.save(department);
 	}
+	public List<Department> findDepartmentsByIsActiveTrue(){
+		return this.repository.findDepartmentsByIsActiveTrue();
+	}
+	public List<Department> findDepartmentsByIsActiveFalse(){
+		return this.repository.findDepartmentsByIsActiveFalse();
+	}
 
 }

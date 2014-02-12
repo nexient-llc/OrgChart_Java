@@ -15,6 +15,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
     public static final String CONFIG_PACKAGE = "com.systemsinmotion.orgchart.config";
 
+    
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
@@ -33,4 +34,5 @@ public class WebAppInitializer implements WebApplicationInitializer {
         FilterRegistration.Dynamic httpMethodFilter = servletContext.addFilter("HttpMethodFilter", new HiddenHttpMethodFilter());
         httpMethodFilter.addMappingForUrlPatterns(null, false, "/*");
     }
+   
 }
