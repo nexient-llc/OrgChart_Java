@@ -85,6 +85,17 @@ public class DefaultController {
 		}
 		return doDepartmentsJSON_GET(model);
 	}
+	
+	@RequestMapping(value = "json/depts", method = RequestMethod.POST)
+	public @ResponseBody String doDepartmentsJSON_POST(String name, Integer parentDepartmentId, Model model) {
+		System.out.println(name + " " + parentDepartmentId);
+		Department department = new Department();
+		department.setName(name);
+		department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
+		department.setIsActive(true);
+		departmentService.storeNewDepartment(department);
+		return doDepartmentsJSON_GET(model);
+	}
 
 	/* Departments */
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
