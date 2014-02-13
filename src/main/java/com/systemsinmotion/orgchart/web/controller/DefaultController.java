@@ -72,6 +72,16 @@ public class DefaultController {
 		return "";
 	}
 
+	@RequestMapping(value = "json/depts", method = RequestMethod.POST)
+	public @ResponseBody String doDepartmentsJSON_POST(String name, Integer parentDepartmentId, Model model) {
+		Department department = new Department();
+		department.setName(name);
+		department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
+		department.setIsActive(true);
+		departmentService.storeNewDepartment(department);
+		return doDepartmentsJSON_GET(model);
+	}
+	
 	@RequestMapping(value = "json/dept/{departmentId}", method = RequestMethod.PUT)
 	public @ResponseBody String doDepartmentsJSON_PUT(@PathVariable Integer departmentId, 
 			String name, Integer parentDepartmentId, Model model) throws Exception {
@@ -86,17 +96,63 @@ public class DefaultController {
 		return doDepartmentsJSON_GET(model);
 	}
 	
-	@RequestMapping(value = "json/depts", method = RequestMethod.POST)
-	public @ResponseBody String doDepartmentsJSON_POST(String name, Integer parentDepartmentId, Model model) {
-		System.out.println(name + " " + parentDepartmentId);
-		Department department = new Department();
-		department.setName(name);
-		department.setParentDepartment(departmentService.findDepartmentById(parentDepartmentId));
-		department.setIsActive(true);
-		departmentService.storeNewDepartment(department);
+	@RequestMapping(value = "json/dept/{departmentId}", method = RequestMethod.DELETE)
+	public @ResponseBody String doDepartmentsJSON_DELETE(@PathVariable Integer departmentId, Model model) throws Exception {
+		try {
+			departmentService.setInactiveDepartment(departmentService.findDepartmentById(departmentId));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return doDepartmentsJSON_GET(model);
 	}
-
+	
+	/* JSON Job Titles */
+	@RequestMapping(value = "json/jobs", method = RequestMethod.GET)
+	public @ResponseBody String doJobTitlesJSON_GET(Model model) {
+		model.addAttribute("jobs", jobTitleService.findJobTitleByIsActiveTrue());
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String json = mapper.writeValueAsString(model);
+			return json;
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return "";
+	}
+	
+	@RequestMapping(value = "json/jobs", method = RequestMethod.POST)
+	public @ResponseBody String doJobTitlesJSON_POST(String name, Model model) {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(name);
+		jobTitle.setIsActive(true);
+		jobTitleService.storeJobTitle(jobTitle);
+		return doJobTitlesJSON_GET(model);
+	}
+	
+	@RequestMapping(value = "json/job/{jobTitleId}", method = RequestMethod.PUT)
+	public @ResponseBody String doJobTitlesJSON_PUT(@PathVariable Integer jobTitleId, String name, Model model) {
+		JobTitle jobTitle = jobTitleService.findJobTitleById(jobTitleId);
+		jobTitle.setName(name);
+		jobTitleService.storeJobTitle(jobTitle);
+		return doJobTitlesJSON_GET(model);
+	}
+	
+	@RequestMapping(value = "json/job/{jobTitleId}", method = RequestMethod.DELETE)
+	public @ResponseBody String doJobTitlesJSON_DELETE(@PathVariable Integer jobTitleId, Model model) {
+		JobTitle jobTitle = jobTitleService.findJobTitleById(jobTitleId);
+		jobTitle.setIsActive(false);
+		jobTitleService.storeJobTitle(jobTitle);
+		return doJobTitlesJSON_GET(model);
+	}
+	
 	/* Departments */
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
@@ -221,6 +277,7 @@ public class DefaultController {
 		return doJobTitles_GET(model);
 	}
 	
+	/* Checkers */
 	@RequestMapping(value = "checkDepts", method = RequestMethod.GET)
 	@ResponseBody
 	public boolean deptNameExists(HttpServletResponse response, @RequestParam String name) {

@@ -91,6 +91,6 @@ public class DepartmentService {
 	}
 	
 	public Department storeNewDepartment(Department department) {
-		return this.repository.saveAndFlush(department);
+		return this.repository.save(department);
 	}
 }
