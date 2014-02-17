@@ -107,6 +107,69 @@ public class DefaultController {
 		return doDepartmentsJSON_GET(model);
 	}
 	
+	/* JSON Employees */
+	@RequestMapping(value = "json/emps", method = RequestMethod.GET)
+	public @ResponseBody String doEmployeesJSON_GET(Model model) {
+		model.addAttribute("emps", employeeService.findEmployeesByIsActiveTrueOrderByFirstNameAsc());
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String json = mapper.writeValueAsString(model);
+			return json;
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return "";
+	}
+	
+	@RequestMapping(value = "json/emps", method = RequestMethod.POST)
+	public @ResponseBody String doEmployeesJSON_POST(String firstName, String lastName, String middleInitial,
+			Integer departmentId, String email, String skypeName, Integer jobTitleId, Model model) {
+		Employee employee = new Employee();
+		employee.setFirstName(firstName);
+		employee.setLastName(lastName);
+		employee.setMiddleInitial(middleInitial);
+		employee.setDepartment(departmentService.findDepartmentById(departmentId));
+		employee.setEmail(email);
+		employee.setSkypeName(skypeName);
+		employee.setJobTitle(jobTitleService.findJobTitleById(jobTitleId));
+		employee.setIsActive(true);
+		employeeService.storeEmployee(employee);
+		return doEmployeesJSON_GET(model);
+	}
+	
+	@RequestMapping(value = "json/emp/{employeeId}", method = RequestMethod.PUT)
+	public @ResponseBody String doEmployeesJSON_PUT(@PathVariable Integer employeeId, String firstName, String lastName, String middleInitial,
+			Integer departmentId, String email, String skypeName, Integer jobTitleId, Model model) {
+		Employee employee = employeeService.findEmployeeById(employeeId);
+		employee.setFirstName(firstName);
+		employee.setLastName(lastName);
+		employee.setMiddleInitial(middleInitial);
+		employee.setDepartment(departmentService.findDepartmentById(departmentId));
+		employee.setEmail(email);
+		employee.setSkypeName(skypeName);
+		employee.setJobTitle(jobTitleService.findJobTitleById(jobTitleId));
+		employee.setIsActive(true);
+		employeeService.storeEmployee(employee);
+		return doEmployeesJSON_GET(model);
+	}
+	
+	@RequestMapping(value = "json/emp/{employeeId}", method = RequestMethod.DELETE)
+	public @ResponseBody String doEmployeesJSON_DELETE(@PathVariable Integer employeeId, Model model) {
+		Employee employee = employeeService.findEmployeeById(employeeId);
+		employee.setDepartment(null);
+		employee.setJobTitle(null);
+		employee.setIsActive(false);
+		employeeService.storeEmployee(employee);
+		return doEmployeesJSON_GET(model);
+	}
+	
 	/* JSON Job Titles */
 	@RequestMapping(value = "json/jobs", method = RequestMethod.GET)
 	public @ResponseBody String doJobTitlesJSON_GET(Model model) {
