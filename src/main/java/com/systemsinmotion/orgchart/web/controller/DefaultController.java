@@ -1,6 +1,7 @@
 package com.systemsinmotion.orgchart.web.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -72,6 +73,11 @@ public class DefaultController {
 		return "";
 	}
 
+	@RequestMapping(value = "json/deptsa", method = RequestMethod.GET)
+	public @ResponseBody List<Department> doDepartmentsJSONA_GET(Model model) {
+		return departmentService.findDepartmentsByIsActiveTrue();
+	}
+	
 	@RequestMapping(value = "json/depts", method = RequestMethod.POST)
 	public @ResponseBody String doDepartmentsJSON_POST(String name, Integer parentDepartmentId, Model model) {
 		Department department = new Department();
