@@ -20,12 +20,12 @@ import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration("/test-context.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/test-context.xml")
 public class DefaultControllerTests {
 
-//	@Autowired
-//	DefaultController controller;
+	@Autowired
+	DefaultController controller;
 
 	DepartmentService mockDepartmentService = mock(DepartmentService.class);
 

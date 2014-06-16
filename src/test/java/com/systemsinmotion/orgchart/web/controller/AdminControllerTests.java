@@ -27,11 +27,11 @@ public class AdminControllerTests {
 	public void doDefault() {
 		assertEquals(View.ADMIN_DEFAULT, controller.doDefault());
 	}
-	
-	
-	@Test
-	@Ignore
-	public void doLogin_GET() {
-		assertEquals(View.ADMIN_LOGIN, controller.doLogin());
-	}
+//	
+//	
+//	@Test
+//	@Ignore
+//	public void doLogin_GET() {
+//		assertEquals(View.ADMIN_LOGIN, controller.doLogin());
+//	}
 }
