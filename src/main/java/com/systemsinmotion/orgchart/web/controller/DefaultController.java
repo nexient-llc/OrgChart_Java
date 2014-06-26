@@ -1,9 +1,6 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +78,7 @@ public class DefaultController {
 		
 	}
 	
+	@RequestMapping(value = "jobTitles", method = RequestMethod.GET)
 	public String doJobTitle_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
 		 List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
@@ -88,11 +86,11 @@ public class DefaultController {
 		 return View.JOB_TITLES;
 	}
 	
-	@RequestMapping(value = "joTitles", method = RequestMethod.POST)
+	@RequestMapping(value = "jobTitles", method = RequestMethod.POST)
 	public void doJobTitles_POST(JobTitle jobTitle, Model model) {
 		jobTitleService.storeJobTitle(jobTitle);
-		List<JobTitle> jobTitles = jobTitleService.findAllEmplos();
-		model.addAttribute("emps", employees);
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("jtitles", jobTitles);
 		
 	}
 	
