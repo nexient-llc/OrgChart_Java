@@ -57,7 +57,12 @@ public class Entities {
 		return emp;
 	}
 
-
+	public static Employee employee(Integer id) {
+		  Employee employee = employee();
+		  employee.setId(id);
+		  return employee;
+	}
+	
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
@@ -73,6 +78,12 @@ public class Entities {
 		JobTitle jobTitle = new JobTitle();
 		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
 		return jobTitle;
+	}
+	
+	public static JobTitle jobTitle(Integer id) {
+		  JobTitle jobTitle = jobTitle();
+		  jobTitle.setId(id);
+		  return jobTitle;
 	}
 
 	public static Employee manager() {

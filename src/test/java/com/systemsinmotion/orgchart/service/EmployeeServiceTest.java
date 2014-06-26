@@ -38,34 +38,34 @@ public class EmployeeServiceTest {
 		assertTrue(true);
 	}
 	
-//	@Before
-//	public void before() throws Exception {
-//		when(this.mockEmployee.getId()).thenReturn(Entities.EMPLOYEE_ID);
-//		this.listOfFoundEmps.add(this.mockEmployee);
-//		when(this.mockEmpRepo.findAll()).thenReturn(this.listOfFoundEmps);
-//		when(this.mockEmpRepo.findOne(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
-//		when(this.mockEmpRepo.save(this.mockEmployee)).thenReturn(this.mockEmployee);
-//	}
-//
-//	@Test
-//	public void findAllEmployees() {
-//		List<Employee> emps = this.employeeService.findAllEmployees();
-//		assertNotNull(emps);
-//		assertTrue(emps.size()>0);
-//	}
-//
-//	@Test
-//	public void findEmployeeByID() {
-//		Employee emp = this.employeeService.findEmployeeByID(Entities.EMPLOYEE_ID);
-//		assertNotNull(emp);
-//		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
-//	}
-//
-//	@Test
-//	public void storeEmployee() {
-//		Employee emp = this.employeeService.storeEmployee(this.mockEmployee);
-//		assertNotNull(emp);
-//		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
-//	}
+	@Before
+	public void before() throws Exception {
+		when(this.mockEmployee.getId()).thenReturn(Entities.EMPLOYEE_ID);
+		this.listOfFoundEmps.add(this.mockEmployee);
+		when(this.mockEmpRepo.findAll()).thenReturn(this.listOfFoundEmps);
+		when(this.mockEmpRepo.findOne(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
+		when(this.mockEmpRepo.save(this.mockEmployee)).thenReturn(this.mockEmployee);
+	}
+
+	@Test
+	public void findAllEmployees() {
+		List<Employee> emps = this.employeeService.findAllEmployees();
+		assertNotNull(emps);
+		assertTrue(emps.size()>0);
+	}
+
+	@Test
+	public void findEmployeeByID() {
+		Employee emp = this.employeeService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
+	}
+
+	@Test
+	public void storeEmployee() {
+		Employee emp = this.employeeService.storeEmployee(this.mockEmployee);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
+	}
 
 }

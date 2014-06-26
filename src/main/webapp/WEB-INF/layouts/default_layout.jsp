@@ -4,9 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <html>
-<head> 
+<head>
+
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
 <%@ include file="/WEB-INF/fragments/scripts.jsp"%>
+
 
 <tiles:useAttribute id="pageJS" name="page-js"
 	classname="java.lang.String" ignore="true" />
@@ -16,11 +18,20 @@
 <script type="text/javascript">
 var path = "${pageContext.request.contextPath}/app/";
 </script>
+
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
-<title>Systems In Motion - <tiles:getAsString name="title" /></title>
+
+
+<title>Systems In Motion Organization Chart <tiles:getAsString name="title" /></title>
+
 </head>
+
 <body>
+
+	
 	<tiles:insertAttribute name="page-heading" />
+	
+	
 	<table>
 		<tr>
 			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
@@ -30,6 +41,7 @@ var path = "${pageContext.request.contextPath}/app/";
 		</tr>
 	</table>
 	<tiles:insertAttribute name="body" />
+	
 </body>
 </html>
 

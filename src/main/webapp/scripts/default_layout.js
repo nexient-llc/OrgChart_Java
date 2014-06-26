@@ -9,7 +9,7 @@ $(document).ready(function() {
 	});
 	
 	$('#navBarEmps').click(function() {
-		window.location = path + "emps";	
+		window.location = path + "employees";	
 	});
 	
 	$('#navBarJobs').click(function() {
