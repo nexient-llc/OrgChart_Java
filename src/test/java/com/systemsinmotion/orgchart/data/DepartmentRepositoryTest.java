@@ -111,9 +111,7 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findByParentDeptId() throws Exception {
-		List<Department> depts = this.repository
-				.findByParentDepartmentId(this.department.getParentDepartment()
-						.getId());
+		List<Department> depts = this.repository.findByParentDepartmentId(this.department.getParentDepartment().getId());
 		assertNotNull(depts);
 		assertEquals(1, depts.size());
 		Department dept = depts.get(0);
@@ -140,4 +138,5 @@ public class DepartmentRepositoryTest {
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
+	
 }

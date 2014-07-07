@@ -6,7 +6,6 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-@SuppressWarnings("unused")
 public class Entities {
 
 	public static final String DEPARTMENT_NAME = "Department";
@@ -26,12 +25,18 @@ public class Entities {
 	public static Department department() {
 		Department department = new Department();
 		department.setName(departmentName());
+//		department.setId(departmentId());
 		return department;
 	}
 
+	public static Department department(Integer id) {
+		Department department = department();
+		department.setId(id);
+		return department;
+	}
+	
 	public static Department department(Department parent) {
-		Department department = new Department();
-		department.setName(departmentName());
+		Department department = department();
 		department.setParentDepartment(parent);
 		return department;
 	}
@@ -40,32 +45,36 @@ public class Entities {
 		return DEPARTMENT_NAME + random.nextInt();
 	}
 
+//	private static Integer departmentId() {
+//		return DEPT_ID + random.nextInt();
+//	}
+
 	public static Employee employee(Department dept) {
 		Employee emp = new Employee();
-//		emp.setDepartment(dept);
-//		emp.setFirstName(FIRST_NAME);
-//		emp.setLastName(LAST_NAME);
-//		emp.setEmail(EMAIL + r.nextInt());
-//		emp.setSkypeName(SKYPE_NAME + r.nextInt());
-//		emp.setIsManager(false);
+		emp.setFirstName(FIRST_NAME);
+		emp.setLastName(LAST_NAME);
+		emp.setEmail(EMAIL + random.nextInt());
+		emp.setSkypeName(SKYPE_NAME + random.nextInt());
+		//emp.setIsManager(false);
 		return emp;
 	}
 
-/*	
+
+
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
 		emp.setFirstName(FIRST_NAME);
 		emp.setLastName(LAST_NAME);
-		emp.setEmail(EMAIL + r.nextInt());
-		emp.setSkypeName(SKYPE_NAME + r.nextInt());
-		emp.setIsManager(false);
+		emp.setEmail(EMAIL + random.nextInt());
+		emp.setSkypeName(SKYPE_NAME + random.nextInt());
+		//emp.setIsManager(false);
 		return emp;
 	}
 
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
+		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
 		return jobTitle;
 	}
 
@@ -73,10 +82,22 @@ public class Entities {
 		Employee mgr = new Employee();
 		mgr.setFirstName(FIRST_NAME);
 		mgr.setLastName(LAST_NAME);
-		mgr.setEmail(EMAIL + r.nextInt());
-		mgr.setSkypeName(SKYPE_NAME + r.nextInt());
-		mgr.setIsManager(true);
+		mgr.setEmail(EMAIL + random.nextInt());
+		mgr.setSkypeName(SKYPE_NAME + random.nextInt());
+		//mgr.setIsManager(true);
 		return mgr;
 	}
-*/
+
+	public static JobTitle jobTitle(Integer jobTitleId) {
+		JobTitle title = new JobTitle();
+		title.setId(JOB_TITLE_ID);
+		return title;
+	}
+
+	public static Employee employee(Integer employeeId) {
+		Employee emp = new Employee();
+		emp.setId(EMPLOYEE_ID);
+		return emp;
+	}
+
 }

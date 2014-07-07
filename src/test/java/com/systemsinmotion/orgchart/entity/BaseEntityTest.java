@@ -32,7 +32,6 @@ public class BaseEntityTest {
 	}
 
 	class TestingBaseEntity extends BaseEntity {
-		private static final long serialVersionUID = 1L;
 	}
 	
 	
