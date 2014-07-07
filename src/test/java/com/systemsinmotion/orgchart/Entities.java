@@ -65,7 +65,7 @@ public class Entities {
 
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + r.nextInt());
+		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
 		return jobTitle;
 	}
 

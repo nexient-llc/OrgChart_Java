@@ -32,15 +32,6 @@ public class EmployeeRepositoryTest {
 	@Autowired
 	DepartmentRepository deptRepo;
 
-//	@After
-//	public void after() {
-//		this.empRepo.delete(this.employee);
-//		this.deptRepo.delete(this.department);
-//
-//		if (null != this.manager) {
-//			this.empRepo.delete(this.manager);
-//		}
-//	}
 
 //	@Before
 //	public void before() throws Exception {
