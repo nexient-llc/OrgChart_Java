@@ -1,7 +1,5 @@
 package com.systemsinmotion.orgchart.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +9,7 @@ import javax.persistence.MappedSuperclass;
 import org.codehaus.jackson.map.ObjectMapper;
 
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
-	private static final long serialVersionUID = -7662658803273025261L;
+public abstract class BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

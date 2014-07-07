@@ -73,7 +73,7 @@ public class EmployeeRepositoryTest {
 //	@Test
 //	public void findByDepartment_null() throws Exception {
 //		List<Employee> emps = this.empRepo.findByDepartment(null);
-//		assertNull("Expecting a null list of Employees but was non-null", emps);
+//		assertTrue(emps.isEmpty());
 //	}
 
 //	@Test
@@ -137,12 +137,12 @@ public class EmployeeRepositoryTest {
 //	@Test
 //	public void findByManagerId_empty() throws Exception {
 //		List<Employee> emps = this.empRepo.findByManager(Entities.employee());
-//		assertNull(emps);
+//		assertTrue(emps.isEmpty());
 //	}
 
 //	@Test
 //	public void findByManagerId_null() throws Exception {
 //		List<Employee> emps = this.empRepo.findByManager(null);
-//		assertNull(emps);
+//		assertTrue(emps.isEmpty());
 //	}
 }
