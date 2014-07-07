@@ -6,8 +6,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee extends BaseEntity {
-
-	private static final long serialVersionUID = 2786300800604338231L;
 	
 	private Department department;
 

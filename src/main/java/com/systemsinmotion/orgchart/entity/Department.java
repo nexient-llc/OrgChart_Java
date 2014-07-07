@@ -15,8 +15,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "DEPARTMENT")
 public class Department extends BaseEntity {
 
-	private static final long serialVersionUID = -5379179412533671591L;
-
 	@Column(name = "NAME", nullable = false, length = 50)
 	@NotNull
 	@NotEmpty

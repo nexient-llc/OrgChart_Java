@@ -12,7 +12,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
-	private static final long serialVersionUID = -7662658803273025261L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
