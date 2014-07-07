@@ -10,8 +10,5 @@ import com.systemsinmotion.orgchart.data.MockDepartmentRepository;
 @Configuration
 @ComponentScan({"com.systemsinmotion.orgchart.service"})
 public class TestServiceConfig {
-	@Bean
-	DepartmentRepository getDepartmentRepository() {
-		return new MockDepartmentRepository();
-	}
+
 }
