@@ -39,6 +39,21 @@ public class JobTitleServiceTest {
 	}
 	
 	@Test
+	public void findByName() throws Exception {
+		JobTitle jobTItle = titleService.findByName(mockTitle.getName());
+		assertNotNull(jobTItle);
+		assertEquals(mockTitle.getName(), jobTItle.getName());
+	}
+	
+	@Test
+	public void findById() throws Exception{
+		Integer mockId = mockTitle.getId();
+		JobTitle jobTitle = titleService.findbyID(mockId);
+		assertNotNull(jobTitle);
+		assertEquals(mockId, jobTitle.getId());			
+	}
+	
+	@Test
 	public void storeJobTitle() {
 		JobTitle title = this.titleService.storeJobTitle(this.mockTitle);
 		assertNotNull(title);

@@ -18,7 +18,7 @@ public class Department extends BaseEntity {
 	@Column(name = "NAME", nullable = false, length = 50)
 	@NotNull
 	@NotEmpty
-	@Size(min = 1, max = 45)
+	@Size(min = 1, max = 50)
 	private String name;
 
 	@ManyToOne(fetch = FetchType.EAGER)

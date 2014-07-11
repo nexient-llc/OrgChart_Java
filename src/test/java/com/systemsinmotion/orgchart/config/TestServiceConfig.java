@@ -72,6 +72,7 @@ public class TestServiceConfig {
 		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
 		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
 		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
+		when(repo.findByName(mockTitle.getName())).thenReturn(mockTitle);
 		return repo;
 	}
 	

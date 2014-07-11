@@ -28,14 +28,15 @@ public class EmployeeRepositoryTest {
 
 	private static final String NOT_PRESENT_VALUE = "XXX";
 	private static final Integer NOT_PRESENT_ID = -666;
-	private Department department = new Department();
-	private JobTitle jobTitle = new JobTitle();
+	private Department department;
+	private JobTitle jobTitle;
 	private Employee employee;
 	private Employee manager;
 
 	@Autowired
 	EmployeeRepository empRepo;
-
+	@Autowired
+	JobTitleRepository jobRepo;
 	@Autowired
 	DepartmentRepository deptRepo;
 
@@ -52,9 +53,11 @@ public class EmployeeRepositoryTest {
 	@Before
 	public void before() throws Exception {
 		this.department = Entities.department();
+		this.jobTitle = Entities.jobTitle();
 		this.deptRepo.saveAndFlush(this.department);
-
+		this.jobRepo.saveAndFlush(this.jobTitle);
 		this.employee = Entities.employee();
+		this.employee.setJobTitle(this.jobTitle);
 		this.employee.setDepartment(this.department);
 		this.employee.setId(this.empRepo.save(this.employee).getId());
 	}
