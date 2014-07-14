@@ -16,7 +16,7 @@ public abstract class BaseEntity {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name="IS_ACTIVE")
+	@Column(name="IS_ACTIVE", nullable=false, columnDefinition="boolean default true")
 	private Boolean isActive;
 
 	public Integer getId() {

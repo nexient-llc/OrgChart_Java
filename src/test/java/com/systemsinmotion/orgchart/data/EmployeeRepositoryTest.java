@@ -28,8 +28,10 @@ public class EmployeeRepositoryTest {
 
 	private static final String NOT_PRESENT_VALUE = "XXX";
 	private static final Integer NOT_PRESENT_ID = -666;
-	private Department department = new Department();
-	private JobTitle jobTitle = new JobTitle();
+	//private Department department = new Department();
+	//private JobTitle jobTitle = new JobTitle();
+	private Department department;
+	private JobTitle jobTitle;
 	private Employee employee;
 	private Employee manager;
 
@@ -38,25 +40,30 @@ public class EmployeeRepositoryTest {
 
 	@Autowired
 	DepartmentRepository deptRepo;
+	
+	@Autowired
+	JobTitleRepository jobRepo;
 
-	@After
-	public void after() {
-		this.empRepo.delete(this.employee);
-		this.deptRepo.delete(this.department);
-
-		if (null != this.manager) {
-			this.empRepo.delete(this.manager);
-		}
-	}
+//	@After
+//	public void after() {
+//		this.empRepo.delete(this.employee);
+//		this.deptRepo.delete(this.department);
+//
+//		if (null != this.manager) {
+//			this.empRepo.delete(this.manager);
+//		}
+//	}
 
 	@Before
 	public void before() throws Exception {
 		this.department = Entities.department();
+		this.jobTitle = Entities.jobTitle();
+		this.jobRepo.saveAndFlush(this.jobTitle);
 		this.deptRepo.saveAndFlush(this.department);
-
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
 		this.employee.setId(this.empRepo.save(this.employee).getId());
+		this.employee.setJobTitle(this.jobTitle);
 	}
 
 	@Test

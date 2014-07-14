@@ -58,7 +58,7 @@ public class TestControllerConfig {
 	@Bean
 	DepartmentService getDepartmentService() {
 		DepartmentService service = mock(DepartmentService.class);
-		when(service.findAllDepartments()).thenReturn(listOfFoundDepts);
+		when(service.findAllActiveDepartments()).thenReturn(listOfFoundDepts);
 		when(service.storeDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
 		     public Department answer(InvocationOnMock invocation) {
 		         listOfFoundDepts.add(mockDepartment);
@@ -71,7 +71,7 @@ public class TestControllerConfig {
 	@Bean
 	EmployeeService getEmployeeService() {
 		EmployeeService service = mock(EmployeeService.class);
-		when(service.findAllEmployees()).thenReturn(listOfFoundEmployees);
+		when(service.findAllActiveEmployees()).thenReturn(listOfFoundEmployees);
 		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
 		     public Employee answer(InvocationOnMock invocation) {
 		         listOfFoundEmployees.add(mockEmployee);
@@ -84,7 +84,7 @@ public class TestControllerConfig {
 	@Bean
 	JobTitleService getJobTitleService() {
 		JobTitleService service = mock(JobTitleService.class);
-		when(service.findAllJobTitles()).thenReturn(listOfFoundTitles);
+		when(service.findAllActiveJobTitles()).thenReturn(listOfFoundTitles);
 		when(service.storeJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
 		     public JobTitle answer(InvocationOnMock invocation) {
 		         listOfFoundTitles.add(mockTitle);

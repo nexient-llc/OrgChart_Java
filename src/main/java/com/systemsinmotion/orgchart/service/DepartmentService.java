@@ -17,13 +17,19 @@ public class DepartmentService {
 	public List<Department> findAllDepartments() {
 		return this.repository.findAll();
 	}
+	
+	public List<Department> findAllActiveDepartments() {
+		return this.repository.findByIsActiveIsTrue();
+	}	
 
 	public Department findDepartmentByID(Integer departmentId) {
 		return this.repository.findOne(departmentId);
 	}
 
 	public void removeDepartment(Department department) {
-		this.repository.delete(department);
+		department.setIsActive(false);
+		this.repository.save(department);
+//		this.repository.delete(department);
 	}
 
 	public void setRepository(DepartmentRepository repository) {
@@ -31,6 +37,10 @@ public class DepartmentService {
 	}
 
 	public Department storeDepartment(Department department) {
+		if (department.getParentDepartment() != null && department.getParentDepartment().getId() == null)
+			department.setParentDepartment(null);
+		if (department.getIsActive() == null)
+			department.setIsActive(true);
 		return this.repository.save(department);
 	}
 

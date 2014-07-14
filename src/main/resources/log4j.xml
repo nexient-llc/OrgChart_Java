@@ -26,7 +26,7 @@
 	</logger>
 
 	<logger name="org.springframework.core">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 
 	<logger name="org.springframework.beans">
@@ -58,7 +58,7 @@
 	</logger>
 
 	<logger name="org.springframework.security.web.authentication">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 
 	<logger name="org.springframework.web">

@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head> 
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
@@ -17,7 +18,7 @@
 var path = "${pageContext.request.contextPath}/app/";
 </script>
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
-<title>Systems In Motion - <tiles:getAsString name="title" /></title>
+<title>Systems in Motion Organization Chart: <tiles:getAsString name="title" /></title>
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />
