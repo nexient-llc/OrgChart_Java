@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @Service("departmentService")
+@Transactional(readOnly = true)
 public class DepartmentService {
 
 	@Autowired
@@ -26,6 +28,7 @@ public class DepartmentService {
 		return this.repository.findOne(departmentId);
 	}
 
+	@Transactional
 	public void removeDepartment(Department department) {
 		department.setIsActive(false);
 		this.repository.save(department);
@@ -36,6 +39,7 @@ public class DepartmentService {
 		this.repository = repository;
 	}
 
+	@Transactional
 	public Department storeDepartment(Department department) {
 		if (department.getParentDepartment() != null && department.getParentDepartment().getId() == null)
 			department.setParentDepartment(null);

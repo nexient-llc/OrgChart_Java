@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.entity.Department;
@@ -11,6 +12,7 @@ import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Service("employeeService")
+@Transactional(readOnly = true)
 public class EmployeeService {
 	
 	@Autowired
@@ -24,17 +26,19 @@ public class EmployeeService {
 		return this.repository.findOne(employeeId);
 	}
 
+	@Transactional
 	public Employee storeEmployee(Employee employee) {
 		if (employee.getIsActive() == null)
 			employee.setIsActive(true);
 		return this.repository.save(employee);
 	}
-	
+
+	@Transactional
 	public void removeEmployee(Employee employee) {
 		employee.setIsActive(false);
 		this.repository.save(employee);
 	}
-	
+
 	public List<Employee> findEmployeesByJobTitle(JobTitle jobTitle) {
 		return this.repository.findByJobTitle(jobTitle);
 	}
