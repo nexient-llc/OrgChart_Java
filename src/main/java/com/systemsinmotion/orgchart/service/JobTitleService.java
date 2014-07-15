@@ -35,6 +35,12 @@ public class JobTitleService {
 //		this.repository.delete(jobTitle);
 	}
 	
+	@Transactional
+	public void removeJobTitleById(Integer jobId) {
+		JobTitle jobTitle = this.repository.findById(jobId);
+		removeJobTitle(jobTitle);
+	}
+	
 	public void setRepository(JobTitleRepository repository) {
 		this.repository = repository;
 	}
@@ -42,7 +48,9 @@ public class JobTitleService {
 	@Transactional
 	public JobTitle storeJobTitle(JobTitle jobTitle) {
 		if (jobTitle.getIsActive() == null)
+		{
 			jobTitle.setIsActive(true);
+		}
 		return this.repository.save(jobTitle);
 	}
 

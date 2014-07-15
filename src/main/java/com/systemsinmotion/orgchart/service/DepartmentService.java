@@ -35,6 +35,12 @@ public class DepartmentService {
 //		this.repository.delete(department);
 	}
 
+	@Transactional
+	public void removeDepartmentById(Integer deptId) {
+		Department department = this.repository.findById(deptId);
+		removeDepartment(department);
+	}
+
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;
 	}
@@ -42,10 +48,13 @@ public class DepartmentService {
 	@Transactional
 	public Department storeDepartment(Department department) {
 		if (department.getParentDepartment() != null && department.getParentDepartment().getId() == null)
+		{
 			department.setParentDepartment(null);
+		}
 		if (department.getIsActive() == null)
+		{
 			department.setIsActive(true);
+		}
 		return this.repository.save(department);
 	}
-
 }

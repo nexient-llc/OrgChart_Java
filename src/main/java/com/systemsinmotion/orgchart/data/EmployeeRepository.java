@@ -33,28 +33,41 @@ public interface EmployeeRepository  extends JpaRepository<Employee,Integer> {
 			String firstName, String lastName);
 	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(
 			String firstName, String lastName);
-	List<Employee> findByDepartmentAndIsActiveIsTrue(Department department);
+	List<Employee> findByDepartmentIdAndIsActiveIsTrue(Integer deptId);
 	
 	@Query("SELECT e FROM Employee e WHERE (upper(e.firstName) like %:name% OR upper(e.lastName) like %:name%) "
-			+ "AND e.department = :department AND e.isActive is true")
-	List<Employee> findByUpperCaseNameAndDepartmentAndActive(@Param("name") String name,
-			@Param("department") Department department);
-	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentAndIsActiveIsTrue(
-			String firstName, String lastName, Department department);
-	List<Employee> findByJobTitleAndIsActiveIsTrue(JobTitle jobTitle);
+			+ "AND e.department.id = :deptId AND e.isActive is true")
+	List<Employee> findByUpperCaseNameAndDepartmentIdAndActive(@Param("name") String name,
+			@Param("deptId") Integer deptId);
+	
+	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(
+			String firstName, String lastName, Integer deptId);
+	List<Employee> findByJobTitleIdAndIsActiveIsTrue(Integer jobId);
+	
 	@Query("SELECT e FROM Employee e WHERE (upper(e.firstName) like %:name% OR upper(e.lastName) like %:name%) "
-			+ "AND e.jobTitle = :jobtitle AND e.isActive is true")
-	List<Employee> findByNameAndJobTitleAndActive(@Param("name") String name,
-			@Param("jobtitle")  JobTitle jobTitle);
-	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleAndIsActiveIsTrue(
-			String firstName, String lastName, JobTitle jobTitle);
+			+ "AND e.jobTitle.id = :jobId AND e.isActive is true")
+	List<Employee> findByUpperCaseNameAndJobTitleAndActive(@Param("name") String name,
+			@Param("jobId")  Integer jobId);
+	
+	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(
+			String firstName, String lastName, Integer jobId);
+	
 	@Query("SELECT e FROM Employee e WHERE (upper(e.firstName) like %:name% OR upper(e.lastName) like %:name%) "
-			+ "AND e.department = :department AND e.jobTitle = :jobtitle AND e.isActive is true")
+			+ "AND e.department.id = :deptId AND e.jobTitle.id = :jobId AND e.isActive is true")
 	List<Employee> findByUpperCaseNameAndDepartmentAndJobTitle(@Param ("name") String name,
-			@Param("department") Department department, @Param("jobtitle") JobTitle jobTitle);
-	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentAndJobTitleAndIsActiveIsTrue(
-			String firstName, String lastName, Department department,
-			JobTitle jobTitle);
-	List<Employee> findByDepartmentAndJobTitleAndIsActiveIsTrue(
-			Department department, JobTitle jobTitle);
+			@Param("deptId") Integer deptId, @Param("jobId") Integer jobId);
+	
+	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(
+			String firstName, String lastName, Integer deptId,
+			Integer jobId);
+	List<Employee> findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(
+			Integer deptId, Integer jobId);
+	List<Employee> findByFirstName(String firstName);
+	List<Employee> findByFirstNameContaining(String firstName);
+	List<Employee> findByFirstNameIgnoreCase(String firstName);
+	List<Employee> findByFirstNameContainingIgnoreCaseAndIsActiveIsTrue(
+			String firstName);
+	
+	
+	
 }

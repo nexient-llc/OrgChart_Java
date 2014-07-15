@@ -29,7 +29,9 @@ public class EmployeeService {
 	@Transactional
 	public Employee storeEmployee(Employee employee) {
 		if (employee.getIsActive() == null)
+		{
 			employee.setIsActive(true);
+		}
 		return this.repository.save(employee);
 	}
 
@@ -37,6 +39,12 @@ public class EmployeeService {
 	public void removeEmployee(Employee employee) {
 		employee.setIsActive(false);
 		this.repository.save(employee);
+	}
+	
+	@Transactional
+	public void removeEmployeeById(Integer empId) {
+		Employee employee = this.repository.findById(empId);
+		removeEmployee(employee);
 	}
 
 	public List<Employee> findEmployeesByJobTitle(JobTitle jobTitle) {
@@ -63,60 +71,95 @@ public class EmployeeService {
 	public String putCommaDelimitersInAListOfEmployees(List<Employee> employees) {
 		String output = new String();
 		for (Employee emp : employees)
+		{
 			output += emp.getFirstName() + " " + emp.getLastName() + ",";
+		}
 		if (output.length() > 0)
+		{
 			output = output.substring(0,output.length() - 1);
+		}
 		return output;
 	}
 
 	public List<Employee> findEmployeesByFilter(String firstName, String lastName,
-			Department department, JobTitle jobTitle) {
+			Integer deptId, Integer jobId) {
 
-		int vector = 0;
-		if (firstName != null)
-			vector |= 1; // First Bit
-		if (lastName != null)
-			vector |= 2; // Second Bit
-		if (department != null)
-			vector |= 4; // Third Bit
-		if (jobTitle != null)
-			vector |= 8; // Fourth Bit
+		int bitVector = findBitVector(firstName, lastName, deptId, jobId);
 
-		switch (vector)
+		List<Employee> employees = null;
+		switch (bitVector)
 		{
 		case 1: // First Name
-			return repository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, firstName);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, firstName);
+			break;
 		case 2: // Last Name
-			return repository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(lastName, lastName);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(lastName, lastName);
+			break;
 		case 3: // First Name, Last Name
-			return repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, lastName);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, lastName);
+			break;
 		case 4: // Department
-			return repository.findByDepartmentAndIsActiveIsTrue(department);
+			employees = repository.findByDepartmentIdAndIsActiveIsTrue(deptId);
+			break;
 		case 5: // First Name, Department
-			return repository.findByUpperCaseNameAndDepartmentAndActive(firstName.toUpperCase(), department);
+			employees = repository.findByUpperCaseNameAndDepartmentIdAndActive(firstName.toUpperCase(), deptId);
+			break;
 		case 6: // Last Name, Department
-			return repository.findByUpperCaseNameAndDepartmentAndActive(lastName.toUpperCase(), department);
+			employees = repository.findByUpperCaseNameAndDepartmentIdAndActive(lastName.toUpperCase(), deptId);
+			break;
 		case 7: // First Name, Last Name, Department
-			return repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentAndIsActiveIsTrue(firstName, lastName, department);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(firstName, lastName, deptId);
+			break;
 		case 8: // JobTitle
-			return repository.findByJobTitleAndIsActiveIsTrue(jobTitle);
+			employees = repository.findByJobTitleIdAndIsActiveIsTrue(jobId);
+			break;
 		case 9: // First Name JobTitle
-			return repository.findByNameAndJobTitleAndActive(firstName.toUpperCase(), jobTitle);
+			employees = repository.findByUpperCaseNameAndJobTitleAndActive(firstName.toUpperCase(), jobId);
+			break;
 		case 10: // Last Name, JobTitle
-			return repository.findByNameAndJobTitleAndActive(lastName.toUpperCase(), jobTitle);
+			employees = repository.findByUpperCaseNameAndJobTitleAndActive(lastName.toUpperCase(), jobId);
+			break;
 		case 11: // First Name, Last Name, JobTitle
-			return repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleAndIsActiveIsTrue(firstName, lastName, jobTitle);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(firstName, lastName, jobId);
+			break;
 		case 12: // Department, JobTitle
-			return repository.findByDepartmentAndJobTitleAndIsActiveIsTrue(department, jobTitle);
+			employees = repository.findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(deptId, jobId);
+			break;
 		case 13: // First Name, Department, JobTitle
-			return repository.findByUpperCaseNameAndDepartmentAndJobTitle(firstName.toUpperCase(), department, jobTitle);
+			employees = repository.findByUpperCaseNameAndDepartmentAndJobTitle(firstName.toUpperCase(), deptId, jobId);
+			break;
 		case 14: // Last Name, Department, JobTitle
-			return repository.findByUpperCaseNameAndDepartmentAndJobTitle(lastName.toUpperCase(), department, jobTitle);
+			employees = repository.findByUpperCaseNameAndDepartmentAndJobTitle(lastName.toUpperCase(), deptId, jobId);
+			break;
 		case 15: // First Name, Last Name, Department, JobTitle
-			return repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentAndJobTitleAndIsActiveIsTrue(firstName, lastName, department, jobTitle);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(firstName, lastName, deptId, jobId);
+			break;
 		case 0:
 		default:
-			return findAllActiveEmployees();
+			employees = findAllActiveEmployees();
+			break;
 		}
+		return employees;
+	}
+
+	private int findBitVector(String firstName, String lastName, Integer deptId, Integer jobId) {
+		int vector = 0;
+		if (firstName != null)
+		{
+			vector |= 0x1; // First Bit
+		}
+		if (lastName != null)
+		{
+			vector |= 0x2; // Second Bit
+		}
+		if (deptId != null)
+		{
+			vector |= 0x4; // Third Bit
+		}
+		if (jobId != null)
+		{
+			vector |= 0x8; // Fourth Bit
+		}
+		return vector;
 	}
 }

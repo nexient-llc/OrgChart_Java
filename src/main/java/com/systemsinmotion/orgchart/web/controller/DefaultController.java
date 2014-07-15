@@ -85,7 +85,7 @@ public class DefaultController {
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public void doDepartmentDelete_DELETE(@PathVariable("id") Integer deptId, Model model)
 	{
-		departmentService.removeDepartment(departmentService.findDepartmentByID(deptId));
+		departmentService.removeDepartmentById(deptId);
 		refreshDepartmentModel(model);
 	}
 	
@@ -125,14 +125,23 @@ public class DefaultController {
 		return employeeService.putCommaDelimitersInAListOfEmployees(employees);
 	}
 
+//	@RequestMapping(value = "emp/delete/{id}", method = RequestMethod.DELETE)
+//	public @ResponseBody ResponseEntity<String> doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
+//	{
+//		employeeService.removeEmployeeById(empId);
+//		refreshAllModels(model);
+//		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
+//	}
+	
 	@RequestMapping(value = "emp/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public @ResponseBody ResponseEntity<String> doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
+	public void doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
 	{
-		employeeService.removeEmployee(employeeService.findEmployeeByID(empId));
+		employeeService.removeEmployeeById(empId);
 		refreshAllModels(model);
-		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
+		return;
 	}
+
 
 	// Solution 1: Readable and few lines of code, but requires 2+ queries
 //	private List<Employee> getFilteredEmployees(String fullName, String deptId,
@@ -157,8 +166,8 @@ public class DefaultController {
 		String[] name = fullName.trim().split("\\s");
 		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
 		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
-		Department department = (deptId.length() > 0) ? departmentService.findDepartmentByID(Integer.parseInt(deptId)) : null;
-		JobTitle jobTitle = (jobId.length() > 0) ? jobTitleService.findJobTitleByID(Integer.parseInt(jobId)) : null;
+		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
+		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
 		return employeeService.findEmployeesByFilter(firstName, lastName, department, jobTitle);
 	}
 	
@@ -239,7 +248,7 @@ public class DefaultController {
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public @ResponseBody ResponseEntity<String> doJobTitleDelete_DELETE(@PathVariable("id") Integer jobId, Model model)
 	{
-		jobTitleService.removeJobTitle(jobTitleService.findJobTitleByID(jobId));
+		jobTitleService.removeJobTitleById(jobId);
 		refreshAllModels(model);
 		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
 	}
