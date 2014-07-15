@@ -27,7 +27,6 @@ public class Employee extends BaseEntity {
 	private String lastName;
 
 	@Column(name = "MIDDLE_INITIAL", length = 1)
-	@Size(min = 0, max = 1)
 	private Character middleInitial;
 	
 	@Column(name = "EMAIL", nullable = true, length = 100)
@@ -37,6 +36,9 @@ public class Employee extends BaseEntity {
 	@Column(name = "SKYPE_NAME", nullable = true, length = 100)
 	@Size(min = 0, max = 100)
 	private String skypeName;
+
+	@Column(name = "IS_MANAGER", nullable = true)
+	private boolean isManager;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID", nullable=false)
@@ -70,6 +72,10 @@ public class Employee extends BaseEntity {
 		return this.skypeName;
 	}
 	
+	public boolean getIsManager() {
+		return this.isManager;
+	}
+	
 	public Department getDepartment() {
 		return this.department;
 	}
@@ -100,6 +106,10 @@ public class Employee extends BaseEntity {
 	
 	public void setSkypeName(String skypeName) {
 		this.skypeName= skypeName;		
+	}
+	
+	public void setIsManager(boolean isManager) {
+		this.isManager=isManager;
 	}
 	
 	public void setDepartment(Department department) {

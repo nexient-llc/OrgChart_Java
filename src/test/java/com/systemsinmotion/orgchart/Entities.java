@@ -22,20 +22,21 @@ public class Entities {
 
 	private static Random random = new Random();
 
+	// ****************Departments**************************
 	public static Department department() {
 		Department department = new Department();
 		department.setName(departmentName());
 		department.setIsActive(true);
-//		department.setId(departmentId());
+		// department.setId(departmentId());
 		return department;
 	}
 
 	public static Department department(Integer id) {
 		Department department = department();
-		department.setId(id);
+		department.setId(DEPT_ID);
 		return department;
 	}
-	
+
 	public static Department department(Department parent) {
 		Department department = department();
 		department.setParentDepartment(parent);
@@ -46,22 +47,11 @@ public class Entities {
 		return DEPARTMENT_NAME + random.nextInt();
 	}
 
-//	private static Integer departmentId() {
-//		return DEPT_ID + random.nextInt();
-//	}
+	// private static Integer departmentId() {
+	// return DEPT_ID + random.nextInt();
+	// }
 
-	public static Employee employee(Department dept) {
-		Employee emp = new Employee();
-		emp.setFirstName(FIRST_NAME);
-		emp.setLastName(LAST_NAME);
-		emp.setEmail(EMAIL + random.nextInt());
-		emp.setSkypeName(SKYPE_NAME + random.nextInt());
-		//emp.setIsManager(false);
-		return emp;
-	}
-
-
-
+	// ****************Employees**************************
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
@@ -69,37 +59,44 @@ public class Entities {
 		emp.setLastName(LAST_NAME);
 		emp.setEmail(EMAIL + random.nextInt());
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
-		//emp.setIsManager(false);
+		emp.setIsActive(true);
+		// emp.setIsManager(false);
 		return emp;
 	}
 
-	public static JobTitle jobTitle() {
-		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
-		return jobTitle;
-	}
-
-	public static Employee manager() {
-		Employee mgr = new Employee();
-		mgr.setFirstName(FIRST_NAME);
-		mgr.setLastName(LAST_NAME);
-		mgr.setEmail(EMAIL + random.nextInt());
-		mgr.setSkypeName(SKYPE_NAME + random.nextInt());
-		//mgr.setIsManager(true);
-		return mgr;
-	}
-
-	public static JobTitle jobTitle(Integer jobTitleId) {
-		JobTitle title = new JobTitle();
-		title.setId(JOB_TITLE_ID);
-		title.setName(JOB_TITLE_NAME);
-		return title;
+	public static Employee employee(Department dept) {
+		Employee emp = employee();
+		emp.setDepartment(department());
+		// emp.setIsManager(false);
+		return emp;
 	}
 
 	public static Employee employee(Integer employeeId) {
-		Employee emp = new Employee();
+		Employee emp = employee();
 		emp.setId(EMPLOYEE_ID);
 		return emp;
+	}
+
+	public static Employee manager() {
+		Employee mgr = employee();
+		mgr.setId(MANAGER_ID);
+		mgr.setIsManager(true);
+		return mgr;
+	}
+
+	// ****************Job Titles**************************
+	public static JobTitle jobTitle() {
+		JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
+		jobTitle.setId(JOB_TITLE_ID);
+		jobTitle.setIsActive(true);
+		return jobTitle;
+	}
+
+	public static JobTitle jobTitle(Integer jobTitleId) {
+		JobTitle jobTitle = jobTitle();
+		jobTitle.setId(JOB_TITLE_ID);
+		return jobTitle;
 	}
 
 }

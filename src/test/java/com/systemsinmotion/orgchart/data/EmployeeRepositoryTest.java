@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,42 +34,37 @@ public class EmployeeRepositoryTest {
 
 	@Autowired
 	EmployeeRepository empRepo;
+	
 	@Autowired
 	JobTitleRepository jobRepo;
+	
 	@Autowired
 	DepartmentRepository deptRepo;
 
-	@After
-	public void after() {
-		this.empRepo.delete(this.employee);
-		this.deptRepo.delete(this.department);
-
-		if (null != this.manager) {
-			this.empRepo.delete(this.manager);
-		}
-	}
-
 	@Before
 	public void before() throws Exception {
-		this.department = Entities.department();
-		this.jobTitle = Entities.jobTitle();
-		this.deptRepo.saveAndFlush(this.department);
-		this.jobRepo.saveAndFlush(this.jobTitle);
+		this.department = this.deptRepo.saveAndFlush(Entities.department());
+		
+		this.jobTitle = this.jobRepo.saveAndFlush(Entities.jobTitle());
+		
 		this.employee = Entities.employee();
 		this.employee.setJobTitle(this.jobTitle);
 		this.employee.setDepartment(this.department);
-		this.employee.setId(this.empRepo.save(this.employee).getId());
+		this.employee = this.empRepo.saveAndFlush(this.employee);
 	}
 
+	private void createManager() {
+		this.manager = Entities.manager();
+		this.manager.setJobTitle(this.jobTitle);
+		this.manager.setDepartment(this.department);
+		this.manager = this.empRepo.saveAndFlush(this.manager);
+	}
+	
 	@Test
 	public void testInstantiation() {
 		assertNotNull(deptRepo);
 	}
 	
-	private void createManager() {
-		this.manager = Entities.manager();
-		this.empRepo.save(this.manager);
-	}
 
 	@Test
 	public void findAll() throws Exception {

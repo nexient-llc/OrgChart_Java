@@ -37,12 +37,12 @@ public class JobTitleRepositoryTest {
 		this.jobTitle = Entities.jobTitle();
 		this.jobTitle.setId(this.jobTitleRepo.save(this.jobTitle).getId());
 	}
-	
+
 	@Test
 	public void testInstantiation() {
 		assertNotNull(jobTitleRepo);
 	}
-	
+
 	@Test
 	public void created() {
 		assertNotNull(this.jobTitle);

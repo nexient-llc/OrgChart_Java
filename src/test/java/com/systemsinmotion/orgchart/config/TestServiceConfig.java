@@ -71,6 +71,7 @@ public class TestServiceConfig {
 	JobTitleRepository getJobTitleRepository() {
 		JobTitleRepository repo = mock(JobTitleRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundTitles);
 		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
 		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
 		when(repo.findByName(mockTitle.getName())).thenReturn(mockTitle);
@@ -86,6 +87,7 @@ public class TestServiceConfig {
 	EmployeeRepository getEmployeeRepository() {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
 		when(repo.findAll()).thenReturn(listOfFoundEmployees);
+//		when(repo.findByIsActiveIsTrue()).thenReturn(listOfFoundEmployees);
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		return repo;

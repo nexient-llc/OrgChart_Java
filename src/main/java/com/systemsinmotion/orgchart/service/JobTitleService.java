@@ -12,21 +12,25 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 public class JobTitleService {
 	@Autowired
 	JobTitleRepository repository;
-	
+
 	public List<JobTitle> findAllJobTitles() {
 		return this.repository.findAll();
 	}
-	
+
 	public JobTitle findByName(String name) {
 		return this.repository.findByName(name);
 	}
-	
-	public JobTitle findbyID(Integer id){
+
+	public JobTitle findbyID(Integer id) {
 		return this.repository.findOne(id);
 	}
 
 	public JobTitle storeJobTitle(JobTitle jobTitle) {
 		return repository.save(jobTitle);
+	}
+
+	public List<JobTitle> findAllActiveJobTitles() {
+		return this.repository.findByIsActiveIsTrue();
 	}
 
 }

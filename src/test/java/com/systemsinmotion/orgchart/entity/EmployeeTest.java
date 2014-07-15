@@ -1,7 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -57,12 +56,12 @@ public class EmployeeTest {
 	}
 
 	@Test
-	public void setAndGetManager() {
-		emp.setManager(mgr);
-		Employee manager = emp.getManager();
-		assertNotNull(manager);
-		assertEquals(mgr.getId(), manager.getId());
+	public void setAndGetIsManager() {
+		assertFalse(emp.getIsManager());
+		emp.setIsManager(true);
+		assertTrue(emp.getIsManager());
 	}
+
 	
 	@Test
 	public void setAndGetDepartment(){

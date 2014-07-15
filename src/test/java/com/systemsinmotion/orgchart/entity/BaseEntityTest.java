@@ -33,12 +33,11 @@ public class BaseEntityTest {
 
 	class TestingBaseEntity extends BaseEntity {
 	}
-	
-	
+
 	@Test
-	public void setAndGetIsActive(){
+	public void setAndGetIsActive() {
 		this.baseEntity.setIsActive(false);
 		assertNotNull(this.baseEntity.getIsActive());
-		assertTrue(baseEntity.getIsActive()==false);
+		assertTrue(baseEntity.getIsActive() == false);
 	}
 }
