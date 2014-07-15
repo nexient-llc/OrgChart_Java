@@ -2,14 +2,17 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.criteria.CriteriaBuilder;
-
+import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.internal.SessionFactoryImpl;
+import org.hibernate.metamodel.SessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,14 +70,16 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 
+
 	@RequestMapping(value = "updateDepart", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-//	public void doDepartments_POST(Department department, @RequestParam(value = "doDelete", defaultValue="false") boolean doDelete, Model model) {
 	public String doDepartmentUpdate_POST(Department department, Model model) {
 		departmentService.storeDepartment(department);
 		refreshDepartmentModel(model);
 		return View.DEPARTMENTS;
 	}
+
+//	public void doDepartments_POST(Department department, @RequestParam(value = "doDelete", defaultValue="false") boolean doDelete, Model model) {
 
 	@RequestMapping(value = "depart/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.ACCEPTED)
@@ -89,6 +94,7 @@ public class DefaultController {
 	}
 
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
 	public String doEmployees_GET(@RequestParam(value = "filterName", defaultValue="") String fullName,
 			@RequestParam(value = "deptid", defaultValue="") String deptid,
 			@RequestParam(value = "jobid", defaultValue="") String jobid,
@@ -99,6 +105,7 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "searchemps", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
 	public String doSearchEmployees_GET(@RequestParam(value = "filterName", defaultValue="") String fullName,
 			@RequestParam(value = "deptid", defaultValue="") String deptId,
 			@RequestParam(value = "jobid", defaultValue="") String jobId,
@@ -112,12 +119,14 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "searchEmployeeName/{name}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody String doSearchEmployees_GET(@PathVariable("name") String fullName) {
 		List<Employee> employees = getFilteredEmployees(fullName, "", "");
 		return employeeService.putCommaDelimitersInAListOfEmployees(employees);
 	}
 
 	@RequestMapping(value = "emp/delete/{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.ACCEPTED)
 	public @ResponseBody ResponseEntity<String> doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
 	{
 		employeeService.removeEmployee(employeeService.findEmployeeByID(empId));
@@ -126,26 +135,61 @@ public class DefaultController {
 	}
 
 	// Solution 1: Readable and few lines of code, but requires 2+ queries
-	private List<Employee> getFilteredEmployees(String fullName, String deptId,
-			String jobId) {
-		String[] name = fullName.split("\\s");
-		List<Employee> employees = employeeService.findAllActiveEmployees();
-		if (name[0].length() > 0)
-			employees.retainAll(employeeService.findEmployeesByFirstName(name[0]));
-		if (name.length > 1 && name[1].length() > 0)
-			employees.retainAll(employeeService.findEmployeesByLastName(name[1]));
-		if (deptId.length() > 0)
-			employees.retainAll(employeeService.findEmployeesByDepartment(departmentService.findDepartmentByID(Integer.parseInt(deptId))));
-		if (jobId.length() > 0)
-			employees.retainAll(employeeService.findEmployeesByJobTitle(jobTitleService.findJobTitleByID(Integer.parseInt(jobId))));
+//	private List<Employee> getFilteredEmployees(String fullName, String deptId,
+//			String jobId) {
+//		String[] name = fullName.split("\\s");
+//		List<Employee> employees = employeeService.findAllActiveEmployees();
+//		if (name[0].length() > 0)
+//			employees.retainAll(employeeService.findEmployeesByFirstName(name[0]));
+//		if (name.length > 1 && name[1].length() > 0)
+//			employees.retainAll(employeeService.findEmployeesByLastName(name[1]));
+//		if (deptId.length() > 0)
+//			employees.retainAll(employeeService.findEmployeesByDepartment(departmentService.findDepartmentByID(Integer.parseInt(deptId))));
+//		if (jobId.length() > 0)
+//			employees.retainAll(employeeService.findEmployeesByJobTitle(jobTitleService.findJobTitleByID(Integer.parseInt(jobId))));
+//
+//		return employees;
+//	}
 
-		return employees;
+	// Solution 2: Switch Approach, long-winded but correct
+	private List<Employee> getFilteredEmployees(String fullName, String deptId, String jobId)
+	{
+		String[] name = fullName.trim().split("\\s");
+		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
+		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
+		Department department = (deptId.length() > 0) ? departmentService.findDepartmentByID(Integer.parseInt(deptId)) : null;
+		JobTitle jobTitle = (jobId.length() > 0) ? jobTitleService.findJobTitleByID(Integer.parseInt(jobId)) : null;
+		return employeeService.findEmployeesByFilter(firstName, lastName, department, jobTitle);
 	}
 	
-	// Solution 2: Query Criteria
+	// Solution 3: Query Criteria, needs lots of other defined classes
 //	private List<Employee> getFilteredEmployees(String fullName, String deptId, String jobId)
 //	{
-//		return null;
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Employee");
+//		EntityManager em = emf.createEntityManager();
+//		CriteriaBuilder builder = em.getCriteriaBuilder();
+//		CriteriaQuery<Employee> cq = builder.createQuery(Employee.class);
+//		Root<Employee> emp = cq.from(Employee.class);
+//		cq.select(emp);
+//		cq.where(builder.equal(emp.get(Employee_.firstName), "Bob"));
+//		List<Employee> emps = em.createQuery(cq).getResultList();
+//		for (Employee e : emps)
+//			System.out.println("Test: " + e);
+//		return emps;
+//	}
+
+	// Solution 4: Detached Criteria, seems easier but it still requires external libraries
+//	private List<Employee> getFilteredEmployees(String fullName, String deptId, String jobId)
+//	{
+//		DetachedCriteria dc = DetachedCriteria.forClass(Employee.class);
+//		
+//		dc.createCriteria("filteredList");
+//		dc.add(Restrictions.eq("firstName", "Bob"));
+//		dc.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//		HibernateTemplate ht = new HibernateTemplate();
+//		List<Employee> emp = ht.findByCriteria(dc);
+//		
+//		return emp;
 //	}
 
 	@RequestMapping(value = "newEmp", method = RequestMethod.POST)
@@ -169,6 +213,7 @@ public class DefaultController {
 	}
 
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
 	public String doJobTitles_GET(Model model) {
 		refreshJobTitleModel(model);
 		return View.JOB_TITLES;
@@ -191,6 +236,7 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "job/delete/{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.ACCEPTED)
 	public @ResponseBody ResponseEntity<String> doJobTitleDelete_DELETE(@PathVariable("id") Integer jobId, Model model)
 	{
 		jobTitleService.removeJobTitle(jobTitleService.findJobTitleByID(jobId));

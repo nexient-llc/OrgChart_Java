@@ -55,6 +55,11 @@ public class EmployeeService {
 		return this.repository.findByDepartment(department);
 	}
 	
+	public List<Employee> findAllActiveEmployees()
+	{
+		return this.repository.findByIsActiveIsTrue();
+	}
+
 	public String putCommaDelimitersInAListOfEmployees(List<Employee> employees) {
 		String output = new String();
 		for (Employee emp : employees)
@@ -64,8 +69,54 @@ public class EmployeeService {
 		return output;
 	}
 
-	public List<Employee> findAllActiveEmployees()
-	{
-		return this.repository.findByIsActiveIsTrue();
+	public List<Employee> findEmployeesByFilter(String firstName, String lastName,
+			Department department, JobTitle jobTitle) {
+
+		int vector = 0;
+		if (firstName != null)
+			vector |= 1; // First Bit
+		if (lastName != null)
+			vector |= 2; // Second Bit
+		if (department != null)
+			vector |= 4; // Third Bit
+		if (jobTitle != null)
+			vector |= 8; // Fourth Bit
+
+		switch (vector)
+		{
+		case 1: // First Name
+			return repository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, firstName);
+		case 2: // Last Name
+			return repository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(lastName, lastName);
+		case 3: // First Name, Last Name
+			return repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, lastName);
+		case 4: // Department
+			return repository.findByDepartmentAndIsActiveIsTrue(department);
+		case 5: // First Name, Department
+			return repository.findByUpperCaseNameAndDepartmentAndActive(firstName.toUpperCase(), department);
+		case 6: // Last Name, Department
+			return repository.findByUpperCaseNameAndDepartmentAndActive(lastName.toUpperCase(), department);
+		case 7: // First Name, Last Name, Department
+			return repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentAndIsActiveIsTrue(firstName, lastName, department);
+		case 8: // JobTitle
+			return repository.findByJobTitleAndIsActiveIsTrue(jobTitle);
+		case 9: // First Name JobTitle
+			return repository.findByNameAndJobTitleAndActive(firstName.toUpperCase(), jobTitle);
+		case 10: // Last Name, JobTitle
+			return repository.findByNameAndJobTitleAndActive(lastName.toUpperCase(), jobTitle);
+		case 11: // First Name, Last Name, JobTitle
+			return repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleAndIsActiveIsTrue(firstName, lastName, jobTitle);
+		case 12: // Department, JobTitle
+			return repository.findByDepartmentAndJobTitleAndIsActiveIsTrue(department, jobTitle);
+		case 13: // First Name, Department, JobTitle
+			return repository.findByUpperCaseNameAndDepartmentAndJobTitle(firstName.toUpperCase(), department, jobTitle);
+		case 14: // Last Name, Department, JobTitle
+			return repository.findByUpperCaseNameAndDepartmentAndJobTitle(lastName.toUpperCase(), department, jobTitle);
+		case 15: // First Name, Last Name, Department, JobTitle
+			return repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentAndJobTitleAndIsActiveIsTrue(firstName, lastName, department, jobTitle);
+		case 0:
+		default:
+			return findAllActiveEmployees();
+		}
 	}
 }
