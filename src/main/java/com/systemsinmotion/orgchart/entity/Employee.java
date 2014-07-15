@@ -26,7 +26,7 @@ public class Employee extends BaseEntity {
 	@Size(min = 1, max = 50)
 	private String lastName;
 
-	@Column(name = "MIDDLE_INITIAL", nullable = true, length = 1)
+	@Column(name = "MIDDLE_INITIAL", length = 1)
 	@Size(min = 0, max = 1)
 	private Character middleInitial;
 	
@@ -39,7 +39,7 @@ public class Employee extends BaseEntity {
 	private String skypeName;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
+	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID", nullable=false)
 	private Department department;
 
 	@ManyToOne(fetch = FetchType.EAGER)

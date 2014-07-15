@@ -74,6 +74,14 @@ public class DepartmentRepositoryTest {
 		assertNotNull(depts);
 		assertTrue(0 < depts.size());
 	}
+	
+	@Test
+	public void findAllWhereIsActiveIsTrue() throws Exception {
+		System.out.println(this.repository.toString());
+		List<Department> depts = this.repository.findByIsActiveIsTrue();
+		assertNotNull(depts);
+		assertTrue(0 < depts.size());
+	}
 
 	@Test
 	public void findByDeptId() throws Exception {

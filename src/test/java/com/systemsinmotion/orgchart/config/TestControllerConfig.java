@@ -59,7 +59,8 @@ public class TestControllerConfig {
 	DepartmentService getDepartmentService() {
 		DepartmentService service = mock(DepartmentService.class);
 		when(service.findAllDepartments()).thenReturn(listOfFoundDepts);
-		when(service.storeDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
+		when(service.findAllActiveDepartments()).thenReturn(listOfFoundDepts);
+		when(service.storeNewDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
 		     public Department answer(InvocationOnMock invocation) {
 		         listOfFoundDepts.add(mockDepartment);
 		         return mockDepartment;

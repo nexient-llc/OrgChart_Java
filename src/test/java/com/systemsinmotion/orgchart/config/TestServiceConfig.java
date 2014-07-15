@@ -56,6 +56,7 @@ public class TestServiceConfig {
 	DepartmentRepository getDepartmentRepository() {
 		DepartmentRepository repo = mock(DepartmentRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundDepts);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundDepts);
 		when(repo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(repo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
 		return repo;

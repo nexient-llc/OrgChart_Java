@@ -44,4 +44,20 @@ $(document).ready(function() {
 	});
 	
 	
+	$('#removeButton').click(function() {
+		var deptId = $('#departmentId').val();
+		$.ajax({
+			   url : "delete/dept/" + deptId,
+			   type : "DELETE"
+		}).done(function(){
+			
+			$('#tableRow'+deptId).remove();
+			$(".deptDropDown option[value='" +deptId+"']").remove();
+			$('#editEntity-container').fadeToggle("fast", "linear", function() {
+				$('#deptTable-container').fadeToggle("fast", "linear");
+			});
+		});
+		
+	});
+	
 });

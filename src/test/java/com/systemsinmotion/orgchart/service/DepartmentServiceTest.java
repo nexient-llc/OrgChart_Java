@@ -1,8 +1,6 @@
 package com.systemsinmotion.orgchart.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -28,9 +26,17 @@ public class DepartmentServiceTest {
 
 	@Test
 	public void findAllDepartments() {
-		List<Department> depts = this.departmentService.findAllDepartments();
-		assertNotNull(depts);
-		assertTrue(depts.size() > 0);
+		List<Department> allDepts = this.departmentService.findAllDepartments();
+		assertNotNull(allDepts);
+		assertTrue(allDepts.size() > 0);
+	}
+	
+	@Test
+	public void findAllActiveDepartments() {
+		List<Department> activeDepts = this.departmentService.findAllActiveDepartments();
+		assertNotNull(activeDepts);
+		assertTrue(activeDepts.size() > 0);
+		
 	}
 
 	@Test
@@ -46,5 +52,26 @@ public class DepartmentServiceTest {
 		assertNotNull(dept);
 		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
 	}
+	
+	@Test
+	public void storeNewDepartment() {
+		Department dept = this.departmentService.storeNewDepartment(this.mockDepartment);
+		assertNotNull(dept);
+		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
+	}
+
+	@Test	
+	public void removeDepartmentSetsIsActiveToFalse() {
+		List<Department> activeDepts = this.departmentService.findAllActiveDepartments();
+		assertNotNull(activeDepts);
+
+		Department department = activeDepts.get(0);
+		assertTrue(department.getIsActive());
+		
+		this.departmentService.removeDepartment(department);
+		
+		assertFalse(department.getIsActive());
+	}
+	
 	
 }
