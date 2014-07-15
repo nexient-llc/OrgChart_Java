@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
+import com.systemsinmotion.orgchart.data.SimpleEmployeeRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.entity.SimpleEmployee;
 
 @Service("employeeService")
 @Transactional(readOnly = true)
@@ -17,6 +19,9 @@ public class EmployeeService {
 	
 	@Autowired
 	EmployeeRepository repository;
+	
+	@Autowired
+	SimpleEmployeeRepository simpleRepository;
 	
 	public List<Employee> findAllEmployees() {
 		return this.repository.findAll();
@@ -68,9 +73,9 @@ public class EmployeeService {
 		return this.repository.findByIsActiveIsTrue();
 	}
 
-	public String putCommaDelimitersInAListOfEmployees(List<Employee> employees) {
+	public String putCommaDelimitersInAListOfEmployees(List<SimpleEmployee> employees) {
 		String output = new String();
-		for (Employee emp : employees)
+		for (SimpleEmployee emp : employees)
 		{
 			output += emp.getFirstName() + " " + emp.getLastName() + ",";
 		}
@@ -161,5 +166,20 @@ public class EmployeeService {
 			vector |= 0x8; // Fourth Bit
 		}
 		return vector;
+	}
+	
+	public List<SimpleEmployee> findEmployeesByNameOnlyFilter(String firstName, String lastName)
+	{
+		List<SimpleEmployee> employees = null;
+		if (firstName != null)
+		{
+			if (lastName != null)
+			{
+				System.out.println("Not there yet");
+			} else {
+				employees = simpleRepository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, firstName);
+			}
+		}
+		return employees;
 	}
 }
