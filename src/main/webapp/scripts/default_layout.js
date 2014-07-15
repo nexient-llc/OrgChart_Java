@@ -13,7 +13,7 @@ $(document).ready(function() {
 	});
 	
 	$('#navBarJobs').click(function() {
-		window.location = path + "jobs";	
+		window.location = path + "titles";	
 	});
 	
 });

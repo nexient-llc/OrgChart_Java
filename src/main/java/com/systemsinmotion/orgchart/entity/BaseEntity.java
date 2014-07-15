@@ -16,8 +16,8 @@ public abstract class BaseEntity {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name="IS_ACTIVE")
-	private Boolean isActive;
+	@Column(name="IS_ACTIVE", columnDefinition = "boolean default true")
+	private Boolean isActive = true;
 
 	public Integer getId() {
 		return this.id;
@@ -34,7 +34,9 @@ public abstract class BaseEntity {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-
+    public boolean isActive() {
+		return isActive;
+	}
 	@Override
 	public String toString() {
 		String thisAsString = null;

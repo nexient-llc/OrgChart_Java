@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class EmployeeTest {
+	
 	private static final Character MIDDLE_INITIAL = 'M';
 	private static final String LAST_NAME = "last name";
 	private static final String FIRST_NAME = "first name";
@@ -67,6 +68,7 @@ public class EmployeeTest {
 	@Test
 	public void setAndGetDepartment(){
 		emp.setDepartment(dept);
+		System.out.print(emp.getDepartment());
 		assertNotNull(emp.getDepartment());
 		assertEquals(dept.getId(),emp.getDepartment().getId());
 	}

@@ -31,14 +31,15 @@ public class EmployeeRepositoryTest {
 	private Department department = new Department();
 	private JobTitle jobTitle = new JobTitle();
 	private Employee employee;
-	private Employee manager;
+	private Employee manager,emp2;
 
 	@Autowired
 	EmployeeRepository empRepo;
 
 	@Autowired
 	DepartmentRepository deptRepo;
-
+    @Autowired
+    JobTitleRepository jobRepo;
 	@After
 	public void after() {
 		this.empRepo.delete(this.employee);
@@ -53,10 +54,19 @@ public class EmployeeRepositoryTest {
 	public void before() throws Exception {
 		this.department = Entities.department();
 		this.deptRepo.saveAndFlush(this.department);
-
+        this.jobTitle = Entities.jobTitle();
+        this.jobRepo.saveAndFlush(this.jobTitle);
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
+		this.employee.setJobTitle(this.jobTitle);
 		this.employee.setId(this.empRepo.save(this.employee).getId());
+		this.employee.setId(this.empRepo.save(this.employee).getId());
+		this.employee.setFirstName("Joe");
+		this.employee.setFirstName("Black");
+		emp2 = Entities.employee();
+		emp2.setJobTitle(jobTitle);
+		emp2.setDepartment(department);
+	    empRepo.save(emp2);
 	}
 
 	@Test
@@ -68,7 +78,13 @@ public class EmployeeRepositoryTest {
 		this.manager = Entities.manager();
 		this.empRepo.save(this.manager);
 	}
-
+	@Test
+    public void findEmpDep(){
+    	List<Employee> emps = this.empRepo.findByJobTitleName(emp2.getJobTitle().getName());
+		
+    	assertNotNull(emps);
+		assertTrue(0 < emps.size());
+    }
 	@Test
 	public void findAll() throws Exception {
 		List<Employee> emps = this.empRepo.findAll();

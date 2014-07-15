@@ -7,7 +7,6 @@
 <head> 
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
 <%@ include file="/WEB-INF/fragments/scripts.jsp"%>
-
 <tiles:useAttribute id="pageJS" name="page-js"
 	classname="java.lang.String" ignore="true" />
 <c:if test="${not empty pageJS}">
@@ -17,7 +16,7 @@
 var path = "${pageContext.request.contextPath}/app/";
 </script>
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
-<title>Systems In Motion - <tiles:getAsString name="title" /></title>
+<title>Systems In Motion Organization Chart" <tiles:getAsString name="title" /></title>
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />

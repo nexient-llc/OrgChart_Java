@@ -1,4 +1,4 @@
-package com.systemsinmotion.orgchart.service;
+ package com.systemsinmotion.orgchart.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

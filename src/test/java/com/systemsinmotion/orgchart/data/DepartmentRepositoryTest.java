@@ -57,7 +57,7 @@ public class DepartmentRepositoryTest {
 		assertNotNull(this.parent);
 		assertNotNull(this.parent.getId());
 		assertNotNull(this.department);
-		assertNotNull(this.department.getId());
+	    assertNotNull(this.department.getId());
 	}
 
 	@Test(expected = DataIntegrityViolationException.class)
@@ -138,5 +138,5 @@ public class DepartmentRepositoryTest {
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
-	
+
 }
