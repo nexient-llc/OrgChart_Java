@@ -16,14 +16,10 @@ import org.springframework.context.annotation.Configuration;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
-import com.systemsinmotion.orgchart.data.EmployeeRepository;
-import com.systemsinmotion.orgchart.data.JobTitleRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
-import com.systemsinmotion.orgchart.service.EmployeeService;
-import com.systemsinmotion.orgchart.service.JobTitleService;
 
 @Configuration
 @ComponentScan({"com.systemsinmotion.orgchart.web.controller"})
@@ -68,31 +64,31 @@ public class TestControllerConfig {
 		return service;
 	}
 
-	@Bean
-	EmployeeService getEmployeeService() {
-		EmployeeService service = mock(EmployeeService.class);
-		when(service.findAllEmployees()).thenReturn(listOfFoundEmployees);
-		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
-		     public Employee answer(InvocationOnMock invocation) {
-		         listOfFoundEmployees.add(mockEmployee);
-		         return mockEmployee;
-		     }
-		 });
-		return service;
-	}
-	
-	@Bean
-	JobTitleService getJobTitleService() {
-		JobTitleService service = mock(JobTitleService.class);
-		when(service.findAllJobTitles()).thenReturn(listOfFoundTitles);
-		when(service.storeJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
-		     public JobTitle answer(InvocationOnMock invocation) {
-		         listOfFoundTitles.add(mockTitle);
-		         return mockTitle;
-		     }
-		 });
-		return service;
-	}
+//	@Bean
+//	EmployeeService getEmployeeService() {
+//		EmployeeService service = mock(EmployeeService.class);
+//		when(service.findAllEmployees()).thenReturn(listOfFoundEmployees);
+//		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
+//		     public Employee answer(InvocationOnMock invocation) {
+//		         listOfFoundEmployees.add(mockEmployee);
+//		         return mockEmployee;
+//		     }
+//		 });
+//		return service;
+//	}
+//	
+//	@Bean
+//	JobTitleService getJobTitleService() {
+//		JobTitleService service = mock(JobTitleService.class);
+//		when(service.findAllJobTitles()).thenReturn(listOfFoundTitles);
+//		when(service.storeJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
+//		     public JobTitle answer(InvocationOnMock invocation) {
+//		         listOfFoundTitles.add(mockTitle);
+//		         return mockTitle;
+//		     }
+//		 });
+//		return service;
+//	}
 	
 	@Bean
 	Department getDepartment() {
@@ -113,27 +109,27 @@ public class TestControllerConfig {
 		return this.mockTitle;
 	}
 
-	@Bean
-	JobTitleRepository getJobTitleRepository() {
-		JobTitleRepository repo = mock(JobTitleRepository.class);
-		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
-		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
-		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
-		return repo;
-	}
+//	@Bean
+//	JobTitleRepository getJobTitleRepository() {
+//		JobTitleRepository repo = mock(JobTitleRepository.class);
+//		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
+//		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
+//		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
+//		return repo;
+//	}
 	
 	@Bean
 	Employee getEmployee(){
 		return this.mockEmployee;
 	}
 	
-	@Bean
-	EmployeeRepository getEmployeeRepository() {
-		EmployeeRepository repo = mock(EmployeeRepository.class);
-		when(repo.findAll()).thenReturn(listOfFoundEmployees);
-		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
-		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
-		return repo;
-	}
+//	@Bean
+//	EmployeeRepository getEmployeeRepository() {
+//		EmployeeRepository repo = mock(EmployeeRepository.class);
+//		when(repo.findAll()).thenReturn(listOfFoundEmployees);
+//		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
+//		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
+//		return repo;
+//	}
 	
 }

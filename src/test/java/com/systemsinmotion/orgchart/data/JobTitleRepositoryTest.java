@@ -29,63 +29,63 @@ public class JobTitleRepositoryTest {
 
 	private JobTitle jobTitle;
 
-	@Autowired
-	JobTitleRepository jobTitleRepo;
+//	@Autowired
+//	JobTitleRepository jobTitleRepo;
 
-	@Before
-	public void before() throws Exception {
-		this.jobTitle = Entities.jobTitle();
-		this.jobTitle.setId(this.jobTitleRepo.save(this.jobTitle).getId());
-	}
-	
-	@Test
-	public void testInstantiation() {
-		assertNotNull(jobTitleRepo);
-	}
-	
-	@Test
-	public void created() {
-		assertNotNull(this.jobTitle);
-		assertNotNull(this.jobTitle.getId());
-	}
-
-	@Test(expected = DataIntegrityViolationException.class)
-	public void duplicateName() throws Exception {
-		JobTitle title = Entities.jobTitle();
-		title.setName(this.jobTitle.getName());
-		this.jobTitleRepo.save(title);
-	}
-
-	@Test
-	public void findAll_notNull() throws Exception {
-		System.out.println(this.jobTitleRepo.toString());
-		List<JobTitle> titles = this.jobTitleRepo.findAll();
-		assertNotNull(titles);
-		assertTrue(0 < titles.size());
-	}
-
-	@Test
-	public void findByName() throws Exception {
-		JobTitle title = this.jobTitleRepo.findByName(this.jobTitle.getName());
-		assertNotNull(title);
-		assertEquals(this.jobTitle.getName(), title.getName());
-	}
-
-	@Test
-	public void findByName_null() throws Exception {
-		JobTitle title = this.jobTitleRepo.findByName(NOT_PRESENT_VALUE);
-		assertNull(title);
-	}
-
-	@Test
-	public void update() throws Exception {
-		JobTitle title = this.jobTitleRepo.findByName(this.jobTitle.getName());
-		title.setName(SOME_NEW_NAME);
-		this.jobTitleRepo.save(title);
-
-		title = null;
-		title = this.jobTitleRepo.findByName(SOME_NEW_NAME);
-		assertNotNull(title);
-		assertEquals(SOME_NEW_NAME, title.getName());
-	}
+//	@Before
+//	public void before() throws Exception {
+//		this.jobTitle = Entities.jobTitle();
+//		this.jobTitle.setId(this.jobTitleRepo.save(this.jobTitle).getId());
+//	}
+//	
+//	@Test
+//	public void testInstantiation() {
+//		assertNotNull(jobTitleRepo);
+//	}
+//	
+//	@Test
+//	public void created() {
+//		assertNotNull(this.jobTitle);
+//		assertNotNull(this.jobTitle.getId());
+//	}
+//
+//	@Test(expected = DataIntegrityViolationException.class)
+//	public void duplicateName() throws Exception {
+//		JobTitle title = Entities.jobTitle();
+//		title.setName(this.jobTitle.getName());
+//		this.jobTitleRepo.save(title);
+//	}
+//
+//	@Test
+//	public void findAll_notNull() throws Exception {
+//		System.out.println(this.jobTitleRepo.toString());
+//		List<JobTitle> titles = this.jobTitleRepo.findAll();
+//		assertNotNull(titles);
+//		assertTrue(0 < titles.size());
+//	}
+//
+//	@Test
+//	public void findByName() throws Exception {
+//		JobTitle title = this.jobTitleRepo.findByName(this.jobTitle.getName());
+//		assertNotNull(title);
+//		assertEquals(this.jobTitle.getName(), title.getName());
+//	}
+//
+//	@Test
+//	public void findByName_null() throws Exception {
+//		JobTitle title = this.jobTitleRepo.findByName(NOT_PRESENT_VALUE);
+//		assertNull(title);
+//	}
+//
+//	@Test
+//	public void update() throws Exception {
+//		JobTitle title = this.jobTitleRepo.findByName(this.jobTitle.getName());
+//		title.setName(SOME_NEW_NAME);
+//		this.jobTitleRepo.save(title);
+//
+//		title = null;
+//		title = this.jobTitleRepo.findByName(SOME_NEW_NAME);
+//		assertNotNull(title);
+//		assertEquals(SOME_NEW_NAME, title.getName());
+//	}
 }

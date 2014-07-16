@@ -68,6 +68,14 @@ public class DepartmentRepositoryTest {
 	}
 
 	@Test
+	public void findByIsActiveIsTrue() throws Exception {
+		System.out.println(this.repository.toString());
+		List<Department> depts = this.repository.findByIsActiveIsTrue();
+		assertNotNull(depts);
+		assertTrue(0 < depts.size());
+	}
+	
+	@Test
 	public void findAll_notNull() throws Exception {
 		System.out.println(this.repository.toString());
 		List<Department> depts = this.repository.findAll();

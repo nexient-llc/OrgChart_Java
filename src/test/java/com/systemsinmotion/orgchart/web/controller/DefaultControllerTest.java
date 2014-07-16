@@ -69,7 +69,7 @@ public class DefaultControllerTest {
 
 		model.addAttribute("depts", findAllDepartmentsList);
 		//Given
-		controller.doDepartments_POST(mockDepartment, model);
+//		controller.doDepartments_POST(mockDepartment, model);
 		//When
 		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
 

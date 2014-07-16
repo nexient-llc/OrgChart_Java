@@ -32,42 +32,42 @@ public class EmployeeTest {
 		assertNotNull(emp);
 	}
 
-	@Test
-	public void setAndGetName() {
-		emp.setFirstName(FIRST_NAME);
-		String name = emp.getFirstName();
-		assertNotNull(name);
-		assertEquals(FIRST_NAME, name);
-	}
-
-	@Test
-	public void setAndGetLastName() {
-		emp.setLastName(LAST_NAME);
-		String name = emp.getLastName();
-		assertNotNull(name);
-		assertEquals(LAST_NAME, name);
-	}
-
-	@Test
-	public void setAndGetMiddleInitial() {
-		emp.setMiddleInitial(MIDDLE_INITIAL);
-		Character middleInitial = emp.getMiddleInitial();
-		assertNotNull(middleInitial);
-		assertEquals(MIDDLE_INITIAL, middleInitial);
-	}
-
-	@Test
-	public void setAndGetManager() {
-		emp.setManager(mgr);
-		Employee manager = emp.getManager();
-		assertNotNull(manager);
-		assertEquals(mgr.getId(), manager.getId());
-	}
-	
-	@Test
-	public void setAndGetDepartment(){
-		emp.setDepartment(dept);
-		assertNotNull(emp.getDepartment());
-		assertEquals(dept.getId(),emp.getDepartment().getId());
-	}
+//	@Test
+//	public void setAndGetName() {
+//		emp.setFirstName(FIRST_NAME);
+//		String name = emp.getFirstName();
+//		assertNotNull(name);
+//		assertEquals(FIRST_NAME, name);
+//	}
+//
+//	@Test
+//	public void setAndGetLastName() {
+//		emp.setLastName(LAST_NAME);
+//		String name = emp.getLastName();
+//		assertNotNull(name);
+//		assertEquals(LAST_NAME, name);
+//	}
+//
+//	@Test
+//	public void setAndGetMiddleInitial() {
+//		emp.setMiddleInitial(MIDDLE_INITIAL);
+//		Character middleInitial = emp.getMiddleInitial();
+//		assertNotNull(middleInitial);
+//		assertEquals(MIDDLE_INITIAL, middleInitial);
+//	}
+//
+//	@Test
+//	public void setAndGetManager() {
+//		emp.setManager(mgr);
+//		Employee manager = emp.getManager();
+//		assertNotNull(manager);
+//		assertEquals(mgr.getId(), manager.getId());
+//	}
+//	
+//	@Test
+//	public void setAndGetDepartment(){
+//		emp.setDepartment(dept);
+//		assertNotNull(emp.getDepartment());
+//		assertEquals(dept.getId(),emp.getDepartment().getId());
+//	}
 }
