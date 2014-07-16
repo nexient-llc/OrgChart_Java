@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<changeSet id="1" author="kskronek">
+		<createTable tableName="department">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="parent_department_id" type="int" />
+			<column name="manager_id" type="int" />
+			<column name="name" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2" author="kskronek">
+		<addForeignKeyConstraint constraintName="fk_dept_parent"
+			baseTableName="department" baseColumnNames="parent_department_id"
+			referencedTableName="department" referencedColumnNames="id" />
+	</changeSet>
+
+	<changeSet id="3" author="kskronek">
+		<addUniqueConstraint tableName="department"
+			columnNames="name" />
+	</changeSet>
+
+	<changeSet id="4" author="kskronek">
+		<createTable tableName="job_title">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="5" author="kskronek">
+		<addUniqueConstraint tableName="job_title"
+			columnNames="name" />
+	</changeSet>
+
+	<changeSet id="6" author="kskronek">
+		<createTable tableName="employee">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="first_name" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_name" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="email" type="varchar(100)">
+				<constraints unique="true" uniqueConstraintName="unq_employee_email" />
+			</column>
+			<column name="skype_name" type="varchar(100)">
+				<constraints unique="true" uniqueConstraintName="unq_employee_skype_name" />
+			</column>
+			<column name="is_manager" type="boolean" defaultValue="false" />
+			<column name="job_title_id" type="int" />
+			<column name="department_id" type="int" />
+			<column name="manager_id" type="int" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="7" author="kskronek">
+		<addForeignKeyConstraint constraintName="fk_employee_job_title"
+			baseTableName="employee" baseColumnNames="job_title_id"
+			referencedTableName="job_title" referencedColumnNames="id" />
+	</changeSet>
+
+	<changeSet id="8" author="kskronek">
+		<addForeignKeyConstraint constraintName="fk_employee_department"
+			baseTableName="employee" baseColumnNames="department_id"
+			referencedTableName="department" referencedColumnNames="id" />
+	</changeSet>
+
+	<changeSet id="9" author="kskronek">
+		<addForeignKeyConstraint constraintName="fk_employee_manager"
+			baseTableName="employee" baseColumnNames="manager_id"
+			referencedTableName="employee" referencedColumnNames="id" />
+	</changeSet>
+
+	<changeSet id="10" author="sbyks">
+		<insert tableName="department">
+			<column name="name" value="Marketing" />
+			<column name="id" value="101" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="11" author="sbyks">
+		<insert tableName="department">
+			<column name="name" value="White Label" />
+			<column name="id" value="102" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="12" author="sbyks">
+		<insert tableName="department">
+			<column name="name" value="TechSupport" />
+			<column name="id" value="103" />
+			<column name="parent_department_id" value="102" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="13" author="sbyks">
+		<insert tableName="department">
+			<column name="name" value="Americas" />
+			<column name="id" value="104" />
+			<column name="parent_department_id" value="101" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="14" author="sbyks">
+		<insert tableName="job_title">
+			<column name="name" value="Jr. Developer" />
+			<column name="id" value="1001" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="15" author="sbyks">
+		<insert tableName="job_title">
+			<column name="name" value="Developer" />
+			<column name="id" value="1002" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="16" author="sbyks">
+		<insert tableName="job_title">
+			<column name="name" value="Analyst" />
+			<column name="id" value="1003" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="17" author="sbyks">
+		<insert tableName="employee">
+			<column name="id" value="101" />
+			<column name="first_name" value="Bob" />
+			<column name="last_name" value="Law" />
+			<column name="email" value="blaw@systemsinmotion.com" />
+			<column name="skype_name" value="bob.law.sim.aa" />
+			<column name="job_title_id" value="1003" />
+			<column name="department_id" value="104" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="18" author="kskronek">
+		<addColumn tableName="department">
+			<column name="is_active" type="boolean" defaultValue="true" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="19" author="kskronek">
+		<addColumn tableName="job_title">
+			<column name="is_active" type="boolean" defaultValue="true" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="20" author="kskronek">
+		<addColumn tableName="employee">
+			<column name="middle_initial" type="char(1)" />
+		</addColumn>
+		<addColumn tableName="employee">
+			<column name="is_active" type="boolean" defaultValue="true" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="21" author="kskronek">
+		<createTable tableName="users">
+			<column name="username" type="varchar(50)">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="password" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="enabled" type="boolean">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="22" author="kskronek">
+		<createTable tableName="authorities">
+			<column name="username" type="varchar(50)">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="authority" type="varchar(45)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="23" author="kskronek">
+		<addForeignKeyConstraint constraintName="fk_authorities_users"
+			baseTableName="authorities" baseColumnNames="username"
+			referencedTableName="users" referencedColumnNames="username" />
+	</changeSet>
+
+	<changeSet id="24" author="kskronek">
+		<addUniqueConstraint tableName="authorities"
+			columnNames="username,authority" />
+	</changeSet>
+
+<!-- 
+	<changeSet id="25" author="kskronek">
+		<insert tableName="users">
+			<column name="id" value="101" />
+			<column name="first_name" value="Bob" />
+			<column name="last_name" value="Law" />
+			<column name="email" value="blaw@systemsinmotion.com" />
+			<column name="skype_name" value="bob.law.sim.aa" />
+			<column name="job_title_id" value="1003" />
+			<column name="department_id" value="104" />
+		</insert>
+	</changeSet>
+ -->
+
+</databaseChangeLog>

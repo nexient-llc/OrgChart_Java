@@ -2,65 +2,49 @@ package com.systemsinmotion.orgchart.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.systemsinmotion.orgchart.TestObject;
-import com.systemsinmotion.orgchart.dao.DepartmentDAO;
+import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.config.TestServiceConfig;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test-context.xml")
+@ContextConfiguration(classes = TestServiceConfig.class)
 public class DepartmentServiceTest {
-    
-    @Autowired
-    DepartmentService departmentService;
 
-    DepartmentDAO mockDepartmentDAO = mock(DepartmentDAO.class);
-    Department mockDepartment = mock(Department.class);
-    
-    private ArrayList<Department> listOfFoundDepts = new ArrayList<Department>(); 
+	@Autowired
+	private DepartmentService departmentService;
 
-    @Before
-    public void before() throws Exception {
-	when(mockDepartment.getDepartmentId()).thenReturn(TestObject.DEPT_ID);
-	listOfFoundDepts.add(mockDepartment);
-	when(mockDepartmentDAO.findAll()).thenReturn(listOfFoundDepts);
-	when(mockDepartmentDAO.findById(TestObject.DEPT_ID)).thenReturn(mockDepartment);
-	when(mockDepartmentDAO.save(mockDepartment)).thenReturn(TestObject.DEPT_ID);
-	departmentService.setDepartmentDAO(mockDepartmentDAO);
-    }
-    
-    @Test
-    @Rollback
-    public void shouldFindDepartmentbyID() {
-	assertNotNull(departmentService.findDepartmentByID(TestObject.DEPT_ID));
-	assertEquals(TestObject.DEPT_ID, departmentService.findDepartmentByID(TestObject.DEPT_ID).getDepartmentId());
-    }
-    
-    @Test
-    @Rollback
-    public void shouldFindAllDepartments(){
-	assertNotNull(departmentService.findAllDepartments());
-    }
-    
-    @Test
-    @Rollback
-    public void shouldStoreDepartmentUsingDepartmentDAO(){
-	assertNotNull(departmentService.storeDepartment(mockDepartment));
-	assertEquals(TestObject.DEPT_ID, departmentService.storeDepartment(mockDepartment));
-    }
+	@Autowired
+	private Department mockDepartment;
 
+	@Test
+	public void findAllDepartments() {
+		List<Department> depts = this.departmentService.findAllDepartments();
+		assertNotNull(depts);
+		assertTrue(depts.size() > 0);
+	}
 
+	@Test
+	public void findDepartmentByID() {
+		Department dept = this.departmentService.findDepartmentByID(Entities.DEPT_ID);
+		assertNotNull(dept);
+		assertEquals(Entities.DEPT_ID, dept.getId());
+	}
+
+	@Test
+	public void storeDepartment() {
+		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
+		assertNotNull(dept);
+		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
+	}
+	
 }

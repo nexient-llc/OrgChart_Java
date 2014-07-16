@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<h3>Departments</h3>
+<h3>Departments</h3> 
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
@@ -32,7 +32,7 @@
 			<select name="parent_id">
 				<option>...</option>
 				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.departmentId}">${dept.name}</option>
+					<option value="${dept.id}">${dept.name}</option>
 				</c:forEach>
 			</select>
 			<button type="submit">Save</button>
