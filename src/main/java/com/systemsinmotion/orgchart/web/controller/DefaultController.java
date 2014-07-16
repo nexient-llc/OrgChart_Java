@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.entity.SimpleEmployee;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
@@ -69,7 +70,6 @@ public class DefaultController {
 		refreshDepartmentModel(model);
 		return View.DEPARTMENTS;
 	}
-
 
 	@RequestMapping(value = "updateDepart", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
@@ -121,9 +121,23 @@ public class DefaultController {
 	@RequestMapping(value = "searchEmployeeName/{name}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody String doSearchEmployees_GET(@PathVariable("name") String fullName) {
-		List<Employee> employees = getFilteredEmployees(fullName, "", "");
-		return employeeService.putCommaDelimitersInAListOfEmployees(employees);
+		List<SimpleEmployee> employees = getFilteredEmployeeNames(fullName);
+		return putCommaDelimitersInAListOfEmployees(employees);
 	}
+	
+	public String putCommaDelimitersInAListOfEmployees(List<SimpleEmployee> employees) {
+		String output = new String();
+		for (SimpleEmployee emp : employees)
+		{
+			output += emp.getFirstName() + " " + emp.getLastName() + ",";
+		}
+		if (output.length() > 0)
+		{
+			output = output.substring(0,output.length() - 1);
+		}
+		return output;
+	}
+
 
 //	@RequestMapping(value = "emp/delete/{id}", method = RequestMethod.DELETE)
 //	public @ResponseBody ResponseEntity<String> doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
@@ -171,6 +185,14 @@ public class DefaultController {
 		return employeeService.findEmployeesByFilter(firstName, lastName, department, jobTitle);
 	}
 	
+	private List<SimpleEmployee> getFilteredEmployeeNames(String fullName)
+	{
+		String[] name = fullName.trim().split("\\s");
+		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
+		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
+		return employeeService.findEmployeesByNameOnlyFilter(firstName, lastName);
+	}
+
 	// Solution 3: Query Criteria, needs lots of other defined classes
 //	private List<Employee> getFilteredEmployees(String fullName, String deptId, String jobId)
 //	{
