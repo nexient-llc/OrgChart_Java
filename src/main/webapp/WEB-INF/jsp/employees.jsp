@@ -2,6 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
+<style type="text/css">
+	.ui-menu {
+		background: white;
+		margin: auto;
+		padding: 0;
+		width: 150px;
+		list-style-type: none;
+		border: 1px solid;
+	}
+</style>
+
 <h3>Employees</h3>
 
 <div id="addBtn-container">

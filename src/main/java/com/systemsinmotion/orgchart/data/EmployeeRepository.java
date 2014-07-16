@@ -32,7 +32,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	List<Employee> findAllByJobTitleId(Integer jobId);
 
-	List<Employee> findAllByDepartmentIdAndJobTitleId(Integer deptId,Integer jobTitleId);
+	List<Employee> findAllByDepartmentIdAndJobTitleId(Integer deptId, Integer jobTitleId);
 
 	List<Employee> findAllByFirstNameContainingIgnoreCase(String firstName);
 
@@ -42,7 +42,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId(String firstName, String lastName, Integer deptId);
 
-	List<Employee> findAllByFirstNameIgnoreCaseAndJobTitleId(String firstName,Integer jobId);
+	List<Employee> findAllByFirstNameIgnoreCaseAndJobTitleId(String firstName, Integer jobId);
 
 	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId(String firstName, String lastName, Integer jobId);
 

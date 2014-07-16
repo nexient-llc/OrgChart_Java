@@ -63,9 +63,9 @@ public class EmployeeServiceTest {
 		
 		this.employeeService.removeEmployee(emp.getId());
 		
-		Employee emp2 = employeeService.findEmployeeByID(emp.getId());
+		emp = employeeService.findEmployeeByID(emp.getId());
 		
-		assertTrue(emp2.getIsActive());
+		assertTrue(emp.getIsActive());
 		
 	}
 	

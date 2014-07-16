@@ -43,9 +43,11 @@ $(document).ready(function() {
 				url: "suggestions/" + $("#autocompleteText").val(),
 				dataType: "text",
 				success: function(data) {
+					$("#autocompleteText").removeClass("ui-autocomplete-loading");
 					var suggestions = data.split(",");
 					suggestions.pop();
 					response(suggestions);
+					
 				}
 			});
 		}
