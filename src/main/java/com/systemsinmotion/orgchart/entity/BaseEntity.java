@@ -16,25 +16,31 @@ public abstract class BaseEntity {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
+	
 	@Column(name="IS_ACTIVE")
 	private Boolean isActive;
 
+	
 	public Integer getId() {
 		return this.id;
 	}
 
+	
 	public Boolean getIsActive() {
 		return this.isActive;
 	}
 
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 
+	
 	@Override
 	public String toString() {
 		String thisAsString = null;

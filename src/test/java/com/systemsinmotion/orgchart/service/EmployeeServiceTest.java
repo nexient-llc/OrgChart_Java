@@ -26,6 +26,8 @@ public class EmployeeServiceTest {
 	@Autowired
 	private Employee mockEmployee;
 	
+	
+	
 	@Test
 	public void findAllEmployees() {
 		List<Employee> emps = this.employeeService.findAllEmployees();
@@ -45,6 +47,40 @@ public class EmployeeServiceTest {
 		Employee emp = this.employeeService.storeEmployee(this.mockEmployee);
 		assertNotNull(emp);
 		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
+	}
+	
+	@Test
+	public void findByEmail() {
+		Employee emp = this.employeeService.findByEmail(Entities.EMAIL);
+		assertNotNull(emp);
+	}
+	
+	@Test
+	public void removeEmployee() {
+		List<Employee> emps = this.employeeService.findAllEmployees();
+		Employee emp = emps.get(0);
+		emp.setIsActive(true);
+		
+		this.employeeService.removeEmployee(emp.getId());
+		
+		Employee emp2 = employeeService.findEmployeeByID(emp.getId());
+		
+		assertTrue(emp2.getIsActive());
+		
+	}
+	
+	@Test
+	public void getEmployeeSuggestions() {
+		List<Employee> emps = this.employeeService.getEmployeeSuggestions(Entities.FIRST_NAME + " " + Entities.LAST_NAME);
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	
+	@Test
+	public void findAllEmployeesByCriteria() {
+		List<Employee> emps = this.employeeService.findAllEmployeesByCriteria(Entities.FIRST_NAME + " " + Entities.LAST_NAME, Entities.DEPT_ID.toString(), Entities.JOB_TITLE_ID.toString());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
 	}
 	
 }

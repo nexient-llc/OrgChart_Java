@@ -12,13 +12,14 @@ public class Entities {
 	public static final Integer DEPT_ID = 22;
 	public static final String EMAIL = "email";
 	public static final Integer EMPLOYEE_ID = 5;
-	public static final String FIRST_NAME = "first name";
+	public static final String FIRST_NAME = "firstname";
 	public static final String JOB_TITLE = "Job Title";
 	public static final Integer JOB_TITLE_ID = 5;
 	public static final String JOB_TITLE_NAME = "JobTitle";
-	public static final String LAST_NAME = "last name";
+	public static final String LAST_NAME = "lastname";
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
+	public static final Integer ID = 43;
 
 	private static Random random = new Random();
 
@@ -64,6 +65,7 @@ public class Entities {
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
+		emp.setId(ID);
 		emp.setFirstName(FIRST_NAME);
 		emp.setLastName(LAST_NAME);
 		emp.setEmail(EMAIL + random.nextInt());
@@ -97,6 +99,7 @@ public class Entities {
 	public static Employee employee(Integer employeeId) {
 		Employee emp = new Employee();
 		emp.setId(EMPLOYEE_ID);
+		emp.setIsActive(true);
 		return emp;
 	}
 

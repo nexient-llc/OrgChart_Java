@@ -15,7 +15,7 @@ public class DepartmentService {
 	DepartmentRepository repository;
 
 	public List<Department> findAllDepartments() {
-		return this.repository.findAll();
+		return this.repository.findAllByIsActiveIsTrue();
 	}
 
 	public Department findDepartmentByID(Integer departmentId) {
@@ -32,6 +32,10 @@ public class DepartmentService {
 
 	public Department storeDepartment(Department department) {
 		return this.repository.save(department);
+	}
+
+	public void removeEmployee(Integer id) {
+		this.repository.removeDepartment(id);
 	}
 
 }

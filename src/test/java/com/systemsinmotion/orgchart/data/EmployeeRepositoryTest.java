@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.junit.After;
+//import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +28,8 @@ public class EmployeeRepositoryTest {
 
 	private static final String NOT_PRESENT_VALUE = "XXX";
 	private static final Integer NOT_PRESENT_ID = -666;
-	private Department department = new Department();
-	private JobTitle jobTitle = new JobTitle();
+	private Department department;
+	private JobTitle jobTitle;
 	private Employee employee;
 	private Employee manager;
 
@@ -38,24 +38,30 @@ public class EmployeeRepositoryTest {
 
 	@Autowired
 	DepartmentRepository deptRepo;
+	
+	@Autowired
+	JobTitleRepository jobRepo;
 
-	@After
-	public void after() {
-		this.empRepo.delete(this.employee);
-		this.deptRepo.delete(this.department);
-
-		if (null != this.manager) {
-			this.empRepo.delete(this.manager);
-		}
-	}
+//	@After
+//	public void after() {
+//		this.empRepo.delete(this.employee);
+//		this.deptRepo.delete(this.department);
+//
+//		if (null != this.manager) {
+//			this.empRepo.delete(this.manager);
+//		}
+//	}
 
 	@Before
 	public void before() throws Exception {
 		this.department = Entities.department();
+		this.jobTitle = Entities.jobTitle();
+		
 		this.deptRepo.saveAndFlush(this.department);
-
+		this.jobRepo.saveAndFlush(this.jobTitle);
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
+		this.employee.setJobTitle(this.jobTitle);
 		this.employee.setId(this.empRepo.save(this.employee).getId());
 	}
 
@@ -89,7 +95,6 @@ public class EmployeeRepositoryTest {
 	@Test
 	public void findByDepartment_null() throws Exception {
 		List<Employee> emps = this.empRepo.findByDepartment(null);
-//		assertNull("Expecting a null list of Employees but was non-null", emps);
 		assertTrue(emps.isEmpty());
 	}
 
@@ -157,15 +162,8 @@ public class EmployeeRepositoryTest {
 		emp.setDepartment(this.department);
 		this.empRepo.saveAndFlush(emp);
 		List<Employee> emps = this.empRepo.findByManager(emp);
-//		assertNull(emps);
 		assertTrue(emps.isEmpty());
 	}
-
-//	@Test
-//	public void findByManagerId_null() throws Exception {
-//		List<Employee> emps = this.empRepo.findByManager(null);
-//		assertNull(emps);
-//	}
 
 	@Test
 	public void findByFirstNameAndLastNameAndDepartmentAndJobTitle() throws Exception {
@@ -176,5 +174,30 @@ public class EmployeeRepositoryTest {
 		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
 		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
 		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+	}
+	
+	@Test
+	public void removeEmployeeTest() throws Exception {
+		Employee emp = Entities.employee();
+		emp.setIsActive(true);
+		empRepo.removeEmployee(emp.getId());
+		
+		assertTrue(emp.getIsActive());
+	}
+	
+	@Test
+	public void findAllByFirstNameOrLastNameTest() throws Exception {
+		Employee emp = Entities.employee();
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(emp.getFirstName(), emp.getLastName());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	
+	@Test
+	public void findAllByDepartmentIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByDepartmentId(Entities.DEPT_ID);
+		
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
 	}
 }
