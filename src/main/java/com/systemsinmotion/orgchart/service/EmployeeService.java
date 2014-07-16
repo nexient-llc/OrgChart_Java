@@ -16,6 +16,10 @@ public class EmployeeService {
 	public List<Employee> findAllEmployees() {
 		return this.repository.findAll();
 	}
+	
+	public List<Employee> findAllActiveEmployees() {
+		return this.repository.findByIsActiveIsTrue();
+	}
 
 	public Employee findEmployeeByID(Integer employeeId) {
 		return this.repository.findOne(employeeId);

@@ -30,6 +30,13 @@ public class EmployeeServiceTest {
 		assertNotNull(emps);
 		assertTrue(emps.size() > 0);
 	}
+
+	@Test
+	public void findAllActiveEmployees() {
+		List<Employee> emps = this.employeeService.findAllActiveEmployees();
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
 	
 	@Test 
 	public void findEmployeeByID() {

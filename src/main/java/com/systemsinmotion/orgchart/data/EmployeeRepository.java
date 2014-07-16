@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
-public interface EmployeeRepository extends JpaRepository<Employee,Integer>{
+public interface EmployeeRepository extends BaseRepository<Employee,Integer>{
 	Employee findById(Integer id);
 	Employee findByEmail(String email);
 	List<Employee> findByDepartment(Department department);
