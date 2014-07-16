@@ -32,6 +32,7 @@
 		<spring.data.jpa.version>1.5.0.RC1</spring.data.jpa.version>
 		<spring.security.version>3.2.0.RELEASE</spring.security.version>
 		<spring.version>4.0.1.RELEASE</spring.version>
+		<querydsl.version>3.4.1</querydsl.version>
 	</properties>
 
 	<repositories>
@@ -51,7 +52,7 @@
 	</repositories>
 
 	<dependencies>
-		
+
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -112,9 +113,9 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>jstl</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
 		</dependency>
 
 		<dependency>
@@ -157,6 +158,18 @@
 			<version>${hibernate.validator.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
 
 		<!-- TESTING -->
 		<dependency>
@@ -184,6 +197,23 @@
 
 	<build>
 		<plugins>
+<!-- 			<plugin> -->
+<!-- 				<groupId>com.mysema.maven</groupId> -->
+<!-- 				<artifactId>apt-maven-plugin</artifactId> -->
+<!-- 				<version>1.0.6</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>process</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<outputDirectory>target/generated-sources/java</outputDirectory> -->
+<!-- 							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

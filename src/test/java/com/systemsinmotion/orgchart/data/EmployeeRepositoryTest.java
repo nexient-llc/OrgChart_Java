@@ -52,7 +52,7 @@ public class EmployeeRepositoryTest {
 		this.employee.setDepartment(this.department);
 		this.employee = this.empRepo.saveAndFlush(this.employee);
 	}
-
+	
 	private void createManager() {
 		this.manager = Entities.manager();
 		this.manager.setJobTitle(this.jobTitle);

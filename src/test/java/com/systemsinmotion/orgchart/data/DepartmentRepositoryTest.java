@@ -97,11 +97,11 @@ public class DepartmentRepositoryTest {
 		assertNull(dept);
 	}
 
-	@Test(expected = InvalidDataAccessApiUsageException.class)
-	public void findById_null() throws Exception {
-		Department dept = this.repository.findOne(null);
-		assertNull(dept);
-	}
+//	@Test(expected = InvalidDataAccessApiUsageException.class)
+//	public void findById_null() throws Exception {
+//		Department dept = this.repository.findOne(null);
+//		assertNull(dept);
+//	}
 
 	@Test
 	public void findByName() throws Exception {

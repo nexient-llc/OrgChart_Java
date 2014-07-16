@@ -22,7 +22,7 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
 	</definition>
 
-	<definition name="jobs" extends="main">
+	<definition name="titles" extends="main">
 		<put-attribute name="title" type="string" value="Job Titles Page" />
 		<put-attribute name="page-js" type="string" value="../scripts/jobtitles.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/jobtitles.jsp" />

@@ -12,17 +12,11 @@
 
 <div id="addEntity-container" style="display: none">
 	<fieldset>
-		<legend>Add New Department</legend>
-		<form name="newDept" action="depart" method="post">
+		<legend>Add New Job Title</legend>
+		<form name="newJob" action="job" method="post">
 			<div>
-				<labeL>*Department Name:</labeL><input type="text" name="name"
-					required /> <labeL>Parent Department:</label> <select class="deptDropDown"
-					name="parentDepartment.id">
-					<option value="">...</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
+				<labeL>*Job Title Name:</labeL>
+				<input type="text" name="name" required />
 				<button type="submit">Save</button>
 				<button type="reset" id="cancelAddButton">Cancel</button>
 				Required Fields indicated with a *
@@ -31,13 +25,12 @@
 		</form>
 	</fieldset>
 </div>
-<div id="deptTable-container">
+<div id="jobTitlesTable-container">
 	<table id="t1">
 		<tr>
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 			<!-- <th>Task</th></sec:authorize> -->
-			<th>Department Name</th>
-			<th>Parent Department Name</th>
+			<th>Job Title</th>
 			<th></th>
 		</tr>
 		<c:forEach items="${depts}" var="dept">
