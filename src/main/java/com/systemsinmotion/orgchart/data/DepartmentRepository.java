@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.systemsinmotion.orgchart.entity.Department;
 
-public interface DepartmentRepository extends JpaRepository<Department,Integer> {
+public interface DepartmentRepository extends BaseRepository<Department,Integer> {
 
 	Department findByName(String name);
 

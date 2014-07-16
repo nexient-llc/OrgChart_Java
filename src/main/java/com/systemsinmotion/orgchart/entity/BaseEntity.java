@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.ObjectMapper;
 
 @MappedSuperclass
@@ -16,6 +17,7 @@ public abstract class BaseEntity {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
+	@JsonIgnore
 	@Column(name="IS_ACTIVE")
 	private Boolean isActive;
 

@@ -17,6 +17,10 @@ public class DepartmentService {
 	public List<Department> findAllDepartments() {
 		return this.repository.findAll();
 	}
+	
+	public List<Department> findAllActiveDepartments() {
+		return this.repository.findByIsActiveIsTrue();
+	}
 
 	public Department findDepartmentByID(Integer departmentId) {
 		return this.repository.findOne(departmentId);
