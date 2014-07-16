@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee extends BaseEntity {
+	
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)
 	@NotNull
 	@NotEmpty
@@ -25,6 +26,9 @@ public class Employee extends BaseEntity {
 	@Size(min = 1, max = 45)
 	private String lastName;
 	
+	@Column(name = "MIDDLE_INITIAL", length = 1)
+	private Character midInitial;
+
 	@Column(name = "EMAIL", length = 100)
 	@Size(min = 1, max = 99)
 	private String email;
@@ -32,9 +36,6 @@ public class Employee extends BaseEntity {
 	@Column(name = "SKYPE_NAME", length = 100)
 	@Size(min = 1, max = 99)
 	private String skypeName;
-	
-	@Column(name = "MIDDLE_INITIAL", length = 1)
-	private Character midInitial;
 	
 	@ManyToOne
 	@JoinColumn(name = "DEPARTMENT_ID")
@@ -52,8 +53,42 @@ public class Employee extends BaseEntity {
 		this.firstName = string;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
 	public void setLastName(String string) {
 		this.lastName = string;		
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public void setMiddleInitial(Character mid) {
+		this.midInitial = mid;		
+	}
+
+	public Character getMiddleInitial() {
+		return midInitial;
+	}
+
+	public String getFullName() {
+		String fullName = "";
+		if (firstName != null)
+		{
+			fullName += firstName;
+		}
+		if (midInitial != null)
+		{
+			fullName += " " + midInitial;
+		}
+		if (lastName != null)
+		{
+			fullName += " " + lastName;
+		}
+		
+		return fullName.trim();
 	}
 
 	public void setEmail(String string) {
@@ -76,28 +111,12 @@ public class Employee extends BaseEntity {
 		this.jobTitle = job;
 	}
 
-	public void setMiddleInitial(Character mid) {
-		this.midInitial = mid;		
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 	
 	public String getSkypeName() {
 		return skypeName;
-	}
-
-	public Character getMiddleInitial() {
-		return midInitial;
 	}
 
 	public Employee getManager() {
@@ -111,25 +130,7 @@ public class Employee extends BaseEntity {
 	public JobTitle getJobTitle() {
 		return jobTitle;
 	}
-	
-	public String getFullName() {
-		String fullName = "";
-		if (firstName != null)
-		{
-			fullName += firstName;
-		}
-		if (midInitial != null)
-		{
-			fullName += " " + midInitial;
-		}
-		if (lastName != null)
-		{
-			fullName += " " + lastName;
-		}
 		
-		return fullName.trim();
-	}
-	
 	public boolean equals(Object obj)
 	{
 		if (!(obj instanceof Employee))

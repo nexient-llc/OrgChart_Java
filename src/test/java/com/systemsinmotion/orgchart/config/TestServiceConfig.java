@@ -2,9 +2,13 @@ package com.systemsinmotion.orgchart.config;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
@@ -16,9 +20,11 @@ import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.data.JobTitleRepository;
+import com.systemsinmotion.orgchart.data.SimpleEmployeeRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.entity.SimpleEmployee;
 
 @Configuration
 @ComponentScan({"com.systemsinmotion.orgchart.service"})
@@ -27,10 +33,13 @@ public class TestServiceConfig {
 	private List<Department> listOfFoundDepts;
 	private List<JobTitle> listOfFoundTitles;
 	private List<Employee> listOfFoundEmployees;
+	private List<SimpleEmployee> listOfFoundSimpleEmployees;
 
 	private Department mockDepartment;
 	private JobTitle mockTitle;
 	private Employee mockEmployee;
+	private SimpleEmployee mockSimpleEmployee;
+	
 
 	@PostConstruct
 	private void init() {
@@ -45,9 +54,14 @@ public class TestServiceConfig {
 		listOfFoundEmployees = new ArrayList<Employee>();
 		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
 		listOfFoundEmployees.add(mockEmployee);
+
+		listOfFoundSimpleEmployees = new ArrayList<SimpleEmployee>();
+		mockSimpleEmployee = Entities.simpleEmployee(Entities.SIMPLE_EMPLOYEE_ID);
+		listOfFoundSimpleEmployees.add(mockSimpleEmployee);
+
 	}
 
-	@Bean
+	@Bean(name = "mockDepartment")
 	Department getDepartment() {
 		return this.mockDepartment;
 	}
@@ -56,12 +70,14 @@ public class TestServiceConfig {
 	DepartmentRepository getDepartmentRepository() {
 		DepartmentRepository repo = mock(DepartmentRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundDepts);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundDepts);
 		when(repo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		when(repo.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(repo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
 		return repo;
 	}
 
-	@Bean
+	@Bean(name = "mockTitle")
 	JobTitle getJobTitle(){
 		return this.mockTitle;
 	}
@@ -70,22 +86,63 @@ public class TestServiceConfig {
 	JobTitleRepository getJobTitleRepository() {
 		JobTitleRepository repo = mock(JobTitleRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundTitles);
 		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
+		when(repo.findById(Entities.JOB_TITLE_ID)).thenReturn(this.mockTitle);
 		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
 		return repo;
 	}
 	
-	@Bean
-	Employee getEmployee(){
+	@Bean(name = "mockEmployee")
+	Employee getEmployee() {
 		return this.mockEmployee;
 	}
-	
+
 	@Bean
 	EmployeeRepository getEmployeeRepository() {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
 		when(repo.findAll()).thenReturn(listOfFoundEmployees);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundEmployees);
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
+		when(repo.findById(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
+		when(repo.findByJobTitle(mockEmployee.getJobTitle())).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByDepartment(mockEmployee.getDepartment())).thenReturn(this.listOfFoundEmployees);		
+		when(repo.findByFirstNameContainingIgnoreCase(Entities.FIRST_NAME)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByLastNameContainingIgnoreCase(Entities.LAST_NAME)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.FIRST_NAME)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.LAST_NAME, Entities.LAST_NAME)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByDepartmentIdAndIsActiveIsTrue(Entities.DEPT_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByJobTitleIdAndIsActiveIsTrue(Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByUpperCaseNameAndDepartmentIdAndActive(Entities.FIRST_NAME.toUpperCase(), Entities.DEPT_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByUpperCaseNameAndDepartmentIdAndActive(Entities.LAST_NAME.toUpperCase(), Entities.DEPT_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByUpperCaseNameAndJobTitleAndActive(Entities.FIRST_NAME.toUpperCase(), Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByUpperCaseNameAndJobTitleAndActive(Entities.LAST_NAME.toUpperCase(), Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(Entities.FIRST_NAME.toUpperCase(), Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(Entities.LAST_NAME.toUpperCase(), Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
+		return repo;
+	}
+
+	@Bean(name = "mockSimpleEmployee")
+	SimpleEmployee getSimpleEmployee(){
+		return this.mockSimpleEmployee;
+	}
+	
+	@Bean
+	SimpleEmployeeRepository getSimpleEmployeeRepository() {
+		SimpleEmployeeRepository repo = mock(SimpleEmployeeRepository.class);
+		when(repo.findAll()).thenReturn(listOfFoundSimpleEmployees);
+		when(repo.findOne(Entities.SIMPLE_EMPLOYEE_ID)).thenReturn(mockSimpleEmployee);
+		when(repo.findById(Entities.SIMPLE_EMPLOYEE_ID)).thenReturn(this.mockSimpleEmployee);
+		when(repo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(this.listOfFoundSimpleEmployees);
+		when(repo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.FIRST_NAME)).thenReturn(this.listOfFoundSimpleEmployees);
+		when(repo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.LAST_NAME, Entities.LAST_NAME)).thenReturn(this.listOfFoundSimpleEmployees);
+		when(repo.save(this.mockSimpleEmployee)).thenReturn(mockSimpleEmployee);
 		return repo;
 	}
 

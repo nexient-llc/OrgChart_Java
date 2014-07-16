@@ -139,4 +139,11 @@ public class DepartmentRepositoryTest {
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
 	
+	@Test
+	public void findByIsActiveIsTrue() throws Exception {
+		List<Department> depts = this.repository.findByIsActiveIsTrue();
+		assertNotNull(depts);
+		assertTrue(0 < depts.size());
+	}
+	
 }

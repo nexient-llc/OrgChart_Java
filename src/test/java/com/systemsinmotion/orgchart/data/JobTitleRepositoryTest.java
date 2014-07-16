@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.JPAConfig;
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -88,4 +89,12 @@ public class JobTitleRepositoryTest {
 		assertNotNull(title);
 		assertEquals(SOME_NEW_NAME, title.getName());
 	}
+	
+	@Test
+	public void findByIsActiveIsTrue() throws Exception {
+		List<JobTitle> title = this.jobTitleRepo.findByIsActiveIsTrue();
+		assertNotNull(title);
+		assertTrue(0 < title.size());
+	}
+
 }

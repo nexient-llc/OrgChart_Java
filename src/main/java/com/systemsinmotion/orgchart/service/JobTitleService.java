@@ -45,6 +45,10 @@ public class JobTitleService {
 		this.repository = repository;
 	}
 
+	public JobTitleRepository getRepository() {
+		return this.repository;
+	}
+
 	@Transactional
 	public JobTitle storeJobTitle(JobTitle jobTitle) {
 		if (jobTitle.getIsActive() == null)
