@@ -65,7 +65,7 @@ public class EmployeeServiceTest {
 		
 		emp = employeeService.findEmployeeByID(emp.getId());
 		
-		assertTrue(emp.getIsActive());
+		assertTrue(emp.getIsActive() == false);
 		
 	}
 	
