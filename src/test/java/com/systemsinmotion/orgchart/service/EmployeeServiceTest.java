@@ -35,6 +35,9 @@ public class EmployeeServiceTest {
 	private Employee mockEmployee;
 	
 	@Autowired
+	private Employee mockEmployee2;
+	
+	@Autowired
 	private SimpleEmployee mockSimpleEmployee;
 
 	@Autowired
@@ -83,25 +86,24 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void removeEmployee() {
-		String name = mockEmployee.getFirstName();
-		mockEmployee.setFirstName(name + "remove");
-		assertTrue(mockEmployee.getIsActive());
+		// arrange
+		mockEmployee.setIsActive(true);
+		
+		// act
 		this.employeeService.removeEmployee(mockEmployee);
+		
+		// assert
 		verify(mockRepository, times(1)).save(mockEmployee);
 		assertFalse(mockEmployee.getIsActive());
-		mockEmployee.setFirstName(name);
 	}
 
 	@Test
 	public void removeEmployeeById() {
-		String name = mockEmployee.getFirstName();
-		mockEmployee.setFirstName(name + "removeById");
-		assertTrue(mockEmployee.getIsActive());
-		this.employeeService.removeEmployeeById(Entities.EMPLOYEE_ID);
-		verify(mockRepository, times(1)).findById(Entities.EMPLOYEE_ID);
-		verify(mockRepository, times(1)).save(mockEmployee);
-		assertFalse(mockEmployee.getIsActive());
-		mockEmployee.setFirstName(name);
+		mockEmployee2.setIsActive(true);
+		this.employeeService.removeEmployeeById(Entities.EMPLOYEE_ID_2);
+		verify(mockRepository, times(1)).findById(Entities.EMPLOYEE_ID_2);
+		verify(mockRepository, times(1)).save(mockEmployee2);
+		assertFalse(mockEmployee2.getIsActive());
 	}
 	
 	@Test
@@ -321,5 +323,25 @@ public class EmployeeServiceTest {
 		verify(mockRepository, times(1)).findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID);
 	}
 
+	
+	@Test
+	public void findSimpleEmployeeById() {
+		Employee emp = this.employeeService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
+		verify(mockSimpleEmployeeRepository, times(1)).findOne(Entities.EMPLOYEE_ID);
+	}
+
+	@Test
+	public void findSimpleEmployeeById_null() {
+		Employee emp = this.employeeService.findEmployeeByID(null);
+		assertNull(emp);
+	}
+
+	@Test
+	public void findSimpleEmployeeById_xxx() {
+		Employee emp = this.employeeService.findEmployeeByID(Entities.NOT_PRESENT_ID);
+		assertNull(emp);
+	}
 }
 

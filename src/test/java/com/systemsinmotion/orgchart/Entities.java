@@ -22,6 +22,13 @@ public class Entities {
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
 	
+	public static final Integer EMPLOYEE_ID_2 = 7;
+	public static final Integer SIMPLE_EMPLOYEE_ID_2 = 8;
+	public static final String FIRST_NAME_2 = "1st name";
+	public static final String LAST_NAME_2 = "2nd name";
+	public static final String EMAIL_2 = "mail@google.com";
+	public static final String SKYPE_NAME_2 = "name.skype.dot";
+	
 	public static final String NOT_PRESENT_VALUE = "XXX";
 	public static final Integer NOT_PRESENT_ID = -666;
 	
@@ -67,8 +74,6 @@ public class Entities {
 		return emp;
 	}
 
-
-
 	public static Employee employee() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
@@ -78,6 +83,17 @@ public class Entities {
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
 		emp.setIsActive(true);
 		//emp.setIsManager(false);
+		return emp;
+	}
+	
+	private static Employee employee2() {
+		Employee emp = new Employee();
+		emp.setDepartment(department());
+		emp.setFirstName(FIRST_NAME_2);
+		emp.setLastName(LAST_NAME_2);
+		emp.setEmail(EMAIL_2 + random.nextInt());
+		emp.setSkypeName(SKYPE_NAME_2 + random.nextInt());
+		emp.setIsActive(true);
 		return emp;
 	}
 
@@ -112,7 +128,14 @@ public class Entities {
 		emp.setIsActive(true);
 		return emp;
 	}
-	
+
+	public static Employee employee2(Integer employeeId2) {
+		Employee emp = employee2();
+		emp.setId(employeeId2);
+		emp.setIsActive(true);
+		return emp;
+	}
+
 	public static SimpleEmployee simpleEmployee() {
 		SimpleEmployee emp = new SimpleEmployee();
 		emp.setFirstName(FIRST_NAME);
@@ -122,9 +145,25 @@ public class Entities {
 		return emp;
 	}
 
+	private static SimpleEmployee simpleEmployee2() {
+		SimpleEmployee emp = new SimpleEmployee();
+		emp.setFirstName(FIRST_NAME_2);
+		emp.setLastName(LAST_NAME_2);
+		emp.setIsActive(true);
+		//emp.setIsManager(false);
+		return emp;		
+	}
+
 	public static SimpleEmployee simpleEmployee(Integer employeeId) {
 		SimpleEmployee emp = simpleEmployee();
-		emp.setId(EMPLOYEE_ID);
+		emp.setId(employeeId);
+		emp.setIsActive(true);
+		return emp;
+	}
+
+	public static SimpleEmployee simpleEmployee2(Integer employeeId) {
+		SimpleEmployee emp = simpleEmployee2();
+		emp.setId(employeeId);
 		emp.setIsActive(true);
 		return emp;
 	}
