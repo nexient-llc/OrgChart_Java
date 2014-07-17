@@ -176,71 +176,119 @@ public class EmployeeRepositoryTest {
 
 	@Test
 	public void findByFirstNameAndLastNameAndDepartmentAndJobTitle() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(employee.getFirstName(), employee.getLastName(), employee.getDepartment().getId(), employee.getJobTitle().getId());
-		assertNotNull("Expecting a non-null Employee but was null", emp);
-		assertTrue(emp.size()==1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+		List<Employee> emps = this.empRepo.findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(employee.getFirstName(), employee.getLastName(), employee.getDepartment().getId(), employee.getJobTitle().getId());
+		assertNotNull("Expecting a non-null Employee List but was null", emps);
+		assertTrue(emps.size()==1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
 	}
 	
 	@Test
-	public void findByFirstNameContainingIgnoreCase() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameContainingIgnoreCase(employee.getFirstName().toLowerCase());
-		List<Employee> emp2 = this.empRepo.findByFirstNameContainingIgnoreCase(employee.getFirstName().toUpperCase());
-		assertTrue(emp.size() == 1);
-		assertTrue(emp2.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getFirstName(), emp2.get(0).getFirstName());
-	}
-	
-	@Test
-	public void findByLastNameContainingIgnoreCase() throws Exception {
-		List<Employee> emp = this.empRepo.findByLastNameContainingIgnoreCase(employee.getLastName().toLowerCase());
-		List<Employee> emp2 = this.empRepo.findByLastNameContainingIgnoreCase(employee.getLastName().toUpperCase());
-		assertTrue(emp.size() == 1);
-		assertTrue(emp2.size() == 1);
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getLastName(), emp2.get(0).getLastName());
-	}
-	
-	@Test
-	public void findByIsActiveIsTrue() throws Exception {
-		System.out.println(this.empRepo.toString());
-		List<Employee> emp = this.empRepo.findByIsActiveIsTrue();
-		assertNotNull(emp);
-		assertTrue(0 < emp.size());
-	}
-	
-	@Test
-	public void findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getLastName().toLowerCase(),employee.getLastName().toLowerCase());
-		List<Employee> emp2 = this.empRepo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getLastName().toUpperCase(), employee.getLastName().toUpperCase());
-		List<Employee> emp3 = this.empRepo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getFirstName().toLowerCase());
-		List<Employee> emp4 = this.empRepo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getFirstName().toUpperCase());
-		assertTrue(emp.size() == 1);
-		assertTrue(emp2.size() == 1);
-		assertTrue(emp3.size() == 1);
-		assertTrue(emp4.size() == 1);
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getLastName(), emp2.get(0).getLastName());
-		assertEquals(this.employee.getFirstName(), emp3.get(0).getFirstName());
-		assertEquals(this.employee.getFirstName(), emp4.get(0).getFirstName());
+	public void findByFirstNameContainingIgnoreCase_lowerCase() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCase(employee.getFirstName().toLowerCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
 	}
 
 	@Test
-	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getLastName().toLowerCase());
-		List<Employee> emp2 = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getLastName().toUpperCase());
-		assertTrue(emp.size() == 1);
-		assertTrue(emp2.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getFirstName(), emp2.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getLastName(), emp2.get(0).getLastName());
+	public void findByFirstNameContainingIgnoreCase_upperCase() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCase(employee.getFirstName().toUpperCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
 	}
 	
+	@Test
+	public void findByLastNameContainingIgnoreCase_lowerCase() throws Exception {
+		List<Employee> emps = this.empRepo.findByLastNameContainingIgnoreCase(employee.getLastName().toLowerCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+	}
+
+	@Test
+	public void findByLastNameContainingIgnoreCase_upperCase() throws Exception {
+		List<Employee> emps = this.empRepo.findByLastNameContainingIgnoreCase(employee.getLastName().toUpperCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+	}
+
+//	@Test
+//	public void findByLastNameContainingIgnoreCase_null() throws Exception {
+//		List<Employee> emps = this.empRepo.findByLastNameContainingIgnoreCase(null);
+//		assertTrue(emps.isEmpty());
+//	}
+
+	@Test
+	public void findByLastNameContainingIgnoreCase_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByLastNameContainingIgnoreCase(NOT_PRESENT_VALUE);
+		assertTrue(emps.isEmpty());
+	}
+
+	@Test
+	public void findByIsActiveIsTrue() throws Exception {
+		System.out.println(this.empRepo.toString());
+		List<Employee> emps = this.empRepo.findByIsActiveIsTrue();
+		assertNotNull(emps);
+		assertTrue(0 < emps.size());
+	}
+	
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue_firstNameLower() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getFirstName().toLowerCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue_firstNameUpper() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getFirstName().toUpperCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+	}
+	
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue_lastNameLower() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getLastName().toLowerCase(),employee.getLastName().toLowerCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+	}
+	
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue_lastNameUpper() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getLastName().toUpperCase(), employee.getLastName().toUpperCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue_lowerCase() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getLastName().toLowerCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue_upperCase() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getLastName().toUpperCase());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+	}
+
+//	@Test
+//	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue_null() throws Exception {
+//		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(null,null);
+//		assertTrue(emps.isEmpty());
+//	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(NOT_PRESENT_VALUE,NOT_PRESENT_VALUE);
+		assertTrue(emps.isEmpty());
+	}
+
 	@Test
 	public void findByDepartmentIdAndIsActiveIsTrue() throws Exception {
 		List<Employee> emps = this.empRepo.findByDepartmentIdAndIsActiveIsTrue(this.employee.getDepartment().getId());
@@ -251,33 +299,77 @@ public class EmployeeRepositoryTest {
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 		assertEquals(this.employee.getIsActive(), emp.getIsActive());
 	}
-	
+
 	@Test
-	public void findByUpperCaseNameAndDepartmentIdAndActive() throws Exception {
-		List<Employee> emp = this.empRepo.findByUpperCaseNameAndDepartmentIdAndActive(employee.getFirstName().toUpperCase(), employee.getDepartment().getId());
-		List<Employee> emp2 = this.empRepo.findByUpperCaseNameAndDepartmentIdAndActive(employee.getLastName().toUpperCase(), employee.getDepartment().getId());
-		assertTrue(emp.size() == 1);
-		assertTrue(emp2.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp2.get(0).getLastName());
-		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
-		assertEquals(this.employee.getDepartment(), emp2.get(0).getDepartment());
+	public void findByDepartmentIdAndIsActiveIsTrue_null() throws Exception {
+		List<Employee> emps = this.empRepo.findByDepartmentIdAndIsActiveIsTrue(null);
+		assertTrue(emps.isEmpty());
 	}
-	
+
 	@Test
-	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getLastName().toLowerCase(),employee.getDepartment().getId());
-		List<Employee> emp2 = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getLastName().toUpperCase(),employee.getDepartment().getId());
-		assertTrue(emp.size() == 1);
-		assertTrue(emp2.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getFirstName(), emp2.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getLastName(), emp2.get(0).getLastName());
-		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
-		assertEquals(this.employee.getDepartment(), emp2.get(0).getDepartment());
+	public void findByDepartmentIdAndIsActiveIsTrue_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByDepartmentIdAndIsActiveIsTrue(NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
 	}
-	
+
+	@Test
+	public void findByUpperCaseNameAndDepartmentIdAndActive_firstName() throws Exception {
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndDepartmentIdAndActive(employee.getFirstName().toUpperCase(), employee.getDepartment().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
+	}
+
+	@Test
+	public void findByUpperCaseNameAndDepartmentIdAndActive_lastName() throws Exception {
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndDepartmentIdAndActive(employee.getLastName().toUpperCase(), employee.getDepartment().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
+	}
+
+	@Test
+	public void findByUpperCaseNameAndDepartmentIdAndActive_null() throws Exception {
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndDepartmentIdAndActive(null,null);
+		assertTrue(emps.isEmpty());
+	}
+
+	@Test
+	public void findByUpperCaseNameAndDepartmentIdAndActive_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndDepartmentIdAndActive(NOT_PRESENT_VALUE,NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
+	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue_lowerCase() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getLastName().toLowerCase(),employee.getDepartment().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
+	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue_upperCase() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getLastName().toUpperCase(),employee.getDepartment().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
+	}
+
+//	@Test
+//	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue_null() throws Exception {
+//		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(null,null,null);
+//		assertTrue(emps.isEmpty());
+//	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(NOT_PRESENT_VALUE,NOT_PRESENT_VALUE,NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
+	}
+
 	@Test
 	public void findByJobTitleIdAndIsActiveIsTrue() throws Exception {
 		List<Employee> emps = this.empRepo.findByJobTitleIdAndIsActiveIsTrue(this.employee.getJobTitle().getId());
@@ -288,77 +380,137 @@ public class EmployeeRepositoryTest {
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 		assertEquals(this.employee.getIsActive(), emp.getIsActive());
 	}
-	
+
+	@Test
+	public void findByJobTitleIdAndIsActiveIsTrue_null() throws Exception {
+		List<Employee> emps = this.empRepo.findByJobTitleIdAndIsActiveIsTrue(null);
+		assertTrue(emps.isEmpty());
+	}
+
+	@Test
+	public void findByJobTitleIdAndIsActiveIsTrue_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByJobTitleIdAndIsActiveIsTrue(NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
+	}
+
 	@Test
 	public void findByUpperCaseNameAndJobTitleAndActive_firstName() throws Exception {
-		List<Employee> emp = this.empRepo.findByUpperCaseNameAndJobTitleAndActive(employee.getFirstName().toUpperCase(), employee.getJobTitle().getId());
-		assertTrue(emp.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndJobTitleAndActive(employee.getFirstName().toUpperCase(), employee.getJobTitle().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
 	}
 
 	@Test
 	public void findByUpperCaseNameAndJobTitleAndActive_lastName() throws Exception {
-		List<Employee> emp = this.empRepo.findByUpperCaseNameAndJobTitleAndActive(employee.getLastName().toUpperCase(), employee.getJobTitle().getId());
-		assertTrue(emp.size() == 1);
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndJobTitleAndActive(employee.getLastName().toUpperCase(), employee.getJobTitle().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
+	}
+
+	@Test
+	public void findByUpperCaseNameAndJobTitleAndActive_null() throws Exception {
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndJobTitleAndActive(null,null);
+		assertTrue(emps.isEmpty());
+	}
+
+	@Test
+	public void findByUpperCaseNameAndJobTitleAndActive_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndJobTitleAndActive(NOT_PRESENT_VALUE,NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
 	}
 
 	@Test
 	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue_lowerCase() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getLastName().toLowerCase(),employee.getJobTitle().getId());
-		assertTrue(emp.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getLastName().toLowerCase(),employee.getJobTitle().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
 	}
 
 	@Test
 	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue_upperCase() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getLastName().toUpperCase(),employee.getJobTitle().getId());
-		assertTrue(emp.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getLastName().toUpperCase(),employee.getJobTitle().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
+	}
+
+//	@Test
+//	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue_null() throws Exception {
+//		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(null,null,null);
+//		assertTrue(emps.isEmpty());
+//	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(NOT_PRESENT_VALUE,NOT_PRESENT_VALUE,NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
 	}
 
 	@Test
 	public void findByUpperCaseNameAndDepartmentAndJobTitleAndActive_firstName() throws Exception {
-		List<Employee> emp = this.empRepo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(employee.getFirstName().toUpperCase(), employee.getDepartment().getId(), employee.getJobTitle().getId());
-		assertTrue(emp.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(employee.getFirstName().toUpperCase(), employee.getDepartment().getId(), employee.getJobTitle().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
 	}
 
 	@Test
 	public void findByUpperCaseNameAndDepartmentAndJobTitleAndActive_lastName() throws Exception {
-		List<Employee> emp = this.empRepo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(employee.getLastName().toUpperCase(), employee.getDepartment().getId(), employee.getJobTitle().getId());
-		assertTrue(emp.size() == 1);
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(employee.getLastName().toUpperCase(), employee.getDepartment().getId(), employee.getJobTitle().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
+	}
+
+	@Test
+	public void findByUpperCaseNameAndDepartmentAndJobTitleAndActive_null() throws Exception {
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(null,null,null);
+		assertTrue(emps.isEmpty());
+	}
+
+	@Test
+	public void findByUpperCaseNameAndDepartmentAndJobTitleAndActive_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(NOT_PRESENT_VALUE,NOT_PRESENT_ID,NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
 	}
 
 	@Test
 	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue_lowerCase() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getLastName().toLowerCase(),employee.getDepartment().getId(), employee.getJobTitle().getId());
-		assertTrue(emp.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
-		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(employee.getFirstName().toLowerCase(),employee.getLastName().toLowerCase(),employee.getDepartment().getId(), employee.getJobTitle().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
 	}
 	
 	@Test
 	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue_upperCase() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getLastName().toUpperCase(),employee.getDepartment().getId(), employee.getJobTitle().getId());
-		assertTrue(emp.size() == 1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
-		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(employee.getFirstName().toUpperCase(),employee.getLastName().toUpperCase(),employee.getDepartment().getId(), employee.getJobTitle().getId());
+		assertTrue(emps.size() == 1);
+		assertEquals(this.employee.getFirstName(), emps.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emps.get(0).getLastName());
+		assertEquals(this.employee.getJobTitle(), emps.get(0).getJobTitle());
+		assertEquals(this.employee.getDepartment(), emps.get(0).getDepartment());
+	}
+
+//	@Test
+//	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue_null() throws Exception {
+//		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(null,null,null,null);
+//		assertTrue(emps.isEmpty());
+//	}
+
+	@Test
+	public void findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(NOT_PRESENT_VALUE,NOT_PRESENT_VALUE,NOT_PRESENT_ID,NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
 	}
 
 	@Test
@@ -371,4 +523,17 @@ public class EmployeeRepositoryTest {
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 		assertEquals(this.employee.getIsActive(), emp.getIsActive());
 	}
+
+	@Test
+	public void findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue_null() throws Exception {
+		List<Employee> emps = this.empRepo.findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(null,null);
+		assertTrue(emps.isEmpty());
+	}
+
+	@Test
+	public void findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue_xxx() throws Exception {
+		List<Employee> emps = this.empRepo.findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(NOT_PRESENT_ID,NOT_PRESENT_ID);
+		assertTrue(emps.isEmpty());
+	}
+
 }

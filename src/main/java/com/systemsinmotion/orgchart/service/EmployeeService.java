@@ -175,6 +175,8 @@ public class EmployeeService {
 				employees = simpleRepository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, firstName);
 			} else if (lastName != null) {
 				employees = simpleRepository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(lastName, lastName);
+			} else {
+				employees = simpleRepository.findAll();
 			}
 		return employees;
 	}

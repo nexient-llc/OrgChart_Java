@@ -155,6 +155,13 @@ public class EmployeeServiceTest {
 	}
 
 	@Test
+	public void findEmployeesByNameOnlyFilter_allNulls() {
+		List<SimpleEmployee> emp = this.employeeService.findEmployeesByNameOnlyFilter(null, null);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.get(0).getId());
+	}
+
+	@Test
 	public void findEmployeesByFilter_allNulls() {
 		List<Employee> emp = this.employeeService.findEmployeesByFilter(null, null, null, null);
 		assertNotNull(emp);
