@@ -12,8 +12,6 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface EmployeeRepository  extends JpaRepository<Employee,Integer>, EmployeeRepositoryCustom {
 
-//	Employee findByFirstName(String name);
-
 	List<Employee> findByDepartment(Department department);
 	
 	List<Employee> findByJobTitle(JobTitle jobtitle);

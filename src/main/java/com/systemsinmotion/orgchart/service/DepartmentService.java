@@ -45,6 +45,10 @@ public class DepartmentService {
 		this.repository = repository;
 	}
 
+	public DepartmentRepository getRepository() {
+		return this.repository;
+	}
+
 	@Transactional
 	public Department storeDepartment(Department department) {
 		if (department.getParentDepartment() != null && department.getParentDepartment().getId() == null)

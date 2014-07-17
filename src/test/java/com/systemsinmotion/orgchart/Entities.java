@@ -5,6 +5,7 @@ import java.util.Random;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.entity.SimpleEmployee;
 
 public class Entities {
 
@@ -12,6 +13,7 @@ public class Entities {
 	public static final Integer DEPT_ID = 22;
 	public static final String EMAIL = "email";
 	public static final Integer EMPLOYEE_ID = 5;
+	public static final Integer SIMPLE_EMPLOYEE_ID = 3;
 	public static final String FIRST_NAME = "first name";
 	public static final String JOB_TITLE = "Job Title";
 	public static final Integer JOB_TITLE_ID = 5;
@@ -19,12 +21,14 @@ public class Entities {
 	public static final String LAST_NAME = "last name";
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
+	
 
 	private static Random random = new Random();
 
 	public static Department department() {
 		Department department = new Department();
 		department.setName(departmentName());
+		department.setIsActive(true);
 //		department.setId(departmentId());
 		return department;
 	}
@@ -50,11 +54,12 @@ public class Entities {
 //	}
 
 	public static Employee employee(Department dept) {
-		Employee emp = new Employee();
+		Employee emp = employee();
 		emp.setFirstName(FIRST_NAME);
 		emp.setLastName(LAST_NAME);
 		emp.setEmail(EMAIL + random.nextInt());
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
+		emp.setIsActive(true);
 		//emp.setIsManager(false);
 		return emp;
 	}
@@ -68,6 +73,7 @@ public class Entities {
 		emp.setLastName(LAST_NAME);
 		emp.setEmail(EMAIL + random.nextInt());
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
+		emp.setIsActive(true);
 		//emp.setIsManager(false);
 		return emp;
 	}
@@ -75,6 +81,7 @@ public class Entities {
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
 		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
+		jobTitle.setIsActive(true);
 		return jobTitle;
 	}
 
@@ -84,20 +91,38 @@ public class Entities {
 		mgr.setLastName(LAST_NAME);
 		mgr.setEmail(EMAIL + random.nextInt());
 		mgr.setSkypeName(SKYPE_NAME + random.nextInt());
+		mgr.setIsActive(true);
 		//mgr.setIsManager(true);
 		return mgr;
 	}
 
 	public static JobTitle jobTitle(Integer jobTitleId) {
-		JobTitle title = new JobTitle();
+		JobTitle title = jobTitle();
 		title.setId(JOB_TITLE_ID);
+		title.setIsActive(true);
 		return title;
 	}
 
 	public static Employee employee(Integer employeeId) {
-		Employee emp = new Employee();
+		Employee emp = employee();
 		emp.setId(EMPLOYEE_ID);
+		emp.setIsActive(true);
+		return emp;
+	}
+	
+	public static SimpleEmployee simpleEmployee() {
+		SimpleEmployee emp = new SimpleEmployee();
+		emp.setFirstName(FIRST_NAME);
+		emp.setLastName(LAST_NAME);
+		emp.setIsActive(true);
+		//emp.setIsManager(false);
 		return emp;
 	}
 
+	public static SimpleEmployee simpleEmployee(Integer employeeId) {
+		SimpleEmployee emp = simpleEmployee();
+		emp.setId(EMPLOYEE_ID);
+		emp.setIsActive(true);
+		return emp;
+	}
 }
