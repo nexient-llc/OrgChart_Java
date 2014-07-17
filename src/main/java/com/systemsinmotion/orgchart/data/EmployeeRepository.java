@@ -10,11 +10,12 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-public interface EmployeeRepository  extends JpaRepository<Employee,Integer> {
+public interface EmployeeRepository  extends JpaRepository<Employee,Integer>, EmployeeRepositoryCustom {
 
 //	Employee findByFirstName(String name);
 
 	List<Employee> findByDepartment(Department department);
+	
 	List<Employee> findByJobTitle(JobTitle jobtitle);
 
 	Employee findByEmail(String email);
@@ -25,14 +26,19 @@ public interface EmployeeRepository  extends JpaRepository<Employee,Integer> {
 
 	List<Employee> findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(
 			String firstName, String lastName, Integer deptId, Integer jobId);
+	
 	List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
+	
 	List<Employee> findByLastNameContainingIgnoreCase(String lastName);
 	
 	List<Employee> findByIsActiveIsTrue();
+	
 	List<Employee> findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(
 			String firstName, String lastName);
+	
 	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(
 			String firstName, String lastName);
+	
 	List<Employee> findByDepartmentIdAndIsActiveIsTrue(Integer deptId);
 	
 	@Query("SELECT e FROM Employee e WHERE (upper(e.firstName) like %:name% OR upper(e.lastName) like %:name%) "
@@ -42,6 +48,7 @@ public interface EmployeeRepository  extends JpaRepository<Employee,Integer> {
 	
 	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(
 			String firstName, String lastName, Integer deptId);
+	
 	List<Employee> findByJobTitleIdAndIsActiveIsTrue(Integer jobId);
 	
 	@Query("SELECT e FROM Employee e WHERE (upper(e.firstName) like %:name% OR upper(e.lastName) like %:name%) "
@@ -54,20 +61,14 @@ public interface EmployeeRepository  extends JpaRepository<Employee,Integer> {
 	
 	@Query("SELECT e FROM Employee e WHERE (upper(e.firstName) like %:name% OR upper(e.lastName) like %:name%) "
 			+ "AND e.department.id = :deptId AND e.jobTitle.id = :jobId AND e.isActive is true")
-	List<Employee> findByUpperCaseNameAndDepartmentAndJobTitle(@Param ("name") String name,
+	List<Employee> findByUpperCaseNameAndDepartmentAndJobTitleAndActive(@Param ("name") String name,
 			@Param("deptId") Integer deptId, @Param("jobId") Integer jobId);
 	
 	List<Employee> findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(
 			String firstName, String lastName, Integer deptId,
 			Integer jobId);
+	
 	List<Employee> findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(
 			Integer deptId, Integer jobId);
-	List<Employee> findByFirstName(String firstName);
-	List<Employee> findByFirstNameContaining(String firstName);
-	List<Employee> findByFirstNameIgnoreCase(String firstName);
-	List<Employee> findByFirstNameContainingIgnoreCaseAndIsActiveIsTrue(
-			String firstName);
-	
-	
 	
 }

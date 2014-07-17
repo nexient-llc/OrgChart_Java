@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
+import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.data.SimpleEmployeeRepository;
 import com.systemsinmotion.orgchart.entity.Department;
@@ -46,6 +48,14 @@ public class EmployeeService {
 		this.repository.save(employee);
 	}
 	
+	public void setRepository(EmployeeRepository repository) {
+		this.repository = repository;
+	}
+
+	public EmployeeRepository getRepository() {
+		return this.repository;
+	}
+
 	@Transactional
 	public void removeEmployeeById(Integer empId) {
 		Employee employee = this.repository.findById(empId);
@@ -71,19 +81,6 @@ public class EmployeeService {
 	public List<Employee> findAllActiveEmployees()
 	{
 		return this.repository.findByIsActiveIsTrue();
-	}
-
-	public String putCommaDelimitersInAListOfEmployees(List<SimpleEmployee> employees) {
-		String output = new String();
-		for (SimpleEmployee emp : employees)
-		{
-			output += emp.getFirstName() + " " + emp.getLastName() + ",";
-		}
-		if (output.length() > 0)
-		{
-			output = output.substring(0,output.length() - 1);
-		}
-		return output;
 	}
 
 	public List<Employee> findEmployeesByFilter(String firstName, String lastName,
@@ -131,10 +128,10 @@ public class EmployeeService {
 			employees = repository.findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(deptId, jobId);
 			break;
 		case 13: // First Name, Department, JobTitle
-			employees = repository.findByUpperCaseNameAndDepartmentAndJobTitle(firstName.toUpperCase(), deptId, jobId);
+			employees = repository.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(firstName.toUpperCase(), deptId, jobId);
 			break;
 		case 14: // Last Name, Department, JobTitle
-			employees = repository.findByUpperCaseNameAndDepartmentAndJobTitle(lastName.toUpperCase(), deptId, jobId);
+			employees = repository.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(lastName.toUpperCase(), deptId, jobId);
 			break;
 		case 15: // First Name, Last Name, Department, JobTitle
 			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(firstName, lastName, deptId, jobId);
@@ -171,15 +168,20 @@ public class EmployeeService {
 	public List<SimpleEmployee> findEmployeesByNameOnlyFilter(String firstName, String lastName)
 	{
 		List<SimpleEmployee> employees = null;
-		if (firstName != null)
-		{
-			if (lastName != null)
+			if (firstName != null && lastName != null)
 			{
-				System.out.println("Not there yet");
-			} else {
+				employees = simpleRepository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, lastName);
+			} else if (firstName != null){
 				employees = simpleRepository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, firstName);
+			} else if (lastName != null) {
+				employees = simpleRepository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(lastName, lastName);
 			}
-		}
 		return employees;
 	}
+	
+	public SimpleEmployee findSimpleEmployeeById(Integer id)
+	{
+		return simpleRepository.findById(id);
+	}
+
 }
