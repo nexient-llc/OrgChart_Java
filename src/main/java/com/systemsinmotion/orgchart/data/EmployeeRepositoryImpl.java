@@ -35,7 +35,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom {
 		CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
 		Root<Employee> root = query.from(Employee.class);
 
-		query.where(buildOrPredicate(builder, root, type, name));
+		query.where(buildOrPredicate(builder, root, type, name), builder.equal(root.get("isActive"), true));
 
 		return em.createQuery(query).getResultList();
 	}

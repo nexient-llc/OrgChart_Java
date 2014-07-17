@@ -445,4 +445,19 @@ public class EmployeeRepositoryTest {
 		assertFalse(employees.isEmpty());
 		assertTrue(employees.get(0).getLastName().contains(partialLastName));
 	}
+	
+
+	@Test
+	public void findActiveByFirstNameOrLastName_inactive() {
+		this.employee.setIsActive(false);
+		this.empRepo.save(employee);
+		
+		String partialLastName = this.employee.getLastName().substring(1, 4);
+		assertEquals(3, partialLastName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastName(partialLastName);
+
+		assertNotNull(employees);
+		assertTrue(employees.isEmpty());
+	}
 }
