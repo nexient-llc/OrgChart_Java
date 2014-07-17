@@ -22,6 +22,9 @@ public class Entities {
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
 	
+	public static final String NOT_PRESENT_VALUE = "XXX";
+	public static final Integer NOT_PRESENT_ID = -666;
+	
 
 	private static Random random = new Random();
 

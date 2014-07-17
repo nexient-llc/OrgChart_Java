@@ -5,9 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-
-import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.data.SimpleEmployeeRepository;
 import com.systemsinmotion.orgchart.entity.Department;
