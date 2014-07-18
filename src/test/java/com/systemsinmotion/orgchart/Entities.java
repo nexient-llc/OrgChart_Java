@@ -28,7 +28,14 @@ public class Entities {
 	public static final String LAST_NAME_2 = "2nd name";
 	public static final String EMAIL_2 = "mail@google.com";
 	public static final String SKYPE_NAME_2 = "name.skype.dot";
-	
+
+	public static final Integer EMPLOYEE_ID_3 = 9;
+	public static final Integer SIMPLE_EMPLOYEE_ID_3 = 10;
+	public static final String FIRST_NAME_3 = "1st name Again";
+	public static final String LAST_NAME_3 = "2nd name Again";
+	public static final String EMAIL_3 = "no-reply@google.com";
+	public static final String SKYPE_NAME_3 = "error.skype.dot";
+
 	public static final String NOT_PRESENT_VALUE = "XXX";
 	public static final Integer NOT_PRESENT_ID = -666;
 	
@@ -97,6 +104,17 @@ public class Entities {
 		return emp;
 	}
 
+	private static Employee employee3() {
+		Employee emp = new Employee();
+		emp.setDepartment(department());
+		emp.setFirstName(FIRST_NAME_3);
+		emp.setLastName(LAST_NAME_3);
+		emp.setEmail(EMAIL_3 + random.nextInt());
+		emp.setSkypeName(SKYPE_NAME_3 + random.nextInt());
+		emp.setIsActive(true);
+		return emp;
+	}
+
 	public static JobTitle jobTitle() {
 		JobTitle jobTitle = new JobTitle();
 		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
@@ -129,9 +147,16 @@ public class Entities {
 		return emp;
 	}
 
-	public static Employee employee2(Integer employeeId2) {
+	public static Employee employee2(Integer employeeId) {
 		Employee emp = employee2();
-		emp.setId(employeeId2);
+		emp.setId(employeeId);
+		emp.setIsActive(true);
+		return emp;
+	}
+
+	public static Employee employee3(Integer employeeId) {
+		Employee emp = employee3();
+		emp.setId(employeeId);
 		emp.setIsActive(true);
 		return emp;
 	}

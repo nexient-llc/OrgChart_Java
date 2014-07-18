@@ -2,13 +2,9 @@ package com.systemsinmotion.orgchart.config;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
@@ -33,16 +29,18 @@ public class TestServiceConfig {
 	private List<Department> listOfFoundDepts;
 	private List<JobTitle> listOfFoundTitles;
 	private List<Employee> listOfFoundEmployees;
-	private List<Employee> listOfFoundEmployees2;
 	private List<SimpleEmployee> listOfFoundSimpleEmployees;
-	private List<SimpleEmployee> listOfFoundSimpleEmployees2;
+//	private List<Employee> listOfFoundEmployees2;
+//	private List<Employee> listOfFoundEmployees3;
+//	private List<SimpleEmployee> listOfFoundSimpleEmployees2;
 
 	private Department mockDepartment;
 	private JobTitle mockTitle;
 	private Employee mockEmployee;
-	private Employee mockEmployee2;
 	private SimpleEmployee mockSimpleEmployee;
-	private SimpleEmployee mockSimpleEmployee2;
+//	private Employee mockEmployee2;
+//	private Employee mockEmployee3;
+//	private SimpleEmployee mockSimpleEmployee2;
 	
 	@PostConstruct
 	private void init() {
@@ -58,17 +56,22 @@ public class TestServiceConfig {
 		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
 		listOfFoundEmployees.add(mockEmployee);
 
-		listOfFoundEmployees2 = new ArrayList<Employee>();
-		mockEmployee2 = Entities.employee2(Entities.EMPLOYEE_ID_2);
-		listOfFoundEmployees2.add(mockEmployee2);
-
 		listOfFoundSimpleEmployees = new ArrayList<SimpleEmployee>();
 		mockSimpleEmployee = Entities.simpleEmployee(Entities.SIMPLE_EMPLOYEE_ID);
 		listOfFoundSimpleEmployees.add(mockSimpleEmployee);
 
-		listOfFoundSimpleEmployees2 = new ArrayList<SimpleEmployee>();
-		mockSimpleEmployee2 = Entities.simpleEmployee2(Entities.SIMPLE_EMPLOYEE_ID_2);
-		listOfFoundSimpleEmployees2.add(mockSimpleEmployee2);
+//		listOfFoundEmployees2 = new ArrayList<Employee>();
+//		mockEmployee2 = Entities.employee2(Entities.EMPLOYEE_ID_2);
+//		listOfFoundEmployees2.add(mockEmployee2);
+//
+//		listOfFoundEmployees3 = new ArrayList<Employee>();
+//		mockEmployee3 = Entities.employee3(Entities.EMPLOYEE_ID_3);
+//		listOfFoundEmployees3.add(mockEmployee3);
+//
+//
+//		listOfFoundSimpleEmployees2 = new ArrayList<SimpleEmployee>();
+//		mockSimpleEmployee2 = Entities.simpleEmployee2(Entities.SIMPLE_EMPLOYEE_ID_2);
+//		listOfFoundSimpleEmployees2.add(mockSimpleEmployee2);
 	}
 
 	@Bean(name = "mockDepartment")
@@ -115,7 +118,6 @@ public class TestServiceConfig {
 		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundEmployees);
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(repo.findById(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
-		when(repo.findById(Entities.EMPLOYEE_ID_2)).thenReturn(this.mockEmployee2);
 		when(repo.findByJobTitle(mockEmployee.getJobTitle())).thenReturn(this.listOfFoundEmployees);
 		when(repo.findByDepartment(mockEmployee.getDepartment())).thenReturn(this.listOfFoundEmployees);		
 		when(repo.findByFirstNameContainingIgnoreCase(Entities.FIRST_NAME)).thenReturn(this.listOfFoundEmployees);
@@ -136,7 +138,6 @@ public class TestServiceConfig {
 		when(repo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(Entities.LAST_NAME.toUpperCase(), Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
 		when(repo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
-		when(repo.save(this.mockEmployee2)).thenReturn(mockEmployee2);
 		return repo;
 	}
 

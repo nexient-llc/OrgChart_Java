@@ -27,7 +27,7 @@ public class EmployeeService {
 	}
 
 	public Employee findEmployeeByID(Integer employeeId) {
-		return this.repository.findOne(employeeId);
+		return this.repository.findById(employeeId);
 	}
 
 	@Transactional

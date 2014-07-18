@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -63,6 +64,24 @@ public class EmployeeRepositoryTest {
 	public void testInstantiation() {
 		assertNotNull(deptRepo);
 	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	public void duplicateEmployee_email() throws Exception {
+		Employee emp = Entities.employee();
+		emp.setDepartment(department);
+		emp.setJobTitle(jobTitle);
+		emp.setEmail(employee.getEmail());
+		this.empRepo.save(emp);
+	}
+
+	@Test(expected = DataIntegrityViolationException.class)
+	public void duplicateEmployee_skype() throws Exception {
+		Employee emp = Entities.employee();
+		emp.setDepartment(department);
+		emp.setJobTitle(jobTitle);
+		emp.setSkypeName(employee.getSkypeName());
+		this.empRepo.save(emp);
+	}
 
 	private void createManager() {
 		this.manager = Entities.manager();
@@ -75,7 +94,7 @@ public class EmployeeRepositoryTest {
 		assertNotNull(emps);
 		assertTrue(0 < emps.size());
 	}
-
+	
 	@Test
 	public void findByDepartment() throws Exception {
 		List<Employee> emps = this.empRepo.findByDepartment(this.employee.getDepartment());
@@ -109,7 +128,7 @@ public class EmployeeRepositoryTest {
 	}
 
 	@Test
-	public void findByEmailTest_XXX() throws Exception {
+	public void findByEmail_XXX() throws Exception {
 		Employee emp = this.empRepo.findByEmail(NOT_PRESENT_VALUE);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
