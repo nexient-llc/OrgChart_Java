@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -68,7 +69,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom {
 				buildAndPredicate_jobTitle(builder, root, type, jobId),
 				builder.equal(root.get("isActive"), true));
 
-		return em.createQuery(query).getResultList();		
+		return em.createQuery(query).getResultList();
 	}
 	
 	@Override
@@ -111,4 +112,37 @@ public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom {
 		return builder.like(builder.lower(root.get(attribute)), "%" + fieldValue.toLowerCase() + "%");
 	}
 
+	@Override
+	public List<Employee> findActiveByUnknownInputs(
+			String firstName, String lastName, Integer deptId, Integer jobId) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		EntityType<Employee> type = em.getMetamodel().entity(Employee.class);
+		CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+		Root<Employee> root = query.from(Employee.class);
+		List<Predicate> predicates = new ArrayList<Predicate>();
+
+		if (firstName != null && lastName != null)
+		{
+			predicates.add(builder.and(buildCaseInsitiveLikePredicate(builder, root, type, "firstName", firstName),
+					buildCaseInsitiveLikePredicate(builder, root, type, "lastName", lastName)));
+		} else if (firstName != null || lastName != null){
+			predicates.add(buildOrPredicate_firstNameLastName(builder, root, type, (firstName != null) ? firstName : lastName));
+		}
+		
+		if (deptId != null) {
+			predicates.add(buildAndPredicate_department(builder, root, type, deptId));
+		}
+		
+		if (jobId != null) {
+			predicates.add(buildAndPredicate_jobTitle(builder, root, type, jobId));
+		}
+		
+		predicates.add(builder.equal(root.get("isActive"), true));
+
+		query.where(predicates.toArray(new Predicate[]{}));
+		
+		return em.createQuery(query).getResultList();
+	}
+
+	
 }

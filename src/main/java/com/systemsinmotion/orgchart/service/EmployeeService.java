@@ -183,4 +183,7 @@ public class EmployeeService {
 		return simpleRepository.findById(id);
 	}
 
+	public List<Employee> findEmployeesByCriteriaFilter(String firstName, String lastName, Integer deptId, Integer jobId) {
+		return repository.findActiveByUnknownInputs(firstName, lastName, deptId, jobId);
+	}
 }

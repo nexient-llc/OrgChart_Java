@@ -111,7 +111,8 @@ public class DefaultController {
 			@RequestParam(value = "jobid", defaultValue="") String jobId,
 			String string4,
 			Model model) {
-		List<Employee> employees = getFilteredEmployees(fullName, deptId, jobId);
+//		List<Employee> employees = getFilteredEmployees_bySwitch(fullName, deptId, jobId);
+		List<Employee> employees = getFilteredEmployees_byCriteria(fullName, deptId, jobId);
 		model.addAttribute("emps", employees);
 		refreshJobTitleModel(model);
 		refreshDepartmentModel(model);
@@ -158,7 +159,7 @@ public class DefaultController {
 
 
 	// Solution 1: Readable and few lines of code, but requires 2+ queries
-//	private List<Employee> getFilteredEmployees(String fullName, String deptId,
+//	private List<Employee> getFilteredEmployees_byIntersect(String fullName, String deptId,
 //			String jobId) {
 //		String[] name = fullName.split("\\s");
 //		List<Employee> employees = employeeService.findAllActiveEmployees();
@@ -175,7 +176,7 @@ public class DefaultController {
 //	}
 
 	// Solution 2: Switch Approach, long-winded but correct
-	private List<Employee> getFilteredEmployees(String fullName, String deptId, String jobId)
+	private List<Employee> getFilteredEmployees_bySwitch(String fullName, String deptId, String jobId)
 	{
 		String[] name = fullName.trim().split("\\s");
 		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
@@ -193,35 +194,16 @@ public class DefaultController {
 		return employeeService.findEmployeesByNameOnlyFilter(firstName, lastName);
 	}
 
-	// Solution 3: Query Criteria, needs lots of other defined classes
-//	private List<Employee> getFilteredEmployees(String fullName, String deptId, String jobId)
-//	{
-//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Employee");
-//		EntityManager em = emf.createEntityManager();
-//		CriteriaBuilder builder = em.getCriteriaBuilder();
-//		CriteriaQuery<Employee> cq = builder.createQuery(Employee.class);
-//		Root<Employee> emp = cq.from(Employee.class);
-//		cq.select(emp);
-//		cq.where(builder.equal(emp.get(Employee_.firstName), "Bob"));
-//		List<Employee> emps = em.createQuery(cq).getResultList();
-//		for (Employee e : emps)
-//			System.out.println("Test: " + e);
-//		return emps;
-//	}
-
-	// Solution 4: Detached Criteria, seems easier but it still requires external libraries
-//	private List<Employee> getFilteredEmployees(String fullName, String deptId, String jobId)
-//	{
-//		DetachedCriteria dc = DetachedCriteria.forClass(Employee.class);
-//		
-//		dc.createCriteria("filteredList");
-//		dc.add(Restrictions.eq("firstName", "Bob"));
-//		dc.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-//		HibernateTemplate ht = new HibernateTemplate();
-//		List<Employee> emp = ht.findByCriteria(dc);
-//		
-//		return emp;
-//	}
+	// Solution 3: Query Criteria
+	private List<Employee> getFilteredEmployees_byCriteria(String fullName, String deptId, String jobId)
+	{
+		String[] name = fullName.trim().split("\\s");
+		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
+		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
+		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
+		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
+		return employeeService.findEmployeesByCriteriaFilter(firstName, lastName, department, jobTitle);
+	}
 
 	@RequestMapping(value = "newEmp", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)

@@ -653,5 +653,24 @@ public class EmployeeRepositoryTest {
 		assertNotNull(employees);
 		assertTrue(employees.isEmpty());
 	}
+	
+	@Test
+	public void findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId_unknownInputs_nulls() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, null, null, null);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+	}
+
+	@Test
+	public void findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId_unknownInputs_firstNameOnly() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, null, null);
+		System.out.println("Test: " + employees);
+		System.out.println("Emp: " + employee);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
 
 }
