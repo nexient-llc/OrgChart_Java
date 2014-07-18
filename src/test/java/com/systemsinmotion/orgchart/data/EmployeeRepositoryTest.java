@@ -530,4 +530,54 @@ public class EmployeeRepositoryTest {
 		assertTrue(emps.isEmpty());
 	}
 
+	@Test
+	public void findActiveByFirstNameOrLastName_firstNameOnly() {
+		String partialFirstName = this.employee.getFirstName().substring(1, 4);
+		assertEquals(3, partialFirstName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastName(partialFirstName);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertTrue(employees.get(0).getFirstName().contains(partialFirstName));
+	}
+
+	@Test
+	public void findActiveByFirstNameOrLastName_firstNameUpperCase() {
+		String partialFirstName = this.employee.getFirstName().substring(1, 4).toUpperCase();
+		assertEquals(3, partialFirstName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastName(partialFirstName);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertTrue(employees.get(0).getFirstName().toUpperCase().contains(partialFirstName));
+	}
+
+	@Test
+	public void findActiveByFirstNameOrLastName_lastNameOnly() {
+		String partialLastName = this.employee.getLastName().substring(1, 4);
+		assertEquals(3, partialLastName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastName(partialLastName);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertTrue(employees.get(0).getLastName().contains(partialLastName));
+	}
+
+
+	@Test
+	public void findActiveByFirstNameOrLastName_inactive() {
+		this.employee.setIsActive(false);
+		this.empRepo.save(employee);
+
+		String partialLastName = this.employee.getLastName().substring(1, 4);
+		assertEquals(3, partialLastName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastName(partialLastName);
+
+		assertNotNull(employees);
+		assertTrue(employees.isEmpty());
+	}
 }
