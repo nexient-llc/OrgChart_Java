@@ -580,4 +580,78 @@ public class EmployeeRepositoryTest {
 		assertNotNull(employees);
 		assertTrue(employees.isEmpty());
 	}
+
+	@Test
+	public void findActiveByFirstNameOrLastNameAndDepartmentId_matchingDepartment() {
+		String partialFirstName = this.employee.getFirstName().substring(1, 4);
+		assertEquals(3, partialFirstName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastNameAndDepartmentId(partialFirstName, department.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertTrue(employees.get(0).getFirstName().contains(partialFirstName));
+		assertEquals(department.getId(), employees.get(0).getDepartment().getId());
+	}
+
+	@Test
+	public void findActiveByFirstNameOrLastNameAndDepartmentId_mismatchingDepartment() {
+		String partialFirstName = this.employee.getFirstName().substring(1, 4);
+		assertEquals(3, partialFirstName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastNameAndDepartmentId(partialFirstName, Entities.NOT_PRESENT_ID);
+
+		assertNotNull(employees);
+		assertTrue(employees.isEmpty());
+	}
+
+	@Test
+	public void findActiveByFirstNameOrLastNameAndJobTitleId_matchingJobTitle() {
+		String partialFirstName = this.employee.getFirstName().substring(1, 4);
+		assertEquals(3, partialFirstName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastNameAndJobTitleId(partialFirstName, jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertTrue(employees.get(0).getFirstName().contains(partialFirstName));
+		assertEquals(jobTitle.getId(), employees.get(0).getJobTitle().getId());
+	}
+
+	@Test
+	public void findActiveByFirstNameOrLastNameAndJobTitleId_mismatchingJobTitle() {
+		String partialFirstName = this.employee.getFirstName().substring(1, 4);
+		assertEquals(3, partialFirstName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastNameAndJobTitleId(partialFirstName, Entities.NOT_PRESENT_ID);
+
+		assertNotNull(employees);
+		assertTrue(employees.isEmpty());
+	}
+
+	@Test
+	public void findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId_matchingJobTitle() {
+		String partialFirstName = this.employee.getFirstName().substring(1, 4);
+		assertEquals(3, partialFirstName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId(partialFirstName, department.getId(), jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertTrue(employees.get(0).getFirstName().contains(partialFirstName));
+		assertEquals(jobTitle.getId(), employees.get(0).getJobTitle().getId());
+		assertEquals(department.getId(), employees.get(0).getDepartment().getId());
+	}
+
+	@Test
+	public void findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId_mismatchingJobTitle() {
+		String partialFirstName = this.employee.getFirstName().substring(1, 4);
+		assertEquals(3, partialFirstName.length());
+
+		List<Employee> employees = this.empRepo.findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId(partialFirstName, Entities.NOT_PRESENT_ID, Entities.NOT_PRESENT_ID);
+
+		assertNotNull(employees);
+		assertTrue(employees.isEmpty());
+	}
+
 }

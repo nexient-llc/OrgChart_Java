@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.SingularAttribute;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom {
@@ -35,12 +36,68 @@ public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom {
 		CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
 		Root<Employee> root = query.from(Employee.class);
 
-		query.where(buildOrPredicate(builder, root, type, name), builder.equal(root.get("isActive"), true));
+		query.where(buildOrPredicate_firstNameLastName(builder, root, type, name), builder.equal(root.get("isActive"), true));
 
 		return em.createQuery(query).getResultList();
 	}
 
-	private static Predicate buildOrPredicate(CriteriaBuilder builder, Root<Employee> root, EntityType<Employee> type,
+	@Override
+	public List<Employee> findActiveByFirstNameOrLastNameAndDepartmentId(
+			String name, Integer deptId) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		EntityType<Employee> type = em.getMetamodel().entity(Employee.class);
+		CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+		Root<Employee> root = query.from(Employee.class);
+
+		query.where(buildOrPredicate_firstNameLastName(builder, root, type, name),
+				buildAndPredicate_department(builder, root, type, deptId),
+				builder.equal(root.get("isActive"), true));
+
+		return em.createQuery(query).getResultList();		
+	}
+
+	@Override
+	public List<Employee> findActiveByFirstNameOrLastNameAndJobTitleId(
+			String name, Integer jobId) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		EntityType<Employee> type = em.getMetamodel().entity(Employee.class);
+		CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+		Root<Employee> root = query.from(Employee.class);
+
+		query.where(buildOrPredicate_firstNameLastName(builder, root, type, name),
+				buildAndPredicate_jobTitle(builder, root, type, jobId),
+				builder.equal(root.get("isActive"), true));
+
+		return em.createQuery(query).getResultList();		
+	}
+	
+	@Override
+	public List<Employee> findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId(
+			String name, Integer deptId, Integer jobId) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		EntityType<Employee> type = em.getMetamodel().entity(Employee.class);
+		CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+		Root<Employee> root = query.from(Employee.class);
+
+		query.where(buildOrPredicate_firstNameLastName(builder, root, type, name),
+				buildAndPredicate_department(builder, root, type, deptId),
+				buildAndPredicate_jobTitle(builder, root, type, jobId),
+				builder.equal(root.get("isActive"), true));
+
+		return em.createQuery(query).getResultList();		
+	}
+
+	private static Predicate buildAndPredicate_department(CriteriaBuilder builder, Root<Employee> root, EntityType<Employee> type,
+			Integer deptId) {
+		return builder.and(builder.equal(root.get("department").get("id"), deptId));
+	}
+
+	private static Predicate buildAndPredicate_jobTitle(CriteriaBuilder builder, Root<Employee> root, EntityType<Employee> type,
+			Integer jobId) {
+		return builder.and(builder.equal(root.get("jobTitle").get("id"), jobId));
+	}
+
+	private static Predicate buildOrPredicate_firstNameLastName(CriteriaBuilder builder, Root<Employee> root, EntityType<Employee> type,
 			String name) {
 		return builder.or(buildCaseInsitiveLikePredicate(builder, root, type, "firstName", name),
 				buildCaseInsitiveLikePredicate(builder, root, type, "lastName", name));

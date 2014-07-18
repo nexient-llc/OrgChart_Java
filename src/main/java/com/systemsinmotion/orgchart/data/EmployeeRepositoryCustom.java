@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.springframework.data.repository.NoRepositoryBean;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
 @NoRepositoryBean
 public interface EmployeeRepositoryCustom {
 	List<Employee> findActiveByFirstNameOrLastName(String name);
+	List<Employee> findActiveByFirstNameOrLastNameAndDepartmentId(String name, Integer deptId);
+	List<Employee> findActiveByFirstNameOrLastNameAndJobTitleId(String name, Integer jobId);
+	List<Employee> findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId(String name, Integer deptId, Integer jobId);
 }
