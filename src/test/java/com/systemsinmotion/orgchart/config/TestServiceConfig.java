@@ -137,6 +137,22 @@ public class TestServiceConfig {
 		when(repo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(Entities.FIRST_NAME.toUpperCase(), Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
 		when(repo.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(Entities.LAST_NAME.toUpperCase(), Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
 		when(repo.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(this.listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(null, null, null, null)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, null, null)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(null, Entities.LAST_NAME, null, null)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, null, null)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(null, null, Entities.DEPT_ID, null)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, Entities.DEPT_ID, null)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(null, Entities.LAST_NAME, Entities.DEPT_ID, null)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, null)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(null, null, null, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, null, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(null, Entities.LAST_NAME, null, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, null, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(null, null, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(null, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		return repo;
 	}
