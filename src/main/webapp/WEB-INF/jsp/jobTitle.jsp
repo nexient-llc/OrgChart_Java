@@ -39,11 +39,11 @@
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Description</th>
+		<th align="left"  > Description</th>
 	</tr> 
 	<c:forEach items="${titles}" var="title">
 		<tr class="jobTitleClass" > 
-			<td class="JobTitleName">${title.name}</td> 
+			<td style="width:135px" align="left"  class="JobTitleName">${title.name}</td> 
 			<td>
 			<button class="editButton" value="${title.id}" id="editEntity" style="width: 60px;">Edit</button>
 			</td> 

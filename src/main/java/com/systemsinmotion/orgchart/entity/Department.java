@@ -20,14 +20,16 @@ public class Department extends BaseEntity {
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String name;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department parentDepartment;
-    public Department() {
+
+	public Department() {
 		super();
-    	// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub
 	}
+
 	public String getName() {
 		return this.name;
 	}

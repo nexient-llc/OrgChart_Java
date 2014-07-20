@@ -16,4 +16,8 @@ $(document).ready(function() {
 		window.location = path + "titles";	
 	});
 	
+	$('#login').click(function() {
+		window.location = path + "admin/login";	
+	});
+	
 });

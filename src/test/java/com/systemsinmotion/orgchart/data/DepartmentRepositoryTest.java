@@ -57,7 +57,7 @@ public class DepartmentRepositoryTest {
 		assertNotNull(this.parent);
 		assertNotNull(this.parent.getId());
 		assertNotNull(this.department);
-	    assertNotNull(this.department.getId());
+		assertNotNull(this.department.getId());
 	}
 
 	@Test(expected = DataIntegrityViolationException.class)
@@ -111,7 +111,9 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findByParentDeptId() throws Exception {
-		List<Department> depts = this.repository.findByParentDepartmentId(this.department.getParentDepartment().getId());
+		List<Department> depts = this.repository
+				.findByParentDepartmentId(this.department.getParentDepartment()
+						.getId());
 		assertNotNull(depts);
 		assertEquals(1, depts.size());
 		Department dept = depts.get(0);
@@ -125,6 +127,13 @@ public class DepartmentRepositoryTest {
 				.findByParentDepartmentId(random.nextInt());
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
+	}
+
+	@Test
+	public void findByActive() throws Exception {
+		List<Department> depts = this.repository.findByIsActiveIsTrue();
+		assertNotNull(depts);
+		assertTrue(0 < depts.size());
 	}
 
 	@Test

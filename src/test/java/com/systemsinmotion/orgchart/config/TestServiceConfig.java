@@ -19,9 +19,10 @@ import com.systemsinmotion.orgchart.data.JobTitleRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.entity.QEmployee;
 
 @Configuration
-@ComponentScan({"com.systemsinmotion.orgchart.service"})
+@ComponentScan({ "com.systemsinmotion.orgchart.service" })
 public class TestServiceConfig {
 
 	private List<Department> listOfFoundDepts;
@@ -41,7 +42,7 @@ public class TestServiceConfig {
 		listOfFoundTitles = new ArrayList<JobTitle>();
 		mockTitle = Entities.jobTitle(Entities.JOB_TITLE_ID);
 		listOfFoundTitles.add(mockTitle);
-		
+
 		listOfFoundEmployees = new ArrayList<Employee>();
 		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
 		listOfFoundEmployees.add(mockEmployee);
@@ -56,13 +57,17 @@ public class TestServiceConfig {
 	DepartmentRepository getDepartmentRepository() {
 		DepartmentRepository repo = mock(DepartmentRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundDepts);
+		when(repo.findByIsActiveIsTrue()).thenReturn(listOfFoundDepts);
+		when(repo.saveAndFlush(getDepartment()))
+				.thenReturn(this.mockDepartment);
 		when(repo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundDepts);
 		when(repo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
 		return repo;
 	}
 
 	@Bean
-	JobTitle getJobTitle(){
+	JobTitle getJobTitle() {
 		return this.mockTitle;
 	}
 
@@ -70,20 +75,27 @@ public class TestServiceConfig {
 	JobTitleRepository getJobTitleRepository() {
 		JobTitleRepository repo = mock(JobTitleRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundTitles);
 		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
 		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
 		return repo;
 	}
-	
+
 	@Bean
-	Employee getEmployee(){
+	Employee getEmployee() {
 		return this.mockEmployee;
 	}
-	
+
 	@Bean
 	EmployeeRepository getEmployeeRepository() {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
+		QEmployee employee = QEmployee.employee;
+
 		when(repo.findAll()).thenReturn(listOfFoundEmployees);
+		when(repo.findAll(Entities.PREDICATE)).thenReturn(listOfFoundEmployees);
+		when(repo.findByIsActiveIsTrue()).thenReturn(listOfFoundEmployees);
+		when(repo.findByJobTitleName(Entities.JOB_TITLE_NAME)).thenReturn(
+				listOfFoundEmployees);
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		return repo;

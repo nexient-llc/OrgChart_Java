@@ -26,7 +26,7 @@ import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 
 @Configuration
-@ComponentScan({"com.systemsinmotion.orgchart.web.controller"})
+@ComponentScan({ "com.systemsinmotion.orgchart.web.controller" })
 public class TestControllerConfig {
 
 	private List<Department> listOfFoundDepts;
@@ -36,35 +36,38 @@ public class TestControllerConfig {
 	private Department mockDepartment;
 	private JobTitle mockTitle;
 	private Employee mockEmployee;
-	
+
 	@PostConstruct
 	private void init() {
 		listOfFoundDepts = new ArrayList<Department>();
 		mockDepartment = Entities.department(Entities.DEPT_ID);
 		listOfFoundDepts.add(mockDepartment);
-//		mockDepartment = Entities.department(Entities.DEPT_ID);
+		// mockDepartment = Entities.department(Entities.DEPT_ID);
 
 		listOfFoundTitles = new ArrayList<JobTitle>();
 		mockTitle = Entities.jobTitle(Entities.JOB_TITLE_ID);
 		listOfFoundTitles.add(mockTitle);
-//		mockTitle = Entities.jobTitle(Entities.JOB_TITLE_ID);
-		
+		// mockTitle = Entities.jobTitle(Entities.JOB_TITLE_ID);
+
 		listOfFoundEmployees = new ArrayList<Employee>();
 		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
 		listOfFoundEmployees.add(mockEmployee);
 		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
 	}
-	
+
 	@Bean
 	DepartmentService getDepartmentService() {
 		DepartmentService service = mock(DepartmentService.class);
 		when(service.findAllDepartments()).thenReturn(listOfFoundDepts);
-		when(service.storeDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
-		     public Department answer(InvocationOnMock invocation) {
-		         listOfFoundDepts.add(mockDepartment);
-		         return mockDepartment;
-		     }
-		 });
+		when(service.activeDepartments()).thenReturn(listOfFoundDepts);
+
+		when(service.storeDepartment(mockDepartment)).thenAnswer(
+				new Answer<Department>() {
+					public Department answer(InvocationOnMock invocation) {
+						listOfFoundDepts.add(mockDepartment);
+						return mockDepartment;
+					}
+				});
 		return service;
 	}
 
@@ -72,28 +75,38 @@ public class TestControllerConfig {
 	EmployeeService getEmployeeService() {
 		EmployeeService service = mock(EmployeeService.class);
 		when(service.findAllEmployees()).thenReturn(listOfFoundEmployees);
-		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
-		     public Employee answer(InvocationOnMock invocation) {
-		         listOfFoundEmployees.add(mockEmployee);
-		         return mockEmployee;
-		     }
-		 });
+		when(service.activeEmployees()).thenReturn(listOfFoundEmployees);
+		when(
+				service.filterEmployees(Entities.FIRST_NAME,
+						Entities.LAST_NAME, Entities.DEPT_ID.toString(),
+						Entities.JOB_TITLE_ID.toString())).thenReturn(
+				listOfFoundEmployees);
+		when(service.filterEmployees("", "", "", "")).thenReturn(
+				listOfFoundEmployees);
+		when(service.storeEmployee(mockEmployee)).thenAnswer(
+				new Answer<Employee>() {
+					public Employee answer(InvocationOnMock invocation) {
+						listOfFoundEmployees.add(mockEmployee);
+						return mockEmployee;
+					}
+				});
 		return service;
 	}
-	
+
 	@Bean
 	JobTitleService getJobTitleService() {
 		JobTitleService service = mock(JobTitleService.class);
 		when(service.findAllJobTitles()).thenReturn(listOfFoundTitles);
-		when(service.storeJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
-		     public JobTitle answer(InvocationOnMock invocation) {
-		         listOfFoundTitles.add(mockTitle);
-		         return mockTitle;
-		     }
-		 });
+		when(service.storeJobTitle(mockTitle)).thenAnswer(
+				new Answer<JobTitle>() {
+					public JobTitle answer(InvocationOnMock invocation) {
+						listOfFoundTitles.add(mockTitle);
+						return mockTitle;
+					}
+				});
 		return service;
 	}
-	
+
 	@Bean
 	Department getDepartment() {
 		return this.mockDepartment;
@@ -109,7 +122,7 @@ public class TestControllerConfig {
 	}
 
 	@Bean
-	JobTitle getJobTitle(){
+	JobTitle getJobTitle() {
 		return this.mockTitle;
 	}
 
@@ -121,12 +134,12 @@ public class TestControllerConfig {
 		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
 		return repo;
 	}
-	
+
 	@Bean
-	Employee getEmployee(){
+	Employee getEmployee() {
 		return this.mockEmployee;
 	}
-	
+
 	@Bean
 	EmployeeRepository getEmployeeRepository() {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
@@ -135,5 +148,5 @@ public class TestControllerConfig {
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		return repo;
 	}
-	
+
 }

@@ -33,7 +33,13 @@ public class JobTitleService {
 	public JobTitle storeJobTitle(JobTitle title) {
 		return this.repository.save(title);
 	}
-	public boolean titleExists(JobTitle title){
+
+	public boolean titleExists(JobTitle title) {
 		return this.repository.exists(title.getId());
 	}
+
+	public List<JobTitle> activeJobTitles() {
+		return this.repository.findByIsActiveIsTrue();
+	}
+
 }

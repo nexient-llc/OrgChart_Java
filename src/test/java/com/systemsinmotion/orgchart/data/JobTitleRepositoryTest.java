@@ -1,6 +1,9 @@
 package com.systemsinmotion.orgchart.data;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -37,12 +40,12 @@ public class JobTitleRepositoryTest {
 		this.jobTitle = Entities.jobTitle();
 		this.jobTitle.setId(this.jobTitleRepo.save(this.jobTitle).getId());
 	}
-	
+
 	@Test
 	public void testInstantiation() {
 		assertNotNull(jobTitleRepo);
 	}
-	
+
 	@Test
 	public void created() {
 		assertNotNull(this.jobTitle);
@@ -60,6 +63,14 @@ public class JobTitleRepositoryTest {
 	public void findAll_notNull() throws Exception {
 		System.out.println(this.jobTitleRepo.toString());
 		List<JobTitle> titles = this.jobTitleRepo.findAll();
+		assertNotNull(titles);
+		assertTrue(0 < titles.size());
+	}
+
+	@Test
+	public void findAllActive() throws Exception {
+
+		List<JobTitle> titles = this.jobTitleRepo.findByIsActiveIsTrue();
 		assertNotNull(titles);
 		assertTrue(0 < titles.size());
 	}

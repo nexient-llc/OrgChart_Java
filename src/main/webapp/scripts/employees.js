@@ -21,6 +21,24 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('#searchFullName').autocomplete({
+		source:function(request, response){
+			$.ajax({
+				type:'get',
+				url:'autoComplete/' + $('#searchFullName').val(),
+				success:function(data){
+					
+					var array =[];
+					var tags = $.parseJSON(data);
+					var tag;
+                    for(tag in tags)
+                       array.push(tags[tag].firstName + " " + tags[tag].lastName);
+					response(array);
+				}
+			});
+		}
+	});
+
 	$("#newEmployee").submit(function() {
 		if($("#depart").val() == "" ||$("#job").val == "" ){
 			
@@ -47,12 +65,12 @@ $(document).ready(function() {
 	        	
 	        	$('#empId').val(employees['id']);
 	        	$('#first-edit').val(employees.firstName);
-	        	$('#empMid-edit').val(employees['middleInitial']);
-	        	$('#last-edit').val(employees['lastName']);
-	        	$('#empEmail-edit').val(employees['email']);
-	        	$('#empSkype-edit').val(employees['skypeName']);
-	        	$('#depart-edit').val(employees.department['id']);
-	        	$('#job-edit').val(employees.jobTitle['id']);
+	        	$('#empMid-edit').val(employees.middleInitial);
+	        	$('#last-edit').val(employees.lastName);
+	        	$('#empEmail-edit').val(employees.email);
+	        	$('#empSkype-edit').val(employees.skypeName);
+	        	$('#depart-edit').val(employees.department.id);
+	        	$('#job-edit').val(employees.jobTitle.id);
 	        
 	        }
 	    });
@@ -66,4 +84,5 @@ $(document).ready(function() {
 	});
 	
 });
+
 

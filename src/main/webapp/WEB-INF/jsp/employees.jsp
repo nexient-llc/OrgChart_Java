@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec"
 uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<style type="text/css">
+ .ui-menu {
+  background: white;
+  margin: auto;
+  padding: 0;
+  width: 150px;
+  list-style-type: none;
+  border: 1px solid;
+ }
+</style>
 <h3>Manage Employees</h3> 
 <br/>
 
@@ -15,7 +25,7 @@ uri="http://www.springframework.org/security/tags"%>
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Employee</legend>
-		<form:form id="newEmployee" name="New Employee" action="emps" method="post">
+		<form:form id="newEmployee" name="New Employee" action="addEmployee" method="post">
 		First Name: <input type="text" name="firstName" required />
 		Last  Name: <input type="text" name="lastName" required/>
 		Middle    : <input type="text" name="middleInitial"  style="width: 20px;" maxlength="1"/>
@@ -43,7 +53,7 @@ uri="http://www.springframework.org/security/tags"%>
 <div class="editClass" id="editEntity" style="display: none">
 	<fieldset>
 		<legend>Edit Employee</legend>
-		<form:form name="Edit Employee" action="emps" method="post">
+		<form:form name="Edit Employee" action="update" method="post">
 			<div>  
 				<input type="hidden" id="empId" name="id"/>
 				 *First Name <input id="first-edit" type="text" name="firstName" />
@@ -75,35 +85,35 @@ uri="http://www.springframework.org/security/tags"%>
 <div id="searchBtn-container">
 <button type="button" id="searchBtn" style="width: 45px;">Filter</button>	
 </div>
-
-<div class="searchClass" id="searchEntity" style="display: none">
-	<fieldset>
-		<legend>Edit Employee</legend>
-		<form:form name="Search Employee" action="emps" method="post">
-			<div>  
-				<input type="hidden" id="empId" name="id"/>
-				 Full Name <input id="searchFullName" type="text" name="firstName" />
-				 Department:
-			<select id="searchDepartment" name="department.id">
-				<option value=""> </option>
+ 
+ <div class="searchClass" id="searchEntity" style="display: none"> 
+ 	<fieldset>
+ 		<legend>Edit Employee</legend> 
+		<form:form name="Search Employee" action="filterEmployees" method="get">
+ 			<div> 
+ 				<input type="hidden" id="empId" name="id"/> 
+ 				 Full Name <input id="searchFullName" type="text" name="firstName"/> 
+ 				 Department: 
+ 			<select id="searchDepartment" name="department.id">
+ 				<option value=""> </option>
 				<c:forEach items="${depts}" var="dept">  
 					<option value="${dept.getId()}">${dept.name}</option>
 				</c:forEach>
-			</select>
-				*Job Title:
-			<select id="searchJobTitle" name="jobTitle.id">
-				<option value=""> </option>
-				<c:forEach items="${titles}" var="title">  
-					<option value="${title.getId()}"> ${title.name}</option>
-				</c:forEach>
-			</select>
-				<button type="submit">Search</button>
-				<button id="searchEdit" type="reset" value="reset" >Cancel</button>
-			</div>
-			<div></div>
-		</form:form>
-	</fieldset>
-</div>
+ 			</select> 
+ 				*Job Title: 
+ 			<select id="searchJobTitle" name="jobTitle.id">
+				<option value=""> </option> 
+ 				<c:forEach items="${titles}" var="title">   
+ 					<option value="${title.getId()}"> ${title.name}</option> 
+				</c:forEach> 
+			</select> 
+				<button type="submit">Search</button> 
+ 				<button id="searchEdit" type="reset" value="reset" >Cancel</button> 
+ 			</div> 
+ 			<div></div>
+		</form:form> 
+	</fieldset> 
+ </div> 
 
 <table id="t1" style="width:400px;"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->

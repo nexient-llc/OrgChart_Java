@@ -2,9 +2,11 @@ package com.systemsinmotion.orgchart;
 
 import java.util.Random;
 
+import com.mysema.query.types.expr.BooleanExpression;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.entity.QEmployee;
 
 public class Entities {
 
@@ -19,13 +21,15 @@ public class Entities {
 	public static final String LAST_NAME = "last name";
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
+	public static final BooleanExpression PREDICATE = QEmployee.employee.isActive
+			.eq(true);
 
 	private static Random random = new Random();
 
 	public static Department department() {
 		Department department = new Department();
 		department.setName(departmentName());
-//		department.setId(departmentId());
+		// department.setId(departmentId());
 		return department;
 	}
 
@@ -34,7 +38,7 @@ public class Entities {
 		department.setId(id);
 		return department;
 	}
-	
+
 	public static Department department(Department parent) {
 		Department department = department();
 		department.setParentDepartment(parent);
@@ -45,9 +49,9 @@ public class Entities {
 		return DEPARTMENT_NAME + random.nextInt();
 	}
 
-//	private static Integer departmentId() {
-//		return DEPT_ID + random.nextInt();
-//	}
+	// private static Integer departmentId() {
+	// return DEPT_ID + random.nextInt();
+	// }
 
 	public static Employee employee(Department dept) {
 		Employee emp = new Employee();
@@ -55,11 +59,9 @@ public class Entities {
 		emp.setLastName(LAST_NAME);
 		emp.setEmail(EMAIL + random.nextInt());
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
-		//emp.setIsManager(false);
+		// emp.setIsManager(false);
 		return emp;
 	}
-
-
 
 	public static Employee employee() {
 		Employee emp = new Employee();
@@ -68,7 +70,7 @@ public class Entities {
 		emp.setLastName(LAST_NAME);
 		emp.setEmail(EMAIL + random.nextInt());
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
-		//emp.setIsManager(false);
+		// emp.setIsManager(false);
 		return emp;
 	}
 
@@ -84,7 +86,7 @@ public class Entities {
 		mgr.setLastName(LAST_NAME);
 		mgr.setEmail(EMAIL + random.nextInt());
 		mgr.setSkypeName(SKYPE_NAME + random.nextInt());
-		//mgr.setIsManager(true);
+		// mgr.setIsManager(true);
 		return mgr;
 	}
 

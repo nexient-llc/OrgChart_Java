@@ -12,6 +12,7 @@ public class AuthenticationSuccessHandler extends
 	@Override
 	protected String determineTargetUrl(HttpServletRequest request,
 			HttpServletResponse response) {
+		System.out.print("Here\n\n\n\n\n");
 		String targetUrl = request.getParameter("page");
 		if (StringUtils.hasText(targetUrl)) {
 			logger.debug("Redirecting to Url: " + targetUrl);

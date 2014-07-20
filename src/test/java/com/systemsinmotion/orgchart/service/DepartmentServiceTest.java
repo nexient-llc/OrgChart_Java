@@ -34,17 +34,43 @@ public class DepartmentServiceTest {
 	}
 
 	@Test
+	public void findActiveDepartments() {
+		List<Department> depts = this.departmentService.activeDepartments();
+		assertNotNull(depts);
+		assertTrue(depts.size() > 0);
+	}
+
+	@Test
 	public void findDepartmentByID() {
-		Department dept = this.departmentService.findDepartmentByID(Entities.DEPT_ID);
+		Department dept = this.departmentService
+				.findDepartmentByID(Entities.DEPT_ID);
 		assertNotNull(dept);
 		assertEquals(Entities.DEPT_ID, dept.getId());
 	}
 
 	@Test
 	public void storeDepartment() {
-		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
+		Department dept = this.departmentService
+				.storeDepartment(this.mockDepartment);
 		assertNotNull(dept);
-		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
+		assertEquals(
+				"Expected " + Entities.DEPT_ID + " but got " + dept.getId(),
+				Entities.DEPT_ID, dept.getId());
 	}
-	
+
+	@Test
+	public void removeDepartment() {
+
+		Department depart = departmentService.removeDepartment(mockDepartment);
+		assertNotNull(depart);
+		assertTrue(depart.isActive() == false);
+
+	}
+
+	@Test
+	public void update() {
+
+		Department depart = departmentService.update(mockDepartment);
+		assertNotNull(depart);
+	}
 }

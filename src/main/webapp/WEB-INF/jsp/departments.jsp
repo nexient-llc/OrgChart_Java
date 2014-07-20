@@ -10,7 +10,7 @@
 <div class="addClass" id="addEntity" style="display: none">
 	<fieldset>
 		<legend>Add Department</legend>
-		<form:form name="newDept" action="depts" method="post">
+		<form:form name="newDept" action="deptAdd" method="post">
 			<div>
 				<labeL>*Dept Name:</labeL><input type="text" name="name" required/> <labeL>Parent
 					Dept:</label> <select name="parentDepartment.id">
@@ -29,7 +29,7 @@
 <div class="editClass" id="editEntity" style="display: none">
 	<fieldset>
 		<legend>Edit Department</legend>
-		<form:form name="Edit Department" action="depts" method="post">
+		<form:form name="Edit Department" action="deptEdit" method="post">
 			<div>  
 				<labeL>Dept Name:</labeL><input id="department" type="text" name="name" />
 				<input type="hidden" id="departId" name="id"/>
@@ -54,20 +54,20 @@
 		</form:form>
 	</fieldset>
 </div>
-<table id="t1">
+<table id="t1" >
 	<tr>
-		<th>Dept Name</th>
-		<th>Parent Dept</th>
+		<th align="left" > Dept Name</th>
+		<th align="left" > Parent Dept</th>
 		<td id="addBtn-container">
 			<button type="button" id="addBtn" style="width: 45px;">Add</button>
 		</td>
 	</tr>
 	<c:forEach items="${depts}" var="dept">
 		<tr >
-			<td> ${dept.name}</td> 
-			<td> ${dept.parentDepartment.name}</td>
+			<td style="width:135px" align="left" >${dept.name}</td> 
+			<td style="width:125px" align="left" > ${dept.parentDepartment.name}</td>
 			<td>
-			<button class="editButton" value="${dept.id}" id="editEntity" style="width: 60px;">Modify</button>
+			<button  class="editButton" value="${dept.id}" id="editEntity" style="width: 60px;">Modify</button>
 			<button class="removeButton" value="${dept.id}" id="removeEntity" style="width: 60px;">Remove</button>
 			</td>
 		</tr>

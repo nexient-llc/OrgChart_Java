@@ -15,6 +15,7 @@
 		<put-attribute name="page-js" type="string" value="../scripts/departments.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
 	</definition>
+	
 	<definition name="emps" extends="main">
 		<put-attribute name="title" type="string" value="Employees" />
 		<put-attribute name="page-js" type="string" value="../scripts/employees.js" />
@@ -36,8 +37,9 @@
 
 	<definition name="admin/default" extends="main">
 		<put-attribute name="title" type="string" value="Admin" />
-		<put-attribute name="page-heading"
-			value="/WEB-INF/fragments/heading-no-login.jsp" />
+		<!--  <put-attribute name="page-heading"
+			value="/WEB-INF/fragments/heading-no-login.jsp" /> -->
+	    <put-attribute name="page-js" type="string" value="../scripts/orgChart.js" />
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/default.jsp" />
 	</definition>
 	
