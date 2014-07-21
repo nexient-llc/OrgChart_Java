@@ -31,7 +31,7 @@ public class AdminControllerTests {
 	
 	@Test
 	@Ignore
-	public void doLogin_GET() {
+	public void doLogin_GET(String name) {
 		assertEquals(View.ADMIN_LOGIN, controller.doLogin());
 	}
 }

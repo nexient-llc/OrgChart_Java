@@ -1,4 +1,8 @@
 $(document).ready(function() {
-	document.forms[0].elements['j_username'].focus();
+	alert("here");
+	document.forms[0].elements['userName'].focus();
 	
+	$('#submitBtn').submit(function(){
+		alert("Here");
+	});
 });

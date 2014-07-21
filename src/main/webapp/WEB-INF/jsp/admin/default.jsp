@@ -7,28 +7,11 @@ uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 Admin
-
-<table id="t1" style="width:400px;"> 
-	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
-   <th> Name</th>
-	<th>Department</th> <th>Job Title</th>
-	</tr> 
-	</table>
-	<table id="t1"> 
-	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
-	<c:forEach items="${emps}" var="emps">
-		<tr class="EmployeeTable"> 
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<td>delete</td>
-			</sec:authorize> -->
-			<td style="width:135px" align="left" > ${emps}</td>
-			<td style="width:150px" align="left" > ${emps.department.name}</td>
-			<td style="width:100px" align="left" > ${emps.jobTitle.name}</td>
-			<td>
-			<button class="editButton" value="${emps.id}"  id="editEntity" style="width: 60px;">Edit</button>
-			</td> 			
-		</tr>
-	</c:forEach> 
-</table>
+<form:form  action= 'j_spring_security_check' method='POST' > 
+        <label>User Name</label>
+        <input id='username' type='text' name='userName' />
+        <br/>
+        <label>Password</label>
+        <input id='userPassword' type='password' name='password' />
+        <button type='submit'>Submit</button>
+</form:form>

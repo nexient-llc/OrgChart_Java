@@ -5,7 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%> 
 
 <fieldset>
-	<legend>Login</legend>
+	<legend>Logins</legend>
 
 	<c:if
 		test="${not empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
@@ -14,21 +14,19 @@
 			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
 		</div>
 	</c:if>
-
-
-	<form action="<c:url value='j_spring_security_check' />"
-		method='GET'>
+	
+	<form action='j_spring_security_check' method='POST' >
 		<input type="hidden" name="page" value="${param.page}" />
 		<div>
 			<label for="j_username">User:</label><input type='text'
-				name='j_username'>
+				name='j_username' required />
 		</div>
 		<div>
 			<label for="j_password">Password:</label><input type='password'
-				name='j_password' />
+				name='j_password' required />
 		</div>
 		<div>
-			<button type="submit">Submit</button>
+			<button id='submitBtn' type="submit">Submit</button>
 		</div>
 	</form>
 </fieldset>
