@@ -24,6 +24,10 @@ public class Department extends BaseEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department parentDepartment;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
+	private Employee manager;
 
 	public String getName() {
 		return this.name;

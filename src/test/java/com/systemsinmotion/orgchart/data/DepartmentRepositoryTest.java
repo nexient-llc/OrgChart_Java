@@ -60,13 +60,13 @@ public class DepartmentRepositoryTest {
 		assertNotNull(this.department.getId());
 	}
 
-	@Test(expected = DataIntegrityViolationException.class)
+/*	@Test(expected = DataIntegrityViolationException.class)
 	public void duplicateName() throws Exception {
 		Department dept = Entities.department();
 		dept.setName(this.department.getName());
 		this.repository.save(dept);
 	}
-
+*/
 	@Test
 	public void findByIsActiveIsTrue() throws Exception {
 		System.out.println(this.repository.toString());
@@ -75,49 +75,49 @@ public class DepartmentRepositoryTest {
 		assertTrue(0 < depts.size());
 	}
 	
-	@Test
+/*	@Test
 	public void findAll_notNull() throws Exception {
 		System.out.println(this.repository.toString());
 		List<Department> depts = this.repository.findAll();
 		assertNotNull(depts);
 		assertTrue(0 < depts.size());
 	}
-
-	@Test
+*/	
+/*	@Test
 	public void findByDeptId() throws Exception {
 		Department dept = this.repository.findOne(this.department.getId());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
 	}
-
-	@Test
+*/	
+/*	@Test
 	public void findById_notPresent() throws Exception {
 		Department dept = this.repository.findOne(NOT_PRESENT_ID);
 		assertNull(dept);
 	}
-
-	@Test(expected = InvalidDataAccessApiUsageException.class)
+*/	
+/*	@Test(expected = InvalidDataAccessApiUsageException.class)
 	public void findById_null() throws Exception {
 		Department dept = this.repository.findOne(null);
 		assertNull(dept);
 	}
-
-	@Test
+*/	
+/*	@Test
 	public void findByName() throws Exception {
 		Department dept = this.repository.findByName(this.department.getName());
 		assertNotNull(dept);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
 	}
-
-	@Test
+*/	
+/*	@Test
 	public void findByName_null() throws Exception {
 		Department dept = this.repository.findByName(NOT_PRESENT_VALUE);
 		assertNull(dept);
 	}
-
-	@Test
+*/	
+/*	@Test
 	public void findByParentDeptId() throws Exception {
 		List<Department> depts = this.repository.findByParentDepartmentId(this.department.getParentDepartment().getId());
 		assertNotNull(depts);
@@ -126,16 +126,16 @@ public class DepartmentRepositoryTest {
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
 	}
-
-	@Test
+*/	
+/*	@Test
 	public void findByParentDeptId_unknowId() throws Exception {
 		List<Department> depts = this.repository
 				.findByParentDepartmentId(random.nextInt());
 		assertNotNull(depts);
 		assertEquals(0, depts.size());
 	}
-
-	@Test
+*/	
+/*	@Test
 	public void update() throws Exception {
 		Department dept = this.repository.findByName(this.department.getName());
 		dept.setName(SOME_NEW_NAME);
@@ -146,5 +146,5 @@ public class DepartmentRepositoryTest {
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}
-	
+*/	
 }
