@@ -1,6 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
-public class JobTitle {
+public class JobTitle extends BaseEntity {
 
 	private String name;
 	

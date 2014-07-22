@@ -1,5 +1,10 @@
 package com.systemsinmotion.orgchart.data;
 
-public class JobTitleRepository {
+import org.springframework.data.repository.NoRepositoryBean;
+
+import com.systemsinmotion.orgchart.entity.JobTitle;
+
+@NoRepositoryBean
+public interface JobTitleRepository extends BaseRepository<JobTitle,Integer>{
 
 }
