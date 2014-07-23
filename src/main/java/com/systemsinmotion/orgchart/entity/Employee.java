@@ -16,33 +16,32 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Employee extends BaseEntity {
 
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)
-	@NotNull
+	//@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 15)
 	private String firstName;
 
 	@Column(name = "MIDDLE_INITIAL")
-	@NotNull
-	@NotEmpty
 	private Character middleInitial; // TODO causes some errors in the EmployeeRepository tests
 
 	@Column(name = "LAST_NAME", nullable = false, length = 20)
-	@NotNull
+	//@NotNull
 	@NotEmpty
 	@Size(min = 1, max = 15)
 	private String lastName;
 	
 	@Column(name = "EMAIL", nullable = true, length = 100)
-	@Size(min = 3, max = 100)
+	@Size(min = 1, max = 99)
 	private String email;
 	
 	@Column(name = "SKYPE_NAME", nullable = true, length = 100)
-	@Size(min = 3, max = 100)
+	@Size(min = 1, max = 100)
 	private String skypeName;
 	
 	@Column(name = "IS_MANAGER")
 	private boolean isManager;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
 	private JobTitle jobTitle;
 
