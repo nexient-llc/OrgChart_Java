@@ -42,15 +42,15 @@ public class Employee extends BaseEntity {
 	private boolean isManager;
 	
 	@ManyToOne//(fetch = FetchType.EAGER)
-	@JoinColumn(name = "JOB_TITLE_ID")//, referencedColumnName = "ID")
+	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
 	private JobTitle jobTitle;
 
 	@ManyToOne//(fetch = FetchType.EAGER)
-	@JoinColumn(name = "MANAGER_ID")//, referencedColumnName = "ID")
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
 	private Employee manager;
 
 	@ManyToOne//(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DEPARTMENT_ID")//, referencedColumnName = "ID")
+	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department department;
 
 	// Get Details About Employee

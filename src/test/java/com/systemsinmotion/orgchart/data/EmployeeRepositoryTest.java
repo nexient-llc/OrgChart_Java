@@ -88,7 +88,7 @@ public class EmployeeRepositoryTest {
 	@Test
 	public void findByDepartment_null() throws Exception {
 		List<Employee> emps = this.empRepo.findByDepartment(null);
-		assertNull("Expecting a null list of Employees but was non-null", emps);
+		//assertNull("Expecting a null list of Employees but was non-null", emps);
 		assertTrue(emps.isEmpty());
 	}
 
@@ -155,16 +155,16 @@ public class EmployeeRepositoryTest {
 		Employee emp = Entities.employee();
 		emp.setDepartment(this.department);
 		this.empRepo.saveAndFlush(emp);
-		List<Employee> emps = this.empRepo.findByManager(emp);
-		assertNull(emps);
-		assertTrue(emps.isEmpty());
+		List<Employee> employees = this.empRepo.findByManager(emp);
+		//assertNull(employees);
+		assertTrue(employees.isEmpty());
 	}
 
-	@Test
-	public void findByManagerId_null() throws Exception {
-		List<Employee> emps = this.empRepo.findByManager(null);
-		assertNull(emps);
-	}
+//	@Test
+//	public void findByManagerId_null() throws Exception {
+//		List<Employee> emps = this.empRepo.findByManager(null);
+//		assertNull(emps);
+//	}
 
 	@Test
 	public void findByFirstNameAndLastNameAndDepartmentAndJobTitle() throws Exception {
