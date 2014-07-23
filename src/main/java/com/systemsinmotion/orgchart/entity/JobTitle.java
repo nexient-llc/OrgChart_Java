@@ -15,7 +15,7 @@ public class JobTitle extends BaseEntity {
 	@Column(name = "NAME", nullable = false, length = 50)
 	@NotNull
 	@NotEmpty
-	@Size(min = 1, max = 15)
+	@Size(min = 1, max = 49)
 	private String name;
 	
 	public void setName(String newName) {

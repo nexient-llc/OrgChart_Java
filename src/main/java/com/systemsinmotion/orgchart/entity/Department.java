@@ -15,6 +15,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "DEPARTMENT")
 public class Department extends BaseEntity {
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
+	private Employee manager;
+	
 	@Column(name = "NAME", nullable = false, length = 50)
 	@NotNull
 	@NotEmpty
@@ -25,10 +29,6 @@ public class Department extends BaseEntity {
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department parentDepartment;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
-	private Employee manager;
-
 	public String getName() {
 		return this.name;
 	}

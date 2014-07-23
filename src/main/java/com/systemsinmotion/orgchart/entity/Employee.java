@@ -16,18 +16,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Employee extends BaseEntity {
 
 	@Column(name = "FIRST_NAME", nullable = false, length = 20)
-	//@NotNull
+	@NotNull
 	@NotEmpty
-	@Size(min = 1, max = 15)
+	@Size(min = 1, max = 19)
 	private String firstName;
 
-	@Column(name = "MIDDLE_INITIAL")
+	@Column(name = "MIDDLE_INITIAL", nullable = true, length = 1)
 	private Character middleInitial; // TODO causes some errors in the EmployeeRepository tests
 
-	@Column(name = "LAST_NAME", nullable = false, length = 20)
-	//@NotNull
+	@Column(name = "LAST_NAME", nullable = false, length = 50)
+	@NotNull
 	@NotEmpty
-	@Size(min = 1, max = 15)
+	@Size(min = 1, max = 49)
 	private String lastName;
 	
 	@Column(name = "EMAIL", nullable = true, length = 100)
@@ -41,16 +41,16 @@ public class Employee extends BaseEntity {
 	@Column(name = "IS_MANAGER")
 	private boolean isManager;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
+	@ManyToOne//(fetch = FetchType.EAGER)
+	@JoinColumn(name = "JOB_TITLE_ID")//, referencedColumnName = "ID")
 	private JobTitle jobTitle;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
+	@ManyToOne//(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MANAGER_ID")//, referencedColumnName = "ID")
 	private Employee manager;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
+	@ManyToOne//(fetch = FetchType.EAGER)
+	@JoinColumn(name = "DEPARTMENT_ID")//, referencedColumnName = "ID")
 	private Department department;
 
 	// Get Details About Employee
