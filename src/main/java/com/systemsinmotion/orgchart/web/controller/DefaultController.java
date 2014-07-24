@@ -2,17 +2,11 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.internal.SessionFactoryImpl;
-import org.hibernate.metamodel.SessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -106,10 +100,9 @@ public class DefaultController {
 	
 	@RequestMapping(value = "searchemps", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public String doSearchEmployees_GET(@RequestParam(value = "filterName", defaultValue="") String fullName,
+	public String doSearchFullFilterEmployees_GET(@RequestParam(value = "filterName", defaultValue="") String fullName,
 			@RequestParam(value = "deptid", defaultValue="") String deptId,
 			@RequestParam(value = "jobid", defaultValue="") String jobId,
-			String string4,
 			Model model) {
 //		List<Employee> employees = getFilteredEmployees_bySwitch(fullName, deptId, jobId);
 		List<Employee> employees = getFilteredEmployees_byCriteria(fullName, deptId, jobId);
@@ -122,11 +115,13 @@ public class DefaultController {
 	@RequestMapping(value = "searchEmployeeName/{name}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody String doSearchEmployees_GET(@PathVariable("name") String fullName) {
+		if (fullName == null)
+			fullName = "";
 		List<SimpleEmployee> employees = getFilteredEmployeeNames(fullName);
 		return putCommaDelimitersInAListOfEmployees(employees);
 	}
 	
-	public String putCommaDelimitersInAListOfEmployees(List<SimpleEmployee> employees) {
+	private String putCommaDelimitersInAListOfEmployees(List<SimpleEmployee> employees) {
 		String output = new String();
 		for (SimpleEmployee emp : employees)
 		{
