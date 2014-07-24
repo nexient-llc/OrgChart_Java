@@ -43,73 +43,73 @@ public class DefaultController {
 
 	@Autowired
 	JobTitleService jobTitleService;
-
+	
+//************************* GET Methods****************************************
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
 	}
-
-	@RequestMapping(value = "depts", method = RequestMethod.GET)
-	public String doDepartments_GET(Model model) {
-		List<Department> departments = departmentService.findAllActiveDepartments();
-		model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
-	}
-
+	
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(String string, String string2,
 			String string3, String string4, Model model) {
-		List<Employee> employees = employeeService.findAllEmployees();
-		model.addAttribute("emps", employees);
-		doJobTitles_GET(model);
-		doDepartments_GET(model);
+		addAllActiveEmployeesToModel(model);
+		addAllActiveJobTitlesToModel(model);
+		addAllActiveDepartmentsToModel(model);
 		return View.EMPLOYEES;
+	}
+
+	@RequestMapping(value = "depts", method = RequestMethod.GET)
+	public String doDepartments_GET(Model model) {
+		addAllActiveDepartmentsToModel(model);
+		return View.DEPARTMENTS;
 	}
 
 	@RequestMapping(value = "titles", method = RequestMethod.GET)
 	public String doJobTitles_GET(Model model) {
-		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
-		model.addAttribute("titles", jobTitles);
+		addAllActiveJobTitlesToModel(model);
 		return View.JOB_TITLES;
 	}
-
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
+	
+//************************* POST Methods****************************************
+	@RequestMapping(value = "empl", method = RequestMethod.POST)
+	public String doEmployees_POST(Employee employee, Model model) {
+		this.employeeService.storeEmployee(employee);
+		addAllActiveEmployeesToModel(model);
+		return REDIRECT + View.EMPLOYEES;
 	}
 
 	@RequestMapping(value = "depart", method = RequestMethod.POST)
 	public String doDepartments_POST(Department department, Model model) {
-		this.departmentService.storeNewDepartment(department);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
+		this.departmentService.saveDepartment(department);
+		addAllActiveDepartmentsToModel(model);
 		return REDIRECT + View.DEPARTMENTS;
 	}
-
-	@RequestMapping(value = "empl", method = RequestMethod.POST)
-	public String doEmployees_POST(Employee employee, Model model) {
-		this.employeeService.storeEmployee(employee);
-		List<Employee> employees = employeeService.findAllEmployees();
-		model.addAttribute("emps", employees);
-		return REDIRECT + View.EMPLOYEES;
-	}
-
+	
 	@RequestMapping(value = "title", method = RequestMethod.POST)
 	public String doJobTitles_POST(JobTitle jobTitle, Model model) {
-		this.jobTitleService.storeJobTitle(jobTitle);
-		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
-		model.addAttribute("titles", jobTitles);
+		this.jobTitleService.saveJobTitle(jobTitle);
+		addAllActiveJobTitlesToModel(model);
 		return REDIRECT + View.JOB_TITLES;
 	}
 	
+//************************* PUT Methods****************************************
 	// Code Spike put
 	@RequestMapping(value = "depart", method = RequestMethod.PUT)
 	public String doDepartments_PUT(Department department, Model model) {
-		this.departmentService.storeNewDepartment(department);
-		List<Department> departments = departmentService.findAllDepartments();
-		model.addAttribute("depts", departments);
+		this.departmentService.saveDepartment(department);
+		addAllActiveDepartmentsToModel(model);
 		return REDIRECT + View.DEPARTMENTS;
+	}	
+	
+	@RequestMapping(value = "title", method = RequestMethod.PUT)
+	public String doJobTitles_PUT(JobTitle jobTitle, Model model) {
+		this.jobTitleService.saveJobTitle(jobTitle);
+		addAllActiveJobTitlesToModel(model);
+		return REDIRECT + View.JOB_TITLES;
 	}
 	
+//************************* DELETE Methods****************************************
 	// Code Spike delete
 	@RequestMapping(value = "delete/dept/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody ResponseEntity<String> doDepartments_Delete(@PathVariable("id") Integer id) {
@@ -121,7 +121,39 @@ public class DefaultController {
 		return new ResponseEntity<String>(removeMsg, HttpStatus.ACCEPTED);
 	}
 	
+	@RequestMapping(value = "delete/title/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody ResponseEntity<String> doJobTitle_Delete(@PathVariable("id") Integer id) {
+		JobTitle jobTitle = jobTitleService.findbyID(id);
+		
+		this.jobTitleService.removeJobTitle(jobTitle);
+		
+		String removeMsg = "Job Title " + jobTitle.getName() + " succesfully removed.";
+		return new ResponseEntity<String>(removeMsg, HttpStatus.ACCEPTED);
+	}
+	
+//************************* AJAX Methods****************************************
+	
+	// Code Spike AJAX
+	@RequestMapping(value = "dept/{id}", method = RequestMethod.GET)
+	public @ResponseBody String getDeptAjax(@PathVariable("id") Integer id) {
+		if (id == null) {
+			return "";
+		}
+		Department dept = departmentService.findDepartmentByID(id);
+		return dept.toString();
+	}
+
+	@RequestMapping(value = "title/{id}", method = RequestMethod.GET)
+	public @ResponseBody String getJobAjax(@PathVariable("id") Integer id) {
+		if (id == null) {
+			return "";
+		}
+		JobTitle jobtitle = jobTitleService.findbyID(id);
+		return jobtitle.toString();
+	}
+	
 	// Code Spike exception handler
+	
 	@ExceptionHandler(ConstraintViolationException.class) 
 	public RedirectView test() {
 		RedirectView redirectView = new RedirectView(View.HOME);
@@ -135,18 +167,26 @@ public class DefaultController {
 			
 			throw new ConstraintViolationException("You failed", new SQLException("failed"), "name");
 		}
-
+		
 		return View.DEPARTMENTS;
 	}
-	
-	// Code Spike AJAX
-	@RequestMapping(value = "depts/{id}", method = RequestMethod.GET)
-	public @ResponseBody String getDeptAjax(@PathVariable("id") Integer id) {
-		if (id == null) {
-			return "";
-		}
-		Department dept = departmentService.findDepartmentByID(id);
-		return dept.toString();
-	}
 
+	private void addAllActiveEmployeesToModel(Model model) {
+		List<Employee> employees = employeeService.findAllActiveEmployees();
+		model.addAttribute("emps", employees);
+	}
+	
+	private void addAllActiveDepartmentsToModel(Model model) {
+		List<Department> departments = departmentService.findAllActiveDepartments();
+		model.addAttribute("depts", departments);
+	}
+	
+	private void addAllActiveJobTitlesToModel(Model model) {
+		List<JobTitle> jobTitles = jobTitleService.findAllActiveJobTitles();
+		model.addAttribute("titles", jobTitles);
+	}
+	
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
 }

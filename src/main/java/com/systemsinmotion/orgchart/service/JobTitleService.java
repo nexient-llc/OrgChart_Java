@@ -25,10 +25,20 @@ public class JobTitleService {
 		return this.repository.findOne(id);
 	}
 
-	public JobTitle storeJobTitle(JobTitle jobTitle) {
+	private JobTitle storeJobTitle(JobTitle jobTitle) {
 		return repository.save(jobTitle);
 	}
 
+	public JobTitle saveJobTitle(JobTitle jobTitle) {
+		jobTitle.setIsActive(true);
+		return storeJobTitle(jobTitle);
+	}
+
+	public void removeJobTitle(JobTitle jobtitle) {
+		jobtitle.setIsActive(false);
+		storeJobTitle(jobtitle);
+	}
+	
 	public List<JobTitle> findAllActiveJobTitles() {
 		return this.repository.findByIsActiveIsTrue();
 	}

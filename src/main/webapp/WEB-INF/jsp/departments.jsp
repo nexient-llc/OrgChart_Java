@@ -15,9 +15,10 @@
 		<legend>Add New Department</legend>
 		<form name="newDept" action="depart" method="post">
 			<div>
-				<labeL>*Department Name:</labeL><input type="text" name="name"
-					required /> <labeL>Parent Department:</label> <select class="deptDropDown"
-					name="parentDepartment.id">
+				<labeL>*Department Name:</labeL>
+				<input type="text" name="name"required /> 
+				<labeL>Parent Department:</label> 
+				<select class="deptDropDown" name="parentDepartment.id">
 					<option value="">...</option>
 					<c:forEach items="${depts}" var="dept">
 						<option value="${dept.id}">${dept.name}</option>
@@ -58,9 +59,10 @@
 		<form:form name="editDept" action="depart" method="put">
 			<input type="hidden" id="departmentId" name="id"/>
 			<div>
-				<labeL>*Department Name:</labeL> <input type="text" name="name"
-					id="departmentName" required /> <labeL>Parent Department:</label> <select
-					class="deptDropDown" name="parentDepartment.id" id="parentDepartment">
+				<labeL>*Department Name:</labeL> 
+				<input type="text" name="name" id="departmentName" required /> 
+				<labeL>Parent Department:</label> 
+				<select	class="deptDropDown" name="parentDepartment.id" id="parentDepartment">
 					<option value="">...</option>
 					<c:forEach items="${depts}" var="dept">
 						<option value="${dept.id}">${dept.name}</option>

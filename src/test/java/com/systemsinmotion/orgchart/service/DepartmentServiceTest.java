@@ -48,14 +48,14 @@ public class DepartmentServiceTest {
 
 	@Test
 	public void storeDepartment() {
-		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
+		Department dept = this.departmentService.saveDepartment(this.mockDepartment);
 		assertNotNull(dept);
 		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
 	}
 	
 	@Test
 	public void storeNewDepartment() {
-		Department dept = this.departmentService.storeNewDepartment(this.mockDepartment);
+		Department dept = this.departmentService.saveDepartment(this.mockDepartment);
 		assertNotNull(dept);
 		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
 	}

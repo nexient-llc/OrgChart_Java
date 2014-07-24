@@ -13,7 +13,7 @@
 <div id="addEntity-container" style="display: none">
 	<fieldset>
 		<legend>Add New Job Title</legend>
-		<form name="newJob" action="job" method="post">
+		<form name="newJob" action="title" method="post">
 			<div>
 				<labeL>*Job Title Name:</labeL>
 				<input type="text" name="name" required />
@@ -33,32 +33,25 @@
 			<th>Job Title</th>
 			<th></th>
 		</tr>
-		<c:forEach items="${depts}" var="dept">
-			<tr id="tableRow${dept.id}">
+		<c:forEach items="${titles}" var="title">
+			<tr id="tableRow${title.id}">
 				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<td>delete</td>
 				</sec:authorize> -->
-				<td>${dept.name}</td>
-				<td>${dept.parentDepartment.name}</td>
-				<td><button class="editButton" value="${dept.id}">Edit</button></td>
+				<td>${title.name}</td>
+				<td><button class="editButton" value="${title.id}">Edit</button></td>
 			</tr>
 		</c:forEach>
 	</table>
 </div>
 <div id="editEntity-container" style="display: none">
 	<fieldset>
-		<legend>Edit Department</legend>
-		<form:form name="editDept" action="depart" method="put">
-			<input type="hidden" id="departmentId" name="id"/>
+		<legend>Edit Job Title</legend>
+		<form:form name="editJobs" action="title" method="put">
+			<input type="hidden" id="jobTitleId" name="id"/>
 			<div>
-				<labeL>*Department Name:</labeL> <input type="text" name="name"
-					id="departmentName" required /> <labeL>Parent Department:</label> <select
-					class="deptDropDown" name="parentDepartment.id" id="parentDepartment">
-					<option value="">...</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}">${dept.name}</option>
-					</c:forEach>
-				</select>
+				<labeL>*Job Title Name:</labeL> 
+				<input type="text" name="name" id="jobTitleName" required /> 
 				<button type="submit">Save</button>
 				<button type="reset" id="cancelEditButton">Cancel</button>
 				<button type="button" id="removeButton">Remove</button>

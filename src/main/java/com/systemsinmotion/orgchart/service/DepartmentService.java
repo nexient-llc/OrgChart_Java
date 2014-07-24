@@ -33,19 +33,18 @@ public class DepartmentService {
 		this.repository = repository;
 	}
 
-	@Transactional
 	public void removeDepartment(Department department) {
 		department.setIsActive(false);
 		storeDepartment(department);
 	}
 
 	@Transactional
-	public Department storeDepartment(Department department) {
+	private Department storeDepartment(Department department) {
 		return repository.save(department);
 	}
 	
 	@Transactional
-	public Department storeNewDepartment(Department department) {
+	public Department saveDepartment(Department department) {
 		Department parentDepartment = department.getParentDepartment();
 		if(parentDepartment!=null&&parentDepartment.getId()==null)
 			department.setParentDepartment(null);

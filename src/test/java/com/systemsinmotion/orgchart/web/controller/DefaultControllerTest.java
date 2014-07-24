@@ -1,12 +1,15 @@
 package com.systemsinmotion.orgchart.web.controller;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
@@ -37,7 +40,7 @@ public class DefaultControllerTest {
 	
 	@Autowired
 	private JobTitle mockJobTitle;
-
+	
 
 	//	Map model = new HashMap<String, Object>();
 	Model model = new ExtendedModelMap();
@@ -79,6 +82,78 @@ public class DefaultControllerTest {
 		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(1).getId());
 		assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnDepartmentPagePut() {
+		
+		//model.addAttribute("depts", findAllDepartmentsList);
+		//Given
+		controller.doDepartments_PUT(mockDepartment, model);
+		//When
+		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+		
+		//Then
+		assertNotNull(findAllDepartmentsList);
+		assertTrue(findAllDepartmentsList.size() > 1);
+		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(1).getId());
+		assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnDepartmentPageDelete() {
+		//Given
+		
+		//When
+		ResponseEntity<String> response = controller.doDepartments_Delete(mockDepartment.getId());
+		
+		//Then
+		verify(mockDepartmentService,times(1)).findDepartmentByID(mockDepartment.getId());
+		verify(mockDepartmentService,times(1)).removeDepartment(mockDepartment);
+		
+		String expectedMessage = "Department " + mockDepartment.getName() + " succesfully removed.";
+		assertEquals(expectedMessage,response.getBody());
+		
+		assertEquals(HttpStatus.ACCEPTED,response.getStatusCode());
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnDepartmentPageDelete_DepartmentNotFound() {
+		//Given
+		
+		//When
+		ResponseEntity<String> response = controller.doDepartments_Delete(5);
+		
+		//Then
+		verify(mockDepartmentService,times(1)).findDepartmentByID(5);
+//		verify(mockDepartmentService,times(0)).removeDepartment(any(Department.class));
+		
+		String expectedMessage = "Department " + mockDepartment.getName() + " succesfully removed.";
+		assertEquals(expectedMessage,response.getBody());
+		
+		assertEquals(HttpStatus.ACCEPTED,response.getStatusCode());
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnDepartmentPageDelete_DepartmentIdIsNull() {
+		//Given
+		
+		//When
+		ResponseEntity<String> response = controller.doDepartments_Delete(null);
+		
+		//Then
+//		verify(mockDepartmentService,times(0)).findDepartmentByID(any(Integer.class));
+//		verify(mockDepartmentService,times(0)).removeDepartment(any(Department.class));
+		
+		String expectedMessage = "Department " + mockDepartment.getName() + " succesfully removed.";
+		assertEquals(expectedMessage,response.getBody());
+		
+		assertEquals(HttpStatus.ACCEPTED,response.getStatusCode());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -141,6 +216,24 @@ public class DefaultControllerTest {
 		assertEquals(Entities.JOB_TITLE_ID, findAllJobTitlesList.get(1).getId());
 		assertEquals(findAllJobTitlesList.get(1).getName(), mockJobTitle.getName());
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnJobTitlePagePut() {
+		
+		model.addAttribute("titles", findAllJobTitlesList);
+		//Given
+		controller.doJobTitles_PUT(mockJobTitle, model);
+		//When
+		findAllJobTitlesList = (ArrayList<JobTitle>)model.asMap().get("titles");
+		
+		//Then
+		assertNotNull(findAllJobTitlesList);
+		assertTrue(findAllJobTitlesList.size() > 1);
+		assertEquals(Entities.JOB_TITLE_ID, findAllJobTitlesList.get(1).getId());
+		assertEquals(findAllJobTitlesList.get(1).getName(), mockJobTitle.getName());
+		
 	}
 
 }

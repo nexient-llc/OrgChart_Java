@@ -16,7 +16,7 @@ $(document).ready(function() {
 	$('.editButton').click(function() {
 		
 		$.ajax({
-			   url : "depts/" + $(this).val(),
+			   url : "dept/" + $(this).val(),
 			   type : "GET"
 		}).done(function(data){
 			

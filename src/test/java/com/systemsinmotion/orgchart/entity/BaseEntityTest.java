@@ -1,8 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 
@@ -38,6 +36,6 @@ public class BaseEntityTest {
 	public void setAndGetIsActive() {
 		this.baseEntity.setIsActive(false);
 		assertNotNull(this.baseEntity.getIsActive());
-		assertTrue(baseEntity.getIsActive() == false);
+		assertFalse(baseEntity.getIsActive());
 	}
 }

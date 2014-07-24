@@ -58,9 +58,10 @@ public class TestControllerConfig {
 	@Bean
 	DepartmentService getDepartmentService() {
 		DepartmentService service = mock(DepartmentService.class);
+		when(service.findDepartmentByID(mockDepartment.getId())).thenReturn(mockDepartment);
 		when(service.findAllDepartments()).thenReturn(listOfFoundDepts);
 		when(service.findAllActiveDepartments()).thenReturn(listOfFoundDepts);
-		when(service.storeNewDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
+		when(service.saveDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
 		     public Department answer(InvocationOnMock invocation) {
 		         listOfFoundDepts.add(mockDepartment);
 		         return mockDepartment;
@@ -73,6 +74,7 @@ public class TestControllerConfig {
 	EmployeeService getEmployeeService() {
 		EmployeeService service = mock(EmployeeService.class);
 		when(service.findAllEmployees()).thenReturn(listOfFoundEmployees);
+		when(service.findAllActiveEmployees()).thenReturn(listOfFoundEmployees);
 		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
 		     public Employee answer(InvocationOnMock invocation) {
 		         listOfFoundEmployees.add(mockEmployee);
@@ -86,7 +88,8 @@ public class TestControllerConfig {
 	JobTitleService getJobTitleService() {
 		JobTitleService service = mock(JobTitleService.class);
 		when(service.findAllJobTitles()).thenReturn(listOfFoundTitles);
-		when(service.storeJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
+		when(service.findAllActiveJobTitles()).thenReturn(listOfFoundTitles);
+		when(service.saveJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
 		     public JobTitle answer(InvocationOnMock invocation) {
 		         listOfFoundTitles.add(mockTitle);
 		         return mockTitle;
@@ -104,6 +107,7 @@ public class TestControllerConfig {
 	DepartmentRepository getDepartmentRepository() {
 		DepartmentRepository repo = mock(DepartmentRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundDepts);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundDepts);
 		when(repo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(repo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
 		return repo;
@@ -118,6 +122,7 @@ public class TestControllerConfig {
 	JobTitleRepository getJobTitleRepository() {
 		JobTitleRepository repo = mock(JobTitleRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundTitles);
 		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
 		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
 		return repo;
@@ -132,6 +137,7 @@ public class TestControllerConfig {
 	EmployeeRepository getEmployeeRepository() {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
 		when(repo.findAll()).thenReturn(listOfFoundEmployees);
+		when(repo.findByIsActiveIsTrue()).thenReturn(listOfFoundEmployees);
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		return repo;

@@ -62,7 +62,7 @@ public class JobTitleServiceTest {
 
 	@Test
 	public void storeJobTitle() {
-		JobTitle title = this.titleService.storeJobTitle(this.mockTitle);
+		JobTitle title = this.titleService.saveJobTitle(this.mockTitle);
 		assertNotNull(title);
 		assertEquals("Expected " + this.mockTitle.getName() + " but got "
 				+ title.getName(), this.mockTitle.getName(), title.getName());

@@ -16,22 +16,16 @@ $(document).ready(function() {
 	$('.editButton').click(function() {
 		
 		$.ajax({
-			   url : "depts/" + $(this).val(),
+			   url : "title/" + $(this).val(),
 			   type : "GET"
 		}).done(function(data){
 			
 			var form = $.parseJSON(data);
 			
-			$('#departmentName').val(form.name);
-			$('#departmentId').val(form.id);
-			
-			if (form.parentDepartment) {
-				$('#parentDepartment').val(form.parentDepartment.id);
-			} else {
-			    $('#parentDepartment').val("");
-			}
-
-			$('#deptTable-container').fadeToggle("fast", "linear");
+			$('#jobTitleName').val(form.name);
+			$('#jobTitleId').val(form.id);
+						
+			$('#jobTitlesTable-container').fadeToggle("fast", "linear");
 			$('#editEntity-container').fadeToggle("fast", "linear");
 			
 		});
@@ -39,22 +33,21 @@ $(document).ready(function() {
 	
 	$('#cancelEditButton').click(function() {
 		$('#editEntity-container').fadeToggle("fast", "linear", function() {
-			$('#deptTable-container').fadeToggle("fast", "linear");
+			$('#jobTitlesTable-container').fadeToggle("fast", "linear");
 		});
 	});
 	
 	
 	$('#removeButton').click(function() {
-		var deptId = $('#departmentId').val();
+		var jobTitleId = $('#jobTitleId').val();
 		$.ajax({
-			   url : "delete/dept/" + deptId,
+			   url : "delete/title/" + jobTitleId,
 			   type : "DELETE"
 		}).done(function(){
 			
-			$('#tableRow'+deptId).remove();
-			$(".deptDropDown option[value='" +deptId+"']").remove();
+			$('#tableRow'+jobTitleId).remove();
 			$('#editEntity-container').fadeToggle("fast", "linear", function() {
-				$('#deptTable-container').fadeToggle("fast", "linear");
+				$('#jobTitlesTable-container').fadeToggle("fast", "linear");
 			});
 		});
 		
