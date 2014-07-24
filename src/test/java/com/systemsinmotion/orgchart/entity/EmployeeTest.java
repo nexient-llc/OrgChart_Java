@@ -9,9 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class EmployeeTest {
+	
+	private static final boolean IS_MANAGER = true;
 	private static final Character MIDDLE_INITIAL = 'M';
 	private static final String LAST_NAME = "last name";
 	private static final String FIRST_NAME = "first name";
+	private static final String EMAIL = "someone@blah.com";
+	private static final String SKYPE_NAME = "skype.name";
+	
+	JobTitle jobTitle;
 	Employee emp;
 	Employee mgr;
 	Department dept;
@@ -25,6 +31,7 @@ public class EmployeeTest {
 		mgr.setId(random.nextInt());
 		dept = new Department();
 		dept.setId(random.nextInt());
+		jobTitle = new JobTitle();
 	}
 
 	@Test
@@ -69,5 +76,33 @@ public class EmployeeTest {
 		emp.setDepartment(dept);
 		assertNotNull(emp.getDepartment());
 		assertEquals(dept.getId(),emp.getDepartment().getId());
+	}
+	
+	@Test
+	public void setAndGetEmail(){
+		emp.setEmail(EMAIL);
+		assertNotNull(emp.getEmail());
+		assertEquals(EMAIL,emp.getEmail());
+	}
+	
+	@Test
+	public void setAndGetJobTitle(){
+		emp.setJobTitle(jobTitle);
+		assertNotNull(emp.getJobTitle());
+		assertEquals(jobTitle.getName(),emp.getJobTitle().getName());
+	}
+	
+	@Test
+	public void setAndGetSkypeName(){
+		emp.setSkypeName(SKYPE_NAME);
+		assertNotNull(emp.getSkypeName());
+		assertEquals(SKYPE_NAME,emp.getSkypeName());
+	}
+	
+	@Test
+	public void setAndGetIsManager(){
+		emp.setIsManager(IS_MANAGER);
+		assertNotNull(emp.getIsManager());
+		assertEquals(IS_MANAGER, emp.getIsManager());
 	}
 }

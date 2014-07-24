@@ -20,31 +20,38 @@ import com.systemsinmotion.orgchart.entity.Employee;
 @ContextConfiguration(classes = TestServiceConfig.class)
 public class EmployeeServiceTest {
 
-//	@Autowired
-//	private EmployeeService employeeService;
-//	
-//	@Autowired
-//	private Employee mockEmployee;
-//	
-//	@Test
-//	public void findAllEmployees() {
-//		List<Employee> emps = this.employeeService.findAllEmployees();
-//		assertNotNull(emps);
-//		assertTrue(emps.size() > 0);
-//	}
-//	
-//	@Test 
-//	public void findEmployeeByID() {
-//		Employee emp = this.employeeService.findEmployeeByID(Entities.EMPLOYEE_ID);
-//		assertNotNull(emp);
-//		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
-//	}
-//	
-//	@Test
-//	public void storeEmployee(){
-//		Employee emp = this.employeeService.storeEmployee(this.mockEmployee);
-//		assertNotNull(emp);
-//		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
-//	}
+	@Autowired
+	private EmployeeService employeeService = new EmployeeService();
+	
+	@Autowired
+	private Employee mockEmployee;
+	
+	@Test
+	public void init(){
+		assertNotNull(this.employeeService);
+	}
+	
+	@Test
+	public void findAllEmployees() {
+		List<Employee> emps = this.employeeService.findAllEmployees();
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	
+	@Test 
+	public void findEmployeeByID() {
+		Employee emp = this.employeeService.findEmployeeByID(Entities.EMPLOYEE_ID);
+		System.out.println(mockEmployee);
+		System.out.println(emp);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
+	}
+	
+	@Test
+	public void storeEmployee(){
+		Employee emp = this.employeeService.storeEmployee(this.mockEmployee);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
+	}
 	
 }
