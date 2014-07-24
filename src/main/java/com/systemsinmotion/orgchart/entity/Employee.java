@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -28,6 +29,9 @@ public class Employee extends BaseEntity {
 	
 	@Column(name = "MIDDLE_INITIAL", length = 1)
 	private Character midInitial;
+	
+	@Column(name = "IS_MANAGER")
+	private Boolean isManager;
 
 	@Column(name = "EMAIL", length = 100)
 	@Size(min = 1, max = 99)
@@ -73,6 +77,16 @@ public class Employee extends BaseEntity {
 		return midInitial;
 	}
 
+	public void setIsManager(Boolean isManager)
+	{
+		this.isManager = isManager;
+	}
+	
+	public Boolean getIsMananger()
+	{
+		return isManager;
+	}
+	
 	public String getFullName() {
 		String fullName = "";
 		if (firstName != null)

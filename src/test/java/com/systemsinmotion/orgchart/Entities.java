@@ -15,27 +15,30 @@ public class Entities {
 	public static final String EMAIL = "email";
 	public static final Integer EMPLOYEE_ID = 5;
 	public static final Integer SIMPLE_EMPLOYEE_ID = 3;
-	public static final String FIRST_NAME = "first name";
+	public static final String FIRST_NAME = "firstName";
 	public static final String JOB_TITLE = "Job Title";
 	public static final Integer JOB_TITLE_ID = 5;
 	public static final String JOB_TITLE_NAME = "JobTitle";
-	public static final String LAST_NAME = "last name";
+	public static final String LAST_NAME = "lastName";
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
+	public static final String FULL_NAME = FIRST_NAME + " " + LAST_NAME;
 	
 	public static final Integer EMPLOYEE_ID_2 = 7;
 	public static final Integer SIMPLE_EMPLOYEE_ID_2 = 8;
-	public static final String FIRST_NAME_2 = "1st name";
-	public static final String LAST_NAME_2 = "2nd name";
+	public static final String FIRST_NAME_2 = "1stName";
+	public static final String LAST_NAME_2 = "2ndName";
 	public static final String EMAIL_2 = "mail@google.com";
 	public static final String SKYPE_NAME_2 = "name.skype.dot";
+	public static final String FULL_NAME_2 = FIRST_NAME_2 + " " + LAST_NAME_2;
 
 	public static final Integer EMPLOYEE_ID_3 = 9;
 	public static final Integer SIMPLE_EMPLOYEE_ID_3 = 10;
-	public static final String FIRST_NAME_3 = "1st name Again";
-	public static final String LAST_NAME_3 = "2nd name Again";
+	public static final String FIRST_NAME_3 = "1stNameAgain";
+	public static final String LAST_NAME_3 = "2ndNameAgain";
 	public static final String EMAIL_3 = "no-reply@google.com";
 	public static final String SKYPE_NAME_3 = "error.skype.dot";
+	public static final String FULL_NAME_3 = FIRST_NAME_3 + " " + LAST_NAME_3;
 
 	public static final String NOT_PRESENT_VALUE = "XXX";
 	public static final Integer NOT_PRESENT_ID = -666;
@@ -47,7 +50,6 @@ public class Entities {
 		Department department = new Department();
 		department.setName(departmentName());
 		department.setIsActive(true);
-//		department.setId(departmentId());
 		return department;
 	}
 
@@ -67,10 +69,6 @@ public class Entities {
 		return DEPARTMENT_NAME + random.nextInt();
 	}
 
-//	private static Integer departmentId() {
-//		return DEPT_ID + random.nextInt();
-//	}
-
 	public static Employee employee(Department dept) {
 		Employee emp = employee();
 		emp.setFirstName(FIRST_NAME);
@@ -78,7 +76,7 @@ public class Entities {
 		emp.setEmail(EMAIL + random.nextInt());
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
 		emp.setIsActive(true);
-		//emp.setIsManager(false);
+		emp.setIsManager(false);
 		return emp;
 	}
 
@@ -90,11 +88,11 @@ public class Entities {
 		emp.setEmail(EMAIL + random.nextInt());
 		emp.setSkypeName(SKYPE_NAME + random.nextInt());
 		emp.setIsActive(true);
-		//emp.setIsManager(false);
+		emp.setIsManager(false);
 		return emp;
 	}
 	
-	private static Employee employee2() {
+	public static Employee employee2() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
 		emp.setFirstName(FIRST_NAME_2);
@@ -105,7 +103,7 @@ public class Entities {
 		return emp;
 	}
 
-	private static Employee employee3() {
+	public static Employee employee3() {
 		Employee emp = new Employee();
 		emp.setDepartment(department());
 		emp.setFirstName(FIRST_NAME_3);
@@ -130,7 +128,7 @@ public class Entities {
 		mgr.setEmail(EMAIL + random.nextInt());
 		mgr.setSkypeName(SKYPE_NAME + random.nextInt());
 		mgr.setIsActive(true);
-		//mgr.setIsManager(true);
+		mgr.setIsManager(true);
 		return mgr;
 	}
 
@@ -167,16 +165,14 @@ public class Entities {
 		emp.setFirstName(FIRST_NAME);
 		emp.setLastName(LAST_NAME);
 		emp.setIsActive(true);
-		//emp.setIsManager(false);
 		return emp;
 	}
 
-	private static SimpleEmployee simpleEmployee2() {
+	public static SimpleEmployee simpleEmployee2() {
 		SimpleEmployee emp = new SimpleEmployee();
 		emp.setFirstName(FIRST_NAME_2);
 		emp.setLastName(LAST_NAME_2);
 		emp.setIsActive(true);
-		//emp.setIsManager(false);
 		return emp;		
 	}
 

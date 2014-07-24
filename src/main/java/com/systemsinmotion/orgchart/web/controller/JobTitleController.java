@@ -1,0 +1,66 @@
+package com.systemsinmotion.orgchart.web.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.service.JobTitleService;
+import com.systemsinmotion.orgchart.web.View;
+
+@Controller
+public class JobTitleController {
+
+	@Autowired
+	JobTitleService jobTitleService;
+
+	public void setJobTitleService(JobTitleService jobTitleService) {
+		this.jobTitleService = jobTitleService;
+	}
+
+	@RequestMapping(value = "jobs", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public String doJobTitles_GET(Model model) {
+		refreshJobTitleModel(model);
+		return View.JOB_TITLES;
+	}
+
+	@RequestMapping(value = "newJob", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public String doJobTitleNew_POST(JobTitle jobTitle, Model model) {
+		jobTitleService.storeJobTitle(jobTitle);
+		refreshJobTitleModel(model);
+		return View.JOB_TITLES;
+	}
+
+	@RequestMapping(value = "updateJob", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public String doJobTitleUpdate_POST(JobTitle jobTitle, Model model) {
+		jobTitleService.storeJobTitle(jobTitle);
+		refreshJobTitleModel(model);
+		return View.JOB_TITLES;
+	}
+	
+	@RequestMapping(value = "job/delete/{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public @ResponseBody ResponseEntity<String> doJobTitleDelete_DELETE(@PathVariable("id") Integer jobId, Model model)
+	{
+		jobTitleService.removeJobTitleById(jobId);
+		refreshJobTitleModel(model);
+		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
+	}
+
+	private void refreshJobTitleModel(Model model) {
+		List<JobTitle> titles = jobTitleService.findAllActiveJobTitles();
+		model.addAttribute("jobs", titles);
+	}
+}

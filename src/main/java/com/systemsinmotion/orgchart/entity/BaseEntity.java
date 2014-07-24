@@ -1,11 +1,15 @@
 package com.systemsinmotion.orgchart.entity;
 
+import java.io.IOException;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 @MappedSuperclass
@@ -46,4 +50,5 @@ public abstract class BaseEntity {
 		}
 		return thisAsString;
 	}
+
 }

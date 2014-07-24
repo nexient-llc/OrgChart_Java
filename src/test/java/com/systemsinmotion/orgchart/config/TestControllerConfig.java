@@ -2,12 +2,19 @@ package com.systemsinmotion.orgchart.config;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.context.annotation.Bean;
@@ -35,11 +42,13 @@ public class TestControllerConfig {
 	private List<JobTitle> listOfFoundTitles;
 	private List<Employee> listOfFoundEmployees;
 	private List<SimpleEmployee> listOfFoundSimpleEmployees;
+	private List<SimpleEmployee> listOfFoundSimpleEmployees2;
 
 	private Department mockDepartment;
 	private JobTitle mockTitle;
 	private Employee mockEmployee;
 	private SimpleEmployee mockSimpleEmployee;
+	private SimpleEmployee mockSimpleEmployee2;
 
 	
 	@PostConstruct
@@ -60,6 +69,11 @@ public class TestControllerConfig {
 		listOfFoundSimpleEmployees = new ArrayList<SimpleEmployee>();
 		mockSimpleEmployee = Entities.simpleEmployee(Entities.SIMPLE_EMPLOYEE_ID);
 		listOfFoundSimpleEmployees.add(mockSimpleEmployee);
+
+		listOfFoundSimpleEmployees2 = new ArrayList<SimpleEmployee>();
+		mockSimpleEmployee2 = Entities.simpleEmployee2(Entities.SIMPLE_EMPLOYEE_ID_2); 
+		listOfFoundSimpleEmployees2.add(mockSimpleEmployee);
+		listOfFoundSimpleEmployees2.add(mockSimpleEmployee2);
 	}
 	
 	@Bean
@@ -72,6 +86,12 @@ public class TestControllerConfig {
 		         return mockDepartment;
 		     }
 		 });
+		doAnswer(new Answer<Void>() {
+			public Void answer(InvocationOnMock invocation) {
+				listOfFoundDepts.clear();
+				return null;
+			}
+		}).doNothing().when(service).removeDepartmentById(Entities.DEPT_ID);
 		return service;
 	}
 
@@ -79,12 +99,23 @@ public class TestControllerConfig {
 	EmployeeService getEmployeeService() {
 		EmployeeService service = mock(EmployeeService.class);
 		when(service.findAllActiveEmployees()).thenReturn(listOfFoundEmployees);
+		when(service.findEmployeesByNameOnlyFilter(eq(Entities.FIRST_NAME), eq(Entities.LAST_NAME))).thenReturn(listOfFoundSimpleEmployees);
+		when(service.findEmployeesByNameOnlyFilter(eq(Entities.FIRST_NAME), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
+		when(service.findEmployeesByNameOnlyFilter(eq(Entities.LAST_NAME), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
+		when(service.findEmployeesByNameOnlyFilter(isNull(String.class), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
+		when(service.findEmployeesByCriteriaFilter(anyString(), anyString(), anyInt(), anyInt())).thenReturn(listOfFoundEmployees);
 		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
 		     public Employee answer(InvocationOnMock invocation) {
 		         listOfFoundEmployees.add(mockEmployee);
 		         return mockEmployee;
 		     }
 		 });
+		doAnswer(new Answer<Void>() {
+			public Void answer(InvocationOnMock invocation) {
+				listOfFoundEmployees.clear();
+				return null;
+			}
+		}).doNothing().when(service).removeEmployeeById(Entities.EMPLOYEE_ID);
 		return service;
 	}
 	
@@ -98,6 +129,12 @@ public class TestControllerConfig {
 		         return mockTitle;
 		     }
 		 });
+		doAnswer(new Answer<Void>() {
+			public Void answer(InvocationOnMock invocation) {
+				listOfFoundTitles.clear();
+				return null;
+			}
+		}).doNothing().when(service).removeJobTitleById(Entities.JOB_TITLE_ID);
 		return service;
 	}
 	

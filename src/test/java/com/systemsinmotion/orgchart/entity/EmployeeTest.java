@@ -65,6 +65,14 @@ public class EmployeeTest {
 	}
 
 	@Test
+	public void setAndGetIsManager() {
+		emp.setIsManager(true);
+		Boolean isManager = emp.getIsMananger();
+		assertNotNull(isManager);
+		assertTrue(isManager);
+	}
+	
+	@Test
 	public void setAndGetManager() {
 		emp.setManager(mgr);
 		Employee manager = emp.getManager();
@@ -229,5 +237,4 @@ public class EmployeeTest {
 		assertNotNull(newDept);
 		assertFalse(emp.equals(newDept));
 	}
-
 }
