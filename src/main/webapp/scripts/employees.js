@@ -43,7 +43,7 @@ $(document).ready(function() {
 				dataType: "text",
 				success: function(data) {
 					var suggestions = data.split(",");
-					suggestions.pop();
+					suggestions.pop();  // remove the empty element at the end
 					response(suggestions);
 				}
 			});
