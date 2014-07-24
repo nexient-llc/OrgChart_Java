@@ -77,7 +77,7 @@ public class DefaultController {
 	
 	@RequestMapping(value = "removeDepartment/{id}", method = RequestMethod.POST)
 	public @ResponseBody void removeDepartment(@PathVariable("id") Integer id) {
-		departmentService.removeEmployee(id);
+		departmentService.removeDepartment(id);
 	}
 
 	

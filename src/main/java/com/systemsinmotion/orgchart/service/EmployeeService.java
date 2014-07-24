@@ -35,11 +35,6 @@ public class EmployeeService {
 		return this.repository.save(employee);
 	}
 	
-	
-	public List<Employee> findAllEmployeesByDepartment(Department dept) {
-		return this.repository.findByDepartment(dept);
-	}
-	
 
 	public void removeEmployee(Integer id) {
 		this.repository.removeEmployee(id);
@@ -156,10 +151,6 @@ public class EmployeeService {
 		return employees;
 	}
 	
-	
-//	public List<Employee> findEmployeesByFirstName(String firstName) {
-//	return this.repository.findByFirstNameContainingIgnoreCase(firstName);
-//}
 //
 //public List<Employee> findEmployeesByFirstNameAndLastName(String firstName, String lastName) {
 //	return this.repository.findByFirstNameAndLastNameContainingIgnoreCase(firstName, lastName);

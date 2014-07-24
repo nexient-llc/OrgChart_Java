@@ -34,7 +34,7 @@ public class DepartmentService {
 		return this.repository.save(department);
 	}
 
-	public void removeEmployee(Integer id) {
+	public void removeDepartment(Integer id) {
 		this.repository.removeDepartment(id);
 	}
 

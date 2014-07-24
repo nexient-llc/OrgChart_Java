@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestServiceConfig;
+import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,6 +46,18 @@ public class DepartmentServiceTest {
 		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
 		assertNotNull(dept);
 		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
+	}
+	
+	@Test
+	public void testDelete() {
+		this.departmentService.removeDepartment(Entities.DEPT_ID);
+	}
+	
+	@Test
+	public void testSetRepository() {
+		DepartmentRepository temp = this.departmentService.repository;
+		this.departmentService.setRepository(temp);
+		assertTrue(temp == this.departmentService.repository);
 	}
 	
 }

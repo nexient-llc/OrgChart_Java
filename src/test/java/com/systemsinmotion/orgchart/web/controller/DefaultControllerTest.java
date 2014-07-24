@@ -2,7 +2,7 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -143,4 +143,47 @@ public class DefaultControllerTest {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Test
+	public void departmentsTest_GET() {
+		
+		String viewName = this.controller.doDepartments_GET(this.model);
+		
+		this.findAllDepartmentsList = (ArrayList<Department>) this.model.asMap().get("depts");
+		
+		assertNotNull(this.findAllDepartmentsList);
+		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
+		
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void departmentsTest_POST() {
+		model.addAttribute("depts", findAllDepartmentsList);
+		controller.doDepartments_POST(mockDepartment, model);
+		
+		findAllDepartmentsList = (ArrayList<Department>) model.asMap().get("depts");
+		
+		assertNotNull(this.findAllDepartmentsList);
+		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
+		
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void doEmployeesTest_GET() {
+		String viewName = this.controller.doEmployees_GET(Entities.FIRST_NAME + " " + Entities.LAST_NAME, Entities.JOB_TITLE_ID.toString(), Entities.DEPT_ID.toString(), "", model);
+		assertNotNull(viewName);
+		assertEquals(viewName, "emps");
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void getEmployeeSuggestionsTest_GET() {
+		String retVal = this.controller.getEmployeeSuggestions_GET(Entities.FIRST_NAME + " " + Entities.LAST_NAME);
+		assertNotNull(retVal);
+		assertEquals(retVal, Entities.FIRST_NAME + " " + Entities.LAST_NAME + ",");
+	}
 }

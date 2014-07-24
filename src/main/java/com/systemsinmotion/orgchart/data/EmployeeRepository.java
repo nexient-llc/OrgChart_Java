@@ -15,7 +15,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	void delete(Employee emp);
 
-	List<Employee> findByDepartment(Department dept);
+	//List<Employee> findByDepartment(Department dept);
 
 	Employee findByEmail(String email);
 
@@ -56,6 +56,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Transactional
 	@Query("update Employee emp set emp.isActive = false where emp.id = :id")
 	void removeEmployee(@Param("id") Integer id);
+
+	List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
 	
 	
 	//List<Employee> findByFirstNameContainingIgnoreCase(String firstName);

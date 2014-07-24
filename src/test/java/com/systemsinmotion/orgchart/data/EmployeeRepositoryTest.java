@@ -75,6 +75,7 @@ public class EmployeeRepositoryTest {
 		this.empRepo.save(this.manager);
 	}
 
+	
 	@Test
 	public void findAll() throws Exception {
 		List<Employee> emps = this.empRepo.findAll();
@@ -82,9 +83,10 @@ public class EmployeeRepositoryTest {
 		assertTrue(0 < emps.size());
 	}
 
+	
 	@Test
 	public void findByDepartment() throws Exception {
-		List<Employee> emps = this.empRepo.findByDepartment(this.employee.getDepartment());
+		List<Employee> emps = this.empRepo.findAllByDepartmentId(this.employee.getDepartment().getId());
 		assertNotNull("Expecting a non-null list of Employees but was null", emps);
 		Employee emp = emps.get(0);
 		assertEquals(this.employee.getFirstName(), emp.getFirstName());
@@ -92,12 +94,8 @@ public class EmployeeRepositoryTest {
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
 
-	@Test
-	public void findByDepartment_null() throws Exception {
-		List<Employee> emps = this.empRepo.findByDepartment(null);
-		assertTrue(emps.isEmpty());
-	}
 
+	
 	@Test
 	public void findByEmail() throws Exception {
 		Employee emp = this.empRepo.findByEmail(this.employee.getEmail());
@@ -119,6 +117,7 @@ public class EmployeeRepositoryTest {
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
 
+	
 	@Test
 	public void findById() throws Exception {
 		Employee emp = this.empRepo.findById(this.employee.getId());
@@ -128,18 +127,21 @@ public class EmployeeRepositoryTest {
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
 
+	
 	@Test
 	public void findById_null() throws Exception {
 		Employee emp = this.empRepo.findById(null);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
 
+	
 	@Test
 	public void findById_XXX() throws Exception {
 		Employee emp = this.empRepo.findById(NOT_PRESENT_ID);
 		assertNull("Expecting a null Employee but was non-null", emp);
 	}
 
+	
 	@Test
 	public void findByManagerId() throws Exception {
 		createManager();
@@ -156,6 +158,7 @@ public class EmployeeRepositoryTest {
 		assertEquals(this.employee.getEmail(), emp.getEmail());
 	}
 
+	
 	@Test
 	public void findByManagerId_empty() throws Exception {
 		Employee emp = Entities.employee();
@@ -165,6 +168,7 @@ public class EmployeeRepositoryTest {
 		assertTrue(emps.isEmpty());
 	}
 
+	
 	@Test
 	public void findByFirstNameAndLastNameAndDepartmentAndJobTitle() throws Exception {
 		List<Employee> emp = this.empRepo.findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(employee.getFirstName(), employee.getLastName(), employee.getDepartment().getId(), employee.getJobTitle().getId());
@@ -176,6 +180,7 @@ public class EmployeeRepositoryTest {
 		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
 	}
 	
+	
 	@Test
 	public void removeEmployeeTest() throws Exception {
 		Employee emp = Entities.employee();
@@ -185,18 +190,222 @@ public class EmployeeRepositoryTest {
 		assertTrue(emp.getIsActive());
 	}
 	
+	
 	@Test
 	public void findAllByFirstNameOrLastNameTest() throws Exception {
-		Employee emp = Entities.employee();
-		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(emp.getFirstName(), emp.getLastName());
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(this.employee.getFirstName(), this.employee.getLastName());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameOrLastNameTest_notFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase("zzz", "zzz");
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	@Test
+	public void findAllByFirstNameOrLastNameTest_first() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(this.employee.getFirstName(), "xxxxxxxx");
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameOrLastNameTest_last() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase("xxxxx", this.employee.getLastName());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameOrLastNameTest_upperCase() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(this.employee.getFirstName().toUpperCase(), this.employee.getLastName().toUpperCase());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameOrLastNameTest_lowerCase() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(this.employee.getFirstName().toLowerCase(), this.employee.getLastName().toLowerCase());
 		assertNotNull(emps);
 		assertTrue(emps.size() > 0);
 	}
 	
+	
 	@Test
 	public void findAllByDepartmentIdTest() throws Exception {
-		List<Employee> emps = empRepo.findAllByDepartmentId(Entities.DEPT_ID);
-		
+		List<Employee> emps = empRepo.findAllByDepartmentId(this.employee.getDepartment().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByDepartmentIdTest_notFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByDepartmentId(-1);
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByJobTitleIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByJobTitleId(this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByJobTitleIdTest_notFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByJobTitleId(-1);
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByDepartmentIdAndJobTitleIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByDepartmentIdAndJobTitleId(this.employee.getDepartment().getId(), this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByDepartmentIdAndJobTitleIdTest_atLeastOneNotFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByDepartmentIdAndJobTitleId(this.employee.getDepartment().getId(), -1);
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByFirstNameTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCase(this.employee.getFirstName());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameTest_notfound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCase("xxxxxxxxxxxx");
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	@Test
+	public void findAllByFirstNameTest_empty() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCase("");
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	
+	
+	@Test
+	public void findAllByFirstNameAndLastNameTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(this.employee.getFirstName(), this.employee.getLastName());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameAndLastNameTest_AtLeastOneNotFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(this.employee.getFirstName(), "xxxxxxxxxx");
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	@Test
+	public void findAllByFirstNameAndLastNameTest_upperCase() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(this.employee.getFirstName().toUpperCase(), this.employee.getLastName().toUpperCase());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameAndLastNameTest_lowerCase() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(this.employee.getFirstName().toLowerCase(), this.employee.getLastName().toLowerCase());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	
+	
+	@Test
+	public void findAllByFirstNameAndDepartmentIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndDepartmentId(this.employee.getFirstName(), this.employee.getDepartment().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameAndDepartmentIdTest_atLeastOneNotFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndDepartmentId(this.employee.getFirstName(), -1);
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByFirstNameAndLastNameAndDepartmentIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId(this.employee.getFirstName(), this.employee.getLastName(), this.employee.getDepartment().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameAndLastNameAndDepartmentIdTest_atLeastOneNotFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId("xxxx", this.employee.getLastName(), this.employee.getDepartment().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByFirstNameAndJobTitleIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndJobTitleId(this.employee.getFirstName(), this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameAndJobTitleIdTest_atLeastOneNotFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndJobTitleId("xxxxxxx", this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByFirstNameAndLastNameAndJobTitleIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId(this.employee.getFirstName(), this.employee.getLastName(), this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameAndLastNameAndJobTitleIdTest_atLeastOneNotFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId("xxxxxxx", this.employee.getLastName(), this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByFirstNameAndDeptIdAndJobIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleId(this.employee.getFirstName(), this.employee.getDepartment().getId(), this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameAndDeptIdAndJobIdTest_atLeastOneNotFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleId(this.employee.getFirstName(), -1, -1);
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByFirstNameAndLastNameAndDeptIdAndJobIdTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleId(this.employee.getFirstName(), this.employee.getLastName(), 
+				this.employee.getDepartment().getId(), this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+	@Test
+	public void findAllByFirstNameAndLastNameAndDeptIdAndJobIdTest_atLeastOneFieldNotFound() throws Exception {
+		List<Employee> emps = empRepo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleId("xxxxxx", this.employee.getLastName(), 
+				this.employee.getDepartment().getId(), this.employee.getJobTitle().getId());
+		assertNotNull(emps);
+		assertTrue(emps.size() == 0);
+	}
+	
+	
+	@Test
+	public void findAllByIsActiveIsTrueTest() throws Exception {
+		List<Employee> emps = empRepo.findAllByIsActiveIsTrue();
 		assertNotNull(emps);
 		assertTrue(emps.size() > 0);
 	}

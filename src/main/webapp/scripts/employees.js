@@ -36,18 +36,15 @@ $(document).ready(function() {
 	
 	
 	$("input#autocompleteText").autocomplete({
-		minLength: 3,
 		source: function(request, response) {
 			$.ajax({
 				type: "GET",
 				url: "suggestions/" + $("#autocompleteText").val(),
 				dataType: "text",
 				success: function(data) {
-					$("#autocompleteText").removeClass("ui-autocomplete-loading");
 					var suggestions = data.split(",");
 					suggestions.pop();
 					response(suggestions);
-					
 				}
 			});
 		}
