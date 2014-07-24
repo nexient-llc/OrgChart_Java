@@ -176,15 +176,15 @@ public class DefaultController {
 //	}
 
 	// Solution 2: Switch Approach, long-winded but correct
-	private List<Employee> getFilteredEmployees_bySwitch(String fullName, String deptId, String jobId)
-	{
-		String[] name = fullName.trim().split("\\s");
-		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
-		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
-		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
-		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
-		return employeeService.findEmployeesByFilter(firstName, lastName, department, jobTitle);
-	}
+//	private List<Employee> getFilteredEmployees_bySwitch(String fullName, String deptId, String jobId)
+//	{
+//		String[] name = fullName.trim().split("\\s");
+//		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
+//		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
+//		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
+//		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
+//		return employeeService.findEmployeesByFilter(firstName, lastName, department, jobTitle);
+//	}
 	
 	private List<SimpleEmployee> getFilteredEmployeeNames(String fullName)
 	{

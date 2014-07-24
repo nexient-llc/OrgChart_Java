@@ -40,5 +40,13 @@ public class DepartmentTest {
 		assertNotNull(parent);
 		assertEquals(dept.getId(), parent.getId());
 	}
+	
+	@Test
+	public void setAndGetManager() {
+		Employee emp = Entities.employee();
+		assertNotNull(emp);
+		dept.setManager(emp);
+		assertEquals(emp.getId(), dept.getManager().getId());
+	}
 
 }

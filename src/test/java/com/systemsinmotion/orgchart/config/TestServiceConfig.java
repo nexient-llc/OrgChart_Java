@@ -35,6 +35,7 @@ public class TestServiceConfig {
 //	private List<SimpleEmployee> listOfFoundSimpleEmployees2;
 
 	private Department mockDepartment;
+	private Department mockParentDepartment;
 	private JobTitle mockTitle;
 	private Employee mockEmployee;
 	private SimpleEmployee mockSimpleEmployee;
@@ -46,6 +47,8 @@ public class TestServiceConfig {
 	private void init() {
 		listOfFoundDepts = new ArrayList<Department>();
 		mockDepartment = Entities.department(Entities.DEPT_ID);
+		mockParentDepartment = Entities.department(Entities.PARENT_DEPT_ID);
+		mockDepartment.setParentDepartment(mockParentDepartment);
 		listOfFoundDepts.add(mockDepartment);
 
 		listOfFoundTitles = new ArrayList<JobTitle>();
@@ -72,6 +75,11 @@ public class TestServiceConfig {
 //		listOfFoundSimpleEmployees2 = new ArrayList<SimpleEmployee>();
 //		mockSimpleEmployee2 = Entities.simpleEmployee2(Entities.SIMPLE_EMPLOYEE_ID_2);
 //		listOfFoundSimpleEmployees2.add(mockSimpleEmployee2);
+	}
+
+	@Bean(name = "mockParentDepartment")
+	Department getParentDepartment() {
+		return this.mockParentDepartment;
 	}
 
 	@Bean(name = "mockDepartment")

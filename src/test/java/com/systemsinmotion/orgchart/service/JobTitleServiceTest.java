@@ -33,8 +33,7 @@ public class JobTitleServiceTest {
 	
 	@Before
 	public void before() throws Exception {
-		JobTitle title = this.titleService.findJobTitleByID(Entities.JOB_TITLE_ID);		
-		title.setIsActive(true);
+		mockTitle.setIsActive(true);
 	}
 	
 	@Test
@@ -51,7 +50,17 @@ public class JobTitleServiceTest {
 		assertEquals("Expected " + this.mockTitle.getName() + " but got " + title.getName(),
 				this.mockTitle.getName(), title.getName());
 	}
-	
+
+	@Test
+	public void storeJobTitle_IsActiveIsNull() {
+		mockTitle.setIsActive(null);
+		JobTitle title = this.titleService.storeJobTitle(this.mockTitle);
+		assertNotNull(title);
+		assertEquals("Expected " + this.mockTitle.getName() + " but got " + title.getName(),
+				this.mockTitle.getName(), title.getName());
+		assertTrue(title.getIsActive());
+	}
+
 	@Test
 	public void findAllActiveJobTitles() {
 		List<JobTitle> title = this.titleService.findAllActiveJobTitles();

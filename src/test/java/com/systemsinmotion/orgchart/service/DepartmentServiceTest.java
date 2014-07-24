@@ -32,10 +32,15 @@ public class DepartmentServiceTest {
 	@Qualifier(value="mockDepartment")
 	private Department mockDepartment;
 
+	@Autowired
+	@Qualifier(value="mockParentDepartment")
+	private Department mockParentDepartment;
+
 	@Before
 	public void resetIsActive() {
-		Department dept = this.departmentService.findDepartmentByID(Entities.DEPT_ID);		
-		dept.setIsActive(true);
+		mockDepartment.setIsActive(true);
+		mockParentDepartment.setId(Entities.PARENT_DEPT_ID);
+		mockDepartment.setParentDepartment(mockParentDepartment);
 	}
 	
 	@Test
@@ -58,7 +63,34 @@ public class DepartmentServiceTest {
 		assertNotNull(dept);
 		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
 	}
-	
+
+	@Test
+	public void storeDepartment_parentDepartmentIsNotNullButIdIsNull() {
+		this.mockDepartment.getParentDepartment().setId(null);
+		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
+		assertNotNull(dept);
+		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
+		assertNull(dept.getParentDepartment());
+	}
+
+	@Test
+	public void storeDepartment_parentDepartmentIsNull() {
+		this.mockDepartment.setParentDepartment(null);
+		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
+		assertNotNull(dept);
+		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
+		assertNull(dept.getParentDepartment());
+	}
+
+	@Test
+	public void storeDepartment_IsActiveIsNull() {
+		mockDepartment.setIsActive(null);
+		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
+		assertNotNull(dept);
+		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
+		assertTrue(dept.getIsActive());
+	}
+
 	@Test
 	public void findAllActiveDepartments() {
 		List<Department> depts = this.departmentService.findAllActiveDepartments();

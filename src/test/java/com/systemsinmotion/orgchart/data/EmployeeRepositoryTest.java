@@ -53,8 +53,8 @@ public class EmployeeRepositoryTest {
 	public void before() throws Exception {
 		this.department = Entities.department();
 		this.jobTitle = Entities.jobTitle();
-		this.jobRepo.saveAndFlush(this.jobTitle);
-		this.deptRepo.saveAndFlush(this.department);
+		this.jobTitle = this.jobRepo.saveAndFlush(this.jobTitle);
+		this.department = this.deptRepo.saveAndFlush(this.department);
 		this.employee = Entities.employee();
 		this.employee.setDepartment(this.department);
 		this.employee.setId(this.empRepo.save(this.employee).getId());
@@ -681,7 +681,7 @@ public class EmployeeRepositoryTest {
 	}
 	
 	@Test
-	public void findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId_unknownInputs_nulls() {
+	public void findActiveByUnknownInputs_nulls() {
 		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, null, null, null);
 
 		assertNotNull(employees);
@@ -689,10 +689,131 @@ public class EmployeeRepositoryTest {
 	}
 
 	@Test
-	public void findActiveByFirstNameOrLastNameAndDepartmentIdAndJobTitleId_unknownInputs_firstNameOnly() {
+	public void findActiveByUnknownInputs_firstNameOnly() {
 		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, null, null);
-		System.out.println("Test: " + employees);
-		System.out.println("Emp: " + employee);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_LastNameOnly() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, Entities.LAST_NAME, null, null);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_firstNameAndLastName() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, null, null);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_departmentOnly() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, null, department.getId(), null);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_firstNameAndDepartment() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, department.getId(), null);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_LastNameAndDepartment() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, Entities.LAST_NAME, department.getId(), null);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_firstNameAndLastNameAndDepartment() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, department.getId(), null);
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_JobTitleOnly() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, null, null, jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_firstNameAndJobTitle() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, null, jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_LastNameAndJobTitle() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, Entities.LAST_NAME, null, jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_firstNameAndLastNameAndJobTitle() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, null, jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_departmentAndJobTitle() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, null, department.getId(), jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_firstNameAndDepartmentAndJobTitle() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, department.getId(), jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_LastNameAndDepartmentAndJobTitle() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(null, Entities.LAST_NAME, department.getId(), jobTitle.getId());
+
+		assertNotNull(employees);
+		assertFalse(employees.isEmpty());
+		assertEquals(employees.get(0).getId(), employee.getId());
+	}
+
+	@Test
+	public void findActiveByUnknownInputs_firstNameAndLastNameAndDepartmentAndJobTitle() {
+		List<Employee> employees = this.empRepo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, department.getId(), jobTitle.getId());
 
 		assertNotNull(employees);
 		assertFalse(employees.isEmpty());

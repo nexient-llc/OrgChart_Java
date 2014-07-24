@@ -141,8 +141,11 @@ public class Employee extends BaseEntity {
 		{
 			return true;
 		}
-		
 		Employee employee = (Employee) obj;
+		if (this.getId() == null)
+		{
+			return this.getId() == employee.getId();
+		}
 		return this.getId().equals(employee.getId());
 	}
 }

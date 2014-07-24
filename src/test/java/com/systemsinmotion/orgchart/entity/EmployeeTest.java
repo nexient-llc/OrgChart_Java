@@ -1,7 +1,9 @@
 package com.systemsinmotion.orgchart.entity;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
@@ -24,6 +26,7 @@ public class EmployeeTest {
 	@Before
 	public void before() {
 		emp = new Employee();
+		emp.setId(random.nextInt());
 		mgr = new Employee();
 		mgr.setId(random.nextInt());
 		dept = new Department();
@@ -100,12 +103,131 @@ public class EmployeeTest {
 	}
 	
 	@Test
-	public void getFullName() {
+	public void getFullName_complete() {
 		emp.setFirstName(FIRST_NAME);
-		emp.setMiddleInitial(MIDDLE_INITIAL);
 		emp.setLastName(LAST_NAME);
-		String fullName = FIRST_NAME + " " + MIDDLE_INITIAL + " " + LAST_NAME;
-		assertNotNull(emp.getFullName());
-		assertEquals(fullName, emp.getFullName());
+		emp.setMiddleInitial(MIDDLE_INITIAL);
+		
+		assertEquals(emp.getFullName(), FIRST_NAME + " " + MIDDLE_INITIAL + " " + LAST_NAME);
 	}
+
+	@Test
+	public void getFullName_allNull() {
+		emp.setFirstName(null);
+		emp.setLastName(null);
+		emp.setMiddleInitial(null);
+		
+		assertEquals(emp.getFullName(), "");
+	}
+
+	@Test
+	public void getFullName_NoMidInitial() {
+		emp.setFirstName(FIRST_NAME);
+		emp.setLastName(LAST_NAME);
+		emp.setMiddleInitial(null);
+		
+		assertEquals(emp.getFullName(), FIRST_NAME + " " + LAST_NAME);
+	}
+
+	@Test
+	public void getFullName_NoMidInitialNoLastName() {
+		emp.setFirstName(FIRST_NAME);
+		emp.setLastName(null);
+		emp.setMiddleInitial(null);
+		
+		assertEquals(emp.getFullName(), FIRST_NAME);
+	}
+
+	@Test
+	public void getFullName_NoMidInitialNoFirstName() {
+		emp.setFirstName(null);
+		emp.setLastName(LAST_NAME);
+		emp.setMiddleInitial(null);
+		
+		assertEquals(emp.getFullName(), LAST_NAME);
+	}
+
+	@Test
+	public void getFullName_NoFirstNameNoLastName() {
+		emp.setFirstName(null);
+		emp.setLastName(null);
+		emp.setMiddleInitial(MIDDLE_INITIAL);
+		
+		assertEquals(emp.getFullName(), MIDDLE_INITIAL.toString());
+	}
+
+	@Test
+	public void getFullName_NoFirstName() {
+		emp.setFirstName(null);
+		emp.setLastName(LAST_NAME);
+		emp.setMiddleInitial(MIDDLE_INITIAL);
+		
+		assertEquals(emp.getFullName(), MIDDLE_INITIAL.toString() + " " + LAST_NAME);
+	}
+	
+	@Test
+	public void getFullName_NoLastName() {
+		emp.setFirstName(FIRST_NAME);
+		emp.setLastName(null);
+		emp.setMiddleInitial(MIDDLE_INITIAL);
+		
+		assertEquals(emp.getFullName(), FIRST_NAME + " " + MIDDLE_INITIAL);
+	}
+
+	@Test
+	public void equals_sameObj() {
+		assertTrue(emp.equals(emp));
+	}
+	
+	@Test
+	public void equals_sameId() {
+		Employee newEmp = new Employee();
+		assertNotNull(newEmp);
+		
+		newEmp.setId(emp.getId());
+		assertTrue(emp.equals(newEmp));
+	}
+	
+	@Test
+	public void equals_differentId() {
+		Employee newEmp = new Employee();
+		assertNotNull(newEmp);
+		
+		newEmp.setId(emp.getId() + 1);
+		assertFalse(emp.equals(newEmp));
+	}
+	
+	@Test
+	public void equals_bothIdNull() {
+		Employee newEmp = new Employee();
+		assertNotNull(newEmp);
+		emp.setId(null);
+		newEmp.setId(null);
+		assertTrue(emp.equals(newEmp));
+	}
+
+	@Test
+	public void equals_FirstIdNull() {
+		Employee newEmp = new Employee();
+		assertNotNull(newEmp);
+		emp.setId(null);
+		newEmp.setId(random.nextInt());
+		assertFalse(emp.equals(newEmp));
+	}
+
+	@Test
+	public void equals_SecondIdNull() {
+		Employee newEmp = new Employee();
+		assertNotNull(newEmp);
+		newEmp.setId(null);
+		assertFalse(emp.equals(newEmp));
+	}
+
+	@Test
+	public void equals_notAnEmployee() {
+		Department newDept = new Department();
+		assertNotNull(newDept);
+		assertFalse(emp.equals(newDept));
+	}
+
 }

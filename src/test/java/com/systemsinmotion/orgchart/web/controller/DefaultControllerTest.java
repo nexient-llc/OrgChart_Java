@@ -19,6 +19,8 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
+import com.systemsinmotion.orgchart.service.EmployeeService;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestControllerConfig.class)
@@ -30,6 +32,12 @@ public class DefaultControllerTest {
 	@Autowired
 	private DepartmentService mockDepartmentService;
 
+	@Autowired
+	private EmployeeService mockEmployeeService;
+	
+	@Autowired
+	private JobTitleService mockJobTitleService;
+	
 	@Autowired
 	private Department mockDepartment;
 	
@@ -50,6 +58,15 @@ public class DefaultControllerTest {
 	@SuppressWarnings("unused")
 	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
 
+	@Test
+	public void testInit() {
+		assertNotNull(controller);
+		assertNotNull(mockDepartmentService);
+		assertNotNull(mockDepartment);
+		assertNotNull(mockEmployee);
+		assertNotNull(mockJobTitle);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testModelShouldContainNewDepartmentList() {
