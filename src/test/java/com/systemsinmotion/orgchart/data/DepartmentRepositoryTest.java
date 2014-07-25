@@ -97,16 +97,36 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findByName() throws Exception {
-		Department dept = this.repository.findByName(this.department.getName());
-		assertNotNull(dept);
+		List<Department> depts = this.repository.findByNameIgnoreCase(this.department.getName());
+		assertEquals(1, depts.size());
+		Department dept = depts.get(0);
+		assertEquals(this.department.getName(), dept.getName());
+		assertNotNull(this.department.getParentDepartment());
+	}
+
+	@Test
+	public void findByName_ignoreUpperCase() throws Exception {
+		List<Department> depts = this.repository.findByNameIgnoreCase(this.department.getName().toUpperCase());
+		assertEquals(1, depts.size());
+		Department dept = depts.get(0);
+		assertEquals(this.department.getName(), dept.getName());
+		assertNotNull(this.department.getParentDepartment());
+	}
+
+	@Test
+	public void findByName_ignoreLowerCase() throws Exception {
+		List<Department> depts = this.repository.findByNameIgnoreCase(this.department.getName().toLowerCase());
+		assertEquals(1, depts.size());
+		Department dept = depts.get(0);
 		assertEquals(this.department.getName(), dept.getName());
 		assertNotNull(this.department.getParentDepartment());
 	}
 
 	@Test
 	public void findByName_null() throws Exception {
-		Department dept = this.repository.findByName(NOT_PRESENT_VALUE);
-		assertNull(dept);
+		List<Department> depts = this.repository.findByNameIgnoreCase(NOT_PRESENT_VALUE);
+		assertNotNull(depts);
+		assertTrue(0 == depts.size());
 	}
 
 	@Test
@@ -129,12 +149,14 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void update() throws Exception {
-		Department dept = this.repository.findByName(this.department.getName());
+		List<Department> depts = this.repository.findByNameIgnoreCase(this.department.getName());
+		Department dept = depts.get(0);
 		dept.setName(SOME_NEW_NAME);
 		this.repository.saveAndFlush(dept);
 
 		dept = null;
-		dept = this.repository.findByName(SOME_NEW_NAME);
+		depts = this.repository.findByNameIgnoreCase(SOME_NEW_NAME);
+		dept = depts.get(0);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
 	}

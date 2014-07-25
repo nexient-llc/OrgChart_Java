@@ -85,7 +85,6 @@ public class EmployeeController {
 		return output;
 	}
 
-
 //	@RequestMapping(value = "emp/delete/{id}", method = RequestMethod.DELETE)
 //	public @ResponseBody ResponseEntity<String> doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
 //	{
@@ -102,7 +101,6 @@ public class EmployeeController {
 		refreshAllModels(model);
 		return;
 	}
-
 
 	// Solution 1: Readable and few lines of code, but requires 2+ queries
 //	private List<Employee> getFilteredEmployees_byIntersect(String fullName, String deptId,

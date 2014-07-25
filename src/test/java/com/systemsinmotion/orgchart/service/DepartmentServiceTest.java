@@ -58,6 +58,13 @@ public class DepartmentServiceTest {
 	}
 
 	@Test
+	public void findDepartmentByName() {
+		List<Department> depts = this.departmentService.findDepartmentByName(Entities.DEPARTMENT_NAME);
+		assertNotNull(depts);
+		assertTrue(depts.size() > 0);
+	}
+
+	@Test
 	public void storeDepartment() {
 		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
 		assertNotNull(dept);

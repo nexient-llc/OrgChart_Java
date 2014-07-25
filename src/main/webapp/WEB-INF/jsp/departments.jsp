@@ -4,15 +4,16 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <h3>Department Page</h3>
+<div id="createdDepartmentContainer"><h2>Successfully created new department "${createdDept.name}" and "${success}"</h2></div>
 <div id="addBtn-container">
 	<button type="button" id="addBtn" style="width: 45px;">Add</button>
 </div>
 <div id="addEntity" style="display: none">
 	<fieldset>
 		<legend>Add Department</legend>
-		<form name="newDept" action="newDepart" method="post">
+		<form name="newDept" id="newDepartment" action="newDepart" method="post">
 			<div>
-				<labeL>Dept Name: *</labeL><input type="text" name="name" required />
+				<labeL>Dept Name: *</labeL><input type="text" name="name" id="newDeptName" required />
 				<input type="hidden" name="isActive" value="true">
 				<labeL>Parent Dept:</label>
 				<select name="parentDepartment.id">
@@ -53,9 +54,9 @@
 			<td><div id="editEntity-${dept.id}" style="display: none">
 					<fieldset>
 						<legend>Edit Department</legend>
-						<form name="editDept" id="editForm-${dept.id}" action="updateDepart" method="post">
+						<form name="editDept" class="editFormClass" action="updateDepart" method="post">
 							<div>
-								<labeL>Dept Name: *</labeL><input type="text" name="name" value="${dept.name}" required />
+								<labeL>Dept Name: *</labeL><input type="text" name="name" value="${dept.name}" id="editName-${dept.id}" required />
 								<input type="hidden" name="doDelete" value="false" />
 								<input type="hidden" name="id" value="${dept.id}" />
 								<input type="hidden" id="activeVal-${dept.id}" name="isActive" value="true" />

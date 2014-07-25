@@ -27,6 +27,11 @@ public class DepartmentService {
 	public Department findDepartmentByID(Integer departmentId) {
 		return this.repository.findOne(departmentId);
 	}
+	
+	public List<Department> findDepartmentByName(String name)
+	{
+		return this.repository.findByNameIgnoreCase(name);
+	}
 
 	@Transactional
 	public void removeDepartment(Department department) {
