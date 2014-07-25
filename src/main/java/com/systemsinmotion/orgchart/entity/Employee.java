@@ -93,7 +93,8 @@ public class Employee extends BaseEntity {
 		setEmail(e.email);
 		setSkypeName(e.skypeName);
 		setJobTitle(e.jobTitle);
-		setIsActive(e.is_manager);
+		setIsActive(e.isActive());
+		this.is_manager = e.is_manager;
 	}
 
 	public String getFirstName() {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -42,8 +43,16 @@ public class EmployeeController {
 	public @ResponseBody String doEmployees_SEARCH(
 			@PathVariable("firstName") String name) {
 		String json = employeeService.autoComplete(name);
-		System.err.println(json);
+
 		return json;
+	}
+
+	@RequestMapping(value = "emp", method = RequestMethod.GET)
+	public @ResponseBody String doEmployees_EMP(Integer id) {
+
+		Gson json = new Gson();
+		return json.toJson(employeeService.findEmployeeByID(id));
+
 	}
 
 	@RequestMapping(value = "filterEmployees", method = RequestMethod.GET)
@@ -89,10 +98,20 @@ public class EmployeeController {
 
 	// adding employee
 	@RequestMapping(value = "addEmployee", method = RequestMethod.POST)
-	public void doEmployees_POST(Employee employee, Model model) {
+	public String doEmployees_POST(Employee employee, Model model) {
 
 		employeeService.storeEmployee(employee);
 		updateProperties(model);
+		return "redirect:emps";
+	}
+
+	// editing employee
+	@RequestMapping(value = "editEmployee", method = RequestMethod.POST)
+	public String doEmployees_EDIT(Employee employee, Model model) {
+
+		employeeService.editEmployee(employee);
+		updateProperties(model);
+		return "redirect:emps";
 	}
 
 	private void updateProperties(Model model) {

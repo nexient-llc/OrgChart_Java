@@ -63,7 +63,7 @@ $(document).ready(function() {
 	        	
 	        	var employees = $.parseJSON(data);
 	        	
-	        	$('#empId').val(employees['id']);
+	        	$('#empId').val(employees.id);
 	        	$('#first-edit').val(employees.firstName);
 	        	$('#empMid-edit').val(employees.middleInitial);
 	        	$('#last-edit').val(employees.lastName);
@@ -74,15 +74,16 @@ $(document).ready(function() {
 	        
 	        }
 	    });
+	
 		$('#editEntity').slideToggle('3000', "swing");
 	});
+
 	$("#cancelEdit").click(function(){
 		$(".editClass").slideToggle('3000', "swing");
 	});
+	
 	$("#searchEdit").click(function(){
 		$(".searchClass").slideToggle('3000', "swing");
 	});
 	
 });
-
-

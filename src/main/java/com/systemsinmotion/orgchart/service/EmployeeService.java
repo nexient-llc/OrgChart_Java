@@ -33,10 +33,31 @@ public class EmployeeService {
 		return this.repository.findOne(employeeId);
 	}
 
+	public Employee editEmployee(Employee employee) {
+
+		Employee current = this.repository.findOne(employee.getId());
+		current.setAll(employee);
+		return this.repository.save(current);
+	}
+
 	public Employee storeEmployee(Employee employee) {
-		// TODO Auto-generated method stub
-		employee.setIsActive(true);
-		return this.repository.save(employee);
+
+		QEmployee qEmployee = QEmployee.employee;
+		Employee tempEmloyee;
+		BooleanExpression predicate = qEmployee.email.eq(employee.getEmail())
+				.or(qEmployee.skypeName.eq(employee.getSkypeName()));
+		// see if the email and skype was unique
+		List<Employee> employees = (List<Employee>) repository
+				.findAll(predicate);
+		// if not setup to return null
+		if (employees.size() > 0) {
+			tempEmloyee = null;
+		} else {
+			// if it was store the employee and then return it.
+			employee.setIsActive(true);
+			tempEmloyee = this.repository.save(employee);
+		}
+		return tempEmloyee;
 	}
 
 	public Employee updateEmployee(Employee employee) {

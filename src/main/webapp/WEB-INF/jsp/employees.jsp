@@ -53,7 +53,7 @@ uri="http://www.springframework.org/security/tags"%>
 <div class="editClass" id="editEntity" style="display: none">
 	<fieldset>
 		<legend>Edit Employee</legend>
-		<form:form name="Edit Employee" action="update" method="post">
+		<form:form name="Edit Employee" action="editEmployee" method="POST">
 			<div>  
 				<input type="hidden" id="empId" name="id"/>
 				 *First Name <input id="first-edit" type="text" name="firstName" />
