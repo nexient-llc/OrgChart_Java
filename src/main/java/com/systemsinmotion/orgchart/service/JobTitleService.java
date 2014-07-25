@@ -22,12 +22,17 @@ public class JobTitleService {
 		return this.repository.findOne(titleId);
 	}
 
-	public void removeJobTitle(JobTitle title) {
+	public JobTitle removeJobTitle(JobTitle title) {
 		this.repository.delete(title);
+		return title;
 	}
 
 	public void setRepository(JobTitleRepository repository) {
 		this.repository = repository;
+	}
+
+	public JobTitleRepository getRepository() {
+		return this.repository;
 	}
 
 	public JobTitle storeJobTitle(JobTitle title) {

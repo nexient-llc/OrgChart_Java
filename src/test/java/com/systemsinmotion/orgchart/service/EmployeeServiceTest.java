@@ -19,13 +19,14 @@ import com.systemsinmotion.orgchart.entity.Employee;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestServiceConfig.class)
+// @RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceTest {
 
 	@Autowired
 	private EmployeeService employeeService;
 
 	@Autowired
-	private Employee mockEmployee;
+	private Employee employee;
 
 	@Autowired
 	private Department depart;
@@ -33,6 +34,7 @@ public class EmployeeServiceTest {
 	@Test
 	public void findActive() {
 		List<Employee> emps = this.employeeService.activeEmployees();
+		System.err.println(emps);
 		assertNotNull(emps);
 		assertTrue(emps.size() > 0);
 
@@ -48,7 +50,7 @@ public class EmployeeServiceTest {
 	@Test
 	public void storeEmployee() {
 
-		Employee emp = this.employeeService.storeEmployee(this.mockEmployee);
+		Employee emp = this.employeeService.storeEmployee(this.employee);
 		assertNotNull(emp);
 		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
 	}
@@ -70,11 +72,53 @@ public class EmployeeServiceTest {
 	}
 
 	@Test
-	public void filterEmployees() {
+	public void filterEmployeesNullArgs() {
 
 		List<Employee> emps = employeeService.filterEmployees(" ", " ", "", "");
 		assertNotNull(emps);
 		assertTrue(emps.size() > 0);
+	}
+
+	@Test
+	public void filterEmployeesByFirstName() {
+
+		System.err.println(Entities.PREDICATEFIRSTNAMEORLAST);
+		List<Employee> emps = employeeService.filterEmployees(
+				Entities.FIRST_NAME, " ", "", "");
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+
+	@Test
+	public void filterEmployeesByLastName() {
+		List<Employee> emps = employeeService.filterEmployees(" ",
+				Entities.LAST_NAME, "", "");
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+
+	@Test
+	public void filterEmployeesDepartmentID() {
+		List<Employee> emps = employeeService.filterEmployees(" ", " ",
+				Entities.DEPT_ID.toString(), "");
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+
+	@Test
+	public void filterEmployeesTitleID() {
+		List<Employee> emps = employeeService.filterEmployees(" ", " ", "",
+				Entities.JOB_TITLE_ID.toString());
+		assertNotNull(emps);
+		assertTrue(emps.size() > 0);
+	}
+
+	@Test
+	public void autoComplete() {
+
+		String emps = employeeService.autoComplete("B");
+		assertNotNull(emps);
+		assertTrue(emps.length() > 0);
 	}
 
 }

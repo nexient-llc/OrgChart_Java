@@ -21,7 +21,7 @@ public class EmployeeService {
 
 	public List<Employee> findAllEmployees() {
 		// TODO Auto-generated method stub
-		return this.repository.findAll();
+		return this.repository.findByIsActiveIsTrue();
 	}
 
 	public List<Employee> findByJobTitleName(String title) {

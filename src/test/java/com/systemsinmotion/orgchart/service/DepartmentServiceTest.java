@@ -6,14 +6,18 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestServiceConfig;
+import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,6 +29,17 @@ public class DepartmentServiceTest {
 
 	@Autowired
 	private Department mockDepartment;
+
+	@Autowired
+	private DepartmentRepository repository;
+
+	@Mock
+	private DepartmentService mockservice;
+
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void findAllDepartments() {
@@ -68,8 +83,15 @@ public class DepartmentServiceTest {
 	}
 
 	@Test
-	public void update() {
+	// no way to actually test this
+	public void setRepoTest() throws Exception {
 
+		departmentService.setRepository(repository);
+
+	}
+
+	@Test
+	public void update() {
 		Department depart = departmentService.update(mockDepartment);
 		assertNotNull(depart);
 	}

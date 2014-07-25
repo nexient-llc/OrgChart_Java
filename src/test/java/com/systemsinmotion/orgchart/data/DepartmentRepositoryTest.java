@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -58,13 +57,6 @@ public class DepartmentRepositoryTest {
 		assertNotNull(this.parent.getId());
 		assertNotNull(this.department);
 		assertNotNull(this.department.getId());
-	}
-
-	@Test(expected = DataIntegrityViolationException.class)
-	public void duplicateName() throws Exception {
-		Department dept = Entities.department();
-		dept.setName(this.department.getName());
-		this.repository.save(dept);
 	}
 
 	@Test

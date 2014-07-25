@@ -7,6 +7,7 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.entity.QEmployee;
+import com.systemsinmotion.orgchart.entity.Users;
 
 public class Entities {
 
@@ -21,10 +22,33 @@ public class Entities {
 	public static final String LAST_NAME = "last name";
 	public static final Integer MANAGER_ID = 1;
 	public static final String SKYPE_NAME = "skype name";
+	public static final String USERNAME = "user name";
+	public static final String USERPASSWORD = "password";
+
+	// set up predicates for criteria query
 	public static final BooleanExpression PREDICATE = QEmployee.employee.isActive
 			.eq(true);
+	public static final BooleanExpression PREDICATEFIRSTNAMEORLAST = QEmployee.employee.isActive
+			.eq(true).and(
+					QEmployee.employee.firstName.eq("first name").or(
+							QEmployee.employee.lastName.eq("first name")));
+	public static final BooleanExpression PREDICATELAST = QEmployee.employee.isActive
+			.eq(true).and(QEmployee.employee.lastName.eq("last name"));
+	public static final BooleanExpression PREDICATEDEPART = QEmployee.employee.isActive
+			.eq(true).and(QEmployee.employee.department.id.eq(DEPT_ID));
+	public static final BooleanExpression PREDICATETITLEID = QEmployee.employee.isActive
+			.eq(true).and(QEmployee.employee.jobTitle.id.eq(JOB_TITLE_ID));
 
 	private static Random random = new Random();
+
+	public static Users user() {
+
+		Users user = new Users();
+		user.setUserName(USERNAME);
+		user.setPassword(USERPASSWORD);
+		user.setEnabled(true);
+		return user;
+	}
 
 	public static Department department() {
 		Department department = new Department();
@@ -75,8 +99,9 @@ public class Entities {
 	}
 
 	public static JobTitle jobTitle() {
-		JobTitle jobTitle = new JobTitle();
+		JobTitle jobTitle = jobTitle(JOB_TITLE_ID);
 		jobTitle.setName(JOB_TITLE_NAME + random.nextInt());
+
 		return jobTitle;
 	}
 
@@ -97,7 +122,7 @@ public class Entities {
 	}
 
 	public static Employee employee(Integer employeeId) {
-		Employee emp = new Employee();
+		Employee emp = employee();
 		emp.setId(EMPLOYEE_ID);
 		return emp;
 	}

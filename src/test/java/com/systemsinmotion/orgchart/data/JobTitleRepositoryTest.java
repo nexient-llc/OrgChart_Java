@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -50,13 +49,6 @@ public class JobTitleRepositoryTest {
 	public void created() {
 		assertNotNull(this.jobTitle);
 		assertNotNull(this.jobTitle.getId());
-	}
-
-	@Test(expected = DataIntegrityViolationException.class)
-	public void duplicateName() throws Exception {
-		JobTitle title = Entities.jobTitle();
-		title.setName(this.jobTitle.getName());
-		this.jobTitleRepo.save(title);
 	}
 
 	@Test

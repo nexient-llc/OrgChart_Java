@@ -1,21 +1,39 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import com.systemsinmotion.orgchart.entity.Department;
-import com.systemsinmotion.orgchart.service.DepartmentService;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import com.systemsinmotion.orgchart.web.View;
+
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultControllerTest {
 
-	@Autowired
-	private DepartmentService mockDepartmentService;
-
-	@Autowired
-	private Department mockDepartment;
-
-	// Map model = new HashMap<String, Object>();
+	@InjectMocks
+	DefaultController controller;
 
 	@SuppressWarnings("unused")
-	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
+	private static final String HOME_LIST_MISSING_ERROR = "Expected View that pointed to View.HOME, but did not.";
+
+	@Before
+	public void before() {
+		MockitoAnnotations.initMocks(this);
+
+	}
+
+	@Test
+	public void homeTest() throws Exception {
+
+		String home = controller.doGet();
+		assertNotNull(home);
+		assertEquals(home, View.HOME);
+
+	}
 
 }
