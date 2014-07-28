@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
@@ -48,6 +50,20 @@ public class JobTitleController {
 		jobTitleService.storeJobTitle(jobTitle);
 		refreshJobTitleModel(model);
 		return View.JOB_TITLES;
+	}
+	
+	@RequestMapping(value = "findJob", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody boolean doJobTitleFind_GET(@RequestParam("name") String name, @RequestParam(value = "id", defaultValue = "-1") Integer currentId) {
+		List<JobTitle> jobs = jobTitleService.findJobTitleByName(name);
+		if (currentId != -1) {
+			jobs.removeIf(p -> p.getId().equals(currentId));
+		}
+		if (jobs.size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	@RequestMapping(value = "job/delete/{id}", method = RequestMethod.DELETE)

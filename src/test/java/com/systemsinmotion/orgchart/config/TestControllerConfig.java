@@ -1,25 +1,24 @@
 package com.systemsinmotion.orgchart.config;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
@@ -45,6 +44,7 @@ public class TestControllerConfig {
 	private List<SimpleEmployee> listOfFoundSimpleEmployees2;
 
 	private Department mockDepartment;
+	private Department mockDepartment2;
 	private JobTitle mockTitle;
 	private Employee mockEmployee;
 	private SimpleEmployee mockSimpleEmployee;
@@ -56,6 +56,8 @@ public class TestControllerConfig {
 		listOfFoundDepts = new ArrayList<Department>();
 		mockDepartment = Entities.department(Entities.DEPT_ID);
 		listOfFoundDepts.add(mockDepartment);
+
+		mockDepartment2 = Entities.department(Entities.PARENT_DEPT_ID);
 
 		listOfFoundTitles = new ArrayList<JobTitle>();
 		mockTitle = Entities.jobTitle(Entities.JOB_TITLE_ID);
@@ -80,6 +82,7 @@ public class TestControllerConfig {
 	DepartmentService getDepartmentService() {
 		DepartmentService service = mock(DepartmentService.class);
 		when(service.findAllActiveDepartments()).thenReturn(listOfFoundDepts);
+		when(service.storeDepartment(eq(mockDepartment2))).thenReturn(mockDepartment2).thenThrow(new DataIntegrityViolationException("Can't save the same thing twice"));
 		when(service.storeDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
 		     public Department answer(InvocationOnMock invocation) {
 		         listOfFoundDepts.add(mockDepartment);
@@ -138,9 +141,14 @@ public class TestControllerConfig {
 		return service;
 	}
 	
-	@Bean
+	@Bean(name="mockDepartment")
 	Department getDepartment() {
 		return this.mockDepartment;
+	}
+	
+	@Bean(name="mockDepartmentList")
+	List<Department> getDepartmentList() {
+		return this.listOfFoundDepts;
 	}
 
 	@Bean

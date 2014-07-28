@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class JobTitleControllerTest {
 
 	@Autowired
 	private JobTitle mockJobTitle;
+	
+	@Autowired
+	private List<JobTitle> mockJobTitleList;
 
 	private List<JobTitle> findAllJobTitlesList;
 
@@ -122,6 +126,34 @@ public class JobTitleControllerTest {
 		
 		assertNotNull(findAllJobTitlesList);
 		assertFalse(findAllJobTitlesList.isEmpty());		
+	}
+
+	@Test
+	public void doJobTitleFind_GET_noId() {
+		when(mockJobTitleService.findJobTitleByName(Entities.JOB_TITLE)).thenReturn(mockJobTitleList);
+		boolean nameAlreadyExists = controller.doJobTitleFind_GET(Entities.JOB_TITLE, -1);
+		assertTrue(nameAlreadyExists);
+	}
+
+	@Test
+	public void doJobTitleFind_GET_differentId() {
+		when(mockJobTitleService.findJobTitleByName(Entities.JOB_TITLE)).thenReturn(mockJobTitleList);
+		boolean nameAlreadyExists = controller.doJobTitleFind_GET(Entities.JOB_TITLE, Entities.NOT_PRESENT_ID);
+		assertTrue(nameAlreadyExists);
+	}
+
+	@Test
+	public void doJobTitleFind_GET_sameId() {
+		when(mockJobTitleService.findJobTitleByName(Entities.JOB_TITLE)).thenReturn(mockJobTitleList);
+		boolean nameAlreadyExists = controller.doJobTitleFind_GET(Entities.JOB_TITLE, Entities.JOB_TITLE_ID);
+		assertFalse(nameAlreadyExists);
+	}
+
+	@Test
+	public void doJobTitleFind_GET_differentName() {
+		when(mockJobTitleService.findJobTitleByName(Entities.NOT_PRESENT_VALUE)).thenReturn(mockJobTitleList);
+		boolean nameAlreadyExists = controller.doJobTitleFind_GET(Entities.NOT_PRESENT_VALUE, Entities.JOB_TITLE_ID);
+		assertFalse(nameAlreadyExists);
 	}
 
 }

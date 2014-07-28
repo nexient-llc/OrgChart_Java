@@ -34,4 +34,47 @@ $(document).ready(function() {
 		})
 	});
 
+	$('#newJobTitle').submit(function() {
+		var success = false;
+		$.ajax({
+			dataType : "text",
+			type : 'GET',
+			url : "findJob",
+			data : "name="+$('#newJobName').val(),
+			async : false,
+			success: function(data) {
+				if (data=="true")
+				{
+					alert("That name already exists in the database.");
+					success = false;
+				} else {
+					success = true;
+				}
+			}
+		})
+		return success;
+	});
+	
+	$('.editFormClass').submit(function() {
+		var success = false;
+		var val = this.id.value;
+		$.ajax({
+			dataType : "text",
+			type : 'GET',
+			url : "findJob",
+			data : "name="+$('#editName-'+val).val() + "&id="+val,
+			async : false,
+			success: function(data) {
+				if (data=="true")
+				{
+					alert("'" + $('#editName-'+val).val() + "' already exists in the database.");
+					success = false;
+				} else {
+					success = true;
+				}
+			}
+		})
+		return success;
+	});
+
 });

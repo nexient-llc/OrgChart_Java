@@ -143,23 +143,5 @@ public class Employee extends BaseEntity {
 
 	public JobTitle getJobTitle() {
 		return jobTitle;
-	}
-		
-	public boolean equals(Object obj)
-	{
-		if (!(obj instanceof Employee))
-		{
-			return false;
-		}
-		if (obj == this)
-		{
-			return true;
-		}
-		Employee employee = (Employee) obj;
-		if (this.getId() == null)
-		{
-			return this.getId() == employee.getId();
-		}
-		return this.getId().equals(employee.getId());
-	}
+	}		
 }

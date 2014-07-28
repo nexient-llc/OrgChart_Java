@@ -10,9 +10,9 @@
 <div id="addEntity" style="display: none">
 	<fieldset>
 		<legend>Add New Job Title</legend>
-		<form name="newJob" action="newJob" method="post">
+		<form name="newJob" id="newJobTitle" action="newJob" method="post">
 			<div>
-				<labeL>Job Title: *</labeL><input type="text" name="name" required />
+				<labeL>Job Title: *</labeL><input type="text" name="name" id="newJobName" required />
 				<input type="hidden" name="isActive" value="true">
 				<br><br>
 				<button type="submit">Save</button>
@@ -44,9 +44,9 @@
 			<td><div id="editEntity-${job.id}" style="display: none">
 					<fieldset>
 						<legend>Edit Job Title</legend>
-						<form name="editJob" id="editForm-${job.id}" action="updateJob" method="post">
+						<form name="editJob" class="editFormClass" id="editForm-${job.id}" action="updateJob" method="post">
 							<div>
-								<labeL>Dept Name: *</labeL><input type="text" name="name" value="${job.name}" required />
+								<labeL>Dept Name: *</labeL><input type="text" name="name" value="${job.name}" id="editName-${job.id}" required />
 								<input type="hidden" name="id" value="${job.id}" />
 								<input type="hidden" id="activeVal-${job.id}" name="isActive" value="true" />
 								<br><br>

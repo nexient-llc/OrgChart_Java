@@ -51,4 +51,22 @@ public abstract class BaseEntity {
 		return thisAsString;
 	}
 
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof BaseEntity))
+		{
+			return false;
+		}
+		if (obj == this)
+		{
+			return true;
+		}
+		BaseEntity entity = (BaseEntity) obj;
+		if (this.getId() == null)
+		{
+			return this.getId() == entity.getId();
+		}
+		return this.getId().equals(entity.getId());
+	}
+
 }

@@ -67,27 +67,33 @@ public class JobTitleRepositoryTest {
 
 	@Test
 	public void findByName() throws Exception {
-		JobTitle title = this.jobTitleRepo.findByName(this.jobTitle.getName());
-		assertNotNull(title);
-		assertEquals(this.jobTitle.getName(), title.getName());
+		List<JobTitle> jobs = this.jobTitleRepo.findByNameIgnoreCase(this.jobTitle.getName());
+		assertEquals(1, jobs.size());
+		JobTitle job = jobs.get(0);
+		assertEquals(this.jobTitle.getName(), job.getName());
+	}
+
+	@Test
+	public void findByName_ignoreUpperCase() throws Exception {
+		List<JobTitle> jobs = this.jobTitleRepo.findByNameIgnoreCase(this.jobTitle.getName().toUpperCase());
+		assertEquals(1, jobs.size());
+		JobTitle job = jobs.get(0);
+		assertEquals(this.jobTitle.getName(), job.getName());
+	}
+
+	@Test
+	public void findByName_ignoreLowerCase() throws Exception {
+		List<JobTitle> jobs = this.jobTitleRepo.findByNameIgnoreCase(this.jobTitle.getName().toLowerCase());
+		assertEquals(1, jobs.size());
+		JobTitle job = jobs.get(0);
+		assertEquals(this.jobTitle.getName(), job.getName());
 	}
 
 	@Test
 	public void findByName_null() throws Exception {
-		JobTitle title = this.jobTitleRepo.findByName(NOT_PRESENT_VALUE);
-		assertNull(title);
-	}
-
-	@Test
-	public void update() throws Exception {
-		JobTitle title = this.jobTitleRepo.findByName(this.jobTitle.getName());
-		title.setName(SOME_NEW_NAME);
-		this.jobTitleRepo.save(title);
-
-		title = null;
-		title = this.jobTitleRepo.findByName(SOME_NEW_NAME);
-		assertNotNull(title);
-		assertEquals(SOME_NEW_NAME, title.getName());
+		List<JobTitle> jobs = this.jobTitleRepo.findByNameIgnoreCase(NOT_PRESENT_VALUE);
+		assertNotNull(jobs);
+		assertTrue(0 == jobs.size());
 	}
 	
 	@Test

@@ -4,7 +4,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <h3>Department Page</h3>
-<div id="createdDepartmentContainer"><h2>Successfully created new department "${createdDept.name}" and "${success}"</h2></div>
+<div id="createdDepartmentContainer" style="display: none"><h2>Successfully created new department "${createdDept.name}"</h2></div>
+<script type="text/javascript">var CREATED_DEPT = "${createdDept.name}";</script>
 <div id="addBtn-container">
 	<button type="button" id="addBtn" style="width: 45px;">Add</button>
 </div>

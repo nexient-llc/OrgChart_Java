@@ -1,5 +1,10 @@
 $(document).ready(function() {
 	$('#addBtn-container').css('width', $('#t1').width());
+	
+	$('#createdDepartmentContainer').ready(function() {
+		if(CREATED_DEPT)
+			$('#createdDepartmentContainer').toggle();
+	});
 
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear");
@@ -74,7 +79,7 @@ $(document).ready(function() {
 				}
 			}
 		})
-		return false;
+		return success;
 	});
 	
 });

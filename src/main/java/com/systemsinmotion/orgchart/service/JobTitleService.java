@@ -58,4 +58,8 @@ public class JobTitleService {
 		return this.repository.save(jobTitle);
 	}
 
+	public List<JobTitle> findJobTitleByName(String name) {
+		return this.repository.findByNameIgnoreCase(name);
+	}
+
 }

@@ -76,6 +76,13 @@ public class JobTitleServiceTest {
 	}
 
 	@Test
+	public void findJobTitleByName() {
+		List<JobTitle> jobss = this.titleService.findJobTitleByName(Entities.JOB_TITLE_NAME);
+		assertNotNull(jobss);
+		assertTrue(jobss.size() > 0);
+	}
+
+	@Test
 	public void removeJobTitle() {
 		JobTitle title = this.titleService.findJobTitleByID(Entities.JOB_TITLE_ID);
 		assertTrue(title.getIsActive());

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.service.DepartmentService;
@@ -33,13 +35,13 @@ public class DepartmentController {
 	}
 
 	@RequestMapping(value = "newDepart", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public String doDepartmentNew_POST(Department department, Model model) {
+//	@ResponseStatus(HttpStatus.CREATED) // This code is ignored by spring for a redirect...
+	public RedirectView doDepartmentNew_POST(Department department, Model model, RedirectAttributes ra) {
 		Department newDepartment = departmentService.storeDepartment(department);
-		model.addAttribute("createdDept", newDepartment);
-		model.addAttribute("success", true);
+		ra.addFlashAttribute("createdDept", newDepartment);
 		refreshDepartmentModel(model);
-		return "redirect:" + View.DEPARTMENTS;
+		RedirectView rv = new RedirectView(View.DEPARTMENTS);
+		return rv;
 	}
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
@@ -72,11 +74,10 @@ public class DepartmentController {
 
 	@RequestMapping(value = "findDepart", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody boolean doDepartmentFind_GET(@RequestParam("name") String name, @RequestParam(value="id", defaultValue="-1") Integer currentId) {
+	public @ResponseBody boolean doDepartmentFind_GET(@RequestParam("name") String name, @RequestParam(value = "id", defaultValue = "-1") Integer currentId) {
 		List<Department> depts = departmentService.findDepartmentByName(name);
-		if (currentId != -1)
-		{
-			depts.removeIf(p -> p.getId() == currentId);
+		if (currentId != -1) {
+			depts.removeIf(p -> p.getId().equals(currentId));
 		}
 		if (depts.size() == 0) {
 			return false;
