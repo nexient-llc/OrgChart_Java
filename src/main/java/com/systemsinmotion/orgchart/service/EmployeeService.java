@@ -50,7 +50,7 @@ public class EmployeeService {
 		List<Employee> employees = (List<Employee>) employeeRepository
 				.findAll(predicate);
 		// if not setup to return null
-		if (employees.size() > 0) {
+		if (employees != null && employees.size() > 0) {
 			tempEmloyee = null;
 		} else {
 			// if it was store the employee and then return it.

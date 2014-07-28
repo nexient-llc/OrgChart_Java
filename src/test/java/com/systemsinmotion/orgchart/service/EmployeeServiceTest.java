@@ -3,9 +3,11 @@ package com.systemsinmotion.orgchart.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,6 @@ import com.systemsinmotion.orgchart.entity.Employee;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestServiceConfig.class)
-// @RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceTest {
 
 	@Autowired
@@ -30,6 +31,12 @@ public class EmployeeServiceTest {
 
 	@Autowired
 	private Department depart;
+
+	@Before
+	public void setup() {
+		if (employeeService == null)
+			fail("AutoWired failed");
+	}
 
 	@Test
 	public void findActive() {
