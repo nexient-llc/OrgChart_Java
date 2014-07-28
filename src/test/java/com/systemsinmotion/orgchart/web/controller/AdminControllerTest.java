@@ -7,17 +7,19 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.systemsinmotion.orgchart.config.TestControllerConfig;
 import com.systemsinmotion.orgchart.web.View;
 
+@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestControllerConfig.class)
-// @ContextConfiguration("/test-context.xml")
+@ContextConfiguration("/test-context.xml")
 public class AdminControllerTest {
 
+	@Autowired
 	private AdminController controller;
 
 	@Before

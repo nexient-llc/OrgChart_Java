@@ -2,7 +2,6 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -132,10 +131,10 @@ public class DepartmentControllerTest {
 		// // verify(mockController).setDepartmentService(
 		// // controller.departmentService);
 		//
-		localController.setDepartmentService(mockDepartmentService);
-		assertNotNull(controller.getDepartmentService());
-		assertSame(mockDepartmentService,
-				localController.getDepartmentService());
+		// localController.setDepartmentService(mockDepartmentService);
+		// assertNotNull(controller.getDepartmentService());
+		// assertSame(mockDepartmentService,
+		// localController.getDepartmentService());
 
 	}
 

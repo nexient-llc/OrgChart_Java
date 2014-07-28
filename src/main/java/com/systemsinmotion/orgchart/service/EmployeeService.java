@@ -13,31 +13,31 @@ import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.QEmployee;
 
 @SuppressWarnings("restriction")
-@Service("EmployeeService")
+@Service("employeeService")
 public class EmployeeService {
 
 	@Autowired
-	private EmployeeRepository repository;
+	private EmployeeRepository employeeRepository;
 
 	public List<Employee> findAllEmployees() {
 		// TODO Auto-generated method stub
-		return this.repository.findByIsActiveIsTrue();
+		return this.employeeRepository.findByIsActiveIsTrue();
 	}
 
 	public List<Employee> findByJobTitleName(String title) {
-		return this.repository.findByJobTitleName(title);
+		return this.employeeRepository.findByJobTitleName(title);
 	}
 
 	public Employee findEmployeeByID(Integer employeeId) {
 		// TODO Auto-generated method stub
-		return this.repository.findOne(employeeId);
+		return this.employeeRepository.findOne(employeeId);
 	}
 
 	public Employee editEmployee(Employee employee) {
 
-		Employee current = this.repository.findOne(employee.getId());
+		Employee current = this.employeeRepository.findOne(employee.getId());
 		current.setAll(employee);
-		return this.repository.save(current);
+		return this.employeeRepository.save(current);
 	}
 
 	public Employee storeEmployee(Employee employee) {
@@ -47,7 +47,7 @@ public class EmployeeService {
 		BooleanExpression predicate = qEmployee.email.eq(employee.getEmail())
 				.or(qEmployee.skypeName.eq(employee.getSkypeName()));
 		// see if the email and skype was unique
-		List<Employee> employees = (List<Employee>) repository
+		List<Employee> employees = (List<Employee>) employeeRepository
 				.findAll(predicate);
 		// if not setup to return null
 		if (employees.size() > 0) {
@@ -55,17 +55,17 @@ public class EmployeeService {
 		} else {
 			// if it was store the employee and then return it.
 			employee.setIsActive(true);
-			tempEmloyee = this.repository.save(employee);
+			tempEmloyee = this.employeeRepository.save(employee);
 		}
 		return tempEmloyee;
 	}
 
 	public Employee updateEmployee(Employee employee) {
-		return this.repository.save(employee);
+		return this.employeeRepository.save(employee);
 	}
 
 	public List<Employee> activeEmployees() {
-		return this.repository.findByIsActiveIsTrue();
+		return this.employeeRepository.findByIsActiveIsTrue();
 	}
 
 	public List<Employee> filterEmployees(String firstName, String lastName,
@@ -102,7 +102,7 @@ public class EmployeeService {
 			expression = expression.and(jobTitleExpression);
 		}
 
-		List<Employee> employees = (ArrayList<Employee>) repository
+		List<Employee> employees = (ArrayList<Employee>) employeeRepository
 				.findAll(expression);
 
 		return employees;
@@ -117,7 +117,7 @@ public class EmployeeService {
 				.and(employee.isActive.eq(true));
 
 		Gson json = new Gson();
-		List<Employee> employees = (ArrayList<Employee>) repository
+		List<Employee> employees = (ArrayList<Employee>) employeeRepository
 				.findAll(expression);
 
 		return json.toJson(employees);

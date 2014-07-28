@@ -16,12 +16,12 @@ import com.systemsinmotion.orgchart.web.View;
 public class UsersController {
 
 	@Autowired
-	UsersService usersService;
+	UsersService userService;
 
 	@RequestMapping(value = "users", method = RequestMethod.GET)
 	public String doUsers_GET(Model model) {
 
-		List<Users> users = usersService.findAllUsers();
+		List<Users> users = userService.findAllUsers();
 
 		model.addAttribute("admin", users);
 

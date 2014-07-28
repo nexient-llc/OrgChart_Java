@@ -3,10 +3,12 @@ package com.systemsinmotion.orgchart.data;
 import java.util.List;
 
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.stereotype.Repository;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 
+@Repository("employeeRepository")
 public interface EmployeeRepository extends BaseRepository<Employee, Integer>,
 		QueryDslPredicateExecutor<Employee> {
 

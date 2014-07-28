@@ -1,20 +1,15 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.systemsinmotion.orgchart.service.UsersService;
 import com.systemsinmotion.orgchart.web.View;
 
 @Controller
 @RequestMapping("admin")
 public class AdminController {
-
-	@Autowired
-	UsersService userService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String doDefault() {

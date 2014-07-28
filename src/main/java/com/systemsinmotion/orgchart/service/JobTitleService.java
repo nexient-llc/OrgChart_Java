@@ -8,43 +8,43 @@ import org.springframework.stereotype.Service;
 import com.systemsinmotion.orgchart.data.JobTitleRepository;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
-@Service("JobTitleService")
+@Service("jobTitleService")
 public class JobTitleService {
 
 	@Autowired
-	JobTitleRepository repository;
+	JobTitleRepository jobTitleRepository;
 
 	public List<JobTitle> findAllJobTitles() {
-		return this.repository.findAll();
+		return this.jobTitleRepository.findAll();
 	}
 
 	public JobTitle findJobTitleByID(Integer titleId) {
-		return this.repository.findOne(titleId);
+		return this.jobTitleRepository.findOne(titleId);
 	}
 
 	public JobTitle removeJobTitle(JobTitle title) {
-		this.repository.delete(title);
+		this.jobTitleRepository.delete(title);
 		return title;
 	}
 
 	public void setRepository(JobTitleRepository repository) {
-		this.repository = repository;
+		this.jobTitleRepository = repository;
 	}
 
 	public JobTitleRepository getRepository() {
-		return this.repository;
+		return this.jobTitleRepository;
 	}
 
 	public JobTitle storeJobTitle(JobTitle title) {
-		return this.repository.save(title);
+		return this.jobTitleRepository.save(title);
 	}
 
 	public boolean titleExists(JobTitle title) {
-		return this.repository.exists(title.getId());
+		return this.jobTitleRepository.exists(title.getId());
 	}
 
 	public List<JobTitle> activeJobTitles() {
-		return this.repository.findByIsActiveIsTrue();
+		return this.jobTitleRepository.findByIsActiveIsTrue();
 	}
 
 }

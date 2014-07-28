@@ -25,10 +25,6 @@ public class DepartmentController {
 		this.departmentService = departmentService;
 	}
 
-	public DepartmentService getDepartmentService() {
-		return this.departmentService;
-	}
-
 	// department methods
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {

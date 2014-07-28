@@ -8,27 +8,27 @@ import org.springframework.stereotype.Service;
 import com.systemsinmotion.orgchart.data.UsersRepository;
 import com.systemsinmotion.orgchart.entity.Users;
 
-@Service("usersService")
+@Service("userService")
 public class UsersService {
 
 	@Autowired
-	UsersRepository repository;
+	UsersRepository userRepository;
 
 	public Users findUserByUserName(String user) {
 
-		return this.repository.findByUserName(user);
+		return this.userRepository.findByUserName(user);
 	}
 
 	public Users findByUserPassword(String password) {
-		return this.repository.findByUserPassword(password);
+		return this.userRepository.findByUserPassword(password);
 	}
 
 	public List<Users> findUsersByEnabled() {
-		return this.repository.findByEnabledIsTrue();
+		return this.userRepository.findByEnabledIsTrue();
 	}
 
 	public List<Users> findAllUsers() {
-		return this.repository.findAll();
+		return this.userRepository.findAll();
 
 	}
 
@@ -36,8 +36,9 @@ public class UsersService {
 
 		Users mockUser = null;
 
-		if (this.repository.findByUserName(user.getUserName()) != null) {
-			mockUser = this.repository.save(user); // user name didn't exist so
+		if (this.userRepository.findByUserName(user.getUserName()) != null) {
+			mockUser = this.userRepository.save(user); // user name didn't exist
+														// so
 			// save it for the return
 		}
 

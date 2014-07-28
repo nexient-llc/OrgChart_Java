@@ -3,49 +3,45 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 
-@Service("DepartmentService")
+@Service("departmentService")
 public class DepartmentService {
 
-	private static final Sort defaultSort = new Sort(Direction.ASC, "name");
-
 	@Autowired
-	DepartmentRepository repository;
+	DepartmentRepository departmentRepository;
 
 	public List<Department> findAllDepartments() {
-		return this.repository.findAll();
+		return this.departmentRepository.findAll();
 	}
 
 	public Department findDepartmentByID(Integer departmentId) {
-		return this.repository.findOne(departmentId);
+		return this.departmentRepository.findOne(departmentId);
 	}
 
 	public List<Department> activeDepartments() {
-		return this.repository.findByIsActiveIsTrue();
+		return this.departmentRepository.findByIsActiveIsTrue();
 	}
 
 	public Department removeDepartment(Department department) {
 		Department departmentToRemove = findDepartmentByID(department.getId());
 		departmentToRemove.setIsActive(false);
 
-		return this.repository.saveAndFlush(departmentToRemove);
+		return this.departmentRepository.saveAndFlush(departmentToRemove);
 	}
 
 	public Department update(Department department) {
 		Department depart = findDepartmentByID(department.getId());
 		depart.setName(department.getName());
 
-		return this.repository.saveAndFlush(depart);
+		return this.departmentRepository.saveAndFlush(depart);
 	}
 
 	public void setRepository(DepartmentRepository repository) {
-		this.repository = repository;
+		this.departmentRepository = repository;
 	}
 
 	public Department storeDepartment(Department department) {
@@ -54,11 +50,11 @@ public class DepartmentService {
 				&& department.getParentDepartment().getId() == null) {
 			department.setParentDepartment(null);
 		}
-		if (repository.findByName(department.getName()) != null) {
-			department = repository.findByName(department.getName());
+		if (departmentRepository.findByName(department.getName()) != null) {
+			department = departmentRepository.findByName(department.getName());
 		}
 		department.setIsActive(true);
-		return this.repository.save(department);
+		return this.departmentRepository.save(department);
 	}
 
 }

@@ -33,12 +33,14 @@ public class EmployeeController {
 	@Autowired
 	JobTitleService jobTitleService;
 
+	// Initial bring up to display current active employees
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(Model model) {
 		updateProperties(model);
 		return View.EMPLOYEES;
 	}
 
+	// Auto complete for searching for an employee
 	@RequestMapping(value = "autoComplete/{firstName}", method = RequestMethod.GET)
 	public @ResponseBody String doEmployees_SEARCH(
 			@PathVariable("firstName") String name) {
@@ -47,6 +49,7 @@ public class EmployeeController {
 		return json;
 	}
 
+	// auto fill for edit employee text boxes
 	@RequestMapping(value = "emp", method = RequestMethod.GET)
 	public @ResponseBody String doEmployees_EMP(Integer id) {
 
@@ -55,6 +58,7 @@ public class EmployeeController {
 
 	}
 
+	// filter for searching for an employee
 	@RequestMapping(value = "filterEmployees", method = RequestMethod.GET)
 	public String doEmployees_FILTER(
 			@RequestParam(value = "firstName", defaultValue = " ") String firstName,
@@ -83,6 +87,7 @@ public class EmployeeController {
 		return View.EMPLOYEES;
 	}
 
+	// update existing employee
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String doEmployees_UPDATE(Employee employee, Model model) {
 
