@@ -43,7 +43,7 @@ public abstract class BaseEntity {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			thisAsString = mapper.writeValueAsString(this);
-		} catch (Exception e) {
+		} catch (Exception e) {	// TODO does the exception need to be tested? (assuming not)
 			e.printStackTrace();
 		}
 		return thisAsString;

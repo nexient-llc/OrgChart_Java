@@ -39,7 +39,7 @@ public class DefaultControllerTest {
 	private JobTitle mockJobTitle;
 
 
-	//	Map model = new HashMap<String, Object>();
+//	Map model = new HashMap<String, Object>();
 	Model model = new ExtendedModelMap();
 
 	private ArrayList<Department> findAllDepartmentsList;
@@ -69,10 +69,12 @@ public class DefaultControllerTest {
 
 		model.addAttribute("depts", findAllDepartmentsList);
 		//Given
-//		controller.doDepartments_POST(mockDepartment, model);
+		controller.doDepartments_POST(mockDepartment, model);
 		//When
 		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
 
+		System.out.println(findAllDepartmentsList);
+		
 		//Then
 		assertNotNull(findAllDepartmentsList);
 		assertTrue(findAllDepartmentsList.size() > 1);
@@ -94,24 +96,24 @@ public class DefaultControllerTest {
 //		assertEquals(Entities.EMPLOYEE_ID, this.findAllEmployeesList.get(0).getId());
 //	}
 //
-//	@SuppressWarnings("unchecked")
-//	@Test
-//	public void testModelShouldUpdateOnEmployeePagePost() {
-//
-//		model.addAttribute("emps", findAllEmployeesList);
-//		//Given
-//		controller.doEmployees_POST(mockEmployee, model);
-//		//When
-//		findAllEmployeesList = (ArrayList<Employee>)model.asMap().get("emps");
-//
-//		//Then
-//		assertNotNull(findAllEmployeesList);
-//		assertTrue(findAllEmployeesList.size() > 1);
-//		assertEquals(Entities.EMPLOYEE_ID, findAllEmployeesList.get(1).getId());
-//		assertEquals(findAllEmployeesList.get(1).getEmail(), mockEmployee.getEmail());
-//
-//	}
-//	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnEmployeePagePost() {
+
+		model.addAttribute("emps", findAllEmployeesList);
+		//Given
+		controller.doEmployees_POST(mockEmployee, model);
+		//When
+		findAllEmployeesList = (ArrayList<Employee>)model.asMap().get("emps");
+
+		//Then
+		assertNotNull(findAllEmployeesList);
+		assertTrue(findAllEmployeesList.size() > 1);
+		assertEquals(Entities.EMPLOYEE_ID, findAllEmployeesList.get(1).getId());
+		assertEquals(findAllEmployeesList.get(1).getEmail(), mockEmployee.getEmail());
+
+	}
+	
 //	@SuppressWarnings("unchecked")
 //	@Test
 //	public void testModelShouldContainNewJobTitleList() {

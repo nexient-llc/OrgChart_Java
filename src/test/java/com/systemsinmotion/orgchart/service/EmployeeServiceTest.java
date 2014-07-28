@@ -42,8 +42,6 @@ public class EmployeeServiceTest {
 	public void findEmployeeByID() {
 		Employee emp = this.employeeService.findEmployeeByID(Entities.EMPLOYEE_ID);
 		System.out.println(mockEmployee);
-		System.out.println(emp);
-		assertNotNull(emp);
 		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
 	}
 	
