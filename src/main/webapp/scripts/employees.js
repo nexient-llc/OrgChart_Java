@@ -60,5 +60,32 @@ $(document).ready(function() {
 			});
 		}
 	});
+	
+	$('#newEmployee').submit(function() {
+		var success = false;
+		$.ajax({
+			url : "findEmployee",
+			data: $(this).serialize(),
+			type : 'GET',
+			async : false,
+			success: function(data) {
+				if (data=="true")
+				{
+					alert("'" + name + "' already exists in the database.");
+					success = false;
+				} else {
+					success = true;
+				}
+			}
+		})
+		return false;
+	});
+	
+	$('.editFormClass').submit(function() {
+		var success = false;
+//		var val = this.id.value;
+//			data : "name="+$('#editName-'+val).val() + "&id="+val,
+		return success;
+	});
 
 });

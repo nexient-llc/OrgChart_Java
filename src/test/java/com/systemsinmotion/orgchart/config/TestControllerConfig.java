@@ -185,6 +185,11 @@ public class TestControllerConfig {
 		return this.mockEmployee;
 	}
 	
+	@Bean(name="mockEmployeeList")
+	List<Employee> getEmployeeList() {
+		return this.listOfFoundEmployees;
+	}
+	
 	@Bean
 	EmployeeRepository getEmployeeRepository() {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
@@ -227,6 +232,8 @@ public class TestControllerConfig {
 		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, null, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
 		when(repo.findActiveByUnknownInputs(null, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
 		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findByEmailIgnoreCase(Entities.EMAIL)).thenReturn(listOfFoundEmployees);
+		when(repo.findBySkypeNameIgnoreCase(Entities.SKYPE_NAME)).thenReturn(listOfFoundEmployees);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		return repo;
 	}

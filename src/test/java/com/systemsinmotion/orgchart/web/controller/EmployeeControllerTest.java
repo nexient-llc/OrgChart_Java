@@ -6,9 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,20 +31,36 @@ public class EmployeeControllerTest {
 
 	@Autowired
 	EmployeeController controller;
-	
+
 	@Autowired
 	private EmployeeService mockEmployeeService;
 
 	@Autowired
 	private Employee mockEmployee;
-	
+
+	@Autowired
+	private List<Employee> mockEmployeeList;
+
 	private List<Employee> findAllEmployeesList;
 
 	Model model = new ExtendedModelMap();
 
+	@Before
+	public void init() {
+		mockEmployee.setEmail(Entities.EMAIL);
+		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
+		mockEmployee.setId(Entities.EMPLOYEE_ID);
+		mockEmployeeList.clear();
+		mockEmployeeList.add(mockEmployee);
+		when(mockEmployeeService.findEmployeeBySkype(Entities.SKYPE_NAME)).thenReturn(mockEmployeeList);
+		when(mockEmployeeService.findEmployeeByEmail(Entities.EMAIL)).thenReturn(mockEmployeeList);
+	}
+
 	@Test
 	public void testInit() {
 		assertNotNull(controller);
+		assertNotNull(mockEmployeeService);
+		assertNotNull(mockEmployee);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -71,18 +89,18 @@ public class EmployeeControllerTest {
 		// Then
 		assertNotNull(this.findAllEmployeesList);
 		assertEquals(Entities.EMPLOYEE_ID, this.findAllEmployeesList.get(0).getId());
-		assertEquals(View.EMPLOYEES, viewName);		
+		assertEquals(View.EMPLOYEES, viewName);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testModelShouldUpdateOnEmployeePagePost() {
-		//Given
+		// Given
 		controller.doEmployeeNew_POST(mockEmployee, model);
-		//When
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
+		// When
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
 
-		//Then
+		// Then
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.size() > 1);
 		Employee foundEmployee = findAllEmployeesList.get(findAllEmployeesList.size() - 1);
@@ -95,12 +113,12 @@ public class EmployeeControllerTest {
 	@Test
 	public void testModelShouldUpdateOnEmployeePageUpdate() {
 		mockEmployee.setEmail(Entities.EMAIL_2);
-		//Given
+		// Given
 		controller.doEmployeeUpdate_POST(mockEmployee, model);
-		//When
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
+		// When
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
 
-		//Then
+		// Then
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.size() > 1);
 		Employee foundEmployee = findAllEmployeesList.get(findAllEmployeesList.size() - 1);
@@ -108,22 +126,22 @@ public class EmployeeControllerTest {
 		assertEquals(foundEmployee.getEmail(), mockEmployee.getEmail());
 		verify(mockEmployeeService, atLeastOnce()).storeEmployee(mockEmployee);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void doEmployeeDelete_DELETE() {
 		controller.doEmployeeDelete_DELETE(Entities.EMPLOYEE_ID, model);
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.isEmpty());
 
 		// Reset
 		controller.doEmployeeNew_POST(mockEmployee, model);
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
-		assertFalse(findAllEmployeesList.isEmpty());		
+		assertFalse(findAllEmployeesList.isEmpty());
 	}
 
 	@Test
@@ -132,7 +150,7 @@ public class EmployeeControllerTest {
 		assertNotNull(response);
 		assertTrue(response.contains(Entities.FULL_NAME));
 	}
-	
+
 	@Test
 	public void doSearchEmployees_GET_firstName() {
 		String response = controller.doSearchEmployees_GET(Entities.FIRST_NAME);
@@ -146,7 +164,7 @@ public class EmployeeControllerTest {
 		assertNotNull(response);
 		assertTrue(response.contains(Entities.FULL_NAME));
 	}
-	
+
 	@Test
 	public void doSearchEmployees_GET_null() {
 		String response = controller.doSearchEmployees_GET(null);
@@ -179,20 +197,20 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_null() {
 		controller.doSearchFullFilterEmployees_GET("", "", "", model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void doSearchFullFilterEmployees_GET_firstName() {
 		controller.doSearchFullFilterEmployees_GET(Entities.FIRST_NAME, "", "", model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -201,9 +219,9 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_lastName() {
 		controller.doSearchFullFilterEmployees_GET(Entities.LAST_NAME, "", "", model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -212,31 +230,31 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_firstNameAndLastName() {
 		controller.doSearchFullFilterEmployees_GET(Entities.FULL_NAME, "", "", model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void doSearchFullFilterEmployees_GET_Department() {
 		controller.doSearchFullFilterEmployees_GET("", Entities.DEPT_ID.toString(), "", model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void doSearchFullFilterEmployees_GET_firstNameAndDepartment() {
 		controller.doSearchFullFilterEmployees_GET(Entities.FIRST_NAME, Entities.DEPT_ID.toString(), "", model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -245,9 +263,9 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_lastNameAndDepartment() {
 		controller.doSearchFullFilterEmployees_GET(Entities.LAST_NAME, Entities.DEPT_ID.toString(), "", model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -256,9 +274,9 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_firstNameAndLastNameAndDepartment() {
 		controller.doSearchFullFilterEmployees_GET(Entities.FULL_NAME, Entities.DEPT_ID.toString(), "", model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -267,20 +285,20 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_JobTitle() {
 		controller.doSearchFullFilterEmployees_GET("", "", Entities.JOB_TITLE_ID.toString(), model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void doSearchFullFilterEmployees_GET_firstNameAndJobTitle() {
 		controller.doSearchFullFilterEmployees_GET(Entities.FIRST_NAME, "", Entities.JOB_TITLE_ID.toString(), model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -289,9 +307,9 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_lastNameAndJobTitle() {
 		controller.doSearchFullFilterEmployees_GET(Entities.LAST_NAME, "", Entities.JOB_TITLE_ID.toString(), model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -300,9 +318,9 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_firstNameAndLastNameAndJobTitle() {
 		controller.doSearchFullFilterEmployees_GET(Entities.FULL_NAME, "", Entities.JOB_TITLE_ID.toString(), model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -311,20 +329,20 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_DepartmentAndJobTitle() {
 		controller.doSearchFullFilterEmployees_GET("", Entities.DEPT_ID.toString(), Entities.JOB_TITLE_ID.toString(), model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void doSearchFullFilterEmployees_GET_firstNameAndDepartmentAndJobTitle() {
 		controller.doSearchFullFilterEmployees_GET(Entities.FIRST_NAME, Entities.DEPT_ID.toString(), Entities.JOB_TITLE_ID.toString(), model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -333,9 +351,9 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_lastNameAndDepartmentAndJobTitle() {
 		controller.doSearchFullFilterEmployees_GET(Entities.LAST_NAME, Entities.DEPT_ID.toString(), Entities.JOB_TITLE_ID.toString(), model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
@@ -344,11 +362,125 @@ public class EmployeeControllerTest {
 	@Test
 	public void doSearchFullFilterEmployees_GET_firstNameAndLastNameAndDepartmentAndJobTitle() {
 		controller.doSearchFullFilterEmployees_GET(Entities.FULL_NAME, Entities.DEPT_ID.toString(), Entities.JOB_TITLE_ID.toString(), model);
-		
-		findAllEmployeesList = (List<Employee>)model.asMap().get("emps");
-		
+
+		findAllEmployeesList = (List<Employee>) model.asMap().get("emps");
+
 		assertNotNull(findAllEmployeesList);
 		assertTrue(findAllEmployeesList.contains(mockEmployee));
 	}
 
+	@Test
+	public void doEmployeeFind_GET_nulls() {
+		mockEmployee.setSkypeName(null);
+		mockEmployee.setEmail(null);
+		mockEmployee.setId(null);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertTrue(conflictFound);
+		assertEquals(model.asMap().get("message"), "Skype Name is required");
+	}
+
+	@Test
+	public void doEmployeeFind_GET_onlySkype() {
+		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
+		mockEmployee.setEmail(null);
+		mockEmployee.setId(null);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertTrue(conflictFound);
+		assertEquals(model.asMap().get("message"), "That Skype Name is already used");
+	}
+
+	@Test
+	public void doEmployeeFind_GET_onlyEmail() {
+		mockEmployee.setSkypeName(null);
+		mockEmployee.setEmail(Entities.EMAIL);
+		mockEmployee.setId(null);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertTrue(conflictFound);
+		assertEquals(model.asMap().get("message"), "Skype Name is required");
+	}
+
+	@Test
+	public void doEmployeeFind_GET_onlyId() {
+		mockEmployee.setSkypeName(null);
+		mockEmployee.setEmail(null);
+		mockEmployee.setId(Entities.EMPLOYEE_ID);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertTrue(conflictFound);
+		assertEquals(model.asMap().get("message"), "Skype Name is required");
+	}
+	
+	@Test
+	public void doEmployeeFind_GET_oldSkypeAndOldEmail() {
+		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
+		mockEmployee.setEmail(Entities.EMAIL);
+		mockEmployee.setId(null);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertTrue(conflictFound);
+		assertEquals(model.asMap().get("message"), "That Skype Name is already used");
+	}
+
+	@Test
+	public void doEmployeeFind_GET_oldSkypeAndOldEmailWithId() {
+		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
+		mockEmployee.setEmail(Entities.EMAIL);
+		mockEmployee.setId(Entities.EMPLOYEE_ID);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertFalse(conflictFound);
+	}
+
+	@Test
+	public void doEmployeeFind_GET_newSkypeAndOldEmail() {
+		mockEmployee.setSkypeName(Entities.NOT_PRESENT_VALUE);
+		mockEmployee.setEmail(Entities.EMAIL);
+		mockEmployee.setId(null);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertTrue(conflictFound);
+		assertEquals(model.asMap().get("message"), "That Email is already used");
+	}
+
+	@Test
+	public void doEmployeeFind_GET_newSkypeAndOldEmailWithId() {
+		mockEmployee.setSkypeName(Entities.NOT_PRESENT_VALUE);
+		mockEmployee.setEmail(Entities.EMAIL);
+		mockEmployee.setId(Entities.EMPLOYEE_ID);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertFalse(conflictFound);
+	}
+
+	@Test
+	public void doEmployeeFind_GET_oldSkypeAndNewEmail() {
+		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
+		mockEmployee.setEmail(Entities.NOT_PRESENT_VALUE);
+		mockEmployee.setId(null);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertTrue(conflictFound);
+		assertEquals(model.asMap().get("message"), "That Skype Name is already used");
+	}
+
+	@Test
+	public void doEmployeeFind_GET_oldSkypeAndNewEmailWithId() {
+		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
+		mockEmployee.setEmail(Entities.NOT_PRESENT_VALUE);
+		mockEmployee.setId(Entities.EMPLOYEE_ID);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertFalse(conflictFound);
+	}
+
+	@Test
+	public void doEmployeeFind_GET_newSkypeAndNewEmail() {
+		mockEmployee.setSkypeName(Entities.NOT_PRESENT_VALUE);
+		mockEmployee.setEmail(Entities.NOT_PRESENT_VALUE);
+		mockEmployee.setId(null);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertFalse(conflictFound);
+	}
+
+	@Test
+	public void doEmployeeFind_GET_newSkypeAndNewEmailAndId() {
+		mockEmployee.setSkypeName(Entities.NOT_PRESENT_VALUE);
+		mockEmployee.setEmail(Entities.NOT_PRESENT_VALUE);
+		mockEmployee.setId(Entities.EMPLOYEE_ID);
+		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertFalse(conflictFound);
+	}
 }

@@ -38,7 +38,7 @@
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Employee</legend>
-		<form name="newEmp" action="newEmp" method="post">
+		<form name="newEmp" id="newEmployee" action="newEmp" method="post">
 		<div><label>First Name: *</label><input type="text" name="firstName" required/>
 		<label>Last Name: *</label><input type="text" name="lastName" required/>
 		<label>Middle Initial:</label><input type="text" name="middleInitial" maxlength="1" size="1"/>

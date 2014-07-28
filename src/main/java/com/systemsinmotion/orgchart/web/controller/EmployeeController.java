@@ -24,45 +24,41 @@ import com.systemsinmotion.orgchart.web.View;
 
 @Controller
 public class EmployeeController {
-	
+
 	@Autowired
 	EmployeeService employeeService;
-	
+
 	@Autowired
 	JobTitleService jobTitleService;
 
 	@Autowired
 	DepartmentService departmentService;
-	
+
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
 
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public String doEmployees_GET(@RequestParam(value = "filterName", defaultValue="") String fullName,
-			@RequestParam(value = "deptid", defaultValue="") String deptid,
-			@RequestParam(value = "jobid", defaultValue="") String jobid,
-			String string4,
+	public String doEmployees_GET(@RequestParam(value = "filterName", defaultValue = "") String fullName,
+			@RequestParam(value = "deptid", defaultValue = "") String deptid, @RequestParam(value = "jobid", defaultValue = "") String jobid, String string4,
 			Model model) {
 		refreshAllModels(model);
 		return View.EMPLOYEES;
 	}
-	
+
 	@RequestMapping(value = "searchemps", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public String doSearchFullFilterEmployees_GET(@RequestParam(value = "filterName", defaultValue="") String fullName,
-			@RequestParam(value = "deptid", defaultValue="") String deptId,
-			@RequestParam(value = "jobid", defaultValue="") String jobId,
-			Model model) {
-//		List<Employee> employees = getFilteredEmployees_bySwitch(fullName, deptId, jobId);
+	public String doSearchFullFilterEmployees_GET(@RequestParam(value = "filterName", defaultValue = "") String fullName,
+			@RequestParam(value = "deptid", defaultValue = "") String deptId, @RequestParam(value = "jobid", defaultValue = "") String jobId, Model model) {
+		// List<Employee> employees = getFilteredEmployees_bySwitch(fullName, deptId, jobId);
 		List<Employee> employees = getFilteredEmployees_byCriteria(fullName, deptId, jobId);
 		model.addAttribute("emps", employees);
 		refreshJobTitleModel(model);
 		refreshDepartmentModel(model);
 		return View.EMPLOYEES;
 	}
-	
+
 	@RequestMapping(value = "searchEmployeeName/{name}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody String doSearchEmployees_GET(@PathVariable("name") String fullName) {
@@ -71,67 +67,63 @@ public class EmployeeController {
 		List<SimpleEmployee> employees = getFilteredEmployeeNames(fullName);
 		return putCommaDelimitersInAListOfEmployees(employees);
 	}
-	
+
 	private String putCommaDelimitersInAListOfEmployees(List<SimpleEmployee> employees) {
 		String output = new String();
-		for (SimpleEmployee emp : employees)
-		{
+		for (SimpleEmployee emp : employees) {
 			output += emp.getFirstName() + " " + emp.getLastName() + ",";
 		}
-		if (output.length() > 0)
-		{
-			output = output.substring(0,output.length() - 1);
+		if (output.length() > 0) {
+			output = output.substring(0, output.length() - 1);
 		}
 		return output;
 	}
 
-//	@RequestMapping(value = "emp/delete/{id}", method = RequestMethod.DELETE)
-//	public @ResponseBody ResponseEntity<String> doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
-//	{
-//		employeeService.removeEmployeeById(empId);
-//		refreshAllModels(model);
-//		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
-//	}
-	
+	// @RequestMapping(value = "emp/delete/{id}", method = RequestMethod.DELETE)
+	// public @ResponseBody ResponseEntity<String> doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
+	// {
+	// employeeService.removeEmployeeById(empId);
+	// refreshAllModels(model);
+	// return new ResponseEntity<String>(HttpStatus.ACCEPTED);
+	// }
+
 	@RequestMapping(value = "emp/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public void doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model)
-	{
+	public void doEmployeeDelete_DELETE(@PathVariable("id") Integer empId, Model model) {
 		employeeService.removeEmployeeById(empId);
 		refreshAllModels(model);
 		return;
 	}
 
 	// Solution 1: Readable and few lines of code, but requires 2+ queries
-//	private List<Employee> getFilteredEmployees_byIntersect(String fullName, String deptId,
-//			String jobId) {
-//		String[] name = fullName.split("\\s");
-//		List<Employee> employees = employeeService.findAllActiveEmployees();
-//		if (name[0].length() > 0)
-//			employees.retainAll(employeeService.findEmployeesByFirstName(name[0]));
-//		if (name.length > 1 && name[1].length() > 0)
-//			employees.retainAll(employeeService.findEmployeesByLastName(name[1]));
-//		if (deptId.length() > 0)
-//			employees.retainAll(employeeService.findEmployeesByDepartment(departmentService.findDepartmentByID(Integer.parseInt(deptId))));
-//		if (jobId.length() > 0)
-//			employees.retainAll(employeeService.findEmployeesByJobTitle(jobTitleService.findJobTitleByID(Integer.parseInt(jobId))));
-//
-//		return employees;
-//	}
+	// private List<Employee> getFilteredEmployees_byIntersect(String fullName, String deptId,
+	// String jobId) {
+	// String[] name = fullName.split("\\s");
+	// List<Employee> employees = employeeService.findAllActiveEmployees();
+	// if (name[0].length() > 0)
+	// employees.retainAll(employeeService.findEmployeesByFirstName(name[0]));
+	// if (name.length > 1 && name[1].length() > 0)
+	// employees.retainAll(employeeService.findEmployeesByLastName(name[1]));
+	// if (deptId.length() > 0)
+	// employees.retainAll(employeeService.findEmployeesByDepartment(departmentService.findDepartmentByID(Integer.parseInt(deptId))));
+	// if (jobId.length() > 0)
+	// employees.retainAll(employeeService.findEmployeesByJobTitle(jobTitleService.findJobTitleByID(Integer.parseInt(jobId))));
+	//
+	// return employees;
+	// }
 
 	// Solution 2: Switch Approach, long-winded but correct
-//	private List<Employee> getFilteredEmployees_bySwitch(String fullName, String deptId, String jobId)
-//	{
-//		String[] name = fullName.trim().split("\\s");
-//		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
-//		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
-//		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
-//		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
-//		return employeeService.findEmployeesByFilter(firstName, lastName, department, jobTitle);
-//	}
-	
-	private List<SimpleEmployee> getFilteredEmployeeNames(String fullName)
-	{
+	// private List<Employee> getFilteredEmployees_bySwitch(String fullName, String deptId, String jobId)
+	// {
+	// String[] name = fullName.trim().split("\\s");
+	// String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
+	// String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
+	// Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
+	// Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
+	// return employeeService.findEmployeesByFilter(firstName, lastName, department, jobTitle);
+	// }
+
+	private List<SimpleEmployee> getFilteredEmployeeNames(String fullName) {
 		String[] name = fullName.trim().split("\\s");
 		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
 		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
@@ -139,8 +131,7 @@ public class EmployeeController {
 	}
 
 	// Solution 3: Query Criteria
-	private List<Employee> getFilteredEmployees_byCriteria(String fullName, String deptId, String jobId)
-	{
+	private List<Employee> getFilteredEmployees_byCriteria(String fullName, String deptId, String jobId) {
 		String[] name = fullName.trim().split("\\s");
 		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
 		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
@@ -165,19 +156,50 @@ public class EmployeeController {
 		return View.EMPLOYEES;
 	}
 
+	@RequestMapping(value = "findEmployee", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody boolean doEmployeeFind_GET(Employee employee, Model model) {
+		if (employee.getSkypeName() != null) {
+			List<Employee> employees = employeeService.findEmployeeBySkype(employee.getSkypeName());
+			if (employee.getId() != null) {
+				employees.removeIf(p -> p.getId().equals(employee.getId()));
+			}
+			if (employees.size() != 0) {
+				model.addAttribute("message", "That Skype Name is already used");
+				return true;
+			}
+		} else {
+			model.addAttribute("message", "Skype Name is required");
+			return true;
+		}
+		if (employee.getEmail() != null) {
+			List<Employee> employees = employeeService.findEmployeeByEmail(employee.getEmail());
+			if (employee.getId() != null) {
+				employees.removeIf(p -> p.getId().equals(employee.getId()));
+			}
+			if (employees.size() != 0) {
+				model.addAttribute("message", "That Email is already used");
+				return true;
+			}
+		} else {
+			model.addAttribute("message", "Email is required");
+			return true;
+		}
+		return false;
+	}
 
 	private void refreshAllModels(Model model) {
 		refreshDepartmentModel(model);
 		refreshJobTitleModel(model);
 		refreshEmployeeModel(model);
 	}
-	
+
 	private void refreshEmployeeModel(Model model) {
 		List<Employee> employees = employeeService.findAllActiveEmployees();
 		model.addAttribute("emps", employees);
 		model.addAttribute("allEmps", employees);
 	}
-	
+
 	private void refreshJobTitleModel(Model model) {
 		List<JobTitle> titles = jobTitleService.findAllActiveJobTitles();
 		model.addAttribute("jobs", titles);
@@ -185,7 +207,7 @@ public class EmployeeController {
 
 	private void refreshDepartmentModel(Model model) {
 		List<Department> departments = departmentService.findAllActiveDepartments();
-		 model.addAttribute("depts", departments);
+		model.addAttribute("depts", departments);
 	}
 
 }

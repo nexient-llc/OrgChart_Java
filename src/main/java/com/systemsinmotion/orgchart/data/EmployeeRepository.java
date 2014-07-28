@@ -68,5 +68,9 @@ public interface EmployeeRepository  extends JpaRepository<Employee,Integer>, Em
 	
 	List<Employee> findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(
 			Integer deptId, Integer jobId);
+
+	List<Employee> findBySkypeNameIgnoreCase(String skypeName);
+
+	List<Employee> findByEmailIgnoreCase(String email);
 	
 }

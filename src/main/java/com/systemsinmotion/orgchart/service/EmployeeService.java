@@ -3,7 +3,6 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -215,5 +214,13 @@ public class EmployeeService {
 			String lastName, Integer deptId, Integer jobId) {
 		return repository.findActiveByUnknownInputs(firstName, lastName,
 				deptId, jobId);
+	}
+
+	public List<Employee> findEmployeeBySkype(String skypeName) {
+		return repository.findBySkypeNameIgnoreCase(skypeName);
+	}
+
+	public List<Employee> findEmployeeByEmail(String email) {
+		return repository.findByEmailIgnoreCase(email);
 	}
 }

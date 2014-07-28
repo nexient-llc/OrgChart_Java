@@ -491,5 +491,19 @@ public class EmployeeServiceTest {
 		assertNotNull(emps);
 		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
 	}
+	
+	@Test
+	public void findEmployeeBySkype() {
+		List<Employee> emps = employeeService.findEmployeeBySkype(Entities.SKYPE_NAME);
+		assertNotNull(emps);
+		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+	}
+	
+	@Test
+	public void findEmployeeByEmail() {
+		List<Employee> emps = employeeService.findEmployeeByEmail(Entities.EMAIL);
+		assertNotNull(emps);
+		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+	}
 }
 
