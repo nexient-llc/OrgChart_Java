@@ -40,8 +40,4 @@ public class AdminControllerTest {
 		assertEquals(View.ADMIN_LOGIN, controller.doLogin());
 	}
 
-	@Test
-	public void doLogin_POST() {
-		assertEquals(View.ADMIN_LOGIN, controller.doLogin_POST(" ", " "));
-	}
 }

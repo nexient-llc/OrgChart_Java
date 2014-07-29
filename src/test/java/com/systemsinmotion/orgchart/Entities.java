@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart;
 import java.util.Random;
 
 import com.mysema.query.types.expr.BooleanExpression;
+import com.systemsinmotion.orgchart.entity.Authorities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -24,6 +25,7 @@ public class Entities {
 	public static final String SKYPE_NAME = "skype name";
 	public static final String USERNAME = "user name";
 	public static final String USERPASSWORD = "password";
+	public static final String AUTHORITY = "user";
 
 	// set up predicates for criteria query
 	public static final BooleanExpression PREDICATE = QEmployee.employee.isActive
@@ -48,6 +50,14 @@ public class Entities {
 		user.setPassword(USERPASSWORD);
 		user.setEnabled(true);
 		return user;
+	}
+
+	public static Authorities authority() {
+
+		Authorities auth = new Authorities();
+		auth.setUserName(USERNAME);
+		auth.setAuthority(AUTHORITY);
+		return auth;
 	}
 
 	public static Department department() {

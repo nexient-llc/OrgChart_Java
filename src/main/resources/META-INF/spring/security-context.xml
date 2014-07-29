@@ -23,8 +23,14 @@
 				authorities-by-username-query="select u.username, ur.authority from users u, user_roles ur where u.user_id = ur.user_id and u.username =?" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
-
+	<bean id="securityFilter" class="org.springframework.security.util.FilterChainProxy">
+        <sec:filter-chain-map path-type="ant">
+            <sec:filter-chain pattern="/images/*" filters="channelProcessingFilter"/>
+            <sec:filter-chain pattern="/css/*" filters="channelProcessingFilter"/>
+            <sec:filter-chain pattern="/scripts/*" filters="channelProcessingFilter"/>
+            <sec:filter-chain pattern="styles/*" filters="channelProcessingFilter"/>
+            </sec:filter-chain-map>
+    </bean>
 	<bean id="authenticationSuccessHandler"
 		class="com.systemsinmotion.orgchart.web.security.AuthenticationSuccessHandler" />
-
 </beans>

@@ -13,10 +13,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.systemsinmotion.orgchart.Entities;
+import com.systemsinmotion.orgchart.data.AuthorityRepository;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.data.JobTitleRepository;
 import com.systemsinmotion.orgchart.data.UsersRepository;
+import com.systemsinmotion.orgchart.entity.Authorities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -30,11 +32,13 @@ public class TestServiceConfig {
 	private List<JobTitle> listOfFoundTitles;
 	private List<Employee> listOfFoundEmployees;
 	private List<Users> listOfFoundUsers;
+	private List<Authorities> listOfFoundAuthorities;
 
 	private Department mockDepartment;
 	private Users mockUser;
 	private JobTitle mockTitle;
 	private Employee mockEmployee;
+	private Authorities mockAuthority;
 
 	@PostConstruct
 	private void init() {
@@ -53,6 +57,16 @@ public class TestServiceConfig {
 		listOfFoundUsers = new ArrayList<Users>();
 		mockUser = Entities.user();
 		listOfFoundUsers.add(mockUser);
+
+		listOfFoundAuthorities = new ArrayList<Authorities>();
+		mockAuthority = Entities.authority();
+		listOfFoundAuthorities.add(mockAuthority);
+
+	}
+
+	@Bean
+	Authorities getAuthorities() {
+		return this.mockAuthority;
 	}
 
 	@Bean
@@ -66,10 +80,23 @@ public class TestServiceConfig {
 	}
 
 	@Bean
+	AuthorityRepository getAuthorityRepository() {
+		AuthorityRepository repo = mock(AuthorityRepository.class);
+		when(repo.findAll()).thenReturn(this.listOfFoundAuthorities);
+		when(repo.findByUserName(Entities.USERNAME)).thenReturn(
+				this.mockAuthority);
+		when(repo.findByAuthority(Entities.AUTHORITY)).thenReturn(
+				this.listOfFoundAuthorities);
+		when(repo.save(this.mockAuthority)).thenReturn(this.mockAuthority);
+		when(repo.findOne(Entities.USERNAME)).thenReturn(this.mockAuthority);
+		return repo;
+	}
+
+	@Bean
 	DepartmentRepository getDepartmentRepository() {
 		DepartmentRepository repo = mock(DepartmentRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundDepts);
-		when(repo.findByIsActiveIsTrue()).thenReturn(listOfFoundDepts);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundDepts);
 		when(repo.saveAndFlush(getDepartment()))
 				.thenReturn(this.mockDepartment);
 		when(repo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
@@ -97,10 +124,10 @@ public class TestServiceConfig {
 		UsersRepository repo = mock(UsersRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundUsers);
 		when(repo.findByEnabledIsTrue()).thenReturn(this.listOfFoundUsers);
-		when(repo.findOne(Entities.USERNAME)).thenReturn(mockUser);
-		when(repo.findByUserName(Entities.USERNAME)).thenReturn(mockUser);
+		when(repo.findOne(Entities.USERNAME)).thenReturn(this.mockUser);
+		when(repo.findByUserName(Entities.USERNAME)).thenReturn(this.mockUser);
 		when(repo.findByUserPassword(Entities.USERPASSWORD)).thenReturn(
-				mockUser);
+				this.mockUser);
 		when(repo.save(this.mockUser)).thenReturn(this.mockUser);
 		return repo;
 	}
@@ -114,21 +141,22 @@ public class TestServiceConfig {
 	EmployeeRepository getEmployeeRepository() {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
 
-		when(repo.findAll()).thenReturn(listOfFoundEmployees);
-		when(repo.findAll(Entities.PREDICATE)).thenReturn(listOfFoundEmployees);
+		when(repo.findAll()).thenReturn(this.listOfFoundEmployees);
+		when(repo.findAll(Entities.PREDICATE)).thenReturn(
+				this.listOfFoundEmployees);
 		when(repo.findAll(Entities.PREDICATEFIRSTNAMEORLAST)).thenReturn(
-				listOfFoundEmployees);
+				this.listOfFoundEmployees);
 		when(repo.findAll(Entities.PREDICATELAST)).thenReturn(
-				listOfFoundEmployees);
+				this.listOfFoundEmployees);
 		when(repo.findAll(Entities.PREDICATEDEPART)).thenReturn(
-				listOfFoundEmployees);
+				this.listOfFoundEmployees);
 		when(repo.findAll(Entities.PREDICATETITLEID)).thenReturn(
-				listOfFoundEmployees);
-		when(repo.findByIsActiveIsTrue()).thenReturn(listOfFoundEmployees);
+				this.listOfFoundEmployees);
+		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundEmployees);
 		when(repo.findByJobTitleName(Entities.JOB_TITLE_NAME)).thenReturn(
-				listOfFoundEmployees);
-		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
-		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
+				this.listOfFoundEmployees);
+		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
+		when(repo.save(this.mockEmployee)).thenReturn(this.mockEmployee);
 
 		return repo;
 	}

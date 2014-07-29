@@ -2,7 +2,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%> 
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <fieldset>
 	<legend>Logins</legend>
@@ -14,8 +15,8 @@
 			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
 		</div>
 	</c:if>
-	
-	<form action='j_spring_security_check' method='POST' >
+
+	<form:form action='j_spring_security_check' method='POST'>
 		<input type="hidden" name="page" value="${param.page}" />
 		<div>
 			<label for="j_username">User:</label><input type='text'
@@ -28,5 +29,5 @@
 		<div>
 			<button id='submitBtn' type="submit">Submit</button>
 		</div>
-	</form>
+	</form:form>
 </fieldset>
