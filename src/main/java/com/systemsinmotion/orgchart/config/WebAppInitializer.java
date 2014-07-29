@@ -17,6 +17,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 	private static final String URL_PATTERN = "/*";
 
 	public static final String CONFIG_PACKAGE = "com.systemsinmotion.orgchart.config";
+	public static final String SECURITY_CONFIG = "com.systemsinmotion.orgchart.security";
 
 	private static final String SPRING_SECURITY_FILTER_CHAIN = "springSecurityFilterChain";
 
@@ -25,6 +26,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			throws ServletException {
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.scan(CONFIG_PACKAGE);
+		ctx.scan(SECURITY_CONFIG);
 
 		addHttpMethodFilter(servletContext);
 

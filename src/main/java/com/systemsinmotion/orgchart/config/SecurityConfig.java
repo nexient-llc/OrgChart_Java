@@ -11,31 +11,38 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import com.systemsinmotion.orgchart.web.security.LoginFailHandeler;
+import com.systemsinmotion.orgchart.web.security.LoginSuccessHandler;
+
 @Configuration
 @EnableWebSecurity
-public class WebSecurityHandler extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String AUTHORITIES_QUERY = "username.query";
-	private static final String USERNAME_QUERY = "authorities.query";
+	private static final String AUTHORITIES_QUERY = "authorities.query";
+	private static final String USERNAME_QUERY = "username.query";
 	@Autowired
 	private DataSource dataSource;
 	@Autowired
 	private Environment env;
 
+	@Autowired
+	private LoginFailHandeler failed;
+
+	@Autowired
+	private LoginSuccessHandler successHandler;
+
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		// formatter: off
 
-		http.authorizeRequests().antMatchers("/").permitAll();
-
-		http.formLogin().loginPage("/admin")
-				.loginProcessingUrl("/j_spring_security_check")
-				.usernameParameter("j_username")
-				.passwordParameter("j_password");
-
 		http.csrf().disable();
+		http.authorizeRequests().antMatchers("/admin/*").permitAll();
 
-		// formatter: on
+		http.formLogin().loginPage("/login")
+				.loginProcessingUrl("/app/j_spring_security_check")
+				.usernameParameter("j_username")
+				.passwordParameter("j_password").failureHandler(failed);
+		// formatter:on
 	}
 
 	@Override

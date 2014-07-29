@@ -16,18 +16,18 @@
 		</div>
 	</c:if>
 
-	<form:form action='j_spring_security_check' method='POST'>
-		<input type="hidden" name="page" value="${param.page}" />
+	<form action="<c:url value='/app/j_spring_security_check' />"
+		method='post'>
 		<div>
 			<label for="j_username">User:</label><input type='text'
 				name='j_username' required />
 		</div>
 		<div>
 			<label for="j_password">Password:</label><input type='password'
-				name='j_password' required />
+				name='j_password'/>
 		</div>
 		<div>
 			<button id='submitBtn' type="submit">Submit</button>
 		</div>
-	</form:form>
+	</form>
 </fieldset>

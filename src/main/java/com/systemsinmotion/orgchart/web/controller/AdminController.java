@@ -1,6 +1,9 @@
 package com.systemsinmotion.orgchart.web.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -9,17 +12,21 @@ import com.systemsinmotion.orgchart.web.View;
 
 @Controller
 @SessionAttributes("page")
-@RequestMapping("admin")
 public class AdminController {
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String doDefault() {
-		return View.ADMIN_DEFAULT;
-	}
-
 	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String doLogin() {
+	public String doLogin(Principal principal) {
+		if (principal != null && StringUtils.hasText(principal.getName())) {
+			return View.HOME;
+		}
 		return View.ADMIN_LOGIN;
 	}
 
+	@RequestMapping(value = "login/success", method = RequestMethod.GET)
+	public String loginSuccess(Principal principal) {
+		if (principal != null && StringUtils.hasText(principal.getName())) {
+			return "redirect:" + View.HOME;
+		}
+		return View.ADMIN_LOGIN;
+	}
 }

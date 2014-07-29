@@ -66,7 +66,7 @@
 		<tr >
 			<td style="width:135px" align="left" >${dept.name}</td> 
 			<td style="width:125px" align="left" > ${dept.parentDepartment.name}</td>
-			<td>
+			<td <sec:authorize access="isAuthenticated()">style="display:block"</sec:authorize> style="display:none">
 			<button  class="editButton" value="${dept.id}" id="editEntity" style="width: 60px;">Modify</button>
 			<button class="removeButton" value="${dept.id}" id="removeEntity" style="width: 60px;">Remove</button>
 			</td>
