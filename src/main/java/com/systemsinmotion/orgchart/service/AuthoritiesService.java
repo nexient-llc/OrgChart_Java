@@ -14,11 +14,11 @@ public class AuthoritiesService {
 	@Autowired
 	private AuthorityRepository authorityRepository;
 
-	List<Authorities> findAllByAuthority(String auth) {
+	public List<Authorities> findAllByAuthority(String auth) {
 		return this.authorityRepository.findByAuthority(auth);
 	}
 
-	Authorities findUserByUserName(String username) {
+	public Authorities findUserByUserName(String username) {
 		return this.authorityRepository.findByUserName(username);
 	}
 
