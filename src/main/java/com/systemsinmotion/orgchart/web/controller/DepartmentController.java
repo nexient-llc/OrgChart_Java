@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class DepartmentController {
 		return View.DEPARTMENTS;
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "deptAdd", method = RequestMethod.POST)
 	public String doDepartment_POST(Department department, Model model) {
 		departmentService.storeDepartment(department);
@@ -43,6 +45,7 @@ public class DepartmentController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "deptEdit", method = RequestMethod.POST)
 	public String doEditDepartment_EDIT(Department department, Model model) {
 		departmentService.storeDepartment(department);
