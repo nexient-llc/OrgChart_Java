@@ -69,16 +69,16 @@ $(document).ready(function() {
 			type : 'GET',
 			async : false,
 			success: function(data) {
-				if (data=="true")
+				if (data != "Ok")
 				{
-					alert("'" + name + "' already exists in the database.");
+					alert(data);
 					success = false;
 				} else {
 					success = true;
 				}
 			}
 		})
-		return false;
+		return success;
 	});
 	
 	$('.editFormClass').submit(function() {

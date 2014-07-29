@@ -158,19 +158,17 @@ public class EmployeeController {
 
 	@RequestMapping(value = "findEmployee", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody boolean doEmployeeFind_GET(Employee employee, Model model) {
+	public @ResponseBody String doEmployeeFind_GET(Employee employee, Model model) {
 		if (employee.getSkypeName() != null) {
 			List<Employee> employees = employeeService.findEmployeeBySkype(employee.getSkypeName());
 			if (employee.getId() != null) {
 				employees.removeIf(p -> p.getId().equals(employee.getId()));
 			}
 			if (employees.size() != 0) {
-				model.addAttribute("message", "That Skype Name is already used");
-				return true;
+				return "That Skype Name is already used";
 			}
 		} else {
-			model.addAttribute("message", "Skype Name is required");
-			return true;
+			return "Skype Name is required";
 		}
 		if (employee.getEmail() != null) {
 			List<Employee> employees = employeeService.findEmployeeByEmail(employee.getEmail());
@@ -178,14 +176,12 @@ public class EmployeeController {
 				employees.removeIf(p -> p.getId().equals(employee.getId()));
 			}
 			if (employees.size() != 0) {
-				model.addAttribute("message", "That Email is already used");
-				return true;
+				return "That Email is already used";
 			}
 		} else {
-			model.addAttribute("message", "Email is required");
-			return true;
+			return "Email is required";
 		}
-		return false;
+		return "Ok";
 	}
 
 	private void refreshAllModels(Model model) {

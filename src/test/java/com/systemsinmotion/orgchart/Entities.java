@@ -2,10 +2,12 @@ package com.systemsinmotion.orgchart;
 
 import java.util.Random;
 
+import com.systemsinmotion.orgchart.entity.Authorities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.entity.SimpleEmployee;
+import com.systemsinmotion.orgchart.entity.User;
 
 public class Entities {
 
@@ -40,6 +42,11 @@ public class Entities {
 	public static final String SKYPE_NAME_3 = "error.skype.dot";
 	public static final String FULL_NAME_3 = FIRST_NAME_3 + " " + LAST_NAME_3;
 
+	public static final String USER_NAME = "userName";
+	public static final String USER_PASSWORD = "password";
+	
+	public static final String AUTHORITY = "authority";
+	
 	public static final String NOT_PRESENT_VALUE = "XXX";
 	public static final Integer NOT_PRESENT_ID = -666;
 	
@@ -188,5 +195,25 @@ public class Entities {
 		emp.setId(employeeId);
 		emp.setIsActive(true);
 		return emp;
+	}
+	
+	public static User user() {
+		User user = new User();
+		user.setUserName(USER_NAME);
+		user.setPassword(USER_PASSWORD);
+		user.setEnabled(true);
+		return user;
+	}
+
+	public static Authorities authority() {
+		Authorities auth = new Authorities();
+		auth.setAuthority(AUTHORITY);
+		return auth;
+	}
+	
+	public static Authorities authority(User user) {
+		Authorities auth = authority();
+		auth.setUserName(user.getUserName());
+		return auth;
 	}
 }

@@ -374,9 +374,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(null);
 		mockEmployee.setEmail(null);
 		mockEmployee.setId(null);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertTrue(conflictFound);
-		assertEquals(model.asMap().get("message"), "Skype Name is required");
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Skype Name is required");
 	}
 
 	@Test
@@ -384,9 +383,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
 		mockEmployee.setEmail(null);
 		mockEmployee.setId(null);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertTrue(conflictFound);
-		assertEquals(model.asMap().get("message"), "That Skype Name is already used");
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "That Skype Name is already used");
 	}
 
 	@Test
@@ -394,9 +392,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(null);
 		mockEmployee.setEmail(Entities.EMAIL);
 		mockEmployee.setId(null);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertTrue(conflictFound);
-		assertEquals(model.asMap().get("message"), "Skype Name is required");
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Skype Name is required");
 	}
 
 	@Test
@@ -404,9 +401,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(null);
 		mockEmployee.setEmail(null);
 		mockEmployee.setId(Entities.EMPLOYEE_ID);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertTrue(conflictFound);
-		assertEquals(model.asMap().get("message"), "Skype Name is required");
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Skype Name is required");
 	}
 	
 	@Test
@@ -414,9 +410,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
 		mockEmployee.setEmail(Entities.EMAIL);
 		mockEmployee.setId(null);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertTrue(conflictFound);
-		assertEquals(model.asMap().get("message"), "That Skype Name is already used");
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "That Skype Name is already used");
 	}
 
 	@Test
@@ -424,8 +419,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
 		mockEmployee.setEmail(Entities.EMAIL);
 		mockEmployee.setId(Entities.EMPLOYEE_ID);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertFalse(conflictFound);
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Ok");
 	}
 
 	@Test
@@ -433,9 +428,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.NOT_PRESENT_VALUE);
 		mockEmployee.setEmail(Entities.EMAIL);
 		mockEmployee.setId(null);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertTrue(conflictFound);
-		assertEquals(model.asMap().get("message"), "That Email is already used");
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "That Email is already used");
 	}
 
 	@Test
@@ -443,8 +437,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.NOT_PRESENT_VALUE);
 		mockEmployee.setEmail(Entities.EMAIL);
 		mockEmployee.setId(Entities.EMPLOYEE_ID);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertFalse(conflictFound);
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Ok");
 	}
 
 	@Test
@@ -452,9 +446,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
 		mockEmployee.setEmail(Entities.NOT_PRESENT_VALUE);
 		mockEmployee.setId(null);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertTrue(conflictFound);
-		assertEquals(model.asMap().get("message"), "That Skype Name is already used");
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "That Skype Name is already used");
 	}
 
 	@Test
@@ -462,8 +455,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
 		mockEmployee.setEmail(Entities.NOT_PRESENT_VALUE);
 		mockEmployee.setId(Entities.EMPLOYEE_ID);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertFalse(conflictFound);
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Ok");
 	}
 
 	@Test
@@ -471,8 +464,8 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.NOT_PRESENT_VALUE);
 		mockEmployee.setEmail(Entities.NOT_PRESENT_VALUE);
 		mockEmployee.setId(null);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertFalse(conflictFound);
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Ok");
 	}
 
 	@Test
@@ -480,7 +473,7 @@ public class EmployeeControllerTest {
 		mockEmployee.setSkypeName(Entities.NOT_PRESENT_VALUE);
 		mockEmployee.setEmail(Entities.NOT_PRESENT_VALUE);
 		mockEmployee.setId(Entities.EMPLOYEE_ID);
-		boolean conflictFound = controller.doEmployeeFind_GET(mockEmployee, model);
-		assertFalse(conflictFound);
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Ok");
 	}
 }
