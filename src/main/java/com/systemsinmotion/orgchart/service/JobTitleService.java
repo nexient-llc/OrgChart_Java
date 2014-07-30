@@ -22,4 +22,8 @@ public class JobTitleService {
 		return this.repository.save(jobTitle);
 	}
 
+	public List<JobTitle> findAllActiveJobTitles() {
+		return this.repository.findByIsActiveIsTrue();
+	}
+
 }

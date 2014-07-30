@@ -26,6 +26,7 @@ public class Entities {
 		Department department = new Department();
 		department.setName(departmentName());
 		department.setId(departmentId());
+		department.setIsActive(true);
 		return department;
 	}
 

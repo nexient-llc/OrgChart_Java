@@ -33,6 +33,10 @@ public class DepartmentService {
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;
 	}
+	
+	public DepartmentRepository getRepository(){ // doesn't seem like a secure thing to do
+		return this.repository;
+	}
 
 	public Department storeDepartment(Department department) {
 		return this.repository.save(department);

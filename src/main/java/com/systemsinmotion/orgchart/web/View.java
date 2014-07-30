@@ -1,7 +1,7 @@
 package com.systemsinmotion.orgchart.web;
 
 public class View {
-	public static final String DEPARTMENTS = "depts"; // TODO did this need  to be changed
+	public static final String DEPARTMENTS = "departments"; // TODO did this need  to be changed
 	public static final String HOME = "home";
 	public static final String LOGIN = "login";
 	public static final String ADMIN_DEFAULT = "admin/default";

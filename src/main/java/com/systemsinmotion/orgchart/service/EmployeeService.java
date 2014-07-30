@@ -26,4 +26,8 @@ public class EmployeeService {
 		return this.repository.save(mockEmployee);
 	}
 
+	public List<Employee> findAllActiveEmployees() {
+		return this.repository.findByIsActiveIsTrue();
+	}
+
 }

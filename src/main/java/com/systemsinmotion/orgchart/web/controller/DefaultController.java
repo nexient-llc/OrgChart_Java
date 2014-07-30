@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
@@ -38,38 +39,62 @@ public class DefaultController {
 	@Autowired
 	JobTitleService jobTitleService;
 	
-
+	private final static String NAV_DEPARTMENT = "depts"; 
+	private final static String NAV_EMPLOYEE = "emps";
+	private final static String NAV_JOBTITLES = "jobs";
+	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
 	}
 	
-	@RequestMapping(value = "depts", method = RequestMethod.GET)
+	@RequestMapping(value = NAV_DEPARTMENT, method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
 		 List<Department> departments = departmentService.findAllDepartments();
-		 model.addAttribute("depts", departments);
+		 model.addAttribute(NAV_DEPARTMENT, departments);
 		return View.DEPARTMENTS;
+	}
+	
+	@RequestMapping(value = NAV_EMPLOYEE, method = RequestMethod.GET)
+	public String doEmployees_GET(String st1, String st2, String st3, String st4, Model model) {
+		//uncomment when database connection is set up. will throw error when run
+		 List<Employee> employees = employeeService.findAllEmployees();
+		 model.addAttribute(NAV_EMPLOYEE, employees);
+		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = NAV_JOBTITLES, method = RequestMethod.GET)
+	public String doJobTitles_GET(Model model) {
+		//uncomment when database connection is set up. will throw error when run
+		 List<JobTitle> jobs = jobTitleService.findAllActiveJobTitles();
+		 model.addAttribute(NAV_JOBTITLES, jobs);
+		return View.JOB_TITLES;
 	}
 	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
 
+	@RequestMapping(value = NAV_DEPARTMENT, method = RequestMethod.POST)
 	public String doDepartments_POST(Department department, Model model) {
 		departmentService.storeDepartment(department);
-		refreshDepartmentModel(model);
+		List<Department> departments = departmentService.findAllActiveDepartments();
+		model.addAttribute(NAV_DEPARTMENT, departments);
 		return View.DEPARTMENTS;
 	}
 
-	public void doEmployees_POST(Employee mockEmployee, Model model) {
+	@RequestMapping(value = NAV_EMPLOYEE, method = RequestMethod.POST)
+	public String doEmployees_POST(Employee employee, Model model) {
+		employeeService.storeEmployee(employee);
+		List<Employee> employees = employeeService.findAllActiveEmployees();
+		model.addAttribute(NAV_EMPLOYEE, employees);
+		return View.EMPLOYEES;
+	}
+
+	public void doJobTitles_POST(JobTitle mockJobTitle, Model model) {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	private void refreshDepartmentModel(Model model) {
-		List<Department> departments = departmentService.findAllActiveDepartments();
-		 model.addAttribute("depts", departments);
 	}
 
 }

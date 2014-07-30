@@ -19,5 +19,5 @@ public interface EmployeeRepository extends BaseRepository<Employee,Integer>{
 
 	List<Employee> findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(
 			String firstName, String lastName, Integer id, Integer id2);
-
+	
 }

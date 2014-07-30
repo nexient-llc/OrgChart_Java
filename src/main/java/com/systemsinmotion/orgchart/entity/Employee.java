@@ -100,6 +100,13 @@ public class Employee extends BaseEntity {
 		return this.isManager;
 	}
 	
+	public String getFullName(){
+		if(this.middleInitial == null)
+			return this.firstName + " " + this.lastName;
+		else
+			return this.firstName + " " + this.middleInitial + " " + this.lastName;
+	}
+	
 	// Fill In Details About Employee
 
 	// First Name
