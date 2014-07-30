@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,28 +20,30 @@ public class JobTitleService {
 	public List<JobTitle> findAllJobTitles() {
 		return this.repository.findAll();
 	}
-	
+
 	public List<JobTitle> findAllActiveJobTitles() {
 		return this.repository.findByIsActiveIsTrue();
 	}
-	
+
 	public JobTitle findJobTitleByID(Integer jobTitleId) {
 		return this.repository.findOne(jobTitleId);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@Transactional
 	public void removeJobTitle(JobTitle jobTitle) {
 		jobTitle.setIsActive(false);
 		this.repository.save(jobTitle);
-//		this.repository.delete(jobTitle);
+		// this.repository.delete(jobTitle);
 	}
-	
+
+	@Secured("ROLE_ADMIN")
 	@Transactional
 	public void removeJobTitleById(Integer jobId) {
 		JobTitle jobTitle = this.repository.findById(jobId);
 		removeJobTitle(jobTitle);
 	}
-	
+
 	public void setRepository(JobTitleRepository repository) {
 		this.repository = repository;
 	}
@@ -49,10 +52,10 @@ public class JobTitleService {
 		return this.repository;
 	}
 
+	@Secured("ROLE_ADMIN")
 	@Transactional
 	public JobTitle storeJobTitle(JobTitle jobTitle) {
-		if (jobTitle.getIsActive() == null)
-		{
+		if (jobTitle.getIsActive() == null) {
 			jobTitle.setIsActive(true);
 		}
 		return this.repository.save(jobTitle);

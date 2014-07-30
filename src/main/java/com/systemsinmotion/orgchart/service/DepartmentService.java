@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,7 @@ public class DepartmentService {
 		return this.repository.findByNameIgnoreCase(name);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@Transactional
 	public void removeDepartment(Department department) {
 		department.setIsActive(false);
@@ -54,6 +56,7 @@ public class DepartmentService {
 		return this.repository;
 	}
 
+	@Secured("ROLE_ADMIN")
 	@Transactional
 	public Department storeDepartment(Department department) {
 		if (department.getParentDepartment() != null && department.getParentDepartment().getId() == null)

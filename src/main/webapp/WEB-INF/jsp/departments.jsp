@@ -6,7 +6,7 @@
 <h3>Department Page</h3>
 <div id="createdDepartmentContainer" style="display: none"><h2>Successfully created new department "${createdDept.name}"</h2></div>
 <script type="text/javascript">var CREATED_DEPT = "${createdDept.name}";</script>
-<div id="addBtn-container">
+<div id="addBtn-container" <sec:authorize access="hasRole('ROLE_ADMIN')">style="display:block"</sec:authorize> style="display:none">
 	<button type="button" id="addBtn" style="width: 45px;">Add</button>
 </div>
 <div id="addEntity" style="display: none">
@@ -47,12 +47,14 @@
 			</sec:authorize> -->
 			<td>${dept.name}</td>
 			<td>${dept.parentDepartment.name}</td>
-			<td><div class="editBtn-containerClass"
+			<td <sec:authorize access="hasRole('ROLE_ADMIN')">style="display:block"</sec:authorize> style="display:none">
+			<div class="editBtn-containerClass"
 					id="editBtn-container-${dept.id}">
 					<button type="button" class="editBtnClass"
 						id="editBtn-${dept.id}">Edit</button>
 				</div></td>
-			<td><div id="editEntity-${dept.id}" style="display: none">
+			<td>
+			<div id="editEntity-${dept.id}" style="display: none">
 					<fieldset>
 						<legend>Edit Department</legend>
 						<form name="editDept" class="editFormClass" action="updateDepart" method="post">

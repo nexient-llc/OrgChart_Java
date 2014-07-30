@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ public class EmployeeService {
 		return this.repository.findById(employeeId);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@Transactional
 	public Employee storeEmployee(Employee employee) {
 		if (employee == null) {
@@ -42,6 +44,7 @@ public class EmployeeService {
 		return this.repository.save(employee);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@Transactional
 	public void removeEmployee(Employee employee) {
 		if (employee == null) {
@@ -59,6 +62,7 @@ public class EmployeeService {
 		return this.repository;
 	}
 
+	@Secured("ROLE_ADMIN")
 	@Transactional
 	public void removeEmployeeById(Integer empId) {
 		Employee employee = this.repository.findById(empId);
