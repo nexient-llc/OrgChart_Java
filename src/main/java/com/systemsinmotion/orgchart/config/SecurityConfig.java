@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import com.systemsinmotion.orgchart.web.security.LogOutHandler;
 import com.systemsinmotion.orgchart.web.security.LoginFailHandeler;
 import com.systemsinmotion.orgchart.web.security.LoginSuccessHandler;
 
@@ -20,10 +21,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String AUTHORITIES_QUERY = "authorities.query";
 	private static final String USERNAME_QUERY = "username.query";
+
 	@Autowired
 	private DataSource dataSource;
 	@Autowired
 	private Environment env;
+
+	@Autowired
+	private LogOutHandler logoutSuccessHandler;
 
 	@Autowired
 	private LoginFailHandeler failed;
@@ -41,7 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin().loginPage("/login")
 				.loginProcessingUrl("/app/j_spring_security_check")
 				.usernameParameter("j_username")
-				.passwordParameter("j_password").failureHandler(failed);
+				.passwordParameter("j_password").successHandler(successHandler)
+				.failureHandler(failed);
+		http.logout().logoutUrl("/logout")
+				.logoutSuccessHandler(logoutSuccessHandler);
 		// formatter:on
 	}
 

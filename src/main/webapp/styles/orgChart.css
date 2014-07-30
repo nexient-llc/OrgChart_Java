@@ -72,7 +72,7 @@ SELECT {
 	margin-top: 1em;
 }
 
-#login {
+#login,#logout {
 	float: right;
 	cursor: pointer;
 	text-decoration: underline;

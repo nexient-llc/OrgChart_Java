@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head> 
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
@@ -22,10 +23,11 @@ var path = "${pageContext.request.contextPath}/app/";
 	<tiles:insertAttribute name="page-heading" />
 	<table>
 		<tr>
-			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
+			<th><label id="navBarHome" color="#FFFFFF">Home</label></th>
 			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
 			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
 			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>
+			<sec:authorize access="isAuthenticated()"><th><label id="navBarAdmin" color="#FFFFFF"> Admin </label></th></sec:authorize>
 		</tr>
 	</table>
 	<tiles:insertAttribute name="body" />

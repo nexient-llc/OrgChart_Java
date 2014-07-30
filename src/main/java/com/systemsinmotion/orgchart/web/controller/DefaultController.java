@@ -20,4 +20,9 @@ public class DefaultController {
 		return View.HOME;
 	}
 
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String doGetLogout() {
+		return "redirect:home";
+	}
+
 }

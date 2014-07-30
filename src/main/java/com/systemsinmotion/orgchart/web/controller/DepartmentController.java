@@ -63,6 +63,7 @@ public class DepartmentController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String doDepartments_DELETE(Department department, Model model) {
 
