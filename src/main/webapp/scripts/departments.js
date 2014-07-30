@@ -1,10 +1,5 @@
 $(document).ready(function() {
 	$('#addBtn-container').css('width', $('#t1').width());
-	
-	$('#createdDepartmentContainer').ready(function() {
-		if(CREATED_DEPT)
-			$('#createdDepartmentContainer').toggle();
-	});
 
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear");
@@ -15,71 +10,109 @@ $(document).ready(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear");
 		$('#addEntity').fadeToggle("fast", "linear");
 	});
-	
-	$('.editBtnClass').click(function() {
-		$('.editBtn-containerClass').fadeToggle("fast", "linear");
-		var val = this.id.replace("editBtn","");
-		$('#editEntity'+val).fadeToggle("fast", "linear");
+
+	$('#cancelEditBtn').click(function() {
+		$('.editBtnContainer').fadeToggle("fast", "linear");
+		$('#editContainer').fadeToggle("fast", "linear");
 	});
 
-	$('.cancelEditBtnClass').click(function() {
-		$('.editBtn-containerClass').fadeToggle("fast", "linear");
-		var val = this.id.replace("cancelEditBtn","");
-		$('#editEntity'+val).fadeToggle("fast", "linear");
-	});
-	
-	$('.deleteBtnClass').click(function() {
-		$('.editBtn-containerClass').fadeToggle("fast", "linear");
-		var val = this.id.replace("deleteBtn-","");
-		$('#editEntity-'+val).remove();
-		$('.parentSelect-'+val).remove();
-		$.ajax({
-			type : 'DELETE',
-			url : "depart/delete/" +val,
-		})
-	});
-	
-	$('#newDepartment').submit(function() {
-		var success = false;
-		$.ajax({
-			dataType : "text",
-			type : 'GET',
-			url : "findDepart",
-			data : "name="+$('#newDeptName').val(),
-			async : false,
-			success: function(data) {
-				if (data=="true")
-				{
-					alert("That name already exists in the database.");
-					success = false;
-				} else {
-					success = true;
-				}
-			}
-		})
-		return success;
-	});
-	
-	$('.editFormClass').submit(function() {
-		var success = false;
-		var val = this.id.value;
-		$.ajax({
-			dataType : "text",
-			type : 'GET',
-			url : "findDepart",
-			data : "name="+$('#editName-'+val).val() + "&id="+val,
-			async : false,
-			success: function(data) {
-				if (data=="true")
-				{
-					alert("'" + $('#editName-'+val).val() + "' already exists in the database.");
-					success = false;
-				} else {
-					success = true;
-				}
-			}
-		})
-		return success;
-	});
-	
+	get_table_data();
 });
+
+$('#createdDepartmentContainer').ready(function() {
+	if (CREATED_DEPT)
+		$('#createdDepartmentContainer').toggle();
+});
+
+$('#newDepartment').submit(function() {
+	var success = false;
+	$.ajax({
+		dataType : "text",
+		type : 'GET',
+		url : "findDepart",
+		data : "name=" + $('#newDeptName').val(),
+		async : false,
+		success : function(data) {
+			if (data == "true") {
+				alert("That name already exists in the database.");
+				success = false;
+			} else {
+				success = true;
+			}
+		}
+	})
+	return success;
+});
+
+$('.editFormClass').submit(
+		function() {
+			var success = false;
+			var val = this.id.value;
+			$.ajax({
+				dataType : "text",
+				type : 'GET',
+				url : "findDepart",
+				data : "name=" + $('#editName-' + val).val() + "&id=" + val,
+				async : false,
+				success : function(data) {
+					if (data == "true") {
+						alert("'" + $('#editName-' + val).val()
+								+ "' already exists in the database.");
+						success = false;
+					} else {
+						success = true;
+					}
+				}
+			})
+			return success;
+		});
+
+function get_table_data() {
+	$.ajax({
+		type : 'GET',
+		url : 'getDepartments',
+		success : populate_table
+	})
+}
+
+function populate_table(data) {
+	data.forEach(function(element) {
+		var row = "<tr id='tablerow-" + element.id + "'>";
+		row += "<td id='tablename-" + element.id + "'>" + element.name
+				+ "</td>";
+		if (element.parentDepartment != null) {
+			row += "<td><div id='tablepName-" + element.id + "'>"
+					+ element.parentDepartment.name + "</div></td>"
+			row += "<td style='display:none'><div id='tablepId-" + element.id
+					+ "'>" + element.parentDepartment.id + "</div></td>"
+		} else {
+			row += "<td><div id='tablepId-" + element.id
+					+ "' value=''></div></td>"
+		}
+		row += "<td class='editBtnContainer'><button onclick='editRow("
+				+ element.id + ")'>Edit</button></td>";
+		row += "</tr>";
+		$('#t1 tr:last').after(row);
+	});
+}
+
+function editRow(rowId) {
+	$('#editName').val($('#tablename-' + rowId).text());
+	$('#editParent').val($('#tablepId-' + rowId).text());
+	$('#editId').val(rowId);
+	$('.editBtnContainer').fadeToggle("fast", "linear");
+	$('#editContainer').fadeToggle("fast", "linear");
+}
+
+function performDelete() {
+	var deptId = $('#editId').val();
+	$('.editBtnContainer').fadeToggle("fast", "linear");
+	$('#editContainer').fadeToggle("fast", "linear");
+	$('#tablerow-' + deptId).remove();
+	$('.parentSelect-' + deptId).remove();
+	$.ajax({
+		type : 'DELETE',
+		url : "depart/delete/" + deptId,
+	})
+
+}

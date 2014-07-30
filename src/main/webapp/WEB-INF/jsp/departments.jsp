@@ -19,8 +19,8 @@
 				<labeL>Parent Dept:</label>
 				<select name="parentDepartment.id">
 				<option value="">...</option>
-					<c:forEach items="${depts}" var="dept">
-						<option value="${dept.id}" class="parentSelect-${dept.id}">${dept.name}</option>
+					<c:forEach items="${depts}" var="pdept">
+						<option value="${pdept.id}" class="parentSelect-${pdept.id}">${pdept.name}</option>
 					</c:forEach>
 				</select>
 				<br><br>
@@ -33,6 +33,32 @@
 	</fieldset>
 </div>
 
+<div id="editContainer" style="display: none">
+		<fieldset>
+			<legend>Edit Department</legend>
+			<form name="editDept" class="editFormClass" action="updateDepart" method="post">
+				<div>
+					<labeL>Dept Name: *</labeL><input type="text" name="name" value="" id="editName" required />
+					<input type="hidden" name="id" id="editId" value="" />
+					<input type="hidden" name="isActive" id="editIsActive" value="true" />
+					<label>Parent Dept:</label>
+					<select id="editParent">
+						<option value="">...</option>
+						<c:forEach items="${depts}" var="pdept">
+							<option value="${pdept.id}" class="parentSelect-${pdept.id}">${pdept.name}</option>
+						</c:forEach>
+					</select>
+					<br><br>
+					<button type="submit">Save</button>
+					<button type="button" onClick="performDelete()">Delete</button>
+					<button type="reset" id="cancelEditBtn" value="reset">Cancel</button>
+				</div>
+				<br>
+				<div>Required Fields indicated with a *</div>
+			</form>
+		</fieldset>
+	</div></td>
+
 <table id="t1">
 	<tr>
 		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
@@ -40,11 +66,9 @@
 		<th>Dept Name</th>
 		<th>Parent Dept</th>
 	</tr>
+	<!--
 	<c:forEach items="${depts}" var="dept">
 		<tr class="parentSelect-${dept.id}">
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<td>delete</td>
-			</sec:authorize> -->
 			<td>${dept.name}</td>
 			<td>${dept.parentDepartment.name}</td>
 			<td <sec:authorize access="hasRole('ROLE_ADMIN')">style="display:block"</sec:authorize> style="display:none">
@@ -89,4 +113,5 @@
 				</div></td>
 		</tr>
 	</c:forEach>
+	-->
 </table>

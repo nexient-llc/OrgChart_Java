@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class DepartmentController {
 	}
 
 	@RequestMapping(value = "newDepart", method = RequestMethod.POST)
-//	@ResponseStatus(HttpStatus.CREATED) // This code is ignored by spring for a redirect...
+	// @ResponseStatus(HttpStatus.CREATED) // This code is ignored by spring for a redirect...
 	public RedirectView doDepartmentNew_POST(Department department, Model model, RedirectAttributes ra) {
 		Department newDepartment = departmentService.storeDepartment(department);
 		ra.addFlashAttribute("createdDept", newDepartment);
@@ -89,6 +90,11 @@ public class DepartmentController {
 	public String doDepartments_GET(Model model) {
 		refreshDepartmentModel(model);
 		return View.DEPARTMENTS;
+	}
+
+	@RequestMapping(value = "getDepartments", method = RequestMethod.GET)
+	public @ResponseBody List<Department> doDepartments_ajax_GET(Model model) {
+		return departmentService.findAllActiveDepartments();
 	}
 
 	private void refreshDepartmentModel(Model model) {
