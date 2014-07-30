@@ -42,19 +42,20 @@
 			<button type="submit">Submit</button>
 			<button type="reset" id="cancelFilter">Cancel</button>
 		</form>
-		
 		<br>
-		
+		<form name="inactiveEmployees" action="getInactiveEmployees" method="get">
+			<button type="submit">Get Inactive Employees</button>
+		</form>
 	</fieldset>
 </div>
 
 <div id="addEntity" style="display:none">
 	<fieldset>
 		<legend>Add Employee</legend>
-		<form id="newEmployeeForm" name="newEmployee" action="emps" method="post">
-			*First Name: <input type="text" name="firstName" required />
-			Middle Initial: <input type="text" name="middleInitial" maxlength="1" style="width: 50px; " />
-			*Last Name: <input type="text" name="lastName" required />
+		<form id="newEmployeeForm">
+			*First Name: <input type="text" name="firstName" id="addFirstName" required />
+			Middle Initial: <input type="text" name="middleInitial" id="addMiddleInitial" maxlength="1" style="width: 50px; "  value="" />
+			*Last Name: <input type="text" name="lastName" id="addLastName" required />
 			*Department: 
 			<select id="addDepartmentSelect" name="department.id">
 				<option value=""></option>
@@ -65,8 +66,8 @@
 			
 			<br><br>
 			
-			*Email: <input type="text" name="email" required />
-			*Skype Name: <input type="text" name="skypeName" required />
+			*Email: <input type="text" name="email" id="newEmail" required />
+			*Skype Name: <input type="text" name="skypeName" id="newSkypeName" required />
 			*Job Title: 
 			<select id="addJobTitleSelect" name="jobTitle.id">
 				<option value=""></option>
@@ -75,11 +76,11 @@
 				</c:forEach>
 			</select>
 			
-			<input type="hidden" name="isActive" value="true" />
+			<input type="hidden" name="isActive" id="addIsActive" value="true" />
 			
 			<br><br>
 			
-			<button type="submit">Save</button> <button id="cancelButton" type="reset" value="Reset">Cancel</button>
+			<button>Save</button> <button id="cancelButton" type="reset" value="Reset">Cancel</button>
 			
 			<p>Fields indicated with a * are required</p>
 		</form>
@@ -88,7 +89,7 @@
 
 <br/><br/>
 
-<table class="sortable">
+<table class="sortable" id="empTable">
 	<thead>
 		<th>Name</th><th>Dept</th><th>Job Title</th><th>Edit</th><th>Delete</th>
 	</thead>
@@ -98,63 +99,51 @@
 			<td>${employee.getDepartment().getName()}</td>
 			<td>${employee.getJobTitle().getName()}</td>
 			<td>
-				<button onclick="openEditForm('${employee.getId()}')">Edit</button>
-				<div id="container-${employee.getId()}" style="display: none; ">
-					<fieldset>
-						<h2>${employee.getFullName()}</h2>
-						<form id="form-${employee.getId()}" action="emps" method="post">
-							*First Name: <input type="text" name="firstName" value="${employee.getFirstName()}" required />
-							Middle Initial: <input type="text" name="middleInitial" value="${employee.getMiddleInitial()}" maxlength="1" style="width: 50px; " />
-							*Last Name: <input type="text" name="lastName" value="${employee.getLastName()}" required />
-							*Department: 
-							<select id="editDepartmentSelect" name="department.id">
-								<option value=""></option>
-								
-								<c:forEach items="${depts}" var="dept">
-									<c:choose>
-										<c:when test="${employee.getDepartment().id == dept.id}">
-											<option value="${dept.id}" selected>${dept.name}</option>
-										</c:when>
-										<c:otherwise>
-											<option value="${dept.id}">${dept.name}</option>
-										</c:otherwise>
-									</c:choose>
-									
-								</c:forEach>
-							</select>
-							
-							<br><br>
-							
-							*Email: <input type="text" name="email" value="${employee.getEmail()}" required />
-							*Skype Name: <input type="text" name="skypeName" value="${employee.getSkypeName()}" required />
-							*Job Title: 
-							<select id="editJobTitleSelect" name="jobTitle.id">
-								<option value=""></option>
-								<c:forEach items="${titles}" var="title">
-									<c:choose>
-										<c:when test="${employee.getJobTitle().id == title.id}">
-											<option value="${title.id}" selected>${title.getName()}</option>
-										</c:when>
-										<c:otherwise>
-											<option value="${title.id}">${title.getName()}</option>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-							</select>
-							
-							<input type="hidden" name="id" value="${employee.getId()}" />
-							<input type="hidden" name="isActive" value="true" />
-							
-							<button type="submit">Save</button>
-							
-						</form>
-					</fieldset>
-				</div>
-				
+				<button onclick="openEditForm('${employee.getId()}', '${employee.getFirstName()}', '${employee.getMiddleInitial()}', '${employee.getLastName()}', 
+											  '${employee.getDepartment().getId()}', '${employee.getEmail()}', '${employee.getSkypeName()}', '${employee.getJobTitle().getId()}')">
+				Edit</button>
 			</td>
 			<td>
-				<button onclick="removeEmployee('${employee.getId()}')">Delete</button>
+				<c:choose>
+					<c:when test="${employee.getIsActive() == true}">
+						<button onclick="removeEmployee('${employee.getId()}')">Delete</button>
+					</c:when>
+					<c:when test="${employee.getIsActive() == false}">
+						<button onclick="reenableEmployee('${employee.getId()}')">Enable</button>
+					</c:when>
+				</c:choose>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
+
+<div id="editContainer" style="display: none;">
+	<fieldset>
+		<h2></h2>
+		<form id="editForm" action="emps" method="post">
+			<input id="editEmpId" type="hidden" name="id" />
+			<input type="hidden" name="isActive" value="true" />
+			*First Name: <input id="editFirstName" type="text" name="firstName" required />
+			Middle Initial: <input id="editMiddleInitial" type="text" name="middleInitial" maxlength="1" style="width: 50px; "/>
+			*Last Name: <input id="editLastName"type="text" name="lastName" required />
+			*Department: 
+			<select id="editDepartmentSelect" name="department.id">
+				<option value=""></option>		
+				<c:forEach items="${depts}" var="dept">
+					<option value="${dept.id}">${dept.name}</option>
+				</c:forEach>
+			</select>
+			<br><br>
+			*Email: <input id="editEmail" type="text" name="email" required />
+			*Skype Name: <input id="editSkype" type="text" name="skypeName" required />
+			*Job Title: 
+			<select id="editJobTitleSelect" name="jobTitle.id">
+				<option value=""></option>
+				<c:forEach items="${titles}" var="title">
+					<option value="${title.id}">${title.getName()}</option>
+				</c:forEach>
+			</select>
+			<button type="submit">Save</button>
+		</form>
+	</fieldset>
+</div>

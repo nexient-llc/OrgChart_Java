@@ -48,7 +48,7 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void findAllEmployees() {
-		List<Employee> emps = this.employeeService.findAllEmployees();
+		List<Employee> emps = this.employeeService.findAllActiveEmployees();
 		assertNotNull(emps);
 		assertTrue(emps.size() > 0);
 	}

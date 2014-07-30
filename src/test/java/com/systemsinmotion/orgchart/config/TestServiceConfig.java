@@ -88,22 +88,22 @@ public class TestServiceConfig {
 		when(repo.findAllByIsActiveIsTrue()).thenReturn(listOfFoundEmployees);
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
-		when(repo.findByEmail(Entities.EMAIL)).thenReturn(mockEmployee);
+		when(repo.findByEmailIgnoreCase(Entities.EMAIL)).thenReturn(mockEmployee);
 		when(repo.findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(Entities.FIRST_NAME, Entities.FIRST_NAME)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(Entities.LAST_NAME, Entities.LAST_NAME)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByDepartmentId(Entities.DEPT_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByJobTitleId(Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByDepartmentIdAndJobTitleId(Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameContainingIgnoreCase(Entities.FIRST_NAME)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameIgnoreCaseAndDepartmentId(Entities.FIRST_NAME, Entities.DEPT_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameIgnoreCaseAndJobTitleId(Entities.FIRST_NAME, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleId(Entities.FIRST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
-		when(repo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleId(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.FIRST_NAME)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.LAST_NAME, Entities.LAST_NAME)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByDepartmentIdAndIsActiveIsTrue(Entities.DEPT_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByJobTitleIdAndIsActiveIsTrue(Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.DEPT_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
+		when(repo.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
 		return repo;
 	}
 

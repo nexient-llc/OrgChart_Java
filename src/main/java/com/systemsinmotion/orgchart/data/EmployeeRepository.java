@@ -17,7 +17,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	//List<Employee> findByDepartment(Department dept);
 
-	Employee findByEmail(String email);
+	Employee findByEmailIgnoreCase(String email);
+	
+	Employee findBySkypeNameIgnoreCase(String skype);
 
 	Employee findById(Integer id);
 
@@ -26,39 +28,47 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	List<Employee> findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(String firstName, String lastName, Integer deptId, Integer jobTitleId);
 	
 	// stuff I put here for user stories:	
-	List<Employee> findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String name1, String name2);
+	List<Employee> findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(String name1, String name2);
 
-	List<Employee> findAllByDepartmentId(Integer deptId);
+	List<Employee> findAllByDepartmentIdAndIsActiveIsTrue(Integer deptId);
 
-	List<Employee> findAllByJobTitleId(Integer jobId);
+	List<Employee> findAllByJobTitleIdAndIsActiveIsTrue(Integer jobId);
 
-	List<Employee> findAllByDepartmentIdAndJobTitleId(Integer deptId, Integer jobTitleId);
+	List<Employee> findAllByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Integer deptId, Integer jobTitleId);
 
-	List<Employee> findAllByFirstNameContainingIgnoreCase(String firstName);
+	List<Employee> findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrue(String firstName);
 
-	List<Employee> findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(String firstName, String lastName);
+	List<Employee> findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(String firstName, String lastName);
 
-	List<Employee> findAllByFirstNameIgnoreCaseAndDepartmentId(String firstName, Integer deptId);
+	List<Employee> findAllByFirstNameIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(String firstName, Integer deptId);
 
-	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId(String firstName, String lastName, Integer deptId);
+	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(String firstName, String lastName, Integer deptId);
 
-	List<Employee> findAllByFirstNameIgnoreCaseAndJobTitleId(String firstName, Integer jobId);
+	List<Employee> findAllByFirstNameIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(String firstName, Integer jobId);
 
-	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId(String firstName, String lastName, Integer jobId);
+	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(String firstName, String lastName, Integer jobId);
 
 	List<Employee> findAllByIsActiveIsTrue();
+	
+	List<Employee> findAllByIsActiveIsFalse();
 
-	List<Employee> findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleId(String firstName, Integer deptId, Integer jobId);
+	List<Employee> findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(String firstName, Integer deptId, Integer jobId);
 
-	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleId(String firstName, String lastName, Integer deptId, Integer jobId);
+	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(String firstName, String lastName, Integer deptId, Integer jobId);
 
 	@Modifying
 	@Transactional
 	@Query("update Employee emp set emp.isActive = false where emp.id = :id")
 	void removeEmployee(@Param("id") Integer id);
 
-	List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
+	@Modifying
+	@Transactional
+	@Query("update Employee emp set emp.isActive = true where emp.id = :id")
+	void reenableEmployee(@Param("id") Integer id);
 	
+	List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
+
+	List<Employee> findAllByEmailIgnoreCaseOrSkypeNameIgnoreCase(String email, String skype);
 	
 	//List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
 

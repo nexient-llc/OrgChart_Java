@@ -55,7 +55,7 @@ public class DefaultController {
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
@@ -70,7 +70,7 @@ public class DefaultController {
 	public void doDepartments_POST(Department department, Model model) {
 		departmentService.storeDepartment(department);
 		
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		model.addAttribute("depts", departments);
 	}
 	
@@ -88,9 +88,9 @@ public class DefaultController {
 								  String string4, Model model) {
 		List<Employee> employees = null;
 		
-		employees = (name.equals("") && deptId.equals("") && jobId.equals("")) ? employeeService.findAllEmployees() : employeeService.findAllEmployeesByCriteria(name, deptId, jobId);
+		employees = (name.equals("") && deptId.equals("") && jobId.equals("")) ? employeeService.findAllActiveEmployees() : employeeService.findAllEmployeesByCriteria(name, deptId, jobId);
 		
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("emps", employees);
 		model.addAttribute("depts", departments);
@@ -101,14 +101,44 @@ public class DefaultController {
 	
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
 	public void doEmployee_POST(Employee employee, Model model) {
+		
+		employee.setFirstName(Character.toUpperCase(employee.getFirstName().charAt(0)) + employee.getFirstName().substring(1));
+		if(employee.getMiddleInitial() != null)
+			employee.setMiddleInitial(Character.toUpperCase(employee.getMiddleInitial()));
+		employee.setLastName(Character.toUpperCase(employee.getLastName().charAt(0)) + employee.getLastName().substring(1));
+		
 		employeeService.storeEmployee(employee);
 		
-		List<Employee> employees = employeeService.findAllEmployees();
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Employee> employees = employeeService.findAllActiveEmployees();
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("emps", employees);
 		model.addAttribute("depts", departments);
 		model.addAttribute("titles", jobTitles);
+	}
+	
+	@RequestMapping(value = "newEmployee", method = RequestMethod.POST)
+	public @ResponseBody String insertNewEmployee(Employee newEmployee, Model model) {
+		String retVal = "";
+		
+		employeeService.storeEmployee(newEmployee);
+		
+		
+		// reset newEmployee to the one that's been inserted so we have their id
+		newEmployee = employeeService.findByEmail(newEmployee.getEmail());
+		
+		retVal += "{\"id\": \"" + newEmployee.getId() + "\"," + 
+				  " \"firstName\": \"" + newEmployee.getFirstName() + "\", " +
+				  " \"middleInitial\": \"" + newEmployee.getMiddleInitial() + "\", " +
+				  " \"lastName\": \"" + newEmployee.getLastName() + "\", " +
+				  " \"departmentId\": \"" + newEmployee.getDepartment().getId() + "\", " +
+				  " \"departmentName\": \"" + newEmployee.getDepartment().getName() + "\", " +
+				  " \"jobTitleId\": \"" + newEmployee.getJobTitle().getId() + "\", " +
+				  " \"jobTitleName\": \"" + newEmployee.getJobTitle().getName() + "\", " +
+				  " \"email\": \"" + newEmployee.getEmail() + "\", " +
+				  " \"skype\": \"" + newEmployee.getSkypeName() + "\"}";
+		
+		return retVal;
 	}
 	
 	
@@ -117,11 +147,51 @@ public class DefaultController {
 		employeeService.removeEmployee(id);
 	}
 	
+	@RequestMapping(value = "reenableEmployee/{id}", method = RequestMethod.POST)
+	public @ResponseBody void reenableEmployee_POST(@PathVariable("id") Integer id) {
+		System.out.println("\n\n\n" + id + "\n\n\n");
+		employeeService.reenableEmployee(id);
+	}
+	
+	@RequestMapping(value = "checkEmailAndSkype", method = RequestMethod.GET)
+	public @ResponseBody String validateUniqueConstraints_GET(@RequestParam("id") String id, @RequestParam("email") String email, @RequestParam("skypeName") String skype, 
+			@RequestParam("addOrEdit") String addOrEdit) {
+		Employee emailEmp = employeeService.findByEmail(email);
+		Employee skypeEmp = employeeService.findBySkypeName(skype);
+		String retval = "";
+		
+		if(addOrEdit.equals("add")) {
+			if(emailEmp != null)
+				retval = "Email \"" + email + "\" is already in use.";
+			if(skypeEmp != null)
+				retval = "Skype name \"" + skype + "\" is already in use.";
+		}
+		else if(addOrEdit.equals("edit")) {
+			if(emailEmp != null && !emailEmp.getId().toString().equals(id))
+				retval = "Email \"" + email + "\" is already in use.";
+			if(skypeEmp != null && !skypeEmp.getId().toString().equals(id))
+				retval = "Skype name \"" + skype + "\" is already in use.";
+		}
+		
+		return retval;
+	}
+	
+	@RequestMapping(value = "getInactiveEmployees", method = RequestMethod.GET)
+	public String doEmployees_GETINACTIVE(Model model) {
+		List<Employee> employees = this.employeeService.findAllInactiveEmployees();
+		List<Department> departments = departmentService.findAllActiveDepartments();
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("emps", employees);
+		model.addAttribute("depts", departments);
+		model.addAttribute("titles", jobTitles);
+		return View.EMPLOYEES;
+	}
+	
 	
 	@RequestMapping(value = "titles", method = RequestMethod.GET)
 	public String doJobTitles_GET(Model model) {
-		List<Employee> employees = employeeService.findAllEmployees();
-		List<Department> departments = departmentService.findAllDepartments();
+		List<Employee> employees = employeeService.findAllActiveEmployees();
+		List<Department> departments = departmentService.findAllActiveDepartments();
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("emps", employees);
 		model.addAttribute("depts", departments);

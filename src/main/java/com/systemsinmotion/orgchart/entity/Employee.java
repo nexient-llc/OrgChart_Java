@@ -76,7 +76,7 @@ public class Employee extends BaseEntity {
 	}
 	
 	
-	public void setMiddleInitial(char middleInitial) {
+	public void setMiddleInitial(Character middleInitial) {
 		this.middleInitial = middleInitial;
 	}
 	public Character getMiddleInitial() {

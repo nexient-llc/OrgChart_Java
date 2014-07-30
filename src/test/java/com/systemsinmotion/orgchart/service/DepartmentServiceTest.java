@@ -29,7 +29,7 @@ public class DepartmentServiceTest {
 
 	@Test
 	public void findAllDepartments() {
-		List<Department> depts = this.departmentService.findAllDepartments();
+		List<Department> depts = this.departmentService.findAllActiveDepartments();
 		assertNotNull(depts);
 		assertTrue(depts.size() > 0);
 	}

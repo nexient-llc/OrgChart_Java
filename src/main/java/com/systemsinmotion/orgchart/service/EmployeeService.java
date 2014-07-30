@@ -16,7 +16,7 @@ public class EmployeeService {
 	EmployeeRepository repository;
 	
 
-	public List<Employee> findAllEmployees() {
+	public List<Employee> findAllActiveEmployees() {
 		return this.repository.findAllByIsActiveIsTrue();
 	}
 
@@ -27,7 +27,7 @@ public class EmployeeService {
 	
 	
 	public Employee findByEmail(String email) {
-		return this.repository.findByEmail(email);
+		return this.repository.findByEmailIgnoreCase(email);
 	}
 
 	
@@ -39,6 +39,10 @@ public class EmployeeService {
 	public void removeEmployee(Integer id) {
 		this.repository.removeEmployee(id);
 	}
+	
+	public void reenableEmployee(Integer id) {
+		this.repository.reenableEmployee(id);
+	}
 
 	
 	public List<Employee> getEmployeeSuggestions(String name) {
@@ -46,10 +50,10 @@ public class EmployeeService {
 		List<Employee> employees = null;
 		
 		if(nameArr.length == 1) {
-			employees = this.repository.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(nameArr[0], nameArr[0]);
+			employees = this.repository.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(nameArr[0], nameArr[0]);
 		}
 		else if(nameArr.length == 2) {
-			employees = this.repository.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(nameArr[0], nameArr[1]);
+			employees = this.repository.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(nameArr[0], nameArr[1]);
 		}
 		
 		if(employees == null || employees.size() == 0) {
@@ -67,13 +71,13 @@ public class EmployeeService {
 			employees = this.repository.findAllByIsActiveIsTrue();
 		}
 		else if(name.equals("") && !deptId.equals("") && jobId.equals("")) {
-			employees = this.repository.findAllByDepartmentId(Integer.parseInt(deptId));
+			employees = this.repository.findAllByDepartmentIdAndIsActiveIsTrue(Integer.parseInt(deptId));
 		}
 		else if(name.equals("") && deptId.equals("") && !jobId.equals("")) {
-			employees = this.repository.findAllByJobTitleId(Integer.parseInt(jobId));
+			employees = this.repository.findAllByJobTitleIdAndIsActiveIsTrue(Integer.parseInt(jobId));
 		}
 		else if(name.equals("") && !deptId.equals("") && !jobId.equals("")) {
-			employees = this.repository.findAllByDepartmentIdAndJobTitleId(Integer.parseInt(deptId), Integer.parseInt(jobId));
+			employees = this.repository.findAllByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(Integer.parseInt(deptId), Integer.parseInt(jobId));
 		}
 		else if(!name.equals("") && deptId.equals("") && jobId.equals("")) {
 			employees = nameNoDeptNoJob(name);
@@ -97,10 +101,10 @@ public class EmployeeService {
 		String nameArr[] = name.split(" ");
 		
 		if(nameArr.length == 1) {
-			employees = this.repository.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(nameArr[0], nameArr[0]);
+			employees = this.repository.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(nameArr[0], nameArr[0]);
 		}
 		else if(nameArr.length == 2) {
-			employees = this.repository.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(nameArr[0], nameArr[1]);
+			employees = this.repository.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(nameArr[0], nameArr[1]);
 		}
 		
 		return employees;
@@ -112,10 +116,10 @@ public class EmployeeService {
 		List<Employee> employees = null;
 		
 		if(nameArr.length == 1) {
-			employees = this.repository.findAllByFirstNameIgnoreCaseAndDepartmentId(nameArr[0], deptId);
+			employees = this.repository.findAllByFirstNameIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(nameArr[0], deptId);
 		}
 		else if(nameArr.length == 2) {
-			employees = this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId(nameArr[0], nameArr[1], deptId);
+			employees = this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(nameArr[0], nameArr[1], deptId);
 		}
 		
 		return employees;
@@ -127,10 +131,10 @@ public class EmployeeService {
 		List<Employee> employees = null;
 		
 		if(nameArr.length == 1) {
-			employees = this.repository.findAllByFirstNameIgnoreCaseAndJobTitleId(nameArr[0], jobId);
+			employees = this.repository.findAllByFirstNameIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(nameArr[0], jobId);
 		}
 		else if(nameArr.length == 2) {
-			employees = this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId(nameArr[0], nameArr[1], jobId);
+			employees = this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(nameArr[0], nameArr[1], jobId);
 		}
 		
 		return employees;
@@ -142,13 +146,28 @@ public class EmployeeService {
 		List<Employee> employees = null;
 		
 		if(nameArr.length == 1) {
-			employees = this.repository.findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleId(nameArr[0], deptId, jobId);
+			employees = this.repository.findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(nameArr[0], deptId, jobId);
 		}
 		else if(nameArr.length == 2) {
-			employees = this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleId(nameArr[0], nameArr[1], deptId, jobId);
+			employees = this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(nameArr[0], nameArr[1], deptId, jobId);
 		}
 		
 		return employees;
+	}
+
+
+	public List<Employee> findAllEmployeesByEmailOrSkypeName(String email, String skype) {
+		return this.repository.findAllByEmailIgnoreCaseOrSkypeNameIgnoreCase(email, skype);
+	}
+
+
+	public Employee findBySkypeName(String skype) {
+		return this.repository.findBySkypeNameIgnoreCase(skype);
+	}
+
+
+	public List<Employee> findAllInactiveEmployees() {
+		return this.repository.findAllByIsActiveIsFalse();
 	}
 	
 //

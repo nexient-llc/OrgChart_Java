@@ -25,6 +25,11 @@ public class JobTitleService {
 	public JobTitle storeJobTitle(JobTitle job) {
 		return this.repository.save(job);
 	}
+
+
+	public JobTitle findJobTitleById(Integer id) {
+		return this.repository.findById(id);
+	}
 	
 	
 }

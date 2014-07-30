@@ -14,7 +14,7 @@ public class DepartmentService {
 	@Autowired
 	DepartmentRepository repository;
 
-	public List<Department> findAllDepartments() {
+	public List<Department> findAllActiveDepartments() {
 		return this.repository.findAllByIsActiveIsTrue();
 	}
 
