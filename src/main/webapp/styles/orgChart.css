@@ -77,3 +77,26 @@ SELECT {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+.paginationClass {
+	list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+}
+
+.paginationClass li {
+	background-color: white;
+	color: #0177C0;
+	display: inline;
+	border: 1px solid;
+	margin: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.paginationClass li.active {
+	background-color: #0177C0;
+	color: white;
+	border: none;
+}

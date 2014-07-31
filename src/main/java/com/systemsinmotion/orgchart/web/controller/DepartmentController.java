@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -91,8 +94,8 @@ public class DepartmentController {
 	}
 
 	@RequestMapping(value = "getDepartments", method = RequestMethod.GET)
-	public @ResponseBody List<Department> doDepartments_ajax_GET(Model model) {
-		return departmentService.findAllActiveDepartments();
+	public @ResponseBody Page<Department> doDepartments_ajax_GET(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
+		return departmentService.findAllActiveDepartments(new PageRequest(page, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
 	}
 
 	private void refreshDepartmentModel(Model model) {

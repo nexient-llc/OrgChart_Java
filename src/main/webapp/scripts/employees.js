@@ -89,28 +89,32 @@ $(document).ready(function() {
 });
 
 function get_table_data() {
+	$('.tableEntry').remove();
 	$.ajax({
 		type : 'GET',
 		url : 'getEmployees',
+		data : "page=" + page,
 		success : populate_table
 	})
 }
 
 function populate_table(data) {
-	data.forEach(function(element) {
-		var row = "<tr id='tablerow-" + element.id + "'>";
+	update_pages(data.number, data.totalPages);
+	data.content.forEach(function(element) {
+		var row = "<tr class='tableEntry' id='tablerow-" + element.id + "'>";
 		row += "<td id='tablename-" + element.id + "'>"
 		row += element.fullName;
-		row += "<div id='tablefName-" + element.id + "' style='display:none'>" + element.firstName
-				+ "</div>"
+		row += "<div id='tablefName-" + element.id + "' style='display:none'>"
+				+ element.firstName + "</div>"
 		row += "<div id='tablemName-" + element.id + "' style='display:none'>"
-				+ ((element.middleInitial) ? element.middleInitial : "") + "</div>"
-		row += "<div id='tablelName-" + element.id + "' style='display:none'>" + element.lastName
+				+ ((element.middleInitial) ? element.middleInitial : "")
 				+ "</div>"
-		row += "<div id='tableEmail-" + element.id + "' style='display:none'>" + element.email
-				+ "</div>"
-		row += "<div id='tableSkype-" + element.id + "' style='display:none'>" + element.skypeName
-				+ "</div>"
+		row += "<div id='tablelName-" + element.id + "' style='display:none'>"
+				+ element.lastName + "</div>"
+		row += "<div id='tableEmail-" + element.id + "' style='display:none'>"
+				+ element.email + "</div>"
+		row += "<div id='tableSkype-" + element.id + "' style='display:none'>"
+				+ element.skypeName + "</div>"
 		row += "</td>";
 		if (element.department != null) {
 			row += "<td><div id='tabledName-" + element.id + "'>"
@@ -159,4 +163,21 @@ function performDelete() {
 		type : 'DELETE',
 		url : "emp/delete/" + empId,
 	})
+}
+
+function changePage(pageNum) {
+	page = pageNum;
+	get_table_data();
+}
+
+function update_pages(pageNumber, totalPages) {
+	$('#pagination').empty();
+	var pagespan = "";
+	for (i = 0; i < totalPages; i++) {
+		if (i == page)
+			pagespan += "<li class='active' onclick='changePage(" + i + ")'>" + (i + 1) + "</li>";
+		else
+			pagespan += "<li onclick='changePage(" + i + ")'>" + (i + 1) + "</li>";
+	}
+	$('#pagination').append(pagespan);
 }

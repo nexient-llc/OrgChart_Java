@@ -67,16 +67,19 @@ $(document).ready(function() {
 });
 
 function get_table_data() {
+	$('.tableEntry').remove();
 	$.ajax({
 		type : 'GET',
 		url : 'getDepartments',
+		data : "page=" + page,
 		success : populate_table
 	})
 }
 
 function populate_table(data) {
-	data.forEach(function(element) {
-		var row = "<tr id='tablerow-" + element.id + "'>";
+	update_pages(data.number, data.totalPages);
+	data.content.forEach(function(element) {
+		var row = "<tr class='tableEntry' id='tablerow-" + element.id + "'>";
 		row += "<td id='tablename-" + element.id + "'>" + element.name
 				+ "</td>";
 		if (element.parentDepartment != null) {
@@ -113,4 +116,21 @@ function performDelete() {
 		type : 'DELETE',
 		url : "depart/delete/" + deptId,
 	})
+}
+
+function changePage(pageNum) {
+	page = pageNum;
+	get_table_data();
+}
+
+function update_pages(pageNumber, totalPages) {
+	$('#pagination').empty();
+	var pagespan = "";
+	for (i = 0; i < totalPages; i++) {
+		if (i == page)
+			pagespan += "<li class='active' onclick='changePage(" + i + ")'>" + (i + 1) + "</li>";
+		else
+			pagespan += "<li onclick='changePage(" + i + ")'>" + (i + 1) + "</li>";
+	}
+	$('#pagination').append(pagespan);
 }

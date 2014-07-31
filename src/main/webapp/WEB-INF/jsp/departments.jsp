@@ -9,6 +9,7 @@
 </div>
 <script type="text/javascript">
 	var CREATED_DEPT = "${createdDept.name}";
+	var page = 0;
 </script>
 <div id="addBtn-container"
 	<sec:authorize access="hasRole('ROLE_ADMIN')">style="display:block"</sec:authorize>
@@ -64,7 +65,8 @@
 		</form>
 	</fieldset>
 </div>
-
+<br>
+<ul class="paginationClass" id="pagination"></ul>
 <table id="t1">
 	<tr>
 		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->

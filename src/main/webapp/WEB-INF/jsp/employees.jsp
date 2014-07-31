@@ -12,6 +12,7 @@
 </div>
 <script type="text/javascript">
 	var CREATED_EMPLOYEE = "${createdEmployee.name}";
+	var page = 0;
 </script>
 <div id="filterBtn-container">
 	<button type="button" id="filterBtn">Filter</button>
@@ -106,7 +107,8 @@
 		</form>
 	</fieldset>
 </div>
-
+<br>
+<ul class="paginationClass" id="pagination"></ul>
 <table id="t1">
 	<tr>
 		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->

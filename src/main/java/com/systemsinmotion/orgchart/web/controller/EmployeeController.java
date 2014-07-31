@@ -3,6 +3,9 @@ package com.systemsinmotion.orgchart.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -185,10 +188,10 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value = "getEmployees", method = RequestMethod.GET)
-	public @ResponseBody List<Employee> doEmployees_ajax_GET(Model model) {
-		return employeeService.findAllActiveEmployees();
+	public @ResponseBody Page<Employee> doEmployees_ajax_GET(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
+		Page<Employee> employees = employeeService.findAllActiveEmployees(new PageRequest(page, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "lastName").ignoreCase())));
+		return employees;
 	}
-
 
 	private void refreshAllModels(Model model) {
 		refreshDepartmentModel(model);
@@ -197,7 +200,7 @@ public class EmployeeController {
 	}
 
 	private void refreshEmployeeModel(Model model) {
-		List<Employee> employees = employeeService.findAllActiveEmployees();
+		List<Employee> employees = employeeService.findAllActiveEmployees();	
 		model.addAttribute("emps", employees);
 		model.addAttribute("allEmps", employees);
 	}
@@ -211,5 +214,4 @@ public class EmployeeController {
 		List<Department> departments = departmentService.findAllActiveDepartments();
 		model.addAttribute("depts", departments);
 	}
-
 }

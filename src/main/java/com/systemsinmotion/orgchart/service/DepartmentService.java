@@ -3,6 +3,8 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,10 @@ public class DepartmentService {
 	public List<Department> findAllActiveDepartments() {
 		return this.repository.findByIsActiveIsTrue();
 	}	
+
+	public Page<Department> findAllActiveDepartments(PageRequest pageRequest) {
+		return this.repository.findByIsActiveIsTrue(pageRequest);
+	}
 
 	public Department findDepartmentByID(Integer departmentId) {
 		return this.repository.findOne(departmentId);

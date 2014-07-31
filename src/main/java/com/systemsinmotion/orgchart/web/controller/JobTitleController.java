@@ -3,6 +3,9 @@ package com.systemsinmotion.orgchart.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -75,8 +78,8 @@ public class JobTitleController {
 	}
 	
 	@RequestMapping(value = "getJobTitles", method = RequestMethod.GET)
-	public @ResponseBody List<JobTitle> doJobTitless_ajax_GET(Model model) {
-		return jobTitleService.findAllActiveJobTitles();
+	public @ResponseBody Page<JobTitle> doJobTitless_ajax_GET(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
+		return jobTitleService.findAllActiveJobTitles(new PageRequest(page, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
 	}
 
 
