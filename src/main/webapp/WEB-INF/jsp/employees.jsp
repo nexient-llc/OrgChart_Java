@@ -35,20 +35,32 @@
 </div>
 
 <div id="addEntity" style="display:none">
-<!-- 	<fieldset> -->
-<!-- 		<legend>Add Employee</legend> -->
-<!-- 		<form name="newemp" action="emps" method="post"> -->
-<!-- 		<div><labeL>emp Name:</labeL><input type="text" name="name"/> -->
-<!-- 			<labeL>Parent emp:</label> -->
-<!-- 			<select name="parent_id"> -->
-<!-- 				<option>...</option> -->
-<%-- 				<c:forEach items="${emps}" var="emp"> --%>
-<%-- 					<option value="${emp.id}">${emp.name}</option> --%>
-<%-- 				</c:forEach> --%>
-<!-- 			</select> -->
-<!-- 			<button type="submit">Save</button> -->
-<!-- 		</div> -->
-<!-- 		<div></div> -->
-<!-- 		</form> -->
-<!-- 	</fieldset> -->
+	<fieldset>
+		<legend>Add Employee</legend>
+		<form name="newEmp" action="emps" method="post">
+		<div>
+			<labeL>First name:</labeL><input type="text" name="firstName"/>
+			<labeL>Last name:</labeL><input type="text" name="lastName"/>
+			<labeL>Department:</label>
+			<select name="department_id">
+				<option>...</option>
+				<c:forEach items="${depts}" var="dept">
+					<option value="${dept.id}">${dept.name}</option>
+				</c:forEach>
+			</select>
+			<labeL>Email:</labeL><input type="text" name="email"/>
+			<labeL>Skype name:</labeL><input type="text" name="skypeName"/>
+			<labeL>Is a Manager:</labeL><input type="checkbox" name="isManager"/>
+			<labeL>Job Title:</label>
+			<select name="job_title_id">
+				<option>...</option>
+				<c:forEach items="${jobs}" var="job">
+					<option value="${job.id}">${job.name}</option>
+				</c:forEach>
+			</select>
+			<button type="submit">Save</button>
+		</div>
+		<div></div>
+		</form>
+	</fieldset>
 </div>

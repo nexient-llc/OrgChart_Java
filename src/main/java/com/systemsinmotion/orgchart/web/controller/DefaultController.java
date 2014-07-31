@@ -72,6 +72,31 @@ public class DefaultController {
 		return View.JOB_TITLES;
 	}
 	
+	
+	@RequestMapping(value = NAV_DEPARTMENT, method = RequestMethod.PUT)
+	public String doDepartments_PUT(Model model) {
+		//uncomment when database connection is set up. will throw error when run
+		 List<Department> departments = departmentService.findAllDepartments();
+		 model.addAttribute(NAV_DEPARTMENT, departments);
+		return View.DEPARTMENTS;
+	}
+	
+	@RequestMapping(value = NAV_EMPLOYEE, method = RequestMethod.PUT)
+	public String doEmployees_PUT(String firstName, String lastName, String email, String skypeName, Model model) {
+		//uncomment when database connection is set up. will throw error when run
+		 List<Employee> employees = employeeService.findAllEmployees();
+		 model.addAttribute(NAV_EMPLOYEE, employees);
+		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = NAV_JOBTITLES, method = RequestMethod.PUT)
+	public String doJobTitles_PUT(Model model) {
+		//uncomment when database connection is set up. will throw error when run
+		 List<JobTitle> jobs = jobTitleService.findAllActiveJobTitles();
+		 model.addAttribute(NAV_JOBTITLES, jobs);
+		return View.JOB_TITLES;
+	}
+	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
@@ -91,10 +116,13 @@ public class DefaultController {
 		model.addAttribute(NAV_EMPLOYEE, employees);
 		return View.EMPLOYEES;
 	}
-
-	public void doJobTitles_POST(JobTitle mockJobTitle, Model model) {
-		// TODO Auto-generated method stub
-		
+	
+	@RequestMapping(value = NAV_JOBTITLES, method = RequestMethod.POST)
+	public String doJobTitles_POST(JobTitle job, Model model) {
+		jobTitleService.storeEmployee(job);
+		List<JobTitle> jobs = jobTitleService.findAllActiveJobTitles();
+		model.addAttribute(NAV_JOBTITLES, jobs);
+		return View.JOB_TITLES;
 	}
 
 }

@@ -30,4 +30,8 @@ public class EmployeeService {
 		return this.repository.findByIsActiveIsTrue();
 	}
 
+	public List<Employee> findByIsManager(boolean isManager){
+		return this.repository.findByIsManager(isManager);
+	}
+	
 }
