@@ -14,6 +14,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,6 +24,7 @@ import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestServiceConfig;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.data.SimpleEmployeeRepository;
+import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.SimpleEmployee;
 
@@ -504,6 +508,13 @@ public class EmployeeServiceTest {
 		List<Employee> emps = employeeService.findEmployeeByEmail(Entities.EMAIL);
 		assertNotNull(emps);
 		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+	}
+	
+	@Test
+	public void findAllActiveEmployees_page() {
+		Page<Employee> emps = employeeService.findAllActiveEmployees(new PageRequest(0, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
+		assertNotNull(emps);
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 }
 

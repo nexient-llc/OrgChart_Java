@@ -12,6 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -106,5 +109,11 @@ public class JobTitleServiceTest {
 		assertNull(this.titleService.getRepository());
 		this.titleService.setRepository(repo);
 	}
-
+	
+	@Test
+	public void findAllActiveJobTitles_page() {
+		Page<JobTitle> jobs = titleService.findAllActiveJobTitles(new PageRequest(0, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
+		assertNotNull(jobs);
+		assertEquals(Entities.JOB_TITLE_ID, jobs.getContent().get(0).getId());
+	}
 }

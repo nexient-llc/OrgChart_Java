@@ -13,6 +13,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -130,4 +133,10 @@ public class DepartmentServiceTest {
 		this.departmentService.setRepository(repo);
 	}
 
+	@Test
+	public void findAllActiveDepartments_page() {
+		Page<Department> depts = departmentService.findAllActiveDepartments(new PageRequest(0, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
+		assertNotNull(depts);
+		assertEquals(Entities.DEPT_ID, depts.getContent().get(0).getId());
+	}
 }

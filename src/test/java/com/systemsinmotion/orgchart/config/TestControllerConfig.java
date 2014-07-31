@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.config;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -19,6 +20,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
@@ -82,6 +85,7 @@ public class TestControllerConfig {
 	DepartmentService getDepartmentService() {
 		DepartmentService service = mock(DepartmentService.class);
 		when(service.findAllActiveDepartments()).thenReturn(listOfFoundDepts);
+		when(service.findAllActiveDepartments(any(PageRequest.class))).thenReturn(new PageImpl<Department>(listOfFoundDepts));
 		when(service.storeDepartment(eq(mockDepartment2))).thenReturn(mockDepartment2).thenThrow(new DataIntegrityViolationException("Can't save the same thing twice"));
 		when(service.storeDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
 		     public Department answer(InvocationOnMock invocation) {
@@ -107,6 +111,7 @@ public class TestControllerConfig {
 		when(service.findEmployeesByNameOnlyFilter(eq(Entities.LAST_NAME), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
 		when(service.findEmployeesByNameOnlyFilter(isNull(String.class), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
 		when(service.findEmployeesByCriteriaFilter(anyString(), anyString(), anyInt(), anyInt())).thenReturn(listOfFoundEmployees);
+		when(service.findAllActiveEmployees(any(PageRequest.class))).thenReturn(new PageImpl<Employee>(listOfFoundEmployees));
 		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
 		     public Employee answer(InvocationOnMock invocation) {
 		         listOfFoundEmployees.add(mockEmployee);
@@ -126,6 +131,7 @@ public class TestControllerConfig {
 	JobTitleService getJobTitleService() {
 		JobTitleService service = mock(JobTitleService.class);
 		when(service.findAllActiveJobTitles()).thenReturn(listOfFoundTitles);
+		when(service.findAllActiveJobTitles(any(PageRequest.class))).thenReturn(new PageImpl<JobTitle>(listOfFoundTitles));
 		when(service.storeJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
 		     public JobTitle answer(InvocationOnMock invocation) {
 		         listOfFoundTitles.add(mockTitle);
@@ -158,6 +164,7 @@ public class TestControllerConfig {
 		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundDepts);
 		when(repo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(repo.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		when(repo.findByIsActiveIsTrue(any(PageRequest.class))).thenReturn(new PageImpl<Department>(listOfFoundDepts));
 		when(repo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
 		return repo;
 	}
@@ -175,6 +182,7 @@ public class TestControllerConfig {
 		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundTitles);
 		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
 		when(repo.findById(Entities.JOB_TITLE_ID)).thenReturn(this.mockTitle);
+		when(repo.findByIsActiveIsTrue(any(PageRequest.class))).thenReturn(new PageImpl<JobTitle>(listOfFoundTitles));
 		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
 		return repo;
 	}
@@ -234,6 +242,7 @@ public class TestControllerConfig {
 		when(repo.findActiveByUnknownInputs(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
 		when(repo.findByEmailIgnoreCase(Entities.EMAIL)).thenReturn(listOfFoundEmployees);
 		when(repo.findBySkypeNameIgnoreCase(Entities.SKYPE_NAME)).thenReturn(listOfFoundEmployees);
+		when(repo.findByIsActiveIsTrue(any(PageRequest.class))).thenReturn(new PageImpl<Employee>(listOfFoundEmployees));
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		return repo;
 	}

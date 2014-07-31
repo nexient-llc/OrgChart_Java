@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
@@ -388,6 +389,15 @@ public class EmployeeControllerTest {
 	}
 
 	@Test
+	public void doEmployeeFind_GET_onlySkypeWithId() {
+		mockEmployee.setSkypeName(Entities.SKYPE_NAME);
+		mockEmployee.setEmail(null);
+		mockEmployee.setId(Entities.EMPLOYEE_ID);
+		String message = controller.doEmployeeFind_GET(mockEmployee, model);
+		assertEquals(message, "Email is required");
+	}
+
+	@Test
 	public void doEmployeeFind_GET_onlyEmail() {
 		mockEmployee.setSkypeName(null);
 		mockEmployee.setEmail(Entities.EMAIL);
@@ -475,5 +485,12 @@ public class EmployeeControllerTest {
 		mockEmployee.setId(Entities.EMPLOYEE_ID);
 		String message = controller.doEmployeeFind_GET(mockEmployee, model);
 		assertEquals(message, "Ok");
+	}
+	
+	@Test
+	public void doEmployees_ajax_GET() {
+		Page<Employee> employees = controller.doEmployees_ajax_GET(0, model);
+		assertNotNull(employees);
+		assertEquals(Entities.EMPLOYEE_ID, employees.getContent().get(0).getId());
 	}
 }

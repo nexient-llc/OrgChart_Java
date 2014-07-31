@@ -1,5 +1,6 @@
 package com.systemsinmotion.orgchart.config;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -14,6 +15,8 @@ import org.mockito.stubbing.Answer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.AuthoritiesRepository;
@@ -112,6 +115,7 @@ public class TestServiceConfig {
 		DepartmentRepository repo = mock(DepartmentRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundDepts);
 		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundDepts);
+		when(repo.findByIsActiveIsTrue(any(PageRequest.class))).thenReturn(new PageImpl<Department>(listOfFoundDepts));
 		when(repo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(repo.findById(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(repo.findByNameIgnoreCase(Entities.DEPARTMENT_NAME)).thenReturn(this.listOfFoundDepts);
@@ -129,6 +133,7 @@ public class TestServiceConfig {
 		JobTitleRepository repo = mock(JobTitleRepository.class);
 		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
 		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundTitles);
+		when(repo.findByIsActiveIsTrue(any(PageRequest.class))).thenReturn(new PageImpl<JobTitle>(listOfFoundTitles));
 		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
 		when(repo.findById(Entities.JOB_TITLE_ID)).thenReturn(this.mockTitle);
 		when(repo.findByNameIgnoreCase(Entities.JOB_TITLE_NAME)).thenReturn(this.listOfFoundTitles);
@@ -146,6 +151,7 @@ public class TestServiceConfig {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
 		when(repo.findAll()).thenReturn(listOfFoundEmployees);
 		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundEmployees);
+		when(repo.findByIsActiveIsTrue(any(PageRequest.class))).thenReturn(new PageImpl<Employee>(listOfFoundEmployees));
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(repo.findById(Entities.EMPLOYEE_ID)).thenReturn(this.mockEmployee);
 		when(repo.findByJobTitle(mockEmployee.getJobTitle())).thenReturn(this.listOfFoundEmployees);

@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestControllerConfig;
+import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
@@ -156,4 +158,10 @@ public class JobTitleControllerTest {
 		assertFalse(nameAlreadyExists);
 	}
 
+	@Test
+	public void doJobTitless_ajax_GET() {
+		Page<JobTitle> jobs = controller.doJobTitless_ajax_GET(0, model);
+		assertNotNull(jobs);
+		assertEquals(Entities.JOB_TITLE_ID, jobs.getContent().get(0).getId());
+	}
 }

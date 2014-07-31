@@ -13,12 +13,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -187,4 +186,10 @@ public class DepartmentControllerTest {
 		assertFalse(nameAlreadyExists);
 	}
 
+	@Test
+	public void doDepartments_ajax_GET() {
+		Page<Department> depts = controller.doDepartments_ajax_GET(0, model);
+		assertNotNull(depts);
+		assertEquals(Entities.DEPT_ID, depts.getContent().get(0).getId());
+	}
 }
