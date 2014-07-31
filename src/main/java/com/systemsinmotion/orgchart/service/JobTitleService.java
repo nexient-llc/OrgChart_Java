@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.data.JobTitleRepository;
-import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Service("jobTitleService")
@@ -21,10 +20,6 @@ public class JobTitleService {
 
 	public JobTitle storeJobTitle(JobTitle jobTitle) {
 		return this.repository.save(jobTitle);
-	}
-
-	public void storeEmployee(JobTitle job) {
-		this.repository.save(job);
 	}
 
 	public List<JobTitle> findAllActiveJobTitles() {
