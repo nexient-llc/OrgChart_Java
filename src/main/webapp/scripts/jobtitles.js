@@ -11,27 +11,14 @@ $(document).ready(function() {
 		$('#addEntity').fadeToggle("fast", "linear");
 	});
 
-	$('.editBtnClass').click(function() {
-		$('.editBtn-containerClass').fadeToggle("fast", "linear");
-		var val = this.id.replace("editBtn","");
-		$('#editEntity'+val).fadeToggle("fast", "linear");
+	$('#cancelEditBtn').click(function() {
+		$('.editBtnContainer').fadeToggle("fast", "linear");
+		$('#editContainer').fadeToggle("fast", "linear");
 	});
 
-	$('.cancelEditBtnClass').click(function() {
-		$('.editBtn-containerClass').fadeToggle("fast", "linear");
-		var val = this.id.replace("cancelEditBtn","");
-		$('#editEntity'+val).fadeToggle("fast", "linear");
-	});
-
-	$('.deleteBtnClass').click(function() {
-		$('.editBtn-containerClass').fadeToggle("fast", "linear");
-		var val = this.id.replace("deleteBtn-","");
-		$('#editEntity-'+val).remove();
-		$('#tableRow-'+val).remove();
-		$.ajax({
-			type : 'DELETE',
-			url : "job/delete/" +val,
-		})
+	$('#createdJobTitleContainer').ready(function() {
+		if (CREATED_JOB)
+			$('#createdJobTitleContainer').toggle();
 	});
 
 	$('#newJobTitle').submit(function() {
@@ -40,11 +27,10 @@ $(document).ready(function() {
 			dataType : "text",
 			type : 'GET',
 			url : "findJob",
-			data : "name="+$('#newJobName').val(),
+			data : "name=" + $('#newJobName').val(),
 			async : false,
-			success: function(data) {
-				if (data=="true")
-				{
+			success : function(data) {
+				if (data == "true") {
 					alert("That name already exists in the database.");
 					success = false;
 				} else {
@@ -54,20 +40,20 @@ $(document).ready(function() {
 		})
 		return success;
 	});
-	
+
 	$('.editFormClass').submit(function() {
 		var success = false;
-		var val = this.id.value;
+		var name = $('#editName').val();
+		var id = $('#editId').val()
 		$.ajax({
 			dataType : "text",
 			type : 'GET',
 			url : "findJob",
-			data : "name="+$('#editName-'+val).val() + "&id="+val,
+			data : "name=" + name + "&id=" + id,
 			async : false,
-			success: function(data) {
-				if (data=="true")
-				{
-					alert("'" + $('#editName-'+val).val() + "' already exists in the database.");
+			success : function(data) {
+				if (data == "true") {
+					alert("'" + name + "' already exists in the database.");
 					success = false;
 				} else {
 					success = true;
@@ -77,4 +63,43 @@ $(document).ready(function() {
 		return success;
 	});
 
+	get_table_data();
 });
+
+function get_table_data() {
+	$.ajax({
+		type : 'GET',
+		url : 'getJobTitles',
+		success : populate_table
+	})
+}
+
+function populate_table(data) {
+	data.forEach(function(element) {
+		var row = "<tr id='tablerow-" + element.id + "'>";
+		row += "<td id='tablename-" + element.id + "'>" + element.name
+				+ "</td>";
+		row += "<td class='editBtnContainer'><button onclick='editRow("
+				+ element.id + ")'>Edit</button></td>";
+		row += "</tr>";
+		$('#t1 tr:last').after(row);
+	});
+}
+
+function editRow(rowId) {
+	$('#editName').val($('#tablename-' + rowId).text());
+	$('#editId').val(rowId);
+	$('.editBtnContainer').fadeToggle("fast", "linear");
+	$('#editContainer').fadeToggle("fast", "linear");
+}
+
+function performDelete() {
+	var jobId = $('#editId').val();
+	$('.editBtnContainer').fadeToggle("fast", "linear");
+	$('#editContainer').fadeToggle("fast", "linear");
+	$('#tablerow-' + jobId).remove();
+	$.ajax({
+		type : 'DELETE',
+		url : "job/delete/" + jobId,
+	})
+}

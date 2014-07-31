@@ -4,6 +4,12 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <h3>Job Titles Page</h3>
+<div id="createdJobTitleContainer" style="display: none">
+	<h2>Successfully created new job title "${createdJob.name}"</h2>
+</div>
+<script type="text/javascript">
+	var CREATED_JOB = "${createdJob.name}";
+</script>
 <div id="addBtn-container"
 	<sec:authorize access="hasRole('ROLE_ADMIN')">style="display:block"</sec:authorize>
 	style="display: none">
@@ -16,10 +22,29 @@
 			<div>
 				<labeL>Job Title: *</labeL><input type="text" name="name"
 					id="newJobName" required /> <input type="hidden" name="isActive"
-					value="true"> <br>
-				<br>
+					value="true"> <br> <br>
 				<button type="submit">Save</button>
 				<button type="reset" id="cancelBtn" value="reset">Cancel</button>
+			</div>
+			<br>
+			<div>Required Fields indicated with a *</div>
+		</form>
+	</fieldset>
+</div>
+
+<div id="editContainer" style="display: none">
+	<fieldset>
+		<legend>Edit Job Title</legend>
+		<form name="editJob" class="editFormClass" action="updateJob"
+			method="post">
+			<div>
+				<labeL>Job Title: *</labeL><input type="text" name="name" value=""
+					id="editName" required /> <input type="hidden" name="id"
+					id="editId" value="" /> <input type="hidden" name="isActive"
+					id="editIsActive" value="true" /> <br> <br>
+				<button type="submit">Save</button>
+				<button type="button" onClick="performDelete()">Delete</button>
+				<button type="reset" id="cancelEditBtn" value="reset">Cancel</button>
 			</div>
 			<br>
 			<div>Required Fields indicated with a *</div>
@@ -33,42 +58,8 @@
 		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> -->
 		<th>Job Title</th>
-	</tr>
-	<c:forEach items="${jobs}" var="job">
-		<tr id="tableRow-${job.id}">
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
+		<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
-			<td>${job.name}</td>
-			<td><div class="editBtn-containerClass"
-					id="editBtn-container-${job.id}"
-					<sec:authorize access="hasRole('ROLE_ADMIN')">style="display:block"</sec:authorize>
-					style="display: none">
-					<button type="button" class="editBtnClass" id="editBtn-${job.id}">Edit</button>
-				</div></td>
-			<td><div id="editEntity-${job.id}" style="display: none">
-					<fieldset>
-						<legend>Edit Job Title</legend>
-						<form name="editJob" class="editFormClass" id="editForm-${job.id}"
-							action="updateJob" method="post">
-							<div>
-								<labeL>Dept Name: *</labeL><input type="text" name="name"
-									value="${job.name}" id="editName-${job.id}" required /> <input
-									type="hidden" name="id" value="${job.id}" /> <input
-									type="hidden" id="activeVal-${job.id}" name="isActive"
-									value="true" /> <br>
-								<br>
-								<button type="submit">Save</button>
-								<button type="button" class="deleteBtnClass"
-									id="deleteBtn-${job.id}">Delete</button>
-								<button type="reset" class="cancelEditBtnClass"
-									id="cancelEditBtn-${job.id}" value="reset">Cancel</button>
-							</div>
-							<br>
-							<div>Required Fields indicated with a *</div>
-						</form>
-					</fieldset>
-				</div></td>
-		</tr>
-	</c:forEach>
+	</tr>
 </table>

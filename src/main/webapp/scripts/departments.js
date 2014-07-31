@@ -16,56 +16,55 @@ $(document).ready(function() {
 		$('#editContainer').fadeToggle("fast", "linear");
 	});
 
+	$('#createdDepartmentContainer').ready(function() {
+		if (CREATED_DEPT)
+			$('#createdDepartmentContainer').toggle();
+	});
+
+	$('#newDepartment').submit(function() {
+		var success = false;
+		$.ajax({
+			dataType : "text",
+			type : 'GET',
+			url : "findDepart",
+			data : "name=" + $('#newDeptName').val(),
+			async : false,
+			success : function(data) {
+				if (data == "true") {
+					alert("That name already exists in the database.");
+					success = false;
+				} else {
+					success = true;
+				}
+			}
+		})
+		return success;
+	});
+
+	$('.editFormClass').submit(function() {
+		var success = false;
+		var name = $('#editName').val();
+		var id = $('#editId').val()
+		$.ajax({
+			dataType : "text",
+			type : 'GET',
+			url : "findDepart",
+			data : "name=" + name + "&id=" + id,
+			async : false,
+			success : function(data) {
+				if (data == "true") {
+					alert("'" + name + "' already exists in the database.");
+					success = false;
+				} else {
+					success = true;
+				}
+			}
+		})
+		return success;
+	});
+
 	get_table_data();
 });
-
-$('#createdDepartmentContainer').ready(function() {
-	if (CREATED_DEPT)
-		$('#createdDepartmentContainer').toggle();
-});
-
-$('#newDepartment').submit(function() {
-	var success = false;
-	$.ajax({
-		dataType : "text",
-		type : 'GET',
-		url : "findDepart",
-		data : "name=" + $('#newDeptName').val(),
-		async : false,
-		success : function(data) {
-			if (data == "true") {
-				alert("That name already exists in the database.");
-				success = false;
-			} else {
-				success = true;
-			}
-		}
-	})
-	return success;
-});
-
-$('.editFormClass').submit(
-		function() {
-			var success = false;
-			var val = this.id.value;
-			$.ajax({
-				dataType : "text",
-				type : 'GET',
-				url : "findDepart",
-				data : "name=" + $('#editName-' + val).val() + "&id=" + val,
-				async : false,
-				success : function(data) {
-					if (data == "true") {
-						alert("'" + $('#editName-' + val).val()
-								+ "' already exists in the database.");
-						success = false;
-					} else {
-						success = true;
-					}
-				}
-			})
-			return success;
-		});
 
 function get_table_data() {
 	$.ajax({
@@ -114,5 +113,4 @@ function performDelete() {
 		type : 'DELETE',
 		url : "depart/delete/" + deptId,
 	})
-
 }

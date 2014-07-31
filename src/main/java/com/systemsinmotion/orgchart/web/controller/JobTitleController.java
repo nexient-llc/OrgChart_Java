@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
@@ -74,6 +73,12 @@ public class JobTitleController {
 		refreshJobTitleModel(model);
 		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
 	}
+	
+	@RequestMapping(value = "getJobTitles", method = RequestMethod.GET)
+	public @ResponseBody List<JobTitle> doJobTitless_ajax_GET(Model model) {
+		return jobTitleService.findAllActiveJobTitles();
+	}
+
 
 	private void refreshJobTitleModel(Model model) {
 		List<JobTitle> titles = jobTitleService.findAllActiveJobTitles();
