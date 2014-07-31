@@ -35,7 +35,7 @@
 <div id="editContainer" style="display: none">
 	<fieldset>
 		<legend>Edit Job Title</legend>
-		<form name="editJob" class="editFormClass" action="updateJob"
+		<form name="editJob" id="editJob" action="updateJob"
 			method="post">
 			<div>
 				<labeL>Job Title: *</labeL><input type="text" name="name" value=""

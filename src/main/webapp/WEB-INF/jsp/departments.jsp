@@ -29,8 +29,7 @@
 					<c:forEach items="${depts}" var="pdept">
 						<option value="${pdept.id}" class="parentSelect-${pdept.id}">${pdept.name}</option>
 					</c:forEach>
-				</select> <br>
-				<br>
+				</select> <br> <br>
 				<button type="submit">Save</button>
 				<button type="reset" id="cancelBtn" value="reset">Cancel</button>
 			</div>
@@ -43,20 +42,19 @@
 <div id="editContainer" style="display: none">
 	<fieldset>
 		<legend>Edit Department</legend>
-		<form name="editDept" class="editFormClass" action="updateDepart"
+		<form name="editDept" id="editDept" action="updateDepart"
 			method="post">
 			<div>
 				<labeL>Dept Name: *</labeL><input type="text" name="name" value=""
 					id="editName" required /> <input type="hidden" name="id"
 					id="editId" value="" /> <input type="hidden" name="isActive"
 					id="editIsActive" value="true" /> <label>Parent Dept:</label> <select
-					id="editParent">
+					name="parentDepartment.id" id="editParent">
 					<option value="">...</option>
 					<c:forEach items="${depts}" var="pdept">
 						<option value="${pdept.id}" class="parentSelect-${pdept.id}">${pdept.name}</option>
 					</c:forEach>
-				</select> <br>
-				<br>
+				</select> <br> <br>
 				<button type="submit">Save</button>
 				<button type="button" onClick="performDelete()">Delete</button>
 				<button type="reset" id="cancelEditBtn" value="reset">Cancel</button>

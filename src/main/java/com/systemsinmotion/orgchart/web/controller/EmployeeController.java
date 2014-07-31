@@ -123,13 +123,6 @@ public class EmployeeController {
 	// return employeeService.findEmployeesByFilter(firstName, lastName, department, jobTitle);
 	// }
 
-	private List<SimpleEmployee> getFilteredEmployeeNames(String fullName) {
-		String[] name = fullName.trim().split("\\s");
-		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
-		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
-		return employeeService.findEmployeesByNameOnlyFilter(firstName, lastName);
-	}
-
 	// Solution 3: Query Criteria
 	private List<Employee> getFilteredEmployees_byCriteria(String fullName, String deptId, String jobId) {
 		String[] name = fullName.trim().split("\\s");
@@ -138,6 +131,13 @@ public class EmployeeController {
 		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
 		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
 		return employeeService.findEmployeesByCriteriaFilter(firstName, lastName, department, jobTitle);
+	}
+
+	private List<SimpleEmployee> getFilteredEmployeeNames(String fullName) {
+		String[] name = fullName.trim().split("\\s");
+		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
+		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
+		return employeeService.findEmployeesByNameOnlyFilter(firstName, lastName);
 	}
 
 	@RequestMapping(value = "newEmp", method = RequestMethod.POST)
@@ -183,6 +183,12 @@ public class EmployeeController {
 		}
 		return "Ok";
 	}
+	
+	@RequestMapping(value = "getEmployees", method = RequestMethod.GET)
+	public @ResponseBody List<Employee> doEmployees_ajax_GET(Model model) {
+		return employeeService.findAllActiveEmployees();
+	}
+
 
 	private void refreshAllModels(Model model) {
 		refreshDepartmentModel(model);

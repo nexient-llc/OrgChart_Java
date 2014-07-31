@@ -41,7 +41,7 @@ $(document).ready(function() {
 		return success;
 	});
 
-	$('.editFormClass').submit(function() {
+	$('#editJob').submit(function() {
 		var success = false;
 		var name = $('#editName').val();
 		var id = $('#editId').val()
