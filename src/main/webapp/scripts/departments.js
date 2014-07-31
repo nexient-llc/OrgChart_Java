@@ -91,7 +91,7 @@ function populate_table(data) {
 			row += "<td><div id='tablepId-" + element.id
 					+ "' value=''></div></td>"
 		}
-		row += "<td class='editBtnContainer'><button onclick='editRow("
+		row += "<td class='editBtnContainer' " + (!secure ? "style='display:none'" : "") + "><button onclick='editRow("
 				+ element.id + ")'>Edit</button></td>";
 		row += "</tr>";
 		$('#t1 tr:last').after(row);

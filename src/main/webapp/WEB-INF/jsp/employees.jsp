@@ -13,7 +13,9 @@
 <script type="text/javascript">
 	var CREATED_EMPLOYEE = "${createdEmployee.name}";
 	var page = 0;
+	var secure = false;
 </script>
+<sec:authorize access="hasRole('ROLE_ADMIN')"><script>secure = true</script></sec:authorize>
 <div id="filterBtn-container">
 	<button type="button" id="filterBtn">Filter</button>
 </div>

@@ -82,7 +82,7 @@ function populate_table(data) {
 		var row = "<tr class='tableEntry' id='tablerow-" + element.id + "'>";
 		row += "<td id='tablename-" + element.id + "'>" + element.name
 				+ "</td>";
-		row += "<td class='editBtnContainer'><button onclick='editRow("
+		row += "<td class='editBtnContainer' " + (!secure ? "style='display:none'" : "") + "><button onclick='editRow("
 				+ element.id + ")'>Edit</button></td>";
 		row += "</tr>";
 		$('#t1 tr:last').after(row);
