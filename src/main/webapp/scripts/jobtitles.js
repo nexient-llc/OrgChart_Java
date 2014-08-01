@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 	$('#createdJobTitleContainer').ready(function() {
 		if (CREATED_JOB)
-			$('#createdJobTitleContainer').toggle();
+			$('#createdJobTitleContainer').show();
 	});
 
 	$('#newJobTitle').submit(function() {

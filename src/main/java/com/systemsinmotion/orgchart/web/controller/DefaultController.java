@@ -11,6 +11,8 @@ import com.systemsinmotion.orgchart.web.View;
 @Controller
 public class DefaultController {
 
+	public static final Integer PAGE_LENGTH = 5;
+
 	@SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory
 			.getLogger(DefaultController.class);

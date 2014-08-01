@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -50,17 +54,19 @@ public class EmployeeController {
 		return View.EMPLOYEES;
 	}
 
-	@RequestMapping(value = "searchemps", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public String doSearchFullFilterEmployees_GET(@RequestParam(value = "filterName", defaultValue = "") String fullName,
-			@RequestParam(value = "deptid", defaultValue = "") String deptId, @RequestParam(value = "jobid", defaultValue = "") String jobId, Model model) {
-		// List<Employee> employees = getFilteredEmployees_bySwitch(fullName, deptId, jobId);
-		List<Employee> employees = getFilteredEmployees_byCriteria(fullName, deptId, jobId);
-		model.addAttribute("emps", employees);
-		refreshJobTitleModel(model);
-		refreshDepartmentModel(model);
-		return View.EMPLOYEES;
-	}
+	// No longer necessary with ajax filter
+//	@RequestMapping(value = "searchemps", method = RequestMethod.GET)
+//	@ResponseStatus(HttpStatus.OK)
+//	public String doSearchFullFilterEmployees_GET(@RequestParam(value = "filterName", defaultValue = "") String fullName,
+//			@RequestParam(value = "deptid", defaultValue = "") String deptId, @RequestParam(value = "jobid", defaultValue = "") String jobId, Model model) {
+//		// List<Employee> employees = getFilteredEmployees_bySwitch(fullName, deptId, jobId);
+//		List<Employee> employees = getFilteredEmployees_byCriteria(fullName, deptId, jobId);
+//		Page<Employee> page = new PageImpl<Employee>(employees);
+//		model.addAttribute("emps", employees);
+//		refreshJobTitleModel(model);
+//		refreshDepartmentModel(model);
+//		return View.EMPLOYEES;
+//	}
 
 	@RequestMapping(value = "searchEmployeeName/{name}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -127,14 +133,14 @@ public class EmployeeController {
 	// }
 
 	// Solution 3: Query Criteria
-	private List<Employee> getFilteredEmployees_byCriteria(String fullName, String deptId, String jobId) {
-		String[] name = fullName.trim().split("\\s");
-		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
-		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
-		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
-		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
-		return employeeService.findEmployeesByCriteriaFilter(firstName, lastName, department, jobTitle);
-	}
+//	private List<Employee> getFilteredEmployees_byCriteria(String fullName, String deptId, String jobId) {
+//		String[] name = fullName.trim().split("\\s");
+//		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
+//		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
+//		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
+//		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
+//		return employeeService.findEmployeesByCriteriaFilter(firstName, lastName, department, jobTitle);
+//	}
 
 	private List<SimpleEmployee> getFilteredEmployeeNames(String fullName) {
 		String[] name = fullName.trim().split("\\s");
@@ -143,12 +149,32 @@ public class EmployeeController {
 		return employeeService.findEmployeesByNameOnlyFilter(firstName, lastName);
 	}
 
+	@RequestMapping(value = "getEmployees", method = RequestMethod.GET)
+	public @ResponseBody Page<Employee> doEmployees_ajax_GET(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value="filterName", defaultValue="") String fullName,
+			@RequestParam(value="deptid", defaultValue="") String deptId,
+			@RequestParam(value="jobid", defaultValue="") String jobId,			
+			Model model) {
+		String[] name = fullName.trim().split("\\s");
+		String firstName = (name.length >= 1 && name[0].length() > 0) ? name[0] : null;
+		String lastName = (name.length > 1 && name[1].length() > 0) ? name[1] : null;
+		Integer department = (deptId.length() > 0) ? Integer.parseInt(deptId) : null;
+		Integer jobTitle = (jobId.length() > 0) ? Integer.parseInt(jobId) : null;
+		PageRequest request = new PageRequest(page, DefaultController.PAGE_LENGTH, new Sort(new Sort.Order(Sort.Direction.ASC, "lastName").ignoreCase()));
+		Page<Employee> employees = employeeService.findEmployeesByCriteriaFilter(firstName, lastName, department, jobTitle, request);
+//		Page<Employee> employees = employeeService.findAllActiveEmployees(request);
+		model.addAttribute("emps", employees.getContent());
+		return employees;
+	}
+
 	@RequestMapping(value = "newEmp", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public String doEmployeeNew_POST(Employee employee, Model model) {
-		employeeService.storeEmployee(employee);
-		refreshAllModels(model);
-		return View.EMPLOYEES;
+	public RedirectView doEmployeeNew_POST(Employee employee, Model model, RedirectAttributes ra) {
+		Employee newEmployee = employeeService.storeEmployee(employee);
+		ra.addFlashAttribute("createdEmployee", newEmployee);
+		refreshEmployeeModel(model);
+		RedirectView rv = new RedirectView(View.EMPLOYEES);
+		return rv;
 	}
 
 	@RequestMapping(value = "updateEmp", method = RequestMethod.POST)
@@ -156,7 +182,7 @@ public class EmployeeController {
 	public String doEmployeeUpdate_POST(Employee employee, Model model) {
 		employeeService.storeEmployee(employee);
 		refreshAllModels(model);
-		return View.EMPLOYEES;
+		return "redirect:" + View.EMPLOYEES;
 	}
 
 	@RequestMapping(value = "findEmployee", method = RequestMethod.GET)
@@ -186,12 +212,6 @@ public class EmployeeController {
 		}
 		return "Ok";
 	}
-	
-	@RequestMapping(value = "getEmployees", method = RequestMethod.GET)
-	public @ResponseBody Page<Employee> doEmployees_ajax_GET(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
-		Page<Employee> employees = employeeService.findAllActiveEmployees(new PageRequest(page, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "lastName").ignoreCase())));
-		return employees;
-	}
 
 	private void refreshAllModels(Model model) {
 		refreshDepartmentModel(model);
@@ -200,9 +220,9 @@ public class EmployeeController {
 	}
 
 	private void refreshEmployeeModel(Model model) {
-		List<Employee> employees = employeeService.findAllActiveEmployees();	
-		model.addAttribute("emps", employees);
-		model.addAttribute("allEmps", employees);
+//		List<Employee> employees = employeeService.findAllActiveEmployees();
+//		model.addAttribute("emps", employees);
+//		model.addAttribute("allEmps", employees);
 	}
 
 	private void refreshJobTitleModel(Model model) {

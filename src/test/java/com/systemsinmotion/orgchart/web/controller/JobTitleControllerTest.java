@@ -8,14 +8,17 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestControllerConfig;
@@ -43,7 +46,14 @@ public class JobTitleControllerTest {
 	private List<JobTitle> findAllJobTitlesList;
 
 	Model model = new ExtendedModelMap();
+	
+	private RedirectAttributes redirectAttributes;
 
+	@Before
+	public void init() {
+		redirectAttributes = Mockito.mock(RedirectAttributes.class);
+	}
+	
 	@Test
 	public void testInit() {
 		assertNotNull(controller);
@@ -82,7 +92,7 @@ public class JobTitleControllerTest {
 	@Test
 	public void testModelShouldUpdateOnJobTitlePagePost() {
 		//Given
-		controller.doJobTitleNew_POST(mockJobTitle, model);
+		controller.doJobTitleNew_POST(mockJobTitle, model, redirectAttributes);
 		//When
 		findAllJobTitlesList = (List<JobTitle>)model.asMap().get("jobs");
 
@@ -123,7 +133,7 @@ public class JobTitleControllerTest {
 		assertTrue(findAllJobTitlesList.isEmpty());
 
 		// Reset
-		controller.doJobTitleNew_POST(mockJobTitle, model);
+		controller.doJobTitleNew_POST(mockJobTitle, model, redirectAttributes);
 		findAllJobTitlesList = (List<JobTitle>)model.asMap().get("jobs");
 		
 		assertNotNull(findAllJobTitlesList);

@@ -8,10 +8,10 @@
 	screen" charset="utf-8" />
 <h3>Employee Page</h3>
 <div id="createdEmployeeContainer" style="display: none">
-	<h2>Successfully created new department "${createdEmployee.name}"</h2>
+	<h2>Successfully created new department "${createdEmployee.fullName}"</h2>
 </div>
 <script type="text/javascript">
-	var CREATED_EMPLOYEE = "${createdEmployee.name}";
+	var CREATED_EMPLOYEE = "${createdEmployee.fullName}";
 	var page = 0;
 	var secure = false;
 </script>
@@ -22,21 +22,21 @@
 <div id="filterEntity" style="display: none">
 	<fieldset>
 		<legend>Filter Employees</legend>
-		<form name="filterEmps" action="searchemps" method="get">
+		<form name="filterEmps" id="filterEmps">
 			<label>Name:</label><input type="text" name="filterName"
-				id="filterBox" /> <label>Department:</label> <select name="deptid">
+				id="filterBox" /> <label>Department:</label> <select name="deptid" id="filterDept">
 				<option value="">Search Departments</option>
 				<c:forEach items="${depts}" var="dept">
 					<option value="${dept.id}">${dept.name}</option>
 				</c:forEach>
-			</select> <label>Job Title:</label> <select name="jobid">
+			</select> <label>Job Title:</label> <select name="jobid" id="filterJob">
 				<option value="">Search Job Titles</option>
 				<c:forEach items="${jobs}" var="job">
 					<option value="${job.id}">${job.name}</option>
 				</c:forEach>
 			</select>
-			<button type="submit">Search</button>
-			<button type="reset" id="resetFilterBtn" value="reset">Reset</button>
+			<button type="button" onClick="get_table_data()">Search</button>
+			<button type="button" onclick="reset_filter()">Reset</button>
 		</form>
 	</fieldset>
 </div>

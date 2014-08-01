@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 	$('#createdDepartmentContainer').ready(function() {
 		if (CREATED_DEPT)
-			$('#createdDepartmentContainer').toggle();
+			$('#createdDepartmentContainer').show();
 	});
 
 	$('#newDepartment').submit(function() {

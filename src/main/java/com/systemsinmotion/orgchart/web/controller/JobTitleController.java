@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
@@ -40,10 +43,12 @@ public class JobTitleController {
 
 	@RequestMapping(value = "newJob", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public String doJobTitleNew_POST(JobTitle jobTitle, Model model) {
-		jobTitleService.storeJobTitle(jobTitle);
+	public RedirectView doJobTitleNew_POST(JobTitle jobTitle, Model model, RedirectAttributes ra) {
+		JobTitle newJobTitle = jobTitleService.storeJobTitle(jobTitle);
+		ra.addFlashAttribute("createdJob", newJobTitle);
 		refreshJobTitleModel(model);
-		return View.JOB_TITLES;
+		RedirectView rv = new RedirectView(View.JOB_TITLES);
+		return rv;
 	}
 
 	@RequestMapping(value = "updateJob", method = RequestMethod.POST)
@@ -51,7 +56,7 @@ public class JobTitleController {
 	public String doJobTitleUpdate_POST(JobTitle jobTitle, Model model) {
 		jobTitleService.storeJobTitle(jobTitle);
 		refreshJobTitleModel(model);
-		return View.JOB_TITLES;
+		return "redirect:" + View.JOB_TITLES;
 	}
 	
 	@RequestMapping(value = "findJob", method = RequestMethod.GET)

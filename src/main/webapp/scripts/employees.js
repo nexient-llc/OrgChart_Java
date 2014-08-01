@@ -26,9 +26,9 @@ $(document).ready(function() {
 		$('#filterEntity').fadeToggle("fast", "linear");
 	});
 
-	$('#resetFilterBtn').click(function() {
-		$('#filterBtn-container').fadeToggle("fast", "linear");
-		$('#filterEntity').fadeToggle("fast", "linear");
+	$('#createdEmployeeContainer').ready(function() {
+		if (CREATED_EMPLOYEE) 
+			$('#createdEmployeeContainer').show();
 	});
 
 	$('#filterBox').focus().autocomplete({
@@ -45,6 +45,11 @@ $(document).ready(function() {
 				}
 			});
 		}
+	});
+	
+	$('#filterEmps').submit(function() {
+		get_table_data();
+		return false;
 	});
 
 	$('#newEmployee').submit(function() {
@@ -89,11 +94,15 @@ $(document).ready(function() {
 });
 
 function get_table_data() {
+	var request="page=" + page;
+	request += "&filterName=" + $('#filterBox').val();
+	request += "&deptid=" + $('#filterDept').val();
+	request += "&jobid=" + $('#filterJob').val();
 	$('.tableEntry').remove();
 	$.ajax({
 		type : 'GET',
 		url : 'getEmployees',
-		data : "page=" + page,
+		data : request,
 		success : populate_table
 	})
 }
@@ -179,4 +188,11 @@ function update_pages(pageNumber, totalPages) {
 			pagespan += "<li onclick='changePage(" + i + ")'>" + (i + 1) + "</li>";
 	}
 	$('#pagination').append(pagespan);
+}
+
+function reset_filter() {
+	$('#filterEmps')[0].reset();
+	$('#filterBtn-container').fadeToggle("fast", "linear");
+	$('#filterEntity').fadeToggle("fast", "linear");
+	get_table_data();
 }

@@ -27,6 +27,7 @@ import com.systemsinmotion.orgchart.data.SimpleEmployeeRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.SimpleEmployee;
+import com.systemsinmotion.orgchart.web.controller.DefaultController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestServiceConfig.class)
@@ -48,10 +49,14 @@ public class EmployeeServiceTest {
 	@Autowired
 	private SimpleEmployeeRepository mockSimpleEmployeeRepository;
 	
+	private PageRequest request;
+	
 	@Before
 	public void resetIsActive() {
 		mockEmployee.setIsActive(true);
 		mockSimpleEmployee.setIsActive(true);
+		request = new PageRequest(0, DefaultController.PAGE_LENGTH, new Sort(new Sort.Order(Sort.Direction.ASC, "lastName").ignoreCase()));
+
 	}
 
 	@Test
@@ -386,114 +391,114 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void findEmployeesByCriteriaFilter_allNulls() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, null, null, null);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, null, null, null, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_firstName() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, null, null, null);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, null, null, null, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_lastName() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, Entities.LAST_NAME, null, null);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, Entities.LAST_NAME, null, null, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_firstAndLastName() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, Entities.LAST_NAME, null, null);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, Entities.LAST_NAME, null, null, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_departmentId() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, null, Entities.DEPT_ID, null);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, null, Entities.DEPT_ID, null, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_firstNameAndDepartmentId() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, null, Entities.DEPT_ID, null);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, null, Entities.DEPT_ID, null, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_lastNameAndDepartmentId() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, Entities.LAST_NAME, Entities.DEPT_ID, null);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, Entities.LAST_NAME, Entities.DEPT_ID, null, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_firstAndLastNameAndDepartmentId() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, null);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, null, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_jobTitle() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, null, null, Entities.JOB_TITLE_ID);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, null, null, Entities.JOB_TITLE_ID, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_firstNameAndJobTitle() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, null, null, Entities.JOB_TITLE_ID);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, null, null, Entities.JOB_TITLE_ID, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_lastNameAndJobTitle() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, Entities.LAST_NAME, null, Entities.JOB_TITLE_ID);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, Entities.LAST_NAME, null, Entities.JOB_TITLE_ID, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_firstAndLastNameAndJobTitle() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, Entities.LAST_NAME, null, Entities.JOB_TITLE_ID);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, Entities.LAST_NAME, null, Entities.JOB_TITLE_ID, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_departmentIdAndJobTitle() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, null, Entities.DEPT_ID, Entities.JOB_TITLE_ID);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, null, Entities.DEPT_ID, Entities.JOB_TITLE_ID, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_firstNameAndDepartmentIdAndJobTitle() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, null, Entities.DEPT_ID, Entities.JOB_TITLE_ID);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, null, Entities.DEPT_ID, Entities.JOB_TITLE_ID, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_lastNameAndDepartmentIdAndJobTitle() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(null, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 
 	@Test
 	public void findEmployeesByCriteriaFilter_firstAndLastNameAndDepartmentIdAndJobTitle() {
-		List<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID);
+		Page<Employee> emps = employeeService.findEmployeesByCriteriaFilter(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID, request);
 		assertNotNull(emps);
-		assertEquals(Entities.EMPLOYEE_ID, emps.get(0).getId());
+		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}
 	
 	@Test
@@ -512,7 +517,7 @@ public class EmployeeServiceTest {
 	
 	@Test
 	public void findAllActiveEmployees_page() {
-		Page<Employee> emps = employeeService.findAllActiveEmployees(new PageRequest(0, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
+		Page<Employee> emps = employeeService.findAllActiveEmployees(new PageRequest(0, DefaultController.PAGE_LENGTH, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
 		assertNotNull(emps);
 		assertEquals(Entities.EMPLOYEE_ID, emps.getContent().get(0).getId());
 	}

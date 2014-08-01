@@ -20,8 +20,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
@@ -45,6 +47,7 @@ public class TestControllerConfig {
 	private List<Employee> listOfFoundEmployees;
 	private List<SimpleEmployee> listOfFoundSimpleEmployees;
 	private List<SimpleEmployee> listOfFoundSimpleEmployees2;
+	private Page<Employee> pageOfFoundEmployees;
 
 	private Department mockDepartment;
 	private Department mockDepartment2;
@@ -69,7 +72,8 @@ public class TestControllerConfig {
 		listOfFoundEmployees = new ArrayList<Employee>();
 		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
 		listOfFoundEmployees.add(mockEmployee);
-		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
+//		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
+		pageOfFoundEmployees = new PageImpl<Employee>(listOfFoundEmployees);
 		
 		listOfFoundSimpleEmployees = new ArrayList<SimpleEmployee>();
 		mockSimpleEmployee = Entities.simpleEmployee(Entities.SIMPLE_EMPLOYEE_ID);
@@ -110,7 +114,7 @@ public class TestControllerConfig {
 		when(service.findEmployeesByNameOnlyFilter(eq(Entities.FIRST_NAME), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
 		when(service.findEmployeesByNameOnlyFilter(eq(Entities.LAST_NAME), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
 		when(service.findEmployeesByNameOnlyFilter(isNull(String.class), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
-		when(service.findEmployeesByCriteriaFilter(anyString(), anyString(), anyInt(), anyInt())).thenReturn(listOfFoundEmployees);
+		when(service.findEmployeesByCriteriaFilter(anyString(), anyString(), anyInt(), anyInt(), any(Pageable.class))).thenReturn(pageOfFoundEmployees);
 		when(service.findAllActiveEmployees(any(PageRequest.class))).thenReturn(new PageImpl<Employee>(listOfFoundEmployees));
 		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
 		     public Employee answer(InvocationOnMock invocation) {

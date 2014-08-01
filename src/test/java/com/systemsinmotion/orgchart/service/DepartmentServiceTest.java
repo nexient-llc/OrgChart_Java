@@ -23,6 +23,7 @@ import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestServiceConfig;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.web.controller.DefaultController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestServiceConfig.class)
@@ -135,7 +136,7 @@ public class DepartmentServiceTest {
 
 	@Test
 	public void findAllActiveDepartments_page() {
-		Page<Department> depts = departmentService.findAllActiveDepartments(new PageRequest(0, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
+		Page<Department> depts = departmentService.findAllActiveDepartments(new PageRequest(0, DefaultController.PAGE_LENGTH, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
 		assertNotNull(depts);
 		assertEquals(Entities.DEPT_ID, depts.getContent().get(0).getId());
 	}

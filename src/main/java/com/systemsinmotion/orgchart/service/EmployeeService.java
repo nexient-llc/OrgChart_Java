@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,79 +97,58 @@ public class EmployeeService {
 		return this.repository.findByIsActiveIsTrue();
 	}
 
-	public List<Employee> findEmployeesByFilter(String firstName,
-			String lastName, Integer deptId, Integer jobId) {
+	public List<Employee> findEmployeesByFilter(String firstName, String lastName, Integer deptId, Integer jobId) {
 
 		int bitVector = findBitVector(firstName, lastName, deptId, jobId);
 
 		List<Employee> employees = null;
 		switch (bitVector) {
 		case 1: // First Name
-			employees = repository
-					.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(
-							firstName, firstName);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, firstName);
 			break;
 		case 2: // Last Name
-			employees = repository
-					.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(
-							lastName, lastName);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(lastName, lastName);
 			break;
 		case 3: // First Name, Last Name
-			employees = repository
-					.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(
-							firstName, lastName);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, lastName);
 			break;
 		case 4: // Department
 			employees = repository.findByDepartmentIdAndIsActiveIsTrue(deptId);
 			break;
 		case 5: // First Name, Department
-			employees = repository.findByUpperCaseNameAndDepartmentIdAndActive(
-					firstName.toUpperCase(), deptId);
+			employees = repository.findByUpperCaseNameAndDepartmentIdAndActive(firstName.toUpperCase(), deptId);
 			break;
 		case 6: // Last Name, Department
-			employees = repository.findByUpperCaseNameAndDepartmentIdAndActive(
-					lastName.toUpperCase(), deptId);
+			employees = repository.findByUpperCaseNameAndDepartmentIdAndActive(lastName.toUpperCase(), deptId);
 			break;
 		case 7: // First Name, Last Name, Department
-			employees = repository
-					.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(
-							firstName, lastName, deptId);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndIsActiveIsTrue(firstName, lastName,
+					deptId);
 			break;
 		case 8: // JobTitle
 			employees = repository.findByJobTitleIdAndIsActiveIsTrue(jobId);
 			break;
 		case 9: // First Name JobTitle
-			employees = repository.findByUpperCaseNameAndJobTitleAndActive(
-					firstName.toUpperCase(), jobId);
+			employees = repository.findByUpperCaseNameAndJobTitleAndActive(firstName.toUpperCase(), jobId);
 			break;
 		case 10: // Last Name, JobTitle
-			employees = repository.findByUpperCaseNameAndJobTitleAndActive(
-					lastName.toUpperCase(), jobId);
+			employees = repository.findByUpperCaseNameAndJobTitleAndActive(lastName.toUpperCase(), jobId);
 			break;
 		case 11: // First Name, Last Name, JobTitle
-			employees = repository
-					.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(
-							firstName, lastName, jobId);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(firstName, lastName, jobId);
 			break;
 		case 12: // Department, JobTitle
-			employees = repository
-					.findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(deptId,
-							jobId);
+			employees = repository.findByDepartmentIdAndJobTitleIdAndIsActiveIsTrue(deptId, jobId);
 			break;
 		case 13: // First Name, Department, JobTitle
-			employees = repository
-					.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(
-							firstName.toUpperCase(), deptId, jobId);
+			employees = repository.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(firstName.toUpperCase(), deptId, jobId);
 			break;
 		case 14: // Last Name, Department, JobTitle
-			employees = repository
-					.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(
-							lastName.toUpperCase(), deptId, jobId);
+			employees = repository.findByUpperCaseNameAndDepartmentAndJobTitleAndActive(lastName.toUpperCase(), deptId, jobId);
 			break;
 		case 15: // First Name, Last Name, Department, JobTitle
-			employees = repository
-					.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(
-							firstName, lastName, deptId, jobId);
+			employees = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(firstName,
+					lastName, deptId, jobId);
 			break;
 		case 0:
 		default:
@@ -177,8 +158,7 @@ public class EmployeeService {
 		return employees;
 	}
 
-	private int findBitVector(String firstName, String lastName,
-			Integer deptId, Integer jobId) {
+	private int findBitVector(String firstName, String lastName, Integer deptId, Integer jobId) {
 		int vector = 0;
 		if (firstName != null) {
 			vector |= 0x1; // First Bit
@@ -195,21 +175,16 @@ public class EmployeeService {
 		return vector;
 	}
 
-	public List<SimpleEmployee> findEmployeesByNameOnlyFilter(String firstName,
-			String lastName) {
+	public List<SimpleEmployee> findEmployeesByNameOnlyFilter(String firstName, String lastName) {
 		List<SimpleEmployee> employees = null;
 		if (firstName != null && lastName != null) {
-			employees = simpleRepository
-					.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(
-							firstName, lastName);
+			employees = simpleRepository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName, lastName);
 		} else if (firstName != null) {
-			employees = simpleRepository
-					.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(
-							firstName, firstName);
+			employees = simpleRepository.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(firstName,
+					firstName);
 		} else if (lastName != null) {
 			employees = simpleRepository
-					.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(
-							lastName, lastName);
+					.findByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(lastName, lastName);
 		} else {
 			employees = simpleRepository.findAll();
 		}
@@ -220,10 +195,15 @@ public class EmployeeService {
 		return simpleRepository.findById(id);
 	}
 
-	public List<Employee> findEmployeesByCriteriaFilter(String firstName,
-			String lastName, Integer deptId, Integer jobId) {
-		return repository.findActiveByUnknownInputs(firstName, lastName,
-				deptId, jobId);
+	public Page<Employee> findEmployeesByCriteriaFilter(String firstName, String lastName, Integer deptId, Integer jobId, Pageable page) {
+		Page<Employee> employees;
+		if (firstName == null && lastName == null && deptId == null && jobId == null)
+			employees = repository.findByIsActiveIsTrue(page);
+		else {
+			List<Employee> search = repository.findActiveByUnknownInputs(firstName, lastName, deptId, jobId);
+			employees = new PageImpl<Employee>(search);
+		}
+		return employees;
 	}
 
 	public List<Employee> findEmployeeBySkype(String skypeName) {

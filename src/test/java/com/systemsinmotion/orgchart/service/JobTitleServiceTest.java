@@ -23,6 +23,7 @@ import com.systemsinmotion.orgchart.config.TestServiceConfig;
 import com.systemsinmotion.orgchart.data.JobTitleRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.web.controller.DefaultController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestServiceConfig.class)
@@ -112,7 +113,7 @@ public class JobTitleServiceTest {
 	
 	@Test
 	public void findAllActiveJobTitles_page() {
-		Page<JobTitle> jobs = titleService.findAllActiveJobTitles(new PageRequest(0, 5, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
+		Page<JobTitle> jobs = titleService.findAllActiveJobTitles(new PageRequest(0, DefaultController.PAGE_LENGTH, new Sort(new Sort.Order(Sort.Direction.ASC, "name").ignoreCase())));
 		assertNotNull(jobs);
 		assertEquals(Entities.JOB_TITLE_ID, jobs.getContent().get(0).getId());
 	}
