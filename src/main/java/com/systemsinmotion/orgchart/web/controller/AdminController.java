@@ -23,6 +23,11 @@ public class AdminController {
 		return View.ADMIN_LOGIN;
 	}
 
+	@RequestMapping(value = "admin", method = RequestMethod.GET)
+	public String doHome() {
+		return View.ADMIN_LOGIN;
+	}
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "login/success", method = RequestMethod.GET)
 	public String loginSuccess(Principal principal) {

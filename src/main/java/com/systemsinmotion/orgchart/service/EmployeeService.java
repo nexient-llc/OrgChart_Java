@@ -21,7 +21,7 @@ public class EmployeeService {
 
 	public List<Employee> findAllEmployees() {
 		// TODO Auto-generated method stub
-		return this.employeeRepository.findByIsActiveIsTrue();
+		return this.employeeRepository.findAll();
 	}
 
 	public List<Employee> findByJobTitleName(String title) {
@@ -33,14 +33,19 @@ public class EmployeeService {
 		return this.employeeRepository.findOne(employeeId);
 	}
 
-	public Employee editEmployee(Employee employee) {
+	public Employee editEmployee(Employee employee, Object active) {
 
 		Employee current = this.employeeRepository.findOne(employee.getId());
+
 		current.setAll(employee);
+		if (active == null)
+			current.setIsActive(false);
+		else
+			current.setIsActive(true);
 		return this.employeeRepository.save(current);
 	}
 
-	public Employee storeEmployee(Employee employee) {
+	public Employee storeEmployee(Employee employee, Object active) {
 
 		QEmployee qEmployee = QEmployee.employee;
 		Employee tempEmloyee;
@@ -54,7 +59,10 @@ public class EmployeeService {
 			tempEmloyee = null;
 		} else {
 			// if it was store the employee and then return it.
-			employee.setIsActive(true);
+			if (active == null)
+				employee.setIsActive(false);
+			else
+				employee.setIsActive(true);
 			tempEmloyee = this.employeeRepository.save(employee);
 		}
 		return tempEmloyee;
@@ -122,6 +130,10 @@ public class EmployeeService {
 
 		return json.toJson(employees);
 
+	}
+
+	public void deleteEmployee(Integer employee) {
+		this.employeeRepository.delete(employee);
 	}
 
 }

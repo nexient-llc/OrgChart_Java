@@ -20,6 +20,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		response.sendRedirect("login/success");
 
 		response.setStatus(HttpServletResponse.SC_OK);
+		super.onAuthenticationSuccess(request, response, authentication);
 
 	}
 

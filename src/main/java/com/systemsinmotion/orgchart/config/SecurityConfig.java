@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("j_username")
 				.passwordParameter("j_password").successHandler(successHandler)
 				.failureHandler(failed);
-		http.logout().logoutUrl("/logout")
+		http.logout().logoutUrl("/app/logout")
 				.logoutSuccessHandler(logoutSuccessHandler);
 		// formatter:on
 	}
