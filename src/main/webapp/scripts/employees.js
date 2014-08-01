@@ -99,11 +99,6 @@ $(document).ready(function() {
 		        }
 		});
 	});
-	$("#cancelEdit").click(function(){
-		$('#addBtn-container').slideToggle('3000', "swing");
-		$("#searchBtn-container").slideToggle('3000', "swing");
-		$(".editClass").slideToggle('3000', "swing");
-	});
 	
 	$("#searchEdit").click(function(){
 		$(".searchClass").slideToggle('3000', "swing");
