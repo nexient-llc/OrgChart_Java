@@ -1,5 +1,8 @@
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
-	{
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+	em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup,
+	tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -21,7 +24,7 @@ body {
 	background: #fff
 }
 
-ol,ul {
+ol, ul {
 	list-style: none
 }
 
@@ -31,17 +34,17 @@ table {
 	vertical-align: middle
 }
 
-caption,th,td {
+caption, th, td {
 	text-align: left;
 	font-weight: normal;
 	vertical-align: middle
 }
 
-q,blockquote {
+q, blockquote {
 	quotes: "" ""
 }
 
-q:before,q:after,blockquote:before,blockquote:after {
+q:before, q:after, blockquote:before, blockquote:after {
 	content: ""
 }
 
@@ -106,7 +109,7 @@ h6 {
 	font-weight: bold
 }
 
-h2 img,h3 img,h4 img,h5 img,h6 img {
+h2 img, h3 img, h4 img, h5 img, h6 img {
 	margin: 0
 }
 
@@ -168,11 +171,11 @@ dfn {
 	font-weight: bold
 }
 
-sup,sub {
+sup, sub {
 	line-height: 0
 }
 
-abbr,acronym {
+abbr, acronym {
 	border-bottom: 1px dotted #666
 }
 
@@ -190,16 +193,16 @@ pre {
 	white-space: pre
 }
 
-pre,code,tt {
+pre, code, tt {
 	font: 1em 'andale mono', 'lucida console', monospace;
 	line-height: 1.5
 }
 
-li ul,li ol {
+li ul, li ol {
 	margin: 0
 }
 
-ul,ol {
+ul, ol {
 	margin: 0 1.5em 1.5em 0;
 	padding-left: 3.333em
 }
@@ -237,7 +240,7 @@ thead th {
 	background: #c3d9ff
 }
 
-th,td,caption {
+th, td, caption {
 	padding: 4px 10px 4px 5px
 }
 

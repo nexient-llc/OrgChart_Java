@@ -21,7 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestServiceConfig;
 import com.systemsinmotion.orgchart.data.JobTitleRepository;
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.web.controller.DefaultController;
 

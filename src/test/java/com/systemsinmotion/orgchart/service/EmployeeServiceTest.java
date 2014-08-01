@@ -24,7 +24,6 @@ import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestServiceConfig;
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.data.SimpleEmployeeRepository;
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.SimpleEmployee;
 import com.systemsinmotion.orgchart.web.controller.DefaultController;

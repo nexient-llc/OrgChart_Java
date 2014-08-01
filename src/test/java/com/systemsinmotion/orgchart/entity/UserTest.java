@@ -1,6 +1,7 @@
 package com.systemsinmotion.orgchart.entity;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +44,11 @@ public class UserTest {
 		Boolean enable = user.getEnabled();
 		assertNotNull(enable);
 		assertEquals(enable, true);
+	}
+
+	@Test
+	public void toStringTest() {
+		assertNotNull(user.toString());
 	}
 
 }

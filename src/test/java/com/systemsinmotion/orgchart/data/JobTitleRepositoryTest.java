@@ -1,6 +1,8 @@
 package com.systemsinmotion.orgchart.data;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -16,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.JPAConfig;
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,8 +25,6 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
 public class JobTitleRepositoryTest {
-	private static final String SOME_NEW_NAME = "Some New Name";
-
 	private static final String NOT_PRESENT_VALUE = "XXX";
 
 	private JobTitle jobTitle;

@@ -44,7 +44,7 @@ public class DepartmentControllerTest {
 
 	@Autowired
 	private Department mockDepartment;
-	
+
 	@Autowired
 	private List<Department> mockDepartmentList;
 

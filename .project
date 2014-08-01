@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>OrgChart_Java</name>
-	<comment>Systems In Motion OrgChart Application. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+	<comment>Systems In Motion OrgChart Application. NO_M2ECLIPSE_SUPPORT:
+		Project files created with the maven-eclipse-plugin are not supported
+		in M2Eclipse.</comment>
 	<projects>
 	</projects>
 	<buildSpec>

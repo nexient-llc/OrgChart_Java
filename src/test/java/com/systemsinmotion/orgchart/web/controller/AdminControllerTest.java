@@ -1,6 +1,6 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -16,19 +16,18 @@ import com.systemsinmotion.orgchart.web.View;
 public class AdminControllerTest {
 
 	private AdminController controller;
-	
+
 	@Before
 	public void before() {
 		controller = new AdminController();
 	}
-	
+
 	@Test
 	@Ignore
 	public void doDefault() {
 		assertEquals(View.ADMIN_DEFAULT, controller.doDefault());
 	}
-	
-	
+
 	@Test
 	@Ignore
 	public void doLogin_GET() {

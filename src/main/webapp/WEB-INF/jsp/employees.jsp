@@ -8,14 +8,17 @@
 	screen" charset="utf-8" />
 <h3>Employee Page</h3>
 <div id="createdEmployeeContainer" style="display: none">
-	<h2>Successfully created new department "${createdEmployee.fullName}"</h2>
+	<h2>Successfully created new department
+		"${createdEmployee.fullName}"</h2>
 </div>
 <script type="text/javascript">
 	var CREATED_EMPLOYEE = "${createdEmployee.fullName}";
 	var page = 0;
 	var secure = false;
 </script>
-<sec:authorize access="hasRole('ROLE_ADMIN')"><script>secure = true</script></sec:authorize>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<script>secure = true</script>
+</sec:authorize>
 <div id="filterBtn-container">
 	<button type="button" id="filterBtn">Filter</button>
 </div>
@@ -24,7 +27,8 @@
 		<legend>Filter Employees</legend>
 		<form name="filterEmps" id="filterEmps">
 			<label>Name:</label><input type="text" name="filterName"
-				id="filterBox" /> <label>Department:</label> <select name="deptid" id="filterDept">
+				id="filterBox" /> <label>Department:</label> <select name="deptid"
+				id="filterDept">
 				<option value="">Search Departments</option>
 				<c:forEach items="${depts}" var="dept">
 					<option value="${dept.id}">${dept.name}</option>

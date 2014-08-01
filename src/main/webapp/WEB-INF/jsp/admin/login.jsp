@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%> 
+	uri="http://www.springframework.org/security/tags"%>
 
 <fieldset>
 	<legend>Login</legend>
@@ -19,7 +19,7 @@
 	<form action="<c:url value='/app/j_spring_security_check' />"
 		method='POST'>
 		<input type="hidden" name="page" value="${param.page}" />
-<!-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->
+		<!-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->
 		<div>
 			<label for="j_username">User:</label><input type='text'
 				name='j_username'>

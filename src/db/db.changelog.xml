@@ -207,18 +207,10 @@
 			columnNames="username,authority" />
 	</changeSet>
 
-<!-- 
-	<changeSet id="25" author="kskronek">
-		<insert tableName="users">
-			<column name="id" value="101" />
-			<column name="first_name" value="Bob" />
-			<column name="last_name" value="Law" />
-			<column name="email" value="blaw@systemsinmotion.com" />
-			<column name="skype_name" value="bob.law.sim.aa" />
-			<column name="job_title_id" value="1003" />
-			<column name="department_id" value="104" />
-		</insert>
-	</changeSet>
- -->
+	<!-- <changeSet id="25" author="kskronek"> <insert tableName="users"> <column 
+		name="id" value="101" /> <column name="first_name" value="Bob" /> <column 
+		name="last_name" value="Law" /> <column name="email" value="blaw@systemsinmotion.com" 
+		/> <column name="skype_name" value="bob.law.sim.aa" /> <column name="job_title_id" 
+		value="1003" /> <column name="department_id" value="104" /> </insert> </changeSet> -->
 
 </databaseChangeLog>

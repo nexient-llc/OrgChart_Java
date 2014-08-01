@@ -1,7 +1,6 @@
 package com.systemsinmotion.orgchart.entity;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -180,61 +179,5 @@ public class EmployeeTest {
 		emp.setMiddleInitial(MIDDLE_INITIAL);
 		
 		assertEquals(emp.getFullName(), FIRST_NAME + " " + MIDDLE_INITIAL);
-	}
-
-	@Test
-	public void equals_sameObj() {
-		assertTrue(emp.equals(emp));
-	}
-	
-	@Test
-	public void equals_sameId() {
-		Employee newEmp = new Employee();
-		assertNotNull(newEmp);
-		
-		newEmp.setId(emp.getId());
-		assertTrue(emp.equals(newEmp));
-	}
-	
-	@Test
-	public void equals_differentId() {
-		Employee newEmp = new Employee();
-		assertNotNull(newEmp);
-		
-		newEmp.setId(emp.getId() + 1);
-		assertFalse(emp.equals(newEmp));
-	}
-	
-	@Test
-	public void equals_bothIdNull() {
-		Employee newEmp = new Employee();
-		assertNotNull(newEmp);
-		emp.setId(null);
-		newEmp.setId(null);
-		assertTrue(emp.equals(newEmp));
-	}
-
-	@Test
-	public void equals_FirstIdNull() {
-		Employee newEmp = new Employee();
-		assertNotNull(newEmp);
-		emp.setId(null);
-		newEmp.setId(random.nextInt());
-		assertFalse(emp.equals(newEmp));
-	}
-
-	@Test
-	public void equals_SecondIdNull() {
-		Employee newEmp = new Employee();
-		assertNotNull(newEmp);
-		newEmp.setId(null);
-		assertFalse(emp.equals(newEmp));
-	}
-
-	@Test
-	public void equals_notAnEmployee() {
-		Department newDept = new Department();
-		assertNotNull(newDept);
-		assertFalse(emp.equals(newDept));
 	}
 }

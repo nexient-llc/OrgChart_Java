@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
 import com.systemsinmotion.orgchart.data.SimpleEmployeeRepository;
@@ -39,9 +40,7 @@ public class EmployeeService {
 	@Secured("ROLE_ADMIN")
 	@Transactional
 	public Employee storeEmployee(Employee employee) {
-		if (employee == null) {
-			throw new IllegalArgumentException();
-		}
+		Assert.notNull(employee);
 		if (employee.getIsActive() == null) {
 			employee.setIsActive(true);
 		}

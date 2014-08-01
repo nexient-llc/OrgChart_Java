@@ -5,7 +5,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
-<head> 
+<head>
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
 <%@ include file="/WEB-INF/fragments/scripts.jsp"%>
 
@@ -18,7 +18,8 @@
 var path = "${pageContext.request.contextPath}/app/";
 </script>
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
-<title>Systems in Motion Organization Chart: <tiles:getAsString name="title" /></title>
+<title>Systems in Motion Organization Chart: <tiles:getAsString
+		name="title" /></title>
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />

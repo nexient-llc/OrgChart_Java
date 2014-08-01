@@ -22,9 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestServiceConfig;
 import com.systemsinmotion.orgchart.data.AuthoritiesRepository;
-import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Authorities;
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,25 +32,25 @@ public class AuthoritiesServiceTest {
 	@Autowired
 	@Qualifier("mockAuthority")
 	private Authorities mockAuthority;
-	
+
 	@Autowired
 	@Qualifier("mockUser")
 	private User mockUser;
-	
+
 	@Autowired
 	private AuthoritiesService authService;
-	
+
 	@Autowired
 	private List<Authorities> mockAuthList;
-	
+
 	@Autowired
 	private AuthoritiesRepository authRepo;
-	
+
 	@Before
 	public void init() {
 		mockUser.setEnabled(true);
 	}
-	
+
 	@Test
 	public void testInit() {
 		assertNotNull(mockAuthority);
@@ -62,24 +60,24 @@ public class AuthoritiesServiceTest {
 		assertNotNull(mockAuthList);
 		assertFalse(mockAuthList.isEmpty());
 	}
-	
+
 	@Test
 	public void findAuthorityByName() {
 		Authorities auth = authService.findAuthorityByName(Entities.USER_NAME);
 		assertNotNull(auth);
 		assertEquals(Entities.USER_NAME, auth.getUserName());
 	}
-	
+
 	@Test
 	public void findAuthorityByName_notPresent() {
 		Authorities auth = authService.findAuthorityByName(Entities.NOT_PRESENT_VALUE);
-		assertNull(auth);		
+		assertNull(auth);
 	}
 
 	@Test
 	public void findAuthorityByName_null() {
 		Authorities auth = authService.findAuthorityByName(null);
-		assertNull(auth);		
+		assertNull(auth);
 	}
 
 	@Test
@@ -89,7 +87,7 @@ public class AuthoritiesServiceTest {
 		assertFalse(auths.isEmpty());
 		assertEquals(Entities.AUTHORITY, auths.get(0).getAuthority());
 	}
-	
+
 	@Test
 	public void findAuthoritiesByAuthority_notPresent() {
 		List<Authorities> auths = authService.findAuthoritiesByAuthority(Entities.NOT_PRESENT_VALUE);
@@ -103,14 +101,14 @@ public class AuthoritiesServiceTest {
 		assertNotNull(auths);
 		assertTrue(auths.isEmpty());
 	}
-	
+
 	@Test
 	public void storeAuthority() {
 		Authorities auth = authService.storeAuthority(mockAuthority);
 		assertNotNull(auth);
 		assertEquals(Entities.USER_NAME, auth.getUserName());
 	}
-	
+
 	@Test
 	public void removeAuthority() {
 		doAnswer(new Answer<Void>() {

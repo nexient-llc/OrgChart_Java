@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.JPAConfig;
-import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.SimpleEmployee;
 
 @RunWith(SpringJUnit4ClassRunner.class)

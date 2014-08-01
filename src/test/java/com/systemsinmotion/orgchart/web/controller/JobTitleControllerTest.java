@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestControllerConfig;
-import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
@@ -33,27 +32,27 @@ public class JobTitleControllerTest {
 
 	@Autowired
 	JobTitleController controller;
-	
+
 	@Autowired
 	private JobTitleService mockJobTitleService;
 
 	@Autowired
 	private JobTitle mockJobTitle;
-	
+
 	@Autowired
 	private List<JobTitle> mockJobTitleList;
 
 	private List<JobTitle> findAllJobTitlesList;
 
 	Model model = new ExtendedModelMap();
-	
+
 	private RedirectAttributes redirectAttributes;
 
 	@Before
 	public void init() {
 		redirectAttributes = Mockito.mock(RedirectAttributes.class);
 	}
-	
+
 	@Test
 	public void testInit() {
 		assertNotNull(controller);
@@ -85,18 +84,18 @@ public class JobTitleControllerTest {
 		// Then
 		assertNotNull(this.findAllJobTitlesList);
 		assertEquals(Entities.JOB_TITLE_ID, this.findAllJobTitlesList.get(0).getId());
-		assertEquals(View.JOB_TITLES, viewName);		
+		assertEquals(View.JOB_TITLES, viewName);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testModelShouldUpdateOnJobTitlePagePost() {
-		//Given
+		// Given
 		controller.doJobTitleNew_POST(mockJobTitle, model, redirectAttributes);
-		//When
-		findAllJobTitlesList = (List<JobTitle>)model.asMap().get("jobs");
+		// When
+		findAllJobTitlesList = (List<JobTitle>) model.asMap().get("jobs");
 
-		//Then
+		// Then
 		assertNotNull(findAllJobTitlesList);
 		assertTrue(findAllJobTitlesList.size() > 1);
 		JobTitle newJobTitle = findAllJobTitlesList.get(findAllJobTitlesList.size() - 1);
@@ -109,12 +108,12 @@ public class JobTitleControllerTest {
 	@Test
 	public void testModelShouldUpdateOnJobTitlePageUpdate() {
 		mockJobTitle.setName(Entities.JOB_TITLE_NAME + "T");
-		//Given
+		// Given
 		controller.doJobTitleUpdate_POST(mockJobTitle, model);
-		//When
-		findAllJobTitlesList = (List<JobTitle>)model.asMap().get("jobs");
+		// When
+		findAllJobTitlesList = (List<JobTitle>) model.asMap().get("jobs");
 
-		//Then
+		// Then
 		assertNotNull(findAllJobTitlesList);
 		assertTrue(findAllJobTitlesList.size() > 1);
 		JobTitle newJobTitle = findAllJobTitlesList.get(findAllJobTitlesList.size() - 1);
@@ -122,22 +121,22 @@ public class JobTitleControllerTest {
 		assertEquals(newJobTitle.getName(), mockJobTitle.getName());
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void doJobTitleDelete_DELETE() {
 		controller.doJobTitleDelete_DELETE(Entities.JOB_TITLE_ID, model);
-		findAllJobTitlesList = (List<JobTitle>)model.asMap().get("jobs");
-		
+		findAllJobTitlesList = (List<JobTitle>) model.asMap().get("jobs");
+
 		assertNotNull(findAllJobTitlesList);
 		assertTrue(findAllJobTitlesList.isEmpty());
 
 		// Reset
 		controller.doJobTitleNew_POST(mockJobTitle, model, redirectAttributes);
-		findAllJobTitlesList = (List<JobTitle>)model.asMap().get("jobs");
-		
+		findAllJobTitlesList = (List<JobTitle>) model.asMap().get("jobs");
+
 		assertNotNull(findAllJobTitlesList);
-		assertFalse(findAllJobTitlesList.isEmpty());		
+		assertFalse(findAllJobTitlesList.isEmpty());
 	}
 
 	@Test

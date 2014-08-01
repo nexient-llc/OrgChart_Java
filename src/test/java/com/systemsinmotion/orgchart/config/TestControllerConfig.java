@@ -114,7 +114,6 @@ public class TestControllerConfig {
 		when(service.findEmployeesByNameOnlyFilter(eq(Entities.FIRST_NAME), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
 		when(service.findEmployeesByNameOnlyFilter(eq(Entities.LAST_NAME), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
 		when(service.findEmployeesByNameOnlyFilter(isNull(String.class), isNull(String.class))).thenReturn(listOfFoundSimpleEmployees2);
-		when(service.findEmployeesByCriteriaFilter(anyString(), anyString(), anyInt(), anyInt(), any(Pageable.class))).thenReturn(pageOfFoundEmployees);
 		when(service.findAllActiveEmployees(any(PageRequest.class))).thenReturn(new PageImpl<Employee>(listOfFoundEmployees));
 		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
 		     public Employee answer(InvocationOnMock invocation) {
@@ -122,6 +121,7 @@ public class TestControllerConfig {
 		         return mockEmployee;
 		     }
 		 });
+		when(service.findEmployeesByCriteriaFilter(anyString(), anyString(), anyInt(), anyInt(), any(Pageable.class))).thenReturn(pageOfFoundEmployees);
 		doAnswer(new Answer<Void>() {
 			public Void answer(InvocationOnMock invocation) {
 				listOfFoundEmployees.clear();

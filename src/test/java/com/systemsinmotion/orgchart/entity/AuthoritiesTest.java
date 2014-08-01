@@ -1,6 +1,7 @@
 package com.systemsinmotion.orgchart.entity;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,4 +37,10 @@ public class AuthoritiesTest {
 		assertNotNull(auth);
 		assertEquals(Entities.AUTHORITY, auth);
 	}
+	
+	@Test
+	public void toStringTest() {
+		assertNotNull(authority.toString());
+	}
+
 }

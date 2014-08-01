@@ -12,7 +12,9 @@
 	var page = 0;
 	var secure = false;
 </script>
-<sec:authorize access="hasRole('ROLE_ADMIN')"><script>secure = true</script></sec:authorize>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<script>secure = true</script>
+</sec:authorize>
 <div id="addBtn-container"
 	<sec:authorize access="hasRole('ROLE_ADMIN')">style="display:block"</sec:authorize>
 	style="display: none">

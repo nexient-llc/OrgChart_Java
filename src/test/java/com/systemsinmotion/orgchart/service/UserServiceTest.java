@@ -18,9 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.TestServiceConfig;
-import com.systemsinmotion.orgchart.data.DepartmentRepository;
-import com.systemsinmotion.orgchart.entity.Authorities;
-import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
