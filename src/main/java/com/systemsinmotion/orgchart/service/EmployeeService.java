@@ -50,9 +50,7 @@ public class EmployeeService {
 	@Secured("ROLE_ADMIN")
 	@Transactional
 	public void removeEmployee(Employee employee) {
-		if (employee == null) {
-			throw new IllegalArgumentException();
-		}
+		Assert.notNull(employee);
 		employee.setIsActive(false);
 		this.repository.save(employee);
 	}
