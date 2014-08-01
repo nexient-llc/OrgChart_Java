@@ -61,7 +61,7 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	public void findAll_notNull() throws Exception {
-		System.out.println(this.repository.toString());
+
 		List<Department> depts = this.repository.findAll();
 		assertNotNull(depts);
 		assertTrue(0 < depts.size());

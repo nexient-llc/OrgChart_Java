@@ -70,7 +70,7 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void findAll_notNull() throws Exception {
-		System.out.println(this.departmentDao.toString());
+		
 		List<Department> depts = this.departmentDao.findAll();
 		assertNotNull(depts);
 		assertTrue(0 < depts.size());

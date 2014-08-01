@@ -64,7 +64,7 @@ public class JobTitleDaoTest {
 
 //	@Test
 //	public void findAll_notNull() throws Exception {
-//		System.out.println(this.jobTitleDao.toString());
+//		
 //		List<JobTitle> depts = this.jobTitleDao.findAll();
 //		assertNotNull(depts);
 //		assertTrue(0 < depts.size());

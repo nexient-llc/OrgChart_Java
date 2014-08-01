@@ -179,7 +179,7 @@ public class TestControllerConfig {
 				.thenReturn(listOfFoundEmployees);
 		when(service.filterEmployees(" ", " ", "", "")).thenReturn(
 				listOfFoundEmployees);
-		when(service.storeEmployee(mockEmployee)).thenAnswer(
+		when(service.storeEmployee(mockEmployee, new Object())).thenAnswer(
 				new Answer<Employee>() {
 					public Employee answer(InvocationOnMock invocation) {
 						listOfFoundEmployees.add(mockEmployee);

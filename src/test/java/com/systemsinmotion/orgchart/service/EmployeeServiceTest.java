@@ -57,7 +57,7 @@ public class EmployeeServiceTest {
 	@Test
 	public void storeEmployee() {
 
-		Employee emp = this.employeeService.storeEmployee(this.employee);
+		Employee emp = this.employeeService.storeEmployee(this.employee, true);
 		assertNotNull(emp);
 		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
 	}

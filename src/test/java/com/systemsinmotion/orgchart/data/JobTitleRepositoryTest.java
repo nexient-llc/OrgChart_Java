@@ -53,7 +53,7 @@ public class JobTitleRepositoryTest {
 
 	@Test
 	public void findAll_notNull() throws Exception {
-		System.out.println(this.jobTitleRepo.toString());
+
 		List<JobTitle> titles = this.jobTitleRepo.findAll();
 		assertNotNull(titles);
 		assertTrue(0 < titles.size());

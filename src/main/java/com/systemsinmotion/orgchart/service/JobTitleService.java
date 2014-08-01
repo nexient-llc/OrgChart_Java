@@ -39,6 +39,19 @@ public class JobTitleService {
 		return this.jobTitleRepository.save(title);
 	}
 
+	public JobTitle editJobTitle(JobTitle title, Object active) {
+
+		JobTitle job = this.jobTitleRepository.findOne(title.getId());
+		job.setName(title.getName());
+
+		if (active == null) {
+			job.setIsActive(false);
+		} else {
+			job.setIsActive(true);
+		}
+		return this.jobTitleRepository.save(job);
+	}
+
 	public boolean titleExists(JobTitle title) {
 		return this.jobTitleRepository.exists(title.getId());
 	}

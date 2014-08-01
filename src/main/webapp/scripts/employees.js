@@ -11,7 +11,7 @@ $(document).ready(function() {
 		});
 	});
 	$("#cancel").click(function(){
-		$("#addEntity").slideToggle('3000', "swing");;
+		$("#addEntity").slideToggle('3000', "swing");
 		$('#addBtn-container').fadeToggle("fast", "linear");
 		$("#searchBtn-container").slideToggle('3000', "swing");
 	});

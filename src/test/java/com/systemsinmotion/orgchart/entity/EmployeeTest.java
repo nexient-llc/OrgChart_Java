@@ -71,7 +71,7 @@ public class EmployeeTest {
 	@Test
 	public void setAndGetDepartment() {
 		emp.setDepartment(dept);
-		System.out.print(emp.getDepartment());
+
 		assertNotNull(emp.getDepartment());
 		assertEquals(dept.getId(), emp.getDepartment().getId());
 	}
