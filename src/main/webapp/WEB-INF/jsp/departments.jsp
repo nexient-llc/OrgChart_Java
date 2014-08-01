@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
 <h3>Departments</h3> 
-<table id="t1" class="sortable"> 
+<table id="t1" class="pure-table pure-table-horizontal"> 
 	<thead><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
 		<th>Dept Name</th><th>Parent Dept</th><th>Edit</th><th>Delete</th>
@@ -16,39 +16,48 @@
 			<td>${dept.name}</td> 
 			<td>${dept.parentDepartment.name}</td>
 			<td>
-				<button onclick="editDepartment('${dept.getId()}', '${dept.getName()}', '${dept.getParentDepartment().getId()}')">Edit</button>
+				<button onclick="editDepartment('${dept.getId()}', '${dept.getName()}', '${dept.getParentDepartment().getId()}')" class="pure-button">Edit</button>
 			</td>
 			<td>
-				<button onclick="removeDepartment('${dept.getId()}')">Delete</button>
+				<button onclick="removeDepartment('${dept.getId()}')" class="pure-button">Delete</button>
 			</td>
 		</tr>
 	</c:forEach> 
 </table>
 
+<br>
+
 <div id="addBtn-container">
-	<button type="button" id="addBtn" style="width: 45px;">Add</button>	
+	<button class="pure-button" type="button" id="addBtn">Add</button>	
 </div>
 
 <div id="addEntity" style="display:none">
-	<fieldset>
-		<legend>Add Department</legend>
-		<form name="newDept" action="depts" method="post">
-			*Dept Name: <input type="text" name="name" />
-			Parent Dept: 
-			<select name="parentDepartment.id">
-				<option value=null></option>
-				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.getId()}">${dept.name}</option>
-				</c:forEach>
-			</select>
+	<form class="pure-form pure-form-aligned" name="newDept" action="depts" method="post">
+		<fieldset>
+			<legend>Add Department</legend>
+			
+			<div class="pure-control-group">
+				<label for="deptName">*Department Name</label>
+				<input type="text" name="name" id="deptName">
+			</div>
+			
+			<div class="pure-control-group">
+				<label for="parentDept">*Department Name</label>
+				<select name="parentDepartment.id" id="parentDept">
+					<option value=null></option>
+					<c:forEach items="${depts}" var="dept">
+						<option value="${dept.getId()}">${dept.name}</option>
+					</c:forEach>
+				</select>
+			</div>
 			
 			<input type="hidden" name="isActive" value="true" />
 			
-			<button type="submit">Save</button>
-			<button type="reset" id="cancelBtn">Cancel</button>
-		</form>
-		<p>Fields marked with a * are required</p>
-	</fieldset>
+			<button class="pure-button pure-button-primary" type="submit">Save</button>
+			<button class="pure-button" type="reset" id="cancelBtn">Cancel</button>
+		</fieldset>
+	</form>
+	<p>Fields marked with a * are required</p>
 </div>
 
 <div id="editEntity" style="display: none; ">

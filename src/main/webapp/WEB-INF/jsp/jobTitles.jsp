@@ -5,24 +5,24 @@
 <h3>Job Titles</h3>
 
 <div id="addBtn-container">
-	<button type="button" id="addBtn" style="width: 45px;">Add</button>	
+	<button class="pure-button" type="button" id="addBtn">Add</button>	
 </div>
 
 <div id="addEntity" style="display:none">
-	<fieldset>
-		<legend>Add Job Title</legend>
-		<form id="newJobTitleForm" name="newJobTitle" action="titles" method="post">
-			Job Title Name: <input type="text" name="name" required />
-			<input type="hidden" name="isActive" value="true" />
-			<button type="submit">Save</button>
-			<button id="cancelButton" type="reset" value="Reset">Cancel</button>
-		</form>
-	</fieldset>
+	<form id="newJobTitleForm" class="pure-form" name="newJobTitle" action="titles" method="post">
+		<fieldset>
+			<legend>Add Job Title</legend>
+			<label for="jobName">Job Title Name</label>
+			<input type="text" id="jobName" name="name" required >
+			<button class="pure-button pure-button-primary" type="submit">Save</button>
+			<button class="pure-button" id="cancelButton" type="reset" value="Reset">Cancel</button>
+		</fieldset>
+	</form>
 </div>
 
 <br><br>
 
-<table class="sortable">
+<table class="pure-table pure-table-horizontal">
 	<thead>
 		<th>Description</th><th>Edit</th>
 	</thead>
@@ -30,7 +30,7 @@
 		<tr> 
 			<td>${title.getName()}</td>
 			<td>
-				<button onclick="editJob('${title.getId()}', '${title.getName()}')">Edit</button>
+				<button class="pure-button" onclick="editJob('${title.getId()}', '${title.getName()}')">Edit</button>
 			</td>
 		</tr>
 	</c:forEach>
@@ -38,12 +38,14 @@
 </table>
 
 <div id="editJobTitleContainer" style="display: none; ">
-	<form id="editJobTitleForm" name="editJobTitle" action="titles" method="post">
-		<input id="editName" type="text" name="name" />
-		<input id="editId" type="hidden" name="id" />
-		
-		
-		<button type="submit">Save</button>
-		<button type="reset" id="cancelEdit">Cancel</button>
+	<form id="editJobTitleForm" class="pure-form" name="editJobTitle" action="titles" method="post">
+		<fieldset>
+			<legend>Edit Job Title</legend>
+			<label for="editName">Name</label>
+			<input id="editName" type="text" name="name" >
+			<input id="editId" type="hidden" name="id" />
+			<button class="pure-button pure-button-primary" type="submit">Save</button>
+			<button class="pure-button" type="reset" id="cancelEdit">Cancel</button>
+		</fieldset>
 	</form>
 </div>

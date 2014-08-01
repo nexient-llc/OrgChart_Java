@@ -85,7 +85,7 @@ public class DefaultControllerTest {
 	@Test
 	public void testModelShouldContainNewEmployeeList() {
 		// Given
-		String viewName = this.controller.doEmployees_GET("", "", "", "", this.model);
+		String viewName = this.controller.doEmployees_GET(0, "", "", "", "", this.model);
 
 		// When
 		this.findAllEmployeesList = (ArrayList<Employee>) (this.model.asMap().get("emps"));
@@ -174,7 +174,7 @@ public class DefaultControllerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void doEmployeesTest_GET() {
-		String viewName = this.controller.doEmployees_GET(Entities.FIRST_NAME + " " + Entities.LAST_NAME, Entities.JOB_TITLE_ID.toString(), Entities.DEPT_ID.toString(), "", model);
+		String viewName = this.controller.doEmployees_GET(0, Entities.FIRST_NAME + " " + Entities.LAST_NAME, Entities.JOB_TITLE_ID.toString(), Entities.DEPT_ID.toString(), "", model);
 		assertNotNull(viewName);
 		assertEquals(viewName, "emps");
 	}

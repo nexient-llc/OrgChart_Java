@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.data;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -48,6 +49,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleIdAndIsActiveIsTrue(String firstName, String lastName, Integer jobId);
 
+	List<Employee> findAllByIsActiveIsTrue(Pageable pageable);
+	
 	List<Employee> findAllByIsActiveIsTrue();
 	
 	List<Employee> findAllByIsActiveIsFalse();

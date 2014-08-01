@@ -3,6 +3,8 @@ package com.systemsinmotion.orgchart.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.data.EmployeeRepository;
@@ -16,6 +18,10 @@ public class EmployeeService {
 	EmployeeRepository repository;
 	
 
+	public List<Employee> findAllActiveEmployees(int pageNum) {
+		return this.repository.findAllByIsActiveIsTrue(new PageRequest(pageNum, 10, Direction.ASC, "lastName"));
+	}
+	
 	public List<Employee> findAllActiveEmployees() {
 		return this.repository.findAllByIsActiveIsTrue();
 	}

@@ -82,13 +82,18 @@ public class DefaultController {
 
 	
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
-	public String doEmployees_GET(@RequestParam(value = "nameParam", defaultValue = "") String name, 
+	public String doEmployees_GET(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, 
+								  @RequestParam(value = "nameParam", defaultValue = "") String name, 
 								  @RequestParam(value = "jobTitleParam", defaultValue = "") String jobId, 
 								  @RequestParam(value = "departmentParam", defaultValue = "") String deptId, 
 								  String string4, Model model) {
 		List<Employee> employees = null;
 		
-		employees = (name.equals("") && deptId.equals("") && jobId.equals("")) ? employeeService.findAllActiveEmployees() : employeeService.findAllEmployeesByCriteria(name, deptId, jobId);
+		if(pageNum == 0) {
+			employees = employeeService.findAllActiveEmployees();
+		} else {
+			employees = (name.equals("") && deptId.equals("") && jobId.equals("")) ? employeeService.findAllActiveEmployees(pageNum - 1) : employeeService.findAllEmployeesByCriteria(name, deptId, jobId);
+		}
 		
 		List<Department> departments = departmentService.findAllActiveDepartments();
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
@@ -97,11 +102,32 @@ public class DefaultController {
 		model.addAttribute("titles", jobTitles);
 		return View.EMPLOYEES;
 	}
-
+	
+	@RequestMapping(value = "nextPage", method = RequestMethod.GET)
+	public @ResponseBody String doEmployees_PAGEABLE(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+		String retval = "";
+		
+		List<Employee> employees = employeeService.findAllActiveEmployees(pageNum);
+		
+		for(Employee emp : employees) {
+			retval += "{\"id\": \"" + emp.getId() + "\"," + 
+					  " \"firstName\": \"" + emp.getFirstName() + "\", " +
+					  " \"middleInitial\": \"" + emp.getMiddleInitial() + "\", " +
+					  " \"lastName\": \"" + emp.getLastName() + "\", " +
+					  " \"departmentId\": \"" + emp.getDepartment().getId() + "\", " +
+					  " \"departmentName\": \"" + emp.getDepartment().getName() + "\", " +
+					  " \"jobTitleId\": \"" + emp.getJobTitle().getId() + "\", " +
+					  " \"jobTitleName\": \"" + emp.getJobTitle().getName() + "\", " +
+					  " \"email\": \"" + emp.getEmail() + "\", " +
+					  " \"skype\": \"" + emp.getSkypeName() + "\"}\n";
+		}
+		
+		return retval;
+	}
 	
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
 	public void doEmployee_POST(Employee employee, Model model) {
-		
+		System.out.println(employee);
 		employee.setFirstName(Character.toUpperCase(employee.getFirstName().charAt(0)) + employee.getFirstName().substring(1));
 		if(employee.getMiddleInitial() != null)
 			employee.setMiddleInitial(Character.toUpperCase(employee.getMiddleInitial()));
@@ -109,7 +135,7 @@ public class DefaultController {
 		
 		employeeService.storeEmployee(employee);
 		
-		List<Employee> employees = employeeService.findAllActiveEmployees();
+		List<Employee> employees = employeeService.findAllActiveEmployees(0);
 		List<Department> departments = departmentService.findAllActiveDepartments();
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("emps", employees);
@@ -120,6 +146,11 @@ public class DefaultController {
 	@RequestMapping(value = "newEmployee", method = RequestMethod.POST)
 	public @ResponseBody String insertNewEmployee(Employee newEmployee, Model model) {
 		String retVal = "";
+		
+		newEmployee.setFirstName(Character.toUpperCase(newEmployee.getFirstName().charAt(0)) + newEmployee.getFirstName().substring(1));
+		if(newEmployee.getMiddleInitial() != null)
+			newEmployee.setMiddleInitial(Character.toUpperCase(newEmployee.getMiddleInitial()));
+		newEmployee.setLastName(Character.toUpperCase(newEmployee.getLastName().charAt(0)) + newEmployee.getLastName().substring(1));
 		
 		employeeService.storeEmployee(newEmployee);
 		
