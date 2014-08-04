@@ -72,9 +72,9 @@ public class DefaultController {
 	}
 	
 //************************* POST Methods****************************************
-	@RequestMapping(value = "empl", method = RequestMethod.POST)
+	@RequestMapping(value = "emp", method = RequestMethod.POST)
 	public String doEmployees_POST(Employee employee, Model model) {
-		this.employeeService.storeEmployee(employee);
+		this.employeeService.saveEmployee(employee);
 		addAllActiveEmployeesToModel(model);
 		return REDIRECT + View.EMPLOYEES;
 	}
@@ -95,6 +95,13 @@ public class DefaultController {
 	
 //************************* PUT Methods****************************************
 	// Code Spike put
+	@RequestMapping(value = "emp", method = RequestMethod.PUT)
+	public String doEmployees_PUT(Employee employee, Model model) {
+		this.employeeService.saveEmployee(employee);
+		addAllActiveEmployeesToModel(model);
+		return REDIRECT + View.EMPLOYEES;
+	}
+	
 	@RequestMapping(value = "depart", method = RequestMethod.PUT)
 	public String doDepartments_PUT(Department department, Model model) {
 		this.departmentService.saveDepartment(department);
@@ -110,66 +117,105 @@ public class DefaultController {
 	}
 	
 //************************* DELETE Methods****************************************
-	// Code Spike delete
+	@RequestMapping(value = "delete/emp/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody ResponseEntity<String> doEmployee_Delete(@PathVariable("id") Integer id) {
+		String responseMessage;
+		HttpStatus responseStatus;
+		
+		Employee employee = employeeService.findEmployeeByID(id);
+		if(employee==null){
+			responseMessage = "Invalid Employee ID. Employee was not found.";
+			responseStatus = HttpStatus.NOT_FOUND;
+		}else{
+			this.employeeService.removeEmployee(employee);
+			responseMessage = "Employee " + employee.getFirstName() +" "+employee.getLastName()+ " successfully removed.";
+			responseStatus = HttpStatus.ACCEPTED;
+		}
+		return new ResponseEntity<String>(responseMessage, responseStatus);
+	}
+	
 	@RequestMapping(value = "delete/dept/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody ResponseEntity<String> doDepartments_Delete(@PathVariable("id") Integer id) {
+		String responseMessage;
+		HttpStatus responseStatus;
+		
 		Department department = departmentService.findDepartmentByID(id);
-		
-		this.departmentService.removeDepartment(department);
-		
-		String removeMsg = "Department " + department.getName() + " succesfully removed.";
-		return new ResponseEntity<String>(removeMsg, HttpStatus.ACCEPTED);
+		if(department==null){
+			responseMessage = "Invalid Department ID. Department was not found.";
+			responseStatus = HttpStatus.NOT_FOUND;
+		}else{
+			this.departmentService.removeDepartment(department);
+			responseMessage = "Department " + department.getName() + " successfully removed.";
+			responseStatus = HttpStatus.ACCEPTED;
+		}
+		return new ResponseEntity<String>(responseMessage, responseStatus);
 	}
 	
 	@RequestMapping(value = "delete/title/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody ResponseEntity<String> doJobTitle_Delete(@PathVariable("id") Integer id) {
+		String responseMessage;
+		HttpStatus responseStatus;
+		
 		JobTitle jobTitle = jobTitleService.findbyID(id);
-		
-		this.jobTitleService.removeJobTitle(jobTitle);
-		
-		String removeMsg = "Job Title " + jobTitle.getName() + " succesfully removed.";
-		return new ResponseEntity<String>(removeMsg, HttpStatus.ACCEPTED);
+		if(jobTitle==null){
+			responseMessage = "Invalid Job-Title ID. Job-Title was not found.";
+			responseStatus = HttpStatus.NOT_FOUND;
+		}else{
+			this.jobTitleService.removeJobTitle(jobTitle);
+			responseMessage = "Job-Title " + jobTitle.getName() + " successfully removed.";
+			responseStatus = HttpStatus.ACCEPTED;
+		}
+		return new ResponseEntity<String>(responseMessage, responseStatus);
 	}
 	
 //************************* AJAX Methods****************************************
 	
 	// Code Spike AJAX
-	@RequestMapping(value = "dept/{id}", method = RequestMethod.GET)
-	public @ResponseBody String getDeptAjax(@PathVariable("id") Integer id) {
-		if (id == null) {
+	@RequestMapping(value = "emp/{id}", method = RequestMethod.GET)
+	public @ResponseBody String getEmpAjax(@PathVariable("id") Integer id) {
+		Employee emp = employeeService.findEmployeeByID(id);
+		if (emp == null) {
 			return "";
 		}
+		return emp.toJson();
+	}
+	
+	@RequestMapping(value = "dept/{id}", method = RequestMethod.GET)
+	public @ResponseBody String getDeptAjax(@PathVariable("id") Integer id) {
 		Department dept = departmentService.findDepartmentByID(id);
+		if (dept == null) {
+			return "";
+		}
 		return dept.toString();
 	}
 
 	@RequestMapping(value = "title/{id}", method = RequestMethod.GET)
 	public @ResponseBody String getJobAjax(@PathVariable("id") Integer id) {
-		if (id == null) {
+		JobTitle jobtitle = jobTitleService.findbyID(id);
+		if (jobtitle == null) {
 			return "";
 		}
-		JobTitle jobtitle = jobTitleService.findbyID(id);
 		return jobtitle.toString();
 	}
 	
 	// Code Spike exception handler
 	
 	@ExceptionHandler(ConstraintViolationException.class) 
-	public RedirectView test() {
+	public RedirectView exceptionHandlerTest() {
 		RedirectView redirectView = new RedirectView(View.HOME);
 		return redirectView;
 	}
 	
 	// Code Spike constraint violation example
-	@RequestMapping(value = "depts2/{name}", method = RequestMethod.GET)
-	public String testFail(@PathVariable("name") String name) {
-		if (name.equals("hi")) {
-			
-			throw new ConstraintViolationException("You failed", new SQLException("failed"), "name");
-		}
-		
-		return View.DEPARTMENTS;
-	}
+//	@RequestMapping(value = "depts2/{name}", method = RequestMethod.GET)
+//	public String testFail(@PathVariable("name") String name) {
+//		if (name.equals("hi")) {
+//			
+//			throw new ConstraintViolationException("You failed", new SQLException("failed"), "name");
+//		}
+//		
+//		return View.DEPARTMENTS;
+//	}
 
 	private void addAllActiveEmployeesToModel(Model model) {
 		List<Employee> employees = employeeService.findAllActiveEmployees();

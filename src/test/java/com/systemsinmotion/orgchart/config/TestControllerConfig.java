@@ -28,42 +28,51 @@ import com.systemsinmotion.orgchart.service.JobTitleService;
 @Configuration
 @ComponentScan({"com.systemsinmotion.orgchart.web.controller"})
 public class TestControllerConfig {
-
-	private List<Department> listOfFoundDepts;
-	private List<JobTitle> listOfFoundTitles;
-	private List<Employee> listOfFoundEmployees;
-
 	private Department mockDepartment;
 	private JobTitle mockTitle;
 	private Employee mockEmployee;
 	
 	@PostConstruct
 	private void init() {
-		listOfFoundDepts = new ArrayList<Department>();
-		mockDepartment = Entities.department(Entities.DEPT_ID);
-		listOfFoundDepts.add(mockDepartment);
+		generateDepartments();
 //		mockDepartment = Entities.department(Entities.DEPT_ID);
 
-		listOfFoundTitles = new ArrayList<JobTitle>();
-		mockTitle = Entities.jobTitle(Entities.JOB_TITLE_ID);
-		listOfFoundTitles.add(mockTitle);
+		generateJobTitles();
 //		mockTitle = Entities.jobTitle(Entities.JOB_TITLE_ID);
 		
-		listOfFoundEmployees = new ArrayList<Employee>();
+		generateEmployees();
+	}
+
+	private List<Employee> generateEmployees() {
+		List<Employee>listOfFoundEmployees = new ArrayList<Employee>();
 		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
 		listOfFoundEmployees.add(mockEmployee);
-		mockEmployee = Entities.employee(Entities.EMPLOYEE_ID);
+		return listOfFoundEmployees;
+	}
+
+	private List<JobTitle> generateJobTitles() {
+		List<JobTitle> listOfFoundTitles = new ArrayList<JobTitle>();
+		mockTitle = Entities.jobTitle(Entities.JOB_TITLE_ID);
+		listOfFoundTitles.add(mockTitle);
+		return listOfFoundTitles;
+	}
+
+	private List<Department> generateDepartments() {
+		List<Department> listOfFoundDepts = new ArrayList<Department>();
+		mockDepartment = Entities.department(Entities.DEPT_ID);
+		listOfFoundDepts.add(mockDepartment);
+		return listOfFoundDepts;
 	}
 	
 	@Bean
 	DepartmentService getDepartmentService() {
 		DepartmentService service = mock(DepartmentService.class);
 		when(service.findDepartmentByID(mockDepartment.getId())).thenReturn(mockDepartment);
-		when(service.findAllDepartments()).thenReturn(listOfFoundDepts);
-		when(service.findAllActiveDepartments()).thenReturn(listOfFoundDepts);
+		when(service.findAllDepartments()).thenReturn(generateDepartments());
+		when(service.findAllActiveDepartments()).thenReturn(generateDepartments());
 		when(service.saveDepartment(mockDepartment)).thenAnswer(new Answer<Department>() {
 		     public Department answer(InvocationOnMock invocation) {
-		         listOfFoundDepts.add(mockDepartment);
+		    	 generateDepartments().add(mockDepartment);
 		         return mockDepartment;
 		     }
 		 });
@@ -73,11 +82,12 @@ public class TestControllerConfig {
 	@Bean
 	EmployeeService getEmployeeService() {
 		EmployeeService service = mock(EmployeeService.class);
-		when(service.findAllEmployees()).thenReturn(listOfFoundEmployees);
-		when(service.findAllActiveEmployees()).thenReturn(listOfFoundEmployees);
-		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
+		when(service.findEmployeeByID(mockEmployee.getId())).thenReturn(mockEmployee);
+		when(service.findAllEmployees()).thenReturn(generateEmployees());
+		when(service.findAllActiveEmployees()).thenReturn(generateEmployees());
+		when(service.saveEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
 		     public Employee answer(InvocationOnMock invocation) {
-		         listOfFoundEmployees.add(mockEmployee);
+		    	 generateEmployees().add(mockEmployee);
 		         return mockEmployee;
 		     }
 		 });
@@ -87,11 +97,12 @@ public class TestControllerConfig {
 	@Bean
 	JobTitleService getJobTitleService() {
 		JobTitleService service = mock(JobTitleService.class);
-		when(service.findAllJobTitles()).thenReturn(listOfFoundTitles);
-		when(service.findAllActiveJobTitles()).thenReturn(listOfFoundTitles);
+		when(service.findbyID(mockTitle.getId())).thenReturn(mockTitle);
+		when(service.findAllJobTitles()).thenReturn(generateJobTitles());
+		when(service.findAllActiveJobTitles()).thenReturn(generateJobTitles());
 		when(service.saveJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
 		     public JobTitle answer(InvocationOnMock invocation) {
-		         listOfFoundTitles.add(mockTitle);
+		    	 generateJobTitles().add(mockTitle);
 		         return mockTitle;
 		     }
 		 });
@@ -106,8 +117,8 @@ public class TestControllerConfig {
 	@Bean
 	DepartmentRepository getDepartmentRepository() {
 		DepartmentRepository repo = mock(DepartmentRepository.class);
-		when(repo.findAll()).thenReturn(this.listOfFoundDepts);
-		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundDepts);
+		when(repo.findAll()).thenReturn(generateDepartments());
+		when(repo.findByIsActiveIsTrue()).thenReturn(generateDepartments());
 		when(repo.findOne(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
 		when(repo.save(this.mockDepartment)).thenReturn(this.mockDepartment);
 		return repo;
@@ -121,8 +132,8 @@ public class TestControllerConfig {
 	@Bean
 	JobTitleRepository getJobTitleRepository() {
 		JobTitleRepository repo = mock(JobTitleRepository.class);
-		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
-		when(repo.findByIsActiveIsTrue()).thenReturn(this.listOfFoundTitles);
+		when(repo.findAll()).thenReturn(generateJobTitles());
+		when(repo.findByIsActiveIsTrue()).thenReturn(generateJobTitles());
 		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
 		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
 		return repo;
@@ -136,10 +147,10 @@ public class TestControllerConfig {
 	@Bean
 	EmployeeRepository getEmployeeRepository() {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
-		when(repo.findAll()).thenReturn(listOfFoundEmployees);
-		when(repo.findByIsActiveIsTrue()).thenReturn(listOfFoundEmployees);
-		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
-		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
+		when(repo.findAll()).thenReturn(generateEmployees());
+		when(repo.findByIsActiveIsTrue()).thenReturn(generateEmployees());
+		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(getEmployee());
+		when(repo.save(this.mockEmployee)).thenReturn(getEmployee());
 		return repo;
 	}
 	

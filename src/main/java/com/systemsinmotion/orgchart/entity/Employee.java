@@ -128,7 +128,10 @@ public class Employee extends BaseEntity {
 		if(this.middleInitial==null)
 		return this.firstName+" "+this.lastName;
 		return this.firstName+" "+this.middleInitial+" "+this.lastName;
-		
+	}
+
+	public String toJson() {
+		return super.toString();
 	}
 	
 }

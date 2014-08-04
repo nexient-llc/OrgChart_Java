@@ -33,6 +33,16 @@ public class EmployeeService {
 		return this.repository.save(employee);
 	}
 
+	public Employee saveEmployee(Employee employee) {
+		employee.setIsActive(true);
+		return storeEmployee(employee);
+	}
+	
+	public void removeEmployee(Employee employee) {
+		employee.setIsActive(false);
+		storeEmployee(employee);
+	}
+
 	public List<Employee> findByCriteria(Employee emp) {
 		QEmployee employee = QEmployee.employee;
 
