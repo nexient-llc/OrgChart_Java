@@ -46,12 +46,15 @@ public class DefaultController {
 	JobTitleService jobTitleService;
 	
 
+	//********* GET functions *********
+	// Get home view
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
 		return View.HOME;
 	}
 	
 	
+	// Get departments view
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
 		//uncomment when database connection is set up. will throw error when run
@@ -61,26 +64,7 @@ public class DefaultController {
 	}
 	
 	
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
-	}
-
-	
-	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public void doDepartments_POST(Department department, Model model) {
-		departmentService.storeDepartment(department);
-		
-		List<Department> departments = departmentService.findAllActiveDepartments();
-		model.addAttribute("depts", departments);
-	}
-	
-	
-	@RequestMapping(value = "removeDepartment/{id}", method = RequestMethod.POST)
-	public @ResponseBody void removeDepartment(@PathVariable("id") Integer id) {
-		departmentService.removeDepartment(id);
-	}
-
-	
+	// Get employees view.  If page number is 0, unpaged view is requested.  Else it's paginated.
 	@RequestMapping(value = "emps", method = RequestMethod.GET)
 	public String doEmployees_GET(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, 
 								  @RequestParam(value = "nameParam", defaultValue = "") String name, 
@@ -103,6 +87,8 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
+	
+	// Ajax - Get the next requested page.  Returns a comma-delimited string of JSON objects.
 	@RequestMapping(value = "nextPage", method = RequestMethod.GET)
 	public @ResponseBody String doEmployees_PAGEABLE(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
 		String retval = "";
@@ -125,65 +111,8 @@ public class DefaultController {
 		return retval;
 	}
 	
-	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public void doEmployee_POST(Employee employee, Model model) {
-		System.out.println(employee);
-		employee.setFirstName(Character.toUpperCase(employee.getFirstName().charAt(0)) + employee.getFirstName().substring(1));
-		if(employee.getMiddleInitial() != null)
-			employee.setMiddleInitial(Character.toUpperCase(employee.getMiddleInitial()));
-		employee.setLastName(Character.toUpperCase(employee.getLastName().charAt(0)) + employee.getLastName().substring(1));
-		
-		employeeService.storeEmployee(employee);
-		
-		List<Employee> employees = employeeService.findAllActiveEmployees(0);
-		List<Department> departments = departmentService.findAllActiveDepartments();
-		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
-		model.addAttribute("emps", employees);
-		model.addAttribute("depts", departments);
-		model.addAttribute("titles", jobTitles);
-	}
 	
-	@RequestMapping(value = "newEmployee", method = RequestMethod.POST)
-	public @ResponseBody String insertNewEmployee(Employee newEmployee, Model model) {
-		String retVal = "";
-		
-		newEmployee.setFirstName(Character.toUpperCase(newEmployee.getFirstName().charAt(0)) + newEmployee.getFirstName().substring(1));
-		if(newEmployee.getMiddleInitial() != null)
-			newEmployee.setMiddleInitial(Character.toUpperCase(newEmployee.getMiddleInitial()));
-		newEmployee.setLastName(Character.toUpperCase(newEmployee.getLastName().charAt(0)) + newEmployee.getLastName().substring(1));
-		
-		employeeService.storeEmployee(newEmployee);
-		
-		
-		// reset newEmployee to the one that's been inserted so we have their id
-		newEmployee = employeeService.findByEmail(newEmployee.getEmail());
-		
-		retVal += "{\"id\": \"" + newEmployee.getId() + "\"," + 
-				  " \"firstName\": \"" + newEmployee.getFirstName() + "\", " +
-				  " \"middleInitial\": \"" + newEmployee.getMiddleInitial() + "\", " +
-				  " \"lastName\": \"" + newEmployee.getLastName() + "\", " +
-				  " \"departmentId\": \"" + newEmployee.getDepartment().getId() + "\", " +
-				  " \"departmentName\": \"" + newEmployee.getDepartment().getName() + "\", " +
-				  " \"jobTitleId\": \"" + newEmployee.getJobTitle().getId() + "\", " +
-				  " \"jobTitleName\": \"" + newEmployee.getJobTitle().getName() + "\", " +
-				  " \"email\": \"" + newEmployee.getEmail() + "\", " +
-				  " \"skype\": \"" + newEmployee.getSkypeName() + "\"}";
-		
-		return retVal;
-	}
-	
-	
-	@RequestMapping(value = "removeEmployee/{id}", method = RequestMethod.POST)
-	public @ResponseBody void removeEmployee_POST(@PathVariable("id") Integer id) {
-		employeeService.removeEmployee(id);
-	}
-	
-	@RequestMapping(value = "reenableEmployee/{id}", method = RequestMethod.POST)
-	public @ResponseBody void reenableEmployee_POST(@PathVariable("id") Integer id) {
-		System.out.println("\n\n\n" + id + "\n\n\n");
-		employeeService.reenableEmployee(id);
-	}
-	
+	// Ajax - verification of email and skype name, alerts user and prevents submission if either is already in use.
 	@RequestMapping(value = "checkEmailAndSkype", method = RequestMethod.GET)
 	public @ResponseBody String validateUniqueConstraints_GET(@RequestParam("id") String id, @RequestParam("email") String email, @RequestParam("skypeName") String skype, 
 			@RequestParam("addOrEdit") String addOrEdit) {
@@ -207,6 +136,8 @@ public class DefaultController {
 		return retval;
 	}
 	
+	
+	// Get inactive employees view.
 	@RequestMapping(value = "getInactiveEmployees", method = RequestMethod.GET)
 	public String doEmployees_GETINACTIVE(Model model) {
 		List<Employee> employees = this.employeeService.findAllInactiveEmployees();
@@ -219,6 +150,7 @@ public class DefaultController {
 	}
 	
 	
+	// Get job titles view.
 	@RequestMapping(value = "titles", method = RequestMethod.GET)
 	public String doJobTitles_GET(Model model) {
 		List<Employee> employees = employeeService.findAllActiveEmployees();
@@ -229,17 +161,9 @@ public class DefaultController {
 		model.addAttribute("titles", jobTitles);
 		return View.JOB_TITLES;
 	}
-
-	
-	@RequestMapping(value = "titles", method = RequestMethod.POST)
-	public void doJobTitles_POST(JobTitle job, Model model) {
-		jobTitleService.storeJobTitle(job);
-		
-		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
-		model.addAttribute("titles", jobTitles);
-	}
 	
 	
+	// Ajax - returns comma-delimited string of employee names for autocomplete.
 	@RequestMapping(value = "suggestions/{name}", method = RequestMethod.GET)
 	public @ResponseBody String getEmployeeSuggestions_GET(@PathVariable("name") String name) {
 		
@@ -254,76 +178,107 @@ public class DefaultController {
 		} else {
 			return null;
 		}
-		
-		
 	}
 	
-	/*private List<Employee> getSuggestions(String name) {
-		String nameArr[] = name.split(" ");
-		List<Employee> employees = null;
-		
-		if(nameArr.length == 1)
-			employees = employeeService.findAllEmployeesByFirstNameIgnoreCase(nameArr[0]);
-		else if(nameArr.length == 2)
-			employees = employeeService.findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCase(nameArr[0], nameArr[1]);
-		
-		if(employees == null || employees.size() == 0)
-			return null;
-		else
-			return employees;
-		
-	}*/
+	//********* end GET functions *********
 	
-	/*private List<Employee> getEmployees(String name, String deptId, String jobId) {
-		List<Employee> employees = null;
+	
+	//********* POST functions *********
+	// Save department
+	@RequestMapping(value = "depts", method = RequestMethod.POST)
+	public void doDepartments_POST(Department department, Model model) {
+		departmentService.storeDepartment(department);
+		List<Department> departments = departmentService.findAllActiveDepartments();
+		model.addAttribute("depts", departments);
+	}
+	
+	
+	// Remove department (set is_active to false), Ajax call
+	@RequestMapping(value = "removeDepartment/{id}", method = RequestMethod.POST)
+	public @ResponseBody void removeDepartment(@PathVariable("id") Integer id) {
+		departmentService.removeDepartment(id);
+	}
+
+	
+	// Save employee.
+	@RequestMapping(value = "emps", method = RequestMethod.POST)
+	public void doEmployee_POST(Employee employee, Model model) {
+		// upper case the first character of each name (if set)
+		employee.setFirstName(Character.toUpperCase(employee.getFirstName().charAt(0)) + employee.getFirstName().substring(1));
+		if(employee.getMiddleInitial() != null)
+			employee.setMiddleInitial(Character.toUpperCase(employee.getMiddleInitial()));
+		employee.setLastName(Character.toUpperCase(employee.getLastName().charAt(0)) + employee.getLastName().substring(1));
 		
-		String nameArr[] = null;
+		employeeService.storeEmployee(employee);
 		
-		// if all are empty, get all employees
-		if(name.equals("") && deptId.equals("") && jobId.equals(""))
-			employees = employeeService.findAllEmployees();
-		// if just department is chosen, get all employees by dept id
-		else if(name.equals("") && !deptId.equals("") && jobId.equals(""))
-			employees = employeeService.findAllEmployeesByDepartmentId(Integer.parseInt(deptId));
-		// if just job title is chosen, get all employees by job title id
-		else if(name.equals("") && deptId.equals("") && !jobId.equals(""))
-			employees = employeeService.findAllEmployeesByJobTitleId(Integer.parseInt(jobId));
-		// if dept and job are chosen, get all employees by job title and dept id
-		else if(name.equals("") && !deptId.equals("") && !jobId.equals(""))
-			employees = employeeService.findAllEmployeesByDepartmentIdAndJobTitleId(Integer.parseInt(deptId), Integer.parseInt(jobId));
-		// if name is chosen, find by name (by first name OR first & last name)
-		else if(!name.equals("") && deptId.equals("") && jobId.equals("")) {
-			nameArr = name.split(" ");
-			if(nameArr.length == 1)
-				employees = employeeService.findAllEmployeesByFirstNameOrLastName(nameArr[0], nameArr[0]);
-			else if(nameArr.length == 2)
-				employees = employeeService.findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCase(nameArr[0], nameArr[1]);
-		}
-		// if name and department are chosen, find by name and department id
-		else if(!name.equals("") && !deptId.equals("") && jobId.equals("")) {
-			nameArr = name.split(" ");
-			if(nameArr.length == 1)
-				employees = employeeService.findAllEmployeesByFirstNameIgnoreCaseAndDepartmentId(nameArr[0], Integer.parseInt(deptId));
-			else if(nameArr.length == 2)
-				employees = employeeService.findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId(nameArr[0], nameArr[1], Integer.parseInt(deptId));
-		}
-		// if name and job are chosen, find by department and job title id
-		else if(!name.equals("") && deptId.equals("") && !jobId.equals("")) {
-			nameArr = name.split(" ");
-			if(nameArr.length == 1)
-				employees = employeeService.findAllEmployeesByFirstNameIgnoreCaseAndJobTitleId(nameArr[0], Integer.parseInt(jobId));
-			else if(nameArr.length == 2)
-				employees = employeeService.findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId(nameArr[0], nameArr[1], Integer.parseInt(jobId));
-		}
-		// if all three are set, query for all
-		else if(!name.equals("") && !deptId.equals("") && !jobId.equals("")) {
-			nameArr = name.split(" ");
-			if(nameArr.length == 1)
-				employees = employeeService.findAllEmployeesByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleId(nameArr[0], Integer.parseInt(deptId), Integer.parseInt(jobId));
-			else if(nameArr.length == 2)
-				employees = employeeService.findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleId(nameArr[0], nameArr[1], Integer.parseInt(deptId), Integer.parseInt(jobId));
-		}
+		List<Employee> employees = employeeService.findAllActiveEmployees(0);
+		List<Department> departments = departmentService.findAllActiveDepartments();
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("emps", employees);
+		model.addAttribute("depts", departments);
+		model.addAttribute("titles", jobTitles);
+	}
+	
+	
+	// Ajax - save employee.  Returns a JSON object as a string.
+	@RequestMapping(value = "newEmployee", method = RequestMethod.POST)
+	public @ResponseBody String insertNewEmployee(Employee newEmployee, Model model) {
+		String retVal = "";
 		
-		return employees;
-	}*/
+		newEmployee.setFirstName(Character.toUpperCase(newEmployee.getFirstName().charAt(0)) + newEmployee.getFirstName().substring(1));
+		if(newEmployee.getMiddleInitial() != null)
+			newEmployee.setMiddleInitial(Character.toUpperCase(newEmployee.getMiddleInitial()));
+		newEmployee.setLastName(Character.toUpperCase(newEmployee.getLastName().charAt(0)) + newEmployee.getLastName().substring(1));
+		
+		employeeService.storeEmployee(newEmployee);
+		
+		// get the newly inserted employee so we have their ID
+		newEmployee = employeeService.findByEmail(newEmployee.getEmail());
+		
+		retVal += "{\"id\": \"" + newEmployee.getId() + "\"," + 
+				  " \"firstName\": \"" + newEmployee.getFirstName() + "\", " +
+				  " \"middleInitial\": \"" + newEmployee.getMiddleInitial() + "\", " +
+				  " \"lastName\": \"" + newEmployee.getLastName() + "\", " +
+				  " \"departmentId\": \"" + newEmployee.getDepartment().getId() + "\", " +
+				  " \"departmentName\": \"" + newEmployee.getDepartment().getName() + "\", " +
+				  " \"jobTitleId\": \"" + newEmployee.getJobTitle().getId() + "\", " +
+				  " \"jobTitleName\": \"" + newEmployee.getJobTitle().getName() + "\", " +
+				  " \"email\": \"" + newEmployee.getEmail() + "\", " +
+				  " \"skype\": \"" + newEmployee.getSkypeName() + "\"}";
+		
+		return retVal;
+	}
+	
+	
+	// Ajax - remove employee.  Set is_active to false.
+	@RequestMapping(value = "removeEmployee/{id}", method = RequestMethod.POST)
+	public @ResponseBody void removeEmployee_POST(@PathVariable("id") Integer id) {
+		employeeService.removeEmployee(id);
+	}
+	
+	
+	// Ajax - re-enable employee.  Set is_active to true.
+	@RequestMapping(value = "reenableEmployee/{id}", method = RequestMethod.POST)
+	public @ResponseBody void reenableEmployee_POST(@PathVariable("id") Integer id) {
+		System.out.println("\n\n\n" + id + "\n\n\n");
+		employeeService.reenableEmployee(id);
+	}
+	
+	
+	// Save job title.
+	@RequestMapping(value = "titles", method = RequestMethod.POST)
+	public void doJobTitles_POST(JobTitle job, Model model) {
+		jobTitleService.storeJobTitle(job);
+		
+		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
+		model.addAttribute("titles", jobTitles);
+	}
+	
+	//********* end POST functions *********
+	
+	
+	// IDK...
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
 }

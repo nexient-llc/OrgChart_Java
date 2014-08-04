@@ -89,7 +89,6 @@ public class TestServiceConfig {
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		when(repo.findByEmailIgnoreCase(Entities.EMAIL)).thenReturn(mockEmployee);
-		when(repo.findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(Entities.FIRST_NAME, Entities.LAST_NAME, Entities.DEPT_ID, Entities.JOB_TITLE_ID)).thenReturn(listOfFoundEmployees);
 		when(repo.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.LAST_NAME)).thenReturn(listOfFoundEmployees);
 		when(repo.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.FIRST_NAME, Entities.FIRST_NAME)).thenReturn(listOfFoundEmployees);
 		when(repo.findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(Entities.LAST_NAME, Entities.LAST_NAME)).thenReturn(listOfFoundEmployees);

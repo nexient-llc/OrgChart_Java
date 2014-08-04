@@ -25,6 +25,8 @@ public class Department extends BaseEntity {
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department parentDepartment;
 	
+	
+	//********* Getters and setters *********
 	public String getName() {
 		return this.name;
 	}

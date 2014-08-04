@@ -4,8 +4,7 @@
 
 <h3>Departments</h3> 
 <table id="t1" class="pure-table pure-table-horizontal"> 
-	<thead><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
+	<thead>
 		<th>Dept Name</th><th>Parent Dept</th><th>Edit</th><th>Delete</th>
 	</thead> 
 	<c:forEach items="${depts}" var="dept">

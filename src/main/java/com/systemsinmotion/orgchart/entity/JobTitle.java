@@ -18,7 +18,7 @@ public class JobTitle extends BaseEntity {
 	@Size(min = 1, max = 50)
 	private String name;
 	
-	
+	//********* Getters and setters *********
 	public String getName() {
 		return name;
 	}

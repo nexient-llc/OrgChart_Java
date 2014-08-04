@@ -18,22 +18,27 @@ public class DepartmentService {
 		return this.repository.findAllByIsActiveIsTrue();
 	}
 
+	
 	public Department findDepartmentByID(Integer departmentId) {
 		return this.repository.findOne(departmentId);
 	}
 
+	
 	public void removeDepartment(Department department) {
 		this.repository.delete(department);
 	}
 
+	
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;
 	}
 
+	
 	public Department storeDepartment(Department department) {
 		return this.repository.save(department);
 	}
 
+	
 	public void removeDepartment(Integer id) {
 		this.repository.removeDepartment(id);
 	}

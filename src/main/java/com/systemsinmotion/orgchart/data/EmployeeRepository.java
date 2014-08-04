@@ -14,21 +14,12 @@ import com.systemsinmotion.orgchart.entity.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-	void delete(Employee emp);
-
-	//List<Employee> findByDepartment(Department dept);
-
 	Employee findByEmailIgnoreCase(String email);
 	
 	Employee findBySkypeNameIgnoreCase(String skype);
 
 	Employee findById(Integer id);
-
-	List<Employee> findByManager(Employee manager);
-
-	List<Employee> findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(String firstName, String lastName, Integer deptId, Integer jobTitleId);
 	
-	// stuff I put here for user stories:	
 	List<Employee> findAllByFirstNameContainingIgnoreCaseAndIsActiveIsTrueOrLastNameContainingIgnoreCaseAndIsActiveIsTrue(String name1, String name2);
 
 	List<Employee> findAllByDepartmentIdAndIsActiveIsTrue(Integer deptId);
@@ -58,6 +49,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	List<Employee> findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(String firstName, Integer deptId, Integer jobId);
 
 	List<Employee> findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleIdAndIsActiveIsTrue(String firstName, String lastName, Integer deptId, Integer jobId);
+	
+	List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
+
+	List<Employee> findAllByEmailIgnoreCaseOrSkypeNameIgnoreCase(String email, String skype);
 
 	@Modifying
 	@Transactional
@@ -69,15 +64,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Query("update Employee emp set emp.isActive = true where emp.id = :id")
 	void reenableEmployee(@Param("id") Integer id);
 	
-	List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
-
-	List<Employee> findAllByEmailIgnoreCaseOrSkypeNameIgnoreCase(String email, String skype);
-	
-	//List<Employee> findByFirstNameContainingIgnoreCase(String firstName);
-
-	//List<Employee> findByFirstNameAndLastNameContainingIgnoreCase(String firstName, String lastName);
-	
-	//List<Employee> findByFirstNameAndMiddleInitialAndLastNameContainingIgnoreCase(String firstName, Character middleInitial, String lastName);
-	
-	//List<Employee> findAllByFirstNameIgnoreCaseAndMiddleInitialAndLastNameIgnoreCase(String firstName, Character mid, String lastName);
 }

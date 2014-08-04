@@ -46,11 +46,13 @@ public class EmployeeService {
 		this.repository.removeEmployee(id);
 	}
 	
+	
 	public void reenableEmployee(Integer id) {
 		this.repository.reenableEmployee(id);
 	}
 
 	
+	// Function that gets employees for the autocompletion
 	public List<Employee> getEmployeeSuggestions(String name) {
 		String nameArr[] = name.split(" ");
 		List<Employee> employees = null;
@@ -70,6 +72,7 @@ public class EmployeeService {
 	}
 	
 	
+	// Function that drives the employee search
 	public List<Employee> findAllEmployeesByCriteria(String name, String deptId, String jobId) {
 		List<Employee> employees = null;
 		
@@ -102,6 +105,7 @@ public class EmployeeService {
 	}
 	
 	
+	//********* Private functions for filter *********
 	private List<Employee> nameNoDeptNoJob(String name) {
 		List<Employee> employees = null;
 		String nameArr[] = name.split(" ");
@@ -175,59 +179,5 @@ public class EmployeeService {
 	public List<Employee> findAllInactiveEmployees() {
 		return this.repository.findAllByIsActiveIsFalse();
 	}
-	
-//
-//public List<Employee> findEmployeesByFirstNameAndLastName(String firstName, String lastName) {
-//	return this.repository.findByFirstNameAndLastNameContainingIgnoreCase(firstName, lastName);
-//}
-//
-//public List<Employee> findAllEmployeesByDepartmentId(Integer deptId) {
-//	return this.repository.findAllByDepartmentId(deptId);
-//}
-//
-//public List<Employee> findAllEmployeesByJobTitleId(Integer jobId) {
-//	return this.repository.findAllByJobTitleId(jobId);
-//}
-//
-//public List<Employee> findAllEmployeesByDepartmentIdAndJobTitleId(Integer deptId, Integer jobTitleId) {
-//	return this.repository.findAllByDepartmentIdAndJobTitleId(deptId, jobTitleId);
-//}
-
-//public List<Employee> findAllEmployeesByFirstNameIgnoreCase(String firstName) {
-//	return this.repository.findAllByFirstNameContainingIgnoreCase(firstName);
-//}
-//
-//public List<Employee> findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCase(String firstName, String lastName) {
-//	return this.repository.findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(firstName, lastName);
-//}
-//
-//
-//public List<Employee> findAllEmployeesByFirstNameIgnoreCaseAndDepartmentId(	String firstName, Integer deptId) {
-//	return this.repository.findAllByFirstNameIgnoreCaseAndDepartmentId(firstName, deptId);
-//}
-//
-//public List<Employee> findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId(String firstName, String lastName, Integer deptId) {
-//	return this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentId(firstName, lastName, deptId);
-//}
-//
-//public List<Employee> findAllEmployeesByFirstNameIgnoreCaseAndJobTitleId(String firstName, Integer jobId) {
-//	return this.repository.findAllByFirstNameIgnoreCaseAndJobTitleId(firstName, jobId);
-//}
-//
-//public List<Employee> findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId(String firstName, String lastName, Integer jobId) {
-//	return this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndJobTitleId(firstName, lastName, jobId);
-//}
-//
-//public List<Employee> findAllEmployeesByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleId(String firstName, Integer deptId, Integer jobId) {
-//	return this.repository.findAllByFirstNameIgnoreCaseAndDepartmentIdAndJobTitleId(firstName, deptId, jobId);
-//}
-//
-//public List<Employee> findAllEmployeesByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleId(String firstName, String lastName, Integer deptId, Integer jobId) {
-//	return this.repository.findAllByFirstNameIgnoreCaseAndLastNameIgnoreCaseAndDepartmentIdAndJobTitleId(firstName, lastName, deptId, jobId);
-//}
-//public List<Employee> findAllEmployeesByFirstNameOrLastName(String string, String string2) {
-//	return this.repository.findAllByFirstNameIgnoreCaseOrLastNameIgnoreCase(string, string2);
-//}
-	
 	
 }

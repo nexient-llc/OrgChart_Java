@@ -143,45 +143,6 @@ public class EmployeeRepositoryTest {
 
 	
 	@Test
-	public void findByManagerId() throws Exception {
-		createManager();
-
-		this.employee.setManager(this.manager);
-		this.empRepo.save(this.employee);
-
-		List<Employee> emps = this.empRepo.findByManager(this.employee.getManager());
-		assertNotNull("Expecting a non-null Employee but was null", emps);
-		assertTrue("Expecting at least one employee found for manager but none was found", emps.size() > 0);
-		Employee emp = emps.get(0);
-		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-		assertEquals(this.employee.getLastName(), emp.getLastName());
-		assertEquals(this.employee.getEmail(), emp.getEmail());
-	}
-
-	
-	@Test
-	public void findByManagerId_empty() throws Exception {
-		Employee emp = Entities.employee();
-		emp.setDepartment(this.department);
-		this.empRepo.saveAndFlush(emp);
-		List<Employee> emps = this.empRepo.findByManager(emp);
-		assertTrue(emps.isEmpty());
-	}
-
-	
-	@Test
-	public void findByFirstNameAndLastNameAndDepartmentAndJobTitle() throws Exception {
-		List<Employee> emp = this.empRepo.findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(employee.getFirstName(), employee.getLastName(), employee.getDepartment().getId(), employee.getJobTitle().getId());
-		assertNotNull("Expecting a non-null Employee but was null", emp);
-		assertTrue(emp.size()==1);
-		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
-		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
-	}
-	
-	
-	@Test
 	public void removeEmployeeTest() throws Exception {
 		Employee emp = Entities.employee();
 		emp.setIsActive(true);

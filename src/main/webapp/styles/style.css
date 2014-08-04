@@ -1,0 +1,32 @@
+
+#navbar {
+	width: 100%;
+	background: #0177C0;
+}
+
+#navbar a {
+	display: inline-block;
+	width: 120px;
+	height: 30px;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+.pure-table {
+	width: 50%;
+	text-align: left;
+}
+	
+
+.sim-logo {
+	background: white 0px -270px url(../images/sim-sprite.png) no-repeat;
+	height: 72px;
+	margin-bottom: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	width: 190px;
+}

@@ -60,6 +60,7 @@ public class Employee extends BaseEntity {
 	private String skypeName;
 	
 	
+	//********* Getters and Setters for the various employee fields *********
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
