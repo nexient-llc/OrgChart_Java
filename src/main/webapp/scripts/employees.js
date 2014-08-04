@@ -5,23 +5,23 @@ var previousPage = 0;
 var currentPage = 0;
 
 $(document).ready(function() {
-	
-	
-	
+	// Toggles visibility of add container and add button
 	$("#cancelButton").click(function() {
 		$("#addEntity").toggle();
 		$("#addBtn-container").toggle();
 	});
 	
+	// Toggles visibility of filterContainer
 	$("#toggleFilter").click(function() {
 		$("#filterContainer").toggle();
 	});
 	
+	// Toggles visibility of filterContainer
 	$("#cancelFilter").click(function() {
 		$("#filterContainer").toggle();
 	});
 	
-	
+	// Checks that all inputs were used and checks validity of email and skype name
 	$("#newEmployeeForm").submit(function() {
 		var id = -1;
 		var email = $("#newEmail").val();
@@ -34,38 +34,10 @@ $(document).ready(function() {
 		
 		validateEmailAndSkype(id, email, skype, "add");
 		
-//		if(ajaxResponse) {
-//			var dataString = $("#newEmployeeForm").serialize();
-//			console.log(dataString);
-//			$.ajax({
-//				type: "POST",
-//				url: "newEmployee",
-//				data: dataString,
-//				dataType: "text",
-//				async: false,
-//				success: function(data) {
-//					var employeeData = $.parseJSON(data);
-//					
-//					var tbody = $("#empTable > tbody");
-//					tbody.append("<tr id='empRow" + employeeData['id'] + "'></tr>");
-//					
-//					var tr = $("#empRow" + employeeData['id']);
-//					tr.append("<td>" + employeeData['firstName'] + " " + employeeData['middleInitial'] + ". " + employeeData['lastName'] + "</td>");
-//					tr.append("<td>" + employeeData['departmentName'] + "</td>");
-//					tr.append("<td>" + employeeData['jobTitleName'] + "</td>");
-//					tr.append("<td><button class=\"pure-button\" onclick=\"openEditForm('" + employeeData['id'] + "', '" + employeeData['firstName'] + "', '" + employeeData['middleInitial'] + "', '" + employeeData['lastName'] + "', '" + employeeData['departmentId'] + "', '" + employeeData['email'] + "', '" + employeeData['skype'] + "', '" + employeeData['jobTitleId'] + "')\">Edit</button></td>");
-//					tr.append("<td><button class=\"pure-button\" onclick=\"removeEmployee('" + employeeData['id'] + "')\">Delete</button></td>");
-//					
-//					$("#cancelButton").click();
-//				}
-//			});
-//		}
 		return ajaxResponse;
-		//reset ajaxResponse and return
-//		ajaxResponse = false;
-//		return false;
 	});
 	
+	// Checks that all inputs were used and checks validity of email and skype name
 	$("#editForm").submit(function() {
 		var id = $("#editEmpId").val();
 		var email = $("#editEmail").val();
@@ -82,14 +54,13 @@ $(document).ready(function() {
 		return ajaxResponse;
 	});
 	
-	
+	// Toggles visibility of the add button and addEntitiy form
 	$('#addBtn').click(function() {
 		$('#addBtn-container').toggle();
 		$('#addEntity').toggle();
 	});
 	
-	
-	
+	// This function does an Ajax call to autocomplete the name field
 	$("input#autocompleteText").autocomplete({
 		source: function(request, response) {
 			$.ajax({
@@ -105,14 +76,12 @@ $(document).ready(function() {
 			});
 		}
 	});
-	
 });
 
-
-
+// This toggles the edit container and auto-populates the various fields with the 
+//    employee being edited
 function openEditForm(id, firstName, middle, lastName, dept, email, skype, job) {
 	$("#editContainer").toggle();
-	
 	$("#editEmpId").val(id);
 	$("#editFirstName").val(firstName);
 	$("#editMiddleInitial").val(middle);
@@ -123,6 +92,7 @@ function openEditForm(id, firstName, middle, lastName, dept, email, skype, job) 
 	$("#editJobTitleSelect").val(job);
 }
 
+// This function does an Ajax call to removeEmployee then removes the table row
 function removeEmployee(id) {
 	if(confirm("You sure you want to delete the employee?") == true) {
 		$.ajax({
@@ -136,6 +106,7 @@ function removeEmployee(id) {
 	}
 }
 
+// This function does an Ajax call to reenableEmployee then removes the table row
 function reenableEmployee(id) {
 	if(confirm("You sure you want to re-enable the employee?") == true) {
 		$.ajax({
@@ -149,6 +120,8 @@ function reenableEmployee(id) {
 	}
 }
 
+// This function does an Ajax call to make sure the email and skype name aren't already in use.
+//    Sets the boolean flag true if they aren't in use and false if they are.
 function validateEmailAndSkype(id, email, skype, addOrEdit) {
 	$.ajax({
 		type: "GET",
@@ -167,7 +140,10 @@ function validateEmailAndSkype(id, email, skype, addOrEdit) {
 	});
 }
 
+// This function takes a parameter for next or previous, updates the current, next, and previous page variables.
+//    Then it does an Ajax call to get the next page of employees, empties the table, and re-populates it.
 function page(flag) {
+	// Update the page variables
 	if(flag == 'next') {
 		//update current page
 		currentPage = nextPage;
@@ -190,7 +166,10 @@ function page(flag) {
 			previousPage = 0;
 	}
 	
+	// for displaying the page number on screen
 	$("#currentPage").html(currentPage + 1);
+	
+	// Ajax call to get the next page of emps
 	$.ajax({
 		type: "GET",
 		url: "nextPage",
@@ -209,7 +188,7 @@ function page(flag) {
 			tbody = $("#container");
 			tbody.empty();
 			
-			// loop through and rebuild the tbdoy with the next page of dudes
+			// loop through and rebuild the tbody with the next page of employees
 			for(var i = 0; i < employees.length; i++) {
 				emp = $.parseJSON(employees[i]);
 				tbody.append("<tr id='empRow" + emp['id'] + "'></tr>");
@@ -220,10 +199,7 @@ function page(flag) {
 				tr.append("<td>" + emp['jobTitleName'] + "</td>");
 				tr.append("<td><button class=\"pure-button\" onclick=\"openEditForm('" + emp['id'] + "', '" + emp['firstName'] + "', '" + emp['middleInitial'] + "', '" + emp['lastName'] + "', '" + emp['departmentId'] + "', '" + emp['email'] + "', '" + emp['skype'] + "', '" + emp['jobTitleId'] + "')\">Edit</button></td>");
 				tr.append("<td><button class=\"pure-button\" onclick=\"removeEmployee('" + emp['id'] + "')\">Delete</button></td>");
-				
-				
 			}
-			
 		}
 	});
 }

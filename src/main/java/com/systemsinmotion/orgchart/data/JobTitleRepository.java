@@ -2,7 +2,6 @@ package com.systemsinmotion.orgchart.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 import java.util.*;

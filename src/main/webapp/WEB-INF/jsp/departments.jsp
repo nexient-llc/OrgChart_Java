@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
@@ -9,9 +8,6 @@
 	</thead> 
 	<c:forEach items="${depts}" var="dept">
 		<tr id="deptRow${dept.getId()}"> 
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<td>delete</td>
-			</sec:authorize> -->
 			<td>${dept.name}</td> 
 			<td>${dept.parentDepartment.name}</td>
 			<td>
@@ -60,23 +56,30 @@
 </div>
 
 <div id="editEntity" style="display: none; ">
-	<fieldset>
-		<legend>Edit Department</legend>
-		<form name="editDept" action="depts" method="post">
-			*Dept Name: <input id="editDeptName" type="text" name="name" />
-			Parent dept: 
-			<select id="editParentDept" name="parentDepartment.id">
-				<option value=""></option>
-				<c:forEach items="${depts}" var="dept">
-					<option value="${dept.getId()}">${dept.getName()}</option>
-				</c:forEach>
-			</select>
-			
-			<input id="editDepartmentId" type="hidden" name="id" value="${dept.getId()}" />
-			
-			<button type="submit">Save</button>
-			<button id="cancelEdit" type="reset">Cancel</button>
-		</form>
 	
-	</fieldset>
+		<form class="pure-form pure-form-aligned" name="editDept" action="depts" method="post">
+			<fieldset>
+				<legend>Edit Department</legend>
+				<div class="pure-control-group">
+					<label for="editDeptName">Department Name</label>
+					<input id="editDeptName" type="text" name="name" />
+				</div>
+				
+				<div class="pure-control-group">
+					<label for="editParentDept">Parent Department</label>
+					<select id="editParentDept" name="parentDepartment.id">
+						<option value=""></option>
+						<c:forEach items="${depts}" var="dept">
+							<option value="${dept.getId()}">${dept.getName()}</option>
+						</c:forEach>
+					</select>
+				</div>
+				
+				<input id="editDepartmentId" type="hidden" name="id" value="${dept.getId()}" />
+				<input type="hidden" name="isActive" value="true" />
+				
+				<button type="submit" class="pure-button pure-button-primary">Save</button>
+				<button id="cancelEdit" type="reset" class="pure-button">Cancel</button>
+			</fieldset>
+		</form>
 </div>

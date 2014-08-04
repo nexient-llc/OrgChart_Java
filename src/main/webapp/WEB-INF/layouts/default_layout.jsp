@@ -15,7 +15,6 @@
 	<script type="text/javascript" src="${pageJS}"></script>
 </c:if>
 
-<%@ include file="/WEB-INF/fragments/styles.jsp"%>
 <title>Systems in Motion Organization Chart: <tiles:getAsString name="title" /></title>
 </head>
 <body>

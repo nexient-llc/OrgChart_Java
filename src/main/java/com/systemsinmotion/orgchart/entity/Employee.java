@@ -125,9 +125,6 @@ public class Employee extends BaseEntity {
 	}
 	
 	public String getFullName() {
-		if(middleInitial == null)
-			return firstName + " " + lastName;
-		else
-			return firstName + " " + middleInitial.toString() + ". " + lastName;
+		return (middleInitial == null) ? (lastName + ", " + firstName) : (lastName + ", " + firstName + " " + middleInitial.toString() + ".");
 	}
 }

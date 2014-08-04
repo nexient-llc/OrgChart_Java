@@ -1,17 +1,12 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -153,11 +148,7 @@ public class DefaultController {
 	// Get job titles view.
 	@RequestMapping(value = "titles", method = RequestMethod.GET)
 	public String doJobTitles_GET(Model model) {
-		List<Employee> employees = employeeService.findAllActiveEmployees();
-		List<Department> departments = departmentService.findAllActiveDepartments();
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
-		model.addAttribute("emps", employees);
-		model.addAttribute("depts", departments);
 		model.addAttribute("titles", jobTitles);
 		return View.JOB_TITLES;
 	}
@@ -173,11 +164,11 @@ public class DefaultController {
 		if(suggestions != null) {
 			for (int i = 0; i < suggestions.size(); i++)
 				returnValue += suggestions.get(i).getFirstName() + " " + suggestions.get(i).getLastName() + ",";
-			
 			return returnValue;
 		} else {
 			return null;
 		}
+		
 	}
 	
 	//********* end GET functions *********
@@ -220,7 +211,7 @@ public class DefaultController {
 	}
 	
 	
-	// Ajax - save employee.  Returns a JSON object as a string.
+	// Ajax - save employee.  Returns a JSON object as a string.  Not currently used anywhere
 	@RequestMapping(value = "newEmployee", method = RequestMethod.POST)
 	public @ResponseBody String insertNewEmployee(Employee newEmployee, Model model) {
 		String retVal = "";
@@ -260,7 +251,6 @@ public class DefaultController {
 	// Ajax - re-enable employee.  Set is_active to true.
 	@RequestMapping(value = "reenableEmployee/{id}", method = RequestMethod.POST)
 	public @ResponseBody void reenableEmployee_POST(@PathVariable("id") Integer id) {
-		System.out.println("\n\n\n" + id + "\n\n\n");
 		employeeService.reenableEmployee(id);
 	}
 	
@@ -269,7 +259,6 @@ public class DefaultController {
 	@RequestMapping(value = "titles", method = RequestMethod.POST)
 	public void doJobTitles_POST(JobTitle job, Model model) {
 		jobTitleService.storeJobTitle(job);
-		
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("titles", jobTitles);
 	}
