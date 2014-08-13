@@ -20,7 +20,7 @@ import com.systemsinmotion.orgchart.web.View;
 public class DepartmentController {
 
 	@Autowired
-	private DepartmentService departmentService;
+	DepartmentService departmentService;
 
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;

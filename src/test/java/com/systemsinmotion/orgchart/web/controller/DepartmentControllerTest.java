@@ -3,7 +3,9 @@ package com.systemsinmotion.orgchart.web.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.util.List;
 
@@ -123,13 +125,14 @@ public class DepartmentControllerTest {
 	public void testSetDepartmentRepo() {
 
 		DepartmentService mockDepartmentService = mock(DepartmentService.class);
-		DepartmentController localController = new DepartmentController();
-		// // doCallRealMethod().when(mockController).setDepartmentService(
-		// // controller.departmentService);
-		// // mockController.setDepartmentService(controller.departmentService);
-		// //
-		// // verify(mockController).setDepartmentService(
-		// // controller.departmentService);
+		DepartmentController localController = mock(DepartmentController.class);
+
+		doCallRealMethod().when(localController).setDepartmentService(
+				mockDepartmentService);
+		localController.setDepartmentService(mockDepartmentService);
+
+		verify(localController).setDepartmentService(mockDepartmentService);
+
 		//
 		// localController.setDepartmentService(mockDepartmentService);
 		// assertNotNull(controller.getDepartmentService());

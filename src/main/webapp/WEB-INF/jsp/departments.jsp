@@ -13,9 +13,11 @@
 		<legend>Add Department</legend>
 		<form:form name="newDept" action="deptAdd" method="post">
 			<div>
-				<labeL>*Dept Name:</labeL><input type="text" name="name" required/> <labeL>Parent
-					Dept:</label> <select name="parentDepartment.id">
-					<option value="">...</option>
+			    <input type="hidden" name="id" id="departId" >
+				<labeL>*Dept Name:</labeL><input type="text" id="department" name="name" required/>
+			     <labeL>Parent Dept:</label> 
+			     <select name="parentDepartment.id" id="parentId">
+					<option>...</option>
 					<c:forEach items="${depts}" var="dept">
 						<option value="${dept.id}">${dept.name}</option>
 					</c:forEach>
@@ -27,51 +29,26 @@
 		</form:form>
 	</fieldset>
 </div>
-<div class="editClass" id="editEntity" style="display: none">
-	<fieldset>
-		<legend>Edit Department</legend>
-		<form:form name="Edit Department" action="deptEdit" method="post">
-			<div>  
-				<labeL>Dept Name:</labeL><input id="department" type="text" name="name" />
-				<input type="hidden" id="departId" name="id"/>
-				<button type="submit">Save</button>
-				<button id="cancel" type="reset" value="reset" >Cancel</button>
-			</div>
-			<div></div>
-		</form:form>
-	</fieldset>
-</div>
-
-<div class="removeClass" id="removeEntity" style="display: none">
-	<fieldset>
-		<legend>Remove Department</legend>
-		<form:form method="get" name="Remove Department" action="delete" >
-			<div>  
-				<labeL>Dept Name:</labeL><input id="removeDepartment" type="text" name="name" />
-				<input type="hidden" id="removeDepartId" name="id"/>
-				<button type="submit">Remove</button>
-				<button id="removeCancel" type="reset" value="reset" >Cancel</button>
-			</div>
-			<div></div>
-		</form:form>
-	</fieldset>
-</div>
 </sec:authorize>
 <table id="t1" >
 	<tr>
 		<th align="left" > Dept Name</th>
 		<th align="left" > Parent Dept</th>
-		<td <sec:authorize access="isAuthenticated()">style="display:block"</sec:authorize> style="display:none"id="addBtn-container">
-			<button type="button" id="addBtn" style="width: 45px;">Add</button>
-			</td>
+		<td>
+		<sec:authorize access="hasRole('ADMIN')">
+		<button type="button" id="addBtn" style="width: 45px;">Add</button>
+		</sec:authorize>
+		</td>
 	</tr>
 	<c:forEach items="${depts}" var="dept">
 		<tr >
 			<td style="width:135px" align="left" >${dept.name}</td> 
 			<td style="width:125px" align="left" > ${dept.parentDepartment.name}</td>
-			<td <sec:authorize access="isAuthenticated()">style="display:block"</sec:authorize> style="display:none">
-			<button  class="editButton" value="${dept.id}" id="editEntity" style="width: 60px;">Modify</button>
-			<button class="removeButton" value="${dept.id}" id="removeEntity" style="width: 60px;">Remove</button>
+			<td>
+			<sec:authorize access="hasRole('ADMIN')">
+			<button  class="editButton" value="${dept.id}" id="editEntity" style="width: 60px;">Edit</button>
+			<button class="removeButton" value="${dept.id}" id="removeEntity" style="width: 70px;">Delete</button>
+			</sec:authorize>
 			</td>
 		</tr>
 	</c:forEach>

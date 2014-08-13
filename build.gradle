@@ -1,0 +1,71 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+repositories {
+
+   jcenter()
+   mavenCentral()
+   maven{
+   	url = 'http://repo.spring.io/'
+   	url = 'http://repository.jboss.org/nexus/content/groups/public-jboss/'
+   }
+  
+}
+
+ext {
+	
+	springVersion = '4.0.1.RELEASE'
+	springSecurityVersion = '3.2.4.RELEASE'
+	springDataJpaVersion  = '1.6.2.RELEASE'
+	
+	hibernateVersion = '4.3.1.Final'
+	hibernateValidatorVersion = '5.0.3.Final'
+	hsqldbVersion = '2.3.1'
+	
+	jUnitVersion  = '4.11'
+	jacksonVersion = '1.9.13'
+}
+
+dependencies{
+
+	compile 'org.springframework:spring-webmvc:4.0.1.RELEASE'
+    compile 'asm:asm-util:3.3.1'
+	compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+	
+	// logger 
+	compile 'org.slf4j:slf4j-simple:1.7.7'
+	// server
+	
+	compile 'javax.servlet:javax.servlet-api:3.0.1'
+
+	compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.1'
+	compile 'jstl:jstl:1.2'
+	compile 'taglibs:standard:1.1.2'
+	compile 'org.apache.tiles:tiles-jsp:2.2.2'
+	
+	//database
+	compile 'org.springframework.data:spring-data-jpa:1.6.2.RELEASE'
+	compile 'org.hsqldb:hsqldb:2.3.2'
+	compile 'org.hibernate:hibernate-entitymanager:4.3.6.Final'
+	compile 'com.mysema.querydsl:querydsl-apt:3.4.1'
+	compile 'com.mysema.querydsl:querydsl-jpa:3.4.1'
+	compile 'org.hibernate:hibernate-validator:5.1.2.Final'
+	
+	//security
+   
+    compile 'org.springframework.security:spring-security-web:3.2.4.RELEASE'
+    compile 'org.springframework.security:spring-security-config:3.2.4.RELEASE'
+    compile 'org.springframework.security:spring-security-taglibs:3.2.4.RELEASE'
+   
+    // testing 
+    compile 'org.mockito:mockito-all:1.9.5'
+    compile 'junit:junit:4.11'
+    compile 'org.springframework:spring-test:4.0.1.RELEASE'
+    
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}

@@ -3,15 +3,13 @@ $(document).ready(function() {
 
 	
 	$('#addBtn').click(function() {
-		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#addEntity').slideToggle('3000', "swing");
-		});
 		
 	});
 	
 	$('#addCancelBtn').click(function() {
 			$('.addClass').slideToggle('3000', "swing");
-			$('#addBtn-container').fadeToggle("fast", "linear");
+			
 	});
 	
 	$('.editButton').click(function() {
@@ -23,18 +21,15 @@ $(document).ready(function() {
 	        url: 'depart',
 	        data: {id:query},
 	        success: function (data) {
-	        	var departmentInfo = $.parseJSON(data);	
-	        	$('#department').val(departmentInfo['name']);
-	        	$('#departId').val(departmentInfo['id']);
+	        	var department = $.parseJSON(data);
+	        	$('#departId').val(department.id);
+	        	$('#department').val(department.name);
+	        	$('#parentId').val(department.parentDepartment.id);
 	        }
 	    });
-		$('#editEntity').slideToggle('3000', "swing");
-		});
-
-	$("#cancel").click(function(){
-		$(".editClass").slideToggle('3000', "swing");
-	   
+		$('#addEntity').slideToggle('3000', "swing");
 	});
+	
 	$('.removeButton').click(function() {
 	
 		var query = $(this).attr('value');
@@ -48,14 +43,9 @@ $(document).ready(function() {
 	        	$('#removeDepartId').val(departmentInfo['id']);
 	        }
 	    });
+		
 		$('#removeDepartmentID').val($(this).attr('value'));
 		$('#removeEntity').slideToggle('3000', "swing");
 	});
-	$("#removeCancel").click(function(){
-		$(".removeClass").slideToggle('3000', "swing");
-	   
-	});
-
-	
 
 });

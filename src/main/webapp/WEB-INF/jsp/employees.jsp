@@ -92,9 +92,14 @@ uri="http://www.springframework.org/security/tags"%>
 			<td>${emps.department.name}</td>
 			<td>${emps.jobTitle.name}</td>
 			<sec:authorize access="hasRole('ADMIN')">
-			<td> ${(emps.getIsActive()) ? "Yes" : "No" } </td>
+			<td>
+			<c:choose>
+			<c:when test="${emps.getIsActive()}">Yes</c:when>
+			<c:otherwise>No</c:otherwise> 
+			</c:choose>
 			<td> ${emps.skypeName}</td>
 			<td> ${emps.email}</td>
+			</td>
 			<td>
 			<button class="editButton" value="${emps.id}"  style="width: 60px;">Edit</button>
 			</td> 			

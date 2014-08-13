@@ -3,9 +3,12 @@ package com.systemsinmotion.orgchart.web.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,9 +42,12 @@ public class JobTitleControllerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testModelShouldContainNewJobTitleList() {
+
+		HttpServletRequest request = mock(HttpServletRequest.class);
 		// Given
 		@SuppressWarnings("unused")
-		String viewName = this.jobTitleController.doJobTitles_GET(this.model);
+		String viewName = this.jobTitleController.doJobTitles_GET(this.model,
+				request);
 
 		// When
 		this.findAllJobTitlesList = (ArrayList<JobTitle>) (this.model.asMap()
@@ -55,10 +61,10 @@ public class JobTitleControllerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testModelShouldUpdateOnJobTitlePagePost() {
-
+		HttpServletRequest request = mock(HttpServletRequest.class);
 		model.addAttribute("titles", findAllJobTitlesList);
 		// Given
-		jobTitleController.doJobTitles_POST(mockJobTitle, model);
+		jobTitleController.doJobTitles_POST(mockJobTitle, model, request, true);
 		// When
 		findAllJobTitlesList = (ArrayList<JobTitle>) model.asMap()
 				.get("titles");

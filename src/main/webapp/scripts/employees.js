@@ -2,6 +2,7 @@ $(document).ready(function() {
 	$('#addBtn-container').css('width', $('#t1').width());
 
 	$('#addBtn').click(function() {
+		$("#searchBtn-container").slideToggle('3000', "swing");
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#addEntity').slideToggle('3000', "swing");
 		});
@@ -98,6 +99,11 @@ $(document).ready(function() {
 		        	
 		        }
 		});
+	});
+	$("#cancelEdit").click(function(){
+		$('#addBtn-container').slideToggle('3000', "swing");
+		$("#searchBtn-container").slideToggle('3000', "swing");
+		$(".editClass").slideToggle('3000', "swing");
 	});
 	
 	$("#searchEdit").click(function(){
