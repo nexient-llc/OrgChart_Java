@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -37,21 +38,13 @@ public class DepartmentController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "deptAdd", method = RequestMethod.POST)
-	public String doDepartment_POST(Department department, Model model) {
-		departmentService.storeDepartment(department);
+	public String doDepartment_POST(Department department, Model model,
+			@RequestParam(value = "isActive", required = false) Object active) {
+		departmentService.storeDepartment(department, active);
 		List<Department> departments = departmentService.activeDepartments();
 		model.addAttribute("depts", departments);
 		return "redirect:depts";
 
-	}
-
-	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(value = "deptEdit", method = RequestMethod.POST)
-	public String doEditDepartment_EDIT(Department department, Model model) {
-		departmentService.storeDepartment(department);
-		List<Department> departments = departmentService.activeDepartments();
-		model.addAttribute("depts", departments);
-		return "redirect:depts";
 	}
 
 	@RequestMapping(value = "depart", method = RequestMethod.GET)

@@ -25,6 +25,7 @@ $(document).ready(function() {
 	        	$('#departId').val(department.id);
 	        	$('#department').val(department.name);
 	        	$('#parentId').val(department.parentDepartment.id);
+	        	$('#active').prop("checked",department.isActive);
 	        }
 	    });
 		$('#addEntity').slideToggle('3000', "swing");

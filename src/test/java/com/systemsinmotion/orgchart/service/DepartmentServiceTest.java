@@ -65,8 +65,8 @@ public class DepartmentServiceTest {
 
 	@Test
 	public void storeDepartment() {
-		Department dept = this.departmentService
-				.storeDepartment(this.mockDepartment);
+		Department dept = this.departmentService.storeDepartment(
+				this.mockDepartment, true);
 		assertNotNull(dept);
 		assertEquals(
 				"Expected " + Entities.DEPT_ID + " but got " + dept.getId(),

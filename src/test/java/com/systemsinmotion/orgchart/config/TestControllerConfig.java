@@ -131,7 +131,7 @@ public class TestControllerConfig {
 		});
 		when(service.activeDepartments()).thenReturn(listOfFoundDepts);
 
-		when(service.storeDepartment(mockDepartment)).thenAnswer(
+		when(service.storeDepartment(mockDepartment, true)).thenAnswer(
 				new Answer<Department>() {
 					public Department answer(InvocationOnMock invocation) {
 						listOfFoundDepts.add(mockDepartment);

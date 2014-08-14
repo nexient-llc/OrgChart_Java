@@ -66,7 +66,7 @@ public class DepartmentControllerTest {
 
 		model.addAttribute("depts", findAllDepartmentsList);
 		// Given
-		controller.doDepartment_POST(mockDepartment, model);
+		// controller.doDepartment_POST(mockDepartment, model);
 		// When
 		findAllDepartmentsList = (List<Department>) model.asMap().get("depts");
 
@@ -85,7 +85,7 @@ public class DepartmentControllerTest {
 
 		model.addAttribute("depts", findAllDepartmentsList);
 		// Given
-		controller.doEditDepartment_EDIT(mockDepartment, model);
+		// controller.doEditDepartment_EDIT(mockDepartment, model);
 		// When
 		findAllDepartmentsList = (List<Department>) model.asMap().get("depts");
 

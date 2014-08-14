@@ -27,10 +27,11 @@ public class DepartmentService {
 	}
 
 	public Department removeDepartment(Department department) {
+
 		Department departmentToRemove = findDepartmentByID(department.getId());
 		departmentToRemove.setIsActive(false);
-
 		return this.departmentRepository.saveAndFlush(departmentToRemove);
+
 	}
 
 	public Department update(Department department) {
@@ -44,7 +45,7 @@ public class DepartmentService {
 		this.departmentRepository = repository;
 	}
 
-	public Department storeDepartment(Department department) {
+	public Department storeDepartment(Department department, Object active) {
 
 		if (department.getParentDepartment() != null
 				&& department.getParentDepartment().getId() == null) {
@@ -53,7 +54,8 @@ public class DepartmentService {
 		if (departmentRepository.findByName(department.getName()) != null) {
 			department = departmentRepository.findByName(department.getName());
 		}
-		department.setIsActive(true);
+		department.setIsActive(((active == null) ? true : false));
+
 		return this.departmentRepository.save(department);
 	}
 

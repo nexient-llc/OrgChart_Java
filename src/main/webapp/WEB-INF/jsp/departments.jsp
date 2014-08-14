@@ -22,6 +22,7 @@
 						<option value="${dept.id}">${dept.name}</option>
 					</c:forEach>
 				</select>
+				<input type="checkbox" id="active" name="isActive"/><label>Active</label>
 				<button type="submit">Save</button>
 				<button id="addCancelBtn" type="reset" value="reset" >Cancel</button>
 			</div>
@@ -46,7 +47,7 @@
 			<td style="width:125px" align="left" > ${dept.parentDepartment.name}</td>
 			<td>
 			<sec:authorize access="hasRole('ADMIN')">
-			<button  class="editButton" value="${dept.id}" id="editEntity" style="width: 60px;">Edit</button>
+			<button class="editButton" value="${dept.id}" id="editEntity" style="width: 60px;">Edit</button>
 			<button class="removeButton" value="${dept.id}" id="removeEntity" style="width: 70px;">Delete</button>
 			</sec:authorize>
 			</td>
