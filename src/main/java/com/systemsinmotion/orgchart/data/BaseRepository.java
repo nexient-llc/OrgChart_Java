@@ -10,6 +10,7 @@ import com.systemsinmotion.orgchart.entity.BaseEntity;
 
 @NoRepositoryBean
 public interface BaseRepository<T extends BaseEntity, ID extends Serializable> extends JpaRepository<T, ID> {
-	// TODO : Fix this!
 	List<T> findByIsActiveIsTrue();
+	
+	List<T> findAll();
 }

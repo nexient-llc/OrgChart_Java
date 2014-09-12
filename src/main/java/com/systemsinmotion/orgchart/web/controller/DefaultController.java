@@ -43,16 +43,13 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		//uncomment when database connection is set up. will throw error when run
-//		 List<Department> departments = departmentService.findAllDepartments();
-//		 model.addAttribute("depts", departments);
-		return View.DEPARTMENTS;
+		 
+		List<Department> departments = departmentService.findAllDepartments();
+        model.addAttribute("depts", departments);
+        return View.DEPARTMENTS;
 	}
 	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
-
-
-
 }

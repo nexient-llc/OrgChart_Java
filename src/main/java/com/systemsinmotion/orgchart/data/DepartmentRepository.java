@@ -11,5 +11,4 @@ public interface DepartmentRepository extends BaseRepository<Department,Integer>
 	Department findByName(String name);
 
 	List<Department> findByParentDepartmentId(Integer id);
-
 }
