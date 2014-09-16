@@ -14,8 +14,8 @@
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
-			<td>${dept.name}</td> 
-			<td>${dept.parentDepartment.name}</td> </tr>
+			<td>${dept.name}</td><td></td>  </tr>
+<%-- 			<td>${dept.parentDepartment.name}</td> </tr> --%>
 	</c:forEach> 
 </table>
 

@@ -7,11 +7,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.sun.istack.internal.NotNull;
-
+import com.systemsinmotion.orgchart.entity.BaseEntity;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Entity
 @Table(name = "EMPLOYEE")
@@ -19,6 +20,7 @@ public class Employee extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
+	@NotNull
 	private Department department;
 
 	@Column(name = "EMAIL")
@@ -45,15 +47,17 @@ public class Employee extends BaseEntity {
 	@NotEmpty
 	@Size(min = 1, max = 45)
 	private String lastName;
-	
-	@Column(name="MANAGER_ID")
-	private Integer managerId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "MANAGER_ID", referencedColumnName = "ID")
+	private Employee manager;
 	
 	@Column(name="MIDDLE_INITIAL")
-	private char middleInitial;
+	private Character middleInitial;
 
 	@Column(name = "SKYPE_NAME")
 	@Size(min = 1, max = 90)
+	@NotNull
 	private String skypeName;
 	
 	public Department getDepartment(){
@@ -80,18 +84,18 @@ public class Employee extends BaseEntity {
 		return this.lastName;
 	}	
 	
-	public Integer getManagerId(){
-		return this.managerId;
+	public Employee getManager() {
+		return this.manager;
 	}
 
-	public char getMiddleInitial(){
+	public Character getMiddleInitial(){
 		return this.middleInitial;
-	}
-
-	public String getSkypeName() {
-		return this.skypeName;
 	}		
 	
+	public String getSkypeName() {
+		return this.skypeName;
+	}
+
 	public void setDepartment(Department department){
 		this.department = department;
 	}
@@ -99,7 +103,7 @@ public class Employee extends BaseEntity {
 	public void setEmail(String email){
 		this.email = email;
 	}
-
+	
 	public void setFirstName(String firstName){
 		this.firstName = firstName;
 	}
@@ -107,25 +111,24 @@ public class Employee extends BaseEntity {
 	public void setIsManager(Boolean isManager){
 		this.isManager = isManager;
 	}
-	
+
 	public void setJobTitle(JobTitle jobTitle){
 		this.jobTitle= jobTitle;
-	}
-
-	public void setLastName(String lastName){
-		this.lastName = lastName;
 	}	
 	
-	public void setManagerId(char middleInitial){
+	public void setLastName(String lastName){
+		this.lastName = lastName;
+	}
+	
+	public void setManager(Employee manager){
+		this.manager= manager;
+	}
+	
+	public void setMiddleInitial(Character middleInitial){
 		this.middleInitial = middleInitial;
 	}
-	
-	public void setManagerId(Integer managerId){
-		this.managerId = managerId;
-	}
-	
+
 	public void setSkypeName(String skypeName) {
 		this.skypeName = skypeName;
-		
 	}
 }

@@ -15,6 +15,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "DEPARTMENT")
 public class Department extends BaseEntity {
 
+	@Column(name="MANAGER_ID")
+	private Integer managerId;
+	
 	@Column(name = "NAME", nullable = false, length = 50)
 	@NotNull
 	@NotEmpty
@@ -25,12 +28,20 @@ public class Department extends BaseEntity {
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department parentDepartment;
 
+	public Integer getManagerId() {
+		return managerId;
+	}
+
 	public String getName() {
 		return this.name;
 	}
 
 	public Department getParentDepartment() {
 		return this.parentDepartment;
+	}
+
+	public void setManagerId(Integer managerId) {
+		this.managerId = managerId;
 	}
 
 	public void setName(String name) {
