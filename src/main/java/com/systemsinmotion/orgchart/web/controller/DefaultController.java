@@ -46,14 +46,16 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		JobTitle newJob = jobTitleService.findById(1007);
-		Department newDep = new Department();
-		newDep.setName("Cake Smacking");
-		newDep.setIsActive(true);
-		departmentService.storeDepartment(newDep);
+//		JobTitle newJob = jobTitleService.findById(1007);
+//		Department newDep = new Department();
+//		newDep.setName("Cake Smacking");
+//		newDep.setIsActive(true);
+//		departmentService.storeDepartment(newDep);
 		//		JobTitle newJob = new JobTitle();
 		//newJob.setName("Being Catman 'cause he's better");
 		//newJob.setIsActive(true);
+		JobTitle title; 
+		title = jobTitleService.findById(55);	
 		List<Employee> employees = employeeService.listByNameSubstring("bo");
 		for(Employee e : employees) {
 			System.out.println(e.getFirstName() + " " + e.getLastName());

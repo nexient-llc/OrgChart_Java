@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
+import com.systemsinmotion.orgchart.entity.JobTitle;
 
 public interface EmployeeRepository extends BaseRepository<Employee, Integer> {
 	

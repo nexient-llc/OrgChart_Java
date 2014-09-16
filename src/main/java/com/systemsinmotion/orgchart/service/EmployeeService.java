@@ -43,4 +43,8 @@ public class EmployeeService{
 	public Employee storeEmployee(Employee employee) {
 		return this.repository.saveAndFlush(employee);
 	}
+
+	public Employee findEmployeeByID(Integer employeeId) {
+		return this.repository.findOne(employeeId);
+	}
 }

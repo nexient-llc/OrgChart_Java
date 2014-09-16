@@ -5,5 +5,4 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 public interface JobTitleRepository extends BaseRepository<JobTitle, Integer> {
 
 	JobTitle findByName(String name);
-	
 }

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.config.JPAConfig;
 import com.systemsinmotion.orgchart.entity.JobTitle;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.data.JobTitleRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -82,7 +83,6 @@ public class JobTitleRepositoryTest {
 	public void update() throws Exception {
 		JobTitle title = this.jobTitleRepo.findByName(this.jobTitle.getName());
 		title.setName(SOME_NEW_NAME);
-		this.jobTitleRepo.save(title);
 
 		title = null;
 		title = this.jobTitleRepo.findByName(SOME_NEW_NAME);

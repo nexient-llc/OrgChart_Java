@@ -20,7 +20,6 @@ public class Employee extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
-	@NotNull
 	private Department department;
 
 	@Column(name = "EMAIL")

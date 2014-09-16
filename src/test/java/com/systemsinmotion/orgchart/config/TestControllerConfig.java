@@ -20,6 +20,8 @@ import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
+import com.systemsinmotion.orgchart.service.EmployeeService;
+import com.systemsinmotion.orgchart.service.JobTitleService;
 
 @Configuration
 @ComponentScan({"com.systemsinmotion.orgchart.web.controller"})
@@ -64,31 +66,31 @@ public class TestControllerConfig {
 		return service;
 	}
 
-//	@Bean
-//	EmployeeService getEmployeeService() {
-//		EmployeeService service = mock(EmployeeService.class);
-//		when(service.findAllEmployees()).thenReturn(listOfFoundEmployees);
-//		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
-//		     public Employee answer(InvocationOnMock invocation) {
-//		         listOfFoundEmployees.add(mockEmployee);
-//		         return mockEmployee;
-//		     }
-//		 });
-//		return service;
-//	}
-//	
-//	@Bean
-//	JobTitleService getJobTitleService() {
-//		JobTitleService service = mock(JobTitleService.class);
-//		when(service.findAllJobTitles()).thenReturn(listOfFoundTitles);
-//		when(service.storeJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
-//		     public JobTitle answer(InvocationOnMock invocation) {
-//		         listOfFoundTitles.add(mockTitle);
-//		         return mockTitle;
-//		     }
-//		 });
-//		return service;
-//	}
+	@Bean
+	EmployeeService getEmployeeService() {
+		EmployeeService service = mock(EmployeeService.class);
+		when(service.findAllEmployees()).thenReturn(listOfFoundEmployees);
+		when(service.storeEmployee(mockEmployee)).thenAnswer(new Answer<Employee>() {
+		     public Employee answer(InvocationOnMock invocation) {
+		         listOfFoundEmployees.add(mockEmployee);
+		         return mockEmployee;
+		     }
+		 });
+		return service;
+	}
+	
+	@Bean
+	JobTitleService getJobTitleService() {
+		JobTitleService service = mock(JobTitleService.class);
+		when(service.findAllJobTitles()).thenReturn(listOfFoundTitles);
+		when(service.storeJobTitle(mockTitle)).thenAnswer(new Answer<JobTitle>() {
+		     public JobTitle answer(InvocationOnMock invocation) {
+		         listOfFoundTitles.add(mockTitle);
+		         return mockTitle;
+		     }
+		 });
+		return service;
+	}
 	
 	@Bean
 	Department getDepartment() {

@@ -91,6 +91,7 @@ public class Entities {
 	public static JobTitle jobTitle(Integer jobTitleId) {
 		JobTitle title = new JobTitle();
 		title.setId(JOB_TITLE_ID);
+		title.setName(JOB_TITLE_NAME + Integer.toString(random.nextInt())); 
 		return title;
 	}
 
