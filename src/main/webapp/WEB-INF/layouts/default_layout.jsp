@@ -21,15 +21,25 @@ var path = "${pageContext.request.contextPath}/app/";
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />
-	<table>
+	 <!--  <table>
 		<tr>
-			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
-			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
-			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
-			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>
-		</tr>
-	</table>
+			<th><label id="navBarHome" style="color: #FFFFFF"><a style="color: #FFF;" href="<c:url value='/app/home.jsp'/>">Home</a></label></th>
+			<th><label id="navBarDepts" style="color: #FFFFFF">Departments</label></th>
+			<th><label id="navBarEmps" style="color: #FFFFFF">Employees</label></th>
+			<th><label id="navBarJobs" style="color: #FFFFFF">Job Titles</label></th>
+		</tr> 
+	</table> -->
+	<div id="navBar">
+          <ul>
+                  <li><a href="<c:url value='/app/home'/>">Home<span></span></a></li>
+                  <li><a href="<c:url value='/app/depts'/>">Departments<span></span></a></li>
+                  <li><a href="<c:url value='/app/emps'/>">Employees<span></span></a></li>
+                  <li><a href="<c:url value='/app/jobs'/>">Job Titles<span></span></a>
+                  </li>
+           </ul>
+  </div>
 	<tiles:insertAttribute name="body" />
+	<tiles:insertAttribute name="page-footer" />
 </body>
 </html>
 

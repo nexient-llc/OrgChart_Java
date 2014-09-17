@@ -54,8 +54,6 @@ public class DefaultController {
 		//		JobTitle newJob = new JobTitle();
 		//newJob.setName("Being Catman 'cause he's better");
 		//newJob.setIsActive(true);
-		JobTitle title; 
-		title = jobTitleService.findById(55);	
 		List<Employee> employees = employeeService.listByNameSubstring("bo");
 		for(Employee e : employees) {
 			System.out.println(e.getFirstName() + " " + e.getLastName());
@@ -71,5 +69,26 @@ public class DefaultController {
 	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
+	}
+
+	public void doEmployees_POST(Employee mockEmployee, Model model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String doEmployees_GET(String string, String string2,
+			String string3, String string4, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String doJobTitles_GET(Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void doJobTitles_POST(JobTitle mockJobTitle, Model model) {
+		// TODO Auto-generated method stub
+		
 	}
 }

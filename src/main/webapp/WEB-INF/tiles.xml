@@ -8,6 +8,7 @@
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-login.jsp" />
 		<put-attribute name="body" />
+		<put-attribute name="page-footer" value="/WEB-INF/fragments/footer.jsp" />
 	</definition>
 	
 	<definition name="departments" extends="main">

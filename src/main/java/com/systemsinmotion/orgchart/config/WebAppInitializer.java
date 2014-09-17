@@ -25,7 +25,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
         servlet.addMapping("/app/*");
         servlet.setLoadOnStartup(1);
-
+        servlet.setInitParameter("useFileMappedBuffer", "false"); //this is needed to hot load edits to static resources (like css files)
         servletContext.addListener(new ContextLoaderListener(ctx));
     }
 
