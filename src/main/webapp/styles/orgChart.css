@@ -115,7 +115,7 @@ SELECT {
 	box-sizing: border-box;
 }
 #navBar > ul > li {
-	background-color: blue;
+	background-color: green;
 	position: relative;
 	float: left;
 	list-style: none;
@@ -123,9 +123,10 @@ SELECT {
 	border-style: solid;
 	border-width: 0px 2px 2px 0px;
 	padding: 3px 10px 3 px 10px;
-	color: #FFF;
+	color: #FFFFFF;
 	text-align: center;
 }
 #navBar > ul > li:last-of-type{
-	border-left-width: 0px;	
+	border-width: 0px;	
+	border-bottom-width: 2px;
 }
