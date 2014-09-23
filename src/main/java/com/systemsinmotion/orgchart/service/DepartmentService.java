@@ -9,13 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+import java.awt.print.Pageable;
+
 @Service("departmentService")
 public class DepartmentService {
 
 	@Autowired
 	DepartmentRepository repository;
 
-	
 	public List<Department> findAllDepartments() {
 		return this.repository.findAll();
 	}
@@ -30,6 +34,10 @@ public class DepartmentService {
 	@Transactional
 	public void removeDepartment(Department dep) {
 		this.repository.delete(dep);
+	}
+	
+	public long rowCount(){
+		return this.repository.count();
 	}
 
 	public void setRepository(DepartmentRepository repository) {
@@ -47,5 +55,9 @@ public class DepartmentService {
 	
 	public List<Department> findDeparmentsWithString(String str){
 		return this.repository.findByNameContaining(str);
+	}
+
+	public Page<Department> getPage(Integer page, Integer size) {
+		return this.repository.findAll(new PageRequest(page, size));
 	}
 }

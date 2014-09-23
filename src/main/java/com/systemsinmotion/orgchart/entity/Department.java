@@ -11,12 +11,18 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "DEPARTMENT")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Department extends BaseEntity {
 
-	@Column(name="MANAGER_ID")
-	private Integer managerId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="MANAGER_ID", referencedColumnName = "ID")
+	private Employee manager;
 	
 	@Column(name = "NAME", nullable = false, length = 50)
 	@NotNull
@@ -28,20 +34,20 @@ public class Department extends BaseEntity {
 	@JoinColumn(name = "PARENT_DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department parentDepartment;
 
-	public Integer getManagerId() {
-		return managerId;
+	public Employee getManager(){
+		return this.manager;
 	}
 
+	public Employee setManager(){
+		return this.manager;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
 
 	public Department getParentDepartment() {
 		return this.parentDepartment;
-	}
-
-	public void setManagerId(Integer managerId) {
-		this.managerId = managerId;
 	}
 
 	public void setName(String name) {

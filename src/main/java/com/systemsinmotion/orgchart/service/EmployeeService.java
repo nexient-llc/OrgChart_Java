@@ -47,4 +47,7 @@ public class EmployeeService{
 	public Employee findEmployeeByID(Integer employeeId) {
 		return this.repository.findOne(employeeId);
 	}
+	public long rowCount(){
+		return this.repository.count();
+	}
 }

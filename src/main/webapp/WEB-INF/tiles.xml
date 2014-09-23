@@ -5,23 +5,44 @@
 	<definition name="main" template="/WEB-INF/layouts/default_layout.jsp">
 		<put-attribute name="title" type="string" />
 		<put-attribute name="page-js" type="string" value="" />
+		<put-attribute name="page-css" type="string" value="" />
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-login.jsp" />
+		<put-attribute name="headingTitle" value=""/>
 		<put-attribute name="body" />
 		<put-attribute name="page-footer" value="/WEB-INF/fragments/footer.jsp" />
 	</definition>
 	
 	<definition name="departments" extends="main">
-		<put-attribute name="title" type="string" value="Departments" />
+		<put-attribute name="title" type="string" value="Department Page" />
 		<put-attribute name="page-js" type="string" value="../scripts/departments.js" />
+		<put-attribute name="page-css" type="string" value="../styles/departments.css" />
 		<put-attribute name="body" value="/WEB-INF/jsp/departments.jsp" />
+		<put-attribute name="headingTitle" value="Systems in Motion Organizational Chart: Department Page"/>
 	</definition>
+	
+	<definition name="employees" extends="main">
+		<put-attribute name="title" type="string" value="Employee Page" />
+		<put-attribute name="page-js" type="string" value="../scripts/employees.js" />
+		<put-attribute name="page-css" type="string" value="../styles/employees.css" />
+		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
+		<put-attribute name="headingTitle" value="Systems in Motion Organizational Chart: Employee Page"/>
+	</definition>	
+	
+	<definition name="jobtitles" extends="main">
+		<put-attribute name="title" type="string" value="Job Title Page" />
+		<put-attribute name="page-js" type="string" value="../scripts/jobtitles.js" />
+		<put-attribute name="page-css" type="string" value="../styles/jobtitles.css" />
+		<put-attribute name="body" value="/WEB-INF/jsp/jobtitles.jsp" />
+		<put-attribute name="headingTitle" value="Systems in Motion Organizational Chart: Job Title Page"/>
+	</definition>		
 	
 	<definition name="home" extends="main">
 		<put-attribute name="title" type="string" value="Home" />
 		<put-attribute name="page-heading"
 			value="/WEB-INF/fragments/heading-no-login.jsp" />
 		<put-attribute name="body" value="/WEB-INF/jsp/home.jsp" />
+		<put-attribute name="headingTitle" value="Welcome to the Systems in Motion Organizational Management Application"/>
 	</definition>
 
 	<definition name="admin/default" extends="main">

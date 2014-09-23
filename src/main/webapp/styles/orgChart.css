@@ -1,51 +1,16 @@
 @charset "UTF-8";
 
-A,BODY,DIV,H1,H2,H3,H4,H5,SPAN,TD,TH {
-	color: #0177C0;
+a, b, h1, h2, h3, h4, h5, p,span {
+	color: #070707;
 	font-family: sans-serif;
-	font-size: 0.90em;
 }
 
-BODY {
-	background-color: #FFF;
-	padding: 1em;
-}
-
-FIELDSET {
-	margin-left: 0;
-}
-
-H3 {
-	margin: 2em 0.4em 0.5em;
-}
-
-LABEL {
-	width: 7em;
-	display: inline-block;
-}
-
-LEGEND {
-	font-weight: bold;
-}
-
-TABLE,TD {
-/* 	border: 0px solid #0177C0; */
-	border-collapse: collapse;
-	border-spacing: 0 0;
-}
-
-
-TD,TH {
-	padding: 0.3em;
-}
-
-TH {
-	background-color: #0177C0;
-	color: white;
-}
-
-SELECT {
-	margin-left: -1px;	
+body {
+	background-color: #FAFAFA;
+	padding: 0px;
+	margin: 0px;
+	min-width: 40em;
+	overflow-x: hidden;
 }
 
 .errorblock {
@@ -55,16 +20,35 @@ SELECT {
 	padding: 8px;
 	margin: 16px;
 }
+#login {	
+	float: right;
+	padding: 10px;	
+}
+
+#login span {
+	font-size: .9em;	
+}
+
+#login span a {
+	
+}
 
 .sim-logo {
-	background: white 0px -270px url(../images/sim-sprite.png) no-repeat;
+	background: 0px -270px url(../images/sim-sprite.png) no-repeat;
+	background-color: #FAFAFA;
 	height: 72px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 1em;
+	padding:0px;
 	width: 190px;
 }
-
+.sim-logo a{
+	display: block; 
+	width: 100%; 
+	height: 100%; 
+	float: left;
+}
 #addBtn-container {
 	margin-top: 0.5em;
 	/*text-align: center;*/
@@ -74,17 +58,13 @@ SELECT {
 	margin-top: 1em;
 }
 
-#login {
-	float: right;
-	cursor: pointer;
-	text-decoration: underline;
-}
 #navBar {
 	position: relative;
-	width: 460px;	
+	float: left;
 	margin: 0px;
 	border: 0px;
 	padding: 0px;
+	overflow: visible;
 }
 
 #navBar > ul {
@@ -93,21 +73,12 @@ SELECT {
 	margin: 0px;
 	float: left;
 	border-width: 2px 2px 0px 2px;
-	border-color: #000;
-	border-style: solid;	
+	border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	overflow: hidden;
 }
-#navBar a {
-	color: #FFF;
-	text-decoration: none;
-	height: 100%;		
-}
-#navBar span {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left 0;
-}
+
 #navBar li {
 	box-sizing: border-box;
 }
@@ -115,18 +86,90 @@ SELECT {
 	box-sizing: border-box;
 }
 #navBar > ul > li {
-	background-color: green;
+	background-color: #0177C0;
 	position: relative;
 	float: left;
+	font-weight: bold;
 	list-style: none;
-	border-color: #000;
-	border-style: solid;
-	border-width: 0px 2px 2px 0px;
-	padding: 3px 10px 3 px 10px;
+	padding: 0px;
 	color: #FFFFFF;
+	width: 140px;
+	height: 34px;
+}
+#navBar > ul > li > div {
+	box-sizing: border-box;
+	width: 80%;	
+	height: 34px;
+	line-height: 34px;
+	margin: auto;
+	position: relative;
 	text-align: center;
+}
+#navBar > ul > li > div:hover {
+	
+	background-color: #013AC0;
+	border-style: solid;
+	border-color: #FFF;
+	border-width: 0px 1px 0px 1px;
+}
+
+#navBar > ul > li > div > a {
+	display: inline-block;
+	color: #FAFAFA;
+	line-height: 1.5;
+	text-decoration: none;
+	font-size: 14px;
+	vertical-align: middle;
+}	
+#navBar > ul > li > div:hover > a {
+	color: #FFF;
 }
 #navBar > ul > li:last-of-type{
 	border-width: 0px;	
 	border-bottom-width: 2px;
+}
+#navBar span {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+}
+.wrapOuter {
+	position: relative;
+	float: left;
+	left: 50%;
+}
+.wrapInner {
+	position: relative;
+	float: left;
+	left: -50%;
+}
+
+.wrapInner > h3 {
+	text-align: center;	
+}
+.wrapFinal {
+	clear: both;
+}
+.table1 {
+	border-spacing: 1px;	
+}
+
+.table1 th {
+	background-color: #0177C0;
+	color: #FAFAFA;
+	padding: 0.25em 1.5em;
+	margin: 0;
+}
+
+.table1 tr {
+	margin: 0;	
+}
+
+.table1 td {
+	background-color: #D3D3D3;
+	margin: 0;
+	padding: 0.25em 1.5em;
+	text-align: center;
 }

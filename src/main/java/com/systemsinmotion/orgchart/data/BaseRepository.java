@@ -3,6 +3,8 @@ package com.systemsinmotion.orgchart.data;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -19,4 +21,6 @@ public interface BaseRepository<T extends BaseEntity, ID extends Serializable> e
 	void delete(ID id);
 	
 	T findOne(ID id);
+
+	Page<T> findAll(Pageable pageable);	
 }

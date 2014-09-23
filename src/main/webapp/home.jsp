@@ -5,6 +5,5 @@
 	<title>Systems In Motion</title>
 </head> 
 <body>
-<%-- url=${request.contextPath}/app/home --%>
 </body> 
 </html>

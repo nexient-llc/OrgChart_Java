@@ -1,1 +1,1 @@
-<div style="width: 100%; text-align: center;">Copyright 2014 Systems in Motion</div>
+<div style="width: 100%; text-align: center; margin-top: 2em; ">©2014 Systems in Motion</div>

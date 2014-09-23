@@ -7,7 +7,6 @@
 <head> 
 <%@ include file="/WEB-INF/fragments/meta-tags.jsp"%>
 <%@ include file="/WEB-INF/fragments/scripts.jsp"%>
-
 <tiles:useAttribute id="pageJS" name="page-js"
 	classname="java.lang.String" ignore="true" />
 <c:if test="${not empty pageJS}">
@@ -16,30 +15,35 @@
 <script type="text/javascript">
 var path = "${pageContext.request.contextPath}/app/";
 </script>
+<tiles:useAttribute id="pageCSS" name="page-css" classname="java.lang.String" ignore="true" />
+<c:if test="${not empty pageCSS}">
+	<link rel="stylesheet" type="text/css" href="<c:url value='${pageCSS}'/>">
+</c:if>
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
-<title>Systems In Motion - <tiles:getAsString name="title" /></title>
+<title>Systems In Motion Organizational Chart: <tiles:getAsString name="title" /></title>
 </head>
 <body>
 	<tiles:insertAttribute name="page-heading" />
-	 <!--  <table>
-		<tr>
-			<th><label id="navBarHome" style="color: #FFFFFF"><a style="color: #FFF;" href="<c:url value='/app/home.jsp'/>">Home</a></label></th>
-			<th><label id="navBarDepts" style="color: #FFFFFF">Departments</label></th>
-			<th><label id="navBarEmps" style="color: #FFFFFF">Employees</label></th>
-			<th><label id="navBarJobs" style="color: #FFFFFF">Job Titles</label></th>
-		</tr> 
-	</table> -->
-	<div id="navBar">
-          <ul>
-                  <li><a href="<c:url value='/app/home'/>">Home<span></span></a></li>
-                  <li><a href="<c:url value='/app/depts'/>">Departments<span></span></a></li>
-                  <li><a href="<c:url value='/app/emps'/>">Employees<span></span></a></li>
-                  <li><a href="<c:url value='/app/jobs'/>">Job Titles<span></span></a>
-                  </li>
-           </ul>
-  </div>
-	<tiles:insertAttribute name="body" />
-	<tiles:insertAttribute name="page-footer" />
+		<div class="wrapOuter">
+			<div class="wrapInner">
+                 <div id="navBar">
+                 <ul>
+                          <li><div><a href="<c:url value='/app/home'/>">Home<span></span></a></div></li>
+                          <li><div><a href="<c:url value='/app/depts'/>">Departments<span></span></a></div></li>
+                          <li><div><a href="<c:url value='/app/emps'/>">Employees<span></span></a></div></li>
+                          <li><div><a href="<c:url value='/app/jobs'/>">Job Titles<span></span></a></div></li>
+                 </ul>
+                 </div>
+            </div>
+        </div>
+        <div class="wrapFinal"></div>
+		<div class="wrapOuter">
+			<div id ="bodyWrapper" class="wrapInner">
+		        <h3><tiles:getAsString name="headingTitle"/></h3> 
+            	<tiles:insertAttribute name="body" />
+                <tiles:insertAttribute name="page-footer" />
+			</div>
+		</div>
 </body>
 </html>
 

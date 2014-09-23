@@ -40,4 +40,8 @@ public class JobTitleService {
 	public JobTitle storeJobTitle(JobTitle jobTitle) {
 		return this.repository.saveAndFlush(jobTitle);
 	}
+	
+	public long rowCount(){
+		return this.repository.count();
+	}
 }

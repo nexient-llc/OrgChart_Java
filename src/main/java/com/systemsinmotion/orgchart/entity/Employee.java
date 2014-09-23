@@ -11,11 +11,15 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.systemsinmotion.orgchart.entity.BaseEntity;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 
 @Entity
 @Table(name = "EMPLOYEE")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Employee extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
