@@ -6,26 +6,6 @@
                         <!-- <th>Task</th></sec:authorize> --> 
                         <th>Department Name</th><th>Parent Department</th><th>Department Manager</th><th>Edit</th><th>Select</th><th>Delete</th>
                 </tr> 
-                <c:forEach items="${depts}" var="dept">
-                        <tr> 
-                                <!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                        <td>delete</td>
-                                </sec:authorize> -->
-                                <td>${dept.name}</td>
-                                <td>
-                                        <c:choose>
-                                                 <c:when test="${not empty dept.parentDepartment}">${dept.parentDepartment.name}</c:when>
-                                                 <c:otherwise>N/A</c:otherwise>
-                                        </c:choose>
-                                </td>
-                                <td>
-                                               <c:choose>
-                                                       <c:when test="${not empty dept.manager}">${dept.manager.firstName} ${dept.manager.lastName}</c:when>	
-                                                       <c:otherwise>N/A</c:otherwise>
-                                               </c:choose> 
-                                </td>
-                                  </tr>
-                </c:forEach> 
         </table>
         <div id="dialogWrapper">
 	       	<div id="addDialog" style="display: hidden;">
@@ -50,6 +30,4 @@
         <div id="addBtn-container">
                         <button type="button" id="addBtn" style="padding: .25em 1.5em;">Add Department</button>	
         </div>
-        <%--<div id="addEntity" style="display:none">
-               
-        </div>--%>
+        <button id="clickme" type="submit">CLICK ME PLEASE</button>

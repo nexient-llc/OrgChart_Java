@@ -31,12 +31,15 @@ $(document).ready(function()
 		url: "depts", 
 		data: null,//{page: 0, size: 2}, 
 		dataType: "JSON", // Execute the response as a script once we get it. 
-		success: test// Call this function when done. 
-		});
+		success: function(data, textStatus){
+			repopulateTable(data);
+		}// Call this function when done. 
+	});
+	$("#clickme").click(function() {
+			saveDepartment({name: "Justice League", parentDepartment: null, manager: null})
+		}
+	);
 	
-	function test(data, textStatus, jqXHR){
-		repopulateTable(data);
-	}	
 	function emptyTable(){
 		$("#departmentTable").children("tbody").children(":not(tr:first)").remove();
 	}
@@ -51,6 +54,18 @@ $(document).ready(function()
 					+ "</td></tr>");
 		}
 		
+	}
+	
+	function saveDepartment(dep){
+		jQuery.ajax({ 
+			type: "POST", 
+			url: "depts", 
+			data: {dep: "whatwhat"},//{page: 0, size: 2}, 
+			dataType: "text", // Execute the response as a script once we get it. 
+			success: function(data, textStatus){
+				alert(data);
+			}// Call this function when done. 
+		});	
 	}
 	
 	function callback(value) {

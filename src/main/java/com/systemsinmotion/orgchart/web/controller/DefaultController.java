@@ -27,10 +27,9 @@ import com.systemsinmotion.orgchart.web.View;
 @Controller
 public class DefaultController {
 	
-	final static Integer DEFAULT_PAGE_SIZE = 20;
-	@SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory.getLogger(DefaultController.class);
 	
+	final static Integer DEFAULT_PAGE_SIZE = 20;
 	final static Integer MAXIMUM_PAGE_SIZE = 50;
 			
 	@Autowired
@@ -59,7 +58,17 @@ public class DefaultController {
 		return this.toJSONArray(depts.getContent());
 	}
 	
-	
+	@RequestMapping(value = "depts", method = RequestMethod.POST, params = "dep")
+	@ResponseBody 
+	public String doDepartments_POST(String dep, Model model) 
+			throws JsonGenerationException, JsonMappingException, IOException 
+	{
+		//Page<Department> depts = departmentService.getPage(page, size);
+		//return this.toJSONArray(depts.getContent());
+		System.out.println(dep);
+		return "WHATWHAT";
+	}
+		
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
 	@ResponseBody 
 	public String doDepartments_POST(Model model) 
@@ -81,7 +90,8 @@ public class DefaultController {
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String doGet() {
-		System.out.println(employeeService.rowCount());
+		System.out.println(log.isDebugEnabled());
+		log.info("WHATUP");	
 		return View.HOME;
 	}
 
