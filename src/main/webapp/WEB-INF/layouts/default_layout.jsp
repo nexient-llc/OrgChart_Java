@@ -17,13 +17,14 @@
 var path = "${pageContext.request.contextPath}/app/";
 </script>
 <%@ include file="/WEB-INF/fragments/styles.jsp"%>
-<title>Systems In Motion - <tiles:getAsString name="title" /></title>
+<title>Systems In Motion Organization Chart: <tiles:getAsString name="title" /> Page</title>
 </head>
 <body>
+    <h1>Welcome to the Systems in Motion Organizational Management Application</h1>
 	<tiles:insertAttribute name="page-heading" />
 	<table>
 		<tr>
-			<th><label id="navBarHome" color="#FFFFFF">Home</label></a></th>
+			<th><label id="navBarHome" color="#FFFFFF">Home</label></th>
 			<th><label id="navBarDepts" color="#FFFFFF">Departments</label></th>
 			<th><label id="navBarEmps" color="#FFFFFF">Employees</label></th>
 			<th><label id="navBarJobs" color="#FFFFFF">Job Titles</label></th>

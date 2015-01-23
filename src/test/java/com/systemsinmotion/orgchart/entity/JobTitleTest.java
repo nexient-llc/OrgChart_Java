@@ -20,11 +20,11 @@ public class JobTitleTest {
 		assertNotNull(jobTitle);
 	}
 	
-//	@Test
-//	public void setAndGetName() {
-//		jobTitle.setName(NEW_NAME);
-//		String name = jobTitle.getName();
-//		assertNotNull(name);
-//		assertEquals(NEW_NAME, name);
-//	}
+	@Test
+	public void setAndGetName() {
+		jobTitle.setName(NEW_NAME);
+		String name = jobTitle.getName();
+		assertNotNull(name);
+		assertEquals(NEW_NAME, name);
+	}
 }

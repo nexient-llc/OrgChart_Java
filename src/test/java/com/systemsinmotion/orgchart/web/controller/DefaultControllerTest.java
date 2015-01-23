@@ -63,23 +63,23 @@ public class DefaultControllerTest {
 		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
 	}
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testModelShouldUpdateOnDepartmentPagePost() {
-
-		model.addAttribute("depts", findAllDepartmentsList);
-		//Given
-//		controller.doDepartments_POST(mockDepartment, model);
-		//When
-		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
-
-		//Then
-		assertNotNull(findAllDepartmentsList);
-		assertTrue(findAllDepartmentsList.size() > 1);
-		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(1).getId());
-		assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
-
-	}
+//	@SuppressWarnings("unchecked")
+//	@Test
+//	public void testModelShouldUpdateOnDepartmentPagePost() {
+//
+//		model.addAttribute("depts", findAllDepartmentsList);
+//		//Given
+////		controller.doDepartments_POST(mockDepartment, model);
+//		//When
+//		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+//
+//		//Then
+//		assertNotNull(findAllDepartmentsList);
+//		assertTrue(findAllDepartmentsList.size() > 1);
+//		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(1).getId());
+//		assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
+//
+//	}
 	
 //	@SuppressWarnings("unchecked")
 //	@Test

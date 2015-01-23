@@ -3,9 +3,11 @@ package com.systemsinmotion.orgchart.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,11 +38,11 @@ public class Employee extends BaseEntity {
 	@Column(name = "IS_MANAGER")
 	private Boolean isManager;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "JOB_TITLE_ID")
 	private JobTitle jobTitle;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "DEPARTMENT_ID")
 	private Department department;
 	
@@ -49,8 +51,8 @@ public class Employee extends BaseEntity {
 	private Employee manager;
 	
 	@Column(name = "MIDDLE_INITIAL", nullable = true, length = 1)
-	@Size(min = 1, max = 1)
-	private char middleInitial;
+	//@Size(min = 0, max = 1)
+	private Character middleInitial;
 
 	public String getFirstName() {
 		return firstName;
@@ -116,11 +118,11 @@ public class Employee extends BaseEntity {
 		this.manager = manager;
 	}
 
-	public char getMiddleInitial() {
+	public Character getMiddleInitial() {
 		return middleInitial;
 	}
 
-	public void setMiddleInitial(char middleInitial) {
+	public void setMiddleInitial(Character middleInitial) {
 		this.middleInitial = middleInitial;
 	}
 

@@ -8,3 +8,13 @@ $(document).ready(function() {
 	});
 	
 });
+
+function editDepartment(id) {
+	$('.editBtn-container').fadeToggle("fast", "linear");
+	$('#editEntity' + id ).fadeToggle("fast", "linear");
+};
+
+function toggleSave() {
+	$('#addBtn-container').fadeToggle("fast", "linear");
+	$('#addEntity').fadeToggle("fast", "linear");
+}

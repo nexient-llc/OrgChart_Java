@@ -19,7 +19,7 @@ public abstract class BaseEntity {
 
 	@JsonIgnore
 	@Column(name="IS_ACTIVE")
-	private Boolean isActive;
+	private Boolean isActive = true;
 
 	public Integer getId() {
 		return this.id;

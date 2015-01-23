@@ -63,12 +63,13 @@ SELECT {
 	width: 190px;
 }
 
-#addBtn-container {
+#addBtn-container/*, .editBtn-container*/ {
 	margin-top: 0.5em;
+	margin-bottom: 1em;
 	/*text-align: center;*/
 }
 
-#addEntity {
+#addEntity, #editEntity, #filterEntity {
 	margin-top: 1em;
 }
 
