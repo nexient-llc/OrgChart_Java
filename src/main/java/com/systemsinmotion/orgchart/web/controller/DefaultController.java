@@ -169,19 +169,24 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "empsfilter", method = RequestMethod.POST)
-	public String doEmployeeFilter_POST(String name, Integer deptId, Integer jobId, Model model) {
+	public String doEmployeeFilter_POST(String name, Integer departmentId, Integer jobTitle, Model model) {
 		List<Employee> employees = new ArrayList<Employee>();
-		if(name.isEmpty() && deptId == null && jobId == null) {
+		if(name.isEmpty() && departmentId == null && jobTitle == null) {
 			employees = employeeService.findAllEmployees();
 		} else {
-			if(!name.isEmpty()) {
-				Employee employee = employeeService.findEmployeeByFirstName(name);
-				if(employee != null) employees.add(employee);
-				employee = employeeService.findEmployeeByLastName(name);
-				if(employee != null) employees.add(employee);
+			if(name.isEmpty() && departmentId != null && jobTitle == null) {
+				employees = employeeService.findEmployeeByDepartmentId(departmentId);
+			} else if(name.isEmpty() && departmentId == null && jobTitle != null) {
+				employees = employeeService.findEmployeeByJobTitleId(jobTitle);
+			} else if(!name.isEmpty() && departmentId == null && jobTitle == null) {
+				employees = employeeService.findEmployeeByFirstNameOrLastName(name, name);
+			} else if(!name.isEmpty() && departmentId != null && jobTitle == null) {
+				employees = employeeService.findEmployeeByFirstNameOrLastNameAndDepartmentId(name, name, departmentId);
+			} else if(!name.isEmpty() && departmentId == null && jobTitle != null) {
+				employees = employeeService.findEmployeeByFirstNameOrLastNameAndJobTitleId(name, name, jobTitle);
 			}
-			if(deptId != null) {
-				
+			else {
+				employees = employeeService.findEmployeeByFirstNameOrLastNameAndDepartmentIdAndJobTitleId(name, name, departmentId, jobTitle);
 			}
 		}
 		model.addAttribute("emps", employees);

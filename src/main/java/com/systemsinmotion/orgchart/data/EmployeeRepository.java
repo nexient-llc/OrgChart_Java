@@ -13,6 +13,8 @@ public interface EmployeeRepository extends BaseRepository<Employee, Integer> {
 	
 	Employee findByLastName(String lastName);
 	
+	List<Employee> findByFirstNameOrLastName(String firstName, String lastName);
+	
 	Employee findByMiddleInitial(Character middleInitial);
 	
 	Employee findByEmail(String email);
@@ -23,6 +25,8 @@ public interface EmployeeRepository extends BaseRepository<Employee, Integer> {
 	
 	List<Employee> findByJobTitleName(String jobTitle);
 	
+	List<Employee> findByJobTitleId(Integer jobId);
+	
 	List<Employee> findByDepartmentName(String department);
 	
 	List<Employee> findByManagerFirstName(String managerFirstName);
@@ -32,7 +36,16 @@ public interface EmployeeRepository extends BaseRepository<Employee, Integer> {
 	List<Employee> findByDepartmentId(Integer deptId);
 
 	List<Employee> findByManager(Employee manager);
+	
+	List<Employee> findByDepartmentIdAndJobTitleId(Integer deptId, Integer jobId);
+	
+	List<Employee> findByFirstNameOrLastNameAndDepartmentId(String firstName, String lastName, Integer deptId);
+	
+	List<Employee> findByFirstNameOrLastNameAndJobTitleId(String firstName, String lastName, Integer jobId);
 
 	List<Employee> findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(
 			String firstName, String lastName, Integer id, Integer id2);
+	
+	List<Employee> findByFirstNameOrLastNameAndDepartmentIdAndJobTitleId (
+			String firstName, String lastName, Integer deptId, Integer jobId);
 }
