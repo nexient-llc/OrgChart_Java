@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -66,6 +68,16 @@ public class DefaultController {
 		department.setName(name);
 		if(parent_id != null) department.setParentDepartment(departmentService.findDepartmentByID(parent_id));
 		else department.setParentDepartment(null);
+		departmentService.storeDepartment(department);
+		List<Department> departments = departmentService.findAllDepartments();
+		model.addAttribute("depts", departments);
+		return View.DEPARTMENTS;
+	}
+	
+	@RequestMapping(value = "removedepts", method = RequestMethod.POST)
+	public String doDepartmentRemove_POST(Integer id, Model model) {
+		Department department = departmentService.findDepartmentByID(id);
+		department.setIsActive(false);
 		departmentService.storeDepartment(department);
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("depts", departments);
@@ -174,16 +186,23 @@ public class DefaultController {
 		if(name.isEmpty() && departmentId == null && jobTitle == null) {
 			employees = employeeService.findAllEmployees();
 		} else {
+			String [] names = name.split(" ");
+			String firstName = names[0];
+			String lastName = null;
+			lastName = names.length == 1 ? firstName : names[1];
 			if(name.isEmpty() && departmentId != null && jobTitle == null) {
 				employees = employeeService.findEmployeeByDepartmentId(departmentId);
 			} else if(name.isEmpty() && departmentId == null && jobTitle != null) {
 				employees = employeeService.findEmployeeByJobTitleId(jobTitle);
 			} else if(!name.isEmpty() && departmentId == null && jobTitle == null) {
-				employees = employeeService.findEmployeeByFirstNameOrLastName(name, name);
+				if(names.length == 1) employees = employeeService.findEmployeeByFirstNameOrLastName(firstName, lastName);
+				else employees = employeeService.findEmployeeByFirstNameAndLastName(firstName, lastName);
 			} else if(!name.isEmpty() && departmentId != null && jobTitle == null) {
-				employees = employeeService.findEmployeeByFirstNameOrLastNameAndDepartmentId(name, name, departmentId);
+				if(names.length == 1) employees = employeeService.findEmployeeByFirstNameAndDepartmentIdOrLastNameAndDepartmentId(firstName, lastName, departmentId);
+				else employees = employeeService.findEmployeeByFirstNameAndDepartmentIdAndLastNameAndDepartmentId(firstName, lastName, departmentId);
 			} else if(!name.isEmpty() && departmentId == null && jobTitle != null) {
-				employees = employeeService.findEmployeeByFirstNameOrLastNameAndJobTitleId(name, name, jobTitle);
+				if(names.length == 1) employees = employeeService.findEmployeeByFirstNameAndJobTitleIdOrLastNameAndJobTitleId(firstName, lastName, jobTitle);
+				else employees = employeeService.findEmployeeByFirstNameAndJobTitleIdAndLastNameAndJobTitleId(firstName, lastName, jobTitle);
 			}
 			else {
 				employees = employeeService.findEmployeeByFirstNameOrLastNameAndDepartmentIdAndJobTitleId(name, name, departmentId, jobTitle);
@@ -195,6 +214,19 @@ public class DefaultController {
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("jobTitles", jobTitles);
 		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = "namesuggestions/{name}", method = RequestMethod.GET)
+	public @ResponseBody String getEmployeeNameSuggestions_GET(@PathVariable("name") String name) {
+		StringBuilder response = new StringBuilder();
+		List<Employee> employees = employeeService.findEmployeeSuggestions(name);
+		for(Employee e : employees) {
+			response.append(e.getFirstName());
+			response.append(" ");
+			response.append(e.getLastName());
+			response.append(",");
+		}
+		return response.toString();
 	}
 
 }

@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<h3>Departments</h3> 
+<h3>Department Page</h3> 
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div>
@@ -18,13 +18,15 @@
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
-			<td>${dept.name}</td> 
-			<td>${dept.parentDepartment.name}</td>
-			<td>
-				<div class="editBtn-container">
-			    	<button type="button" id=${dept.id} class="editBtn" onClick="editDepartment(${dept.id})" style="width: 45px;">Edit</button>	
-            	</div>
-            </td>
+			<c:if test="${dept.isActive}">
+				<td>${dept.name}</td> 
+				<td>${dept.parentDepartment.name}</td>
+				<td>
+					<div class="editBtn-container">
+				    	<button type="button" id=${dept.id} class="editBtn" onClick="editDepartment(${dept.id})" style="width: 45px;">Edit</button>	
+	            	</div>
+	            </td>
+            </c:if>
         </tr>
         <c:set var="deptSelectParentNameIndex" value="${deptSelectParentNameIndex + 1}"></c:set>
 	</c:forEach> 
@@ -76,6 +78,12 @@
 		</div>
 		<div></div>
 		</form>
+		<form action="removedepts" method="post">
+      		<input type="text" name="id" value="${dept.id}" style="display:none"/>
+      		<div class="editBtn-container">
+      			<button type="submit">Remove</button>
+      		</div>
+      	</form>
 	</fieldset>
 </div>
 </c:forEach>

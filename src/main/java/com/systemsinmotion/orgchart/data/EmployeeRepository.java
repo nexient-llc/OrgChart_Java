@@ -15,6 +15,8 @@ public interface EmployeeRepository extends BaseRepository<Employee, Integer> {
 	
 	List<Employee> findByFirstNameOrLastName(String firstName, String lastName);
 	
+	List<Employee> findByFirstNameAndLastName(String firstName, String lastName);
+	
 	Employee findByMiddleInitial(Character middleInitial);
 	
 	Employee findByEmail(String email);
@@ -39,13 +41,21 @@ public interface EmployeeRepository extends BaseRepository<Employee, Integer> {
 	
 	List<Employee> findByDepartmentIdAndJobTitleId(Integer deptId, Integer jobId);
 	
-	List<Employee> findByFirstNameOrLastNameAndDepartmentId(String firstName, String lastName, Integer deptId);
+	List<Employee> findByFirstNameAndDepartmentIdOrLastNameAndDepartmentId(String firstName, Integer dept1Id, String lastName, Integer dept2Id);
 	
-	List<Employee> findByFirstNameOrLastNameAndJobTitleId(String firstName, String lastName, Integer jobId);
+	List<Employee> findByFirstNameAndDepartmentIdAndLastNameAndDepartmentId(String firstName, Integer dept1Id, String lastName, Integer dept2Id);
+	
+	List<Employee> findByFirstNameAndJobTitleIdOrLastNameAndJobTitleId(String firstName, Integer job1Id, String lastName, Integer job2Id);
+	
+	List<Employee> findByFirstNameAndJobTitleIdAndLastNameAndJobTitleId(String firstName, Integer job1Id, String lastName, Integer job2Id);
 
 	List<Employee> findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(
 			String firstName, String lastName, Integer id, Integer id2);
 	
 	List<Employee> findByFirstNameOrLastNameAndDepartmentIdAndJobTitleId (
 			String firstName, String lastName, Integer deptId, Integer jobId);
+	
+	List<Employee> findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCase(String firstName, String lastName);
+	
+	List<Employee> findByFirstNameStartingWithIgnoreCaseAndLastNameStartingWithIgnoreCase(String firstName, String lastName);
 }

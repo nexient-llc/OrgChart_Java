@@ -38,6 +38,10 @@ public class EmployeeService {
 		return this.repository.findByFirstNameOrLastName(firstName, lastName);
 	}
 	
+	public List<Employee> findEmployeeByFirstNameAndLastName(String firstName, String lastName) {
+		return this.repository.findByFirstNameAndLastName(firstName, lastName);
+	}
+	
 	public List<Employee> findEmployeeByDepartmentId(Integer deptId) {
 		return this.repository.findByDepartmentId(deptId);
 	}
@@ -50,12 +54,20 @@ public class EmployeeService {
 		return this.repository.save(mockEmployee);
 	}
 	
-	public List<Employee> findEmployeeByFirstNameOrLastNameAndDepartmentId(String firstName, String lastName, Integer deptId) {
-		return this.repository.findByFirstNameOrLastNameAndDepartmentId(firstName, lastName, deptId);
+	public List<Employee> findEmployeeByFirstNameAndDepartmentIdOrLastNameAndDepartmentId(String firstName, String lastName, Integer deptId) {
+		return this.repository.findByFirstNameAndDepartmentIdOrLastNameAndDepartmentId(firstName, deptId, lastName, deptId);
 	}
 	
-	public List<Employee> findEmployeeByFirstNameOrLastNameAndJobTitleId(String firstName, String lastName, Integer jobId) {
-		return this.repository.findByFirstNameOrLastNameAndJobTitleId(firstName, lastName, jobId);
+	public List<Employee> findEmployeeByFirstNameAndDepartmentIdAndLastNameAndDepartmentId(String firstName, String lastName, Integer deptId) {
+		return this.repository.findByFirstNameAndDepartmentIdAndLastNameAndDepartmentId(firstName, deptId, lastName, deptId);
+	}
+	
+	public List<Employee> findEmployeeByFirstNameAndJobTitleIdOrLastNameAndJobTitleId(String firstName, String lastName, Integer jobId) {
+		return this.repository.findByFirstNameAndJobTitleIdOrLastNameAndJobTitleId(firstName, jobId, lastName, jobId);
+	}
+	
+	public List<Employee> findEmployeeByFirstNameAndJobTitleIdAndLastNameAndJobTitleId(String firstName, String lastName, Integer jobId) {
+		return this.repository.findByFirstNameAndJobTitleIdAndLastNameAndJobTitleId(firstName, jobId, lastName, jobId);
 	}
 	
 	public List<Employee> findEmployeeByDepartmentIdAndJobTitleId(Integer deptId, Integer jobId) {
@@ -64,5 +76,15 @@ public class EmployeeService {
 	
 	public List<Employee> findEmployeeByFirstNameOrLastNameAndDepartmentIdAndJobTitleId(String firstName, String lastName, Integer deptId, Integer jobId) {
 		return this.repository.findByFirstNameOrLastNameAndDepartmentIdAndJobTitleId(firstName, lastName, deptId, jobId);
+	}
+	
+	public List<Employee> findEmployeeSuggestions(String name) {
+		String [] names = name.split(" ");
+		String firstName = names[0];
+		String lastName = names.length == 1 ? firstName : names[1];
+		if(names.length == 1) 
+			return this.repository.findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCase(firstName, lastName);
+		else
+			return this.repository.findByFirstNameStartingWithIgnoreCaseAndLastNameStartingWithIgnoreCase(firstName, lastName);
 	}
 }

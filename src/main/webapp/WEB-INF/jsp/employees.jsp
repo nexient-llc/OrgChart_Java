@@ -11,7 +11,7 @@
 	<fieldset>
 		<legend>Filter Employees</legend>
 		<form name="filterEmp" action="empsfilter" method="post">
-			<label>First/Last Name:</label><input type="text" name="name" />
+			<label>First/Last Name:</label><input name="name" id="autocompletename"></input>
 			<label>Department:</label>
 			<select name="departmentId">
 				<option></option>

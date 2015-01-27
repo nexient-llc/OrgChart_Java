@@ -7,6 +7,22 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('input#autocompletename').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				delay: 0,
+				type: "GET",
+				url: "namesuggestions/" + $("#autocompletename").val(),
+				dataType: "text",
+				success: function(data) {
+					var suggestions = data.split(",");
+					suggestions.pop();
+					response(suggestions);
+				}
+			});
+		}
+	});
+	
 });
 
 function toggleSave() {

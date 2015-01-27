@@ -3,3 +3,4 @@
 <div id="heading"> <div id="login">&nbsp;</div> <div
 	class="sim-logo"></div> </div>
  
+ <h1>Welcome to the Systems in Motion Organizational Management Application</h1>

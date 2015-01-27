@@ -20,7 +20,7 @@ var path = "${pageContext.request.contextPath}/app/";
 <title>Systems In Motion Organization Chart: <tiles:getAsString name="title" /> Page</title>
 </head>
 <body>
-    <h1>Welcome to the Systems in Motion Organizational Management Application</h1>
+	<h1>Systems In Motion Organization Chart</h1>
 	<tiles:insertAttribute name="page-heading" />
 	<table>
 		<tr>
