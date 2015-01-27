@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
+import com.systemsinmotion.orgchart.data.EmployeeRepository;
+import com.systemsinmotion.orgchart.data.JobTitleRepository;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -64,27 +66,27 @@ public class TestServiceConfig {
 		return this.mockTitle;
 	}
 
-//	@Bean
-//	JobTitleRepository getJobTitleRepository() {
-//		JobTitleRepository repo = mock(JobTitleRepository.class);
-//		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
-//		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
-//		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
-//		return repo;
-//	}
+	@Bean
+	JobTitleRepository getJobTitleRepository() {
+		JobTitleRepository repo = mock(JobTitleRepository.class);
+		when(repo.findAll()).thenReturn(this.listOfFoundTitles);
+		when(repo.findOne(Entities.JOB_TITLE_ID)).thenReturn(mockTitle);
+		when(repo.save(this.mockTitle)).thenReturn(this.mockTitle);
+		return repo;
+	}
 	
 	@Bean
 	Employee getEmployee(){
 		return this.mockEmployee;
 	}
 	
-//	@Bean
-//	EmployeeRepository getEmployeeRepository() {
-//		EmployeeRepository repo = mock(EmployeeRepository.class);
-//		when(repo.findAll()).thenReturn(listOfFoundEmployees);
-//		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
-//		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
-//		return repo;
-//	}
+	@Bean
+	EmployeeRepository getEmployeeRepository() {
+		EmployeeRepository repo = mock(EmployeeRepository.class);
+		when(repo.findAll()).thenReturn(listOfFoundEmployees);
+		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
+		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
+		return repo;
+	}
 
 }

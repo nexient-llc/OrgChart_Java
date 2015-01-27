@@ -137,5 +137,5 @@ public class DepartmentDaoTest {
 		dept = this.departmentDao.findByName(SOME_NEW_NAME);
 		assertNotNull(dept);
 		assertEquals(SOME_NEW_NAME, dept.getName());
-	}
+	} 
 }

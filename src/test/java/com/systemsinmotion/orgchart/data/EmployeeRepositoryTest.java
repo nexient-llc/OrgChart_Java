@@ -33,20 +33,23 @@ public class EmployeeRepositoryTest {
 	private Employee employee;
 	private Employee manager;
 
-//	@Autowired
-//	EmployeeRepository empRepo;
+	@Autowired
+	EmployeeRepository empRepo;
 
 	@Autowired
 	DepartmentRepository deptRepo;
+	
+	@Autowired
+	JobTitleRepository jobRepo;
 
 	@After
 	public void after() {
-//		this.empRepo.delete(this.employee);
-//		this.deptRepo.delete(this.department);
-//
-//		if (null != this.manager) {
-//			this.empRepo.delete(this.manager);
-//		}
+		this.empRepo.delete(this.employee);
+		this.deptRepo.delete(this.department);
+
+		if (null != this.manager) {
+			this.empRepo.delete(this.manager);
+		}
 	}
 
 	@Before
@@ -54,9 +57,13 @@ public class EmployeeRepositoryTest {
 		this.department = Entities.department();
 		this.deptRepo.saveAndFlush(this.department);
 
+		this.jobTitle = Entities.jobTitle();
+		this.jobRepo.saveAndFlush(this.jobTitle);
+		
 		this.employee = Entities.employee();
-//		this.employee.setDepartment(this.department);
-//		this.employee.setId(this.empRepo.save(this.employee).getId());
+		this.employee.setDepartment(this.department);
+		this.employee.setJobTitle(this.jobTitle);
+		this.employee.setId(this.empRepo.save(this.employee).getId());
 	}
 
 	@Test
@@ -66,100 +73,100 @@ public class EmployeeRepositoryTest {
 	
 	private void createManager() {
 		this.manager = Entities.manager();
-//		this.empRepo.save(this.manager);
+		this.empRepo.save(this.manager);
 	}
 
-//	@Test
-//	public void findAll() throws Exception {
-//		List<Employee> emps = this.empRepo.findAll();
-//		assertNotNull(emps);
-//		assertTrue(0 < emps.size());
-//	}
+	@Test
+	public void findAll() throws Exception {
+		List<Employee> emps = this.empRepo.findAll();
+		assertNotNull(emps);
+		assertTrue(0 < emps.size());
+	}
 
-//	@Test
-//	public void findByDepartment() throws Exception {
-//		List<Employee> emps = this.empRepo.findByDepartment(this.employee.getDepartment());
-//		assertNotNull("Expecting a non-null list of Employees but was null", emps);
-//		Employee emp = emps.get(0);
-//		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.getLastName());
-//		assertEquals(this.employee.getEmail(), emp.getEmail());
-//	}
+	@Test
+	public void findByDepartment() throws Exception {
+		List<Employee> emps = this.empRepo.findByDepartment(this.employee.getDepartment());
+		assertNotNull("Expecting a non-null list of Employees but was null", emps);
+		Employee emp = emps.get(0);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
 
-//	@Test
-//	public void findByDepartment_null() throws Exception {
-//		List<Employee> emps = this.empRepo.findByDepartment(null);
-//		assertNull("Expecting a null list of Employees but was non-null", emps);
-//		assertTrue(emps.isEmpty());
-//	}
+	@Test
+	public void findByDepartment_null() throws Exception {
+		List<Employee> emps = this.empRepo.findByDepartment(null);
+		//assertNull("Expecting a null list of Employees but was non-null", emps);
+		assertTrue(emps.isEmpty());
+	}
 
-//	@Test
-//	public void findByEmail() throws Exception {
-//		Employee emp = this.empRepo.findByEmail(this.employee.getEmail());
-//		assertNotNull("Expecting a non-null Employee but was null", emp);
-//		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.getLastName());
-//		assertEquals(this.employee.getEmail(), emp.getEmail());
-//	}
+	@Test
+	public void findByEmail() throws Exception {
+		Employee emp = this.empRepo.findByEmail(this.employee.getEmail());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
 
-//	@Test
-//	public void findByEmail_null() throws Exception {
-//		Employee emp = this.empRepo.findByEmail(null);
-//		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
+	@Test
+	public void findByEmail_null() throws Exception {
+		Employee emp = this.empRepo.findByEmail(null);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
 
-//	@Test
-//	public void findByEmailTest_XXX() throws Exception {
-//		Employee emp = this.empRepo.findByEmail(NOT_PRESENT_VALUE);
-//		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
+	@Test
+	public void findByEmailTest_XXX() throws Exception {
+		Employee emp = this.empRepo.findByEmail(NOT_PRESENT_VALUE);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
 
-//	@Test
-//	public void findById() throws Exception {
-//		Employee emp = this.empRepo.findById(this.employee.getId());
-//		assertNotNull("Expecting a non-null Employee but was null", emp);
-//		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.getLastName());
-//		assertEquals(this.employee.getEmail(), emp.getEmail());
-//	}
+	@Test
+	public void findById() throws Exception {
+		Employee emp = this.empRepo.findById(this.employee.getId());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
 
-//	@Test
-//	public void findById_null() throws Exception {
-//		Employee emp = this.empRepo.findById(null);
-//		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
+	@Test
+	public void findById_null() throws Exception {
+		Employee emp = this.empRepo.findById(null);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
 
-//	@Test
-//	public void findById_XXX() throws Exception {
-//		Employee emp = this.empRepo.findById(NOT_PRESENT_ID);
-//		assertNull("Expecting a null Employee but was non-null", emp);
-//	}
+	@Test
+	public void findById_XXX() throws Exception {
+		Employee emp = this.empRepo.findById(NOT_PRESENT_ID);
+		assertNull("Expecting a null Employee but was non-null", emp);
+	}
 
-//	@Test
-//	public void findByManagerId() throws Exception {
-//		createManager();
-//
-//		this.employee.setManager(this.manager);
-//		this.empRepo.save(this.employee);
-//
-//		List<Employee> emps = this.empRepo.findByManager(this.employee.getManager());
-//		assertNotNull("Expecting a non-null Employee but was null", emps);
-//		assertTrue("Expecting at least one employee found for manager but none was found", emps.size() > 0);
-//		Employee emp = emps.get(0);
-//		assertEquals(this.employee.getFirstName(), emp.getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.getLastName());
-//		assertEquals(this.employee.getEmail(), emp.getEmail());
-//	}
+	@Test
+	public void findByManagerId() throws Exception {
+		createManager();
 
-//	@Test
-//	public void findByManagerId_empty() throws Exception {
-//		Employee emp = Entities.employee();
-//		emp.setDepartment(this.department);
-//		this.empRepo.saveAndFlush(emp);
-//		List<Employee> emps = this.empRepo.findByManager(emp);
-//		assertNull(emps);
-//		assertTrue(emps.isEmpty());
-//	}
+		this.employee.setManager(this.manager);
+		this.empRepo.save(this.employee);
+
+		List<Employee> emps = this.empRepo.findByManager(this.employee.getManager());
+		assertNotNull("Expecting a non-null Employee but was null", emps);
+		assertTrue("Expecting at least one employee found for manager but none was found", emps.size() > 0);
+		Employee emp = emps.get(0);
+		assertEquals(this.employee.getFirstName(), emp.getFirstName());
+		assertEquals(this.employee.getLastName(), emp.getLastName());
+		assertEquals(this.employee.getEmail(), emp.getEmail());
+	}
+
+	@Test
+	public void findByManagerId_empty() throws Exception {
+		Employee emp = Entities.employee();
+		emp.setDepartment(this.department);
+		this.empRepo.saveAndFlush(emp);
+		List<Employee> emps = this.empRepo.findByManager(emp);
+		//assertNull(emps);
+		assertTrue(emps.isEmpty());
+	}
 
 //	@Test
 //	public void findByManagerId_null() throws Exception {
@@ -167,14 +174,14 @@ public class EmployeeRepositoryTest {
 //		assertNull(emps);
 //	}
 
-//	@Test
-//	public void findByFirstNameAndLastNameAndDepartmentAndJobTitle() throws Exception {
-//		List<Employee> emp = this.empRepo.findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(employee.getFirstName(), employee.getLastName(), employee.getDepartment().getId(), employee.getJobTitle().getId());
-//		assertNotNull("Expecting a non-null Employee but was null", emp);
-//		assertTrue(emp.size()==1);
-//		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
-//		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
-//		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
-//		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
-//	}
+	@Test
+	public void findByFirstNameAndLastNameAndDepartmentAndJobTitle() throws Exception {
+		List<Employee> emp = this.empRepo.findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(employee.getFirstName(), employee.getLastName(), employee.getDepartment().getId(), employee.getJobTitle().getId());
+		assertNotNull("Expecting a non-null Employee but was null", emp);
+		assertTrue(emp.size()==1);
+		assertEquals(this.employee.getFirstName(), emp.get(0).getFirstName());
+		assertEquals(this.employee.getLastName(), emp.get(0).getLastName());
+		assertEquals(this.employee.getDepartment(), emp.get(0).getDepartment());
+		assertEquals(this.employee.getJobTitle(), emp.get(0).getJobTitle());
+	}
 }
