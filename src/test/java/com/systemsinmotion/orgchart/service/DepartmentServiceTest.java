@@ -25,6 +25,7 @@ public class DepartmentServiceTest {
 
 	@Autowired
 	private Department mockDepartment;
+	
 
 	@Test
 	public void findAllDepartments() {
@@ -42,7 +43,7 @@ public class DepartmentServiceTest {
 
 	@Test
 	public void storeDepartment() {
-		Department dept = this.departmentService.storeDepartment(this.mockDepartment);
+		Department dept = this.departmentService.saveDepartment(this.mockDepartment);
 		assertNotNull(dept);
 		assertEquals("Expected " + Entities.DEPT_ID + " but got " + dept.getId(),Entities.DEPT_ID, dept.getId());
 	}

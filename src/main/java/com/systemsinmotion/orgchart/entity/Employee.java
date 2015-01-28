@@ -41,16 +41,15 @@ public class Employee extends BaseEntity {
 	private JobTitle jobTitle;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DEPARTMENT_ID")
+	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department department;
 	
 	@ManyToOne
 	@JoinColumn(name = "MANAGER_ID")
 	private Employee manager;
 	
-	@Column(name = "MIDDLE_INITIAL", nullable = true, length = 1)
-	@Size(min = 1, max = 1)
-	private char middleInitial;
+	@Column(name = "MIDDLE_INITIAL", nullable = true, unique = false, length = 1)
+	private Character middleInitial;
 
 	public String getFirstName() {
 		return firstName;
@@ -116,12 +115,23 @@ public class Employee extends BaseEntity {
 		this.manager = manager;
 	}
 
-	public char getMiddleInitial() {
+	public Character getMiddleInitial() {
 		return middleInitial;
 	}
 
-	public void setMiddleInitial(char middleInitial) {
+	public void setMiddleInitial(Character middleInitial) {
 		this.middleInitial = middleInitial;
+	}
+	
+	@Override
+	public String toString(){
+		if(this.middleInitial==null)
+		return this.firstName+" "+this.lastName;
+		return this.firstName+" "+this.middleInitial+" "+this.lastName;
+	}
+
+	public String toJson() {
+		return super.toString();
 	}
 
 }

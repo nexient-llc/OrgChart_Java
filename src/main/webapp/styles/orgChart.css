@@ -63,7 +63,16 @@ SELECT {
 	width: 190px;
 }
 
+#jobTitleLabel{
+	width: 25px;
+}
+
 #addBtn-container {
+	margin-top: 0.5em;
+	/*text-align: center;*/
+}
+
+#editBtn-container {
 	margin-top: 0.5em;
 	/*text-align: center;*/
 }

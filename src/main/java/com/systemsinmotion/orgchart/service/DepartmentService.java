@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
@@ -17,7 +18,7 @@ public class DepartmentService {
 	public List<Department> findAllDepartments() {
 		return this.repository.findAll();
 	}
-	
+
 	public List<Department> findAllActiveDepartments() {
 		return this.repository.findByIsActiveIsTrue();
 	}
@@ -27,15 +28,26 @@ public class DepartmentService {
 	}
 
 	public void removeDepartment(Department department) {
-		this.repository.delete(department);
+		department.setIsActive(false);
+		storeDepartment(department);
 	}
 
 	public void setRepository(DepartmentRepository repository) {
 		this.repository = repository;
 	}
 
-	public Department storeDepartment(Department department) {
-		return this.repository.save(department);
+	@Transactional
+	private Department storeDepartment(Department department) {
+		return repository.save(department);
+	}
+
+	@Transactional
+	public Department saveDepartment(Department department) {
+		Department parentDepartment = department.getParentDepartment();
+		if (parentDepartment != null && parentDepartment.getId() == null)
+			department.setParentDepartment(null);
+		department.setIsActive(true);
+		return storeDepartment(department);
 	}
 
 }

@@ -20,24 +20,24 @@ import com.systemsinmotion.orgchart.entity.JobTitle;
 @ContextConfiguration(classes = TestServiceConfig.class)
 public class JobTitleServiceTest {
 	
-//	@Autowired
-//	private JobTitleService titleService;
-//	
-//	@Autowired
-//	private JobTitle mockTitle;
-//	
-//	@Before
-//	public void before() throws Exception {
-//		
-//	}
-//	
-//	@Test
-//	public void findAllJobTitles() {
-//		List<JobTitle> titles = this.titleService.findAllJobTitles();
-//		assertNotNull(titles);
-//		assertTrue(titles.size() > 0);
-//	}
-//	
+	@Autowired
+	private JobTitleService titleService;
+	
+	@Autowired
+	private JobTitle mockTitle;
+	
+	@Before
+	public void before() throws Exception {
+		
+	}
+	
+	@Test
+	public void findAllJobTitles() {
+		List<JobTitle> titles = this.titleService.findAllJobTitles();
+		assertNotNull(titles);
+		assertTrue(titles.size() > 0);
+	}
+	
 //	@Test
 //	public void storeJobTitle() {
 //		JobTitle title = this.titleService.storeJobTitle(this.mockTitle);
