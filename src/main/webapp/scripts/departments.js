@@ -18,7 +18,9 @@ $(document).ready(function() {
 				$('#parentDepartment').val(form.parentDepartment.id);
 			} else {
 			    $('#parentDepartment').val("");
-			}			
+			}
+			
+			var deptId = $('#departmentName').val();
 		});
 	});
 	

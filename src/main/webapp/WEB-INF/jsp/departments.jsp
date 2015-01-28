@@ -57,15 +57,19 @@
 		<fieldset>
 			<form name="editDept" action="depts" method="post">
 			<br>
-				<input type="hidden" id="departmentId" name="id"/>
-					<div>
+				<div>
+					<input type="hidden" id="departmentId" name="id"/>
 						<labeL>* Department Name:</labeL> 
 							<input type="text" name="name" id="departmentName" required /> <br>
 						<labeL>* Parent Department:</label> 
 							<select name="parentDepartment.id" id="parentDepartment">
 								<option></option>
 								<c:forEach items="${depts}" var="dept">
-									<option value="${dept.id}">${dept.name}</option>
+									<c:choose>
+										<c:when test="${dept.isActive}">												
+												<option value="${dept.id}">${dept.name}</option>
+										</c:when>
+									</c:choose>
 								</c:forEach>
 							</select><br><p></p>
 							<p>Required Fields indicated with a *</p>

@@ -52,36 +52,36 @@ public class DefaultControllerTest {
 	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
 
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testModelShouldContainNewDepartmentList() {
-		// Given
-		String viewName = this.controller.doDepartments_GET(this.model);
-
-		// When
-		this.findAllDepartmentsList = (ArrayList<Department>) (this.model.asMap().get("depts"));
-		// Then
-		assertNotNull(this.findAllDepartmentsList);
-		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
-	}
-
 //	@SuppressWarnings("unchecked")
 //	@Test
-//	public void testModelShouldUpdateOnDepartmentPagePost() {
+//	public void testModelShouldContainNewDepartmentList() {
+//		// Given
+//		String viewName = this.controller.doDepartments_GET(this.model);
 //
-//		model.addAttribute("depts", findAllDepartmentsList);
-//		//Given
-////		controller.doDepartments_POST(mockDepartment, model);
-//		//When
-//		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
-//
-//		//Then
-//		assertNotNull(findAllDepartmentsList);
-//		assertTrue(findAllDepartmentsList.size() > 1);
-//		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(1).getId());
-//		assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
-//
+//		// When
+//		this.findAllDepartmentsList = (ArrayList<Department>) (this.model.asMap().get("depts"));
+//		// Then
+//		assertNotNull(this.findAllDepartmentsList);
+//		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
 //	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnDepartmentPagePost() {
+
+		model.addAttribute("depts", findAllDepartmentsList);
+		//Given
+		controller.doDepartments_POST(mockDepartment, null, model);
+		//When
+		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+
+		//Then
+		assertNotNull(findAllDepartmentsList);
+		assertTrue(findAllDepartmentsList.size() > 1);
+		assertEquals(Entities.DEPT_ID, findAllDepartmentsList.get(1).getId());
+		assertEquals(findAllDepartmentsList.get(1).getName(), mockDepartment.getName());
+
+	}
 	
 //	@SuppressWarnings("unchecked")
 //	@Test

@@ -2,16 +2,11 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.Valid;
-
-import org.hibernate.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -128,10 +123,16 @@ public class DefaultController {
 	
 
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(Department department, Integer parent_id, Model model) {		
-		if(parent_id != null){
+	public String doDepartments_POST(Department department, Integer parent_id, Model model) {
+		
+		if(parent_id != null){	
 			department.setParentDepartment(departmentService.findDepartmentByID(parent_id));
-		}
+		}		
+		if(department.getParentDepartment().getId().equals(department.getId())){
+			 List<Department> departments = departmentService.findAllActiveDepartments();
+			 model.addAttribute("depts", departments);
+			return View.DEPARTMENTS;
+		}		
 		departmentService.storeDepartment(department);
 		 List<Department> departments = departmentService.findAllActiveDepartments();
 		 model.addAttribute("depts", departments);
@@ -141,7 +142,7 @@ public class DefaultController {
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
 	public String doEmployees_POST(Employee employee, Integer job_title_id, Integer department_id, Boolean search, Model model) {
 		
-			List<Department> departments = departmentService.findAllActiveDepartments();
+			List<Department> departments = departmentService.findAllDepartments();
 			List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
 			model.addAttribute("depts", departments);
 			model.addAttribute("jobTitles", jobTitle);

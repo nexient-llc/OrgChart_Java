@@ -25,7 +25,6 @@ public class Entities {
 	public static Department department() {
 		Department department = new Department();
 		department.setName(departmentName());
-		//department.setId(departmentId());
 		return department;
 	}
 
@@ -43,10 +42,6 @@ public class Entities {
 
 	private static String departmentName() {
 		return DEPARTMENT_NAME + random.nextInt();
-	}
-
-	private static Integer departmentId() {
-		return DEPT_ID;
 	}
 
 	public static Employee employee(Department dept) {
