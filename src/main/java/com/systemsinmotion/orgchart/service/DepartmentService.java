@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.systemsinmotion.orgchart.data.DepartmentRepository;
 import com.systemsinmotion.orgchart.entity.Department;
+import com.systemsinmotion.orgchart.entity.Employee;
 
 @Service("departmentService")
 public class DepartmentService {
@@ -36,6 +37,11 @@ public class DepartmentService {
 
 	public Department storeDepartment(Department department) {
 		return this.repository.save(department);
+	}
+
+	public Department findDepartmentByManager(Employee manager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -39,11 +39,11 @@ public class Employee extends BaseEntity {
 	private Boolean isManager;
 	
 	@ManyToOne
-	@JoinColumn(name = "JOB_TITLE_ID")
+	@JoinColumn(name = "JOB_TITLE_ID", referencedColumnName = "ID")
 	private JobTitle jobTitle;
 	
 	@ManyToOne
-	@JoinColumn(name = "DEPARTMENT_ID")
+	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
 	private Department department;
 	
 	@ManyToOne

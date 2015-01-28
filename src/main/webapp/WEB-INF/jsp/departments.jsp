@@ -38,7 +38,7 @@
 		<form name="newDept" action="depts" method="post">
 		<div><labeL>Dept Name:</labeL><input type="text" name="name" required />
 			<labeL>Parent Dept:</label>
-			<select name="parent_id">
+			<select name="parentDepartment.id">
 				<option></option>
 				<c:forEach items="${depts}" var="dept">
 					<option value="${dept.id}">${dept.name}</option>

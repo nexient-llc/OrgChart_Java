@@ -7,6 +7,7 @@ $(document).ready(function() {
 		});
 	});
 	
+	// Ajax call to get name suggestions from the server
 	$('input#autocompletename').autocomplete({
 		source: function(request, response) {
 			$.ajax({

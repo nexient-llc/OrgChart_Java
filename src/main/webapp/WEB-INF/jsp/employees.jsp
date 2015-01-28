@@ -65,7 +65,7 @@
 			<label>Last Name*:</label><input type="text" name="lastName" required />
 			<label>Middle Initial:</label><input type="text" name="middleInitial" />
 			<label>Department*:</label>
-			<select name="departmentId" required>
+			<select name="department.id" required>
 				<option></option>
 				<c:forEach items="${depts}" var="dept">
 					<option value="${dept.id}">${dept.name}</option>
@@ -75,7 +75,7 @@
 			<label>Skype Name*:</label><input type="text" name="skypeName" required />
 			<br/>
 			<label>Job Title*:</label>
-			<select name="jobTitle" required>
+			<select name="jobTitle.id" required>
 				<option></option>
 				<c:forEach items="${jobTitles}" var="jobTitle">
 					<option value="${jobTitle.id}">${jobTitle.name}</option>

@@ -51,17 +51,19 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 	
+	// Function for adding a new department
 	@RequestMapping(value = "depts", method = RequestMethod.POST)
-	public String doDepartments_POST(String name, Integer parent_id, Model model) {
-		Department department = new Department();
+	public String doDepartments_POST(Department department, Model model) {
+		/*Department department = new Department();
 		department.setName(name);
-		if(parent_id != null) department.setParentDepartment(departmentService.findDepartmentByID(parent_id));
+		if(parent_id != null) department.setParentDepartment(departmentService.findDepartmentByID(parent_id));*/
 		departmentService.storeDepartment(department);
 		List<Department> departments = departmentService.findAllDepartments();
 		model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 	
+	// Function for editing an existing department
 	@RequestMapping(value = "editdepts", method = RequestMethod.POST)
 	public String doDepartmentsEdit_POST(Integer id, String name, Integer parent_id, Model model) {
 		Department department = departmentService.findDepartmentByID(id);
@@ -74,6 +76,8 @@ public class DefaultController {
 		return View.DEPARTMENTS;
 	}
 	
+	// Function for removing an existing department
+	// This just sets the isActive flag to false
 	@RequestMapping(value = "removedepts", method = RequestMethod.POST)
 	public String doDepartmentRemove_POST(Integer id, Model model) {
 		Department department = departmentService.findDepartmentByID(id);
@@ -99,17 +103,19 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
+	// Function for adding a new employee
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public String doEmployees_POST(String firstName, String lastName, Character middleInitial, Integer departmentId, 
-			String email, String skypeName, Integer jobTitle, Model model) {
-		Employee employee = new Employee();
+	/*public String doEmployees_POST(String firstName, String lastName, Character middleInitial, Integer departmentId, 
+			String email, String skypeName, Integer jobTitle, Model model) {*/
+	public String doEmployees_POST(Employee employee, Model model) {
+		/*Employee employee = new Employee();
 		employee.setFirstName(firstName);
 		employee.setLastName(lastName);
 		employee.setMiddleInitial(middleInitial);
 		employee.setDepartment(departmentService.findDepartmentByID(departmentId));
 		employee.setEmail(email);
 		employee.setSkypeName(skypeName);
-		employee.setJobTitle(jobTitleService.findJobTitleById(jobTitle));
+		employee.setJobTitle(jobTitleService.findJobTitleById(jobTitle));*/
 		try {
 			employeeService.storeEmployee(employee);
 		} catch (Exception e) {
@@ -124,6 +130,8 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
+	
+	// Function for editing an existing employee
 	@RequestMapping(value = "empsedit", method = RequestMethod.POST)
 	public String doEmployeesEdit_POST(Integer id, String firstName, String lastName, Character middleInitial, Integer departmentId, 
 			String email, String skypeName, Integer jobTitle, Model model) {
@@ -154,22 +162,24 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "jobs", method = RequestMethod.GET)
-	public String doJobs_GET(Model model) {
+	public String doJobTitles_GET(Model model) {
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("jobTitles", jobTitles);
 		return View.JOB_TITLES;
 	}
 
+	// Function for adding a new job title
 	@RequestMapping(value = "jobs", method = RequestMethod.POST)
-	public String doJobs_POST(String name, Model model) {
-		JobTitle jobTitle = new JobTitle();
-		jobTitle.setName(name);
+	public String doJobTitles_POST(JobTitle jobTitle, Model model) {
+		/*JobTitle jobTitle = new JobTitle();
+		jobTitle.setName(name);*/
 		jobTitleService.storeJobTitle(jobTitle);
 		List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		model.addAttribute("jobTitles", jobTitles);
 		return View.JOB_TITLES;
 	}
 	
+	// Function for editing an existing job title
 	@RequestMapping(value = "editJob", method = RequestMethod.POST)
 	public String doJobEdit_POST(Integer id, String name, Model model) {
 		JobTitle jobTitle = jobTitleService.findJobTitleById(id);
@@ -180,6 +190,7 @@ public class DefaultController {
 		return View.JOB_TITLES;
 	}
 	
+	// Function for handling the filtering of employees
 	@RequestMapping(value = "empsfilter", method = RequestMethod.POST)
 	public String doEmployeeFilter_POST(String name, Integer departmentId, Integer jobTitle, Model model) {
 		List<Employee> employees = new ArrayList<Employee>();
@@ -216,6 +227,7 @@ public class DefaultController {
 		return View.EMPLOYEES;
 	}
 	
+	// Responsible for handling the ajax call to get name suggestions
 	@RequestMapping(value = "namesuggestions/{name}", method = RequestMethod.GET)
 	public @ResponseBody String getEmployeeNameSuggestions_GET(@PathVariable("name") String name) {
 		StringBuilder response = new StringBuilder();
