@@ -3,6 +3,9 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 	
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	
 <h3>Employee Page</h3>
 
 <button type="button" id="filterBtn" onClick="toggleFilter()" style="width: 45px;">Filter</button>
