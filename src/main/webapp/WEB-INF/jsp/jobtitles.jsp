@@ -5,6 +5,12 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   
+   <style>
+	.ui-dialog-titlebar-close {
+	  visibility: hidden;
+	}
+	</style>
+	
 <h3>Job Titles</h3> 
 
 <div id="addBtn-container">
@@ -14,7 +20,7 @@
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Job Title</th>
+		<th>Job Title</th><th>Edit</th>
 	</tr> 
 		<c:forEach items="${jobs}" var="job">
 					<tr>
@@ -36,6 +42,7 @@
 			<input type="text" name="name" required max=1/><br><br>
 			<p>Required Fields indicated with a *</p>
 			<button type="submit">Save</button>
+			<button type="reset" name="resetMakeBtn" id="resetMakeBtn">Cancel</button>
 				</div>
 			<div></div>
 			</form>
@@ -52,8 +59,7 @@
 							<input type="text" name="name" id="jobTitleName" required /> <br><p></p>
 							<p>Required Fields indicated with a *</p>
 						<button type="submit">Save</button>
-<!--						<button type="reset" id="cancelEditButton">Cancel</button>
-						<button type="button" id="removeButton">Remove</button>   -->
+						<button type="reset" name="resetEditBtn" id="resetEditBtn">Cancel</button>
 					</div>
 				<div></div>
 			</form>

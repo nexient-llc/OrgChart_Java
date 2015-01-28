@@ -5,6 +5,20 @@
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <style>
+    .ui-widget{
+    	font-size: .9em;   
+    }
+    
+	.ui-dialog-titlebar-close {
+	  visibility: hidden;
+	}
+	
+	#searchEmp label {
+		display: inline;	
+	}
+  </style>
+  
 <h3>Employees</h3> 
 
 <div id="searchBtn-container">
@@ -13,25 +27,29 @@
 
 <div id="form-filter" title="Filter Employees" style="display:none">
 	<fieldset>
-		<form name="newEmp" action="emps" method="post">
-			<labeL>Name:</labeL> <input type="text" name="firstName" id="autocompleteText" maxlength="20"/>
+		<form name="searchEmp" id="searchEmp" action="emps" method="post">
+			<label>Name:</label> <input type="text" name="firstName" id="autocompleteText" maxlength="20"/>&nbsp;
 				<labeL>Job Title:</labeL>
 					<select name="job_title_id" id="jobTitle">
 						<option value=""></option>
 						<c:forEach items="${jobTitles}" var="jobTitle">
 							<option value="${jobTitle.id}">${jobTitle.name}</option>
 						</c:forEach>
-					</select>
+					</select>&nbsp;
 				<labeL>Department</labeL>
 					<select name="department_id" id="department">
 						<option value =""></option>
 						<c:forEach items="${depts}" var="dept">
-							<option value="${dept.id}">${dept.name}</option>
+							<c:choose>
+								<c:when test="${dept.isActive}">	
+									<option value="${dept.id}">${dept.name}</option>
+								</c:when>
+							</c:choose>
 						</c:forEach>
-					</select>
-				<button type="submit" id="search" name="search" value="true">Search</button>			
-		</form><br>
-		<button id="cancelBtn" name="cancelBtn">Cancel</button>		
+					</select>&nbsp;
+				<button type="submit" id="search" name="search" value="true">Search</button>
+				<button type="reset" id="cancelBtn" name="cancelBtn">Cancel</button>			
+		</form>		
 	</fieldset>
 </div>
 <div id="addBtn-container">
@@ -42,7 +60,7 @@
 	<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
 		<tr>
-		<th>First Name</th><th>Last Name</th><th>Job Title</th><th>Department</th>
+		<th>First Name</th><th>Last Name</th><th>Job Title</th><th>Department</th><th>Edit</th>
 		</tr>		
 	<c:forEach items="${emps}" var="emp">
 		<tr> 
@@ -95,6 +113,7 @@
 				</select><br><br>
 			<div> <p class="validateTips">Required Fields indicated with a *</p></div><br>
 			<button type="submit" >Save</button>
+			<button type="reset" name="resetMakeBtn" id="resetMakeBtn">Cancel</button>
 		</div>
 		</form>
 	</fieldset>
@@ -139,6 +158,7 @@
 				</select><br><br>
 			<div> <p class="validateTips">Required Fields indicated with a *</p></div><br>
 			<button type="submit" >Save</button>
+			<button type="reset" name="resetEditBtn" id="resetEditBtn">Cancel</button>
 		</div>
 		</form>
 	</fieldset>

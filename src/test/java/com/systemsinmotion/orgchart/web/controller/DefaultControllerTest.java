@@ -3,6 +3,7 @@ package com.systemsinmotion.orgchart.web.controller;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,26 +45,26 @@ public class DefaultControllerTest {
 	//	Map model = new HashMap<String, Object>();
 	Model model = new ExtendedModelMap();
 
-	private ArrayList<Department> findAllDepartmentsList;
-	private ArrayList<Employee> findAllEmployeesList;
-	private ArrayList<JobTitle> findAllJobTitlesList;
+	private List<Department> findAllDepartmentsList;
+	private List<Employee> findAllEmployeesList;
+	private List<JobTitle> findAllJobTitlesList;
 
 	@SuppressWarnings("unused")
 	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
 
 
-//	@SuppressWarnings("unchecked")
-//	@Test
-//	public void testModelShouldContainNewDepartmentList() {
-//		// Given
-//		String viewName = this.controller.doDepartments_GET(this.model);
-//
-//		// When
-//		this.findAllDepartmentsList = (ArrayList<Department>) (this.model.asMap().get("depts"));
-//		// Then
-//		assertNotNull(this.findAllDepartmentsList);
-//		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
-//	}
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldContainNewDepartmentList() {
+		// Given
+		String viewName = this.controller.doDepartments_GET(this.model);
+
+		// When
+		this.findAllDepartmentsList = (List<Department>) (this.model.asMap().get("depts"));
+		// Then
+		assertNotNull(this.findAllDepartmentsList);
+		assertEquals(Entities.DEPT_ID, this.findAllDepartmentsList.get(0).getId());
+	}
 
 	@SuppressWarnings("unchecked")
 	@Test
@@ -73,7 +74,7 @@ public class DefaultControllerTest {
 		//Given
 		controller.doDepartments_POST(mockDepartment, null, model);
 		//When
-		findAllDepartmentsList = (ArrayList<Department>)model.asMap().get("depts");
+		findAllDepartmentsList = (List<Department>) (this.model.asMap().get("depts"));
 
 		//Then
 		assertNotNull(findAllDepartmentsList);
@@ -83,66 +84,66 @@ public class DefaultControllerTest {
 
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	@Test
-//	public void testModelShouldContainNewEmployeeList() {
-//		// Given
-//		String viewName = this.controller.doEmployees_GET("", "", "", "", this.model);
-//
-//		// When
-//		this.findAllEmployeesList = (ArrayList<Employee>) (this.model.asMap().get("emps"));
-//		// Then
-//		assertNotNull(this.findAllEmployeesList);
-//		assertEquals(Entities.EMPLOYEE_ID, this.findAllEmployeesList.get(0).getId());
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	@Test
-//	public void testModelShouldUpdateOnEmployeePagePost() {
-//
-//		model.addAttribute("emps", findAllEmployeesList);
-//		//Given
-//		controller.doEmployees_POST(mockEmployee, model);
-//		//When
-//		findAllEmployeesList = (ArrayList<Employee>)model.asMap().get("emps");
-//
-//		//Then
-//		assertNotNull(findAllEmployeesList);
-//		assertTrue(findAllEmployeesList.size() > 1);
-//		assertEquals(Entities.EMPLOYEE_ID, findAllEmployeesList.get(1).getId());
-//		assertEquals(findAllEmployeesList.get(1).getEmail(), mockEmployee.getEmail());
-//
-//	}
-//	
-//	@SuppressWarnings("unchecked")
-//	@Test
-//	public void testModelShouldContainNewJobTitleList() {
-//		// Given
-//		String viewName = this.controller.doJobTitles_GET(this.model);
-//
-//		// When
-//		this.findAllJobTitlesList = (ArrayList<JobTitle>) (this.model.asMap().get("titles"));
-//		// Then
-//		assertNotNull(this.findAllJobTitlesList);
-//		assertEquals(Entities.JOB_TITLE_ID, this.findAllJobTitlesList.get(0).getId());
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	@Test
-//	public void testModelShouldUpdateOnJobTitlePagePost() {
-//
-//		model.addAttribute("titles", findAllJobTitlesList);
-//		//Given
-//		controller.doJobTitles_POST(mockJobTitle, model);
-//		//When
-//		findAllJobTitlesList = (ArrayList<JobTitle>)model.asMap().get("titles");
-//
-//		//Then
-//		assertNotNull(findAllJobTitlesList);
-//		assertTrue(findAllJobTitlesList.size() > 1);
-//		assertEquals(Entities.JOB_TITLE_ID, findAllJobTitlesList.get(1).getId());
-//		assertEquals(findAllJobTitlesList.get(1).getName(), mockJobTitle.getName());
-//
-//	}
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldContainNewEmployeeList() {
+		// Given
+		String viewName = this.controller.doEmployees_GET(mockEmployee, this.model);
+
+		// When
+		this.findAllEmployeesList = (ArrayList<Employee>) (this.model.asMap().get("emps"));
+		// Then 
+		assertNotNull(this.findAllEmployeesList);
+		assertEquals(Entities.EMPLOYEE_ID, this.findAllEmployeesList.get(0).getId());
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnEmployeePagePost() {
+
+		model.addAttribute("emps", findAllEmployeesList);
+		//Given
+		controller.doEmployees_POST(mockEmployee, null, null, null, null, model);
+		//When
+		findAllEmployeesList = (ArrayList<Employee>)model.asMap().get("emps");
+
+		//Then
+		assertNotNull(findAllEmployeesList);
+		assertTrue(findAllEmployeesList.size() > 1);
+		assertEquals(Entities.EMPLOYEE_ID, findAllEmployeesList.get(1).getId());
+		assertEquals(findAllEmployeesList.get(1).getEmail(), mockEmployee.getEmail());
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldContainNewJobTitleList() {
+		// Given
+		String viewName = this.controller.doJobTitles_GET(this.model);
+
+		// When
+		this.findAllJobTitlesList = (ArrayList<JobTitle>) (this.model.asMap().get("jobs"));
+		// Then
+		assertNotNull(this.findAllJobTitlesList);
+		assertEquals(Entities.JOB_TITLE_ID, this.findAllJobTitlesList.get(0).getId());
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testModelShouldUpdateOnJobTitlePagePost() {
+
+		model.addAttribute("jobs", findAllJobTitlesList);
+		//Given
+		controller.doJobTitles_POST(mockJobTitle, model);
+		//When
+		findAllJobTitlesList = (ArrayList<JobTitle>)model.asMap().get("jobs");
+
+		//Then
+		assertNotNull(findAllJobTitlesList);
+		assertTrue(findAllJobTitlesList.size() > 1);
+		assertEquals(Entities.JOB_TITLE_ID, findAllJobTitlesList.get(1).getId());
+		assertEquals(findAllJobTitlesList.get(1).getName(), mockJobTitle.getName());
+
+	}
 
 }

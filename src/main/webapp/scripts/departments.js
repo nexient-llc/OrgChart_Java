@@ -20,10 +20,18 @@ $(document).ready(function() {
 			    $('#parentDepartment').val("");
 			}
 			
-			var deptId = $('#departmentName').val();
-		});
+			select = document.getElementById("parentDepartment");
+			parentId = document.getElementById("departmentId").value;
+			options = select.options;
+			for(var i = 0; i < options.length; i++ ){
+				if(options[i].value == parentId){
+					options[i].disabled=true;
+					break;
+				}
+			}
+		});	
 	});
-	
+	var select, parentId, options
     var dialogMake, dialogEdit
 
     
@@ -44,4 +52,21 @@ $(document).ready(function() {
     $( "#addBtn" ).click(function() {
       dialogMake.dialog( "open" );
     });
+    
+	$('#resetEditBtn').click(function() {
+		
+		dialogEdit.dialog("close");
+		
+		for(var i = 0; i < options.length; i++ ){
+			if(options[i].value == parentId){
+				options[i].disabled=false;
+				break;
+			}
+		}			
+	})
+	
+		$('#resetMakeBtn').click(function() {
+		
+		dialogMake.dialog("close");			
+	})
 });
