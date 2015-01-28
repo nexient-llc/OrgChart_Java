@@ -2,6 +2,7 @@ package com.systemsinmotion.orgchart.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class DefaultController {
 	
 	@RequestMapping(value = "depts", method = RequestMethod.GET)
 	public String doDepartments_GET(Model model) {
-		 List<Department> departments = departmentService.findAllActiveDepartments();
+		 List<Department> departments = departmentService.findAllDepartments();
 		 model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
@@ -126,26 +127,27 @@ public class DefaultController {
 	public String doDepartments_POST(Department department, Integer parent_id, Model model) {
 		
 		if(parent_id != null){	
-			department.setParentDepartment(departmentService.findDepartmentByID(parent_id));
-		}		
-		if(department.getParentDepartment().getId().equals(department.getId())){
-			 List<Department> departments = departmentService.findAllActiveDepartments();
-			 model.addAttribute("depts", departments);
-			return View.DEPARTMENTS;
-		}		
+			department.setParentDepartment(departmentService.findDepartmentByID(parent_id));		
+			if(department.getParentDepartment().getId().equals(department.getId())){
+				List<Department> departments = departmentService.findAllActiveDepartments();
+				model.addAttribute("depts", departments);
+				return View.DEPARTMENTS;
+			}	
+		}
 		departmentService.storeDepartment(department);
-		 List<Department> departments = departmentService.findAllActiveDepartments();
+		 List<Department> departments = departmentService.findAllDepartments();
 		 model.addAttribute("depts", departments);
 		return View.DEPARTMENTS;
 	}
 	
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public String doEmployees_POST(Employee employee, Integer job_title_id, Integer department_id, Boolean search, Model model) {
+	public String doEmployees_POST(Employee employee,String name, Integer job_title_id, Integer department_id, Boolean search, Model model) {
 		
 			List<Department> departments = departmentService.findAllDepartments();
 			List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
 			model.addAttribute("depts", departments);
 			model.addAttribute("jobTitles", jobTitle);
+			
 			if(department_id != null){
 				employee.setDepartment(departmentService.findDepartmentByID(department_id));
 			}
@@ -155,6 +157,16 @@ public class DefaultController {
 			
 			if(search != null){
 				if(search == true){
+					String nameArr[] = employee.getFirstName().split(" ");
+					
+					if(nameArr.length == 1) {
+						employee.setFirstName(nameArr[0]);
+					}
+					else if(nameArr.length == 2) {
+						employee.setFirstName(nameArr[0]);
+						employee.setLastName(nameArr[1]);
+					}
+					
 					List<Employee> employees = employeeSearch(employee);
 					
 					model.addAttribute("emps", employees);
@@ -174,7 +186,7 @@ public class DefaultController {
 	}
 
 	@RequestMapping(value = "jobs", method = RequestMethod.POST)
-	public String doDepartments_POST(JobTitle jobTitle, Model model) {
+	public String doJobTitles_POST(JobTitle jobTitle, Model model) {
 		jobTitleService.storeJobTitle(jobTitle);
 		 List<JobTitle> jobTitles = jobTitleService.findAllJobTitles();
 		 model.addAttribute("jobs", jobTitles);
@@ -201,31 +213,46 @@ public class DefaultController {
 			employee.setFirstName(null);
 		}
 		
-		if( employee.getFirstName() != null && employee.getDepartment() != null && employee.getJobTitle() != null){
-			employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getDepartment(), employee.getJobTitle()));									
-		}
-		else if( employee.getFirstName() != null && employee.getDepartment() != null && employee.getJobTitle() == null){
-			employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartment(employee.getFirstName(), employee.getFirstName(), employee.getDepartment()));														
-		}
-		else if( employee.getFirstName() != null && employee.getDepartment() == null && employee.getJobTitle() != null){
-			employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getJobTitle()));						
-		}
-		else if( employee.getFirstName() == null && employee.getDepartment() != null && employee.getJobTitle() != null){
-			employees.addAll(employeeService.findDistinctEmployeeByDepartmentAndJobTitle(employee.getDepartment(), employee.getJobTitle()));						
-		}
-		else if( employee.getFirstName() != null && employee.getDepartment() == null && employee.getJobTitle() == null){
-			employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastName(employee.getFirstName(), employee.getFirstName()));						
-		}
-		else if( employee.getFirstName() == null && employee.getDepartment() == null && employee.getJobTitle() != null){
-			employees.addAll(employeeService.findDistinctEmployeeByJobTitle(employee.getJobTitle()));						
-		}
-		else if( employee.getFirstName() == null && employee.getDepartment() != null && employee.getJobTitle() == null){
-			employees.addAll(employeeService.findDistinctEmployeeByDepartment(employee.getDepartment()));						
+		if(employee.getLastName() == null){
+			if( employee.getFirstName() != null && employee.getDepartment() != null && employee.getJobTitle() != null){
+				employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getDepartment(), employee.getJobTitle()));									
+			}
+			else if( employee.getFirstName() != null && employee.getDepartment() != null && employee.getJobTitle() == null){
+				employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartment(employee.getFirstName(), employee.getFirstName(), employee.getDepartment()));														
+			}
+			else if( employee.getFirstName() != null && employee.getDepartment() == null && employee.getJobTitle() != null){
+				employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getJobTitle()));						
+			}
+			else if( employee.getFirstName() == null && employee.getDepartment() != null && employee.getJobTitle() != null){
+				employees.addAll(employeeService.findDistinctEmployeeByDepartmentAndJobTitle(employee.getDepartment(), employee.getJobTitle()));						
+			}
+			else if( employee.getFirstName() != null && employee.getDepartment() == null && employee.getJobTitle() == null){
+				employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastName(employee.getFirstName(), employee.getFirstName()));						
+			}
+			else if( employee.getFirstName() == null && employee.getDepartment() == null && employee.getJobTitle() != null){
+				employees.addAll(employeeService.findDistinctEmployeeByJobTitle(employee.getJobTitle()));						
+			}
+			else if( employee.getFirstName() == null && employee.getDepartment() != null && employee.getJobTitle() == null){
+				employees.addAll(employeeService.findDistinctEmployeeByDepartment(employee.getDepartment()));						
+			}
+			else{
+				employees.addAll(employeeService.findAllEmployees());					
+			}
 		}
 		else{
-			employees.addAll(employeeService.findAllEmployees());					
+			if (employee.getDepartment() != null && employee.getJobTitle() != null){
+				employees.addAll(employeeService.findDistinctEmployeeByFirstNameAndLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getLastName(), employee.getDepartment(), employee.getJobTitle()));									
+			}
+			else if (employee.getDepartment() != null && employee.getJobTitle() == null){
+				employees.addAll(employeeService.findDistinctEmployeeByFirstNameAndLastNameAndDepartment(employee.getFirstName(), employee.getLastName(), employee.getDepartment()));														
+			}
+			else if (employee.getDepartment() == null && employee.getJobTitle() != null){
+				employees.addAll(employeeService.findDistinctEmployeeByFirstNameAndLastNameAndJobTitle(employee.getFirstName(), employee.getLastName(), employee.getJobTitle()));						
+			}
+			else if (employee.getDepartment() == null && employee.getJobTitle() == null){
+				employees.addAll(employeeService.findDistinctEmployeeByFirstNameAndLastName(employee.getFirstName(), employee.getLastName()));						
+			}
 		}
-		
 		return employees;
 	}
 	

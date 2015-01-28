@@ -42,6 +42,13 @@ public interface EmployeeRepository extends BaseRepository<Employee,Integer> {
 
 	List<Employee> findByDepartment(Department department);
 
-	List<Employee> findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(
-			String firstName, String lastName, Integer id, Integer id2);
+	List<Employee> findByFirstNameAndLastNameAndDepartmentIdAndJobTitleId(String firstName, String lastName, Integer id, Integer id2);
+
+	List<Employee> findDistinctEmployeeByFirstNameAndLastName(String firstName,String lastName);
+
+	List<Employee> findDistinctEmployeeByFirstNameAndLastNameAndJobTitle(String firstName, String lastName, JobTitle jobTitle);
+
+	List<Employee> findDistinctEmployeeByFirstNameAndLastNameAndDepartment(String firstName, String lastName, Department department);
+
+	List<Employee> findDistinctEmployeeByFirstNameAndLastNameAndDepartmentAndJobTitle(String firstName, String lastName, Department department,JobTitle jobTitle);
 }

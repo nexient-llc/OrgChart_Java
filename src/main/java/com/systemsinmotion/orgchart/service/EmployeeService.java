@@ -90,6 +90,22 @@ public class EmployeeService {
 		}
 		return employees;
 	}
+
+	public List<Employee> findDistinctEmployeeByFirstNameAndLastName(String firstName, String lastName) {
+		return this.repository.findDistinctEmployeeByFirstNameAndLastName(firstName, lastName);
+	}
+
+	public List<Employee> findDistinctEmployeeByFirstNameAndLastNameAndJobTitle(String firstName, String lastName, JobTitle jobTitle) {
+		return this.repository.findDistinctEmployeeByFirstNameAndLastNameAndJobTitle(firstName, lastName, jobTitle);
+	}
+
+	public List<Employee> findDistinctEmployeeByFirstNameAndLastNameAndDepartment(String firstName, String lastName, Department department) {
+		return this.repository.findDistinctEmployeeByFirstNameAndLastNameAndDepartment(firstName, lastName, department);
+	}
+
+	public List<Employee> findDistinctEmployeeByFirstNameAndLastNameAndDepartmentAndJobTitle(String firstName, String lastName, Department department,JobTitle jobTitle) {
+		return this.repository.findDistinctEmployeeByFirstNameAndLastNameAndDepartmentAndJobTitle(firstName, lastName, department, jobTitle);
+	}
 	
 	
 	
