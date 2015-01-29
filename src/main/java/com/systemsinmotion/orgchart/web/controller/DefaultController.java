@@ -141,26 +141,23 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public String doEmployees_POST(Employee employee,String name, Integer job_title_id, Integer department_id, Boolean search, Model model) {
+	public String doEmployees_POST(Employee employee, Boolean search, Model model) {
 		
 			List<Department> departments = departmentService.findAllDepartments();
 			List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
 			model.addAttribute("depts", departments);
 			model.addAttribute("jobTitles", jobTitle);
 			
-			if(department_id != null){
-				employee.setDepartment(departmentService.findDepartmentByID(department_id));
-			}
-			if(job_title_id != null){
-				employee.setJobTitle(jobTitleService.findJobTitleByID(job_title_id));
-			}
-			
-			if(search != null){
-				if(search == true){
+			if(search == true){
 					String nameArr[] = employee.getFirstName().split(" ");
 					
 					if(nameArr.length == 1) {
-						employee.setFirstName(nameArr[0]);
+						if(nameArr[0].equals("")){
+							employee.setFirstName(null);
+						}
+						else{
+							employee.setFirstName(nameArr[0]);
+						}
 					}
 					else if(nameArr.length == 2) {
 						employee.setFirstName(nameArr[0]);
@@ -171,12 +168,6 @@ public class DefaultController {
 					
 					model.addAttribute("emps", employees);
 					return View.EMPLOYEES;					
-				}
-				else{
-					List<Employee> employees = employeeService.findAllEmployees();
-					 model.addAttribute("emps", employees);
-					return View.EMPLOYEES;
-				}
 			}
 			
 			employeeService.storeEmployee(employee);
@@ -184,7 +175,7 @@ public class DefaultController {
 			 model.addAttribute("emps", employees);
 			return View.EMPLOYEES;
 	}
-
+	
 	@RequestMapping(value = "jobs", method = RequestMethod.POST)
 	public String doJobTitles_POST(JobTitle jobTitle, Model model) {
 		jobTitleService.storeJobTitle(jobTitle);
@@ -205,55 +196,86 @@ public class DefaultController {
 		this.jobTitleService = jobTitleService;
 	}
 	
+	/**
+	 * Employs an employee search on the database based on what fields the search
+	 * employee that is passed in has set.
+	 * @param employee
+	 * @return
+	 */
 	public List<Employee> employeeSearch(Employee employee){
 		
-		List<Employee> employees = new ArrayList<Employee>();	
+		List<Employee> employees;	
 		
-		if(employee.getFirstName().equals("")){
-			employee.setFirstName(null);
-		}
+		int setFlags = getEmployeeFlags(employee);
 		
-		if(employee.getLastName() == null){
-			if( employee.getFirstName() != null && employee.getDepartment() != null && employee.getJobTitle() != null){
-				employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getDepartment(), employee.getJobTitle()));									
-			}
-			else if( employee.getFirstName() != null && employee.getDepartment() != null && employee.getJobTitle() == null){
-				employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartment(employee.getFirstName(), employee.getFirstName(), employee.getDepartment()));														
-			}
-			else if( employee.getFirstName() != null && employee.getDepartment() == null && employee.getJobTitle() != null){
-				employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastNameAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getJobTitle()));						
-			}
-			else if( employee.getFirstName() == null && employee.getDepartment() != null && employee.getJobTitle() != null){
-				employees.addAll(employeeService.findDistinctEmployeeByDepartmentAndJobTitle(employee.getDepartment(), employee.getJobTitle()));						
-			}
-			else if( employee.getFirstName() != null && employee.getDepartment() == null && employee.getJobTitle() == null){
-				employees.addAll(employeeService.findDistinctEmployeeByFirstNameOrLastName(employee.getFirstName(), employee.getFirstName()));						
-			}
-			else if( employee.getFirstName() == null && employee.getDepartment() == null && employee.getJobTitle() != null){
-				employees.addAll(employeeService.findDistinctEmployeeByJobTitle(employee.getJobTitle()));						
-			}
-			else if( employee.getFirstName() == null && employee.getDepartment() != null && employee.getJobTitle() == null){
-				employees.addAll(employeeService.findDistinctEmployeeByDepartment(employee.getDepartment()));						
-			}
-			else{
-				employees.addAll(employeeService.findAllEmployees());					
-			}
-		}
-		else{
-			if (employee.getDepartment() != null && employee.getJobTitle() != null){
-				employees.addAll(employeeService.findDistinctEmployeeByFirstNameAndLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getLastName(), employee.getDepartment(), employee.getJobTitle()));									
-			}
-			else if (employee.getDepartment() != null && employee.getJobTitle() == null){
-				employees.addAll(employeeService.findDistinctEmployeeByFirstNameAndLastNameAndDepartment(employee.getFirstName(), employee.getLastName(), employee.getDepartment()));														
-			}
-			else if (employee.getDepartment() == null && employee.getJobTitle() != null){
-				employees.addAll(employeeService.findDistinctEmployeeByFirstNameAndLastNameAndJobTitle(employee.getFirstName(), employee.getLastName(), employee.getJobTitle()));						
-			}
-			else if (employee.getDepartment() == null && employee.getJobTitle() == null){
-				employees.addAll(employeeService.findDistinctEmployeeByFirstNameAndLastName(employee.getFirstName(), employee.getLastName()));						
+		switch(setFlags){
+			case 1:{ 	//Just first name is set
+				employees = employeeService.findDistinctEmployeeByFirstNameOrLastName(employee.getFirstName(), employee.getFirstName());
+				break;
+			} case 3:{ 	//First name and last name are set
+				employees = employeeService.findDistinctEmployeeByFirstNameAndLastName(employee.getFirstName(), employee.getLastName());
+				break;
+			} case 4:{ 	//Just Department is set
+				employees = employeeService.findDistinctEmployeeByDepartment(employee.getDepartment());
+				break;
+			} case 5:{ //First name and last name and department are set
+				employees = employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartment(employee.getFirstName(), employee.getFirstName(), employee.getDepartment());														
+				break;
+			} case 7:{ //First name and last name and department are set
+				employees = employeeService.findDistinctEmployeeByFirstNameAndLastNameAndDepartment(employee.getFirstName(), employee.getLastName(), employee.getDepartment());
+				break;
+			} case 8:{
+				employees = employeeService.findDistinctEmployeeByJobTitle(employee.getJobTitle());
+				break;
+			} case 9:{
+				employees = employeeService.findDistinctEmployeeByFirstNameOrLastNameAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getJobTitle());
+				break;
+			} case 11:{
+				employees = employeeService.findDistinctEmployeeByFirstNameAndLastNameAndJobTitle(employee.getFirstName(), employee.getLastName(), employee.getJobTitle());
+				break;
+			} case 12:{
+				employees = employeeService.findDistinctEmployeeByDepartmentAndJobTitle(employee.getDepartment(), employee.getJobTitle());
+				break;
+			} case 13:{
+				employees = employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getDepartment(), employee.getJobTitle());
+				break;
+			} case 15:{
+				employees = employeeService.findDistinctEmployeeByFirstNameAndLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getLastName(), employee.getDepartment(), employee.getJobTitle());
+				break;
+			} default:{ 
+				employees = employeeService.findAllEmployees();			
 			}
 		}
 		return employees;
 	}
 	
+	/**
+	 * Sets the binary flags of whether an employee has certain fields not set to null or not and returns
+	 * the appropriate number.
+	 * @param employee
+	 * @return
+	 */
+	public int getEmployeeFlags(Employee employee){
+		int setFlags = 0;
+		
+		if(employee.getFirstName() != null){
+			setFlags = setFlags ^ 1;
+		}		
+		if(employee.getLastName() != null){
+			setFlags = setFlags ^ 2;
+		}		
+		if(employee.getDepartment() != null){
+			setFlags = setFlags ^ 4;
+		}
+		if(employee.getJobTitle() != null){
+			setFlags = setFlags ^ 8;
+		}
+		if(employee.getEmail() != null){
+			setFlags = setFlags ^ 16;
+		}
+		if(employee.getSkypeName() != null){
+			setFlags = setFlags ^ 32;
+		}
+		return setFlags;
+	}
 }
