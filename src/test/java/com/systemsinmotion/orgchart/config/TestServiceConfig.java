@@ -85,6 +85,7 @@ public class TestServiceConfig {
 		EmployeeRepository repo = mock(EmployeeRepository.class);
 		when(repo.findAll()).thenReturn(listOfFoundEmployees);
 		when(repo.findOne(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
+		when(repo.findById(Entities.EMPLOYEE_ID)).thenReturn(mockEmployee);
 		when(repo.save(this.mockEmployee)).thenReturn(mockEmployee);
 		return repo;
 	}

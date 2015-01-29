@@ -33,12 +33,12 @@ public class EmployeeServiceTest {
 		assertTrue(emps.size() > 0);
 	}
 	
-//	@Test 
-//	public void findEmployeeByID() {
-//		Employee emp = this.employeeService.findEmployeeById(Entities.EMPLOYEE_ID);
-//		assertNotNull(emp);
-//		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
-//	}
+	@Test 
+	public void findEmployeeByID() {
+		Employee emp = this.employeeService.findEmployeeById(Entities.EMPLOYEE_ID);
+		assertNotNull(emp);
+		assertEquals(Entities.EMPLOYEE_ID, emp.getId());
+	}
 	
 	@Test
 	public void storeEmployee(){
