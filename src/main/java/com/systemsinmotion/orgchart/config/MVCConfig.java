@@ -32,4 +32,5 @@ public class MVCConfig {
     public TilesViewResolver viewResolver() {
         return new TilesViewResolver();
     }
+    
 }
