@@ -6,7 +6,7 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <style>
-    .ui-widget{
+    .ui-menu-item{
     	font-size: .9em;   
     }
     
@@ -30,15 +30,15 @@
 		<form name="searchEmp" id="searchEmp" action="emps" method="post">
 			<label>Name:</label> <input type="text" name="firstName" id="autocompleteText" maxlength="20"/>&nbsp;
 				<labeL>Job Title:</labeL>
-					<select name="job_title_id" id="jobTitle">
-						<option value=""></option>
+					<select name="jobTitleId" id="jobTitle">
+						<option></option>
 						<c:forEach items="${jobTitles}" var="jobTitle">
 							<option value="${jobTitle.id}">${jobTitle.name}</option>
 						</c:forEach>
 					</select>&nbsp;
 				<labeL>Department</labeL>
-					<select name="department_id" id="department">
-						<option value =""></option>
+					<select name="departmentId" id="department">
+						<option></option>
 						<c:forEach items="${depts}" var="dept">
 							<c:choose>
 								<c:when test="${dept.isActive}">	
@@ -96,13 +96,13 @@
 					<option>True</option>
 				</select><br><br>
 			<labeL>*Job Title:</labeL>
-				<select name="job_title_id" id="jobTitle">
+				<select name="jobTitleId" id="jobTitle">
 					<c:forEach items="${jobTitles}" var="jobTitle">
 						<option value="${jobTitle.id}">${jobTitle.name}</option>
 					</c:forEach>
 				</select><br><br>
 			<labeL>*Department</labeL>
-				<select name="department_id" id="department">
+				<select name="departmentId" id="department">
 					<c:forEach items="${depts}" var="dept">
 						<c:choose>
 							<c:when test="${dept.isActive}">												
@@ -141,13 +141,13 @@
 					<option>True</option>
 				</select><br><br>
 			<labeL>*Job Title:</labeL>
-				<select name="job_title_id" id="empJobTitleId">
+				<select name="jobTitleId" id="empJobTitleId">
 					<c:forEach items="${jobTitles}" var="jobTitle">
 						<option value="${jobTitle.id}">${jobTitle.name}</option>
 					</c:forEach>
 				</select><br><br>
 			<labeL>*Department</labeL>
-				<select name="department_id" id="empDepartmentId">
+				<select name="departmentId" id="empDepartmentId">
 					<c:forEach items="${depts}" var="dept">
 						<c:choose>
 							<c:when test="${dept.isActive}">												

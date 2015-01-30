@@ -1,6 +1,5 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -141,14 +140,20 @@ public class DefaultController {
 	}
 	
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
-	public String doEmployees_POST(Employee employee, Boolean search, Model model) {
+	public String doEmployees_POST(Employee employee, Integer departmentId, Integer jobTitleId, Boolean search, Model model) {
 		
 			List<Department> departments = departmentService.findAllDepartments();
 			List<JobTitle> jobTitle = jobTitleService.findAllJobTitles();
 			model.addAttribute("depts", departments);
 			model.addAttribute("jobTitles", jobTitle);
 			
-			if(search == true){
+			if(departmentId != null){
+				employee.setDepartment(departmentService.findDepartmentByID(departmentId));
+			}
+			if(jobTitleId != null){
+				employee.setJobTitle(jobTitleService.findJobTitleByID(jobTitleId));
+			}
+			if(search != null && search == true){
 					String nameArr[] = employee.getFirstName().split(" ");
 					
 					if(nameArr.length == 1) {
@@ -163,8 +168,7 @@ public class DefaultController {
 						employee.setFirstName(nameArr[0]);
 						employee.setLastName(nameArr[1]);
 					}
-					
-					List<Employee> employees = employeeSearch(employee);
+					List<Employee> employees = employeeService.employeeSearch(employee);
 					
 					model.addAttribute("emps", employees);
 					return View.EMPLOYEES;					
@@ -194,88 +198,5 @@ public class DefaultController {
 
 	public void setJobTitleService(JobTitleService jobTitleService){
 		this.jobTitleService = jobTitleService;
-	}
-	
-	/**
-	 * Employs an employee search on the database based on what fields the search
-	 * employee that is passed in has set.
-	 * @param employee
-	 * @return
-	 */
-	public List<Employee> employeeSearch(Employee employee){
-		
-		List<Employee> employees;	
-		
-		int setFlags = getEmployeeFlags(employee);
-		
-		switch(setFlags){
-			case 1:{ 	//Just first name is set
-				employees = employeeService.findDistinctEmployeeByFirstNameOrLastName(employee.getFirstName(), employee.getFirstName());
-				break;
-			} case 3:{ 	//First name and last name are set
-				employees = employeeService.findDistinctEmployeeByFirstNameAndLastName(employee.getFirstName(), employee.getLastName());
-				break;
-			} case 4:{ 	//Just Department is set
-				employees = employeeService.findDistinctEmployeeByDepartment(employee.getDepartment());
-				break;
-			} case 5:{ //First name and last name and department are set
-				employees = employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartment(employee.getFirstName(), employee.getFirstName(), employee.getDepartment());														
-				break;
-			} case 7:{ //First name and last name and department are set
-				employees = employeeService.findDistinctEmployeeByFirstNameAndLastNameAndDepartment(employee.getFirstName(), employee.getLastName(), employee.getDepartment());
-				break;
-			} case 8:{
-				employees = employeeService.findDistinctEmployeeByJobTitle(employee.getJobTitle());
-				break;
-			} case 9:{
-				employees = employeeService.findDistinctEmployeeByFirstNameOrLastNameAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getJobTitle());
-				break;
-			} case 11:{
-				employees = employeeService.findDistinctEmployeeByFirstNameAndLastNameAndJobTitle(employee.getFirstName(), employee.getLastName(), employee.getJobTitle());
-				break;
-			} case 12:{
-				employees = employeeService.findDistinctEmployeeByDepartmentAndJobTitle(employee.getDepartment(), employee.getJobTitle());
-				break;
-			} case 13:{
-				employees = employeeService.findDistinctEmployeeByFirstNameOrLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getFirstName(), employee.getDepartment(), employee.getJobTitle());
-				break;
-			} case 15:{
-				employees = employeeService.findDistinctEmployeeByFirstNameAndLastNameAndDepartmentAndJobTitle(employee.getFirstName(), employee.getLastName(), employee.getDepartment(), employee.getJobTitle());
-				break;
-			} default:{ 
-				employees = employeeService.findAllEmployees();			
-			}
-		}
-		return employees;
-	}
-	
-	/**
-	 * Sets the binary flags of whether an employee has certain fields not set to null or not and returns
-	 * the appropriate number.
-	 * @param employee
-	 * @return
-	 */
-	public int getEmployeeFlags(Employee employee){
-		int setFlags = 0;
-		
-		if(employee.getFirstName() != null){
-			setFlags = setFlags ^ 1;
-		}		
-		if(employee.getLastName() != null){
-			setFlags = setFlags ^ 2;
-		}		
-		if(employee.getDepartment() != null){
-			setFlags = setFlags ^ 4;
-		}
-		if(employee.getJobTitle() != null){
-			setFlags = setFlags ^ 8;
-		}
-		if(employee.getEmail() != null){
-			setFlags = setFlags ^ 16;
-		}
-		if(employee.getSkypeName() != null){
-			setFlags = setFlags ^ 32;
-		}
-		return setFlags;
 	}
 }

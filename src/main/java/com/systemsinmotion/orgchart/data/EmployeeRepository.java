@@ -3,6 +3,8 @@ package com.systemsinmotion.orgchart.data;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
@@ -22,11 +24,7 @@ public interface EmployeeRepository extends BaseRepository<Employee,Integer> {
 
 	List<Employee> findByFirstNameAndDepartmentIdAndJobTitleId(String firstName, Department department, JobTitle jobTitle);
 	
-	List<Employee> findDistinctEmployeeByFirstNameOrLastNameAndDepartmentAndJobTitle(String firstName, String lastName, Department department, JobTitle jobTitle);
-
-	List<Employee> findDistinctEmployeeByFirstNameOrLastNameAndDepartment(String firstName, String lastName, Department department);
-
-	List<Employee> findDistinctEmployeeByFirstNameOrLastNameAndJobTitle(String firstName, String lastName, JobTitle jobTitle);
+	List<Employee> findDistinctEmployeeByDepartmentAndFirstNameOrDepartmentAndLastName(Department department, String firstName, Department department2, String lastName);
 
 	List<Employee> findDistinctEmployeeByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCase(String firstName, String lastName);
 
@@ -51,4 +49,10 @@ public interface EmployeeRepository extends BaseRepository<Employee,Integer> {
 	List<Employee> findDistinctEmployeeByFirstNameAndLastNameAndDepartment(String firstName, String lastName, Department department);
 
 	List<Employee> findDistinctEmployeeByFirstNameAndLastNameAndDepartmentAndJobTitle(String firstName, String lastName, Department department,JobTitle jobTitle);
+
+	List<Employee> findDistinctEmployeeByJobTitleAndFirstNameOrLastName(String lastName, String firstName, JobTitle jobTitle);
+
+	@Query ("from Employee e where e.department.id = :deptId and e.jobTitle.id = :titleId and (e.firstName = :firstName or e.lastName = :lastName)")
+	List<Employee> findByAllPartialName(@Param("deptId") Integer deptId, @Param("titleId") Integer titleId, @Param("firstName") String firstName, @Param("lastName") String lastName);
+	
 }

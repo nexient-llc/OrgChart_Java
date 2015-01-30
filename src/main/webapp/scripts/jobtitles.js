@@ -22,14 +22,14 @@ $(document).ready(function() {
     
     dialogMake = $( "#dialog-form-make" ).dialog({
       autoOpen: false,
-      height: 200,
+      height: 175,
       width: 400,
       modal: true
       });
  
     dialogEdit = $( "#dialog-form-edit" ).dialog({
         autoOpen: false,
-        height: 200,
+        height: 175,
         width: 400,
         modal: true
         });

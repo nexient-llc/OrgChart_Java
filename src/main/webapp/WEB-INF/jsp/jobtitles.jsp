@@ -38,8 +38,8 @@
 	<fieldset>
 		<form name="newJob" action="jobs" method="post">
 		<br>
-		<div><labeL>Job Title:</labeL>
-			<input type="text" name="name" required max=1/><br><br>
+		<div><labeL>*Job Title:</labeL>
+			<input type="text" name="name" required max=1/><br>
 			<p>Required Fields indicated with a *</p>
 			<button type="submit">Save</button>
 			<button type="reset" name="resetMakeBtn" id="resetMakeBtn">Cancel</button>
