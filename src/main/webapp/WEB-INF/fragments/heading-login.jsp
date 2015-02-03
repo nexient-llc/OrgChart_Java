@@ -22,9 +22,8 @@ to edit</div>
 	</script>
  
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
-			Welcome : ${pageContext.request.userPrincipal.name} 
+			<div style="float:right; font-size:1em;"> Welcome:${pageContext.request.userPrincipal.name} |
+		<a style="font-size:1.1em;" href="javascript:formSubmit()"> Logout</a></div>
 	</c:if>
-
-	<div id="login"><a href="javascript:formSubmit()"> Logout</a></div>
 </sec:authorize> <div class="sim-logo"></div><h1>Welcome to the Systems in Motion Organizational Management Application</h1> </div>
  

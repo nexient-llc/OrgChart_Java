@@ -12,25 +12,6 @@
   </style>
   
 <h3>Departments</h3> 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-
-		<c:url var="logoutUrl" value="j_spring_security_logout"/>
-
-		<form action="${logoutUrl}" method="post">
-		  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		</form>
-
-		<script>
-			function formSubmit() {
-				document.getElementById("logoutForm").submit();
-			}
-		</script>
-		
-		<h2>
-			<a href="javascript:formSubmit()"> Logout</a>
-		</h2>
-		
-		</sec:authorize>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 <div id="addBtn-container">
