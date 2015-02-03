@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.systemsinmotion.orgchart.entity.Department;
@@ -188,6 +189,9 @@ public class DefaultController {
 		return View.JOB_TITLES;
 	}
 	
+//	@RequestMapping(value = "home", method = RequestMethod.POST)
+//	public String doHome_POST() { return null; }
+	
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
@@ -198,5 +202,10 @@ public class DefaultController {
 
 	public void setJobTitleService(JobTitleService jobTitleService){
 		this.jobTitleService = jobTitleService;
+	}
+	
+	@RequestMapping(value = "j_spring_security_check", method = RequestMethod.POST)
+	public String doLogin_POST(String page, String j_username, String j_password, Model model, @RequestParam(value ="error", required = false) String error) {
+		return View.HOME;	
 	}
 }

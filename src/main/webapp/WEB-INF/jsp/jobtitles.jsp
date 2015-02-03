@@ -12,15 +12,15 @@
 	</style>
 	
 <h3>Job Titles</h3> 
-
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div><br>
-
+</sec:authorize>
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
-		<th>Job Title</th><th>Edit</th>
+		<th>Job Title</th><sec:authorize access="hasRole('ROLE_ADMIN')"><th>Edit</th></sec:authorize>
 	</tr> 
 		<c:forEach items="${jobs}" var="job">
 					<tr>
@@ -28,7 +28,7 @@
 							<td>delete</td>
 						</sec:authorize> -->
 						<td>${job.name}</td>
-						<td><button class="editButton" value="${job.id}">Edit</button></td>
+						<sec:authorize access="hasRole('ROLE_ADMIN')"><td><button class="editButton" value="${job.id}">Edit</button></td></sec:authorize>
 					</tr>
 		</c:forEach>
 </table>

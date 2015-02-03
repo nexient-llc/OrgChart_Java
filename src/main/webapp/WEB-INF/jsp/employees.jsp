@@ -52,15 +52,16 @@
 		</form>		
 	</fieldset>
 </div>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div><br>
-
+</sec:authorize>
 <table> 
 	<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
 		<!-- <th>Task</th></sec:authorize> --> 
 		<tr>
-		<th>First Name</th><th>Last Name</th><th>Job Title</th><th>Department</th><th>Edit</th>
+		<th>First Name</th><th>Last Name</th><th>Job Title</th><th>Department</th><sec:authorize access="hasRole('ROLE_ADMIN')"><th>Edit</th></sec:authorize>
 		</tr>		
 	<c:forEach items="${emps}" var="emp">
 		<tr> 
@@ -71,7 +72,7 @@
 			<td>${emp.lastName }</td> 
 			<td>${emp.jobTitle.name}</td>
 			<td>${emp.department.name}</td>
-			<td><button class="editButton" value="${emp.id}">Edit</button></td></tr>
+			<sec:authorize access="hasRole('ROLE_ADMIN')"><td><button class="editButton" value="${emp.id}">Edit</button></td></sec:authorize></tr>
 	</c:forEach> 
 	
 </table>
