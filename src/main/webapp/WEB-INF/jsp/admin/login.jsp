@@ -4,8 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%> 
 
-
-<h3>Login</h3>
+<br>
 <fieldset style="width:300px;">
 	<legend>Login</legend>
 
