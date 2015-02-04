@@ -14,21 +14,31 @@
 			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
 		</div>
 	</c:if>
+	
+	<c:if test="${not empty error}">
+		<div class="error">${error}</div>
+	</c:if>
+	<c:if test="${not empty msg}">
+		<div class="msg">${msg}</div>
+	</c:if>
 
 
-	<form action="<c:url value='/app/j_spring_security_check' />"
+	<form name ="loginForm" action="<c:url value='/app/j_spring_security_check' />"
 		method='POST'>
 		<input type="hidden" name="page" value="${param.page}" />
 		<div>
-			<label for="j_username">User:</label><input type='text'
-				name='j_username'>
+			<label for="username">User:</label><input type='text'
+				name='username'>
 		</div>
 		<div>
-			<label for="j_password">Password:</label><input type='password'
-				name='j_password' />
+			<label for="password">Password:</label><input type='password'
+				name='password' />
 		</div>
 		<div>
 			<button type="submit">Submit</button>
 		</div>
+		
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
 	</form>
 </fieldset>

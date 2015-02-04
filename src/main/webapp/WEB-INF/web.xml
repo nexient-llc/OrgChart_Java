@@ -5,7 +5,9 @@
 	id="WebApp_ID" version="3.0">
 	
 	<display-name>SIM-OrgChart-Java</display-name>
+	
 	<welcome-file-list>
 		<welcome-file>home.jsp</welcome-file>
 	</welcome-file-list>
+
 </web-app>

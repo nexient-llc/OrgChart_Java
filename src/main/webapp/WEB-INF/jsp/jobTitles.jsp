@@ -3,10 +3,13 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 	
-<h3>Manage Job Titles</h3> 
+<h3>Manage Job Titles</h3>
+
+<sec:authorize access="hasRole('admin')">
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div>
+</sec:authorize>
 
 <table id="t1">
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
@@ -18,14 +21,16 @@
 			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>delete</td>
 			</sec:authorize> -->
-			<td>${jobTitle.name}</td> 
+			<td>${jobTitle.name}</td>
+			<sec:authorize access="hasRole('admin')">
 			<td>
 				<div class="editBtn-container">
 			    	<button type="button" id=${jobTitle.id} class="editBtn" onClick="editJob(${jobTitle.id})" style="width: 45px;">Edit</button>	
             	</div>
             </td>
+            </sec:authorize>
         </tr>
-	</c:forEach> 
+	</c:forEach>
 </table>
 
 <div id="addEntity" style="display:none">

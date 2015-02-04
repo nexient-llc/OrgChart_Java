@@ -1,13 +1,9 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,7 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
-import com.systemsinmotion.orgchart.Entities;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 
@@ -23,23 +18,23 @@ import com.systemsinmotion.orgchart.service.DepartmentService;
 @ContextConfiguration("/test-context.xml")
 public class DefaultControllerTests {
 
-	@Autowired
-	DefaultController controller;
-
-	DepartmentService mockDepartmentService = mock(DepartmentService.class);
-
-	Department mockDepartment = mock(Department.class);
-
-	Department mockDepartment2;
-
-	// Map model = new HashMap<String, Object>();
-	Model model = new ExtendedModelMap();
-
-	private ArrayList<Department> findAllDepartmentsList;
-
-	@SuppressWarnings("unused")
-	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
-
+//	@Autowired
+//	DefaultController controller;
+//
+//	DepartmentService mockDepartmentService = mock(DepartmentService.class);
+//
+//	Department mockDepartment = mock(Department.class);
+//
+//	Department mockDepartment2;
+//
+//	// Map model = new HashMap<String, Object>();
+//	Model model = new ExtendedModelMap();
+//
+//	private ArrayList<Department> findAllDepartmentsList;
+//
+//	@SuppressWarnings("unused")
+//	private static final String DEPARTMENT_LIST_MISSING_ERROR = "Expected Model to contain a List of Departments, but did not.";
+//
 //	@Before
 //	public void before() {
 //		// instantiate lists

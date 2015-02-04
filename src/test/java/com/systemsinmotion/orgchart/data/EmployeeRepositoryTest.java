@@ -170,12 +170,12 @@ public class EmployeeRepositoryTest {
 		assertTrue(emps.isEmpty());
 	}
 
-//	@Test
-//	public void findByManagerId_null() throws Exception {
-//		List<Employee> emps = this.empRepo.findByManager(null);
-//		assertNull(emps);
-//		//assertTrue(emps.isEmpty());
-//	}
+	@Test
+	public void findByManagerId_null() throws Exception {
+		List<Employee> emps = this.empRepo.findByManagerId(null);
+		assertNotNull(emps);
+		assertTrue(!emps.isEmpty());
+	}
 
 	@Test
 	public void findByFirstNameAndLastNameAndDepartmentAndJobTitle() throws Exception {

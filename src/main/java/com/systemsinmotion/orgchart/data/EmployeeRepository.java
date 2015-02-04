@@ -58,4 +58,6 @@ public interface EmployeeRepository extends BaseRepository<Employee, Integer> {
 	List<Employee> findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCase(String firstName, String lastName);
 	
 	List<Employee> findByFirstNameStartingWithIgnoreCaseAndLastNameStartingWithIgnoreCase(String firstName, String lastName);
+
+	List<Employee> findByManagerId(Integer id);
 }

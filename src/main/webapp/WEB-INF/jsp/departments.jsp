@@ -4,28 +4,30 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <h3>Department Page</h3> 
+<sec:authorize access="hasRole('admin')">
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div>
+</sec:authorize>
 
 <table id="t1"> 
-	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-		<!-- <th>Task</th></sec:authorize> --> 
+	<tr><!--<sec:authorize access="hasRole('ADMIN')">
+			<th>Task</th>
+		</sec:authorize>-->
 		<th>Dept Name</th> <th>Parent Dept</th> <th></th>
 	</tr> 
 	<c:forEach items="${depts}" var="dept">
 		<tr> 
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-				<td>delete</td>
-			</sec:authorize> -->
 			<c:if test="${dept.isActive}">
 				<td>${dept.name}</td> 
 				<td>${dept.parentDepartment.name}</td>
+				<sec:authorize access="hasRole('admin')">
 				<td>
 					<div class="editBtn-container">
 				    	<button type="button" id=${dept.id} class="editBtn" onClick="editDepartment(${dept.id})" style="width: 45px;">Edit</button>	
 	            	</div>
 	            </td>
+	            </sec:authorize>
             </c:if>
         </tr>
         <c:set var="deptSelectParentNameIndex" value="${deptSelectParentNameIndex + 1}"></c:set>

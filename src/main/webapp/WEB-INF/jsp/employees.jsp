@@ -35,9 +35,11 @@
 	</fieldset>
 </div>
 
+<sec:authorize access="hasRole('admin')">
 <div id="addBtn-container">
 		<button type="button" id="addBtn" style="width: 45px;">Add</button>	
 </div>
+</sec:authorize>
 
 <table id="t1"> 
 	<tr><!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
@@ -52,9 +54,13 @@
 			<td>${emp.firstName} ${emp.lastName}</td> 
 			<td>${emp.department.name}</td>
 			<td>${emp.jobTitle.name}</td>
-			<td><div class="editBtn-container">
-				<button type="button" id=${emp.id} class="editBtn" onClick="editEmployee(${emp.id})" style="width: 45px;">Edit</button>	
-            </div></td>
+			<sec:authorize access="hasRole('admin')">
+			<td>
+				<div class="editBtn-container">
+					<button type="button" id=${emp.id} class="editBtn" onClick="editEmployee(${emp.id})" style="width: 45px;">Edit</button>	
+            	</div>
+            </td>
+            </sec:authorize>
          </tr>
 	</c:forEach> 
 </table>

@@ -40,7 +40,6 @@ public class DepartmentService {
 	}
 
 	public Department findDepartmentByManager(Employee manager) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
