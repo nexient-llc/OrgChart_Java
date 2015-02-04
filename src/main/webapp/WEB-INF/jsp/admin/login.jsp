@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%> 
 
-<fieldset>
+
+<h3>Login</h3>
+<fieldset style="width:300px;">
 	<legend>Login</legend>
 
 	<c:if
@@ -18,14 +20,14 @@
 
 	<form name='f' action="<c:url value='/app/j_spring_security_check' />"
 		method='POST'>
-		<div>
+		<div><br>
 			<label for="username">User:</label><input type='text'
 				name='username' />
-		</div>
+		</div><br>
 		<div>
 			<label for="password">Password:</label><input type='password'
 				name='password' />
-		</div>
+		</div><br>
 		<div>
 			<button type="submit">Submit</button>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
