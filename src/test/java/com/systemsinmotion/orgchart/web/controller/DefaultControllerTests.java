@@ -1,7 +1,5 @@
 package com.systemsinmotion.orgchart.web.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -9,10 +7,6 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
@@ -25,7 +19,7 @@ import com.systemsinmotion.orgchart.service.DepartmentService;
 public class DefaultControllerTests {
 
 //	@Autowired
-//	DefaultController controller;
+	DefaultController controller;
 
 	DepartmentService mockDepartmentService = mock(DepartmentService.class);
 
@@ -56,12 +50,12 @@ public class DefaultControllerTests {
 		this.findAllDepartmentsList.add(this.mockDepartment);
 
 		// set up mock DepartmentService
-//		when(this.mockDepartmentService.findAllDepartments()).thenReturn(this.findAllDepartmentsList);
-//		when(this.mockDepartmentService.findDepartmentByID(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
-//		when(this.mockDepartmentService.storeDepartment(this.mockDepartment)).thenReturn(Entities.DEPT_ID);
-//		when(this.mockDepartmentService.storeDepartment(this.mockDepartment2)).thenReturn(Entities.DEPT_ID);
+		when(this.mockDepartmentService.findAllDepartments()).thenReturn(this.findAllDepartmentsList);
+		when(this.mockDepartmentService.findDepartmentByID(Entities.DEPT_ID)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentService.saveDepartment(this.mockDepartment)).thenReturn(this.mockDepartment);
+		when(this.mockDepartmentService.saveDepartment(this.mockDepartment2)).thenReturn(this.mockDepartment);
 
-//		this.controller.setDepartmentService(this.mockDepartmentService);
+		this.controller.setDepartmentService(this.mockDepartmentService);
 
 	}
 

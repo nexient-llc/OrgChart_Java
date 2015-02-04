@@ -4,8 +4,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<h3>Department Page</h3>
+<header>Systems In Motion Organization Chart: Departments</header>
 
+<h3>Department Page</h3>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <div id="addBtn-container">
 	<button type="button" id="addBtn" style="width: 45px;">Add</button>
 </div>
@@ -29,30 +31,31 @@
 				Required Fields indicated with a *
 			</div>
 			<div></div>
+			<input type="hidden" name="${_csrf.parameterName }"
+			value="${_csrf.token }" />
 		</form>
 	</fieldset>
 </div>
+</sec:authorize>
 <div id="deptTable-container">
 	<table id="t1">
 		<tr>
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-			<!-- <th>Task</th></sec:authorize> -->
 			<th>Department Name</th>
 			<th>Parent Department Name</th>
 			<th></th>
 		</tr>
 		<c:forEach items="${depts}" var="dept">
 			<tr id="tableRow${dept.id}">
-				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<td>delete</td>
-				</sec:authorize> -->
 				<td>${dept.name}</td>
 				<td>${dept.parentDepartment.name}</td>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td><button class="editButton" value="${dept.id}">Edit</button></td>
+				</sec:authorize>
 			</tr>
 		</c:forEach>
 	</table>
 </div>
+
 <div id="editEntity-container" style="display: none">
 	<fieldset>
 		<legend>Edit Department</legend>
@@ -74,6 +77,10 @@
 				Required Fields indicated with a *
 			</div>
 			<div></div>
+			
+			<input type="hidden" name="${_csrf.parameterName }"
+			value="${_csrf.token }" />
+			
 		</form:form>
 	</fieldset>
 </div>

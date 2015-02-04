@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.systemsinmotion.orgchart.entity.Department;
 import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
@@ -139,17 +140,20 @@ public class DefaultController {
 	public String doEmployees_GET(String string, String string2,
 			String string3, String string4, Model model) {
 		addAllActiveEmployeesToModel(model);
+		updateDepartmentsTitlesEmployeeView(model);
+		return View.EMPLOYEES;
+	}
+
+	private void updateDepartmentsTitlesEmployeeView(Model model) {
 		addAllActiveJobTitlesToModel(model);
 		addAllActiveDepartmentsToModel(model);
-		return View.EMPLOYEES;
 	}
 
 	@RequestMapping(value = "emps", method = RequestMethod.POST)
 	public String doEmployees_POST(Employee employee, Model model) {
 		this.employeeService.saveEmployee(employee);
 		addAllActiveEmployeesToModel(model);
-		addAllActiveJobTitlesToModel(model);
-		addAllActiveDepartmentsToModel(model);
+		updateDepartmentsTitlesEmployeeView(model);
 		return View.EMPLOYEES;
 	}
 
@@ -157,8 +161,62 @@ public class DefaultController {
 	public String doEmployees_PUT(Employee employee, Model model) {
 		this.employeeService.saveEmployee(employee);
 		addAllActiveEmployeesToModel(model);
+		updateDepartmentsTitlesEmployeeView(model);
 		return View.EMPLOYEES;
 	}
+
+	// FILTER EMPLOYEE
+	// MAPPINGS AND METHODS
+	// ------------------------------------------------------------
+	@RequestMapping(value = "empsFilter", method = RequestMethod.GET)
+	public String doEmployees_FilterTable(Employee employee, Model model) {
+		List<Employee> employees = null;
+		if (employee.getFirstName() != "") {
+			String[] names = employee.getFirstName().split(" ");
+			if (names.length == 1){ //user has entered one name; either a first or second
+				employees = employeeService.findEmployeeByName(employee.getFirstName(), employee.getFirstName());
+			}
+			else{
+				employees = employeeService.findEmployeeByFullName(names[0],names[1]);
+			}
+		} else if (employee.getDepartment().getId() != null
+				&& employee.getJobTitle().getId() != null) {
+			employees = employeeService.findEmployeeByDepartmentIDAndJobID(
+					employee.getDepartment().getId(), employee.getJobTitle()
+							.getId());
+		} else if (employee.getDepartment().getId() != null) {
+			employees = employeeService.findEmployeeByDepartmentID(employee
+					.getDepartment().getId());
+		} else if (employee.getJobTitle().getId() != null) {
+			employees = employeeService.findEmployeeByJobID(employee
+					.getJobTitle().getId());
+		} else {
+			employees = employeeService.findAllActiveEmployees();
+		}
+		model.addAttribute("emps", employees);
+		updateDepartmentsTitlesEmployeeView(model);
+		return View.EMPLOYEES;
+	}
+	
+	@RequestMapping(value = "emp/autocomplete/{firstName}", method = RequestMethod.GET)
+	public @ResponseBody String getEmpsAjax(@PathVariable("firstName") String firstName) {
+		String[] names = firstName.split(" ");
+		List <Employee> employees = null;
+		if (names.length == 1){ 
+			employees = employeeService.findEmployeeAutoByName(names[0], names[0]);
+		}
+		else{
+			employees = employeeService.findEmployeeAutoByFullName(names[0],names[1]);
+		}
+		if (employees == null) {
+			return "";
+		}
+		Gson gson = new Gson();
+		String json = gson.toJson(employees);
+		return json;
+	}
+
+	// ------------------------------------------------------------------------------------
 
 	// -------------------------------------------------------------------------------------
 
@@ -170,7 +228,7 @@ public class DefaultController {
 		addAllActiveJobTitlesToModel(model);
 		return View.JOB_TITLES;
 	}
-	
+
 	@RequestMapping(value = "title/{id}", method = RequestMethod.GET)
 	public @ResponseBody String getJobAjax(@PathVariable("id") Integer id) {
 		JobTitle jobtitle = jobTitleService.findbyID(id);
@@ -193,26 +251,43 @@ public class DefaultController {
 		addAllActiveJobTitlesToModel(model);
 		return View.JOB_TITLES;
 	}
-	
+
 	@RequestMapping(value = "delete/title/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody ResponseEntity<String> doJobTitle_Delete(@PathVariable("id") Integer id) {
+	public @ResponseBody ResponseEntity<String> doJobTitle_Delete(
+			@PathVariable("id") Integer id) {
 		String responseMessage;
 		HttpStatus responseStatus;
-		
+
 		JobTitle jobTitle = jobTitleService.findbyID(id);
-		if(jobTitle==null){
+		if (jobTitle == null) {
 			responseMessage = "Invalid Job-Title ID. Job-Title was not found.";
 			responseStatus = HttpStatus.NOT_FOUND;
-		}else{
+		} else {
 			this.jobTitleService.removeJobTitle(jobTitle);
-			responseMessage = "Job-Title " + jobTitle.getName() + " successfully removed.";
+			responseMessage = "Job-Title " + jobTitle.getName()
+					+ " successfully removed.";
 			responseStatus = HttpStatus.ACCEPTED;
 		}
 		return new ResponseEntity<String>(responseMessage, responseStatus);
 	}
 
 	// --------------------------------------------------------------------------------------
+	
+	//Log-In & Log-Out Mappings--------------------------------------------------------------
+	
+	
+	@RequestMapping(value = "/app/logout", method = RequestMethod.GET)
+	public String doGetLogout() {
+		return View.HOME;
+	}
 
+	@RequestMapping(value = "/app/login", method = RequestMethod.GET)
+	public String login_GET(){
+		return View.HOME;
+	}
+	
+	//----------------------------------------------------------------------------------------
+	
 	private void addAllActiveEmployeesToModel(Model model) {
 		List<Employee> employees = employeeService.findAllActiveEmployees();
 		model.addAttribute("emps", employees);

@@ -38,13 +38,13 @@ public class JobTitleServiceTest {
 		assertTrue(titles.size() > 0);
 	}
 	
-//	@Test
-//	public void storeJobTitle() {
-//		JobTitle title = this.titleService.storeJobTitle(this.mockTitle);
-//		assertNotNull(title);
-//		assertEquals("Expected " + this.mockTitle.getName() + " but got " + title.getName(),
-//				this.mockTitle.getName(), title.getName());
-//	}
+	@Test
+	public void storeJobTitle() {
+		JobTitle title = this.titleService.saveJobTitle(this.mockTitle);
+		assertNotNull(title);
+		assertEquals("Expected " + this.mockTitle.getName() + " but got " + title.getName(),
+				this.mockTitle.getName(), title.getName());
+	}
 	
 
 }

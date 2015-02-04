@@ -9,7 +9,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import com.systemsinmotion.orgchart.entity.BaseEntity;
 
 @NoRepositoryBean
-public interface BaseRepository<T extends BaseEntity, ID extends Serializable> extends JpaRepository<T, ID> {
-	// TODO : Fix this!
+public interface BaseRepository<T extends BaseEntity, ID extends Serializable>
+		extends JpaRepository<T, ID> {
 	List<T> findByIsActiveIsTrue();
 }

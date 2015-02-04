@@ -45,6 +45,39 @@ public class EmployeeService {
 
 	public List<Employee> findAllActiveEmployees() {
 		return this.repository.findByIsActiveIsTrue();
+	}
 
+	public List<Employee> findEmployeeByJobID(Integer id) {
+		return this.repository.findByJobTitleId(id);
+	}
+
+	public List<Employee> findEmployeeByDepartmentID(Integer id) {
+		return this.repository.findByDepartmentId(id);
+	}
+
+	public List<Employee> findEmployeeByDepartmentIDAndJobID(Integer id,
+			Integer id2) {
+		return this.repository.findByDepartmentIdAndJobTitleId(id, id2);
+	}
+
+	public List<Employee> findEmployeeByFirstName(String firstName) {
+		return this.repository.findByFirstName(firstName);
+	}
+
+	public List<Employee> findEmployeeByName(String firstName, String lastName) {
+		return this.repository.findByFirstNameOrLastName(firstName, lastName);
+	}
+
+	public List<Employee> findEmployeeByFullName(String firstName, String lastName) {
+		return this.repository.findByFirstNameAndLastName(firstName, lastName);
+	}
+
+	public List<Employee> findEmployeeAutoByName(String firstName, String lastName) {
+		return this.repository.findByFirstNameStartingWithOrLastNameStartingWith(firstName, lastName);
+	}
+
+	public List<Employee> findEmployeeAutoByFullName(String firstName,
+			String lastName) {
+		return this.repository.findByFirstNameAndLastNameStartingWith(firstName, lastName);
 	}
 }

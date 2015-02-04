@@ -207,18 +207,19 @@
 			columnNames="username,authority" />
 	</changeSet>
 
-<!-- 
-	<changeSet id="25" author="kskronek">
+	<changeSet id="25" author="ecarter">
 		<insert tableName="users">
-			<column name="id" value="101" />
-			<column name="first_name" value="Bob" />
-			<column name="last_name" value="Law" />
-			<column name="email" value="blaw@systemsinmotion.com" />
-			<column name="skype_name" value="bob.law.sim.aa" />
-			<column name="job_title_id" value="1003" />
-			<column name="department_id" value="104" />
+			<column name="username" value="admin" />
+			<column name="password" value="abc123" />
+			<column name="enabled" value="true" />
 		</insert>
 	</changeSet>
- -->
+
+	<changeSet id="26" author="ecarter">
+		<insert tableName="authorities">
+			<column name="username" value="admin" />
+			<column name="authority" value="ROLE_ADMIN" />
+		</insert>
+	</changeSet>
 
 </databaseChangeLog>

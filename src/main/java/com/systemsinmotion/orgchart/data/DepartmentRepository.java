@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.systemsinmotion.orgchart.entity.Department;
 
+
 public interface DepartmentRepository extends BaseRepository<Department,Integer> {
 
 	Department findByName(String name);

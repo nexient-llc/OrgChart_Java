@@ -1,14 +1,36 @@
 $(document).ready(function() {
+	$('#cancelFilterBtn').click(function() {
+		$('#filter-container').slideToggle("fast", "linear");
+	});
+
+	$('#filterBtn').click(function() {
+		$('#filter-container').slideToggle("fast", "linear");
+	});
+	
+	$('#filterName').autocomplete({
+		source:function(request, response){
+			$.ajax({
+				type:'get',
+				url:'emp/autocomplete/' + $('#filterName').val(),
+				success:function(data){
+					
+					var nameArray =[];
+					var tags = $.parseJSON(data);
+					var tag;
+                    for(tag in tags)
+                    	nameArray.push(tags[tag].firstName + " " + tags[tag].lastName);
+					response(nameArray);
+				}
+			});
+		}
+	});
+
 	$('#addBtn-container').css('width', $('#t1').width());
 
 	$('#addBtn').click(function() {
 		$('#addBtn-container').fadeToggle("fast", "linear", function() {
 			$('#addEntity-container').fadeToggle("fast", "linear");
 		});
-	});
-
-	$('#filterBtn').click(function() {
-		$('#filter-container').fadeToggle("fast", "linear");
 	});
 
 	$('#cancelAddButton').click(function() {
@@ -31,9 +53,7 @@ $(document).ready(function() {
 			$('#empEmail').val(form.email);
 			$('#empSkypeName').val(form.skypeName);
 			$('#empDepartmentId').val(form.department.id);
-			$('#empDepartmentId').val("");
 			$('#empJobTitleId').val(form.jobTitle.id);
-			$('#empJobTitleId').val("");
 
 			$('#employeesTable-container').fadeToggle("fast", "linear");
 			$('#editEntity-container').fadeToggle("fast", "linear");

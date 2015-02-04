@@ -4,8 +4,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<header>Systems In Motion Organization Chart: Job Titles</header>
+
 <h3>Job Title Page</h3>
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <div id="addBtn-container">
 	<button type="button" id="addBtn" style="width: 45px;">Add</button>
 </div>
@@ -22,24 +25,25 @@
 				Required Fields indicated with a *
 			</div>
 			<div></div>
+			<input type="hidden" name="${_csrf.parameterName }"
+			value="${_csrf.token }" />
 		</form>
 	</fieldset>
 </div>
+</sec:authorize>
+
 <div id="jobTitlesTable-container">
 	<table id="t1">
 		<tr>
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-			<!-- <th>Task</th></sec:authorize> -->
-			<th>Job Title</th>
+			<th>Job Titles</th>
 			<th></th>
 		</tr>
 		<c:forEach items="${titles}" var="title">
 			<tr id="tableRow${title.id}">
-				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<td>delete</td>
-				</sec:authorize> -->
 				<td>${title.name}</td>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td><button class="editButton" value="${title.id}">Edit</button></td>
+				</sec:authorize>
 			</tr>
 		</c:forEach>
 	</table>
@@ -58,6 +62,8 @@
 				Required Fields indicated with a *
 			</div>
 			<div></div>
+			<input type="hidden" name="${_csrf.parameterName }"
+			value="${_csrf.token }" />
 		</form:form>
 	</fieldset>
 </div>

@@ -16,4 +16,16 @@ $(document).ready(function() {
 		window.location = path + "titles";	
 	});
 	
+	$('#navBarAdmin').click(function() {
+		window.location = path + "admin";	
+	});
+	
+	$('#login').click(function() {
+		window.location = path + "login";	
+	});
+	
+	$('#logout').click(function() {
+		window.location = path + "logout";	
+	});
+	
 });

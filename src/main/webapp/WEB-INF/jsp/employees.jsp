@@ -5,35 +5,50 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+<header>Systems In Motion Organization Chart: Employees</header>
+
 <h3>Manage Employee</h3>
+
 <div id="filterBtn-container">
 	<table>
 		<tr>
 			<td>
-				<button type="button" id="filterBtn" style="width: 45 px;">Filter</button>
+				<button type="button" id="filterBtn">Filter</button>
 			</td>
 			<td>
 				<div id="filter-container" style="display: none">
-					<label>Name(First or Last):</label><input type="text" name="name">
-					<label id="jobTitleLabel">Job Title:</label> <select
-						name="jobTitle.id" id="filterEmpJobTitleId">
-						<c:forEach items="${titles}" var="title">
-							<option value="${title.id}">${title.name}</option>
-						</c:forEach>
-					</select> <labeL>Departments:</label> <select name="department.id"
-						id="filterEmpDepartmentId">
-						<c:forEach items="${depts}" var="dept">
-							<option value="${dept.id}">${dept.name}</option>
-						</c:forEach>
-					</select>
-					<button>Submit</button>
-					<button type = "reset">Cancel</button>
+					<form:form id="filterForm" name="filterEmp" action="empsFilter"
+						method="get">
+						<label>Name(First or Last):</label>
+						<input type="text" name="firstName" id="filterName">
+						<labeL>Departments:</label>
+						<select name="department.id" id="filterEmpDepartmentId" >
+							<option value="">...</option>
+							<c:forEach items="${depts}" var="dept">
+								<option value="${dept.id}">${dept.name}</option>
+							</c:forEach>
+						</select>
+						<label id="jobTitleLabel">Job Title:</label>
+						<select name="jobTitle.id" id="filterEmpJobTitleId">
+							<option value="">...</option>
+							<c:forEach items="${titles}" var="title">
+								<option value="${title.id}">${title.name}</option>
+							</c:forEach>
+						</select>
+						<button type="submit">Apply</button>
+						<button type="reset" value="reset" id="cancelFilterBtn">Cancel</button>
+					</form:form>
 				</div>
 			</td>
 		</tr>
 	</table>
 </div>
 
+<br>
+
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <div id="addBtn-container">
 	<button type="button" id="addBtn" style="width: 45px;">Add</button>
 </div>
@@ -67,11 +82,11 @@
 		</form>
 	</fieldset>
 </div>
+</sec:authorize>
+
 <div id="employeesTable-container">
 	<table>
 		<tr>
-			<!-- <sec:authorize access="hasRole('ROLE_ADMIN')"> -->
-			<!-- <th>Task</th></sec:authorize> -->
 			<th>Employee Name</th>
 			<th>Department Name</th>
 			<th>Job Title</th>
@@ -79,13 +94,12 @@
 		</tr>
 		<c:forEach items="${emps}" var="emp">
 			<tr id="tableRow${emp.id}">
-				<!-- <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<td>delete</td>
-				</sec:authorize> -->
 				<td>${emp}</td>
 				<td>${emp.department.name}</td>
 				<td>${emp.jobTitle.name}</td>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td><button class="editButton" value="${emp.id}">Edit</button></td>
+				</sec:authorize>
 			</tr>
 		</c:forEach>
 	</table>
@@ -96,7 +110,7 @@
 		<form:form name="editEmp" action="emps" method="put">
 			<input type="hidden" id="employeeId" name="id" />
 			<div>
-				<labeL>*First Name:</labeL><input type="text" name="firstName"
+				<label>*First Name:</label><input type="text" name="firstName"
 					id="empFirstName" required /> <labeL>*Last Name:</labeL><input
 					type="text" name="lastName" id="empLastName" required /> <labeL>Middle
 					Initial:</labeL><input type="text" name="middleInitial"
@@ -119,6 +133,8 @@
 				<br> Required Fields indicated with a *
 			</div>
 			<div></div>
+			<input type="hidden" name="${_csrf.parameterName }"
+			value="${_csrf.token }" />
 		</form:form>
 	</fieldset>
 </div>
