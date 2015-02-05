@@ -10,6 +10,11 @@
 		<put-attribute name="body" />
 	</definition>
 
+	<definition name="error" extends="main">
+		<put-attribute name="title" type="string" value="Error Page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/error.jsp" />
+	</definition>
+
 	<definition name="departments" extends="main">
 		<put-attribute name="title" type="string" value="Departments Home" />
 		<put-attribute name="page-js" type="string"

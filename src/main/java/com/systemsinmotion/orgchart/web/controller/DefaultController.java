@@ -23,6 +23,7 @@ import com.systemsinmotion.orgchart.service.EmployeeService;
 import com.systemsinmotion.orgchart.service.JobTitleService;
 import com.systemsinmotion.orgchart.web.View;
 
+
 @Controller
 public class DefaultController {
 
@@ -276,17 +277,18 @@ public class DefaultController {
 	//Log-In & Log-Out Mappings--------------------------------------------------------------
 	
 	
-	@RequestMapping(value = "/app/logout", method = RequestMethod.GET)
-	public String doGetLogout() {
+	@RequestMapping(value = "/app/logout", method = RequestMethod.POST)
+	public String doLogout_POST() {
 		return View.HOME;
 	}
 
-	@RequestMapping(value = "/app/login", method = RequestMethod.GET)
-	public String login_GET(){
+	@RequestMapping(value = "/app/login", method = RequestMethod.POST)
+	public String login_POST(){
 		return View.HOME;
 	}
 	
 	//----------------------------------------------------------------------------------------
+	
 	
 	private void addAllActiveEmployeesToModel(Model model) {
 		List<Employee> employees = employeeService.findAllActiveEmployees();

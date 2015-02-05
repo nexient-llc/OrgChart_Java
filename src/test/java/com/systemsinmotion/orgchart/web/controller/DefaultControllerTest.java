@@ -21,6 +21,8 @@ import com.systemsinmotion.orgchart.entity.Employee;
 import com.systemsinmotion.orgchart.entity.JobTitle;
 import com.systemsinmotion.orgchart.service.DepartmentService;
 
+
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestControllerConfig.class)
 public class DefaultControllerTest {
