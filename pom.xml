@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	        http://maven.apache.org/POM/4.0.0
+	        http://maven.apache.org/xsd/maven-4.0.0.xsd" >
 	<modelVersion>4.0.0</modelVersion>
+
 	<organization>
-		<name>Systems In Motion</name>
-		<url>www.systemsinmotin.com</url>
+		<name>Nexient</name>
+		<url>www.nexient.com</url>
 	</organization>
-	<groupId>com.systemsinmotion.orgchart</groupId>
-	<artifactId>emulek</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.nexient</groupId>
+	<artifactId>orgchart</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>OrgChart</name>
 	<description>Systems In Motion OrgChart Application</description>
+
 	<properties>
 		<hibernate.version>3.4.0.GA</hibernate.version><!-- 3.1.0.GA -->
 		<jsp.version>2.1</jsp.version>
@@ -21,10 +26,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<reportsDirectory>${project.build.directory}/surefire</reportsDirectory>
 		<servlet.version>2.5</servlet.version>
-		<slf4j.version>1.6.4</slf4j.version>
+		<slf4j.version>1.7.12</slf4j.version>
 		<spring.security.version>3.1.0.RELEASE</spring.security.version>
 		<spring.version>3.1.0.RELEASE</spring.version>
 	</properties>
+
 	<repositories>
 		<repository>
 			<id>jboss-public-repository-group</id>
@@ -34,7 +40,6 @@
 	</repositories>
 
 	<dependencies>
-
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -77,25 +82,49 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.1</version>
 		</dependency>
-
-
-		<!-- <dependency> <groupId>net.sf.ehcache</groupId> <artifactId>ehcache</artifactId> 
-			<version>1.2.3</version> </dependency> -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>2.2.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- LOGGING -->
+		<!-- slf4j-api could be pulled in via transative
+		dependencies, but it's always a better idea to explicitly
+		include an artifact in the pom if your code is explicitly
+		using classes from that artifact -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- We'll use log4j as our backend. -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<!-- Spring uses Commons Logging, so this will
+		     reroute those calls through slf4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
+		<!-- Maven doesn't have a global exclusion mechanism,
+		but marking as 'Provided' like below achieves the same goal -->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- XML -->
@@ -106,6 +135,13 @@
 		</dependency>
 
 		<!-- SERVLET -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
@@ -124,12 +160,6 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> 
-			<version>${servlet.version}</version> <scope>provided</scope> </dependency> 
-			<dependency> <groupId>javax.servlet.jsp</groupId> <artifactId>jsp-api</artifactId> 
-			<version>${jsp.version}</version> <scope>provided</scope> </dependency> <dependency> 
-			<groupId>javax.servlet</groupId> <artifactId>jstl</artifactId> <version>${jstl.version}</version> 
-			</dependency> -->
 
 		<!--DATABASE -->
 		<dependency>
@@ -157,21 +187,17 @@
 			<version>4.2.0.Final</version>
 			<type>jar</type>
 			<scope>compile</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.18</version>
+			<version>5.1.36</version>
 			<type>jar</type>
+			<!-- this driver is needed during normal runtime as well -->
+			<!-- 
 			<scope>test</scope>
+			 -->
 		</dependency>
-
 
 		<!-- TESTING -->
 		<dependency>
@@ -180,7 +206,6 @@
 			<version>1.9.0</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -191,24 +216,77 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
-			<!-- <scope>test</scope> -->
+			<scope>test</scope>
 		</dependency>
-
+		<!-- mutation testing to quantify unit test effectiveness -->
+		<!-- I think this may not be needed when you include PIT
+		in the plugins section -->
+		<!-- 
 		<dependency>
-			<groupId>org.apache.tiles</groupId>
-			<artifactId>tiles-jsp</artifactId>
-			<version>2.2.2</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<groupId>org.pitest</groupId>
+			<artifactId>pitest</artifactId>
+			<version>1.1.6</version>
+			<scope>test</scope>
 		</dependency>
+		 -->
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<!-- should be explicit, default is 1.5 or something stupid -->
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- mutation testing to quantify unit test effectiveness -->
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<!-- The current latest version is 1.1.6, however
+				that version seems to have a bug where it hangs
+				without ever generating any report output -->
+				<version>1.1.5</version>
+				<configuration>
+					<targetClasses>
+						<param>com.systemsinmotion.orgchart.entity.Department</param>
+						<param>com.systemsinmotion.orgchart.entity.Employee</param>
+						<param>com.systemsinmotion.orgchart.entity.JobTitle</param>
+						<param>com.systemsinmotion.orgchart.dao.DepartmentDAOImpl</param>
+						<param>com.systemsinmotion.orgchart.dao.EmployeeDAOImpl</param>
+						<param>com.systemsinmotion.orgchart.dao.JobTitleDAOImpl</param>
+						<param>com.systemsinmotion.orgchart.service.DepartmentService</param>
+						<param>com.systemsinmotion.orgchart.service.EmployeeService</param>
+						<param>com.systemsinmotion.orgchart.service.JobTitleService</param>
+						<param>com.systemsinmotion.orgchart.web.controller.AdminController</param>
+						<param>com.systemsinmotion.orgchart.web.controller.DefaultController</param>
+						<param>com.systemsinmotion.orgchart.web.security.AuthenticationSuccessHandler</param>
+						<param>com.systemsinmotion.orgchart.dao.ModelKey</param>
+						<param>com.systemsinmotion.orgchart.dao.View</param>
+					</targetClasses>
+					<targetTests>
+						<param>com.systemsinmotion.orgchart.entity.EmployeeTests</param>
+						<param>com.systemsinmotion.orgchart.dao.DepartmentDAOTest</param>
+						<param>com.systemsinmotion.orgchart.dao.EmployeeDAOTest</param>
+						<param>com.systemsinmotion.orgchart.dao.JobTitleDAOTest</param>
+						<param>com.systemsinmotion.orgchart.service.DepartmentServiceTest</param>
+						<param>com.systemsinmotion.orgchart.service.EmployeeServiceTest</param>
+						<param>com.systemsinmotion.orgchart.service.JobTitleServiceTest</param>
+						<param>com.systemsinmotion.orgchart.service.LookupServiceTests</param>
+						<param>com.systemsinmotion.orgchart.web.controller.AdminControllerTests</param>
+						<param>com.systemsinmotion.orgchart.web.controller.DefaultControllerTests</param>
+					</targetTests>
+					<verbose>true</verbose>
+					<useSlf4j>true</useSlf4j>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
 
 </project>

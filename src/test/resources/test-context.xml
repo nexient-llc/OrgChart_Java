@@ -18,9 +18,9 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://ordbhnlx1.c.systemsinmotion.com:3306/ORG_CHART" />
+			value="jdbc:mysql://localhost:3306/sim_practise_unit_tests" />
 		<property name="username" value="root" />
-		<property name="password" value="agwer22@@" />
+		<property name="password" value="password" />
 	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
@@ -54,15 +54,5 @@
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<constructor-arg ref="sessionFactory" />
 	</bean>
-
-
-	<!-- <bean id="departmentDAO" class="com.systemsinmotion.orgchart.dao.DepartmentDAO" 
-		/> -->
-	<!-- <bean id="employeeDAO" class="com.systemsinmotion.orgchart.dao.EmployeeDAO" 
-		/> -->
-	<!-- <bean id="jobTitleDAO" class="com.systemsinmotion.orgchart.dao.JobTitleDAO" 
-		/> -->
-	<!-- <bean id="lookupService" class="com.systemsinmotion.orgchart.service.LookupServiceImpl" 
-		/> -->
 
 </beans>
