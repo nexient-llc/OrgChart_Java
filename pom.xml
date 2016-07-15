@@ -254,32 +254,32 @@
 				<version>1.1.5</version>
 				<configuration>
 					<targetClasses>
-						<param>com.systemsinmotion.orgchart.entity.Department</param>
-						<param>com.systemsinmotion.orgchart.entity.Employee</param>
-						<param>com.systemsinmotion.orgchart.entity.JobTitle</param>
+						<param>Department</param>
+						<param>Employee</param>
+						<param>JobTitle</param>
 						<param>com.systemsinmotion.orgchart.dao.DepartmentDAOImpl</param>
 						<param>com.systemsinmotion.orgchart.dao.EmployeeDAOImpl</param>
 						<param>com.systemsinmotion.orgchart.dao.JobTitleDAOImpl</param>
-						<param>com.systemsinmotion.orgchart.service.DepartmentService</param>
-						<param>com.systemsinmotion.orgchart.service.EmployeeService</param>
-						<param>com.systemsinmotion.orgchart.service.JobTitleService</param>
-						<param>com.systemsinmotion.orgchart.web.controller.AdminController</param>
-						<param>com.systemsinmotion.orgchart.web.controller.DefaultController</param>
-						<param>com.systemsinmotion.orgchart.web.security.AuthenticationSuccessHandler</param>
+						<param>DepartmentService</param>
+						<param>EmployeeService</param>
+						<param>JobTitleService</param>
+						<param>AdminController</param>
+						<param>DefaultController</param>
+						<param>AuthenticationSuccessHandler</param>
 						<param>com.systemsinmotion.orgchart.dao.ModelKey</param>
 						<param>com.systemsinmotion.orgchart.dao.View</param>
 					</targetClasses>
 					<targetTests>
-						<param>com.systemsinmotion.orgchart.entity.EmployeeTests</param>
-						<param>com.systemsinmotion.orgchart.dao.DepartmentDAOTest</param>
-						<param>com.systemsinmotion.orgchart.dao.EmployeeDAOTest</param>
-						<param>com.systemsinmotion.orgchart.dao.JobTitleDAOTest</param>
-						<param>com.systemsinmotion.orgchart.service.DepartmentServiceTest</param>
-						<param>com.systemsinmotion.orgchart.service.EmployeeServiceTest</param>
-						<param>com.systemsinmotion.orgchart.service.JobTitleServiceTest</param>
-						<param>com.systemsinmotion.orgchart.service.LookupServiceTests</param>
-						<param>com.systemsinmotion.orgchart.web.controller.AdminControllerTests</param>
-						<param>com.systemsinmotion.orgchart.web.controller.DefaultControllerTests</param>
+						<param>EmployeeTests</param>
+						<param>DepartmentDAOTest</param>
+						<param>EmployeeDAOTest</param>
+						<param>JobTitleDAOTest</param>
+						<param>DepartmentServiceTest</param>
+						<param>EmployeeServiceTest</param>
+						<param>JobTitleServiceTest</param>
+						<param>LookupServiceTests</param>
+						<param>AdminControllerTests</param>
+						<param>DefaultControllerTests</param>
 					</targetTests>
 					<verbose>true</verbose>
 					<useSlf4j>true</useSlf4j>

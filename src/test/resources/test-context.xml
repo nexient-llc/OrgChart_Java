@@ -39,9 +39,9 @@
 		</property>
 		<property name="annotatedClasses">
 			<list>
-				<value>com.systemsinmotion.orgchart.entity.Department</value>
-				<value>com.systemsinmotion.orgchart.entity.Employee</value>
-				<value>com.systemsinmotion.orgchart.entity.JobTitle</value>
+				<value>com.nexient.orgchart.data.entity.Department</value>
+				<value>com.nexient.orgchart.data.entity.Employee</value>
+				<value>com.nexient.orgchart.data.entity.JobTitle</value>
 			</list>
 		</property>
 	</bean>

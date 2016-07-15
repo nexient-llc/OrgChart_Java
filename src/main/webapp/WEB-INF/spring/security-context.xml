@@ -25,6 +25,6 @@
 	</sec:authentication-manager>
 
 	<bean id="authenticationSuccessHandler"
-		class="com.systemsinmotion.orgchart.web.security.AuthenticationSuccessHandler" />
+		class="com.nexient.orgchart.web.security.AuthenticationSuccessHandler" />
 
 </beans>
